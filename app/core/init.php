@@ -1,7 +1,7 @@
 <?php 
 
 require 'App.php';
-require 'config.php';
+require '.config';
 require 'functions.php';
 require 'Model.php';
 require 'Controller.php';

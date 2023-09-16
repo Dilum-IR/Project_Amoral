@@ -6,7 +6,7 @@ class Home extends Controller
     {
         // echo "this is a home controller";
 
-        $this->view('home');
+        $this->view('home/home');
 
     }
 }
