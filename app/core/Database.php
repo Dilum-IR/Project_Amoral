@@ -9,7 +9,7 @@ trait Database
         $con = new PDO($string, DBUSER, DBPASS);
 
         // $con = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
-
+        /* check connection */
         // show($con);
         return $con;
     }
@@ -27,6 +27,25 @@ trait Database
 
             if (is_array($result) && count($result)) {
                 return $result;
+            }
+        }
+
+
+        return false;
+    }
+    public function get_row($quary, $data = [])
+    {
+
+        $con = $this->connect();
+        $stm = $con->prepare($quary);
+
+        $check = $stm->execute($data);
+
+        if ($check) {
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+            if (is_array($result) && count($result)) {
+                return $result[0];
             }
         }
 
