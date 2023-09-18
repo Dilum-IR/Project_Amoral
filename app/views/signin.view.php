@@ -17,6 +17,13 @@
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <h4>Amoral</h4>
+                            <span>
+                                <a href="#">
+                                    <ion-icon name="chevron-back-outline"></ion-icon>
+                                    <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
+                                    Back
+                                </a>
+                            </span>
                         </div>
 
                         <div class="heading">
@@ -32,6 +39,10 @@
                             <div class="input-wrap">
                                 <input type="password" class="input-field" required autocomplete="off">
                                 <label for="pass">Password</label>
+                                <a href="#" class="hide active">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </a>
+                                
 
                             </div>
                             <input type="submit" value="Sign In" class="sign-btn">
@@ -46,6 +57,14 @@
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <h4>Amoral</h4>
+                            <!-- <h5>Back to Home</h5> -->
+                            <span>
+                                <a href="#">
+                                    <ion-icon name="chevron-back-outline"></ion-icon>
+                                    <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
+                                    Back
+                                </a>
+                            </span>
                         </div>
 
                         <div class="heading">
@@ -59,6 +78,10 @@
                                 <label for="email">Full Name</label>
                             </div> -->
                             <div class="input-wrap">
+                                <input type="text" class="input-field" required autocomplete="off">
+                                <label for="fullname">Full Name</label>
+                            </div>
+                            <div class="input-wrap">
                                 <input type="email" class="input-field" required autocomplete="off">
                                 <label for="email">Email</label>
                             </div>
@@ -70,7 +93,9 @@
                             <div class="input-wrap">
                                 <input type="password" class="input-field" required autocomplete="off">
                                 <label for="pass">Confirm Password</label>
-
+                                <a href="#" class="hide active">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </a>
                             </div>
                             <input type="submit" value="Sign Up" class="sign-btn">
                             <p class="text">
@@ -101,7 +126,7 @@
                                     <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
                                     <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
                                 </span> -->
-                                
+
                             </div>
                         </div>
                         <div class="bullets">
