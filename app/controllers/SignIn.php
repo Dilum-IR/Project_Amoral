@@ -7,5 +7,4 @@ class SignIn extends Controller
         // echo "this is a about controller";
         $this->view('signin');
     }
-} 
-
+}
