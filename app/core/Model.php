@@ -59,6 +59,7 @@ Trait Model
         $this->quary($quary, $data);
         return false;
     }
+    
     public function update($id, $data, $id_column = 'id')
     {
         $keys = array_keys($data);

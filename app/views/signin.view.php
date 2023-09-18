@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <main>
+    <main class="">
         <div class="box">
             <div class="inner-box">
                 <div class="form-warp">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="text" class="input-field" required autocomplete="off" minlength="5">
+                                <input type="email" class="input-field" required autocomplete="off" minlength="5">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
@@ -37,7 +37,7 @@
                             <input type="submit" value="Sign In" class="sign-btn">
                             <p class="text">
                                 Forget your password or your login details?
-                                <a href="#" class="toggle">Get Help</a> Signing in
+                                <a href="#" class="toggle-1">Get Help</a> Signing in
                             </p>
 
                         </div>
@@ -59,7 +59,7 @@
                                 <label for="email">Full Name</label>
                             </div> -->
                             <div class="input-wrap">
-                                <input type="text" class="input-field" required autocomplete="off" minlength="5">
+                                <input type="email" class="input-field" required autocomplete="off">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
@@ -74,7 +74,7 @@
                             </div>
                             <input type="submit" value="Sign Up" class="sign-btn">
                             <p class="text">
-                                By signing up, I agree to the 
+                                By signing up, I agree to the
                                 <a href="#" class="toggle-1">Terms of Services</a> and
                                 <a href="#" class="toggle-1">Privacy Policy</a>
                             </p>
@@ -83,11 +83,42 @@
                     </form>
                 </div>
 
-                <div class="carousel"></div>
+                <div class="carousel">
+                    <div class="images-wrapper">
+
+                        <img src="<?= ROOT ?>/assets/images/signin-up/1.png" class="image img-1 show" alt="">
+                        <img src="<?= ROOT ?>/assets/images/signin-up/2.jpg" class="image img-2" alt="">
+                        <img src="<?= ROOT ?>/assets/images/signin-up/3.jpg" class="image img-3" alt="">
+                        <img src="<?= ROOT ?>/assets/images/signin-up/4.jpg" class="image img-4" alt="">
+                    </div>
+                    <div class="text-slider">
+                        <div class="text-wrap">
+                            <div class="text-group">
+                                <h2>Create Your Own Designs</h2>
+                                <h2>Customize as you like</h2>
+                                <h2>Follow Us On All Social Media</h2>
+                                <!-- <span>
+                                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+                                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+                                </span> -->
+                                
+                            </div>
+                        </div>
+                        <div class="bullets">
+                            <span class="bull-1 active" data-value="1"></span>
+                            <span class="bull-2" data-value="2"></span>
+                            <span class="bull-3" data-value="3"></span>
+                            <span class="bull-4" data-value="4"></span>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="<?= ROOT ?>/assets/js/signin-up.js"></script>
 
 </body>
