@@ -1,6 +1,6 @@
 <div class="sidebar">
         <div class="logo_details">
-            <div class="logo_name">Amoral</div>
+            <img src="amoral80.png" class="logo_icon">
             <i class="bx bx-menu" id="btn"></i>
         </div>
         <ul class="nav-list">
