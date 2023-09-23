@@ -55,7 +55,7 @@
             </li>
             <li class="profile">
                 <div class="profile_details">
-                    <img src="elon_musk.jpg" alt="profile image">
+                    <img src="<?=ROOT?>/assets/images/manager/elon_musk.jpg" alt="profile image">
                     <div class="profile_content">
                         <div class="name">Elon Musk</div>
                         <div class="designation">Manager</div>
