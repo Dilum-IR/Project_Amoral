@@ -52,16 +52,19 @@ body{
   transition: all 0.5s ease ;
 }
 
-.sidebar .logo_details .logo_name{
-  color:var(--color-white);
-  font-size: 22px;
-  font-weight: 600;
+.sidebar .logo_details .logo_icon{
+  color: var(--color-white);
+  height: 70px;
+  width: 70px;
+  top: 4%;
+  left: 3%;
   opacity: 0;
   transition: all .5s ease;
+  position: absolute;
 }
 
 .sidebar.open .logo_details .icon,
-.sidebar.open .logo_details .logo_name{
+.sidebar.open .logo_details .logo_icon{
   opacity: 1;
 }
 

@@ -97,6 +97,28 @@ form.sign-up-form {
   letter-spacing: -0.5px;
   color: #151111;
 }
+.logo span a {
+  margin-right: 10px;
+  display: flex;
+  color: #151111;
+  font-weight: 600;
+  margin-bottom: 11px;
+}
+.logo span ion-icon {
+  font-weight: 600;
+  margin-top: 3px;
+  font-size: 1.2rem;
+}
+.logo span {
+  display: inline-flex;
+  font-size: 1.0rem;
+  margin-left: 37%;
+  letter-spacing: -0.5px;
+
+}
+.logo span a:hover {
+  color: #4d4c6b;
+}
 
 .heading h2 {
   font-size: 2.1rem;
@@ -123,7 +145,7 @@ form.sign-up-form {
 .input-wrap {
   position: relative;
   height: 37px;
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   /* background-color: red; */
 }
 
@@ -160,8 +182,12 @@ label {
 .input-field.active + label {
   font-size: 0.85rem;
   top: -5px;
+  /* color: #151111; */
+  font-weight: 500;
 }
-
+.sign-up-form .actual-form{
+  margin-top: 15px;
+}
 .sign-btn {
   display: inline;
   width: 100%;
@@ -174,6 +200,7 @@ label {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  margin-top: 1rem;
   transition: 0.5s ease-in-out;
 }
 
@@ -223,6 +250,21 @@ main.sign-up-mode .carousel {
   left: 0%;
 }
 
+/* password hide */
+.actual-form .input-wrap .hide{
+  position: absolute;
+  left: 90%;
+  top: 60%;
+  transform: translateY(-50%);
+  color: #bbb;
+  font-size: 1.35rem;
+  pointer-events: none;
+  transition: 0.4s;
+
+}
+
+
+
 /* images slider */
 
 .carousel {
@@ -231,6 +273,7 @@ main.sign-up-mode .carousel {
   width: 55%;
   top: 0;
   left: 45%;
+  padding-top: 5px;
   /* background-color: #bababa; */
   border-radius: 2rem;
   display: grid;
@@ -238,7 +281,7 @@ main.sign-up-mode .carousel {
   grid-template-rows: auto 1fr;
   padding-bottom: 2rem;
   transition: 0.8s ease-in-out;
-  margin-top: 2.8%;
+  margin-top: 1.8%;
 }
 
 .image {
@@ -248,10 +291,12 @@ main.sign-up-mode .carousel {
   opacity: 0;
   border-radius: 10%;
   margin-left: 2%;
-  transition: opacity 0.5s transform 1.5s;
+  transition: opacity 0.5s linear, transform 1.2s ease-in-out;
 }
+
 .image.img-2,
-.image.img-3 {
+.image.img-3,
+.image.img-4 {
   box-shadow: 2px 5px 10px 2px rgb(138, 134, 134);
 }
 .img-1 {
@@ -261,7 +306,12 @@ main.sign-up-mode .carousel {
   transform: scale(0.4, 0.5);
 }
 .img-3 {
-  transform: scale(0.3) rotate(-20deg);
+  transform: scale(0.3) rotate(-10deg);
+  /* transform: scale(0.3) rotate(-20deg); */
+}
+.img-4 {
+  transform: scale(0.4, 0.5);
+  /* transform: scale(0.4, 0.5); */
 }
 .images-wrapper {
   width: 100%;
@@ -283,7 +333,7 @@ main.sign-up-mode .carousel {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* margin-top: 1%; */
+  margin-top: 1%;
   /* background-color: red; */
 }
 .text-wrap {
