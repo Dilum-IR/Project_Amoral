@@ -98,7 +98,7 @@ form.sign-up-form {
   color: #151111;
 }
 .logo span a {
-  margin-right: 10px;
+  /* margin-right: 100px; */
   display: flex;
   color: #151111;
   font-weight: 600;
@@ -112,7 +112,7 @@ form.sign-up-form {
 .logo span {
   display: inline-flex;
   font-size: 1.0rem;
-  margin-left: 37%;
+  margin-left: auto;
   letter-spacing: -0.5px;
 
 }
@@ -205,7 +205,7 @@ label {
 }
 
 .sign-btn:hover {
-  background-color: white;
+  /* background-color: white; */
   /* color: black; */
   border: 1px solid #746f6f;
   font-weight: 700;
@@ -263,7 +263,10 @@ main.sign-up-mode .carousel {
 
 }
 
-
+.actual-form .input-wrap .hide:hover{
+  color: #151111;
+  cursor: pointer;
+}
 
 /* images slider */
 
