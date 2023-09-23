@@ -1,6 +1,6 @@
 <div class="sidebar">
         <div class="logo_details">
-            <img src="amoral80.png" class="logo_icon">
+            <img src="<?=ROOT?>/assets/images/manager/amoral80.png" class="logo_icon">
             <i class="bx bx-menu" id="btn"></i>
         </div>
         <ul class="nav-list">
