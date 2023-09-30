@@ -23,7 +23,6 @@ class App
         $filename =  "../app/controllers/" . ucfirst($URL[0]) . ".php";
         // echo $URL[0];
         if (file_exists($filename)) {
-
             require $filename;
             $this->controller =  ucfirst($URL[0]);
         } else {
