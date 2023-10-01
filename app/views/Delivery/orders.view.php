@@ -79,6 +79,7 @@ $(document).ready( function () {
         </a> -->
       </div>
     </nav>
+    <div>
     <table id="myTable" class="display">
     <thead>
         <tr>
@@ -164,11 +165,12 @@ $(document).ready( function () {
         </tr>
     </tbody>
 </table>
+</div>
   </section>
 
 
 
   <!-- Scripts -->
-  <script src="script.js"></script>
+  <script src="/assets/js/script-bar.js"></script>
 </body>
 </html>
