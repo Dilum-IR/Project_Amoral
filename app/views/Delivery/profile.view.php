@@ -4,105 +4,25 @@
 <head>
   <title>Sidebar</title>
   <!-- Link Styles -->
-  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/style.css">
   <link rel="stylesheet" href="boxicons.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="logo_details">
-      <img src="amoral80.png" class="logo_icon">
-      <i class="bx bx-menu" id="btn"></i>
-    </div>
-    <ul class="nav-list">
-      <li>
-        <a href="#">
-          <i class="bx bxs-grid-alt"></i>
-          <span class="link_name">Overview</span>
-        </a>
-        <span class="tooltip">Overview</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bxs-cart-alt"></i>
-          <span class="link_name">Customer Orders</span>
-        </a>
-        <span class="tooltip">Customer Orders</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bxs-t-shirt"></i>
-          <span class="link_name">Garment Orders</span>
-        </a>
-        <span class="tooltip">Garment Orders</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bxs-package"></i>
-          <span class="link_name">Deliver Packages</span>
-        </a>
-        <span class="tooltip">Deliver Packages</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bxs-user-detail"></i>
-          <span class="link_name">Employee Details</span>
-        </a>
-        <span class="tooltip">Employee Details</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bxs-building-house"></i>
-          <span class="link_name">Garments</span>
-        </a>
-        <span class="tooltip">Garments</span>
-      </li>
-      <li>
-        <a href="#">
-          <i class="bx bxs-user-circle"></i>
-          <span class="link_name">Profile</span>
-        </a>
-        <span class="tooltip">Profile</span>
-      </li>
-      <li class="profile">
-        <div class="profile_details">
-          <img src="elon_musk.jpg" alt="profile image">
-          <div class="profile_content">
-            <div class="name">Elon Musk</div>
-            <div class="designation">Manager</div>
-          </div>
-        </div>
-        <i class="bx bx-log-out" id="log_out"></i>
-      </li>
-    </ul>
-  </div>
-  <!-- Sidebar -->
+<?php include 'sidebar.php' ?>
+    <!-- Navigation bar -->
+
+    <?php include 'navigationbar.php' ?>
 
   <!-- Navigation Bar -->
   <section class="home-section" id="navbar">
-    <nav>
-      <div class="nav-icons">
-        <a href="#" class="nav-link">
-          <i class='bx bxs-bell-ring icon'></i>
-          <span class="bell-notification">5</span>
-        </a>
-        <a href="#" class="nav-link">
-          <i class='bx bxs-chat icon'></i>
-          <span class="chat-notification">8</span>
-        </a>
-
-        <!-- <a href="#" class="nav-link-profile">
-          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
-        </a> -->
-      </div>
-    </nav>
+   
     <section class="main-section" id="main-section">
       <main id="middle">
         <div class="profile-picture">
-          <img src="elon_musk.jpg" class="profile-image" alt="">
+          <img src="<?=ROOT ?>/assets/images/delivery/elon_musk.jpg" class="profile-image" alt="">
         </div>
         <div class="edit-pic">
           <div class="edit-icon">
@@ -165,7 +85,7 @@
                     </h1>
                   </div>
                   <div class="text-info">
-                    <input type="text" name="profession" value="Manager" class="edit-gen" readonly>
+                    <input type="text" name="profession" value="Distributor" class="edit-gen" readonly>
                   </div>
                   <div class="edit-info-icon">
                     <a href="#">
@@ -276,8 +196,8 @@
                     <option value="anager">Manager</option>
                     <option value="merchandiser">Merchandiser</option>
                     <option value="employee">Employee</option>
-                    <option value="delivery">Distributor</option>
-
+                    <option value="deliver">Distributor</option>
+                    
                   </select>
                 </div>
               </div>
@@ -350,7 +270,7 @@
       </div>
     </section>
     <!-- Scripts -->
-    <script src="script.js"></script>
+    <script src="<?=ROOT ?>/assets/js/delivery/profilescript.js"></script>
 </body>
 
 </html>
