@@ -27,14 +27,14 @@ class App
             $this->controller =  ucfirst($URL[0]);
         } else {
             //file include in another folder then 
-            $filename =  "../app/controllers/" . $URL[0] . "/" . ucfirst($URL[0]) . ".php";
+            $filename =  "../app/controllers/" . $URL[0] . "/" . ucfirst($URL[1]) . ".php";
             // echo $filename;
             // echo $URL[0];
 
             if (file_exists($filename)) {
 
                 require $filename;
-                $this->controller =  ucfirst($URL[0]);
+                $this->controller =  ucfirst($URL[1]);
             } else {
 
                 $filename =  "../app/controllers/_404.php";
