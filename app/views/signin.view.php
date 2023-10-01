@@ -18,7 +18,7 @@
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <!-- <h4>Amoral</h4> -->
                             <span>
-                                <a href="#">
+                                <a href="<?=ROOT?>/home">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                     <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
                                     Back
@@ -58,7 +58,7 @@
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <!-- <h4>Amoral</h4> -->
                             <span>
-                                <a href="#">
+                                <a href="<?=ROOT?>/home">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                     <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
                                     Back
