@@ -1,9 +1,12 @@
 <?php
-class CustomerOverview extends Controller
+
+class Orders extends Controller
 {
     public function index($a = '', $b = '', $c = '')
     {
         // echo "this is a about controller";
-        $this->view('customer/overview');
+        $this->view('delivery/orders');
     }
+
 }
+
