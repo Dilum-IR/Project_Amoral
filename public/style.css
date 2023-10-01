@@ -52,19 +52,16 @@ body{
   transition: all 0.5s ease ;
 }
 
-.sidebar .logo_details .logo_icon{
-  color: var(--color-white);
-  height: 70px;
-  width: 70px;
-  top: 4%;
-  left: 3%;
+.sidebar .logo_details .logo_name{
+  color:var(--color-white);
+  font-size: 22px;
+  font-weight: 600;
   opacity: 0;
   transition: all .5s ease;
-  position: absolute;
 }
 
 .sidebar.open .logo_details .icon,
-.sidebar.open .logo_details .logo_icon{
+.sidebar.open .logo_details .logo_name{
   opacity: 1;
 }
 
@@ -231,7 +228,7 @@ body{
   height: 60px;
   width: 78px;
   left: 0;
-  bottom: 1px;
+  bottom:-8px;
   padding:10px 14px;
   overflow: hidden;
   transition: all .5s ease;
@@ -273,7 +270,7 @@ body{
   top:50%;
   right: 0;
   transform: translateY(-50%);
-  background-color: var(--color-default);
+  background-color: var(--color-second);
   width: 100%;
   height: 60px;
   line-height: 60px;
@@ -430,10 +427,4 @@ nav .nav-link .nav-link-profile{
     display: block;
   }
 } */
-
-@media (height <= 500px){
-  .sidebar li.profile{
-        display: none;
-  }
-}
   
