@@ -16,7 +16,7 @@
                     <form action="" autocomplete="off" class="sign-in-form">
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
-                            <h4>Amoral</h4>
+                            <!-- <h4>Amoral</h4> -->
                             <span>
                                 <a href="#">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
@@ -56,8 +56,7 @@
                     <form action="" autocomplete="off" class="sign-up-form">
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
-                            <h4>Amoral</h4>
-                            <!-- <h5>Back to Home</h5> -->
+                            <!-- <h4>Amoral</h4> -->
                             <span>
                                 <a href="#">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
@@ -73,10 +72,6 @@
                             <a href="#" class="toggle">Sign In</a>
                         </div>
                         <div class="actual-form">
-                            <!-- <div class="input-wrap">
-                                <input type="text" class="input-field" required autocomplete="off" minlength="5">
-                                <label for="email">Full Name</label>
-                            </div> -->
                             <div class="input-wrap">
                                 <input type="text" class="input-field" required autocomplete="off">
                                 <label for="fullname">Full Name</label>
