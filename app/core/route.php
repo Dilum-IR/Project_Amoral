@@ -1,6 +1,6 @@
 <?php
 
-route('delivery/orders', 'Orders@index');
+route('delivery/orders', 'delivery/Orders@index');
 
 route('customer/customer-orders', 'customer/customerOverview@index');
 route('customer/orders', 'customer/customerOrders');
