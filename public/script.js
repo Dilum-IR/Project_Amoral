@@ -2,11 +2,10 @@
 window.onload = function(){
     const sidebar = document.querySelector(".sidebar");
     const closeBtn = document.querySelector("#btn");
-    const main = document.querySelector(".main");
+    // const searchBtn = document.querySelector(".bx-search")
 
     closeBtn.addEventListener("click",function(){
         sidebar.classList.toggle("open")
-        main.classList.toggle("open")
         menuBtnChange()
     })
 
