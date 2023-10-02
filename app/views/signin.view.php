@@ -13,7 +13,7 @@
         <div class="box">
             <div class="inner-box">
                 <div class="form-warp">
-                    <form action="" autocomplete="off" class="sign-in-form">
+                    <form method="POST" autocomplete="off" class="sign-in-form">
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <!-- <h4>Amoral</h4> -->
@@ -33,11 +33,11 @@
                         </div>
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="email" class="input-field" required autocomplete="off" minlength="5">
+                                <input type="email" name="email" class="input-field" required autocomplete="off" minlength="5">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="password" class="input-field" required autocomplete="off">
+                                <input type="password" name="password" class="input-field" required autocomplete="off">
                                 <label for="pass">Password</label>
                                 <a href="#" class="hide active">
                                     <ion-icon name="eye-outline"></ion-icon>
@@ -45,7 +45,7 @@
                                 
 
                             </div>
-                            <input type="submit" value="Sign In" class="sign-btn">
+                            <input type="submit" name="signIn" value="SignIn" class="sign-btn">
                             <p class="text">
                                 Forget your password or your login details?
                                 <a href="#" class="toggle-1">Get Help</a> Signing in
@@ -53,7 +53,7 @@
 
                         </div>
                     </form>
-                    <form action="" autocomplete="off" class="sign-up-form">
+                    <form method="POST" autocomplete="off" class="sign-up-form">
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <!-- <h4>Amoral</h4> -->
@@ -73,26 +73,26 @@
                         </div>
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="text" class="input-field" required autocomplete="off">
+                                <input type="text" name="fullname" class="input-field" required autocomplete="off">
                                 <label for="fullname">Full Name</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="email" class="input-field" required autocomplete="off">
+                                <input type="email" name="email" class="input-field" required autocomplete="off">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="password" class="input-field" required autocomplete="off">
+                                <input type="password" name="password" class="input-field" required autocomplete="off">
                                 <label for="pass">Password</label>
 
                             </div>
                             <div class="input-wrap">
-                                <input type="password" class="input-field" required autocomplete="off">
+                                <input type="re-password" name="re-password" class="input-field" required autocomplete="off">
                                 <label for="pass">Confirm Password</label>
                                 <a href="#" class="hide active">
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
                             </div>
-                            <input type="submit" value="Sign Up" class="sign-btn">
+                            <input type="submit" name="signUp" value="SignUp" class="sign-btn">
                             <p class="text">
                                 By signing up, I agree to the
                                 <a href="#" class="toggle-1">Terms of Services</a> and
