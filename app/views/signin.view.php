@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -18,7 +21,7 @@
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <!-- <h4>Amoral</h4> -->
                             <span>
-                                <a href="<?=ROOT?>/home">
+                                <a href="<?= ROOT ?>/home">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                     <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
                                     Back
@@ -42,13 +45,13 @@
                                 <a href="#" class="hide active">
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
-                                
+
 
                             </div>
                             <input type="submit" name="signIn" value="SignIn" class="sign-btn">
                             <p class="text">
                                 Forget your password or your login details?
-                                <a href="#" class="toggle-1">Get Help</a> Signing in
+                                <a href="#" id="help" class="toggle-1">Get Help</a> Signing in
                             </p>
 
                         </div>
@@ -58,7 +61,7 @@
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                             <!-- <h4>Amoral</h4> -->
                             <span>
-                                <a href="<?=ROOT?>/home">
+                                <a href="<?= ROOT ?>/home">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                     <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
                                     Back
@@ -134,12 +137,15 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
+    <?php include 'utils/toastMsg.php' ?>
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="<?= ROOT ?>/assets/js/signin-up.js"></script>
+    <script src="<?= ROOT ?>/assets/js/toast.js"></script>
 
 </body>
 

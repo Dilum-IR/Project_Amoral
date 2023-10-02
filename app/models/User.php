@@ -8,8 +8,9 @@ class User
 	protected $table = 'users';
 
 	protected $allowedCloumns = [
-		'first_name',
-		'user_email',
+		'fullname',
+		'email',
+		'password',
 	];
 
 	public function validate($data)
@@ -22,7 +23,7 @@ class User
 		}
 		// name validation
 		if (!preg_match("/^[a-zA-z]*$/", $data['fullname'])) {
-			
+
 			$this->errors['fullname'] = "Full Name is not valid";
 			$this->errors['nameError'] = "Use only letters";
 		}
@@ -34,6 +35,16 @@ class User
 		// email validation
 		if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['email'] = "Email is not Valid";
+		}
+
+		// is empty password 
+		if (empty($data['password'])) {
+			$this->errors['password'] = "password is Required";
+		}
+		// email validation
+		if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
+			$this->errors['password'] = "password is not Valid";
+			$this->errors['passwordError'] = "should contain upper,lower,digit and Special character";
 		}
 
 		if (empty($this->errors)) {
