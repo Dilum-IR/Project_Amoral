@@ -95,7 +95,7 @@
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
                             </div>
-                            <input type="submit" name="signUp" value="SignUp" class="sign-btn">
+                            <input type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">
                             <p class="text">
                                 By signing up, I agree to the
                                 <a href="#" class="toggle-1">Terms of Services</a> and
@@ -137,15 +137,23 @@
                     </div>
                 </div>
             </div>
-
+            <!-- <?= implode("<br>", $errors) ?>  -->
         </div>
     </main>
+
+    <!--  popup toast  -->
     <?php include 'utils/toastMsg.php' ?>
+    <!-- pass the error msg -->
+    <script>
+        let dataValidate = <?php echo json_encode($errors); ?> 
+        // console.log(dataValidate)
+    </script>
+    <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
+
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="<?= ROOT ?>/assets/js/signin-up.js"></script>
-    <script src="<?= ROOT ?>/assets/js/toast.js"></script>
 
 </body>
 
