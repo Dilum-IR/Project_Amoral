@@ -25,3 +25,5 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 }
 
 // https://code.tutsplus.com/pdo-vs-mysqli-which-should-you-use--net-24059t
+
+// https://www.javatpoint.com/form-validation-in-php
