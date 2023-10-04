@@ -76,26 +76,27 @@
                         </div>
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="text" name="fullname" class="input-field" required autocomplete="off">
+                                <input type="text" name="fullname" class="input-field"  autocomplete="off">
                                 <label for="fullname">Full Name</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="email" name="email" class="input-field" required autocomplete="off">
+                                <input type="email" name="email" class="input-field"  autocomplete="off">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="password" name="password" class="input-field" required autocomplete="off">
+                                <input type="password" name="password" class="input-field"  autocomplete="off">
                                 <label for="pass">Password</label>
 
                             </div>
                             <div class="input-wrap">
-                                <input type="re-password" name="re-password" class="input-field" required autocomplete="off">
+                                <input type="password" name="re-password" class="input-field"  autocomplete="off">
                                 <label for="pass">Confirm Password</label>
                                 <a href="#" class="hide active">
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
                             </div>
                             <input type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">
+                            <!-- <button type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">SignUp</button> -->
                             <p class="text">
                                 By signing up, I agree to the
                                 <a href="#" class="toggle-1">Terms of Services</a> and

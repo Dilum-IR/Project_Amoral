@@ -12,10 +12,10 @@ class Home extends Controller
         // $arr['first_name'] = 'dilum';
         // $result= $model->where($arr);
 
-        // $arr['first_name'] = 'thiran';
-        // $arr['user_email'] = 'thiran@gmail.com';
-        // $arr['user_password'] = '2536';
-        // $result= $model->insert($arr);
+        // $arr['fullname'] = 'thiran';
+        // $arr['email'] = 'thiran@gmail.com';
+        // $arr['password'] = '2536';
+        // $result= $user->insert($arr);
         
         // $result= $model->delete(5);
         

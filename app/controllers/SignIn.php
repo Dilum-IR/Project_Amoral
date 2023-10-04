@@ -12,15 +12,24 @@ class SignIn extends Controller
             show($_POST);
         }
 
-
         if (isset($_POST['signUp'])) {
 
             if ($user->validate($_POST)) {
 
-                $user->insert($_POST);
-                redirect('home');
+                show($_POST);
+                unset($_POST['signUp']);
+                unset($_POST['re-password']);
+                
+                // not working properly
+                if (!$user-> first($_POST)) {
+                    echo "email is already in use";
+                    $user->insert($_POST);
+                    header("Location: " .ROOT.'/home');
+                }
+                
             }
-            show($_POST);
+
+            // show($_POST);
         }
         
         $data['errors'] = $user->errors;

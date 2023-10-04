@@ -4,6 +4,14 @@ const main = document.querySelector("main");
 const bullets = document.querySelectorAll(".bullets span");
 const images = document.querySelectorAll(".image");
 
+const signup_button = document.getElementById("sign-up-btn");
+
+signup_button.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = new FormData(signup_button);
+    console.log(data);
+});
+
 inputs.forEach((input) => {
   // input class name rename when the clicked
   input.addEventListener("focus", () => {
@@ -48,14 +56,12 @@ function moveSlider() {
 setInterval(moveSlider, 2000);
 
 if (dataValidate.flag === true) {
-
   try {
     toastApply(dataValidate.fullname.name, dataValidate.fullname.nameError);
 
     setTimeout(() => {
       toastApply(dataValidate.password, dataValidate.passwordError);
     }, 5000);
-  } catch (error) {
-    
-  }
+
+  } catch (error) {}
 }
