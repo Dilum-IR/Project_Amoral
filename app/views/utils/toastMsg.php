@@ -7,13 +7,13 @@
         <!-- success icon -->
         <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
         
-        <strong class="toast-head">Wrong Notification </strong>
-        <small class="small"> 5</small>
+        <strong class="toast-head">Wrong Notification</strong>
+        <small class="small">4 sec</small>
 
     </div>
     <hr>
 
     <div class="toast-body">
-        <p id="error_message">Email is invalid.........</p>
+        <p id="error_message"></p>
     </div>
 </div>
