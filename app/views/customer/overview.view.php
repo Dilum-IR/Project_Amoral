@@ -17,6 +17,9 @@
     <?php include 'navigationbar.php'?>
     <!-- Scripts -->
     <script src="<?=ROOT ?>/assets/js/script-bar.js"></script>
+
+    <!-- content  -->
+    
 </body>
 
 </html>
