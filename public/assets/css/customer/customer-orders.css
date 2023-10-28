@@ -194,6 +194,7 @@ table tbody tr.active-row {
 
 
 .popup-view,
+.popup-new,
 .popup-report {
   position: absolute;
   height: fit-content;
@@ -214,6 +215,7 @@ table tbody tr.active-row {
 }
 
 .open-popup-view,
+.open-popup-new,
 .open-popup-report {
   visibility: visible;
   transform: translate(-50%, -50%) scale(1);
@@ -297,7 +299,8 @@ textarea {
   z-index: 100;
 }
 
-.popup-view h2 {
+.popup-view h2,
+.popup-new h2 {
   text-align: center;
   padding-top: 4%;
   /* margin: 20px; */
@@ -523,7 +526,7 @@ select {
 }
 
 
-.popup-view .pb {
+.popup-view .pb{
   position: relative;
 
 

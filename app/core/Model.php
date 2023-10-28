@@ -9,7 +9,7 @@ trait Model
 
     protected $limit        = 10;
     protected $offset       = 0;
-    protected $order_type   = 'DESC';
+    protected $order_type   = 'ASC';
     protected $order_column = 'id';
     public $errors          = [];
 

@@ -29,7 +29,7 @@
             <div class="form">
 				<input class="form-group" type="text" placeholder="Search...">
 				<i class='bx bx-search icon'></i>
-				<input class="new-btn" type="button" onclick="" value="+New Order">
+				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 
@@ -46,7 +46,21 @@
                     <th></th>
                 </tr>
             </thead>
-            <tr>
+                <?php $count = 1; foreach($data as $order): ?>
+                    <tr>
+                        <td><?php echo $count; $count++; ?></td>
+                        <td class="ordId"><?php echo $order->id ?></td>
+                        <td class="desc"><?php echo $order->quantity ?></td>
+                        <td class="st">
+                            <div class="text-status">-</div>
+                        </td>
+                        <td class="cost"><?php echo $order->price ?></td>
+                        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+                    </tr>
+                <?php endforeach; ?>
+    
+
+            <!-- <tr>
                 <td>1</td>
                 <td class="ordId">002345</td>
                 <td class="desc">Material : Wetlook <br>
@@ -57,7 +71,7 @@
                 </td>
                 <td class="cost">Rs. 2400</td>
                 <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-            </tr>
+            </tr> -->
         </table>
 
     </section>
@@ -76,6 +90,43 @@
 			<button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
 			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
 		</div>
+    </div>
+
+    <div class="popup-new" id="popup-new">
+        <h2>Order Details</h2>
+
+        <div class="container1">
+            <form>
+                <div class="user-details">
+
+                    <div class="input-box">
+                        <span class="details">Material </span>
+                        <input type="text" required onChange="" />
+                    </div>
+
+                    <div class="input-box sizes">
+                        <span class="details">Sizes & Quantity</span>
+                        <input class="size" type="text" required onChange=""  />
+                        <p>_</p>
+                        <input class="size" type="text" required onChange="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Delivery Address</span>
+                        <input type="text" required onChange="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+                        <input type="text" required onChange="" />
+                    </div>
+ 
+
+                </div>
+            </form>
+        </div>
+        <button type="button" class="cancelN-btn" onclick="closeNew()">Cancel</button>
+        <button type="submit" class="submit-btn" onclick="closeNew()">Submit</button>
     </div>
 
 
