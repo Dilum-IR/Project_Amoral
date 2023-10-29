@@ -19,6 +19,13 @@
                 <span class="tooltip">Orders</span>
             </li>
             <li>
+                <a href="<?=ROOT ?>/customer/quotation">
+                    <i class="bx bxs-cart-alt"></i>
+                    <span class="link_name">Quotation Requests</span>
+                </a>
+                <span class="tooltip">Quotation Requests</span>
+            </li>
+            <li>
                 <a href="#">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Design Tool</span>

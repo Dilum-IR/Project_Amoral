@@ -5,6 +5,7 @@ route('delivery/orders', 'delivery/Orders@index');
 route('customer/overview', 'customer/customerOverview@index');
 route('customer/orders', 'customer/customerOrders@index');
 route('customer/profile', 'customer/Profile@index');
+route('customer/quotation', 'customer/Quotation@index');
 
 route('manager/overview','manager/Overview@index');
 route('manager/profile','manager/Profile@index');

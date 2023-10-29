@@ -91,45 +91,7 @@
 			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
 		</div>
     </div>
-
-    <div class="popup-new" id="popup-new">
-        <h2>Order Details</h2>
-
-        <div class="container1">
-            <form>
-                <div class="user-details">
-
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <input type="text" required onChange="" />
-                    </div>
-
-                    <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span>
-                        <input class="size" type="text" required onChange=""  />
-                        <p>_</p>
-                        <input class="size" type="text" required onChange="" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Delivery Address</span>
-                        <input type="text" required onChange="" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                        <input type="text" required onChange="" />
-                    </div>
- 
-
-                </div>
-            </form>
-        </div>
-        <button type="button" class="cancelN-btn" onclick="closeNew()">Cancel</button>
-        <button type="submit" class="submit-btn" onclick="closeNew()">Submit</button>
-    </div>
-
-
+    
 
     <div class="popup-view" id="popup-view">
         <button type="button" class="update-btn pb">Update Order</button>

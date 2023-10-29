@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --grey: #F1F0F6;
+  --dark-grey: #8D8D8D;
+  --light: #fff;
+  --dark: #000;
+  --green: #81D43A;
+  --light-green: #E3FFCB;
+  --blue: #1775F1;
+  --light-blue: #D0E4FF;
+  --dark-blue: #0C5FCD;
+  --red: #FC3B56;
+}
+
+
+section#main {
+  position: fixed;
+  top: 78px;
+  width: calc(100% - 78px);
+  height: 100%;
+  left: 78px;
+  transition: all .5s ease;
+  z-index: 2;
+}
+
+#main.open {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+#main h2 {
+  position: relative;
+  padding: 10px 10px;
+  text-align: center;
+  background: #F4F7FC;
+}
+
+#main form {
+  background: #F4F7FC;
+  top: 64px;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  position: relative;
+  left: 3%;
+  width: 20%;
+  background: #d5dfe7d5;
+  border-radius: 20px;
+  border-style: solid;
+  border: #000;
+  outline-width: 1px;
+  padding: 10px 30px;
+  transition: all .3s ease;
+  color: var(--dark);
+}
+
+.form-group:focus {
+  box-shadow: 0 0 0 1px var(--blue), 0 0 0 3px lightslategray;
+}
+
+.form .icon {
+  position: relative;
+  font-size: 20px;
+  top: 12%;
+  /* transform: translateY(-50%); */
+  color: var(--dark);
+}
+
+.btn {
+  position: absolute;
+  background: var(--red);
+  left: 85%;
+  top: 8.5%;
+  padding: 0px 30px;
+}
+
+.view-order-btn {
+  position: relative;
+  background: var(--blue);
+  left: 30%;
+}
+
+.ok-btn{
+  position: absolute;
+  background: var(--blue);
+  left: 85%;
+  top: 93%;
+  padding: 10px 30px;
+}
+
+.new-btn{
+  position: absolute;
+  background: var(--blue);
+  left: 67%;
+  top: 8.5%;
+  padding: 0px 30px;
+}
+
+.btn,
+.view-order-btn,
+.ok-btn,
+.new-btn {
+
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  color: var(--light);
+
+  transition: all .3s ease;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+
+
+}
+
+.btn:hover {
+  background: darkred;
+}
+
+.view-order-btn:hover,
+.ok-btn:hover,
+.new-btn:hover {
+  background: darkblue;
+}
+
+
+
+
+
+table.table {
+  border-collapse: collapse;
+  margin: 0px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  width: 100%;
+
+  border-radius: 12px;
+  padding-right: 15px;
+}
+
+table thead tr {
+  background-color: #F4F7FC;
+  color: #191919;
+  text-align: justify;
+  border-radius: 12px;
+}
+
+table th,
+table td {
+  padding: 12px 30px 12px 20px;
+  width: 10px;
+}
+
+table tr,
+table td {
+  background: #ffffff;
+
+}
+
+table tbody tr {
+  border-top: 1px solid #191919;
+  height: 60px;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #191919;
+}
+
+table tbody tr:last-of-type {
+  border-top: 2px solid #bcc2ce;
+}
+
+table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
