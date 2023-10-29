@@ -10,45 +10,46 @@ class SignIn extends Controller
         if (isset($_POST['signIn'])) {
 
             if ($this->formData($_POST)) {
-                
+
                 $arr['email'] = $_POST['email'];
                 $row = $user->first($arr);
 
-                if($row){
+                show($row);
+                if ($row) {
 
-                    $checkpassword = password_verify( $_POST['password'] , $row->password);
+                    $checkpassword = password_verify($_POST['password'], $row->password);
 
-                    if($checkpassword==true){
+                    if ($checkpassword == true) {
 
                         unset($row->password);
                         $_SESSION['USER'] = $row;
 
-                        
+
                         // check session user
-                        $username = empty($_SESSION['USER'])? 'User': $_SESSION['USER']->email ;
+                        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
                         show($username);
+
+                        
                         redirect('customer/overview');
                         echo "Valid password";
-                    }
-                    else{
+                    } else {
                         $data['errors'] = "";
                         $user->errors = "Worng Email or Password";
                         $data['errors'] = $user->errors;
-                        
+
                         echo "Invalid Sign-In";
                     }
-                }
-                else{
+                } else {
                     $data['errors'] = "";
                     $user->errors = "Worng Email or Password";
                     $data['errors'] = $user->errors;
                     echo "Invalid Sign-In";
                 }
-
             }
         }
 
         if (isset($_POST['signUp'])) {
+            // show($_POST);
 
             if ($user->validate($_POST)) {
 
@@ -87,15 +88,15 @@ class SignIn extends Controller
         //     $errors['flag'] = true;
         //     $errors['email'] = "Email is not Valid";
         // }
-        
+
         // is empty password 
         if (empty($data['password'])) {
             $errors['flag'] = true;
             $errors['password'] = "password is Required";
         }
-        
+
         if (empty($errors)) {
-            
+
             return true;
         } else {
             return false;

@@ -2,12 +2,12 @@
 
 class Home extends Controller
 {
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
         // require_once 'Model.php';
         // echo "this is a home controller";
 
-       $user = new User;
+    //    $user = new User;
         
         // $arr['first_name'] = 'dilum';
         // $result= $model->where($arr);
@@ -19,11 +19,11 @@ class Home extends Controller
         
         // $result= $model->delete(5);
         
-       $arr['id'] = 2;
-        $arr['first_email'] = 'thiran';
-       $result= $user->findAll(); 
+    //    $arr['id'] = 2;
+    //     $arr['first_email'] = 'thiran';
+    //    $result= $user->findAll(); 
         
-       show($result);
+    //    show($result);
 
         $this->view('home/home');
     }

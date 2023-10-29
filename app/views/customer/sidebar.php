@@ -1,3 +1,8 @@
+    <?php 
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+    
+    ?>
+    
     <div class="sidebar">
         <div class="logo_details">
             <img src="<?= ROOT ?>/assets/images/manager/amoral80.png" class="logo_icon">
@@ -5,7 +10,7 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="customer/overview">
+                <a href="<?=ROOT?>/customer/overview">
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
                 </a>
