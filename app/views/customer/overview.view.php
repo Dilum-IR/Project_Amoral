@@ -18,7 +18,7 @@
     <?php include 'navigationbar.php'?>
 
     <section class="main">
-        <button class="quotation" onclick="">Request Quotation</button>
+        <!-- <button class="quotation" onclick="">Request Quotation</button> -->
         <h1 class="title">Welcome!</h1>
         <hr>
         

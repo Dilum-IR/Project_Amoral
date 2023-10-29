@@ -30,17 +30,19 @@
     color: var(--color-default);
     font-weight: 600;
     text-align: center;
-    z-index: 1;
+
     background: var(--blue);
     border: none;
     border-radius: 5px;
     padding: 5px 20px;
     cursor: pointer;
     transition: all .5s ease;
+	visibility: hidden;
 }
 
 .quotation:hover{
     background: var(--dark-blue);
+	visibility: hidden;
 }
 
 .main {
@@ -60,15 +62,15 @@
 .main .title {
     font-size: 28px;
     font-weight: 600;
-    margin-top: 10px;
+    margin-bottom: 20px;
     width: fit-content;
     position: absolute;
-    z-index: 3;
-    top: 7%;
+  
+    /* top: 7%; */
 }
 
 .main .info-data {
-	margin-top: 36px;
+	margin-top: 50px;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	grid-gap: 20px;
