@@ -6,10 +6,11 @@ const images = document.querySelectorAll(".image");
 
 const signup_button = document.getElementById("sign-up-btn");
 
+
 signup_button.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const data = new FormData(signup_button);
-    console.log(data);
+  e.preventDefault();
+  const data = new FormData(signup_button);
+  console.log(data);
 });
 
 inputs.forEach((input) => {
@@ -62,6 +63,5 @@ if (dataValidate.flag === true) {
     setTimeout(() => {
       toastApply(dataValidate.password, dataValidate.passwordError);
     }, 5000);
-
   } catch (error) {}
 }

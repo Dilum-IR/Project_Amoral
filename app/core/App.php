@@ -44,6 +44,6 @@ class App
         }
 
         $controller = new $this->controller;
-        call_user_func_array([$controller, $this->method], ['a' => "a somthings", 'b' => "b somthing"]);
+        call_user_func_array([$controller, $this->method], []);
     }
 }
