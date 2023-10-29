@@ -4,7 +4,7 @@
 <head>
   <title>Sidebar</title>
   <!-- Link Styles -->
-  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/profile.css">
   <link rel="stylesheet" href="boxicons.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -14,7 +14,7 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="logo_details">
-      <img src="amoral80.png" class="logo_icon">
+      <img src="<?=ROOT?>/assets/images/manager/amoral80.png" class="logo_icon">
       <i class="bx bx-menu" id="btn"></i>
     </div>
     <ul class="nav-list">
@@ -102,7 +102,7 @@
     <section class="main-section" id="main-section">
       <main id="middle">
         <div class="profile-picture">
-          <img src="elon_musk.jpg" class="profile-image" alt="">
+          <img src="<?=ROOT?>/assets/images/manager/elon_musk.jpg" class="profile-image" alt="">
         </div>
         <div class="edit-pic">
           <div class="edit-icon">
@@ -348,7 +348,8 @@
       </div>
     </section>
     <!-- Scripts -->
-    <script src="script.js"></script>
+    <script src="<?=ROOT?>/assets/js/profile.js"></script>
+    <script src="<?=ROOT?>/assets/js/script-bar.js"></script>
 </body>
 
 </html>

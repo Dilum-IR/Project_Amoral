@@ -22,8 +22,10 @@ trait Model
         // run the quary stage
         return $this->quary($quary);
     }
+
     public function first($data, $data_not = [])
     {
+
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
         $quary = "SELECT * FROM $this->table WHERE ";
@@ -42,6 +44,36 @@ trait Model
 
         $data = array_merge($data, $data_not);
         // run the quary stage
+        $result = $this->quary($quary, $data);
+        if ($result) {
+
+            return $result[0];
+        }
+        return false;
+    }
+
+    // find already registerd users
+    public function findUser($data)
+    {
+
+        unset($data['fullname']);
+        unset($data['password']);
+
+        $key = 'email';
+
+        // $keys_not = array_keys($data_not);
+        $quary = "SELECT * FROM $this->table WHERE $key = :$key 
+        limit $this->limit offset $this->offset";
+
+        // echo $quary;
+
+        $data = array_merge($data);
+        // run the quary stage  
+
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+
         $result = $this->quary($quary, $data);
         if ($result) {
 
