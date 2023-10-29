@@ -12,6 +12,7 @@ function toastApply(type, show) {
 
   head.textContent = `${type}`;
   msg.textContent = `${show}`;
+  // toast.style.backgroundcolor = "Red";
 
   // Automatically hide the toast after given seconds
   setTimeout(function () {
