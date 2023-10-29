@@ -38,7 +38,7 @@ section#main {
 
 #main form {
   background: #F4F7FC;
-  top: 64px;
+  top: 60px;
   padding-bottom: 10px;
 }
 
@@ -147,7 +147,7 @@ table td {
 
 table tr,
 table td {
-  background: #ffffff;
+  background: #ededed;
 
 }
 
@@ -174,7 +174,7 @@ table tbody tr.active-row {
 }
 
 .text-status{
-  background-color : rgb(133, 213, 149);
+  background-color : rgb(16, 197, 52);
   border-radius: 12px;
   width: fit-content;
   padding: 2% 13%;
