@@ -109,8 +109,20 @@
                     </div>
                     <p class="text">Package Pending</p>
                 </li>
+               <!-- <li>
+                   
+                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>  
+                      <box-icon name='package' ></box-icon>
+                    
+                    <div class="progress two">
+                        <i class="uil uil-check"></i>  
+                       <i class='bx bx-package' ></i>
+                        
+                    </div>
+                    <p class="text">Package Received</p>
+                </li>--> 
                 <li>
-                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                    <iconify-icon icon="game-icons:card-pickup"></iconify-icon>
                     <div class="progress two">
 
                         <i class="uil uil-check"></i>
