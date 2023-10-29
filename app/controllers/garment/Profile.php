@@ -1,10 +1,10 @@
 <?php
 
-class Overview extends Controller
+class Profile extends Controller
 {
     public function index()
     {
         // echo "this is a about controller";
-        $this->view('manager/overview');
+        $this->view('garment/profile');
     }
 }
