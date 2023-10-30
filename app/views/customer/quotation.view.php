@@ -25,8 +25,8 @@
             <div class="form">
 				<input class="form-group" type="text" placeholder="Search...">
 				<i class='bx bx-search icon'></i>
-				<input class="new-btn" type="button" onclick="" value="+New Quotation Request">
-				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
+				<input class="new-btn" type="button" onclick="openNew()" value="+New Quotation Request">
+				<input class="reportBtn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 
         </form>
@@ -62,6 +62,62 @@
     </section>
 
     <!-- POPUP -->
+    <div class="popup-new">
+        <h2>New Quotation Request</h2>
+        <form method="POST">
+            <div class="form">
+                <div class="input-box">
+                    <span class="details">Material</span><br>
+                    <select name="material">
+                        <option value="material1">Crocodile</option>
+                        <option value="material2">Wetlook</option>
+                        <option value="material3">Baby Crocodile</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Sizes & Quantity</span><br>
+                    <div class="sizeChart">
+                        <span class="size">S</span>
+                    
+                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
+                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                    <br>
+                    <span class="size">M</span>
+                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                    <br>
+                    <span class="size">L</span>
+                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                        <br>
+                </div>
+
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Delivery Address</span>
+                    <input type="text" name="address" placeholder="Enter delivery address">
+                </div>
+
+                <div class="input-box">
+                    <span class="details">Delivery Expected On</span>
+                    <input type="date" name="dispatch_date">
+                </div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <span class="details">T-shirt Design</span>
+                    <input type="file" name="design" id="fileToUpload">
+                </form>
+            </div>
+            <div class="btns">
+                <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
+                <input type="submit" class="close-btn" value="newQuotation" name="newQuotation">
+            </div>
+        </form>
+    </div> 
+
     <div class="popup-report">
         <h2>Report Your Problem</h2>
         <h4>Your name : </h4>
@@ -76,7 +132,7 @@
 		</div>
     </div>
 
-    <div class="popup-new" id="popup-new">
+    <!-- <div class="popup-new" id="popup-new">
         <h2>Order Details</h2>
 
         <div class="container1">
@@ -111,7 +167,7 @@
         </div>
         <button type="button" class="cancelN-btn" onclick="closeNew()">Cancel</button>
         <button type="submit" class="submit-btn" onclick="closeNew()">Submit</button>
-    </div>
+    </div> -->
 
 
     <script src="<?=ROOT ?>/assets/js/script-bar.js"></script>

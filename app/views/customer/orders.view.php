@@ -49,13 +49,13 @@
                 <?php $count = 1; foreach($data as $order): ?>
                     <tr>
                         <td><?php echo $count; $count++; ?></td>
-                        <td class="ordId"><?php echo $order->id ?></td>
+                        <td class="ordId"><?php echo $order->order_id ?></td>
                         <td class="desc"><?php echo $order->quantity ?></td>
                         <td class="st">
-                            <div class="text-status">-</div>
+                            <div class="text-status"><?php echo $order->order_status ?></div>
                         </td>
-                        <td class="cost"><?php echo $order->price ?></td>
-                        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+                        <td class="cost"><?php echo $order->total_price ?></td>
+                        <td><button type="submit" class="view-order-btn" data-id="<?php echo $order->id; ?>" onclick="openView()">View Order</button></td>
                     </tr>
                 <?php endforeach; ?>
     
@@ -78,6 +78,8 @@
 
 
     <!-- POPUP -->
+               
+
     <div class="popup-report">
         <h2>Report Your Problem</h2>
         <h4>Your name : </h4>
@@ -143,7 +145,7 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input type="text" required onChange="" readonly value="0023456" />
+                        <input type="text" id=""  />
                     </div>
 
                     <div class="input-box">

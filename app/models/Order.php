@@ -5,9 +5,13 @@ class Order
 {
 	use Model;
 
-	protected $table = 'order';
 
-	protected $allowedCloumns = [
+    protected $table = 'orders';
+    
+    public $order_id = 'order_id';
+
+    protected $allowedColumns = [
+
 		'order_id',
 		'user_id',
 		'material',
@@ -19,7 +23,9 @@ class Order
         'order_placed_on',
         'order_status',
         'small',
+        'medium',
         'large',
-	];
+    ];
+
 }
 
