@@ -7,4 +7,5 @@ route('customer/orders', 'customer/customerOrders');
 
 route('manager/overview','manager/Overview@index');
 route('manager/profile','manager/Profile@index');
+route('manager/employeedetails','manager/EmployeeDetails@index');
 
