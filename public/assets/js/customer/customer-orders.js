@@ -3,6 +3,7 @@ let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 
 function openView(){
+    
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 }
