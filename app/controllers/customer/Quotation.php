@@ -5,12 +5,12 @@ class Quotation extends Controller{
     {
         $order = new Order;
 
+        // show($_POST);
         if (isset($_POST['newQuotation'])){
             //need to validate
+                
 
-                show($_POST['newQuotation']);
-
-                $order->insert($_POST);
+                // $order->insert($_POST);
         }
 
         $this->view('customer/quotation');

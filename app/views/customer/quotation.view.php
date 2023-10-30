@@ -64,7 +64,7 @@
     <!-- POPUP -->
     <div class="popup-new">
         <h2>New Quotation Request</h2>
-        <form action="">
+        <form method="POST">
             <div class="form">
                 <div class="input-box">
                     <span class="details">Material</span><br>
@@ -113,7 +113,7 @@
             </div>
             <div class="btns">
                 <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
-                <button type="submit" class="close-btn" name="newQuotation">Submit</button>
+                <input type="submit" class="close-btn" value="newQuotation" name="newQuotation">
             </div>
         </form>
     </div> 

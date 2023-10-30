@@ -55,7 +55,7 @@
                             <div class="text-status"><?php echo $order->order_status ?></div>
                         </td>
                         <td class="cost"><?php echo $order->total_price ?></td>
-                        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+                        <td><button type="submit" class="view-order-btn" data-id="<?php echo $order->id; ?>" onclick="openView()">View Order</button></td>
                     </tr>
                 <?php endforeach; ?>
     
@@ -145,7 +145,7 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input type="text" required onChange="" readonly value="0023456" />
+                        <input type="text" id=""  />
                     </div>
 
                     <div class="input-box">
