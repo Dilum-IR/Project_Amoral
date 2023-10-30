@@ -6,19 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signin</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
     <main class="">
         <div class="box">
+            <p><?echo $errors;?></p>
             <div class="inner-box">
                 <div class="form-warp">
-                    <form action="" autocomplete="off" class="sign-in-form">
+
+                    <!-- --------------------------
+                        Sign-In Part
+                    ------------------------------- -->
+                    <form method="POST" autocomplete="off" class="sign-in-form">
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
-                            <h4>Amoral</h4>
+                            <!-- <h4>Amoral</h4> -->
                             <span>
-                                <a href="#">
+                                <a href="<?= ROOT ?>/home">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                     <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
                                     Back
@@ -33,33 +41,37 @@
                         </div>
                         <div class="actual-form">
                             <div class="input-wrap">
-                                <input type="email" class="input-field" required autocomplete="off" minlength="5">
+                                <input type="text" name="email" class="input-field" autocomplete="off" minlength="5">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="password" class="input-field" required autocomplete="off">
+                                <input type="password" name="password" class="input-field" required autocomplete="off">
                                 <label for="pass">Password</label>
                                 <a href="#" class="hide active">
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
-                                
+
 
                             </div>
-                            <input type="submit" value="Sign In" class="sign-btn">
+                            <input type="submit" name="signIn" value="SignIn" class="sign-btn">
                             <p class="text">
                                 Forget your password or your login details?
-                                <a href="#" class="toggle-1">Get Help</a> Signing in
+                                <a href="#" id="help" class="toggle-1">Get Help</a> Signing in
                             </p>
 
                         </div>
                     </form>
-                    <form action="" autocomplete="off" class="sign-up-form">
+
+                    
+                    <!-- --------------------------
+                        Sign-Up Part
+                    ------------------------------- -->
+                    <form autocomplete="off" class="sign-up-form" id="signupForm" method="POST">
                         <div class="logo">
                             <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
-                            <h4>Amoral</h4>
-                            <!-- <h5>Back to Home</h5> -->
+                            <!-- <h4>Amoral</h4> -->
                             <span>
-                                <a href="#">
+                                <a href="<?= ROOT ?>/home">
                                     <ion-icon name="chevron-back-outline"></ion-icon>
                                     <!-- <ion-icon name="chevron-back-circle-outline"></ion-icon> -->
                                     Back
@@ -73,31 +85,28 @@
                             <a href="#" class="toggle">Sign In</a>
                         </div>
                         <div class="actual-form">
-                            <!-- <div class="input-wrap">
-                                <input type="text" class="input-field" required autocomplete="off" minlength="5">
-                                <label for="email">Full Name</label>
-                            </div> -->
                             <div class="input-wrap">
-                                <input type="text" class="input-field" required autocomplete="off">
+                                <input type="text" name="fullname" class="input-field" autocomplete="off">
                                 <label for="fullname">Full Name</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="email" class="input-field" required autocomplete="off">
+                                <input type="email" name="email" class="input-field" autocomplete="off">
                                 <label for="email">Email</label>
                             </div>
                             <div class="input-wrap">
-                                <input type="password" class="input-field" required autocomplete="off">
+                                <input type="password" name="password" class="input-field" autocomplete="off">
                                 <label for="pass">Password</label>
 
                             </div>
                             <div class="input-wrap">
-                                <input type="password" class="input-field" required autocomplete="off">
+                                <input type="password" name="re-password" class="input-field" autocomplete="off">
                                 <label for="pass">Confirm Password</label>
                                 <a href="#" class="hide active">
                                     <ion-icon name="eye-outline"></ion-icon>
                                 </a>
                             </div>
-                            <input type="submit" value="Sign Up" class="sign-btn">
+                            <input type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">
+                            <!-- <button type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">SignUp</button> -->
                             <p class="text">
                                 By signing up, I agree to the
                                 <a href="#" class="toggle-1">Terms of Services</a> and
@@ -108,6 +117,9 @@
                     </form>
                 </div>
 
+                <!-- --------------------------
+                    Images Slider
+                ------------------------------- -->
                 <div class="carousel">
                     <div class="images-wrapper">
 
@@ -129,6 +141,10 @@
 
                             </div>
                         </div>
+                        
+                        <!-- --------------------------
+                            Bullets
+                        ------------------------------- -->
                         <div class="bullets">
                             <span class="bull-1 active" data-value="1"></span>
                             <span class="bull-2" data-value="2"></span>
@@ -139,8 +155,56 @@
                     </div>
                 </div>
             </div>
+            <!-- <?= implode("<br>", $errors) ?>  -->
         </div>
     </main>
+
+    <!--  popup toast  -->
+    <?php include 'utils/toastMsg.php' ?>
+    <!-- pass the error msg -->
+    <script>
+        let dataValidate = <?php echo json_encode($errors); ?>
+        // console.log(dataValidate)
+    </script>
+    <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
+
+    <!-- <script>
+        // page reloading stoping method
+        document.addEventListener("DOMContentLoaded", () => {
+            var form = document.getElementById("signupForm");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                // Prevent the default form submission
+                var formData = new FormData(form);
+
+                var fullname = formData.get("fullname");
+                var email = formData.get("email");
+                var password = formData.get("password");
+                var confirmPassword = formData.get("re-password");
+
+                console.log(fullname);
+                console.log(email);
+                console.log(password);
+                console.log(confirmPassword);
+                console.log(formData);
+
+                fetch("<?= ROOT ?>/signin", {
+                        method: "POST",
+                        body: formData,
+                    })
+                    .then((response) => response.text())
+                    .then((data) => {
+                        // console.log("turegr")
+                        // Handle the server's response here
+                        // document.getElementById("result").innerHTML = data;
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+            });
+        });
+    </script> -->
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

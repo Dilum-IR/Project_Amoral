@@ -2,15 +2,17 @@
 
 require_once 'Database.php';
 
-Trait Model
+trait Model
 {
 
     use Database;
 
-    protected $limit = 10;
-    protected $offset = 0;
-    protected $order_type = 'DESC';
+    protected $limit        = 10;
+    protected $offset       = 0;
+    protected $order_type   = 'DESC';
     protected $order_column = 'id';
+    public $errors          = [];
+
     public function findAll()
     {
 
@@ -20,8 +22,10 @@ Trait Model
         // run the quary stage
         return $this->quary($quary);
     }
+
     public function first($data, $data_not = [])
     {
+
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
         $quary = "SELECT * FROM $this->table WHERE ";
@@ -48,6 +52,36 @@ Trait Model
         return false;
     }
 
+    // find already registerd users
+    public function findUser($data)
+    {
+
+        unset($data['fullname']);
+        unset($data['password']);
+
+        $key = 'email';
+
+        // $keys_not = array_keys($data_not);
+        $quary = "SELECT * FROM $this->table WHERE $key = :$key 
+        limit $this->limit offset $this->offset";
+
+        // echo $quary;
+
+        $data = array_merge($data);
+        // run the quary stage  
+
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+
+        $result = $this->quary($quary, $data);
+        if ($result) {
+
+            return $result[0];
+        }
+        return false;
+    }
+
     public function insert($data)
     {
         $keys = array_keys($data);
@@ -59,19 +93,19 @@ Trait Model
         $this->quary($quary, $data);
         return false;
     }
-    
+
     public function update($id, $data, $id_column = 'id')
     {
         $keys = array_keys($data);
         $quary = "UPDATE $this->table SET ";
-        
+
         foreach ($keys as $key) {
             $quary .= $key . " = :" . $key . ", ";
         }
-        
+
         $quary = trim($quary, " , ");
         $quary .= " WHERE $id_column = :$id_column ";
-        
+
         $data[$id_column] = $id;
 
         // echo $quary;
@@ -89,13 +123,13 @@ Trait Model
         // echo $quary;
 
         // run the quary stage
-        $this->quary($quary, $data); 
+        $this->quary($quary, $data);
 
         return false;
     }
 
 
-   public function where($data, $data_not = [])
+    public function where($data, $data_not = [])
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);

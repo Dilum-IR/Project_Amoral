@@ -2,9 +2,15 @@
 
 class CustomerOrders extends Controller
 {
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
-        // echo "this is a about controller";
-        $this->view('customer/orders');
+
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
+        // if ($username != 'User') {
+            $this->view('customer/orders');
+        // } else {
+        //     redirect('home');
+        // }
     }
 }

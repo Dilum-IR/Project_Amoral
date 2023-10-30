@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar</title>
+    <title>Customer</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?=ROOT ?>/assets/css/style-bar.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

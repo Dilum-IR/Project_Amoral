@@ -4,6 +4,15 @@ const main = document.querySelector("main");
 const bullets = document.querySelectorAll(".bullets span");
 const images = document.querySelectorAll(".image");
 
+const signup_button = document.getElementById("sign-up-btn");
+
+
+signup_button.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const data = new FormData(signup_button);
+  console.log(data);
+});
+
 inputs.forEach((input) => {
   // input class name rename when the clicked
   input.addEventListener("focus", () => {
@@ -20,7 +29,6 @@ inputs.forEach((input) => {
   });
 });
 
-
 // move sign in & sign up
 toggle_btn.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -32,7 +40,6 @@ toggle_btn.forEach((btn) => {
 let index = 0;
 
 function moveSlider() {
-
   index = (index % images.length) + 1;
 
   let currentImage = document.querySelector(`.img-${index}`);
@@ -42,11 +49,19 @@ function moveSlider() {
   const textSlider = document.querySelector(".text-group");
   textSlider.style.transform = `translateY(${-(index - 1) * 2.2}rem)`;
 
-
   let currentBullet = document.querySelector(`.bull-${index}`);
   bullets.forEach((bull) => bull.classList.remove("active"));
   currentBullet.classList.add("active");
-
 }
 
 setInterval(moveSlider, 2000);
+
+if (dataValidate.flag === true) {
+  try {
+    toastApply(dataValidate.fullname.name, dataValidate.fullname.nameError);
+
+    setTimeout(() => {
+      toastApply(dataValidate.password, dataValidate.passwordError);
+    }, 5000);
+  } catch (error) {}
+}
