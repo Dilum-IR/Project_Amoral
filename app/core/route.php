@@ -20,7 +20,7 @@ route('garment/profile', 'garment/Profile@index');
 
 route('delivery/orders', 'delivery/Orders@index');
 
-<<<<<<< HEAD
+
 route('customer/customer-orders', 'customer/customerOverview@index');
 route('customer/orders', 'customer/customerOrders');
 
@@ -28,6 +28,5 @@ route('manager/overview','manager/Overview@index');
 route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 
-=======
+
 route('signinData', 'SignIn@formData');
->>>>>>> 8457bb1e6c244143b48edbeb047d31fe66656fba
