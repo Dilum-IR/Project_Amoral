@@ -68,7 +68,7 @@ section#main {
   color: var(--dark);
 }
 
-.btn {
+.reportBtn {
   position: absolute;
   background: var(--red);
   left: 85%;
@@ -98,7 +98,7 @@ section#main {
   padding: 0px 30px;
 }
 
-.btn,
+.reportBtn,
 .view-order-btn,
 .ok-btn,
 .new-btn {
@@ -118,7 +118,7 @@ section#main {
 
 }
 
-.btn:hover {
+.reportBtn:hover {
   background: darkred;
 }
 
@@ -128,7 +128,8 @@ section#main {
   background: darkblue;
 }
 
-.popup-report {
+.popup-report,
+.popup-new {
   position: absolute;
   height: fit-content;
   width: 60%;
@@ -147,13 +148,15 @@ section#main {
   
 }
 
-.open-popup-report {
+.open-popup-report,
+.open-popup-new {
   visibility: visible;
   transform: translate(-50%, -50%) scale(1);
   z-index: 101;
 }
 
-.popup-report h2 {
+.popup-report h2,
+.popup-new h2 {
   text-align: center;
   padding-top: 2%;
   padding-bottom: 4%;
@@ -161,13 +164,16 @@ section#main {
   font-weight: bold;
 }
 
-.popup-report h4 {
+.popup-report h4,
+.popup-new span {
   text-align: left;
   padding-left: 10%;
   padding-bottom: 2%;
 }
 
 .popup-report input,
+.popup-new input,
+.popup-new select,
 textarea {
   position: relative;
   left: 9%;
@@ -181,6 +187,45 @@ textarea {
   margin-bottom: 2%;
   transition: all .3s ease;
   color: var(--dark);
+}
+
+.popup-new .st{
+  width: 10%;
+}
+
+.popup-new sizeChart{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup-new .size{
+  margin-left: 20%;
+}
+
+.popup-new .details {
+  /* bold font */
+  font-weight: bold;
+}
+
+.popup-new .close-btn,
+.cancel-btn {
+  position: relative;
+  /* right: 1%; */
+  font-size: 16px;
+  color: var(--red);
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 6px;
+  color: #000;
+  border: none;
+  background: var(--red);
+  /* margin-left: 75%; */
+}
+
+.popup-new .cancel-btn {
+  margin-left: 70%;
+  background: var(--blue);
 }
 
 .popup-report .btns{
