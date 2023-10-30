@@ -1,14 +1,17 @@
 <?php
 
-class Order{
 
-    use Model;
+class Order
+{
+	use Model;
+
 
     protected $table = 'orders';
     
     public $order_id = 'order_id';
 
     protected $allowedColumns = [
+
 		'order_id',
 		'user_id',
 		'material',
@@ -24,7 +27,5 @@ class Order{
         'large',
     ];
 
-
 }
 
-?>

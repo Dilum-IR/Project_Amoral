@@ -19,9 +19,7 @@
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-
                 <a href="<?= ROOT ?>/customer/orders">
-
                     <i class="bx bxs-cart-alt"></i>
                     <span class="link_name">Orders</span>
                 </a>

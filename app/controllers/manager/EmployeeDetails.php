@@ -2,9 +2,9 @@
 
 class Overview extends Controller
 {
-    public function index()
+    public function index($a = '', $b = '', $c = '')
     {
         // echo "this is a about controller";
-        $this->view('delivery/overview');
+        $this->view('manager/employeedetails');
     }
 }

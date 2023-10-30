@@ -19,6 +19,7 @@ const viewOrderBtns = document.querySelectorAll('.view-order-btn');
 // });
 
 function openView(){
+    
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 }
