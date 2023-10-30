@@ -2,28 +2,28 @@
 
 class Home extends Controller
 {
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
         // require_once 'Model.php';
         // echo "this is a home controller";
 
-       // $user = new User;
+       $user = new User;
+       $result= $user->findAll(); 
         
         // $arr['first_name'] = 'dilum';
         // $result= $model->where($arr);
 
-        // $arr['first_name'] = 'thiran';
-        // $arr['user_email'] = 'thiran@gmail.com';
-        // $arr['user_password'] = '2536';
-        // $result= $model->insert($arr);
+        // $arr['fullname'] = 'thiran';
+        // $arr['email'] = 'thiran@gmail.com';
+        // $arr['password'] = '2536';
+        // $result= $user->insert($arr);
         
         // $result= $model->delete(5);
         
-       // $arr['id'] = 2;
-        // $arr['first_email'] = 'thiran';
-       // $result= $user->findAll(); 
+    //    $arr['id'] = 2;
+    //     $arr['first_email'] = 'thiran';
         
-       // show($result);
+       show($result);
 
         $this->view('home/home');
     }

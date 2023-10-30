@@ -2,10 +2,10 @@
 
 class Orders extends Controller
 {
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
         // echo "this is a about controller";
-        $this->view('delivery/orders');
+        $this->view('garment/orders');
     }
 
 }
