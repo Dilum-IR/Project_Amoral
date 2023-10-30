@@ -1,7 +1,7 @@
 <?php
 
 class Quotation extends Controller{
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
         $this->view('customer/quotation');
     }
