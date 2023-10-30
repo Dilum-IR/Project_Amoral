@@ -39,8 +39,8 @@
 }
 
 #main form {
-  background: #f4f7fc;
-  top: 60px;
+  background: #F4F7FC;
+  top: 64px;
   padding-bottom: 10px;
 }
 
@@ -58,8 +58,9 @@
 }
 
 .form-group:focus {
-  box-shadow: 0 0 4px 1px rgb(47, 122, 235);
- 
+
+  box-shadow: 0 0 0 1px var(--blue), 0 0 0 3px lightslategray;
+
 }
 
 .form .icon {
@@ -92,9 +93,20 @@
   padding: 10px 30px;
 }
 
+.new-btn{
+  position: absolute;
+  background: var(--blue);
+  left: 74%;
+  top: 8.5%;
+  padding: 0px 30px;
+}
+
 .btn,
 .view-order-btn,
-.ok-btn {
+
+.ok-btn,
+.new-btn {
+
   font-size: 14px;
   display: flex;
   justify-content: center;
@@ -112,7 +124,9 @@
   background: darkred;
 }
 
-.view-order-btn:hover {
+.view-order-btn:hover,
+.ok-btn:hover,
+.new-btn:hover {
   background: darkblue;
 }
 
@@ -142,7 +156,9 @@ table td {
 
 table tr,
 table td {
-  background: #ededed;
+
+  background: #ffffff;
+
 }
 
 table tbody tr {
@@ -237,14 +253,14 @@ textarea {
   width: 50%;
   height: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content:flex-end;
   align-items: center;
 }
 
 .popup-report .close-btn,
 .cancelR-btn {
-  position: absolute;
-  right: 1%;
+  position: relative;
+  /* right: 1%; */
   font-size: 16px;
   color: var(--red);
   cursor: pointer;
@@ -253,10 +269,11 @@ textarea {
   color: #000;
   border: none;
   background: var(--red);
+  margin-left: 15px;
 }
 
 .popup-report .cancelR-btn {
-  right: 23%;
+  /* right: 23%; */
   background: var(--blue);
 }
 
@@ -277,10 +294,10 @@ textarea {
   z-index: 100;
 }
 
-.popup-view h2 {
+.popup-view h2{
   text-align: center;
   padding-top: 4%;
-  margin: 20px;
+  /* margin: 20px; */
 }
 
 .status {
@@ -290,7 +307,7 @@ textarea {
   align-items: center;
   font-family: pop;
   flex-direction: column;
-  margin-top: 6%;
+  margin-top: 3%;
 }
 
 .status ul {
@@ -383,6 +400,15 @@ ul li .active .uil{
 /* Responsive Css  */
 
 @media (max-width: 980px) {
+  .pb{
+    left: 0;
+    top: 2%;
+  }
+  
+  .status{
+    margin-top: 0%;
+  }
+
   .status ul {
     flex-direction: column;
   }
@@ -420,6 +446,7 @@ ul li .active .uil{
   padding: 25px 30px;
   border-radius: 15px;
   margin-left: 8%;
+  overflow: hidden;
 }
 
 .container1 .emptitle {
@@ -487,25 +514,26 @@ select {
   border-bottom-width: 2px;
 }
 
-.popup-view .pb {
-  position: absolute;
+.popup-view .pb{
+  position: relative;
 
   font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
   padding: 10px 20px;
   color: var(--light);
-
-  transition: all 0.3s ease;
+  left: 63%;
+  overflow: hidden;
+  transition: all .3s ease;
   border-radius: 10px;
   font-weight: 600;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   border: none;
 }
 
 .popup-view .update-btn {
-  right: 20%;
+  /* right: 20%; */
   background: var(--blue);
 }
 
@@ -514,7 +542,7 @@ select {
 }
 
 .popup-view .cancel-btn {
-  right: 3%;
+  /* right: 3%; */
   background: var(--red);
 }
 

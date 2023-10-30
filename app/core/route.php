@@ -4,11 +4,17 @@ $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
 route('signin', 'SignIn@index');
 
-route('customer/overview', 'customer/customerOverview@index');
-route('customer/orders', 'customer/customerOrders@index');
+
 route('logout', 'Logout@index');
 
+
 route('home', 'Home@index');
+
+route('customer/overview', 'customer/customerOverview@index');
+route('customer/orders', 'customer/customerOrders@index');
+route('customer/profile', 'customer/Profile@index');
+route('customer/quotation', 'customer/Quotation@index');
+
 
 
 route('manager/overview', 'manager/Overview@index');

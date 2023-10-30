@@ -1,6 +1,5 @@
 <?php
-
-class customerOverview extends Controller
+class CustomerOverview extends Controller
 {
     public function index()
     {
