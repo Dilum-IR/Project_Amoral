@@ -78,6 +78,48 @@
 
 
     <!-- POPUP -->
+    <div class="popup-new">
+        <h2>New Order</h2>
+        <form action="">
+            <div class="form">
+                <div class="input-box">
+                    <span class="details">Material</span>
+                    <input type="text" placeholder="Enter material">
+                </div>
+                <div class="input-box">
+                    <span class="details">Sizes & Quantity</span>
+                    <input class="size" type="text" placeholder="Enter size">
+                    <p>_</p>
+                    <input class="size" type="text" placeholder="Enter quantity">
+                </div>
+                <div class="input-box">
+                    <span class="details">Cost Per Product</span>
+                    <input type="text" placeholder="Enter cost per product">
+                </div>
+                <div class="input-box">
+                    <span class="details">Total Cost</span>
+                    <input type="text" placeholder="Enter total cost">
+                </div>
+                <div class="input-box">
+                    <span class="details">Delivery Address</span>
+                    <input type="text" placeholder="Enter delivery address">
+                </div>
+                <div class="input-box">
+                    <span class="details">Order Placed On</span>
+                    <input type="text" placeholder="Enter order placed on">
+                </div>
+                <div class="input-box">
+                    <span class="details">Delivery Expected On</span>
+                    <input type="text" placeholder="Enter delivery expected on">
+                </div>
+            </div>
+            <div class="btns">
+                <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
+                <button type="button" class="close-btn" onclick="closeNew()">Submit</button>
+            </div>
+        </form>
+    </div>                
+
     <div class="popup-report">
         <h2>Report Your Problem</h2>
         <h4>Your name : </h4>
