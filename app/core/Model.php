@@ -9,7 +9,7 @@ trait Model
 
     protected $limit        = 10;
     protected $offset       = 0;
-    protected $order_type   = 'DESC';
+    protected $order_type   = 'ASC';
     protected $order_column = 'id';
     public $errors          = [];
 
@@ -143,7 +143,7 @@ trait Model
         }
 
         $quary = trim($quary, " && ");
-        $quary .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        // $quary .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
 

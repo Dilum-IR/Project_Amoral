@@ -3,6 +3,18 @@ window.onload = function(){
     const sidebar = document.querySelector(".sidebar");
     const closeBtn = document.querySelector("#btn");
     const main = document.querySelector(".main");
+    const links = document.querySelectorAll('.sidebar li a');
+
+    links.forEach(link => {
+    link.addEventListener('click', () => {
+    
+        links.forEach(link => {
+        link.classList.remove('active');
+        });
+
+        link.classList.add('active');
+    });
+    });
 
     closeBtn.addEventListener("click",function(){
         sidebar.classList.toggle("open")

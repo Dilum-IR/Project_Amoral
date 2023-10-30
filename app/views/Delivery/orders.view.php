@@ -39,20 +39,34 @@
                 <tr>
                     <th></th>
                     <th class="ordId">OrderId</th>
+                    <th class="Name">Customer Name</th>
+                    <th class="Distric">Distric</th>
                     <th class="desc">Description</th>
                     <th class="stth">Status</th>
-                    <th class="cost">Cost</th>
+                    <th class="cost">Delivery charges</th>
                     <th></th>
                 </tr>
             </thead>
             <tr>
                 <td>1</td>
                 <td class="ordId">002345</td>
+                <td class="Name">Sadeep Chathushan</td>
+                <td class="Distric">Matara</td>
                 <td class="desc">Material : Wetlook <br>
                     Sizes & Quantity : S - 2
                 </td>
                 <td class="st">
-                    <div class="text-status">Processing</div>
+                   <!-- <div class="text-status">On the way</div>-->
+                   <div class="text-info">
+                  <select name="profession" id="profession" required class="edit-popup-gen">
+                  <option value="First">Package Pending</option>
+                    <option value="Secound">Package Received</option>
+                    <option value="Third">Package On the way</option>
+                    <option value="Fouth">Package Delivered</option>
+                   
+
+                  </select>
+                </div>
                 </td>
                 <td class="cost">Rs. 2400</td>
                 <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
@@ -93,15 +107,27 @@
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Pending</p>
+                    <p class="text">Package Pending</p>
                 </li>
+               <!-- <li>
+                   
+                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>  
+                      <box-icon name='package' ></box-icon>
+                    
+                    <div class="progress two">
+                        <i class="uil uil-check"></i>  
+                       <i class='bx bx-package' ></i>
+                        
+                    </div>
+                    <p class="text">Package Received</p>
+                </li>--> 
                 <li>
-                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                    <iconify-icon icon="game-icons:card-pickup"></iconify-icon>
                     <div class="progress two">
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Processing</p>
+                    <p class="text">Package Received</p>
                 </li>
                 <li>
                     <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
@@ -109,7 +135,7 @@
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Delivery In Progress</p>
+                    <p class="text">Package On the Way</p>
                 </li>
                 <li>
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
@@ -117,7 +143,7 @@
 
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
-                    <p class="text">Delivered</p>
+                    <p class="text">Package Delivered</p>
                 </li>
 
             </ul>

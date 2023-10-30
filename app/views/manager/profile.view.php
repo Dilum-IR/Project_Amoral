@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Sidebar</title>
+  <title>Amoral</title>
   <!-- Link Styles -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/manager/profile.css">
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/manager/boxicons.min.css">
@@ -282,6 +282,8 @@
                     <option value="anager">Manager</option>
                     <option value="merchandiser">Merchandiser</option>
                     <option value="employee">Employee</option>
+                    <option value="delivery">Distributor</option>
+
                   </select>
                 </div>
               </div>

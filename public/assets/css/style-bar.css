@@ -211,7 +211,12 @@ body{
 .sidebar li a:hover i{
   transition: all 0.5s ease;
   color:var(--color-default)
-  
+
+}
+
+.sidebar li a.active{
+  background-color: var(--color-white);
+  color: var(--color-default);
 }
 
 .sidebar.open li a .link_name{
@@ -322,7 +327,7 @@ nav {
 	align-items: center;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 100;
 	position: sticky;
 	width: 100%;
 	
