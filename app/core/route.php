@@ -13,6 +13,7 @@ route('home', 'Home@index');
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/profile', 'manager/Profile@index');
+route('manager/employeedetails', 'manager/EmployeeDetails@index');
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index');
