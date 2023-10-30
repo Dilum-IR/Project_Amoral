@@ -1,19 +1,25 @@
 <?php
 
-class Order{
 
-    use Model;
+class Order
+{
+	use Model;
 
-    protected $table = 'orders';
+	protected $table = 'order';
 
-    protected $allowedCloumns = [
-        'id',
-        'price',
+	protected $allowedCloumns = [
+		'order_id',
+		'user_id',
+		'material',
         'quantity',
-        'date'
-    ];
-
-
+        'unit_price',
+        'total_price',
+        'dispatch_date',
+        'remaining_payment',
+        'order_placed_on',
+        'order_status',
+        'small',
+        'large',
+	];
 }
 
-?>

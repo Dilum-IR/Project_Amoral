@@ -4,6 +4,7 @@ let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
 
 function openView(){
+    
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 }
