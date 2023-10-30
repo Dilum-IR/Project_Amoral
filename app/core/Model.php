@@ -143,7 +143,7 @@ trait Model
         }
 
         $quary = trim($quary, " && ");
-        $quary .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        // $quary .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
 

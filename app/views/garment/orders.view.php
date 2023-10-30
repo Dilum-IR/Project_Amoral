@@ -1,8 +1,23 @@
+<?php
+
+$fetchData = [
+
+    "order_id" => "0085",
+    "material" => "wetlook"
+];
+
+// echo $data['data']=>;
+// show($data);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Sidebar</title>
+    <title>Amoral</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
@@ -13,7 +28,11 @@
 
 <body>
     <!-- Sidebar -->
-    <?php include 'sidebar.php' ?>
+    <?php
+
+    use function PHPSTORM_META\map;
+
+    include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
     <?php include 'navigationbar.php' ?>
@@ -21,64 +40,101 @@
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
     <!-- content  -->
-    <section id="main" class="main">
+    <section id="main">
 
-        <h2>Your Orders</h2>
+        <div class="main-box">
 
-        <form>
-            <div class="form">
-                <input class="form-group" type="text" placeholder="Search...">
-                <i class='bx bx-search icon'></i>
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
-            </div>
+            <h2>Your Orders</h2>
 
-        </form>
+            <!-- <form>
+                <div class="form">
+                    <input class="form-group" type="text" placeholder="Search...">
+                    <i class='bx bx-search icon'></i>
+                    <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+                </div>
+                
+            </form> -->
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="ordId">OrderId</th>
-                    <th class="desc">Description</th>
-                    <th class="stth">Status</th>
-                    <th class="cost">Cost</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tr>
-                <td>1</td>
-                <td class="ordId">002345</td>
-                <td class="desc">Material : Wetlook <br>
-                    Sizes & Quantity : S - 2
-                </td>
-                <td class="st">
-                    <div class="text-status">Processing</div>
-                </td>
-                <td class="cost">Rs. 2400</td>
-                <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-            </tr>
-        </table>
+            <table class="table">
+                <thead>
+                    <tr>
 
+                        <th class="ordId">OrderId</th>
+                        <th class="desc">Description</th>
+                        <th class="stth">Status</th>
+                        <th class="cost">sew_dispatch_date</th>
+                        <th class="cost">cut_dispatch_date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (is_array($data)) {
+                        $sn = 1;
+                        foreach ($data as $item) {
+                    ?>
+                            <tr>
+                                <td class="ordId"><?php echo $item->garment_order_id ?? '';  ?></td>
+                                <td class="desc">Material : <br>
+                                    Sizes & Quantity : <br> S - 2 <br>
+                                    S - 2 <br>
+                                </td>
+                                <td class="st">
+                                    <div class="text-status"><?php echo $item->status ?></div>
+                                </td>
+                                <td class="cost"><?php echo $item->sew_dispatch_date ?? '';  ?></td>
+                                <td class="cost"><?php echo $item->cut_dispatch_date ?? '';  ?></td>
+                               
+                                <td><button type="submit" class="view-order-btn" onclick="openView(<?php echo $item->garment_id?>)">View Order</button></td>
+                            </tr>
+                    <?php
+                            $sn++;
+                        }
+                    } else {
+                    } ?>
+
+                    <script>
+                        function openView(garmentId) {
+
+                            console.log(garmentId);
+
+                            alert("Opening view for garment ID: " + garmentId);
+
+                        }
+                    </script>
+
+
+                    <!-- <tr>
+                        <td>1</td>
+                        <td class="ordId">002345</td>
+                        <td class="desc">Material : Wetlook <br>
+                            Sizes & Quantity : <br> Small - 2 <br>
+                            Large - 20
+                        </td>
+                        <td class="st">
+                            <div class="text-status">Processing</div>
+                        </td>
+                        <td class="cost">2021/09/18</td>
+                        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td class="ordId">002345</td>
+                        <td class="desc">Material : Wetlook <br>
+                            Sizes & Quantity : S - 2
+                        </td>
+                        <td class="st">
+                            <div class="text-status">Processing</div>
+                        </td>
+                        <td class="cost"> </td>
+                        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
     </section>
 
-
-    <!-- POPUP -->
-    <div class="popup-report">
-        <h2>Report Your Problem</h2>
-        <h4>Your name : </h4>
-        <input type="text" placeholder="Enter your name">
-        <h4>Your email : </h4>
-        <input type="text" placeholder="Enter your email">
-        <h4>Problem : </h4>
-        <textarea name="problem" id="problem" cols="30" rows="10" placeholder="Enter your problem"></textarea>
-		<div class="btns">
-			<button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
-			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
-		</div>
-    </div>
-
-
-
+    <!-- order update & cancel popup -->
     <div class="popup-view" id="popup-view">
         <button type="button" class="update-btn pb">Update Order</button>
         <button type="button" class="cancel-btn pb">Cancel Order</button>
@@ -87,8 +143,7 @@
 
             <ul>
                 <li>
-                    <iconify-icon
-                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
                         <i class="uil uil-check"></i>
@@ -173,6 +228,8 @@
         </div>
         <button type="button" class="ok-btn" onclick="closeView()">OK</button>
     </div>
+
+
     <div id="overlay" class="overlay"></div>
 
 

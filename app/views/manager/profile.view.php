@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Sidebar</title>
+  <title>Amoral</title>
   <!-- Link Styles -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/profile.css">
   <link rel="stylesheet" href="boxicons.min.css">

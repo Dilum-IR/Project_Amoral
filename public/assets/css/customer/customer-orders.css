@@ -1,28 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 :root {
-  --grey: #F1F0F6;
-  --dark-grey: #8D8D8D;
+  --grey: #f1f0f6;
+  --dark-grey: #8d8d8d;
   --light: #fff;
   --dark: #000;
-  --green: #81D43A;
-  --light-green: #E3FFCB;
-  --blue: #1775F1;
-  --light-blue: #D0E4FF;
-  --dark-blue: #0C5FCD;
-  --red: #FC3B56;
+  --green: #81d43a;
+  --light-green: #e3ffcb;
+  --blue: #1775f1;
+  --light-blue: #d0e4ff;
+  --dark-blue: #0c5fcd;
+  --red: #fc3b56;
 }
 
-
-section#main {
+#main {
   position: fixed;
   top: 78px;
-  width: calc(100% - 78px);
-  height: 100%;
+  width: calc(100% - 120px);
+  height: max-content;
   left: 78px;
-  transition: all .5s ease;
+  margin-left: 20px;
+  transition: all 0.5s ease;
   z-index: 2;
+  border-radius: 50px;
 }
+
 
 #main.open {
   left: 250px;
@@ -33,11 +35,11 @@ section#main {
   position: relative;
   padding: 10px 10px;
   text-align: center;
-  background: #F4F7FC;
+  background: #f4f7fc;
 }
 
 #main form {
-  background: #F4F7FC;
+  background: #f4f7fc;
   top: 60px;
   padding-bottom: 10px;
 }
@@ -48,16 +50,16 @@ section#main {
   width: 20%;
   background: #d5dfe7d5;
   border-radius: 20px;
-  border-style: solid;
-  border: #000;
-  outline-width: 1px;
+  border: none;
+  outline: none;
   padding: 10px 30px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   color: var(--dark);
 }
 
 .form-group:focus {
-  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px lightslategray;
+  box-shadow: 0 0 4px 1px rgb(47, 122, 235);
+ 
 }
 
 .form .icon {
@@ -82,7 +84,7 @@ section#main {
   left: 30%;
 }
 
-.ok-btn{
+.ok-btn {
   position: absolute;
   background: var(--blue);
   left: 85%;
@@ -93,7 +95,6 @@ section#main {
 .btn,
 .view-order-btn,
 .ok-btn {
-
   font-size: 14px;
   display: flex;
   justify-content: center;
@@ -101,12 +102,10 @@ section#main {
   padding: 10px 20px;
   color: var(--light);
 
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   border-radius: 10px;
   font-weight: 600;
   border: none;
-
-
 }
 
 .btn:hover {
@@ -116,10 +115,6 @@ section#main {
 .view-order-btn:hover {
   background: darkblue;
 }
-
-
-
-
 
 table.table {
   border-collapse: collapse;
@@ -133,7 +128,7 @@ table.table {
 }
 
 table thead tr {
-  background-color: #F4F7FC;
+  background-color: #f4f7fc;
   color: #191919;
   text-align: justify;
   border-radius: 12px;
@@ -148,7 +143,6 @@ table td {
 table tr,
 table td {
   background: #ededed;
-
 }
 
 table tbody tr {
@@ -169,18 +163,17 @@ table tbody tr.active-row {
   color: #009879;
 }
 
-.st{
+.st {
   padding: 0%;
 }
 
-.text-status{
-  background-color : rgb(16, 197, 52);
+.text-status {
+  background-color: rgb(16, 197, 52);
   border-radius: 12px;
   width: fit-content;
   padding: 2% 13%;
   margin-left: 0%;
 }
-
 
 .popup-view,
 .popup-report {
@@ -197,9 +190,8 @@ table tbody tr.active-row {
   padding: 20px;
   box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
   visibility: hidden;
-  transition: transform .5s, top .5s;
+  transition: transform 0.5s, top 0.5s;
   justify-content: center;
-  
 }
 
 .open-popup-view,
@@ -235,11 +227,11 @@ textarea {
   outline-width: 1px;
   padding: 10px 30px;
   margin-bottom: 2%;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   color: var(--dark);
 }
 
-.popup-report .btns{
+.popup-report .btns {
   position: relative;
   left: 40%;
   width: 50%;
@@ -275,7 +267,7 @@ textarea {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
@@ -290,7 +282,6 @@ textarea {
   padding-top: 4%;
   margin: 20px;
 }
-
 
 .status {
   width: 100%;
@@ -422,8 +413,6 @@ ul li .active .uil{
   }
 }
 
-
-
 .container1 {
   max-width: 700px;
   width: 100%;
@@ -450,7 +439,6 @@ ul li .active .uil{
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 }
 
-
 /* student form details  */
 
 .container1 form .user-details {
@@ -472,7 +460,7 @@ form .user-details .input-box {
   margin-bottom: 5px;
 }
 
-.user-details .input-box .size{
+.user-details .input-box .size {
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
@@ -480,11 +468,10 @@ form .user-details .input-box {
   width: 20%;
 }
 
-.container1 form .sizes{
+.container1 form .sizes {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;;
-
+  justify-content: space-between;
 }
 
 .user-details .input-box input,
@@ -500,10 +487,8 @@ select {
   border-bottom-width: 2px;
 }
 
-
 .popup-view .pb {
   position: absolute;
-
 
   font-size: 14px;
   display: flex;
@@ -512,8 +497,7 @@ select {
   padding: 10px 20px;
   color: var(--light);
 
-
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   border-radius: 10px;
   font-weight: 600;
   margin-bottom: 12px;
