@@ -27,6 +27,8 @@ route('garment/orders/update/?id=id', 'garment/OrdersUpdate@index');
 route('garment/profile', 'garment/Profile@index');
 
 route('delivery/orders', 'delivery/Orders@index');
+route('delivery/profile', 'delivery/Profile@index');
+route('delivery/overview', 'delivery/Overview@index');
 
 
 route('customer/customer-orders', 'customer/customerOverview@index');

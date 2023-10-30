@@ -282,6 +282,8 @@
                     <option value="anager">Manager</option>
                     <option value="merchandiser">Merchandiser</option>
                     <option value="employee">Employee</option>
+                    <option value="delivery">Distributor</option>
+
                   </select>
                 </div>
               </div>
