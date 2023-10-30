@@ -10,7 +10,9 @@
         </div>
         <ul class="nav-list">
             <li>
+
                 <a href="<?=ROOT?>/customer/overview">
+
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
                 </a>
@@ -22,6 +24,13 @@
                     <span class="link_name">Orders</span>
                 </a>
                 <span class="tooltip">Orders</span>
+            </li>
+            <li>
+                <a href="<?=ROOT ?>/customer/quotation">
+                    <i class="bx bxs-cart-alt"></i>
+                    <span class="link_name">Quotation Requests</span>
+                </a>
+                <span class="tooltip">Quotation Requests</span>
             </li>
             <li>
                 <a href="#">

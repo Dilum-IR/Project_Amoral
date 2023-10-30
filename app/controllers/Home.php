@@ -7,7 +7,8 @@ class Home extends Controller
         // require_once 'Model.php';
         // echo "this is a home controller";
 
-    //    $user = new User;
+       $user = new User;
+       $result= $user->findAll(); 
         
         // $arr['first_name'] = 'dilum';
         // $result= $model->where($arr);
@@ -21,9 +22,8 @@ class Home extends Controller
         
     //    $arr['id'] = 2;
     //     $arr['first_email'] = 'thiran';
-    //    $result= $user->findAll(); 
         
-    //    show($result);
+       show($result);
 
         $this->view('home/home');
     }

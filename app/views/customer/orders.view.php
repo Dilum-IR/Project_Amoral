@@ -27,10 +27,11 @@
 
         <form>
             <div class="form">
-                <input class="form-group" type="text" placeholder="Search...">
-                <i class='bx bx-search icon'></i>
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
-            </div>
+				<input class="form-group" type="text" placeholder="Search...">
+				<i class='bx bx-search icon'></i>
+				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
+				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
+			</div>
 
         </form>
 
@@ -45,7 +46,21 @@
                     <th></th>
                 </tr>
             </thead>
-            <tr>
+                <?php $count = 1; foreach($data as $order): ?>
+                    <tr>
+                        <td><?php echo $count; $count++; ?></td>
+                        <td class="ordId"><?php echo $order->order_id ?></td>
+                        <td class="desc"><?php echo $order->quantity ?></td>
+                        <td class="st">
+                            <div class="text-status"><?php echo $order->order_status ?></div>
+                        </td>
+                        <td class="cost"><?php echo $order->total_price ?></td>
+                        <td><button type="submit" class="view-order-btn" data-id="<?php echo $order->id; ?>" onclick="openView()">View Order</button></td>
+                    </tr>
+                <?php endforeach; ?>
+    
+
+            <!-- <tr>
                 <td>1</td>
                 <td class="ordId">002345</td>
                 <td class="desc">Material : Wetlook <br>
@@ -56,13 +71,15 @@
                 </td>
                 <td class="cost">Rs. 2400</td>
                 <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-            </tr>
+            </tr> -->
         </table>
 
     </section>
 
 
     <!-- POPUP -->
+               
+
     <div class="popup-report">
         <h2>Report Your Problem</h2>
         <h4>Your name : </h4>
@@ -76,8 +93,7 @@
 			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
 		</div>
     </div>
-
-
+    
 
     <div class="popup-view" id="popup-view">
         <button type="button" class="update-btn pb">Update Order</button>
@@ -129,7 +145,7 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input type="text" required onChange="" readonly value="0023456" />
+                        <input type="text" id=""  />
                     </div>
 
                     <div class="input-box">

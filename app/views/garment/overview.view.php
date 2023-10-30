@@ -4,7 +4,7 @@
 <head>
     <!-- <meta http-equiv="refresh" content="0.5; url=<?= ROOT ?>/garment/overview"> -->
 
-    <title>Amoral-Garment</title>
+    <title>Amoral</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/overview.css">

@@ -7,6 +7,7 @@ class Logout extends Controller
         if (!empty($_SESSION["USER"])) {
             unset($_SESSION["USER"]);
         }
+        // session_destroy(); // 20 - vi
         redirect('home');
     }
 }
