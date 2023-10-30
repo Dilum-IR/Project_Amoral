@@ -6,6 +6,7 @@ class SignIn extends Controller
     public function index()
     {
         $user = new User;
+        // show($_POST);
 
         if (isset($_POST['signIn'])) {
 
@@ -14,7 +15,8 @@ class SignIn extends Controller
                 $arr['email'] = $_POST['email'];
                 $row = $user->first($arr);
 
-                show($row);
+                // show($row);
+                
                 if ($row) {
 
                     $checkpassword = password_verify($_POST['password'], $row->password);
@@ -49,12 +51,12 @@ class SignIn extends Controller
         }
 
         if (isset($_POST['signUp'])) {
-            // show($_POST);
-
+            
             if ($user->validate($_POST)) {
-
+                
                 unset($_POST['signUp']);
                 unset($_POST['re-password']);
+                show($_POST);
 
                 //check the email used or not
                 if (!$user->findUser($_POST)) {

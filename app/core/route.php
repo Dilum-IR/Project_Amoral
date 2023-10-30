@@ -16,6 +16,7 @@ route('manager/profile', 'manager/Profile@index');
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index');
+route('garment/orders/update/?id=id', 'garment/OrdersUpdate@index');
 route('garment/profile', 'garment/Profile@index');
 
 route('delivery/orders', 'delivery/Orders@index');
