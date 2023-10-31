@@ -37,9 +37,6 @@ function openView(button) {
       document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
       
       document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
-       
-      document.querySelector('.update-form input[name="delivery_expected_on"]').value = "2021-09-18";
-      
       document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
       document.querySelector('.update-form input[name="user_id"]').value =order.user_id;
   

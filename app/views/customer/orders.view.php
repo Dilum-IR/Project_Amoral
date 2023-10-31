@@ -186,12 +186,12 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Order Placed On</span>
-                        <input name="dispatch_date" type="text" required onChange="" readonly value="2023/10/02" />
+                        <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
                     </div>
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     
-                        <input type="date" name="delivery_expected_on">
+                        <input type="date" name="dispatch_date">
                     </div>
                 </div>
                 <!-- hidden element -->
@@ -203,7 +203,7 @@
 
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                <input type="submit" class="update-btn pb" name="updateGorder" value="Update Order" />
+                <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
                 <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
                 <!-- </form> -->
 
