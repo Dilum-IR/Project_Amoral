@@ -302,6 +302,7 @@
   }
   
   .welcome-section {
+    margin-top: -4%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -983,3 +984,37 @@
     }
   }
   
+
+  
+/* Temporery footer */
+
+/* Footer styles */
+footer {
+    background-color: var(--color-default);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-links{
+    width: 100%;
+    /* background-color: #D72323; */
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .footer-links a {
+    padding-left:130px;
+    padding-right: 130px;
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .contact-info {
+    margin-top: 20px;
+  }

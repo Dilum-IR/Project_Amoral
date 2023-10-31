@@ -30,7 +30,7 @@
                         Welcome to AMORAL
                     </h2>
                     <h3>
-                        Welcome to Amoral, your one-stop destination for custom-designed T-shirts that perfectly reflect your unique style and preferences. <a href="<?= ROOT ?>/signin" class="text-nav-link">Register</a> now to place your order. (If you have a garment factory you can <a href="#" class="text-nav-link">join with us</a>. Let's work together. Join us now.)
+                        Welcome to Amoral, your one-stop destination for custom-designed T-shirts that perfectly reflect your unique style and preferences. <a href="<?= ROOT ?>/signin" class="text-nav-link">Register</a> now to place your order. (If you have a garment factory you can <a href="<?= ROOT ?>/guest" class="text-nav-link">join with us</a>. Let's work together. Join us now.)
                     </h3>
 
                     <br>
@@ -40,7 +40,7 @@
                         <!-- <span class="chat-notification">8</span> -->
                     </a>
                     <br>
-                    <a href="#" class="home-partnership-link">
+                    <a href="<?= ROOT ?>/guest" class="home-partnership-link">
                         <i class='bx bxs-file icon'></i>
                         Partnership with AMORAL
                         <!-- <span class="chat-notification">8</span> -->
@@ -58,6 +58,20 @@
             </section>
 
 
+            <footer>
+                    <div class="footer-links">
+                        <a href="#">Home</a>
+                        <a href="#">About Us</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Report</a>
+                    </div>
+                    <div class="contact-info">
+                        <p>AMORAL</p>
+                        <p>185 West 74th Street, New York, USA</p>
+                        <p>Contact: 000-000-0000</p>
+                        <p>© 2023 Amoral.com, Times Internet Limited. All rights reserved </p>
+                    </div>
+                </footer>
         <script src="<?= ROOT ?>/assets/js/home.js"></script>
 
 </body>
