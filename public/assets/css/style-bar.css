@@ -216,8 +216,15 @@ body{
 
 .sidebar li a.active{
   background-color: var(--color-white);
+  border-radius: 5px;
   color: var(--color-default);
 }
+
+.sidebar li a.active i{
+  color: var(--color-default);
+
+}
+
 
 .sidebar.open li a .link_name{
   opacity: 1;

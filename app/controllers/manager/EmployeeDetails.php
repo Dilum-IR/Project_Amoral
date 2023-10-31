@@ -9,7 +9,24 @@ class EmployeeDetails extends Controller
 
         $employee = new Employee;
 
-        
+        if(isset($_POST["empUpdate"])){
+            $emp_id = $_POST['emp_id'];
+
+            unset($_POST['empUpdate']);
+            $arr = $_POST;
+            if(isset($arr)){
+                show($arr);
+                $update = $employee->update($emp_id, $arr, 'emp_id');
+                redirect('manager/employeedetails');
+            }
+        }
+        // show($_POST);
+        if(isset($_POST["newEmployee"])){
+            unset($_POST["newEmployee"]);
+            $employee->insert($_POST);
+            redirect("manager/employeedetails");
+        }
+
         $result=$employee->findAll('emp_id');
 
         $data=['data'=> $result];  
