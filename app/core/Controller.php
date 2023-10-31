@@ -8,6 +8,7 @@ class Controller
 
         if (!empty($data)) {
             extract($data);
+            // show($data);
         }
 
         $filename =  "../app/views/" . $name . ".view.php";

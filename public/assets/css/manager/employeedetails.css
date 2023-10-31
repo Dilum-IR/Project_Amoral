@@ -1,0 +1,205 @@
+:root {
+    --color-default: #191919;
+    --color-second: #333333;
+    --color-white: #fff;
+    --color-gray-one: #4C4C4C;
+    --color-gray-two: #B3B3B3;
+    --color-gray-three: #E6E6E6;
+    --color-light: #E6E6E6;
+    --color-red: #ff0000;
+  }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    z-index: 2;
+}
+*{
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+#search-bar {
+    margin: 5px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#add-employee-button {
+    background-color: #0074cc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px 10px;
+    border-radius: 12px;
+}
+
+#save-button,
+#cancel-button,
+#update-employee-button,
+#remove-cancel-button,
+#remove-employee-button {
+    background-color: #0074cc;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    display: none;
+    border-radius: 12px;
+    margin: 5px 10px;
+}
+
+#cancel-button,
+#remove-cancel-button,
+#remove-employee-button {
+    background-color: #ff3333;
+}
+
+#update-employee-button{
+    background-color: #81D43A;
+}
+
+.empDetails{
+    top: 64px;
+    position: fixed;
+    width: 95%;
+    height: 100%;
+    left: 78px;
+    transition: all .5s ease;
+    z-index: 1;
+    overflow: scroll;
+}
+.empTable{
+    top: 0;
+}
+.empDetails.open{
+    left: 250px;
+    width: calc(100% - 250px);
+}
+.employee-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.add-save-cancel{
+    margin-right: calc(1022px-(100%));
+}
+.employee-table th,
+.employee-table td {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.employee-table th {
+    background-color: var(--color-second);
+    color: #fff;
+}
+
+.employee-table tr:nth-child(even) {
+    background-color: var(--color-light);
+}
+
+.employee-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.employee-table tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
+
+.employee-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.emp-top {
+    z-index: 1;
+    top: 0px;
+    left: 0;
+    position: sticky;
+    background-color: #333;
+    color: #fff;
+    border-bottom: 1px solid white;
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-emp {
+    width: 30%;
+    align-items: center;
+   display: flex;
+}
+
+.employee-table tbody tr.highlight {
+    background-color: rgb(118, 118, 118);
+}
+
+.add-save-cancel,
+.remove-cancel{
+    align-items: right;
+    display: flex;
+}
+
+thead {
+    border-color: #ccc;
+    z-index: 0;
+    top: 64px;
+    left: 0;
+    position: sticky;
+    width: 100%;
+    overflow: scroll;
+    height: 10px;
+
+}
+
+th {
+    height: 10px;
+    top: 0;
+    z-index: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+#search-btn{
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+    font-size: 25px;
+}
+
+#search-bar{
+    width: 100%;
+}
+
+@media (width<=1022px){
+    .add-save-cancel{
+        margin-right: 20%;
+        overflow: hidden;
+    }
+    .remove-cancel{
+        margin-right: 20%;
+        overflow: hidden;
+    }
+    thead{
+        margin-right: 30% ;
+    }
+}
+
+@media(width<955.24px){
+    thead{
+        top: 90.8px;
+    }
+}

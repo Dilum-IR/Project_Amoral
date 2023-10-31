@@ -5,14 +5,14 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/garment/overview">
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
                 </a>
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/garment/orders">
                     <i class="bx bxs-cart-alt"></i>
                     <span class="link_name">Customer Orders</span>
                 </a>

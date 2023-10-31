@@ -1,16 +1,20 @@
 <?php
 
 
-class User
+class Employee
 {
 	use Model;
 
-	protected $table = 'users';
+	protected $table = 'employee';
 
 	protected $allowedCloumns = [
-		'fullname',
+
+		'emp_name',
 		'email',
 		'password',
+		'contact_number',
+		'address',
+		'emp_status',
 	];
 
 	public function validate($data)
