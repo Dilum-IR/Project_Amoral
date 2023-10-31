@@ -50,7 +50,7 @@
                     <tr>
                         <td><?php echo $count; $count++; ?></td>
                         <td class="ordId"><?php echo $order->order_id ?></td>
-                        <td class="desc"><?php echo $order->quantity ?></td>
+                        <td class="desc">Material : <?php echo $order->material ?><br>Quantity : <?php echo $order->quantity ?></td>
                         <td class="st">
                             <div class="text-status"><?php echo $order->order_status ?></div>
                         </td>
