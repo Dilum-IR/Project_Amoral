@@ -75,6 +75,7 @@ trait Model
         // echo "</pre>";
 
         $result = $this->quary($quary, $data);
+
         if ($result) {
 
             return $result[0];

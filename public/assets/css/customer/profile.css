@@ -508,7 +508,6 @@ main {
 main h1 {
   color: var(--color-gray-two);
   overflow: hidden;
-  font-size: 16px;
 }
 /* 
 .main-section {
@@ -550,7 +549,6 @@ main .edit-pic .edit-icon {
 } */
 
 .info-gen {
-
   background-color: var(--color-gray-three);
   border-radius: 12px;
   text-align: left;
@@ -649,7 +647,6 @@ main .edit-pic .edit-icon {
 
 
 .user-info h1 {
-  font-size: 16px;
   margin-left: -14%;
   padding-top: 1%;
 
