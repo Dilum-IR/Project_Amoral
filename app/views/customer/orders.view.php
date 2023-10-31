@@ -56,6 +56,7 @@
                         </td>
                         <td class="cost"><?php echo $order->total_price ?></td>
                         <td><button type="submit" class="view-order-btn" data-id="<?php echo $order->id; ?>" onclick="openView()">View Order</button></td>
+                        <td><button type="button" class="pay-btn" onclick="">Pay</button></td>
                     </tr>
                 <?php endforeach; ?>
     
@@ -187,6 +188,7 @@
                 </div>
             </form>
         </div>
+        
         <button type="button" class="ok-btn" onclick="closeView()">OK</button>
     </div>
     <div id="overlay" class="overlay"></div>

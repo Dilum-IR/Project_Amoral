@@ -85,6 +85,14 @@
   left: 30%;
 }
 
+.pay-btn{
+  position: absolute;
+  background: var(--blue);
+  left: 74%;
+  top: 93%;
+  padding: 10px 30px;
+}
+
 .ok-btn {
   position: absolute;
   background: var(--blue);
@@ -103,7 +111,7 @@
 
 .btn,
 .view-order-btn,
-
+.pay-btn,
 .ok-btn,
 .new-btn {
 
@@ -120,7 +128,8 @@
   border: none;
 }
 
-.btn:hover {
+.btn:hover,
+.pay-btn:hover {
   background: darkred;
 }
 
