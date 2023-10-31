@@ -42,6 +42,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th class="ordId">OrderId</th>
                         <th class="desc">Description</th>
                         <th class="stth">Status</th>
@@ -53,12 +54,13 @@
                 <tbody>
                     <?php
                     if (is_array($data)) {
-                        // $sn = 1;
+                        $sn = 1;
                         foreach ($data as $item) {
                             // show($item); 
 
                     ?>
                             <tr class="item">
+                                <td class="ordId"><?php echo $sn ?? '';  ?></td>
                                 <td class="ordId"><?php echo $item->order_id ?? '';  ?></td>
                                 <td class="desc">Material : Wetlook <br>
                                     Sizes & Quantity : <br> S - 2 <br>
@@ -75,7 +77,7 @@
                                 </td>
                             </tr>
                     <?php
-                            // $sn++;
+                            $sn++;
                         }
                     } else {
                     } ?>

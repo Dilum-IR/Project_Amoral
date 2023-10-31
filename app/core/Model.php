@@ -40,7 +40,7 @@ trait Model
         $quary = trim($quary, " && ");
         $quary .= " limit $this->limit offset $this->offset";
 
-        echo $quary;
+        // echo $quary;
 
         $data = array_merge($data, $data_not);
         // run the quary stage
