@@ -6,13 +6,17 @@ class CustomerOrders extends Controller
     {
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+        
         $order = new Order;
-        $data = $order->findAll();
-        // if ($username != 'User') {
+        
+        if ($username != 'User') {
+            $id = ['user_id' => $_SESSION['USER']->id];
+            $data = $order->where($id);
+            
             $this->view('customer/orders', $data);
-        // } else {
-        //     redirect('home');
-        // }
+        } else {
+            redirect('home');
+        }
 
     }
 }

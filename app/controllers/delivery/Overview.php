@@ -5,6 +5,6 @@ class Overview extends Controller
     public function index()
     {
         // echo "this is a about controller";
-        $this->view('customer/overview');
+        $this->view('delivery/overview');
     }
 }
