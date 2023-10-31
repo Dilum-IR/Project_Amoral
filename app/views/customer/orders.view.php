@@ -29,7 +29,7 @@
             <div class="form">
 				<input class="form-group" type="text" placeholder="Search...">
 				<i class='bx bx-search icon'></i>
-				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
+				<input class="new-btn" type="button" onclick="openNew()" value="+ New Order">
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 

@@ -4,6 +4,7 @@ class Orders extends Controller
 {
     public function index()
     {
+
         
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
@@ -14,6 +15,9 @@ class Orders extends Controller
         }else{
             redirect('home');
         }
+
+
+     
     }
 
 }

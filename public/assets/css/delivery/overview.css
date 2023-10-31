@@ -46,13 +46,13 @@
 }
 
 .main {
-    position: absolute;
+    position: relative;
 	width: calc(100% - 78px);
 	padding: 24px 20px 20px 20px;
     left: 78px;
-    top: 40px;
-    z-index: 3;
-    height: 100%;
+    top: -700px;
+    z-index: 1; 
+    /* height: 100%; */
     transition: all .3s ease;
 }
 .main.open{

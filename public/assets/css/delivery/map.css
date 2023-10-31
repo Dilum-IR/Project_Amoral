@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#map{
+    margin:20px;
+    height: 600px;
+    width: 100%;
+}
+#map img[src$="map1.png"] {
+    width: 1px;
+    height: 1px;
+}
