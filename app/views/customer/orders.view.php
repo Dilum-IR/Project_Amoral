@@ -167,22 +167,28 @@
                         <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                         <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
                         <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">M</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
-                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">L</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                        <br>
+                        <span class="size">M</span>
+                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                        <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
                         <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                         <br>
-                </div>
+                        <span class="size">L</span>
+                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                    </div>
+                    </div>
+                    <div class="input-box">
                     </div>
                     <div class="input-box">
                         <span class="details">Total Price</span>
                         <input name="total_price" type="text" required onChange="" readonly value="2023/10/01" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Remaining Payment</span>
+                        <input name="remaining_payment" type="text" required onChange="" readonly value="2023/10/01" />
                     </div>
                     <div class="input-box">
                         <span class="details">Order Placed On</span>
@@ -192,6 +198,11 @@
                         <span class="details">Delivery Expected On</span>
                     
                         <input type="date" name="dispatch_date">
+                    </div>
+                    <div class="input-box">
+                        <span class="details addr">Address</span>
+                    
+                        <input type="text" name="address">
                     </div>
                 </div>
                 <!-- hidden element -->

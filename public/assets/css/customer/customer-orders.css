@@ -511,6 +511,12 @@ form .user-details .input-box {
   overflow: hidden;
 }
 
+form .user-details .input-box .addr {
+  margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+
 .user-details .input-box .details {
   display: block;
   font-weight: 500;

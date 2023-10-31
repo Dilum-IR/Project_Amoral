@@ -69,9 +69,9 @@
                 <div class="input-box">
                     <span class="details">Material</span><br>
                     <select name="material">
-                        <option value="material1">Crocodile</option>
-                        <option value="material2">Wetlook</option>
-                        <option value="material3">Baby Crocodile</option>
+                        <option value="Crocodile">Crocodile</option>
+                        <option value="Wetlook">Wetlook</option>
+                        <option value="Baby Crocodile">Baby Crocodile</option>
                     </select>
                 </div>
                 <div class="input-box">
@@ -106,10 +106,10 @@
                     <span class="details">Delivery Expected On</span>
                     <input type="date" name="dispatch_date">
                 </div>
-                <!-- <form action="" method="post" enctype="multipart/form-data">
+                
                     <span class="details">T-shirt Design</span>
-                    <input type="file" name="design" id="fileToUpload">
-                </form> -->
+                    <input enctype="multipart/form-data" type="file" name="design" id="fileToUpload">
+                
             </div>
             <div class="btns">
                 <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>

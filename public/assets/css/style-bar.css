@@ -130,6 +130,9 @@ body{
 .sidebar.open li .tooltip{
   display: none;
 }
+.sidebar li a.active i{
+  color: var(--color-default);
+}
 
 /* .sidebar input{
   font-size: 15px;

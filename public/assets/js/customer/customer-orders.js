@@ -35,10 +35,11 @@ function openView(button) {
       document.querySelector('.update-form input[name="material"]').value = "Wetlook";
       
       document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
-      
+      document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
       document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
       document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
       document.querySelector('.update-form input[name="user_id"]').value =order.user_id;
+      document.querySelector('.update-form input[name="address"]').value =order.address;
   
       
       // Show the "update-form" popup
