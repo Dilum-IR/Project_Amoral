@@ -45,7 +45,7 @@ class SignIn extends Controller
 
                         // check session user
                         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-                        // show($username);
+                        echo $username;
 
                         if ($row->user_status == 'customer') {
                             redirect('customer/overview');

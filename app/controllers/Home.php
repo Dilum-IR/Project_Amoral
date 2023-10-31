@@ -8,9 +8,7 @@ class Home extends Controller
         if (isset($_SESSION['USER'])) {
 
             unset($_SESSION['USER']);
-        } else {
-            isset($_SESSION['USER']);
-        }
+        } 
 
 
         // require_once 'Model.php';
