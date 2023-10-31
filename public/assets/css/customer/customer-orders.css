@@ -85,6 +85,14 @@
   left: 30%;
 }
 
+.pay-btn{
+
+  background: var(--red);
+  left: 74%;
+  
+  padding: 10px 30px;
+}
+
 .ok-btn {
   position: absolute;
   background: var(--blue);
@@ -103,7 +111,7 @@
 
 .btn,
 .view-order-btn,
-
+.pay-btn,
 .ok-btn,
 .new-btn {
 
@@ -120,7 +128,8 @@
   border: none;
 }
 
-.btn:hover {
+.btn:hover,
+.pay-btn:hover {
   background: darkred;
 }
 
@@ -181,6 +190,7 @@ table tbody tr.active-row {
 
 .st {
   padding: 0%;
+  margin-left: 2%;
 }
 
 .text-status {
@@ -303,6 +313,21 @@ textarea {
   text-align: center;
   padding-top: 4%;
   /* margin: 20px; */
+}
+
+.popup-view .sizeChart{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  left: 0;
+}
+
+.popup-view .sizeChart span{
+  margin-left: 0;
+}
+
+.popup-view .size{
+  margin-left: 20%;
 }
 
 .status {

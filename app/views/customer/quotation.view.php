@@ -106,30 +106,34 @@
                     <span class="details">Delivery Expected On</span>
                     <input type="date" name="dispatch_date">
                 </div>
-                <form action="" method="post" enctype="multipart/form-data">
+                <!-- <form action="" method="post" enctype="multipart/form-data">
                     <span class="details">T-shirt Design</span>
                     <input type="file" name="design" id="fileToUpload">
-                </form>
+                </form> -->
             </div>
             <div class="btns">
                 <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
-                <input type="submit" class="close-btn" value="newQuotation" name="newQuotation">
+                <button type="submit" class="close-btn" value="newQuotation" name="newQuotation">Submit</button>
             </div>
         </form>
     </div> 
 
     <div class="popup-report">
         <h2>Report Your Problem</h2>
-        <h4>Your name : </h4>
-        <input type="text" placeholder="Enter your name">
-        <h4>Your email : </h4>
-        <input type="text" placeholder="Enter your email">
-        <h4>Problem : </h4>
-        <textarea name="problem" id="problem" cols="30" rows="10" placeholder="Enter your problem"></textarea>
-		<div class="btns">
-			<button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
-			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
-		</div>
+        <form method="POST">
+
+            <h4>Title : </h4>
+            <input name="title" type="text" placeholder="Enter your title">
+            <h4>Your email : </h4>
+            <input name="email" type="text" placeholder="Enter your email">
+            <h4>Problem : </h4>
+            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+            <div class="btns">
+                <button type="button" class="cancelR-btn" onclick="closeReport()" Style="color: white">Cancel</button>
+                <button type="submit" class="close-btn" name="report" value="Submit" Style="color: white">Submit</button>
+            </div>
+
+        </form>
     </div>
 
     <!-- <div class="popup-new" id="popup-new">
@@ -168,6 +172,8 @@
         <button type="button" class="cancelN-btn" onclick="closeNew()">Cancel</button>
         <button type="submit" class="submit-btn" onclick="closeNew()">Submit</button>
     </div> -->
+
+    <div id="overlay" class="overlay"></div>
 
 
     <script src="<?=ROOT ?>/assets/js/script-bar.js"></script>

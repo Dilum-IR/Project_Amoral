@@ -8,9 +8,8 @@ class Quotation extends Controller{
         // show($_POST);
         if (isset($_POST['newQuotation'])){
             //need to validate
-                
-
-                // $order->insert($_POST);
+                unset($_POST['newQuotation']);
+                $order->insert($_POST);
         }
 
         $this->view('customer/quotation');
