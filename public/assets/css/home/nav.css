@@ -1,0 +1,171 @@
+:root{
+    --color-default:#191919;
+    --color-second:#333333;
+    --color-white:#fff;
+    --color-gray-one:#4C4C4C;
+    --color-gray-two:#B3B3B3;
+    --color-gray-three:#E6E6E6;
+    --color-light:#E6E6E6;
+    --color-red:#ff0000;
+  }
+  
+  
+  *{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+/* Navigation Bar */
+nav {
+    top: 0;
+    left: 0;
+    background-color: var(--color-default);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    width: 100%;
+    margin: auto;
+    position: fixed;
+    z-index: 10;
+}
+/* nav .nav-link {
+	height: 100px;
+    width: 100px;
+    background-color: ;
+	
+} */
+nav .nav-link .icon {
+	font-size: 18px;
+	color: #ffffff;
+	margin-right: 0px;
+	
+}
+img{
+    size: 10px;
+    margin-left: 12%;
+}
+nav .logo{
+    height: 70px;
+   width: 70px;
+    align-items: center;
+    justify-content: center;
+}
+
+nav .nav-icons{
+     /* margin-bottom: 4%; */
+     margin-left: auto;
+     margin-right: 2%;
+     width: 70px;
+     height: 50px;
+     /* padding-top: 22px; */
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     /* float: right; */
+     background-color: var(--color-default);
+
+}
+
+nav .nav-link .bell-notification {
+	/* position: absolute;
+	top: -13px;
+	right: 10px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid var(--color-light);
+	background: var(--color-red);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--color-light);
+	font-size: 10px;
+	font-weight: 700; */
+    color: var(--color-white);
+    background-color: #ff0000;
+    
+
+}
+nav .nav-link .chat-notification {
+	/* position: absolute;
+	top: -13px;
+	right: -10px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 2px solid var(--color-light);
+	background: var(--color-red);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--color-light);
+	font-size: 10px;
+	font-weight: 700; */
+
+    color: var(--color-white);
+    background-color: #ff0000;
+}
+/* nav .nav-profile{
+  float: right;
+  width: 10px;
+  height: 10px;
+  
+}
+
+nav .nav-link .nav-link-profile{
+  height: 10px;
+  width: 10px;
+
+  
+} */
+/* Navigation Bar */
+
+/* 
+@media screen and (max-width: 30%) {
+	#home-section {
+		position: relative;
+		width: calc(100% - 60px);
+		transition: all .3s ease;
+	}
+	
+	nav .nav-icons,
+	nav .badge-1,
+	nav .badge-2{
+		display: none;
+	}
+	nav.nav-link .nav-icons{
+		width: 80px;
+		margin-top: 2%;
+	
+	
+	}
+
+} */
+
+/* @media only screen and (max-width: 900px){
+  nav{
+    padding: 0 30px;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  .nav-icons{
+    margin-top: 20px;
+    display: block;
+  }
+} */
+
+@media (height <= 500px){
+  .sidebar li.profile{
+        display: none;
+  }
+}
+
+@media (width<=188px) {
+    nav .nav-icons{
+        display: none;
+    }
+}
