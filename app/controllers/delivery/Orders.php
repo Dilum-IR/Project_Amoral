@@ -10,8 +10,8 @@ class Orders extends Controller
         if ($username != 'User') {
             
             $this->view('delivery/orders');
-       
-        }else{
+        }
+        else{
             redirect('home');
         }
     }
