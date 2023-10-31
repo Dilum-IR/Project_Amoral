@@ -31,7 +31,7 @@ body{
   z-index: 99;
   background-color: var(--color-default);
   transition: all .5s ease;
-  position: fixed;
+  position: sticky;
   top:0;
   left: 0;
 }
@@ -326,16 +326,21 @@ body{
 
 
 /* Navigation Bar */
+.home-section{
+
+  position: fixed;
+  height: 64px;
+  z-index: 1;
+}
 nav {
+  z-index: 5;
+  height: 64px;
 	background: var(--color-default);
-	height: 64px;
 	padding: 0 20px;
 	width: 100%;
 	align-items: center;
 	top: 0;
 	left: 0;
-	z-index: 100;
-	position: sticky;
 	width: 100%;
 	
 }
