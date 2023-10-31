@@ -16,7 +16,11 @@
     <?php include 'sidebar.php'?>
     <!-- Sidebar -->
 
-    <?php include 'navigationbar.php'?>
+    <!-- navigation bar -->
+
+    <!-- navigation bar -->
+    
+    
     <!-- Scripts -->
 
     <section class="main">
@@ -66,7 +70,7 @@
         <div class="data">
             <div class="content-data">
                 <div class="head">
-                    <h3>Delivery Routes</h3>
+                    <h3># Delivery Packages</h3>
                 </div>
                 <div class="chart">
                     <div id="chart"></div>
@@ -106,7 +110,7 @@
                 var marker = new google.maps.Marker({
                 position:coords,
                 map:map, 
-                icon:'map3.png'
+                icon:'<?=ROOT?>/assets/images/delivery/map3.png'
             });
   
             }

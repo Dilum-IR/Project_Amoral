@@ -136,6 +136,10 @@
 </div>
 <div id="overlay" class="overlay"></div>
 
+
+<!--  ----------------------------------------------------------------------
+    Add new Employee
+------------------------------------------------------------------------ --> 
 <div class="popup-new">
         <h2>Add new Employee</h2>
         <form method="POST">
@@ -148,9 +152,9 @@
                 <div class="input-box">
                     <span class="details">Profession</span><br>
                     <select name="emp_status">
-                        <option value="Manager">Manager</option>
-                        <option value="Merchandise">Merchandiser</option>
-                        <option value="Customer">Customer</option>
+                        <option value="manager">Manager</option>
+                        <option value="merchandiser">Merchandiser</option>
+                        <option value="delivery">Delivery</option>
                     </select>
                 </div>
         

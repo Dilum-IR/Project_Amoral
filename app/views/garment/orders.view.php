@@ -42,12 +42,12 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th class="ordId">OrderId</th>
+                        <!-- <th>ID</th> -->
+                        <th class="ordId">Order Id</th>
                         <th class="desc">Description</th>
                         <th class="stth">Status</th>
-                        <th class="cost">sew_dispatch_date</th>
-                        <th class="cost">cut_dispatch_date</th>
+                        <th class="cost">sew dispatch date</th>
+                        <th class="cost">cut dispatch date</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -60,7 +60,7 @@
 
                     ?>
                             <tr class="item">
-                                <td class="ordId"><?php echo $sn ?? '';  ?></td>
+                                <!-- <td class="ordId"><?php echo $sn ?? '';  ?></td> -->
                                 <td class="ordId"><?php echo $item->order_id ?? '';  ?></td>
                                 <td class="desc">Material : Wetlook <br>
                                     Sizes & Quantity : <br> S - 2 <br>
@@ -97,7 +97,7 @@
             <h4>Your email : </h4>
             <input name="email" type="text" placeholder="Enter your email">
             <h4>Problem : </h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+            <textarea name="description" id="problem" cols="30" rows="4" placeholder="Enter your problem"></textarea>
             <div class="btns">
                 <button type="button" class="cancelR-btn" onclick="closeReport()" Style="color: white">Cancel</button>
                 <button type="submit" class="close-btn" name="report" value="Submit" Style="color: white">Submit</button>
@@ -177,9 +177,14 @@
                         <span class="details">Sizes</span>
 
                         <input class="size" type="text" required onChange="" readonly value="S" />
-                        <span class="details">Quantity</span>
                         <!-- <p>_</p> -->
+                    </div>
+                    <div class="input-box sizes">
+
+
+                        <span class="details">Quantity</span>
                         <input class="size" type="text" required onChange="" readonly value="2" />
+                        <!-- <p>_</p> -->
                     </div>
                     <div class="input-box">
                         <span class="details">cut dispatch date</span>
@@ -201,7 +206,7 @@
                     <input name="garment_id" type="hidden" required onChange="" readonly value="0023456" />
                 </div>
 
-                <button type="submit" onclick="" class="cancel-btn pb">Cancel Order</button>
+                <button type="submit" onclick="" class="cancel-btn pb" name="CancelGorder">Cancel Order</button>
                 <input type="submit" class="update-btn pb" name="updateGorder" value="Update Order" />
                
 

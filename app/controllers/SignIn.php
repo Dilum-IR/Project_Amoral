@@ -61,11 +61,11 @@ class SignIn extends Controller
                     }
                 } elseif ($emprow) {
 
-                    // $checkpassword = password_verify($_POST['password'], $row->password);
+                    $checkpassword = password_verify($_POST['password'], $emprow->password);
 
-                    // if ($checkpassword) {
+                    if ($checkpassword) {
 
-                    unset($row->password);
+                    unset($emprow->password);
                     $_SESSION['USER'] = $emprow;
 
                     // check session user
@@ -85,7 +85,7 @@ class SignIn extends Controller
                     }
                     // echo "Valid password";
 
-                    // }
+                    }
                     //  else {
                     //     $data['errors'] = "";
                     //     $user->errors = "Worng Email or Password";
@@ -98,7 +98,7 @@ class SignIn extends Controller
                     $data['errors'] = "";
                     $user->errors = "Worng Email or Password";
                     $data['errors'] = $user->errors;
-                    echo "Invalid Sign-In";
+                    // echo "Invalid Sign-In";
                 }
             }
     
@@ -123,7 +123,7 @@ class SignIn extends Controller
                     header("Location: " . ROOT . '/home');
                 }
             }
-
+            
             // show($_POST);
         }
 
