@@ -2,7 +2,7 @@
 
 class Profile extends Controller
 {
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
         $this->view('customer/profile');
     }

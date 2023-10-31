@@ -13,10 +13,10 @@ trait Model
     protected $order_column = 'id';
     public $errors          = [];
 
-    public function findAll()
+    public function findAll($order_column = 'id')
     {
 
-        $quary = "SELECT * FROM $this->table ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        $quary = "SELECT * FROM $this->table ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
         // run the quary stage

@@ -192,6 +192,7 @@ table tbody tr.active-row {
 }
 
 .popup-view,
+.popup-new,
 .popup-report {
   position: absolute;
   height: fit-content;
@@ -211,13 +212,15 @@ table tbody tr.active-row {
 }
 
 .open-popup-view,
+.open-popup-new,
 .open-popup-report {
   visibility: visible;
   transform: translate(-50%, -50%) scale(1);
   z-index: 101;
 }
 
-.popup-report h2 {
+.popup-report h2,
+.popup-new h2 {
   text-align: center;
   padding-top: 2%;
   padding-bottom: 4%;
@@ -225,13 +228,15 @@ table tbody tr.active-row {
   font-weight: bold;
 }
 
-.popup-report h4 {
+.popup-report h4,
+.popup-new span {
   text-align: left;
   padding-left: 10%;
   padding-bottom: 2%;
 }
 
 .popup-report input,
+.popup-new input,
 textarea {
   position: relative;
   left: 9%;
