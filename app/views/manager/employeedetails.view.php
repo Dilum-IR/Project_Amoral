@@ -17,6 +17,7 @@
     <!-- Sidebar -->
 
     <!-- Navigation Bar -->
+    <?php include 'navigationbar.php'?>
     <!-- Navigation Bar -->
 
     <section class="main-section" id="main-section">
@@ -68,20 +69,21 @@
                             </thead>
                             <tbody>
                                 <?php
-                                if (is_array($data)) {
 
+                                // show($data);
+                                if (is_array($data)) {
                                     foreach ($data as $item) {
                                 ?>
-                                        <tr data-order="<?=json_decode($item); ?>" onclick="toggleRemoveButton()">
-                                            <td><?php echo $item->emp_id?></td>
-                                            <td><?php echo $item->emp_name?></td>
-                                            <td><?php echo $item->emp_status?></td>
-                                            <td><?php echo $item->email?></td>
-                                            <td><?php echo $item->address?></td>
-                                            <td><?php echo $item->contact_number?></td>
+                                        <tr onclick="toggleRemoveButton(<?= json_encode($item); ?>)">
+                                            <td><?php echo $item->emp_id ?></td>
+                                            <td><?php echo $item->emp_name ?></td>
+                                            <td><?php echo $item->emp_status ?></td>
+                                            <td><?php echo $item->email ?></td>
+                                            <td><?php echo $item->address ?></td>
+                                            <td><?php echo $item->contact_number ?></td>
                                         </tr>
                                 <?php
-                                }
+                                    }
                                 } else {
                                 }
                                 ?>
@@ -156,95 +158,7 @@
                                     <td>hello@world.com</td>
                                     <td>789 Oak St</td>
                                     <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
+                                </tr>    
                             </tbody>
                         </table>
                     </div>

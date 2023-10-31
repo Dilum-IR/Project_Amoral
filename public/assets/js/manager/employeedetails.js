@@ -46,10 +46,11 @@ let nextID = 1;
 
 // }
 
-function toggleRemoveButton(){
+function toggleRemoveButton(data){
 
 
-    var id =  
+    console.log(data)
+    // var id =  
     document.getElementById("add-employee-button").style.display = "none";
     document.getElementById("save-button").style.display = "none";
     document.getElementById("cancel-button").style.display = "none";
@@ -149,7 +150,34 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function updateEmployee(){
+    document.getElementById("add-employee-button").style.display = "none";
+    document.getElementById("save-button").style.display = "inline";
+    document.getElementById("cancel-button").style.display = "inline";
+    document.getElementById("update-employee-button").style.display = "none";
+    document.getElementById("remove-employee-button").style.display = "none";
+    document.getElementById("remove-cancel-button").style.display = "none";
 
+    var table = document.getElementById('employee-table').getElementsByTagName('tbody')[0];
+    var newRow = table.insertRow(0);
+
+    var idCell = newRow.insertCell(0);
+    idCell.innerHTML = nextID; // Incrementing ID for the new row
+    nextID++;
+
+    var nameCell = newRow.insertCell(1);
+    nameCell.innerHTML = '<input type="text" id="newName" required>'; // Input for new name
+
+    var emailCell = newRow.insertCell(2);
+    emailCell.innerHTML = '<input type="text" id="newPosition" required>'; // Input for new position
+
+    var emailCell = newRow.insertCell(3);
+    emailCell.innerHTML = '<input type="text" id="newEmail" required>'; // Input for new email
+
+    var emailCell = newRow.insertCell(4);
+    emailCell.innerHTML = '<input type="text" id="newAddress" required>'; // Input for new address
+
+    var emailCell = newRow.insertCell(5);
+    emailCell.innerHTML = '<input type="text" id="newContact" required>'; // Input for new contact no
   }
 
   function saveEmployee() {
