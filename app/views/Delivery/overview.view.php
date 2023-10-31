@@ -5,6 +5,7 @@
     <title>Sidebar</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?=ROOT ?>/assets/css/style-bar.css">
+    <link rel="stylesheet" href="<?=ROOT ?>/assets/css/delivery/map.css">
     <link rel="stylesheet" href="<?=ROOT ?>/assets/css/delivery/overview.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -73,7 +74,51 @@
             </div>
 
         </div>
+        <h3> Delivery locations</h3>
+        <div id="map">
+            
+    </div>
+    <script>
+        function initMap(){
+            var location={lat:7.873054,lng:80.771797}
+            var map =new google.maps.Map(document.getElementById("map"),{
+                zoom:7.7,
+                center:{lat:7.8731,lng:80.7718}
+            });
+            
+
+            /*Add marker
+            var marker = new google.map.Marker({
+                position:{lat:6.927079,lng:79.861244},
+                map:map, 
+                icon:'map-pin-icon.png'
+            });
+             /*Add marker function*/   
+
+            addMarker({lat:6.927079,lng:79.861244});
+            addMarker({lat:7.291418,lng: 80.636696});
+            addMarker({lat:5.9496 ,lng:80.5469});
+
+
+             /*Add marker function*/ 
+              
+            function addMarker(coords){
+                var marker = new google.maps.Marker({
+                position:coords,
+                map:map, 
+                icon:'map3.png'
+            });
+  
+            }
+
+           
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDRuOIwM93jm3D-_IrEKZCFShSzp-Idgwo&callback=initMap"></script>
+    
+
     </section>
+
 
     
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -116,6 +161,8 @@
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     </script>
+
+    
     <script src="<?=ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 
