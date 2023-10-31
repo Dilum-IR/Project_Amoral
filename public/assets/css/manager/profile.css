@@ -508,6 +508,7 @@ main {
 main h1 {
   color: var(--color-gray-two);
   overflow: hidden;
+  font-size: 16px;
 }
 /* 
 .main-section {

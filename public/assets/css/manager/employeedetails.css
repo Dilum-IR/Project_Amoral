@@ -39,6 +39,7 @@ body {
 
 #save-button,
 #cancel-button,
+#update-employee-button,
 #remove-cancel-button,
 #remove-employee-button {
     background-color: #0074cc;
@@ -55,6 +56,10 @@ body {
 #remove-cancel-button,
 #remove-employee-button {
     background-color: #ff3333;
+}
+
+#update-employee-button{
+    background-color: #81D43A;
 }
 
 .empDetails{
@@ -151,7 +156,7 @@ body {
 thead {
     border-color: #ccc;
     z-index: 0;
-    top: 71px;
+    top: 64px;
     left: 0;
     position: sticky;
     width: 100%;

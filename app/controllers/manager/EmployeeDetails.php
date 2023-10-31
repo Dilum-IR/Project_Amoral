@@ -1,10 +1,20 @@
 <?php
 
-class Overview extends Controller
+class EmployeeDetails extends Controller
 {
-    public function index($a = '', $b = '', $c = '')
+    public function index()
     {
-        // echo "this is a about controller";
-        $this->view('manager/employeedetails');
+
+        // show($_POST);
+
+        $employee = new Employee;
+
+        
+        $result=$employee->findAll('emp_id');
+
+        $data=['data'=> $result];  
+        // show($result);
+
+        $this->view('manager/employeedetails',$data);
     }
 }

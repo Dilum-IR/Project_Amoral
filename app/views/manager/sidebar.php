@@ -34,6 +34,13 @@
             </li>
             <li>
                 <a href="#">
+                    <i class="bx bxs-spreadsheet"></i>
+                    <span class="link_name">Quatations</span>
+                </a>
+                <span class="tooltip">Quatations</span>
+            </li>
+            <li>
+                <a href="#">
                     <i class="bx bxs-user-detail"></i>
                     <span class="link_name">Employee Details</span>
                 </a>
