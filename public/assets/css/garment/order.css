@@ -1,0 +1,19 @@
+.item {
+  /* color: blue; */
+  background-color: rgb(102, 104, 104);
+}
+.popup-view {
+  margin-top: 2%;
+}
+.popup-view .pb {
+  left: 59%;
+}
+.popup-view .cancel-btn {
+  left: 59%;
+}
+.ok-btn {
+  top: 86%;
+}
+.popup-report input, textarea{
+    
+}

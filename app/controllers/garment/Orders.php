@@ -18,8 +18,9 @@ class Orders extends Controller
         // show($result2);
         // $orderDetails = $order->first($result);
 
-        $data = ["data" => $result];
-
+        if ($result) {
+            $data = ["data" => $result];
+        }
 
         // update the order status  
         if (isset($_POST['updateGorder'])) {
@@ -74,6 +75,6 @@ class Orders extends Controller
             }
         }
 
-        $this->view('garment/orders', $data);
+        $this->view('garment/orders',$data);
     }
 }

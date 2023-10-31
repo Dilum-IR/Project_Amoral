@@ -5,16 +5,19 @@ class SignIn extends Controller
 
     public function index()
     {
-        $user = new User;
         // show($_POST);
-
+        $user = new User;
+        // $employee = new Employee
+        
         if (isset($_POST['signIn'])) {
-
+            
+            // show($_POST);
             if ($this->formData($_POST)) {
 
                 $arr['email'] = $_POST['email'];
                 $row = $user->first($arr);
 
+                $row = $user->first($arr);
                 // show($row);
                 
                 if ($row) {
@@ -31,17 +34,23 @@ class SignIn extends Controller
                         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
                         show($username);
 
+                        if ($row->user_status=='customer') {
+                            redirect('customer/overview');
+                            
+                        }
+
                         
-                        redirect('customer/overview');
-                        echo "Valid password";
+                        // echo "Valid password";
                     } else {
                         $data['errors'] = "";
                         $user->errors = "Worng Email or Password";
                         $data['errors'] = $user->errors;
 
-                        echo "Invalid Sign-In";
+                        // echo "Invalid Sign-In";
                     }
-                } else {
+                }
+               
+                else {
                     $data['errors'] = "";
                     $user->errors = "Worng Email or Password";
                     $data['errors'] = $user->errors;
@@ -56,10 +65,12 @@ class SignIn extends Controller
                 
                 unset($_POST['signUp']);
                 unset($_POST['re-password']);
-                show($_POST);
-
+                
                 //check the email used or not
                 if (!$user->findUser($_POST)) {
+                    $_POST['user_status'] = "customer";
+                    show($_POST);
+
                     // echo "email is already in use";
                     $user->insert($_POST);
                     header("Location: " . ROOT . '/home');
