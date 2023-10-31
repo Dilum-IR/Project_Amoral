@@ -50,6 +50,25 @@ class EmployeeDetails extends Controller
         } else {
             redirect('home');
         }
+
+        // show($_POST);
+        if(isset($_POST["newEmployee"])){
+            unset($_POST["newEmployee"]);
+            $employee->insert($_POST);
+            redirect("manager/employeedetails");
+        }
+
+        if(isset($_POST["remove_emp"])){
+
+            $id = $_POST["emp_id"];
+
+            $employee->delete($id,'emp_id');
+            // show($_POST);
+            redirect('manager/employeedetails');
+        }
+
+        $result=$employee->findAll('emp_id');
+
         
         
     }
