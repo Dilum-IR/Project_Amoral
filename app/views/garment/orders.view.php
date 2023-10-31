@@ -210,6 +210,8 @@
         <button type="button" class="ok-btn" onclick="closeView()">OK</button>
     </div>
 
+    <div id="overlay" class="overlay"></div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

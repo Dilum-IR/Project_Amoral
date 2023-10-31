@@ -25,6 +25,7 @@ class Order
         'small',
         'medium',
         'large',
+        'address'
     ];
 
 }
