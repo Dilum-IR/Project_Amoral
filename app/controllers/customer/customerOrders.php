@@ -10,6 +10,7 @@ class CustomerOrders extends Controller
         $order = new Order;
         
         if ($username != 'User') {
+            
             $id = ['user_id' => $_SESSION['USER']->id];
             $data = $order->where($id);
 
