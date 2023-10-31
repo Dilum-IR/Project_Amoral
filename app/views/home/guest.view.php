@@ -16,7 +16,7 @@
       <div class="title">
         Guest Garment Registration
       </div>
-      
+
       <span>
         <a href="<?= ROOT ?>/home">
           <ion-icon name="chevron-back-outline"></ion-icon>
@@ -28,34 +28,34 @@
     </div>
 
     <!-- <span class="title">Student & Parent Registration</span> -->
-    <form>
+    <form method="POST">
 
       <div class="user-details">
         <div class="input-box">
-          <span class="details">Student full name</span>
-          <input type="text" placeholder="Enter your name" required />
+          <span class="details">Garment Name</span>
+          <input name="name" type="text" placeholder="Garment name" required />
         </div>
 
         <div class="input-box">
           <span class="details">Email</span>
-          <input type="text" placeholder="Enter your Email" required />
+          <input name="email" type="text" placeholder="Garment email" required />
         </div>
-        <div class="input-box">
+        <!-- <div class="input-box">
           <span class="details">Date of Birth</span>
           <input type="date" placeholder="Enter your Birthday" required />
-        </div>
+        </div> -->
 
         <div class="input-box">
           <span class="details">Address</span>
-          <input type="text" placeholder="Enter your Address" required />
+          <input name="address" type="text" placeholder="Garment Address" required />
         </div>
 
         <div class="input-box">
           <span class="details">City</span>
-          <input type="text" placeholder="Enter your City" required />
+          <input name="city" type="text" placeholder="City" required />
         </div>
 
-        <div class="input-box">
+        <!-- <div class="input-box">
           <span class="details">Select Department</span>
           <select name="department" id="department" required>
             <option value="Computer Science">
@@ -65,10 +65,10 @@
             <option value="Technology">Technology</option>
             <option value="Science">Science</option>
           </select>
-        </div>
+        </div> -->
       </div>
 
-      <div class="stugender-details">
+      <!-- <div class="stugender-details">
         <input type="radio" name="gender" id="dot-1" checked="male" />
         <input type="radio" name="gender" id="dot-2" checked="female" />
         <span class="gender-title">Gender</span>
@@ -83,14 +83,14 @@
             <span class="gender">Female</span>
           </label>
         </div>
-      </div>
+      </div> -->
       <div class="parent-details">
         <div class="input-box">
-          <span class="details">Your Parent name</span>
-          <input type="text" placeholder="Enter your Parent name" required />
+          <span class="details">Garment manager name</span>
+          <input name="manager_name" type="text" placeholder="Manager Name" required />
         </div>
 
-        <div class="input-box">
+        <!-- <div class="input-box">
           <span class="details">Parent with relationship</span>
           <select name="department" id="department" required>
             <option value="Mother">
@@ -99,21 +99,22 @@
             <option value="Father">Father</option>
             <option value="Other">Other</option>
           </select>
+        </div> -->
+
+        <div class="input-box">
+          <span class="details">Manager's E-mail Adddress</span>
+          <input name="manager_email" type="email" placeholder="Manager Enter email" required />
         </div>
 
         <div class="input-box">
-          <span class="details">NIC number</span>
-          <input type="text" placeholder="Enter NIC number" required />
-        </div>
-
-        <div class="input-box">
-          <span class="details">Phone number</span>
-          <input type="text" placeholder="Enter Phone number" required />
+          <span class="details">Manager's Contact number</span>
+          <input name="manager_contact" type="text" placeholder="Manager Contact number" required />
         </div>
       </div>
 
+
       <div class="button">
-        <input type="submit" value="Register" />
+        <input type="submit" value="Register" name="guest_register" />
       </div>
     </form>
   </div>
