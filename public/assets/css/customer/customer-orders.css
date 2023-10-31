@@ -86,10 +86,10 @@
 }
 
 .pay-btn{
-  position: absolute;
-  background: var(--blue);
+
+  background: var(--red);
   left: 74%;
-  top: 93%;
+  
   padding: 10px 30px;
 }
 
@@ -312,6 +312,21 @@ textarea {
   text-align: center;
   padding-top: 4%;
   /* margin: 20px; */
+}
+
+.popup-view .sizeChart{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  left: 0;
+}
+
+.popup-view .sizeChart span{
+  margin-left: 0;
+}
+
+.popup-view .size{
+  margin-left: 20%;
 }
 
 .status {

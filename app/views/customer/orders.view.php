@@ -55,7 +55,7 @@
                             <div class="text-status"><?php echo $order->order_status ?></div>
                         </td>
                         <td class="cost"><?php echo $order->total_price ?></td>
-                        <td><button type="submit" class="view-order-btn" data-id="<?php echo $order->id; ?>" onclick="openView()">View Order</button></td>
+                        <td><button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($order); ?>' onclick="openView(this)">View Order</button></td>
                         <td><button type="button" class="pay-btn" onclick="">Pay</button></td>
                     </tr>
                 <?php endforeach; ?>
@@ -83,22 +83,26 @@
 
     <div class="popup-report">
         <h2>Report Your Problem</h2>
-        <h4>Your name : </h4>
-        <input type="text" placeholder="Enter your name">
-        <h4>Your email : </h4>
-        <input type="text" placeholder="Enter your email">
-        <h4>Problem : </h4>
-        <textarea name="problem" id="problem" cols="30" rows="10" placeholder="Enter your problem"></textarea>
-		<div class="btns">
-			<button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
-			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
-		</div>
+        <form method="POST">
+
+            <h4>Title : </h4>
+            <input name="title" type="text" placeholder="Enter your title">
+            <h4>Your email : </h4>
+            <input name="email" type="text" placeholder="Enter your email">
+            <h4>Problem : </h4>
+            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+            <div class="btns">
+                <button type="button" class="cancelR-btn" onclick="closeReport()" Style="color: white">Cancel</button>
+                <button type="submit" class="close-btn" name="report" value="Submit" Style="color: white">Submit</button>
+            </div>
+
+        </form>
     </div>
     
 
     <div class="popup-view" id="popup-view">
-        <button type="button" class="update-btn pb">Update Order</button>
-        <button type="button" class="cancel-btn pb">Cancel Order</button>
+        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
+        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
         <h2>Order Details</h2>
         <div class="status">
 
@@ -142,54 +146,70 @@
         </div>
 
         <div class="container1">
-            <form>
+            <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input type="text" id=""  />
+                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <input type="text" required onChange="" readonly value="Wetlook" />
+                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
+                        
                     </div>
 
                     <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span>
-                        <input class="size" type="text" required onChange="" readonly value="S" />
-                        <p>_</p>
-                        <input class="size" type="text" required onChange="" readonly value="2" />
+                    <span class="details">Sizes & Quantity</span><br>
+                    <div class="sizeChart">
+                        <span class="size">S</span>
+                    
+                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
+                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                    <br>
+                    <span class="size">M</span>
+                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                    <br>
+                    <span class="size">L</span>
+                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                        <br>
+                </div>
                     </div>
-
                     <div class="input-box">
-                        <span class="details">Cost Per Product</span>
-                        <input type="text" required onChange="" readonly value="Rs. 1200" />
+                        <span class="details">Total Price</span>
+                        <input name="total_price" type="text" required onChange="" readonly value="2023/10/01" />
                     </div>
-
-                    <div class="input-box">
-                        <span class="details">Total Cost</span>
-                        <input type="text" required onChange="" readonly value="Rs. 2400" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Delivery Address</span>
-                        <input type="text" required onChange="" readonly value="Colombo" />
-                    </div>
-
                     <div class="input-box">
                         <span class="details">Order Placed On</span>
-                        <input type="text" required onChange="" readonly value="2023/10/19" />
+                        <input name="dispatch_date" type="text" required onChange="" readonly value="2023/10/02" />
                     </div>
-
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
-                        <input type="text" required onChange="" readonly value="2023/10/29" />
+                    
+                        <input type="date" name="delivery_expected_on">
                     </div>
                 </div>
+                <!-- hidden element -->
+                <div class="input-box">
+                    <!-- <span class="details">Order Id </span> -->
+                    <input name="order_status" type="hidden" required onChange="" readonly value="cutting" />
+                    <input name="user_id" type="hidden" required onChange="" readonly value="0023456" />
+                </div>
+
+
+                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                <input type="submit" class="update-btn pb" name="updateGorder" value="Update Order" />
+                <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
+                <!-- </form> -->
+
+
             </form>
         </div>
-        
-        <button type="button" class="ok-btn" onclick="closeView()">OK</button>
     </div>
     <div id="overlay" class="overlay"></div>
 
