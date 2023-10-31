@@ -149,9 +149,11 @@
                         <input type="text" required onChange="" readonly value="2023/10/29" />
                     </div>
                 </div>
+                <button type="submit" class="update-btn">Update Order</button>
             </form>
         </div>
         <div class="btn-ok">
+                
                <button type="button" class="ok-btn" onclick="closeView()">OK</button>
         </div>
         

@@ -89,17 +89,24 @@ section#main {
   left: 30%;
 }
 
+
 .ok-btn{
   position: absolute;
   background: var(--blue);
   left: 85%;
-  top: 90%;
+  top: 86%;
   border-radius: 10px;
   border-color: white;
   padding: 10px 30px;
   
 
 }
+.update-btn{
+  position: relative;
+  left:78% ;
+  top: 70%;
+}
+
 
 .new-btn{
   position: absolute;
@@ -111,7 +118,7 @@ section#main {
 
 .btn,
 .view-order-btn,
-.new-btn,.ok-btn {
+.new-btn,.ok-btn,.update-btn {
 
   font-size: 14px;
   display: flex;
@@ -134,7 +141,7 @@ section#main {
 }
 
 .view-order-btn:hover,
-.new-btn:hover,.ok-btn:hover {
+.new-btn:hover,.ok-btn:hover,.update-btn {
   background: darkblue;
 }
 
