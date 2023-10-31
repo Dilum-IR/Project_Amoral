@@ -20,9 +20,6 @@ trait Database
         $con = $this->connect();
         $stm = $con->prepare($quary); 
 
-        // show($data);
-        // show($quary);
-
         $check = $stm->execute($data);
 
         if ($check) {

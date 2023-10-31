@@ -4,76 +4,116 @@ class Orders extends Controller
 {
     public function index()
     {
-        $dumy = ["garment_id" => 1];
-        $id = 1;
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
+        if ($username != 'User') {
 
-        // view the garment order details
-        $garment_order = new GarmentOrder;
-        $order = new Order;
+            $dumy = ["garment_id" => $_SESSION['USER']->emp_id ?? 1];
 
-        $result = $garment_order->where($dumy);
+            $id = $_SESSION['USER']->emp_id ?? 1;
 
-        // $result2 = $garment_order->getOrdersDetails($dumy);
-        // show($result2);
-        // $orderDetails = $order->first($result);
+            // echo $_SESSION['USER']->email;
+            // view the garment order details
+            $garment_order = new GarmentOrder;
+            $order = new Order;
 
-        $data = ["data" => $result];
+            $result = $garment_order->where($dumy);
 
+            // $result2 = $garment_order->getOrdersDetails($dumy);
+            // show($result2);
+            // $orderDetails = $order->first($result);
 
-        // update the order status  
-        if (isset($_POST['updateGorder'])) {
-
-            // show($_POST);
-
-            $garment_id = $_POST['garment_id'];
-
-            $switch = $_POST['status'];
-
-            switch ($switch) {
-                case 'pending':
-                    $arr['status'] = 'cutting';
-                    break;
-                case 'cutting':
-                    $arr['status'] = 'cutting done';
-                    break;
-                case 'cutting done':
-                    $arr['status'] = 'sewing';
-                    break;
-                case 'sewing':
-                    $arr['status'] = 'sewing done';
-                    break;
-                case 'sewing done':
-                    $arr['status'] = 'success';
-                    break;
-                default:
-                    break;
+            if ($result) {
+                $data = ["data" => $result];
             }
-            if (isset($arr)) {
-                $update = $garment_order->update($garment_id, $arr, 'garment_id');
+
+            // update the order status  
+            if (isset($_POST['updateGorder'])) {
+
+                // show($_POST);
+
+                $garment_id = $_POST['garment_id'];
+
+                $switch = $_POST['status'];
+
+                switch ($switch) {
+                    case 'pending':
+                        $arr['status'] = 'cutting';
+                        break;
+                    case 'cutting':
+                        $arr['status'] = 'cutting done';
+                        break;
+                    case 'cutting done':
+                        $arr['status'] = 'sewing';
+                        break;
+                    case 'sewing':
+                        $arr['status'] = 'sewing done';
+                        break;
+                    case 'sewing done':
+                        $arr['status'] = 'success';
+                        break;
+                    default:
+                        break;
+                }
+                if (isset($arr)) {
+                    $update = $garment_order->update($garment_id, $arr, 'garment_id');
+                    redirect('garment/orders');
+                }
+            }
+
+            // report problem
+            // use the how is the garment ? garment_id
+            if (isset($_POST['report'])) {
+
+                $report = new GarmentReport;
+
+                unset($_POST['report']);
+
+                $_POST['garment_id'] = $id;
+
+                if (isset($_POST['garment_id'])) {
+
+                    $report->insert($_POST);
+                    unset($_POST['garment_id']);
+                    redirect('garment/orders');
+                }
+            }
+
+            // cancel the order
+            if (isset($_POST['CancelGorder'])) {
+
+                $arr['order_id'] = $_POST['order_id'];
+                $id = $_POST['order_id'];
+
+                // $arr['garment_id'] = $_POST['garment_id'];
+                $result = $garment_order->first($arr);
+
+                $garmentstatus = $result->status;
+
+                if ($result) {
+                    // show($result['placed_date']);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $current_date = date("Y-m-d");
+
+                    $placed_date = new DateTime($result->placed_date);
+                    $fix_current_date = new DateTime($current_date);
+
+                    $interval = $placed_date->diff($fix_current_date);
+
+                    // Get the number of days
+                    $days_difference = $interval->days;
+
+                    if ($days_difference < 2 && $garmentstatus === 'pending') {
+
+                        $garment_order->delete($id, 'order_id');
+                    }
+                }
                 redirect('garment/orders');
             }
+
+            $this->view('garment/orders', $data);
+        } else {
+            redirect('home');
         }
-
-        // report problem
-        // use the how is the garment ? garment_id
-        if (isset($_POST['report'])) {
-
-            $report = new GarmentReport;
-
-            unset($_POST['report']);
-            
-            $_POST['garment_id'] = $id;
-            
-            if (isset($_POST['garment_id'])) {
-
-                $report->insert($_POST);
-                unset($_POST['garment_id']);
-                redirect('garment/orders');
-
-            }
-        }
-
-        $this->view('garment/orders', $data);
     }
 }

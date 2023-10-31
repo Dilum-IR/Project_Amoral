@@ -193,7 +193,7 @@ textarea {
   width: 10%;
 }
 
-.popup-new sizeChart{
+.popup-new .sizeChart{
   display: flex;
   justify-content: space-between;
   align-items: center;

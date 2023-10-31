@@ -6,6 +6,7 @@
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/order.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -41,23 +42,25 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="ordId">OrderId</th>
+                        <!-- <th>ID</th> -->
+                        <th class="ordId">Order Id</th>
                         <th class="desc">Description</th>
                         <th class="stth">Status</th>
-                        <th class="cost">sew_dispatch_date</th>
-                        <th class="cost">cut_dispatch_date</th>
+                        <th class="cost">sew dispatch date</th>
+                        <th class="cost">cut dispatch date</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     if (is_array($data)) {
-                        // $sn = 1;
+                        $sn = 1;
                         foreach ($data as $item) {
                             // show($item); 
 
                     ?>
-                            <tr>
+                            <tr class="item">
+                                <!-- <td class="ordId"><?php echo $sn ?? '';  ?></td> -->
                                 <td class="ordId"><?php echo $item->order_id ?? '';  ?></td>
                                 <td class="desc">Material : Wetlook <br>
                                     Sizes & Quantity : <br> S - 2 <br>
@@ -74,7 +77,7 @@
                                 </td>
                             </tr>
                     <?php
-                            // $sn++;
+                            $sn++;
                         }
                     } else {
                     } ?>
@@ -94,7 +97,7 @@
             <h4>Your email : </h4>
             <input name="email" type="text" placeholder="Enter your email">
             <h4>Problem : </h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+            <textarea name="description" id="problem" cols="30" rows="4" placeholder="Enter your problem"></textarea>
             <div class="btns">
                 <button type="button" class="cancelR-btn" onclick="closeReport()" Style="color: white">Cancel</button>
                 <button type="submit" class="close-btn" name="report" value="Submit" Style="color: white">Submit</button>
@@ -174,9 +177,14 @@
                         <span class="details">Sizes</span>
 
                         <input class="size" type="text" required onChange="" readonly value="S" />
-                        <span class="details">Quantity</span>
                         <!-- <p>_</p> -->
+                    </div>
+                    <div class="input-box sizes">
+
+
+                        <span class="details">Quantity</span>
                         <input class="size" type="text" required onChange="" readonly value="2" />
+                        <!-- <p>_</p> -->
                     </div>
                     <div class="input-box">
                         <span class="details">cut dispatch date</span>
@@ -198,17 +206,17 @@
                     <input name="garment_id" type="hidden" required onChange="" readonly value="0023456" />
                 </div>
 
-
-                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                <button type="submit" onclick="" class="cancel-btn pb" name="CancelGorder">Cancel Order</button>
                 <input type="submit" class="update-btn pb" name="updateGorder" value="Update Order" />
-                <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button> -->
-                <!-- </form> -->
+               
 
 
             </form>
         </div>
         <button type="button" class="ok-btn" onclick="closeView()">OK</button>
     </div>
+
+    <div id="overlay" class="overlay"></div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

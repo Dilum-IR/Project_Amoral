@@ -23,7 +23,6 @@ route('manager/employeedetails', 'manager/EmployeeDetails@index');
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index');
-route('garment/orders/update/?id=id', 'garment/OrdersUpdate@index');
 route('garment/profile', 'garment/Profile@index');
 
 route('delivery/orders', 'delivery/Orders@index');
@@ -40,3 +39,5 @@ route('manager/employeedetails','manager/EmployeeDetails@index');
 
 
 route('signinData', 'SignIn@formData');
+
+route('guest','guest/Guest@index');
