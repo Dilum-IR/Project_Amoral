@@ -116,6 +116,8 @@
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     </script>
+
+    
     <script src="<?=ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 
