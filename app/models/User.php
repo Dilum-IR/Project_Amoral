@@ -11,6 +11,7 @@ class User
 		'fullname',
 		'email',
 		'password',
+		'user_status'
 	];
 
 	public function validate($data)

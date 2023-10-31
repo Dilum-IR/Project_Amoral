@@ -6,6 +6,7 @@
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/order.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -57,7 +58,7 @@
                             // show($item); 
 
                     ?>
-                            <tr>
+                            <tr class="item">
                                 <td class="ordId"><?php echo $item->order_id ?? '';  ?></td>
                                 <td class="desc">Material : Wetlook <br>
                                     Sizes & Quantity : <br> S - 2 <br>
@@ -198,11 +199,9 @@
                     <input name="garment_id" type="hidden" required onChange="" readonly value="0023456" />
                 </div>
 
-
-                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                <button type="submit" onclick="" class="cancel-btn pb">Cancel Order</button>
                 <input type="submit" class="update-btn pb" name="updateGorder" value="Update Order" />
-                <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button> -->
-                <!-- </form> -->
+               
 
 
             </form>
