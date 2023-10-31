@@ -4,9 +4,14 @@ class Orders extends Controller
 {
     public function index()
     {
+        $order = new Order;
 
-        
-        $this->view('delivery/orders');
+        $result = $order->findAll('order_id');
+        show($result);
+        $data = ['data' => $result];
+
+
+        $this->view('delivery/orders', $data);
     }
 
 }
