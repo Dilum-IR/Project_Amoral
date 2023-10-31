@@ -5,6 +5,7 @@ class Profile extends Controller
     public function index()
     {
 
+
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         if ($username != 'User') {
@@ -14,5 +15,6 @@ class Profile extends Controller
         } else {
             redirect('home');
         }
+
     }
 }

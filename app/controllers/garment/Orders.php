@@ -4,7 +4,6 @@ class Orders extends Controller
 {
     public function index()
     {
-        
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         if ($username != 'User') {
@@ -78,6 +77,38 @@ class Orders extends Controller
                     unset($_POST['garment_id']);
                     redirect('garment/orders');
                 }
+            }
+
+            // cancel the order
+            if (isset($_POST['CancelGorder'])) {
+
+                $arr['order_id'] = $_POST['order_id'];
+                $id = $_POST['order_id'];
+
+                // $arr['garment_id'] = $_POST['garment_id'];
+                $result = $garment_order->first($arr);
+
+                $garmentstatus = $result->status;
+
+                if ($result) {
+                    // show($result['placed_date']);
+                    date_default_timezone_set('Asia/Kolkata');
+                    $current_date = date("Y-m-d");
+
+                    $placed_date = new DateTime($result->placed_date);
+                    $fix_current_date = new DateTime($current_date);
+
+                    $interval = $placed_date->diff($fix_current_date);
+
+                    // Get the number of days
+                    $days_difference = $interval->days;
+
+                    if ($days_difference < 2 && $garmentstatus === 'pending') {
+
+                        $garment_order->delete($id, 'order_id');
+                    }
+                }
+                redirect('garment/orders');
             }
 
             $this->view('garment/orders', $data);

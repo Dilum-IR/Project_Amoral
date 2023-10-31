@@ -3,6 +3,7 @@
   background-color: rgb(102, 104, 104);
 }
 .popup-view {
+  left: 50%;
   margin-top: 2%;
 }
 .popup-view .pb {
@@ -12,8 +13,15 @@
   left: 59%;
 }
 .ok-btn {
-  top: 86%;
+  top: 86.5%;
 }
-.popup-report input, textarea{
-    
+
+.popup-view h2 {
+  text-align: center;
+  padding-top: 1%;
+  /* margin: 20px; */
+}
+
+.popup-view .size {
+  margin-left: 0%;
 }

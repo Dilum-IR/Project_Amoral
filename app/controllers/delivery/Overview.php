@@ -4,6 +4,7 @@ class Overview extends Controller
 {
     public function index()
     {
+
         
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
@@ -14,5 +15,6 @@ class Overview extends Controller
         }else{
             redirect('home');
         }
+
     }
 }

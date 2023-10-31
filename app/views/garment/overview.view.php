@@ -23,13 +23,8 @@
     <section id="main" class="main">
 
         <div class="main-class">
-            <h1>Dashboard</h1>
+            <!-- <h1>Dashboard</h1> -->
         </div>
-
-        <div>
-            
-        </div>
-
     </section>
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
