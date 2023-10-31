@@ -2,11 +2,12 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar</title>
+    <title>Amoral</title>
     <!-- Link Styles -->
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/employeedetails.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/managersidenav.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/boxicons.min.css">
+    <!-- <link rel="stylesheet" href="<?=ROOT ?>/assets/css/customer/quotation.css"> -->
+    <!-- <link rel="stylesheet" href="<?=ROOT?>/assets/css/manager/profile.css"> -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -20,158 +21,170 @@
     <?php include 'navigationbar.php'?>
     <!-- Navigation Bar -->
 
-    <section class="main-section" id="main-section">
-        <main id="middle">
-            <div class="empTable">
-                <div class="empDetails">
-                    <div class="emp-top">
-                        <div class="search-emp">
-                            <input type="text" id="search-bar" placeholder="Search...">
-                            <div class="search-btn-icon">
-                                <a href="#">
-                                    <i class="bx bx-search" id="search-btn"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="empButtons">
-                            <div class="add-save-cancel">
+        <!-- content  -->
+        <section id="main" class="main">
 
-                                <button id="add-employee-button" onclick="addEmployee()">Add Employee</button>
-                                <form method="POST">
-                                    <input type="hidden" name="emp_name" readonly value="Thiran">
-                                    <input type="hidden" name="emp_status" readonly value="customer">
-                                    <input type="hidden" name="email" readonly value="abc@gmail.com">
-                                    <input type="hidden" name="address" readonly value="kaluthara">
-                                    <input type="hidden" name="contact_number" readonly value="0087623456">
-                                    <button type="submit" id="save-button" onclick="saveEmployee()">Save</button>
+<h2>Employee Details</h2>
 
-                                </form>
-                                <button id="cancel-button" onclick="cancelAdd()">Cancel</button>
-                            </div>
-                            <div class="remove-cancel">
-                                <button id="update-employee-button" onclick="updateEmployee()">Update Employee</button>
-                                <button id="remove-employee-button" onclick="removeEmployee()">Remove Employee</button>
-                                <button id="remove-cancel-button" onclick="removeCancel()">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="details-row">
-                        <table id="employee-table" class="employee-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>E-mail</th>
-                                    <th>Address</th>
-                                    <th>Contact No</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
+<form>
+    <div class="form">
+        <input class="form-group" type="text" placeholder="Search...">
+        <i class='bx bx-search icon'></i>
+        <input class="new-btn" type="button" onclick="openNew()" value="+ New Employee">
+       
+    </div>
 
-                                // show($data);
-                                if (is_array($data)) {
-                                    foreach ($data as $item) {
-                                ?>
-                                        <tr onclick="toggleRemoveButton(<?= json_encode($item); ?>)">
-                                            <td><?php echo $item->emp_id ?></td>
-                                            <td><?php echo $item->emp_name ?></td>
-                                            <td><?php echo $item->emp_status ?></td>
-                                            <td><?php echo $item->email ?></td>
-                                            <td><?php echo $item->address ?></td>
-                                            <td><?php echo $item->contact_number ?></td>
-                                        </tr>
-                                <?php
-                                    }
-                                } else {
-                                }
-                                ?>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>2</td>
-                                    <td>Jane Smith</td>
-                                    <td>Developer</td>
-                                    <td>hello@world.com</td>
-                                    <td>456 Elm St</td>
-                                    <td>555-987-6543</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>
-                                <tr onclick="toggleRemoveButton()">
-                                    <td>3</td>
-                                    <td>Mary Johnson</td>
-                                    <td>Designer</td>
-                                    <td>hello@world.com</td>
-                                    <td>789 Oak St</td>
-                                    <td>555-789-1234</td>
-                                </tr>    
-                            </tbody>
-                        </table>
-                    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th class="ordId">ID</th>
+            <th class="desc">Name</th>
+            <th class="stth">Profession</th>
+            <th class="cost">Email</th>
+            <th class="cost">Address</th>
+            <th class="cost">Contact No.</th>
+            <th></th>
+        </tr>
+    </thead>
+        <?php $count = 1; foreach($data as $emp): ?>
+            <tr>
+                <td><?php echo $count; $count++; ?></td>
+                <td class="ordId"><?php echo $emp->emp_id ?></td>
+                <td class="desc"><?php echo $emp->emp_name ?></td>
+                <td class="prof"><?php echo $emp->emp_status ?>
+                </td>
+                <td class="cost"><?php echo $emp->email ?></td>
+                <td class="add"><?php echo $emp->address ?></td>
+                <td class="cont"><?php echo $emp->contact_number ?></td>
+                <td><button type="submit" class="view-order-btn" data-order='<?= json_encode($emp); ?>' onclick="openView(this)">Update</button></td>
+                <td><button type="submit" class="view-order-btn-remove" data-id="<?php echo $emp->emp_id; ?>" onclick="">Remove</button></td>
+            </tr>
+        <?php endforeach; ?>
+
+
+    <!-- <tr>
+        <td>1</td>
+        <td class="ordId">002345</td>
+        <td class="desc">Material : Wetlook <br>
+            Sizes & Quantity : S - 2
+        </td>
+        <td class="st">
+            <div class="text-status">Processing</div>
+        </td>
+        <td class="cost">Rs. 2400</td>
+        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+    </tr> -->
+</table>
+
+</section>
+
+
+<!-- POPUP -->
+       
+
+
+<div class="popup-view" id="popup-view">
+    <h2>Employee Details</h2>
+    
+    
+    <div class="container1">
+        <form class="update-form" method="POST">
+        <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
+        <button type="button" class="cancel-btn pb">Cancel</button>
+        <div class="user-details">
+            <div class="input-box">
+                <span class="details">Employee Id </span>
+                <input type="text" id="" readonly  name="emp_id" />
+            </div>
+
+            <div class="input-box">
+                <span class="details">Employee Name </span>
+              
+                <input type="text" required onChange=""  value="Steve Jobs" name="emp_name" />
+            </div>
+
+            <div class="input-box">
+                <span class="details">Profession</span>
+                <!-- <select name="emp_status">
+                        <option name="employee1" value="Manager"></option>
+                        <option name="employee2" value="Merchandiser"></option>
+                        <option name="employee3" value="Deliveryman"></option>
+                </select> -->
+            </div>
+
+            <div class="input-box">
+                <span class="details">E-mail</span>
+                <input type="email" required onChange=""  value="steve@jobs.apple" name="email" />
+            </div>
+
+            <div class="input-box">
+                <span class="details">Address</span>
+                <input type="text" required onChange=""  value="Padukka" name="address"/>
+            </div>
+
+            <div class="input-box">
+                <span class="details">Contact Number</span>
+                <input type="text" required onChange=""  value="0766464639" name="contact_number"/>
+            </div>
+        </div>
+    </form>
+</div>
+<button type="button" class="ok-btn" onclick="closeView()">OK</button>
+</div>
+<div id="overlay" class="overlay"></div>
+
+<div class="popup-new">
+        <h2>Add new Employee</h2>
+        <form method="POST">
+            <div class="form">
+            <div class="input-box">
+                    <span class="details">Employee Name</span>
+                    <input type="text" name="emp_name" placeholder="Enter name" required>
+                </div>
+                
+                <div class="input-box">
+                    <span class="details">Profession</span><br>
+                    <select name="emp_status">
+                        <option value="Manager">Manager</option>
+                        <option value="Merchandise">Merchandiser</option>
+                        <option value="Customer">Customer</option>
+                    </select>
+                </div>
+        
+                <div class="input-box">
+                    <span class="details">E-mail</span><br>
+                    <input type="email" name="email" placeholder="Enter e-mail" required>
                 </div>
 
+                <div class="input-box">
+                    <span class="details">Address</span><br>
+                    <input type="text" name="address" placeholder="Enter Address" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Contact Number</span>
+                    <input type="text" name="contact_number" placeholder="Enter contact number" required>
+                </div>
+                <!-- <div class="input-box">
+                    <span class="details">Date of Birth</span>
+                    <input type="date" name="birthday">
+                </div> -->
             </div>
-        </main>
-    </section>
+            <div class="btns">
+                <button type="submit" class="cancel-btn" value="newEmployee" name="newEmployee">Submit</button>
+                <button type="button" class="close-btn"   onclick="closeNew()">Cancel</button>
+            </div>
+        </form>
+    </div>
 
-    <!-- Scripts -->
 
-    <script src="<?= ROOT ?>/assets/js/manager/employeedetails.js"></script>
-    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="<?= ROOT ?>/assets/js/manager/employeedetails.js"></script>
+<script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 
 </html>

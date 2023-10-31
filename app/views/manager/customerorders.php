@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Customer</title>
+    <title>Customer Orders</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
