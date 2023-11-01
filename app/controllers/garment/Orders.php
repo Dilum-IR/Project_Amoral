@@ -4,7 +4,6 @@ class Orders extends Controller
 {
     public function index()
     {
-  
         $dumy = ["garment_id" => 1];
         $id = 1;
 
