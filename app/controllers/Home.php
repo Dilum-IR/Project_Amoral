@@ -4,9 +4,7 @@ class Home extends Controller
 {
     public function index()
     {
-        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-        
+   
         // require_once 'Model.php';
         // echo "this is a home controller";
 

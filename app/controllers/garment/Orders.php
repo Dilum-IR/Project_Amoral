@@ -4,9 +4,7 @@ class Orders extends Controller
 {
     public function index()
     {
-        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-        
+  
         $dumy = ["garment_id" => 1];
         $id = 1;
 

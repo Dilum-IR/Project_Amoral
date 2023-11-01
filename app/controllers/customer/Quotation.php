@@ -3,8 +3,7 @@
 class Quotation extends Controller{
     public function index()
     {
-        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
+  
         $order = new Order;
 
         // show($_POST);
