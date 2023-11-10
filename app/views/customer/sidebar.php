@@ -11,7 +11,7 @@
         <ul class="nav-list">
             <li>
 
-                <a href="<?=ROOT?>/customer/overview">
+                <a href="<?=ROOT?>/customer/overview" class="active">
 
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>

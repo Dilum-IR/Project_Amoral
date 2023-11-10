@@ -220,6 +220,12 @@ body{
 .sidebar li a.active{
   background-color: var(--color-white);
   color: var(--color-default);
+  border-radius: 5px;
+}
+
+.sidebar li a.active .link_name{
+  color: var(--color-default);
+  font-weight: bolder;
 }
 
 .sidebar.open li a .link_name{
