@@ -296,9 +296,9 @@ body{
 }
 
 .home-section{
-  position: relative;
+  position: sticky;
   background-color: var(--color-white);
-  min-height: 100vh;
+  /* min-height: 100vh; */
   top:0;
   left:78px;
   width: calc(100% - 78px);

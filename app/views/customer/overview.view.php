@@ -18,45 +18,123 @@
     <?php include 'navigationbar.php'?>
 
     <section class="main">
-        <!-- <button class="quotation" onclick="">Request Quotation</button> -->
-        <h1 class="title">Welcome!</h1>
-        <hr>
-        
-        <div class="info-data">
-            <div class="card">
-                <div class="head">
-                    <div>
-                        <h2>2</h2>
-                        <p>Completed Orders</p>
+        <div class="main-container">
+            <div class="info-data">
+                <div class="card">
+                    <div class="head">
+                        <div>
+                            <h2>Welcome, Elon!</h2>
+                            <p>Start designing your t-shirt</p>
+                        </div>
+                        <input type="button" value="Design"
+                            style="position:absolute; padding: 2px 10px; background-color: black; color: white; border-radius: 5px; margin-top: 82px; left: 38px; cursor: pointer;">
                     </div>
-          
-                </div>
-                <span class="progress" data-value="50%" style="--value: 50%;"></span>
-                <span class="label">50%</span>
-            </div>
-            <div class="card">
-                <div class="head">
-                    <div>
-                        <h2>1</h2>
-                        <p>Quotation Requests</p>
-                    </div>
-              
-                </div>
-                <span class="progress" data-value="1%" style="--value: 1%;"></span>
-                <span class="label">0%</span>
-            </div>
 
+                </div>
+            </div>
+            <div class=" stats">
+                <h4>Statistics</h4>
+                <div class="card">
+                    <div class="head stat">
+                        <div class="circle">
+                            <i class="bx bx-trending-up icon"></i>
+                        </div>
+                        <div class="content">
+                            <h4>1</h4><br>
+                            <p>Current Orders</p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div class="head stat">
+                        <div class="circle">
+                            <i class="bx bx-trending-up icon"></i>
+                        </div>
+                        <div class="content">
+                            <h4>1</h4><br>
+                            <p>Quotation Requests</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <div class="head stat">
+                        <div class="circle">
+                            <i class="bx bx-trending-up icon"></i>
+                        </div>
+                        <div class="content">
+                            <h4>Rs. 2000</h4><br>
+                            <p>Total amount spent</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <div class="head stat">
+                        <div class="circle">
+                            <i class="bx bx-trending-up icon"></i>
+                        </div>
+                        <div class="content">
+                            <h4>Rs. 1200</h4><br>
+                            <p>Average order value</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-        <div class="data">
-            <div class="content-data">
-                <div class="head">
-                    <h3>Cost Report</h3>
-                </div>
-                <div class="chart">
-                    <div id="chart"></div>
+
+        <div class="recent-grid">
+            <div class="orders">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Recent Orders</h3>
+                        <button>View All <i class="fas fa-arrow-right"></i></button>
+                    </div>
+
+                    <div class="card-body">
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <td>Order ID</td>
+                                    <td>Product</td>
+                                    <td>Quantity</td>
+                                    <td>Status</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#123</td>
+                                    <td>Wetlook</td>
+                                    <td>2</td>
+                                    <td><span class="status delivered">Delivered</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
+
+            <div class="data">
+                <div class="content-data">
+                    <div class="head">
+                        <h3>Payment History</h3>
+                    </div>
+                    <div class="chart">
+                        <div id="chart"></div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -66,39 +144,32 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
     <script>
-    var options = {
-        series: [{
-            name: 'Total Cost',
-            data: [31, 31, 31, 51, 51, 51, 51],
-        }, {
-            name: 'Cost Per Product',
-            data: [31, 0, 0, 0, 20, 0, 0]
-        }],
-        chart: {
-            height: 350,
-            type: 'area'
-        },
-        dataLabels: {
-            enabled: false
-        },
-        stroke: {
-            curve: 'smooth'
-        },
-        xaxis: {
-            type: 'category',
-            categories: Array.from({ length: 30 }, (_, i) => (i + 1).toString()).map(day => {
-                let currentDate = new Date();
-                currentDate.setDate(day);
-                return currentDate.toISOString().slice(0, 10);
-            })
-        },
-        tooltip: {
-            x: {
-                format: 'dd/MM/yy HH:mm'
+   var options = {
+            series: [{
+                name: 'Payment',
+                data: [0, 20, 0, 0, 0, 0, 0, 50],
+            }],
+            chart: {
+                height: 350,
+                type: 'bar'
             },
-        },
-    };
-
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                type: 'category',
+                categories: Array.from({ length: new Date().getDate()  }, (_, i) => (i + 1).toString()).map(day => {
+                    let currentDate = new Date();
+                    currentDate.setDate(day);
+                    return currentDate.toISOString().slice(0, 10);
+                })
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+        };
 
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
