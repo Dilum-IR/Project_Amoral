@@ -88,9 +88,15 @@
   width: 80%;
 }
 .main .card .head .icon {
-	font-size: 20px;
-	color: var(--green);
+	font-size: 15px;
+	color: var(--color-gray-three);
 }
+
+.main .card .head .avg{
+	color: var(--green);
+	font-size: 20px;
+}
+
 .main .card .head .icon.down {
 	color: var(--red);
 }

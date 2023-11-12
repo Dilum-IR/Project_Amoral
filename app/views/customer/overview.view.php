@@ -37,7 +37,7 @@
                 <div class="card">
                     <div class="head stat">
                         <div class="circle">
-                            <i class="bx bx-trending-up icon"></i>
+                            <i class="fas fa-clipboard-list icon"></i>
                         </div>
                         <div class="content">
                             <h4>1</h4><br>
@@ -50,7 +50,7 @@
                 <div class="card">
                     <div class="head stat">
                         <div class="circle">
-                            <i class="bx bx-trending-up icon"></i>
+                            <i class="fas fa-exchange-alt icon"></i>
                         </div>
                         <div class="content">
                             <h4>1</h4><br>
@@ -64,7 +64,7 @@
                 <div class="card">
                     <div class="head stat">
                         <div class="circle">
-                            <i class="bx bx-trending-up icon"></i>
+                            <i class="fas fa-money-bill-wave icon"></i>
                         </div>
                         <div class="content">
                             <h4>Rs. 2000</h4><br>
@@ -78,7 +78,7 @@
                 <div class="card">
                     <div class="head stat">
                         <div class="circle">
-                            <i class="bx bx-trending-up icon"></i>
+                            <i class="bx bx-trending-up avg"></i>
                         </div>
                         <div class="content">
                             <h4>Rs. 1200</h4><br>
