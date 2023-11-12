@@ -20,14 +20,14 @@
             </li>
             <li>
                 <a href="<?= ROOT ?>/customer/orders">
-                    <i class="bx bxs-cart-alt"></i>
+                    <i class="fas fa-clipboard-list"></i>
                     <span class="link_name">Orders</span>
                 </a>
                 <span class="tooltip">Orders</span>
             </li>
             <li>
                 <a href="<?=ROOT ?>/customer/quotation">
-                    <i class="bx bxs-cart-alt"></i>
+                    <i class="fas fa-exchange-alt"></i>
                     <span class="link_name">Quotation Requests</span>
                 </a>
                 <span class="tooltip">Quotation Requests</span>
@@ -61,3 +61,5 @@
             </li>
         </ul>
     </div>
+
+    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>

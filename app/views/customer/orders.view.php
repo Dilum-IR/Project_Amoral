@@ -28,52 +28,52 @@
         <form>
             <div class="form">
 				<input class="form-group" type="text" placeholder="Search...">
-				<i class='bx bx-search icon'></i>
+                <button class="icon-button" onclick="performSearch()">
+                    <i class='bx bx-search icon'></i>
+                </button>
 				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 
         </form>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="ordId">OrderId</th>
-                    <th class="desc">Description</th>
-                    <th class="stth">Status</th>
-                    <th class="cost">Cost</th>
-                    <th></th>
-                </tr>
-            </thead>
-                <?php $count = 1; foreach($data as $order): ?>
-                    <tr>
-                        <td><?php echo $count; $count++; ?></td>
-                        <td class="ordId"><?php echo $order->order_id ?></td>
-                        <td class="desc">Material : <?php echo $order->material ?><br>Quantity : <?php echo $order->quantity ?></td>
-                        <td class="st">
-                            <div class="text-status"><?php echo $order->order_status ?></div>
-                        </td>
-                        <td class="cost"><?php echo $order->total_price ?></td>
-                        <td><button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($order); ?>' onclick="openView(this)">View Order</button></td>
-                        <td><button type="button" class="pay-btn" onclick="">Pay</button></td>
-                    </tr>
-                <?php endforeach; ?>
-    
-
-            <!-- <tr>
-                <td>1</td>
-                <td class="ordId">002345</td>
-                <td class="desc">Material : Wetlook <br>
-                    Sizes & Quantity : S - 2
-                </td>
-                <td class="st">
-                    <div class="text-status">Processing</div>
-                </td>
-                <td class="cost">Rs. 2400</td>
-                <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-            </tr> -->
-        </table>
+        <div class="table">
+            <!-- <div class="table-header">
+                <p>Order Details</p>
+                <div>
+                    <input placeholder="order"/>
+                    <button class="add_new">+ Add New</button>
+                </div>
+            </div> -->
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Design</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($data as $order): ?>
+                        <tr>
+                            <td class="ordId"><?php echo $order->order_id ?></td>
+                            <td></td>
+                            <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
+                            <td class="st">
+                                <div class="text-status"><?php echo $order->order_status ?></div>
+                            </td>
+                        
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i></button>
+                            <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </section>
 
@@ -226,7 +226,7 @@
 
 
 
-
+    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
