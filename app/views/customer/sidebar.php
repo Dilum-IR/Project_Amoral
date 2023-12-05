@@ -11,7 +11,7 @@
         <ul class="nav-list">
             <li>
 
-                <a href="<?=ROOT?>/customer/overview" class="active">
+                <a href="<?=ROOT?>/customer/overview" class="nav-link">
 
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
@@ -19,28 +19,28 @@
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-                <a href="<?= ROOT ?>/customer/orders">
+                <a href="<?= ROOT ?>/customer/orders" class="nav-link">
                     <i class="fas fa-clipboard-list"></i>
                     <span class="link_name">Orders</span>
                 </a>
                 <span class="tooltip">Orders</span>
             </li>
             <li>
-                <a href="<?=ROOT ?>/customer/quotation">
+                <a href="<?=ROOT ?>/customer/quotation" class="nav-link">
                     <i class="fas fa-exchange-alt"></i>
                     <span class="link_name">Quotation Requests</span>
                 </a>
                 <span class="tooltip">Quotation Requests</span>
             </li>
             <li>
-                <a href="#">
+                <a href="#" class="nav-link">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Design Tool</span>
                 </a>
                 <span class="tooltip">Design Tool</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/customer/profile">
+                <a href="<?=ROOT?>/customer/profile" class="nav-link">
                     <i class="bx bxs-user-circle"></i>
                     <span class="link_name">Profile</span>
                 </a>
