@@ -78,6 +78,12 @@
 	justify-content: space-between;
 	align-items: flex-start;
 }
+
+.main .stats .card:hover{
+	transform: translateY(-5px);
+	transition: all .3s ease;
+}
+
 .main .card .head h2 {
 	font-size: 24px;
 	font-weight: 600;
@@ -86,6 +92,7 @@
 	font-size: 14px;
   word-wrap: break-word;
   width: 80%;
+  font-style: center;
 }
 .main .card .head .icon {
 	font-size: 15px;
