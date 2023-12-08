@@ -242,7 +242,7 @@ body{
   border-radius: 5px;
 }
 
-.sidebar li.profile{
+.sidebar li.logout{
   position: fixed;
   height: 60px;
   width: 78px;
@@ -253,54 +253,24 @@ body{
   transition: all .5s ease;
 }
 
-.sidebar.open li.profile{
+.sidebar.open li.logout{
   width: 250px;
 }
 
-.sidebar .profile .profile_details{
-  display: flex;
-  align-items: center;
-  flex-wrap:  nowrap;
-}
 
-.sidebar li img{
-  height: 45px;
-  width: 45px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.sidebar li.profile .name,
-.sidebar li.profile .designation{
+.sidebar li.logout .link_name{
   font-size: 15px;
+  margin-left: 15px;
   font-weight: 400;
-  color:var(--color-white);
-  white-space: nowrap;
   cursor: pointer;
 }
 
-.sidebar li.profile .designation{
-  font-size: 12px;
-}
 
-.sidebar .profile #log_out{
+.sidebar  #log_out{
   position: absolute;
-  top:50%;
+  
   right: 0;
-  transform: translateY(-50%);
-  background-color: var(--color-default);
-  width: 100%;
-  height: 60px;
-  line-height: 60px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.sidebar.open .profile #log_out{
-  width: 50px;
-  background: none;
+  
 }
 
 .home-section{

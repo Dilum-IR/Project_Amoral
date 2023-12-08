@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?=ROOT ?>/assets/css/customer/overview.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
 </head>
 
 <body>
@@ -19,82 +20,17 @@
 
     <section class="main">
         <div class="main-container">
-            <div class="info-data">
-                <div class="card">
-                    <div class="head">
-                        <div>
-                            <h2>Welcome, Elon!</h2>
-                            <p>Start designing your t-shirt</p>
-                        </div>
-                        <input type="button" value="Design"
-                            style="position:absolute; padding: 2px 10px; background-color: black; color: white; border-radius: 5px; margin-top: 82px; left: 38px; cursor: pointer;">
-                    </div>
-
+            <div class="fr one">
+                <div class="title">
+                    <h2>Good Morning, Elon</h2>
+                    <p>Welcome back, nice to see you again</p>
+                    <img src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="profile image">
                 </div>
-            </div>
-            <div class=" stats">
-                <h4>Statistics</h4>
-                <div class="card">
-                    <div class="head stat">
-                        <div class="circle">
-                            <i class="fas fa-clipboard-list icon"></i>
-                        </div>
-                        <div class="content">
-                            <h4>1</h4><br>
-                            <p>Current Orders</p>
-                        </div>
-
-                    </div>
-
+                <div class="graph">
+                    <h3>Expenses Statistics</h3>
+                    <div id="graph"></div>
                 </div>
-                <div class="card">
-                    <div class="head stat">
-                        <div class="circle">
-                            <i class="fas fa-exchange-alt icon"></i>
-                        </div>
-                        <div class="content">
-                            <h4>1</h4><br>
-                            <p>Quotation Requests</p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="card">
-                    <div class="head stat">
-                        <div class="circle">
-                            <i class="fas fa-money-bill-wave icon"></i>
-                        </div>
-                        <div class="content">
-                            <h4>Rs. 2000</h4><br>
-                            <p>Total amount spent</p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="card">
-                    <div class="head stat">
-                        <div class="circle">
-                            <i class="bx bx-trending-up avg"></i>
-                        </div>
-                        <div class="content">
-                            <h4>Rs. 1200</h4><br>
-                            <p>Average order value</p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <div class="recent-grid">
-            <div class="orders">
-                <div class="card">
+                <div class="orders">
                     <div class="card-header">
                         <h3>Recent Orders</h3>
                         <button>View All <i class="fas fa-arrow-right"></i></button>
@@ -123,57 +59,109 @@
                 </div>
             </div>
 
+            <div class="fr two">
+                <div class="stats">
+                    <h4>Statistics</h4>
+                    <div class="card">
+                        <div class="head stat">
+                            <div class="circle">
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                            <div class="content">
+                                <h4>1</h4><br>
+                                <p>Current Orders</p>
+                            </div>
 
-            <div class="data">
-                <div class="content-data">
-                    <div class="head">
-                        <h3>Payment History</h3>
+                        </div>
+
                     </div>
-                    <div class="chart">
-                        <div id="chart"></div>
+                    <div class="card">
+                        <div class="head stat">
+                            <div class="circle">
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                            <div class="content">
+                                <h4>1</h4><br>
+                                <p>Quotation Requests</p>
+                            </div>
+
+                        </div>
+
                     </div>
+                    <div class="card">
+                        <div class="head stat">
+                            <div class="circle">
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                            <div class="content">
+                                <h4>Rs. 2000</h4><br>
+                                <p>Total amount spent</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+                        <div class="head stat">
+                            <div class="circle">
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                            <div class="content">
+                                <h4>Rs. 1200</h4><br>
+                                <p>Average order value</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
-
             </div>
         </div>
     </section>
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-
     <script>
-   var options = {
-            series: [{
-                name: 'Payment',
-                data: [0, 20, 0, 0, 0, 0, 0, 50],
-            }],
-            chart: {
-                height: 350,
-                type: 'bar'
+        var chartData = {
+            type: 'line',
+            series: [
+                { values: [35, 43, 70, 65] }
+            ],
+            plot: {
+                animation: {
+                    effect: 'ANIMATION_EXPAND_BOTTOM',
+                    method: 'ANIMATION_STRONG_EASE_OUT',
+                    speed: 5
+                },
+                barWidth: 16,
+                borderRadius: '5px',
+                barSpace: '0px',
+                backgroundColor: '#000',
+                borderWidth: '2px',
+                borderColor: '#fff',
+                hoverState: {
+                    // TransitionEvent: 'linear: 7',
+                    backgroundColor: '#404040',
+                }
             },
-            dataLabels: {
-                enabled: false
+            scaleX: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr']
             },
-            xaxis: {
-                type: 'category',
-                categories: Array.from({ length: new Date().getDate()  }, (_, i) => (i + 1).toString()).map(day => {
-                    let currentDate = new Date();
-                    currentDate.setDate(day);
-                    return currentDate.toISOString().slice(0, 10);
-                })
+            scaleY: {
+                label: {
+                    text: 'Expenses'
+                }
             },
             tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
-            },
+                text: '$%v'
+            }
         };
-
-
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+        zingchart.render({
+            id: 'graph',
+            data: chartData,
+            height: 400,
+            width: '100%'
+        });
     </script>
 
     <!-- Scripts -->
