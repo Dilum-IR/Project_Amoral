@@ -51,15 +51,15 @@ class User
 		}
 
 		// password validation
-		// if (!$data['password'] === $data['re-password']) {
-		// 	$this->errors['flag'] = true;
-		// 	$this->errors['password'] = "password is not same";
+		if (!$data['password'] === $data['re-password']) {
+			$this->errors['flag'] = true;
+			$this->errors['password'] = "password is not same";
 
-		// } else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
-		// 	$this->errors['flag'] = true;
-		// 	$this->errors['password'] = "password is not Valid";
-		// 	$this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#\$&*~]";
-		// }
+		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['password'] = "password is not Valid";
+			$this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#\$&*~]";
+		}
 
 		// show($this->errors);
 

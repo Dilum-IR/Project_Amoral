@@ -27,11 +27,11 @@
 
         <form>
             <div class="form">
-				<input class="form-group" type="text" placeholder="Search...">
-				<i class='bx bx-search icon'></i>
-				<input class="new-btn" type="button" onclick="openNew()" value="+ New Order">
-				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
-			</div>
+                <input class="form-group" type="text" placeholder="Search...">
+                <i class='bx bx-search icon'></i>
+                <input class="new-btn" type="button" onclick="openNew()" value="+ New Order">
+                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+            </div>
 
         </form>
 
@@ -46,9 +46,17 @@
                     <th></th>
                 </tr>
             </thead>
-                <?php $count = 1; foreach($data as $order): ?>
+
+            <?php
+            $count = 1;
+            if (is_array($data)) {
+                // show($data);
+                foreach ($data as $order) {
+
+            ?>
                     <tr>
-                        <td><?php echo $count; $count++; ?></td>
+                        <td><?php echo $count;
+                            $count++; ?></td>
                         <td class="ordId"><?php echo $order->order_id ?></td>
                         <td class="desc">Material : <?php echo $order->material ?><br>Quantity : <?php echo $order->quantity ?></td>
                         <td class="st">
@@ -58,8 +66,14 @@
                         <td><button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($order); ?>' onclick="openView(this)">View Order</button></td>
                         <td><button type="button" class="pay-btn" onclick="">Pay</button></td>
                     </tr>
-                <?php endforeach; ?>
-    
+            <?php }
+
+            }else{
+                // echo "grsb";
+            }
+            ?>
+            
+
 
             <!-- <tr>
                 <td>1</td>
@@ -79,7 +93,7 @@
 
 
     <!-- POPUP -->
-               
+
 
     <div class="popup-report">
         <h2>Report Your Problem</h2>
@@ -98,7 +112,7 @@
 
         </form>
     </div>
-    
+
 
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
@@ -108,8 +122,7 @@
 
             <ul>
                 <li>
-                    <iconify-icon
-                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
                         <i class="uil uil-check"></i>
@@ -156,29 +169,29 @@
                     <div class="input-box">
                         <span class="details">Material </span>
                         <input name="material" type="text" required onChange="" readonly value="Wetlook" />
-                        
+
                     </div>
 
                     <div class="input-box sizes">
-                    <span class="details">Sizes & Quantity</span><br>
-                    <div class="sizeChart">
-                        <span class="size">S</span>
-                    
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">M</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
-                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">L</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                        <br>
-                </div>
+                        <span class="details">Sizes & Quantity</span><br>
+                        <div class="sizeChart">
+                            <span class="size">S</span>
+
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                            <span class="size">M</span>
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                            <span class="size">L</span>
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                        </div>
                     </div>
                     <div class="input-box">
                         <span class="details">Total Price</span>
@@ -190,7 +203,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
-                    
+
                         <input type="date" name="dispatch_date">
                     </div>
                 </div>
