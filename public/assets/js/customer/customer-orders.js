@@ -3,6 +3,26 @@ let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
 const viewOrderBtns = document.querySelectorAll('.view-order-btn');
+
+const search = document.querySelector(".form input"),
+      table_rows = document.querySelectorAll("tbody tr");
+
+search.addEventListener('input', performSearch);
+
+function performSearch() {
+    table_rows.forEach((row, i) => {
+        let search_data = search.value.toLowerCase(),
+            row_text = '';
+
+        for(let j=0; j<row.children.length - 1; j++){
+            row_text += row.children[j].textContent.toLowerCase();
+            
+        }
+        console.log(row_text);
+
+        row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+    })
+}
  
 
 // viewOrderBtns.forEach(btn => {

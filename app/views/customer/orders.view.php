@@ -28,7 +28,7 @@
         <form>
             <div class="form">
 				<input class="form-group" type="text" placeholder="Search...">
-                <button class="icon-button" onclick="performSearch()">
+                <button class="icon-button" onclick="">
                     <i class='bx bx-search icon'></i>
                 </button>
 				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
@@ -51,6 +51,7 @@
                         <tr>
                             <th>Order Id</th>
                             <th>Design</th>
+                            <th>Material</th>
                             <th>Quantity</th>
                             <th>Status</th>
                             <th></th>
@@ -61,13 +62,14 @@
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
                             <td></td>
+                            <td><?php echo $order->material ?></td>
                             <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
                             <td class="st">
                                 <div class="text-status"><?php echo $order->order_status ?></div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
+                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
