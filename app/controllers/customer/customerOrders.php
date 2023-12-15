@@ -26,6 +26,26 @@ class CustomerOrders extends Controller
             }
             
             $this->view('customer/orders', $data);
+
+            if (isset($_POST['report'])) {
+                
+
+                $report = new CustomerReport;
+    
+                unset($_POST['report']);
+                
+                $_POST['user_id'] = $id['user_id'];
+
+                $_POST['report_date'] = date('Y-m-d');
+                
+                if (isset($_POST['user_id'])) {
+    
+                    $report->insert($_POST);
+                    unset($_POST['user_id']);
+                    redirect('customer/orders');
+    
+                }
+            }
         } else {
             redirect('home');
         }

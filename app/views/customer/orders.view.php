@@ -94,8 +94,8 @@
             <h4>Problem : </h4>
             <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
             <div class="btns">
-                <button type="button" class="cancelR-btn" onclick="closeReport()" Style="color: white">Cancel</button>
-                <button type="submit" class="close-btn" name="report" value="Submit" Style="color: white">Submit</button>
+                <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
+                <button type="submit" class="close-btn" name="report" value="Submit" >Submit</button>
             </div>
 
         </form>
@@ -229,6 +229,7 @@
 
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>

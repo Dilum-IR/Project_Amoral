@@ -26,5 +26,5 @@
         </nav>
     </section>
 
-    <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
+    
 
