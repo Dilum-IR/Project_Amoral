@@ -5,6 +5,8 @@ const msg = document.getElementById("error_message");
 const head = document.querySelector(".toast-head");
 
 function toastApply(type, show) {
+
+  
   let remainingDuration = 4;
   // Show the toast
   toast.classList.remove("hide");

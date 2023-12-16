@@ -14,6 +14,8 @@ class CustomerOrders extends Controller
             $id = ['user_id' => $_SESSION['USER']->id];
             $data = $order->where($id);
 
+            // show($data);
+
             if (isset($_POST['updateOrder'])){
                 $order_id = $_POST['order_id'];
                 

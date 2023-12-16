@@ -39,13 +39,14 @@ class SignIn extends Controller
                     if ($checkpassword == true) {
 
                         unset($row->password);
+                        
                         $_SESSION['USER'] = $row;
 
                         // show($row);
 
                         // check session user
-                        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-                        echo $username;
+                        $username  = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+                       // echo $username;
 
                         if ($row->user_status == 'customer') {
                             redirect('customer/overview');
@@ -65,43 +66,44 @@ class SignIn extends Controller
 
                     if ($checkpassword) {
 
-                    unset($emprow->password);
-                    $_SESSION['USER'] = $emprow;
+                        unset($emprow->password);
+                        $_SESSION['USER'] = $emprow;
 
-                    // check session user
-                    $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-                    // show($username);
+                        // check session user
+                        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+                        // show($username);
 
-                    if ($emprow->emp_status == 'manager') {
-                        // show($emprow);
-                        redirect('manager/overview');
-                    } else if ($emprow->emp_status == 'delivery') {
-                        redirect('delivery/overview');
-                    } else  if ($emprow->emp_status == 'garment') {
-                        redirect('garment/overview');
-                    }
+                        if ($emprow->emp_status == 'manager') {
+                            // show($emprow);
+                            redirect('manager/overview');
+                        } else if ($emprow->emp_status == 'delivery') {
+                            redirect('delivery/overview');
+                        } else  if ($emprow->emp_status == 'garment') {
+                            redirect('garment/overview');
+                        }
                     } else  if ($emprow->emp_status == 'merchandiser') {
                         redirect('garment/overview');
                     }
+
                     // echo "Valid password";
 
-                    }
-                    //  else {
-                    //     $data['errors'] = "";
-                    //     $user->errors = "Worng Email or Password";
-                    //     $data['errors'] = $user->errors;
-
-                    //     // echo "Invalid Sign-In";
-                    // }
-
-                } else {
-                    $data['errors'] = "";
-                    $user->errors = "Worng Email or Password";
-                    $data['errors'] = $user->errors;
-                    // echo "Invalid Sign-In";
                 }
+                //  else {
+                //     $data['errors'] = "";
+                //     $user->errors = "Worng Email or Password";
+                //     $data['errors'] = $user->errors;
+
+                //     // echo "Invalid Sign-In";
+                // }
+
+            } else {
+                $data['errors'] = "";
+                $user->errors = "Worng Email or Password";
+                $data['errors'] = $user->errors;
+                // echo "Invalid Sign-In";
             }
-    
+        }
+
         // ---------------------------- --------------------------------
         // All customers are Sign Up to the System 
         // ---------------------------- --------------------------------
@@ -116,18 +118,20 @@ class SignIn extends Controller
                 //check the email used or not
                 if (!$user->findUser($_POST)) {
                     $_POST['user_status'] = "customer";
-                    show($_POST);
+                    // show($_POST);
 
                     // echo "email is already in use";
                     $user->insert($_POST);
                     header("Location: " . ROOT . '/home');
                 }
             }
-            
-            // show($_POST);
-        }
 
+        }
+        
+        
         $data['errors'] = $user->errors;
+
+        // show($data);
 
         $this->view('signin', $data);
     }

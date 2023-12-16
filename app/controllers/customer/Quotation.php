@@ -11,11 +11,14 @@ class Quotation extends Controller
 
             $order = new Order;
 
-            // show($_POST);
             if (isset($_POST['newQuotation'])) {
                 //need to validate
                 unset($_POST['newQuotation']);
+                $_POST['user_id'] = $_SESSION['USER']->id;
+                $_POST['order_status'] = "quotation";
+                // show($_POST);
                 $order->insert($_POST);
+                redirect('customer/quotation');
             }
 
             $this->view('customer/quotation');

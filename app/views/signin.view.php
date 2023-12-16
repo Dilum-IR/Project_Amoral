@@ -155,7 +155,9 @@
                     </div>
                 </div>
             </div>
+
             <!-- <?= implode("<br>", $errors) ?>  -->
+
         </div>
     </main>
 
@@ -166,6 +168,7 @@
         let dataValidate = <?php echo json_encode($errors); ?>
         // console.log(dataValidate)
     </script>
+
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
 
     <!-- <script>
