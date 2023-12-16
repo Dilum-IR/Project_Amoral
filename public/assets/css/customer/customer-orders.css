@@ -277,7 +277,7 @@ tr:hover{
   background: #ffffff;
   /* margin-top: 3%; */
   /* margin-bottom: 3%; */
-  top: 50%;
+  top: 58%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   border-radius: 12px;
@@ -286,6 +286,11 @@ tr:hover{
   visibility: hidden;
   transition: transform 0.5s, top 0.5s;
   justify-content: center;
+}
+
+.popup-view{
+  width: 55%;
+  top: 55%;
 }
 
 .open-popup-view,
@@ -400,7 +405,7 @@ textarea {
 
 .popup-view h2{
   text-align: center;
-  padding-top: 4%;
+  padding-top: 1%;
   /* margin: 20px; */
 }
 
@@ -419,6 +424,20 @@ textarea {
   margin-left: 20%;
 }
 
+.close-icon a {
+  padding-top: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 0%;
+  position: absolute;
+  left: 96%;
+  cursor: pointer;
+  color: #ff000092;
+  font-size: 26px;
+  text-decoration: none;
+}
+
 .status {
   width: 100%;
   display: flex;
@@ -427,6 +446,7 @@ textarea {
   font-family: pop;
   flex-direction: column;
   margin-top: 3%;
+  margin-bottom: 5%;
 }
 
 .status ul {
@@ -558,15 +578,14 @@ ul li .active .uil{
   }
 }
 
-.container1 {
-  max-width: 700px;
+/* .container1 {
   width: 100%;
   background: #ffffff;
-  padding: 25px 30px;
+  padding: 32px 13px;
   border-radius: 15px;
-  margin-left: 8%;
+  margin-left: 1%;
   overflow: hidden;
-}
+} */
 
 .container1 .emptitle {
   font-size: 25px;
@@ -587,11 +606,11 @@ ul li .active .uil{
 
 /* student form details  */
 
-.container1 form .user-details {
+form .user-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 10px 0 12px 0;
+  margin: 19px -2px 12px 38px;
 }
 
 form .user-details .input-box {
@@ -628,7 +647,7 @@ form .user-details .input-box .addr {
 
 .user-details .input-box input,
 select {
-  width: 100%;
+  width: 80%;
   height: 45px;
   outline: none;
   border-radius: 5px;
@@ -648,7 +667,7 @@ select {
   /* align-items: center; */
   padding: 10px 20px;
   color: var(--light);
-  left: 63%;
+  left: 55%;
   overflow: hidden;
   transition: all .3s ease;
   border-radius: 10px;

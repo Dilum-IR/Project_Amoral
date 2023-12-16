@@ -59,6 +59,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($data as $order): ?>
+                        <?php if(!$order->is_quotation): ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
                             <td></td>
@@ -71,6 +72,8 @@
                             <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
+                        
+                        <?php endif; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -105,6 +108,13 @@
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+        
+        <div class="close-icon">
+          <a href="#">
+            <i class="bx bx-x" id="gen-pop-close"></i>
+            <!-- <span class="link_name">Close</span> -->
+          </a>
+        </div>
         <h2>Order Details</h2>
         <div class="status">
 
@@ -147,17 +157,17 @@
 
         </div>
 
-        <div class="container1">
+        
             <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
+                        <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
+                        <input name="material" type="text" required onChange="" readonly value="" />
                         
                     </div>
 
@@ -222,7 +232,7 @@
 
 
             </form>
-        </div>
+        
     </div>
     <div id="overlay" class="overlay"></div>
 

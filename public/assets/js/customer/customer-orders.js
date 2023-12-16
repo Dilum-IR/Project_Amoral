@@ -2,12 +2,15 @@ let popupView = document.getElementById("popup-view");
 let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
+let closeBtn = document.querySelector(".close-icon a");
 const viewOrderBtns = document.querySelectorAll('.view-order-btn');
 
 const search = document.querySelector(".form input"),
       table_rows = document.querySelectorAll("tbody tr");
 
 search.addEventListener('input', performSearch);
+
+closeBtn.addEventListener('click', closeView);
 
 function performSearch() {
     table_rows.forEach((row, i) => {
@@ -52,7 +55,7 @@ function openView(button) {
       // Populate the "update-form" fields with the order data
       document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
       
-      document.querySelector('.update-form input[name="material"]').value = "Wetlook";
+      document.querySelector('.update-form input[name="material"]').value = order.material;
       
       document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
       document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
