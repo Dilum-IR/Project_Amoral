@@ -165,6 +165,7 @@
     </script>
 
     <!-- Scripts -->
+    <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="<?=ROOT ?>/assets/js/script-bar.js"></script>
 
     <!-- content  -->
