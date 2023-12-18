@@ -87,6 +87,12 @@
                
 
     <div class="popup-report">
+        <div class="close-icon">
+            <a href="#">
+                <i class="bx bx-x" id="gen-pop-close"></i>
+                <!-- <span class="link_name">Close</span> -->
+            </a>
+        </div>
         <h2>Report Your Problem</h2>
         <form method="POST">
 
@@ -177,7 +183,7 @@
                         <span class="size">S</span>
                     
                         <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
+                        <input class="st" type="number" id="quantity" name="small">
                         <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                         <br>
                         <span class="size">M</span>
@@ -196,15 +202,16 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Total Price</span>
-                        <input name="total_price" type="text" required onChange="" readonly value="2023/10/01" />
+                        <input name="total_price" type="text" required onChange="" readonly value="" />
                     </div>
                     <div class="input-box">
                         <span class="details">Remaining Payment</span>
-                        <input name="remaining_payment" type="text" required onChange="" readonly value="2023/10/01" />
+                        <input name="remaining_payment" type="text" required onChange="" readonly value="" />
+                        <button class="pay" >Pay</button>
                     </div>
                     <div class="input-box">
                         <span class="details">Order Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
+                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
                     </div>
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
@@ -212,9 +219,9 @@
                         <input type="date" name="dispatch_date">
                     </div>
                     <div class="input-box">
-                        <span class="details addr">Address</span>
+                        <span class="details addr">District</span>
                     
-                        <input type="text" name="address">
+                        <input type="text" name="district">
                     </div>
                 </div>
                 <!-- hidden element -->

@@ -476,6 +476,7 @@ textarea {
 
 /* Progress Div Css  */
 
+
 .status ul li .progress {
   width: 60px;
   height: 60px;
@@ -487,6 +488,12 @@ textarea {
   color: #fff;
   position: relative;
   cursor: pointer;
+
+}
+
+.status ul li .one,
+.status ul li .active{
+  background-color: green;
 }
 
 .progress::after {
@@ -496,6 +503,10 @@ textarea {
   height: 5px;
   background-color: #191919;
   right: 30px;
+}
+
+.active::after{
+  background-color: green;
 }
 
 .one::after {
@@ -514,11 +525,7 @@ textarea {
 
 /* Active Css  */
 
-.status ul li .one,
-.status ul li .two,
-.status ul li .progress.two::after {
-  background-color: green;
-}
+
 
 /* ul li .active{
   background-color: green;
@@ -639,10 +646,30 @@ form .user-details .input-box .addr {
   width: 20%;
 }
 
-.container1 form .sizes {
+form .sizes {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+button.pay {
+  position: relative;
+  width: 48px;
+  height: 31px;
+  top: -38px;
+  right: -239px;
+  background: #50cf3ef7;
+  border: lightgreen;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+button.pay:hover {
+  background: #3bec24;
+  transform: scale(1.1);
 }
 
 .user-details .input-box input,
