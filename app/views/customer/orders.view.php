@@ -27,10 +27,14 @@
 
         <form>
             <div class="form">
-				<input class="form-group" type="text" placeholder="Search...">
-                <button class="icon-button" onclick="">
-                    <i class='bx bx-search icon'></i>
-                </button>
+                <form action="#">
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
 				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>

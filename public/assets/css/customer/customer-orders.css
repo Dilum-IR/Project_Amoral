@@ -37,7 +37,7 @@ body{
 }
 
 #main h2 {
-  position: relative;
+
   padding: 10px 10px;
   text-align: center;
   background: #f4f7fc;
@@ -47,6 +47,53 @@ body{
   background: #F4F7FC;
   top: 64px;
   padding-bottom: 10px;
+}
+
+form .form-input {
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+
+form .form-input input {
+  flex-grow: 0.01;
+  padding: 0 16px;
+  height: 100%;
+  border: none;
+  background: rgb(255, 255, 255);
+  outline: none;
+  border-radius: 36px 0 0 36px;
+  box-shadow: 0px 0px 10px 0px rgb(187, 184, 184);
+  margin-left: 37px;
+  margin-right: 0;
+  transition: 0.3s ease;
+}
+
+form .form-input input:focus {
+  flex-grow: 0.1;
+}
+
+form .form-input button {
+  width: 36px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border-radius: 0 36px 36px 0;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px 2px rgb(187, 184, 184);
+  transition: 0.3s ease;
+}
+
+form .form-input button:hover {
+  /* background: rgb(236, 236, 236); */
+  font-size: 20px;
+  /* color: black; */
 }
 
 .form-group {
@@ -113,6 +160,7 @@ body{
   border: none;
   padding: 0.5% 1%;
   /* left: 57%; */
+  top: 7.6%;
   text-align: center;
   /* text-decoration: none; */
   /* display: inline-block; */

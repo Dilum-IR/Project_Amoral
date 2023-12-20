@@ -88,6 +88,10 @@ function openView(button) {
             break;
 
       }
+
+      var today = new Date();
+      var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+
       
       // Populate the "update-form" fields with the order data
       document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
@@ -103,6 +107,7 @@ function openView(button) {
       document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
       document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
       document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
+        document.querySelector('.update-form input[name="dispatch_date"]').min = formattedDate;
       document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
       document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
