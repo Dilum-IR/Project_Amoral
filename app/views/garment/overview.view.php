@@ -4,6 +4,9 @@
 <head>
     <!-- <meta http-equiv="refresh" content="2; url=<?= ROOT ?>/garment/overview"> -->
 
+    <!-- hard refresh -->
+    <!-- ctrl+ F5 -->
+
     <title>Amoral</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
