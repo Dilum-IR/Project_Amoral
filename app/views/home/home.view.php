@@ -59,11 +59,11 @@
                 </div>
                 <div class="sign-up-text">
                     <a href="<?= ROOT ?>/signin">
-                        Sign Up
+                    <i class='bx bxs-user icon'><span>Sign Up</span></i>
                     </a>
                     <br>
                     <a href="<?= ROOT ?>/guest">
-                        Partnership
+                    <i class='bx bxs-user-plus icon'><span>Partnership</span></i>
                     </a>
                 </div>
             </div>
@@ -107,7 +107,7 @@
 
         <div class="design-tool">
             <div class="tool-description">
-                Revamp your T-shirt collection effortlessly now, an online tool that lets you add personalized designs to your favorite tees with a simple drag-and-drop interface.
+                Revamp your T-shirt collection effortlessly on your own, an online tool that lets you add personalized designs to your favorite tees with a simple drag-and-drop interface.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="design-tool-button">Start Designing</button>
             </div>
 
@@ -115,18 +115,78 @@
                
             </div> -->
 
-
             <div class="tool-images">
                 <img class="design-tool-images" src="<?= ROOT ?>/assets/images/home/4.jpg">
                 <img class="design-tool-images" src="<?= ROOT ?>/assets/images/home/4.jpg">
             </div>
         </div>
 
+        <div class="partnership-deal">
+            <div class="deal-images">
+                <img class="partnership-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+            </div>
+
+            <div class="deal-description">
+                A strategic partnership deal has been forged between two industry leaders, promising to leverage their respective strengths to drive innovation, expand market reach, and create a synergistic impact on the ever-evolving business landscape.
+                <button class="partnership-deal-button">Partnership Deal</button>
+            </div>
+        </div>
+
+        <div class="shopping-deals">
+            <div class="shop-now">
+                <img class="shop-now-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <div class="shop-now-text">
+                    <p class="shop-now-p">See the Collection</p>
+                    <button class="shop-now-button">Shop Now</button>
+                </div>
+                <!-- <button class="shop-now-button">Shop Now</button> -->
+            </div>
+            <div class="place-now">
+                <img class="place-now-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <div class="place-now-text">
+                    <p class="place-now-p">Place your order now</p>
+                    <button class="place-now-button">Place Your Order</button>
+                </div>
+                <!-- <button class="place-now-button">Place Your Order</button> -->
+            </div>
+        </div>
+
+        <div class="our-services">
+            <div class="services-text">Our services</div>
+            <div class="services">
+                <div class="services-tab">
+                    Custom T-Shirt Printing
+                    <div class="service-description">Your overlay text here</div>
+                </div>
+                <div class="services-tab">
+                    Design Your Own T-Shirt
+                    <div class="service-description">Your overlay text here</div>
+                </div>
+                <div class="services-tab">
+                    Bulk Orders for Events and Businesses
+                    <div class="service-description">Your overlay text here</div>
+                </div>
+                <div class="services-tab">
+                    Quality Materials and Printing Techniques
+                    <div class="service-description">Your overlay text here</div>
+                </div>
+                <div class="services-tab">
+                    Doorstep Delivery
+                    <div class="service-description">Your overlay text here</div>
+                </div>
+                <div class="services-tab">
+                    Fast Turnaround Time
+                    <div class="service-description">Your overlay text here</div>
+                </div>
+            </div>
+        </div>
+
+
 
     </section>
 
 
-    <footer>
+    <!-- <footer>
         <div class="footer-links">
             <a href="#">Home</a>
             <a href="#">About Us</a>
@@ -139,6 +199,61 @@
             <p>Contact: 000-000-0000</p>
             <p>© 2023 Amoral.com, Times Internet Limited. All rights reserved </p>
         </div>
+    </footer> -->
+    <footer>
+        <div class="main-content">
+            <div class="left box">
+                <h2>About Us</h2>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iste facilis harum eos vel incidunt distinctio corrupti iure? Rem</p>
+
+                    <div class="social">
+                        <a href="#" class="social-icons" id="facebook"><i class='bx bxl-facebook'></i></a>
+                        <a href="#" class="social-icons" id="instagram"><i class='bx bxl-instagram-alt'></i></a>
+                        <a href="#" class="social-icons" id="twitter"><i class='bx bxl-twitter'></i></a>
+                        <a href="#" class="social-icons" id="youtube"><i class='bx bxl-youtube'></i></a>
+                    </div>
+                </div>
+            </div><!--left box-->
+            <div class="center box">
+                <h2>Address</h2>
+                <div class="content">
+                    <div class="place">
+                        <a href="" class="address-icons"><i class='bx bxs-map icon'></i></a>
+                        <span class="text">Av.Brasil, New Capital</span>
+                    </div>
+
+                    <div class="phone">
+                    <a href="" class="address-icons"><i class='bx bxs-phone icon'></i></a>
+                        <span class="text">+55 61 9999-9999</span>
+                    </div>
+
+                    <div class="e-mail">
+                    <a href="" class="address-icons"><i class='bx bxs-message icon'></i></a>
+                        <span class="text">example@example.com</span>
+                    </div>
+                </div>
+            </div>
+            <div class="right box">
+                <h2>Contact</h2>
+                <div class="content">
+                    <form action="#">
+                        <div class="email">
+                            <div class="text">Email *</div>
+                            <input type="email" required>
+                        </div>
+                        <div class="msg">
+                            <div class="text">Message *</div>
+                            <textarea rows="2" cols="25" required></textarea>
+                        </div>
+                        <div class="btn">
+                            <button type="submit">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--main-content-->
     </footer>
     <script src="<?= ROOT ?>/assets/js/home/home.js"></script>
 
