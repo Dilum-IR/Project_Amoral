@@ -21,10 +21,10 @@ class SignIn extends Controller
         // ---------------------------- --------------------------------
         // All users Sign In to the their overviews 
         // ---------------------------- --------------------------------
-        if (isset($_POST['signIn'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signIn'])) {
 
             // show($_POST);
-            if ($this->formData($_POST)) {
+            if ($user->signInData($_POST)) {
 
                 $arr['email'] = $_POST['email'];
                 $row = $user->first($arr);
@@ -39,14 +39,14 @@ class SignIn extends Controller
                     if ($checkpassword == true) {
 
                         unset($row->password);
-                        
+
                         $_SESSION['USER'] = $row;
 
                         // show($row);
 
                         // check session user
                         $username  = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-                       // echo $username;
+                        // echo $username;
 
                         if ($row->user_status == 'customer') {
                             redirect('customer/overview');
@@ -80,9 +80,9 @@ class SignIn extends Controller
                             redirect('delivery/overview');
                         } else  if ($emprow->emp_status == 'garment') {
                             redirect('garment/overview');
+                        } else  if ($emprow->emp_status == 'merchandiser') {
+                            redirect('garment/overview');
                         }
-                    } else  if ($emprow->emp_status == 'merchandiser') {
-                        redirect('garment/overview');
                     }
 
                     // echo "Valid password";
@@ -96,11 +96,6 @@ class SignIn extends Controller
                 //     // echo "Invalid Sign-In";
                 // }
 
-            } else {
-                $data['errors'] = "";
-                $user->errors = "Worng Email or Password";
-                $data['errors'] = $user->errors;
-                // echo "Invalid Sign-In";
             }
         }
 
@@ -108,7 +103,7 @@ class SignIn extends Controller
         // All customers are Sign Up to the System 
         // ---------------------------- --------------------------------
 
-        if (isset($_POST['signUp'])) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signUp'])) {
 
             if ($user->validate($_POST)) {
 
@@ -125,56 +120,43 @@ class SignIn extends Controller
                     header("Location: " . ROOT . '/home');
                 }
             }
-
         }
-        
-        
+
+
         $data['errors'] = $user->errors;
 
-        // show($data);
+
+        // ---------------------------- --------------------------------
+        // If found the errors at data validation time then , Sign Up & Sign In redirect pages 
+        // ---------------------------- --------------------------------
+
+        if (!empty($data['errors']) && isset($_POST['signUp'])) {
+
+            $passData = 'name=' . $_POST['fullname'] . '&email=' . $_POST['email'] . '&pass=' . $_POST['password'] . '&repass=' . $_POST['re-password'];
+            $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
+
+            unset($_POST['signUp']);
+
+            // redirect("signup?$error&$passData");
+            // exit;
+        } else if (!empty($data['errors']) && isset($_POST['signIn'])) {
+            $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
+            // $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
+
+            unset($_POST['signIn']);
+
+            // redirect("signin?$error&$passData");
+            // exit;
+        }
+
+        show($data);
 
         $this->view('signin', $data);
     }
 
-    private function formData($data)
-    {
-        $errors = [];
-
-        // is empty email 
-        if (empty($data['email'])) {
-
-            $errors['flag'] = true;
-            $errors['email'] = "Email is Required";
-        }
-
-        // email validation
-        // if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        //     $errors['flag'] = true;
-        //     $errors['email'] = "Email is not Valid";
-        // }
-
-        // is empty password 
-        if (empty($data['password'])) {
-            $errors['flag'] = true;
-            $errors['password'] = "password is Required";
-        }
-
-        if (empty($errors)) {
-
-            return true;
-        } else {
-            return false;
-        }
-
-        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        //     $email = $_POST['email'];
-        //     $password = $_POST['password'];
-        // }
-
-
-
-
-
-    }
 }
+
+// all data unset method
+// foreach ($_POST as $key => $value) {
+//     unset($_POST[$key]);
+// }

@@ -21,6 +21,8 @@
 </head>
 
 <body>
+    <!-- loading page -->
+
     <?php
     include "utils/loading.php";
     ?>
@@ -39,7 +41,7 @@
                         <!-- --------------------------
                         Sign-In Part
                     ------------------------------- -->
-                        <form method="POST" autocomplete="off" class="sign-in-form">
+                        <form method="POST"  class="sign-in-form" id="signinForm">
                             <div class="logo">
                                 <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                                 <!-- <h4>Amoral</h4> -->
@@ -59,14 +61,14 @@
                             </div>
                             <div class="actual-form">
                                 <div class="input-wrap">
-                                    <input type="text" name="email" class="input-field" autocomplete="off" minlength="5">
+                                    <input type="text" name="email" class="input-field">
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="password" class="input-field" required autocomplete="off">
+                                    <input type="password" name="password" class="input-field" id="s-password" >
                                     <label for="pass">Password</label>
-                                    <a href="#" class="hide active">
-                                        <ion-icon name="eye-outline"></ion-icon>
+                                    <a href="#" class="hide active" onclick="togglePasswordVisibility('s-password','s-toggleIcon')">
+                                        <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                                     </a>
 
 
@@ -84,7 +86,7 @@
                         <!-- --------------------------
                         Sign-Up Part
                     ------------------------------- -->
-                        <form autocomplete="off" class="sign-up-form" id="signupForm" method="POST">
+                        <form  class="sign-up-form" id="signupForm" method="POST">
                             <div class="logo">
                                 <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                                 <!-- <h4>Amoral</h4> -->
@@ -104,23 +106,25 @@
                             </div>
                             <div class="actual-form">
                                 <div class="input-wrap">
-                                    <input type="text" name="fullname" class="input-field" autocomplete="off">
+                                    <input type="text" name="fullname" class="input-field" >
                                     <label for="fullname">Full Name</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="email" name="email" class="input-field" autocomplete="off">
+                                    <input type="text" name="email" class="input-field" >
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="password" class="input-field" autocomplete="off">
+                                    <input type="password" name="password" class="input-field" id="r-password" >
                                     <label for="pass">Password</label>
-
+                                    <a href="#" class="hide active" onclick="togglePasswordVisibility('r-password','r-toggleIcon')">
+                                        <ion-icon name="eye-outline"  id="r-toggleIcon"></ion-icon>
+                                    </a>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="re-password" class="input-field" autocomplete="off">
+                                    <input type="password" name="re-password" class="input-field" id="re-password" >
                                     <label for="pass">Confirm Password</label>
-                                    <a href="#" class="hide active">
-                                        <ion-icon name="eye-outline"></ion-icon>
+                                    <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
+                                        <ion-icon name="eye-outline"  id="re-toggleIcon"></ion-icon>
                                     </a>
                                 </div>
                                 <input type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">

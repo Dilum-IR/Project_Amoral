@@ -24,7 +24,7 @@ class SignUp extends Controller
         if (isset($_POST['signIn'])) {
 
             // show($_POST);
-            if ($this->formData($_POST)) {
+            if ($user->signInData($_POST)) {
 
                 $arr['email'] = $_POST['email'];
                 $row = $user->first($arr);
@@ -131,50 +131,39 @@ class SignUp extends Controller
         
         $data['errors'] = $user->errors;
 
+        
+        // ---------------------------- --------------------------------
+        // If found the errors at data validation time then , Sign Up & Sign In redirect pages 
+        // ---------------------------- --------------------------------
+
+        if (!empty($data['errors']) && isset($_POST['signUp'])) {
+
+            $passData = 'name=' . $_POST['fullname'] . '&email=' . $_POST['email'] . '&pass=' . $_POST['password'] . '&repass=' . $_POST['re-password'];
+            $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
+
+            unset($_POST['signUp']);
+
+
+            redirect("signup?$error&$passData");
+            exit;
+        } else if (!empty($data['errors']) && isset($_POST['signIn'])) {
+
+            $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
+            // $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
+
+            unset($_POST['signIn']);
+      
+            echo $passData;
+            show($data);
+            // echo $error;
+
+            // redirect("signin?$error&$passData");
+            exit;
+        }
+
         // show($data);
 
         $this->view('signup', $data);
     }
 
-    private function formData($data)
-    {
-        $errors = [];
-
-        // is empty email 
-        if (empty($data['email'])) {
-
-            $errors['flag'] = true;
-            $errors['email'] = "Email is Required";
-        }
-
-        // email validation
-        // if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-        //     $errors['flag'] = true;
-        //     $errors['email'] = "Email is not Valid";
-        // }
-
-        // is empty password 
-        if (empty($data['password'])) {
-            $errors['flag'] = true;
-            $errors['password'] = "password is Required";
-        }
-
-        if (empty($errors)) {
-
-            return true;
-        } else {
-            return false;
-        }
-
-        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        //     $email = $_POST['email'];
-        //     $password = $_POST['password'];
-        // }
-
-
-
-
-
-    }
 }

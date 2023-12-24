@@ -18,61 +18,124 @@ class User
 	{
 		$this->errors = [];
 
+		// flag mean errors include
+
 		// is empty name 
 		if (empty($data['fullname'])) {
-			// flag mean erros include
 			$this->errors['flag'] = true;
-			$this->errors['fullname'] = "Full Name is Required";
+			$this->errors['error'] = "Full Name is Required";
+			$this->errors['error_no'] = 1;
+			return;
 		}
 		// name validation
-		if (!preg_match("/^[a-zA-z]*$/", $data['fullname'])) {
+		else if (!preg_match("/^[a-zA-z]*$/", $data['fullname'])) {
 			$this->errors['flag'] = true;
-			$this->errors['fullname'] = array('nameError' => "Use only letters", "name" => "Full Name is not valid");
-			
+			$this->errors['error'] = "Full Name is not valid";
+			$this->errors['error_no'] = 2;
+			return;
 		}
-
+		
+		
 		// is empty email 
 		if (empty($data['email'])) {
 			$this->errors['flag'] = true;
-			$this->errors['email'] = "Email is Required";
+			$this->errors['error'] = "Email is Required";
+			$this->errors['error_no'] = 3;
+			return;
 		}
 		// email validation
-		if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) 
-		{
+		else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['flag'] = true;
-			$this->errors['email'] = "Email is not Valid";
+			$this->errors['error'] = "Email is not Valid";
+			$this->errors['error_no'] = 4;
+			return;
+		}
 		
-		}
-
+		
+		
 		// is empty password 
-		if (empty($data['password'])) {
+		if (empty($data['password']) || empty($data['re-password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is Required";
+			$this->errors['error'] = "password is Required";
+			$this->errors['error_no'] = 5;
+			return;
+		} else if ($data['password'] != $data['re-password']) {
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "passwords are not same";
+			$this->errors['error_no'] = 6;
+			return;
 		}
-
 		// password validation
-		if (!$data['password'] === $data['re-password']) {
+		else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#^%?\$&*~]).{5,}$/", $data['password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is not same";
-
-		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
-			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is not Valid";
-			$this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#\$&*~]";
+			$this->errors['error'] = "password is not Valid";
+			$this->errors['error_no'] = 7;
+			return;
+			// $this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#^?%\$&*~]";
 		}
 
-		// show($this->errors);
 
+		// errors no then hash passwords
 		if (empty($this->errors)) {
 
 			// password hashing 
-			$password = $_POST['password'] ;
+			$password = $_POST['password'];
 			$hash = password_hash($password, PASSWORD_BCRYPT);
-			$_POST['password']= $hash;
+			$_POST['password'] = $hash;
 
 			return true;
 		} else {
 			return false;
 		}
 	}
+
+
+	public function signInData($data)
+    {
+		$this->errors = [];
+
+        // is empty email 
+        if (empty($data['email'])) {
+
+            $this->errors['flag'] = true;
+            $this->errors['error'] = "Email is Required";
+            $this->errors['error_no'] = 1;
+            return;
+        }
+        // email validation
+        else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $this->errors['flag'] = true;
+            $this->errors['error'] = "Email is Invalid";
+            $this->errors['error_no'] = 2;
+            return;
+        }
+
+        // is empty password 
+        if (empty($data['password'])) {
+            $this->errors['flag'] = true;
+            $this->errors['error'] = "password is Required";
+            $this->errors['error_no'] = 3;
+            return;
+        } else if (!preg_match('/^[a-zA-Z0-9!@#\$%^&*_+=\-[\]},.>?\/]+$/', $data['password'])) {
+            $this->errors['flag'] = true;
+            $this->errors['error'] = "password is Invalid";
+            $this->errors['error_no'] = 4;
+            return;
+        }
+
+
+        if (empty($this->errors)) {
+
+            return true;
+        } else {
+            return false;
+        }
+
+        // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        //     $email = $_POST['email'];
+        //     $password = $_POST['password'];
+        // }
+
+    }
 }

@@ -6,7 +6,6 @@ const images = document.querySelectorAll(".image");
 
 const signup_button = document.getElementById("sign-up-btn");
 
-
 signup_button.addEventListener("submit", function (e) {
   e.preventDefault();
   const data = new FormData(signup_button);
@@ -18,6 +17,12 @@ inputs.forEach((input) => {
   input.addEventListener("focus", () => {
     input.classList.add("active");
   });
+  
+  // input class name rename when the input field for values added
+  if (input.value != "") {
+    input.classList.add("active");
+  }
+  
 
   // input class name remove when the clicked outside the page
   input.addEventListener("blur", () => {
@@ -65,3 +70,25 @@ if (dataValidate.flag === true) {
     }, 5000);
   } catch (error) {}
 }
+
+function ajaxRequest(formData) {}
+
+
+//password visibility
+function togglePasswordVisibility(passwordId,iconId) {
+  console.log("dfcvb");
+
+  var passwordField = document.getElementById(passwordId);
+  var toggleIcon = document.getElementById(iconId);
+
+  if (passwordField.type === "password") {
+
+    toggleIcon.setAttribute("name", "eye-off-outline");
+    passwordField.type = "text";
+    
+  } else {
+    passwordField.type = "password";
+    toggleIcon.setAttribute("name", "eye-outline");
+  }
+}
+

@@ -286,13 +286,13 @@ main.sign-up-mode .carousel {
   transform: translateY(-50%);
   color: #bbb;
   font-size: 1.35rem;
-  pointer-events: none;
+  /* pointer-events: none; */
   transition: 0.4s;
 
 }
 
 .actual-form .input-wrap .hide:hover{
-  color: #151111;
+  color: #555555;
   cursor: pointer;
 }
 
