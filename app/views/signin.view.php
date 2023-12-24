@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signin</title>
+    <title>Amoral for signin</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -25,16 +25,8 @@
     // Get the pass data from URL for sign In part
     $l_email = htmlspecialchars($_GET['email'] ?? '');
     $l_pass = htmlspecialchars($_GET['pass'] ?? '');
-    
-    // Get the pass data from URL for sign Up part
-    $r_name = htmlspecialchars($_GET['name'] ?? '');
-    $r_email = htmlspecialchars($_GET['email'] ?? '');
-    $r_pass = htmlspecialchars($_GET['pass'] ?? '');
-    $r_re_pass = htmlspecialchars($_GET['re-pass'] ?? '');
 
     ?>
-
-
 
     <div class="page-content">
         <main class="">
@@ -65,11 +57,11 @@
                             </div>
                             <div class="actual-form">
                                 <div class="input-wrap">
-                                    <input type="text" name="email" class="input-field" value="<?=$l_email?>">
+                                    <input type="text" name="email" class="input-field" value="<?= $l_email ?>">
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="password" class="input-field" id="s-password" value="<?=$l_pass?>">
+                                    <input type="password" name="password" class="input-field" id="s-password" value="<?= $l_pass ?>">
                                     <label for="pass">Password</label>
                                     <a href="#" class="hide active" onclick="togglePasswordVisibility('s-password','s-toggleIcon')">
                                         <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
@@ -112,7 +104,7 @@
                             <div class="actual-form">
                                 <div class="input-wrap">
                                     <input type="text" name="fullname" class="input-field">
-                                    <label for="fullname">Full Name</label>
+                                    <label for="fullname">Name</label>
                                 </div>
                                 <div class="input-wrap">
                                     <input type="text" name="email" class="input-field">
@@ -198,9 +190,15 @@
 
     <?php
     // Get the URL parameters and sanitize them using htmlspecialchars
-    $error = htmlspecialchars($_GET['error'] ?? '');
     $flag = htmlspecialchars($_GET['flag'] ?? '');
-    $error_no = htmlspecialchars($_GET['error_no'] ?? '');
+
+    $error = htmlspecialchars($_GET['error'] ?? '');
+    $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
+
+    $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
+    $success_msg = htmlspecialchars($_GET['success'] ?? '');
+
+
     ?>
 
     <script>
@@ -210,7 +208,12 @@
             "error_no": <?= $error_no ?>,
         }
 
-        console.log(dataValidate)
+        let successData = {
+            "success_no": <?= $success_no ?>,
+            "flag": <?= $flag ?>,
+            "success": "<?= $success_msg ?>",
+        }
+        console.log(successData);
     </script>
 
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>

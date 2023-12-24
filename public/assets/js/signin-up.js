@@ -17,12 +17,11 @@ inputs.forEach((input) => {
   input.addEventListener("focus", () => {
     input.classList.add("active");
   });
-  
+
   // input class name rename when the input field for values added
   if (input.value != "") {
     input.classList.add("active");
   }
-  
 
   // input class name remove when the clicked outside the page
   input.addEventListener("blur", () => {
@@ -61,34 +60,86 @@ function moveSlider() {
 
 setInterval(moveSlider, 2000);
 
-if (dataValidate.flag === true) {
-  try {
-    toastApply(dataValidate.fullname.name, dataValidate.fullname.nameError);
+try {
+  if (dataValidate.flag === 1) {
+    console.log(dataValidate);
 
-    setTimeout(() => {
-      toastApply(dataValidate.password, dataValidate.passwordError);
-    }, 5000);
-  } catch (error) {}
+    switch (dataValidate.error_no) {
+      case 1:
+        setTimeout(() => {
+          toastApply("Name :", dataValidate.error);
+        }, 50);
+        break;
+      case 2:
+        setTimeout(() => {
+          toastApply(dataValidate.error, "Contains only [a-zA-Z]");
+        }, 50);
+        break;
+      case 3:
+        setTimeout(() => {
+          toastApply("Email :", dataValidate.error);
+        }, 50);
+        break;
+      case 4:
+        setTimeout(() => {
+          toastApply("Password :", dataValidate.error);
+        }, 50);
+        break;
+      case 5:
+        setTimeout(() => {
+          toastApply(
+            dataValidate.error,
+            "Should Contains [a-z][0-9][!@#^%?$&*~]"
+          );
+        }, 50);
+        break;
+      case 6:
+        setTimeout(() => {
+          toastApply("Email", dataValidate.error);
+        }, 50);
+        break;
+      case 7:
+        setTimeout(() => {
+          toastApply("Sign In Credintial:", dataValidate.error);
+        }, 50);
+        break;
+
+      default:
+        break;
+    }
+  } else if (successData.flag === 0) {
+    // toast apply for success time
+    switch (successData.success_no) {
+      case 1:
+        setTimeout(() => {
+          toastApply("Sign Up :", successData.success, 0);
+        }, 50);
+        break;
+      case 2:
+        setTimeout(() => {
+          toastApply("Sign In :", successData.success, 0);
+        }, 50);
+        break;
+      default:
+        break;
+    }
+  }
+} catch (error) {
+  console.error(error);
 }
 
-function ajaxRequest(formData) {}
-
-
 //password visibility
-function togglePasswordVisibility(passwordId,iconId) {
+function togglePasswordVisibility(passwordId, iconId) {
   console.log("dfcvb");
 
   var passwordField = document.getElementById(passwordId);
   var toggleIcon = document.getElementById(iconId);
 
   if (passwordField.type === "password") {
-
     toggleIcon.setAttribute("name", "eye-off-outline");
     passwordField.type = "text";
-    
   } else {
     passwordField.type = "password";
     toggleIcon.setAttribute("name", "eye-outline");
   }
 }
-

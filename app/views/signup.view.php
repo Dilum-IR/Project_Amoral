@@ -27,6 +27,17 @@
     include "utils/loading.php";
     ?>
 
+
+    <?php
+
+    // Get the pass data from URL for sign Up part
+    $r_name = htmlspecialchars($_GET['name'] ?? '');
+    $r_email = htmlspecialchars($_GET['email'] ?? '');
+    $r_pass = htmlspecialchars($_GET['pass'] ?? '');
+    $r_re_pass = htmlspecialchars($_GET['repass'] ?? '');
+
+    ?>
+
     <div class="page-content">
 
 
@@ -41,7 +52,7 @@
                         <!-- --------------------------
                         Sign-In Part
                     ------------------------------- -->
-                        <form method="POST"  class="sign-in-form" id="signinForm">
+                        <form method="POST" class="sign-in-form" id="signinForm">
                             <div class="logo">
                                 <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                                 <!-- <h4>Amoral</h4> -->
@@ -65,7 +76,7 @@
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="password" class="input-field" id="s-password" >
+                                    <input type="password" name="password" class="input-field" id="s-password">
                                     <label for="pass">Password</label>
                                     <a href="#" class="hide active" onclick="togglePasswordVisibility('s-password','s-toggleIcon')">
                                         <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
@@ -86,7 +97,7 @@
                         <!-- --------------------------
                         Sign-Up Part
                     ------------------------------- -->
-                        <form  class="sign-up-form" id="signupForm" method="POST">
+                        <form class="sign-up-form" id="signupForm" method="POST">
                             <div class="logo">
                                 <img src="<?= ROOT ?>/assets/images/logo.JPG" alt="company_logo">
                                 <!-- <h4>Amoral</h4> -->
@@ -106,25 +117,25 @@
                             </div>
                             <div class="actual-form">
                                 <div class="input-wrap">
-                                    <input type="text" name="fullname" class="input-field" >
-                                    <label for="fullname">Full Name</label>
+                                    <input type="text" name="fullname" class="input-field" value="<?= $r_name ?>">
+                                    <label for="fullname">Name</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="text" name="email" class="input-field" >
+                                    <input type="text" name="email" class="input-field" value="<?= $r_email ?>">
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="password" class="input-field" id="r-password" >
+                                    <input type="password" name="password" class="input-field" id="r-password" value="<?= $r_pass ?>">
                                     <label for="pass">Password</label>
                                     <a href="#" class="hide active" onclick="togglePasswordVisibility('r-password','r-toggleIcon')">
-                                        <ion-icon name="eye-outline"  id="r-toggleIcon"></ion-icon>
+                                        <ion-icon name="eye-outline" id="r-toggleIcon"></ion-icon>
                                     </a>
                                 </div>
                                 <div class="input-wrap">
-                                    <input type="password" name="re-password" class="input-field" id="re-password" >
+                                    <input type="password" name="re-password" class="input-field" id="re-password" value="<?= $r_re_pass ?>">
                                     <label for="pass">Confirm Password</label>
                                     <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
-                                        <ion-icon name="eye-outline"  id="re-toggleIcon"></ion-icon>
+                                        <ion-icon name="eye-outline" id="re-toggleIcon"></ion-icon>
                                     </a>
                                 </div>
                                 <input type="submit" name="signUp" value="SignUp" class="sign-btn" id="sign-up-btn">
@@ -156,10 +167,6 @@
                                     <h2>Create Your Own Designs</h2>
                                     <h2>Customize as you like</h2>
                                     <h2>Follow Us On All Social Media</h2>
-                                    <!-- <span>
-                                    <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
-                                    <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
-                                </span> -->
 
                                 </div>
                             </div>
@@ -177,9 +184,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <?= implode("<br>", $errors) ?>  -->
-
             </div>
         </main>
     </div>
@@ -187,9 +191,20 @@
     <!--  popup toast  -->
     <?php include 'utils/toastMsg.php' ?>
     <!-- pass the error msg -->
+
+    <?php
+    // Get the URL parameters and sanitize them using htmlspecialchars
+    $error = htmlspecialchars($_GET['error'] ?? '');
+    $flag = htmlspecialchars($_GET['flag'] ?? '');
+    $error_no = htmlspecialchars($_GET['error_no'] ?? '');
+    ?>
+
     <script>
-        let dataValidate = <?php echo json_encode($errors); ?>
-        // console.log(dataValidate)
+        let dataValidate = {
+            "error": "<?= $error ?>",
+            "flag": <?= $flag ?>,
+            "error_no": <?= $error_no ?>,
+        }
     </script>
 
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
