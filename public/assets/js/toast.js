@@ -4,9 +4,18 @@ const time = document.querySelector(".small");
 const msg = document.getElementById("error_message");
 const head = document.querySelector(".toast-head");
 
-function toastApply(type, show) {
+const icon = document.querySelector(".icon");
 
-  
+function toastApply(type, show, flag = 1) {
+
+  // change the icon type with the success time
+  if (flag === 0) {
+    icon.setAttribute("name", "checkmark-circle-outline");
+    toast.style.backgroundColor ="#24b304"
+  } else {
+    icon.setAttribute("name", "alert-circle-outline");
+  }
+
   let remainingDuration = 4;
   // Show the toast
   toast.classList.remove("hide");
@@ -35,5 +44,8 @@ function toastApply(type, show) {
       toast.classList.remove("show");
     }
   }, 1000);
-
 }
+
+// success icon
+// <ion-icon name="checkmark-circle-outline"></ion-icon>
+// toggleIcon.setAttribute("name", "eye-off-outline");
