@@ -8,13 +8,13 @@ class Profile extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User') {
+        // if ($username != 'User') {
 
             $this->view('delivery/profile');
 
-        } else {
-            redirect('home');
-        }
+    //     } else {
+    //         redirect('home');
+    //     }
 
-    }
+     }
 }
