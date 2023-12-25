@@ -4,7 +4,7 @@
 <head>
   <title>Sidebar</title>
   <!-- Link Styles -->
-  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/style.css">
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/style1.css">
   <link rel="stylesheet" href="boxicons.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -18,259 +18,117 @@
 
   <!-- Navigation Bar -->
   <section class="home-section" id="navbar">
+  <div class="wrapper">
+  <!-- Left Section -->
+  <div class="left">
+    <img src="https://i.imgur.com/cMy8V5j.png" alt="user">
+    <div class="edit-pic">
+      <div class="edit-icon">
+        <a href="#">
+          <i class="bx bxs-edit"></i>
+          <span class="link_name">Edit Picture</span>
+        </a>
+      </div>
+    </div>
+    <h2>Alex William</h2>
+    <h4>Distributor</h4>
+  </div>
+
+  <!-- Right Section -->
+  <div class="right">
+    <!-- Information Section -->
+    <div class="info">
+      <h3>Information</h3>
+      <div class="info_data">
+        <div class="data">
+          <label class="pro_label" for="pro_username">Full Name</label>
+          <input class="pro_input" type="text" id="pro_username" name="pro_username" value="Sadeep">
+        </div>
+        <div class="data">
+          <label class="pro_label" for="pro_city">City</label>
+          <input class="pro_input" type="text" id="pro_city" name="pro_city" value="Matara">
+        </div>
+      </div>
+
+      <div class="info_data">
+        <div class="data">
+          <label class="pro_label" for="pro_address">Address</label>
+          <input class="pro_input" type="text" id="pro_address" name="pro_address" value="No:614/2,Matarahena, Beragama,Makandura">
+        </div>
+        <div class="data">
+            <label class="pro_label" for="pro_number">Contact Number</label>
+            <input class="pro_input" type="text" id="pro_number" name="pro_number" value="077-8827260">
+          </div>
+      </div>
+
+      <div class="info_data">
+        <div class="data">
+          <label class="pro_label" for="pro_email">Email</label>
+          <input class="pro_input" type="email" id="pro_email" name="pro_email" value="chathu43sadeep@gmail.com">
+        </div>
+        <div class="data">
+          <label class="pro_label" for="pro_date">Date of Birth</label>
+          <input class="pro_input" type="date" id="pro_date" name="pro_date" value="">
+        </div>
+        
+      </div>
+
+      <div class="info_data">
+        <div class="data">
+          <label class="pro_label" for="pro_profession">Profession</label>
+          <input class="pro_input" type="text" id="pro_profession" name="pro_profession" value="Distributor">
+        </div>
+        
+      </div>
+      <div class="info_data">
+      <div class="pro_button">
+        <button type="button" class="small_btn discard_btn">Discard</button>
+        <button type="submit" class="small_btn save_btn">Save Changes</button>
+      </div>
+    </div>
+    </div>
+
+    <!-- Change Password Section -->
+    <div class="projects">
+      <h3>Change Password</h3>
+      <div class="projects_data">
+        <form action="#" method="POST">
+          <div class="info_data">
+            <div class="pro_inline"> 
+              <div class="pro_name">
+                <label class="pro_label" for="pro_current_password">Current Password</label>
+                <input class="pro_input" type="password" id="pro_current_password" name="pro_current_password">
+              </div>
+
+              <div class="pro_name">
+                <label class="pro_label" for="pro_new_password">New Password</label>
+                <input class="pro_input" type="password" id="pro_new_password" name="pro_new_password">
+              </div>
+            </div>
+          </div>
+          <div class="info_data">
+            <div class="pro_inline">
+              <div class="pro_name">
+                <label class="pro_label" for="pro_reenter_password">Re-enter Password</label>
+                <input class="pro_input" type="password" id="pro_reenter_password" name="pro_reenter_password">
+              </div>
+              <div class="pro_button">
+                <button type="button" class="small_btn discard_btn">Discard</button>
+                <button type="submit" class="small_btn save_btn">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
    
-    <section class="main-section" id="main-section">
-      <main id="middle">
-        <div class="profile-picture">
-          <img src="<?=ROOT ?>/assets/images/delivery/elon_musk.jpg" class="profile-image" alt="">
-        </div>
-        <div class="edit-pic">
-          <div class="edit-icon">
-            <a href="#">
-              <i class="bx bxs-edit"></i>
-              <span class="link_name">Edit Picture</span>
-            </a>
-          </div>
-        </div>
-        <h1>General Information</h1>
-        <div class="info-gen">
-          <div class="info-type">
-            <div class="profile-info">
-              <div class="info-box">
-                <div class="info-inside">
-                  <div class="user-info">
-                    <h1>
-                      Full Name
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="name" name="fullname" value="Elon Reeve Musk" class="edit-gen" readonly>
-                  </div>
-                  <div class="user-info">
-                    <h1>
-                      City
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="text" name="city" value="Hambanthota" class="edit-gen" readonly>
-                  </div>
-                  <div class="user-info">
-                    <h1>
-                      Address
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="text" name="address" value="27/A, School Road, Sooriyawewa, Hambanthota"
-                      class="edit-gen" readonly>
-                  </div>
-                  <div class="user-info">
-                    <h1>
-                      Contact Number
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="text" name="contactno" value="0766464639" class="edit-gen" readonly>
-                  </div>
-                  <div class="user-info">
-                    <h1>
-                      Date of Birth
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="date" name="birthday" value='2012-12-12' class="edit-gen" readonly>
-                  </div>
-                  <div class="user-info">
-                    <h1>
-                      Profession
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="text" name="profession" value="Distributor" class="edit-gen" readonly>
-                  </div>
-                  <div class="edit-info-icon">
-                    <a href="#">
-                      <i class="bx bxs-edit"></i>
-                      <span class="link_name" id="gen-info-edit">Edit Info.</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h1>Security Information</h1>
-        <div class="info-sec">
-          <div class="info-type">
-            <div class="profile-info">
-              <div class="info-box">
-                <div class="info-inside">
-                  <div class="user-info">
-                    <h1>
-                      E-mail
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="email" name="emailaddress" value="elonmusk@spacex.com" class="edit-gen" readonly>
-                  </div>
-                  <div class="user-info">
-                    <h1>
-                      Password
-                    </h1>
-                  </div>
-                  <div class="text-info">
-                    <input type="password" name="password" value="elon123" class="edit-gen" readonly>
-                  </div>
-                  <div class="change-pw-icon">
-                    <a href="#">
-                      <i class="bx bxs-edit"></i>
-                      <span class="link_name" id="sec-info-edit">Change Password</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-      </main>
-    </section>
-
-    <!-- Popup -->
-    <section class="popup-section-gen" id="popup-section-gen">
-      <div class="info-pop" id="gen-info-pop">
-        <div class="close-icon">
-          <a href="#">
-            <i class="bx bx-x" id="gen-pop-close"></i>
-            <!-- <span class="link_name">Close</span> -->
-          </a>
-        </div>
-        <div class="info-type">
-          <div class="profile-info">
-            <div class="info-box">
-              <div class="info-inside">
-                <div class="user-info">
-                  <h1>
-                    Full Name
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="text" name="city" required class="edit-popup-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    City
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="text" name="city" required class="edit-popup-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    Address
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="text" name="address" required class="edit-popup-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    Contact Number
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="tel" name="contactno" required class="edit-popup-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    Date of Birth
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="date" name="birthday" required class="edit-popup-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    Profession
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <select name="profession" id="profession" required class="edit-popup-gen">
-                    <option value="anager">Manager</option>
-                    <option value="merchandiser">Merchandiser</option>
-                    <option value="employee">Employee</option>
-                    <option value="deliver">Distributor</option>
-                    
-                  </select>
-                </div>
-              </div>
-              <div class="save-cancel-buttons">
-                <button class="save">Save Changes</button>
-                <button class="cancel" id="gen-edit-cancel">Cancel</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="sec-pop" id="sec-info-pop">
-        <div class="close-icon">
-          <a href="#">
-            <i class="bx bx-x" id="sec-pop-close"></i>
-            <!-- <span class="link_name">Close</span> -->
-          </a>
-        </div>
-        <div class="info-type">
-          <div class="profile-info">
-            <div class="info-box">
-              <div class="info-inside">
-                <div class="user-info">
-                  <h1>
-                    E-mail
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="email" name="emailaddress" value="elonmusk@spacex.com" class="edit-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    Current Password
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="password" name="password" value="elon123" class="edit-gen">
-                </div>
-                <div class="user-info">
-                  <h1>
-                    New Password
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="password" name="newpassword" class="edit-gen" >
-                </div>
-                <div class="user-info">
-                  <h1>
-                    Confirm New Password
-                  </h1>
-                </div>
-                <div class="text-info">
-                  <input type="password" name="confirmnewpassword"  class="edit-gen">
-                </div>
-              </div>
-              <div class="change-pw-icon">
-                <a href="#">
-                  <i class="bx bxs-edit"></i>
-                  <span class="link_name" id="forgot-password">Forgot Password?</span>
-                </a>
-                <div class="pw-save-cancel-buttons">
-                  <button class="save">Save Changes</button>
-                  <button class="cancel" id="sec-edit-cancel">Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    
     <!-- Scripts -->
     <script src="<?=ROOT ?>/assets/js/delivery/profilescript.js"></script>
+    <script src="<?=ROOT?>/assets/js/script-bar.js"></script>
+
 </body>
 
 </html>

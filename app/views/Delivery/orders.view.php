@@ -59,7 +59,7 @@
                         <td><?php echo $sn++?></td>
                         <td class="ordId"><?php echo $item->order_id?></td>
                         <td class="Name">thiran</td>
-                        <td class="Distric"><?php echo $item->address?></td>
+                        <td class="Distric"><?php echo $item->district?></td>
                         <td class="stth"><?php echo $item->order_status?></td>
                         <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td>
                     </tr>

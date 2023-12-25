@@ -7,7 +7,7 @@ class Orders extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User') {
+        // if ($username != 'User') {
 
             $order = new Order;
             $user = new User;
@@ -40,8 +40,8 @@ class Orders extends Controller
             // show($result);
             $data = ['data' => $result];
             $this->view('delivery/orders', $data);
-        } else {
-            redirect('home');
-        }
+        // } else {
+        //     redirect('home');
+        // }
     }
 }
