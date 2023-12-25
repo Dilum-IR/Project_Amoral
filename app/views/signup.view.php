@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amoral-Signup</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -17,6 +17,10 @@
 
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+    <!-- toast css ang icon library -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
 
 </head>
 
@@ -194,17 +198,31 @@
 
     <?php
     // Get the URL parameters and sanitize them using htmlspecialchars
-    $error = htmlspecialchars($_GET['error'] ?? '');
     $flag = htmlspecialchars($_GET['flag'] ?? '');
+
+    $error = htmlspecialchars($_GET['error'] ?? '');
     $error_no = htmlspecialchars($_GET['error_no'] ?? '');
+
+    $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
+    $success_msg = htmlspecialchars($_GET['success'] ?? '');
+    $send = htmlspecialchars($_GET['send'] ?? 0);
     ?>
 
     <script>
         let dataValidate = {
             "error": "<?= $error ?>",
             "flag": <?= $flag ?>,
-            "error_no": <?= $error_no ?>,
+            "error_no": <?= $error_no ?>
         }
+
+        let successData = {
+            "success_no": <?= $success_no ?>,
+            "flag": <?= $flag ?>,
+            "success": "<?= $success_msg ?>",
+            "send": <?= $send ?>
+
+        }
+       
     </script>
 
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>

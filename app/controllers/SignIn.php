@@ -116,37 +116,8 @@ class SignIn extends Controller
 
         else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signUp'])) {
 
-            if ($user->validate($_POST)) {
-
-                unset($_POST['signUp']);
-                unset($_POST['re-password']);
-
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-
-                //check the email used or not
-                if (!$user->findUser($_POST) && !$employee->findUser($_POST)) {
-
-                    $_POST['user_status'] = "customer";
-
-                    $user->insert($_POST);
-
-                    $msg = "Sign Up Successfull..";
-                    $success = 'flag=' . 0 . '&success=' .$msg . '&success_no=' . 1;
-
-                    redirect("signin?$success");
-
-
-                } else {
-                    $error = "Email is Already in use";
-                    $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 6;
-
-                    $passData = 'email=' . $email . '&pass=' . $password;
-
-                    redirect("signup?error=$errors&$passData");
-                    exit;
-                }
-            }
+            $this->userRegister($user, $employee, $_POST);
+           
         }
 
 
@@ -177,6 +148,53 @@ class SignIn extends Controller
         }
 
         $this->view('signin', $data);
+    }
+
+    // ---------------------------- --------------------------------
+    // All customers are Sign Up to the System 
+    // ---------------------------- --------------------------------
+    private function userRegister($user, $employee, $POST)
+    {
+        $email = $POST['email'];
+        $password = $POST['password'];
+        $re_password = $POST['re-password'];
+
+        if ($user->validate($_POST)) {
+
+            unset($POST['signUp']);
+            unset($POST['re-password']);
+
+            //check the email used or not
+            if (!$user->findUser($POST) && !$employee->findUser($POST)) {
+
+                // Generate a random verification code
+                $verificationCode = mt_rand(100000, 999999);
+
+                $POST['email_otp'] = $verificationCode;
+                $POST['password'] =$_POST['password'] ;
+
+                $sendmail = new SendMail;
+
+                $res = $sendmail->sendVerificationEmail($email, $verificationCode);
+
+                $response = $user->insert($POST);
+
+                $msg = "Sign Up Successfull..";
+                $success = 'flag=' . 0 . '&success=' . $msg . '&success_no=' . 1 .'&send='. $res;
+
+
+                redirect("signin?$success");
+                exit;
+            } else {
+                $error = "Email is Already in use";
+                $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 3;
+
+                $passData = 'name=' . $POST['fullname'] . '&email=' . $email . '&pass=' . $password . '&repass=' . $re_password;
+
+                redirect("signup?$errors&$passData");
+                exit;
+            }
+        }
     }
 }
 

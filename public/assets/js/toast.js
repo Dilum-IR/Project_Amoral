@@ -10,13 +10,17 @@ function toastApply(type, show, flag = 1) {
 
   // change the icon type with the success time
   if (flag === 0) {
-    icon.setAttribute("name", "checkmark-circle-outline");
+
+    icon.classList.remove("bx-error-circle");
+    icon.classList.add("bx-check-circle");
     toast.style.backgroundColor ="#24b304"
+
   } else {
-    icon.setAttribute("name", "alert-circle-outline");
+    icon.classList.remove("bx-check-circle");
+    icon.classList.add("bx-error-circle");
   }
 
-  let remainingDuration = 4;
+  let remainingDuration = 5;
   // Show the toast
   toast.classList.remove("hide");
   toast.classList.add("show");

@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amoral for signin</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- Jquary library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
+    <!-- toast css ang icon library -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
 </head>
 
 <body>
@@ -195,8 +198,10 @@
     $error = htmlspecialchars($_GET['error'] ?? '');
     $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
 
+    
     $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
     $success_msg = htmlspecialchars($_GET['success'] ?? '');
+    $send = htmlspecialchars($_GET['send'] ?? 0);
 
 
     ?>
@@ -205,15 +210,16 @@
         let dataValidate = {
             "error": "<?= $error ?>",
             "flag": <?= $flag ?>,
-            "error_no": <?= $error_no ?>,
+            "error_no": <?= $error_no ?>
         }
 
         let successData = {
             "success_no": <?= $success_no ?>,
             "flag": <?= $flag ?>,
             "success": "<?= $success_msg ?>",
+            "send": <?= $send ?>
+
         }
-        console.log(successData);
     </script>
 
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>

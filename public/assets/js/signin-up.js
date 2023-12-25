@@ -62,34 +62,33 @@ setInterval(moveSlider, 2000);
 
 try {
   if (dataValidate.flag === 1) {
-    console.log(dataValidate);
-
+    
     switch (dataValidate.error_no) {
       case 1:
         setTimeout(() => {
-          toastApply("Name :", dataValidate.error);
+          toastApply("Name", dataValidate.error);
         }, 50);
         break;
       case 2:
         setTimeout(() => {
-          toastApply(dataValidate.error, "Contains only [a-zA-Z]");
+          toastApply(dataValidate.error, "Should contains only letters");
         }, 50);
         break;
       case 3:
         setTimeout(() => {
-          toastApply("Email :", dataValidate.error);
+          toastApply("Email", dataValidate.error);
         }, 50);
         break;
       case 4:
         setTimeout(() => {
-          toastApply("Password :", dataValidate.error);
+          toastApply("Password ", dataValidate.error);
         }, 50);
         break;
       case 5:
         setTimeout(() => {
           toastApply(
             dataValidate.error,
-            "Should Contains [a-z][0-9][!@#^%?$&*~]"
+            "Should contains [a-z/A-Z/0-9/!@#^%?$&*~]"
           );
         }, 50);
         break;
@@ -100,7 +99,7 @@ try {
         break;
       case 7:
         setTimeout(() => {
-          toastApply("Sign In Credintial:", dataValidate.error);
+          toastApply("Sign in credintial", dataValidate.error);
         }, 50);
         break;
 
@@ -112,18 +111,42 @@ try {
     switch (successData.success_no) {
       case 1:
         setTimeout(() => {
-          toastApply("Sign Up :", successData.success, 0);
+          toastApply("Sign up", successData.success, 0);
         }, 50);
+
+        // popup when verification code sent or not
+        if (successData.send===1) {
+          
+          setTimeout(() => {
+            toastApply(
+              "Please Verify Your Email",
+              "Verification code sent successfully",
+              0
+            );
+          }, 5500);
+        }else {
+          setTimeout(() => {
+            toastApply(
+              "Can not Verify Your Email",
+              "Unable to send verification code"
+            );
+          }, 5500);
+        }
+
         break;
       case 2:
         setTimeout(() => {
-          toastApply("Sign In :", successData.success, 0);
+          toastApply("Sign in", successData.success, 0);
         }, 50);
         break;
       default:
         break;
     }
   }
+  // remove header history
+  let currentUrl = window.location.origin + window.location.pathname;
+  history.pushState({}, "", currentUrl);
+  
 } catch (error) {
   console.error(error);
 }
