@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amoral for signin</title>
+    <title>Amoral</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -15,6 +15,8 @@
     <!-- toast css ang icon library -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
 </head>
 
 <body>
