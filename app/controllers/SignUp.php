@@ -12,9 +12,22 @@ class SignUp extends Controller
 
         if (isset($_SESSION['USER'])) {
 
-            unset($_SESSION['USER']);
-        } else {
-            isset($_SESSION['USER']);
+            $curr_row = $_SESSION['USER'];
+            try {
+                if ($curr_row->user_status == 'customer') {
+                    redirect('customer/overview');
+                } else if ($curr_row->emp_status == 'manager') {
+                    redirect('manager/overview');
+                } else if ($curr_row->emp_status == 'delivery') {
+                    redirect('delivery/overview');
+                } else  if ($curr_row->emp_status == 'garment') {
+                    redirect('garment/overview');
+                } else  if ($curr_row->emp_status == 'merchandiser') {
+                    redirect('garment/overview');
+                }
+            } catch (Throwable $th) {
+                throw $th;
+            }
         }
 
         // ---------------------------- --------------------------------
@@ -22,13 +35,43 @@ class SignUp extends Controller
         // ---------------------------- --------------------------------
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signIn'])) {
 
+            $this->userLogin($user, $employee);
+        }
 
+        // ---------------------------- --------------------------------
+        // All customers are Sign Up to the System 
+        // ---------------------------- --------------------------------
+
+        else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signUp'])) {
+
+            $this->userRegister($user, $employee, $_POST);
+        }
+
+        $data['errors'] = $user->errors;
+
+        // ---------------------------- --------------------------------
+        // If found the errors at data validation time then , Sign Up & Sign In redirect pages 
+        // ---------------------------- --------------------------------
+        $this->errorHandler($data);
+
+
+        $this->view('signup', $data);
+    }
+
+    // ---------------------------- --------------------------------
+    // All users Sign In to the their overviews 
+    // ---------------------------- --------------------------------
+    private function userLogin($user, $employee)
+    {
+        try {
             if ($user->signInData($_POST)) {
 
                 $arr['email'] = $_POST['email'];
+
                 $row = $user->first($arr);
 
                 $emprow = $employee->first($arr);
+
 
                 if ($row) {
 
@@ -37,24 +80,30 @@ class SignUp extends Controller
                     if ($checkpassword == true) {
 
                         unset($row->password);
+                        if ($row->email_verified == 0) {
+
+                            redirect("verify");
+                            exit;
+                        }
 
                         $_SESSION['USER'] = $row;
 
                         // check session user
                         $username  = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
+
                         if ($row->user_status == 'customer') {
                             redirect('customer/overview');
                         }
                     } else {
-
                         $error = "Invalid Email or Password";
 
                         $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
+                        $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 7;
 
                         unset($_POST['signIn']);
 
-                        redirect("signin?error=$error&$passData");
+                        redirect("signin?$errors&$passData");
                         exit;
                     }
                 } elseif ($emprow) {
@@ -66,7 +115,6 @@ class SignUp extends Controller
                         unset($emprow->password);
                         $_SESSION['USER'] = $emprow;
 
-                        // session_start();
                         // check session user
                         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
@@ -86,10 +134,11 @@ class SignUp extends Controller
                         $error = "Invalid Email or Password";
 
                         $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
+                        $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 7;
 
                         unset($_POST['signIn']);
 
-                        redirect("signin?error=$error&$passData");
+                        redirect("signin?$errors&$passData");
                         exit;
                     }
                 } else {
@@ -97,75 +146,117 @@ class SignUp extends Controller
                     $error = "Invalid Email or Password";
 
                     $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
+                    $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 7;
 
                     unset($_POST['signIn']);
 
-                    redirect("signin?error=$error&$passData");
+                    redirect("signin?$errors&$passData");
                     exit;
                 }
             }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
+    }
 
-        // ---------------------------- --------------------------------
-        // All customers are Sign Up to the System 
-        // ---------------------------- --------------------------------
+    // ---------------------------- --------------------------------
+    // All customers are Sign Up to the System 
+    // ---------------------------- --------------------------------
+    private function userRegister($user, $employee, $POST)
+    {
 
-        else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signUp'])) {
+        try {
+            $email = $POST['email'];
+            $password = $POST['password'];
+            $re_password = $POST['re-password'];
 
             if ($user->validate($_POST)) {
 
-                unset($_POST['signUp']);
-                unset($_POST['re-password']);
-
-                $email = $_POST['email'];
-                $password = $_POST['password'];
+                unset($POST['signUp']);
+                unset($POST['re-password']);
 
                 //check the email used or not
-                if (!$user->findUser($_POST) && !$employee->findUser($_POST)) {
-                    $_POST['user_status'] = "customer";
+                if (!$user->findUser($POST) && !$employee->findUser($POST)) {
 
-                    $user->insert($_POST);
-                    $msg = "Sign Up Successfull..";
-                    $success = 'flag=' . 0 . '&success=' .$msg . '&success_no=' . 1;
+                    // Generate a random verification code
+                    $verificationCode = mt_rand(100000, 999999);
 
-                    redirect("signin?$success");
+                    $POST['email_otp'] = $verificationCode;
+                    $POST['password'] = $_POST['password'];
+
+                    $sendmail = new SendMail;
+
+                    $res = $sendmail->sendVerificationEmail($email, $verificationCode, $POST['fullname']);
+
+                    $response = $user->insert($POST);
+
+                    // email hashing & redirect to the OTP verify page
+                    if ($res) {
+
+                        $hashMail = password_hash($POST['email'], PASSWORD_DEFAULT);
+
+                        $msg = 'success_no=' . 3 .'&flag=' . 0 . '&hash=' . $hashMail . '&code=' . 19258387 . '&email=' . urlencode($POST['email']);
+
+                        redirect("verify?$msg");
+                        exit;
+                    }else if($res){
+                        $hashMail = password_hash($POST['email'], PASSWORD_DEFAULT);
+
+                        $msg = 'error_no=' . 8 .'&flag=' . 1 . '&hash=' . $hashMail . '&code=' . 19258387 . '&email=' . urlencode($POST['email']);
+
+                        redirect("verify?$msg");
+                        exit;
+                    }else{
+
+                    }
+
+                    // $msg = "Sign Up Successfull..";
+                    // $success = 'flag=' . 0 . '&success=' . $msg . '&success_no=' . 1;
+
+
+                    // redirect("signin?$success");
+                    // exit;
                 } else {
                     $error = "Email is Already in use";
+                    $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 3;
 
-                    $passData = 'email=' . $email . '&pass=' . $password;
+                    $passData = 'name=' . $POST['fullname'] . '&email=' . $email . '&pass=' . $password . '&repass=' . $re_password;
 
-                    redirect("signup?error=$error&$passData");
+                    redirect("signup?$errors&$passData");
                     exit;
                 }
             }
+        } catch (\Throwable $th) {
         }
+    }
 
-        $data['errors'] = $user->errors;
+    // ---------------------------- --------------------------------
+    // If found the errors at data validation time then , Sign Up & Sign In redirect pages 
+    // ---------------------------- --------------------------------
+    private function errorHandler($data)
+    {
+        try {
+            if (!empty($data['errors']) && isset($_POST['signUp'])) {
 
-        // ---------------------------- --------------------------------
-        // If found the errors at data validation time then , Sign Up & Sign In redirect pages 
-        // ---------------------------- --------------------------------
+                $passData = 'name=' . $_POST['fullname'] . '&email=' . $_POST['email'] . '&pass=' . $_POST['password'] . '&repass=' . $_POST['re-password'];
+                $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
 
-        if (!empty($data['errors']) && isset($_POST['signUp'])) {
+                unset($_POST['signUp']);
 
-            $passData = 'name=' . $_POST['fullname'] . '&email=' . $_POST['email'] . '&pass=' . $_POST['password'] . '&repass=' . $_POST['re-password'];
-            $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
+                redirect("signup?$error&$passData");
+                exit;
+            } else if (!empty($data['errors']) && isset($_POST['signIn'])) {
 
-            unset($_POST['signUp']);
+                $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
+                $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
 
-            redirect("signup?$error&$passData");
-            exit;
-        } else if (!empty($data['errors']) && isset($_POST['signIn'])) {
+                unset($_POST['signIn']);
 
-            $passData = 'email=' . $_POST['email'] . '&pass=' . $_POST['password'];
-            $error = 'flag=' . $data['errors']['flag'] . '&error=' . $data['errors']['error'] . '&error_no=' . $data['errors']['error_no'];
-
-            unset($_POST['signIn']);
-
-            redirect("signin?$error&$passData");
-            exit;
+                redirect("signin?$error&$passData");
+                exit;
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
         }
-
-        $this->view('signup', $data);
     }
 }

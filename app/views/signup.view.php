@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amoral-Signup</title>
+    <title>Amoral Signup</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -18,34 +18,48 @@
 
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
+    <!-- toast css ang icon library -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
+
 </head>
 
 <body>
     <!-- loading page -->
-
     <?php
-    include "utils/loading.php";
-    ?>
-
-
-    <?php
-
     // Get the pass data from URL for sign Up part
     $r_name = htmlspecialchars($_GET['name'] ?? '');
     $r_email = htmlspecialchars($_GET['email'] ?? '');
     $r_pass = htmlspecialchars($_GET['pass'] ?? '');
     $r_re_pass = htmlspecialchars($_GET['repass'] ?? '');
 
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+
+    // loading content hide when error popup times 
+    if ($flag != 1) {
+        include "utils/loading.php";
+    } else {
+    ?>
+        <style>
+            .page-content {
+                display: flex;
+            }
+        </style>
+
+    <?php
+    }
     ?>
 
     <div class="page-content">
 
 
-        <div class="shep shep-1"></div>
-        <div class="shep shep-2"></div>
+        <!-- <div class="shep shep-1"></div>
+        <div class="shep shep-2"></div> -->
         <main class="sign-up-mode">
             <div class="box">
-                <p><? echo $errors; ?></p>
                 <div class="inner-box">
                     <div class="form-warp">
 
@@ -189,21 +203,31 @@
     </div>
 
     <!--  popup toast  -->
-    <?php include 'utils/toastMsg.php' ?>
+    <?php include 'utils/toastMsg.php'; ?>
     <!-- pass the error msg -->
 
     <?php
     // Get the URL parameters and sanitize them using htmlspecialchars
+
     $error = htmlspecialchars($_GET['error'] ?? '');
-    $flag = htmlspecialchars($_GET['flag'] ?? '');
-    $error_no = htmlspecialchars($_GET['error_no'] ?? '');
+    $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
+
+    $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
+    $success_msg = htmlspecialchars($_GET['success'] ?? '');
+
     ?>
 
     <script>
         let dataValidate = {
             "error": "<?= $error ?>",
             "flag": <?= $flag ?>,
-            "error_no": <?= $error_no ?>,
+            "error_no": <?= $error_no ?>
+        }
+
+        let successData = {
+            "success_no": <?= $success_no ?>,
+            "flag": <?= $flag ?>,
+            "success": "<?= $success_msg ?>",
         }
     </script>
 

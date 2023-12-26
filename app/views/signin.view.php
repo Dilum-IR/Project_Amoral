@@ -4,28 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amoral for signin</title>
+    <title>Amoral</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <!-- Jquary library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
+    <!-- toast css ang icon library -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
 </head>
 
 <body>
     <!-- loading page -->
     <?php
-    include "utils/loading.php";
-    ?>
-
-
-    <?php
     // Get the pass data from URL for sign In part
     $l_email = htmlspecialchars($_GET['email'] ?? '');
     $l_pass = htmlspecialchars($_GET['pass'] ?? '');
 
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+
+    // loading content hide when error popup times 
+    if ($flag != 1) {
+        include "utils/loading.php";
+    } else {
+    ?>
+        <style>
+            .page-content {
+                display: flex;
+            }
+        </style>
+    <?php
+    }
     ?>
 
     <div class="page-content">
@@ -190,7 +204,6 @@
 
     <?php
     // Get the URL parameters and sanitize them using htmlspecialchars
-    $flag = htmlspecialchars($_GET['flag'] ?? '');
 
     $error = htmlspecialchars($_GET['error'] ?? '');
     $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
@@ -205,7 +218,7 @@
         let dataValidate = {
             "error": "<?= $error ?>",
             "flag": <?= $flag ?>,
-            "error_no": <?= $error_no ?>,
+            "error_no": <?= $error_no; ?>,
         }
 
         let successData = {
@@ -213,7 +226,6 @@
             "flag": <?= $flag ?>,
             "success": "<?= $success_msg ?>",
         }
-        console.log(successData);
     </script>
 
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
@@ -230,7 +242,6 @@
     <!-- <script>
         var form1 = document.getElementById("signupForm");
         var form2 = document.getElementById("signinForm");
-
 
         document.addEventListener("DOMContentLoaded", () => {
             $(document).ready(function() {

@@ -25,18 +25,20 @@
 }
 .toast.show {
   right: 10px;
+  opacity: 100%;
 }
 
 .toast.hide {
   right: -100%;
+  opacity: 0%;
 }
 
-.toast-body p{
-    letter-spacing: 1.0px;
-    padding-top: 5px;
-    /* display: flex; */
-    justify-content: center;
-    align-items: center;
+.toast-body p {
+  letter-spacing: 1px;
+  padding-top: 5px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
 }
 .toast-header .icon {
   font-size: 23px;
@@ -44,20 +46,14 @@
   margin-right: 10px;
 }
 
-ion-icon {
-  --ionicon-stroke-width: 55px;
-}
-
-
-
 @keyframes liquidSlideIn {
-    0% {
-      transform: scaleX(0.2);
-    }
-    50% {
-      transform: scaleX(1.2);
-    }
-    100% {
-      transform: scaleX(1);
-    }
+  0% {
+    transform: scaleX(0.2);
   }
+  50% {
+    transform: scaleX(1.2);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

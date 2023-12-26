@@ -8,8 +8,9 @@ const signup_button = document.getElementById("sign-up-btn");
 
 signup_button.addEventListener("submit", function (e) {
   e.preventDefault();
-  const data = new FormData(signup_button);
-  console.log(data);
+  // const data = new FormData(signup_button);
+  // console.log(data);
+  // signup_button.setAttribute("disabled", true);
 });
 
 inputs.forEach((input) => {
@@ -60,73 +61,7 @@ function moveSlider() {
 
 setInterval(moveSlider, 2000);
 
-try {
-  if (dataValidate.flag === 1) {
-    console.log(dataValidate);
 
-    switch (dataValidate.error_no) {
-      case 1:
-        setTimeout(() => {
-          toastApply("Name :", dataValidate.error);
-        }, 50);
-        break;
-      case 2:
-        setTimeout(() => {
-          toastApply(dataValidate.error, "Contains only [a-zA-Z]");
-        }, 50);
-        break;
-      case 3:
-        setTimeout(() => {
-          toastApply("Email :", dataValidate.error);
-        }, 50);
-        break;
-      case 4:
-        setTimeout(() => {
-          toastApply("Password :", dataValidate.error);
-        }, 50);
-        break;
-      case 5:
-        setTimeout(() => {
-          toastApply(
-            dataValidate.error,
-            "Should Contains [a-z][0-9][!@#^%?$&*~]"
-          );
-        }, 50);
-        break;
-      case 6:
-        setTimeout(() => {
-          toastApply("Email", dataValidate.error);
-        }, 50);
-        break;
-      case 7:
-        setTimeout(() => {
-          toastApply("Sign In Credintial:", dataValidate.error);
-        }, 50);
-        break;
-
-      default:
-        break;
-    }
-  } else if (successData.flag === 0) {
-    // toast apply for success time
-    switch (successData.success_no) {
-      case 1:
-        setTimeout(() => {
-          toastApply("Sign Up :", successData.success, 0);
-        }, 50);
-        break;
-      case 2:
-        setTimeout(() => {
-          toastApply("Sign In :", successData.success, 0);
-        }, 50);
-        break;
-      default:
-        break;
-    }
-  }
-} catch (error) {
-  console.error(error);
-}
 
 //password visibility
 function togglePasswordVisibility(passwordId, iconId) {
