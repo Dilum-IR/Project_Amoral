@@ -5,7 +5,7 @@ $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 route('signin', 'SignIn@index');
 route('signup', 'SignUp@index');
 
-route('emailverification', 'EmailVerify@index');
+route('verify', 'EmailVerify@index');
 
 
 route('logout', 'Logout@index');

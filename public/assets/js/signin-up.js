@@ -8,8 +8,9 @@ const signup_button = document.getElementById("sign-up-btn");
 
 signup_button.addEventListener("submit", function (e) {
   e.preventDefault();
-  const data = new FormData(signup_button);
-  console.log(data);
+  // const data = new FormData(signup_button);
+  // console.log(data);
+  // signup_button.setAttribute("disabled", true);
 });
 
 inputs.forEach((input) => {

@@ -17,6 +17,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: rgb(240, 237, 237);
 }
 h1{
     margin: 0 ;
@@ -52,7 +53,7 @@ h1{
     border-color: transparent;
 }
 
-.otp-card button{
+.otp-card .verify{
     background-color: black;
     padding: 15px 50px;
     border: none;
@@ -61,6 +62,13 @@ h1{
     border-radius: 20px;
     cursor: pointer;
     margin-top: 15px;
+    align-items: center;
+    display: inline-flex;
+    transition: 0.5s ease;
+}
+.bx-spin{
+    font-size: 20px;
+    margin-left: 5px;
 }
 
 .otp-card button:hover{
@@ -69,5 +77,15 @@ h1{
 .otp-card button[disabled]{
     opacity: .6;
     cursor: default;
-
+    
+}
+#resend{
+    color: rgb(4, 0, 255);
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: bold;
+}
+#resend[disabled]{
+    opacity: 0.5;
 }

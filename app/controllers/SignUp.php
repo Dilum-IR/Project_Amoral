@@ -187,7 +187,7 @@ class SignUp extends Controller
 
                     $sendmail = new SendMail;
 
-                    $res = $sendmail->sendVerificationEmail($email, $verificationCode);
+                    $res = $sendmail->sendVerificationEmail($email, $verificationCode,$POST['fullname']);
 
                     $response = $user->insert($POST);
 
