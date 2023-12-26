@@ -53,21 +53,17 @@
 
             <h3 class="brand-name" data-text="AMORAL...">AMORAL...</h3>
 
-            <div class="main-text">
-                <div class="wellcome-text">
+            <!-- <div class="main-text">
+                <div class="welcome-text">
                     Welcome to Amoral, your ultimate destination for personalized style! Dive into a seamless design experience on our platform, where you can effortlessly create, print, and order custom t-shirts that reflect your individuality. Let your imagination run wild as you embark on a journey of self-expression with Amoral.
                 </div>
-                <div class="sign-up-text">
-                    <a href="<?= ROOT ?>/signin">
-                    <i class='bx bxs-user icon'><span>Sign Up</span></i>
-                    </a>
-                    <br>
-                    <a href="<?= ROOT ?>/guest">
-                    <i class='bx bxs-user-plus icon'><span>Partnership</span></i>
-                    </a>
-                </div>
-            </div>
+
+            </div> -->
+
+
+
         </div>
+
 
         <div class="slide-images">
 
@@ -89,7 +85,24 @@
 
             <div class="slide-text">
                 Welcome to Amoral, your ultimate destination for personalized style! Dive into a seamless design experience on our platform, where you can effortlessly create, print, and order custom t-shirts that reflect your individuality. Let your imagination run wild as you embark on a journey of self-expression with Amoral.
+                <div class="sign-up-text">
+                <a class="sign-up-box" href="<?= ROOT ?>/signin">
+                        <i class='bx bxs-user icon'></i>
+                        Sign In
+                    </a>
+                    <a class="sign-up-box" href="<?= ROOT ?>/signup">
+                        <i class='bx bxs-user icon'></i>
+                        Sign Up
+                    </a>
+                    <br>
+                    <a class="sign-up-box" href="<?= ROOT ?>/guest">
+                        <i class='bx bxs-user icon'></i>
+                        Sign Up for a Partnership
+                    </a>
+                </div>
             </div>
+
+
 
         </div>
         <br>
@@ -122,7 +135,7 @@
         </div>
 
         <div class="partnership-deal">
-            <div class="deal-images">
+            <div class="partnership-deal-images">
                 <img class="partnership-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
             </div>
 
@@ -133,21 +146,19 @@
         </div>
 
         <div class="shopping-deals">
-            <div class="shop-now">
-                <img class="shop-now-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
-                <div class="shop-now-text">
-                    <p class="shop-now-p">See the Collection</p>
-                    <button class="shop-now-button">Shop Now</button>
+            <div class="deal-section shop-now">
+                <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <div class="deal-text">
+                    <p class="deal-p">See the Collection</p>
+                    <button class="deal-button">Shop Now</button>
                 </div>
-                <!-- <button class="shop-now-button">Shop Now</button> -->
             </div>
-            <div class="place-now">
-                <img class="place-now-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
-                <div class="place-now-text">
-                    <p class="place-now-p">Place your order now</p>
-                    <button class="place-now-button">Place Your Order</button>
+            <div class="deal-section place-now">
+                <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <div class="deal-text">
+                    <p class="deal-p">Place your order now</p>
+                    <button class="deal-button">Place Order</button>
                 </div>
-                <!-- <button class="place-now-button">Place Your Order</button> -->
             </div>
         </div>
 
@@ -156,50 +167,47 @@
             <div class="services">
                 <div class="services-tab">
                     Custom T-Shirt Printing
-                    <div class="service-description">Your overlay text here</div>
+                    <div class="service-description">Choose from a variety of t-shirt styles, colors, and sizes, and let your creativity run wild. Whether it's a single personalized t-shirt or a bulk order for an event, we ensure vibrant prints that stand out.
+</div>
                 </div>
                 <div class="services-tab">
                     Design Your Own T-Shirt
-                    <div class="service-description">Your overlay text here</div>
+                    <div class="service-description">Unleash your creativity with our user-friendly design tool. Create your own unique t-shirt designs with ease. Experiment with colors, fonts, and graphics to craft a personalized masterpiece.</div>
                 </div>
                 <div class="services-tab">
                     Bulk Orders for Events and Businesses
-                    <div class="service-description">Your overlay text here</div>
+                    <div class="service-description">Planning an event or looking for branded merchandise for your business? Our bulk ordering option is tailored to meet your needs. Get high-quality, consistent prints for team-building events, promotional giveaways, or corporate branding. Elevate your brand with customized apparel that leaves a lasting impression.</div>
                 </div>
                 <div class="services-tab">
                     Quality Materials and Printing Techniques
-                    <div class="service-description">Your overlay text here</div>
+                    <div class="service-description">We take pride in using only the finest materials and cutting-edge printing techniques. Our commitment to quality ensures that your t-shirts not only look great but also stand the test of time. </div>
                 </div>
                 <div class="services-tab">
                     Doorstep Delivery
-                    <div class="service-description">Your overlay text here</div>
+                    <div class="service-description">Sit back and relax while we bring your custom t-shirts directly to your doorstep. Our reliable and secure delivery service ensures that your orders reach you on time and in pristine condition. Enjoy the convenience of having your personalized apparel delivered hassle-free.</div>
                 </div>
                 <div class="services-tab">
                     Fast Turnaround Time
-                    <div class="service-description">Your overlay text here</div>
+                    <div class="service-description">We understand the importance of deadlines. Our streamlined processes and efficient team enable us to offer fast turnaround times without compromising on quality. Get your custom t-shirts when you need them, without the wait.</div>
                 </div>
             </div>
         </div>
 
+        <!-- <div class="line line-1">
+            <div class="wave wave1"></div>
+        </div>
+
+        <div class="line line-2">
+            <div class="wave wave2"></div>
+        </div>
+
+        <div class="line line-3">
+            <div class="wave wave3"></div>
+        </div> -->
 
 
     </section>
 
-
-    <!-- <footer>
-        <div class="footer-links">
-            <a href="#">Home</a>
-            <a href="#">About Us</a>
-            <a href="#">Contact Us</a>
-            <a href="#">Report</a>
-        </div>
-        <div class="contact-info">
-            <p>AMORAL</p>
-            <p>185 West 74th Street, New York, USA</p>
-            <p>Contact: 000-000-0000</p>
-            <p>© 2023 Amoral.com, Times Internet Limited. All rights reserved </p>
-        </div>
-    </footer> -->
     <footer>
         <div class="main-content">
             <div class="left box">
@@ -224,12 +232,12 @@
                     </div>
 
                     <div class="phone">
-                    <a href="" class="address-icons"><i class='bx bxs-phone icon'></i></a>
+                        <a href="" class="address-icons"><i class='bx bxs-phone icon'></i></a>
                         <span class="text">+55 61 9999-9999</span>
                     </div>
 
                     <div class="e-mail">
-                    <a href="" class="address-icons"><i class='bx bxs-message icon'></i></a>
+                        <a href="" class="address-icons"><i class='bx bxs-message icon'></i></a>
                         <span class="text">example@example.com</span>
                     </div>
                 </div>
