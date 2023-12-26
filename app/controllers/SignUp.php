@@ -17,7 +17,6 @@ class SignUp extends Controller
                 if ($curr_row->user_status == 'customer') {
                     redirect('customer/overview');
                 } else if ($curr_row->emp_status == 'manager') {
-
                     redirect('manager/overview');
                 } else if ($curr_row->emp_status == 'delivery') {
                     redirect('delivery/overview');
@@ -82,8 +81,8 @@ class SignUp extends Controller
 
                         unset($row->password);
                         if ($row->email_verified == 0) {
-                            
-                            redirect("emailverification");
+
+                            redirect("verify");
                             exit;
                         }
 
@@ -187,16 +186,36 @@ class SignUp extends Controller
 
                     $sendmail = new SendMail;
 
-                    $res = $sendmail->sendVerificationEmail($email, $verificationCode,$POST['fullname']);
+                    $res = $sendmail->sendVerificationEmail($email, $verificationCode, $POST['fullname']);
 
                     $response = $user->insert($POST);
 
-                    $msg = "Sign Up Successfull..";
-                    $success = 'flag=' . 0 . '&success=' . $msg . '&success_no=' . 1 . '&send=' . $res;
+                    // email hashing & redirect to the OTP verify page
+                    if ($res) {
+
+                        $hashMail = password_hash($POST['email'], PASSWORD_DEFAULT);
+
+                        $msg = 'success_no=' . 3 .'&flag=' . 0 . '&hash=' . $hashMail . '&code=' . 19258387 . '&email=' . urlencode($POST['email']);
+
+                        redirect("verify?$msg");
+                        exit;
+                    }else if($res){
+                        $hashMail = password_hash($POST['email'], PASSWORD_DEFAULT);
+
+                        $msg = 'error_no=' . 8 .'&flag=' . 1 . '&hash=' . $hashMail . '&code=' . 19258387 . '&email=' . urlencode($POST['email']);
+
+                        redirect("verify?$msg");
+                        exit;
+                    }else{
+
+                    }
+
+                    // $msg = "Sign Up Successfull..";
+                    // $success = 'flag=' . 0 . '&success=' . $msg . '&success_no=' . 1;
 
 
-                    redirect("signin?$success");
-                    exit;
+                    // redirect("signin?$success");
+                    // exit;
                 } else {
                     $error = "Email is Already in use";
                     $errors = 'flag=' . 1 . '&error=' . $error . '&error_no=' . 3;

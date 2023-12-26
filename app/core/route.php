@@ -6,6 +6,7 @@ route('signin', 'SignIn@index');
 route('signup', 'SignUp@index');
 
 route('verify', 'EmailVerify@index');
+route('verifyOtp', 'EmailVerify@VerifyData');
 
 
 route('logout', 'Logout@index');

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amoral-Signup</title>
+    <title>Amoral Signup</title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/signin-up.css">
 
 
@@ -29,30 +29,37 @@
 
 <body>
     <!-- loading page -->
-
     <?php
-    include "utils/loading.php";
-    ?>
-
-
-    <?php
-
     // Get the pass data from URL for sign Up part
     $r_name = htmlspecialchars($_GET['name'] ?? '');
     $r_email = htmlspecialchars($_GET['email'] ?? '');
     $r_pass = htmlspecialchars($_GET['pass'] ?? '');
     $r_re_pass = htmlspecialchars($_GET['repass'] ?? '');
 
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+
+    // loading content hide when error popup times 
+    if ($flag != 1) {
+        include "utils/loading.php";
+    } else {
+    ?>
+        <style>
+            .page-content {
+                display: flex;
+            }
+        </style>
+
+    <?php
+    }
     ?>
 
     <div class="page-content">
 
 
-        <div class="shep shep-1"></div>
-        <div class="shep shep-2"></div>
+        <!-- <div class="shep shep-1"></div>
+        <div class="shep shep-2"></div> -->
         <main class="sign-up-mode">
             <div class="box">
-                <p><? echo $errors; ?></p>
                 <div class="inner-box">
                     <div class="form-warp">
 
@@ -196,19 +203,18 @@
     </div>
 
     <!--  popup toast  -->
-    <?php include 'utils/toastMsg.php' ?>
+    <?php include 'utils/toastMsg.php'; ?>
     <!-- pass the error msg -->
 
     <?php
     // Get the URL parameters and sanitize them using htmlspecialchars
-    $flag = htmlspecialchars($_GET['flag'] ?? '');
 
     $error = htmlspecialchars($_GET['error'] ?? '');
-    $error_no = htmlspecialchars($_GET['error_no'] ?? '');
+    $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
 
     $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
     $success_msg = htmlspecialchars($_GET['success'] ?? '');
-    $send = htmlspecialchars($_GET['send'] ?? 0);
+
     ?>
 
     <script>
@@ -222,10 +228,7 @@
             "success_no": <?= $success_no ?>,
             "flag": <?= $flag ?>,
             "success": "<?= $success_msg ?>",
-            "send": <?= $send ?>
-
         }
-       
     </script>
 
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>

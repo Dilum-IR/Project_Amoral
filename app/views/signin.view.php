@@ -22,15 +22,24 @@
 <body>
     <!-- loading page -->
     <?php
-    include "utils/loading.php";
-    ?>
-
-
-    <?php
     // Get the pass data from URL for sign In part
     $l_email = htmlspecialchars($_GET['email'] ?? '');
     $l_pass = htmlspecialchars($_GET['pass'] ?? '');
 
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+
+    // loading content hide when error popup times 
+    if ($flag != 1) {
+        include "utils/loading.php";
+    } else {
+    ?>
+        <style>
+            .page-content {
+                display: flex;
+            }
+        </style>
+    <?php
+    }
     ?>
 
     <div class="page-content">
@@ -195,15 +204,12 @@
 
     <?php
     // Get the URL parameters and sanitize them using htmlspecialchars
-    $flag = htmlspecialchars($_GET['flag'] ?? '');
 
     $error = htmlspecialchars($_GET['error'] ?? '');
     $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
 
-    
     $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
     $success_msg = htmlspecialchars($_GET['success'] ?? '');
-    $send = htmlspecialchars($_GET['send'] ?? 0);
 
 
     ?>
@@ -212,15 +218,13 @@
         let dataValidate = {
             "error": "<?= $error ?>",
             "flag": <?= $flag ?>,
-            "error_no": <?= $error_no ?>
+            "error_no": <?= $error_no; ?>,
         }
 
         let successData = {
             "success_no": <?= $success_no ?>,
             "flag": <?= $flag ?>,
             "success": "<?= $success_msg ?>",
-            "send": <?= $send ?>
-
         }
     </script>
 
@@ -238,7 +242,6 @@
     <!-- <script>
         var form1 = document.getElementById("signupForm");
         var form2 = document.getElementById("signinForm");
-
 
         document.addEventListener("DOMContentLoaded", () => {
             $(document).ready(function() {
