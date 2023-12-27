@@ -332,13 +332,14 @@ tr:hover{
   padding: 20px;
   box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
   visibility: hidden;
-  transition: transform 0.5s, top 0.5s;
+  transition:  none .3s;
   justify-content: center;
 }
 
 .popup-view{
   width: 55%;
-  top: 55%;
+  top: 83%;
+  bottom: 20%;
 }
 
 .open-popup-view,
@@ -535,7 +536,6 @@ textarea {
   place-items: center;
   color: #fff;
   position: relative;
-  cursor: pointer;
 
 }
 
@@ -694,6 +694,10 @@ form .user-details .input-box .addr {
   width: 20%;
 }
 
+.input-box.location {
+  margin-top: -242px;
+}
+
 form .sizes {
   display: flex;
   flex-wrap: wrap;
@@ -734,39 +738,44 @@ select {
 }
 
 .popup-view .pb{
-  position: relative;
-
-  font-size: 14px;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  padding: 10px 20px;
-  color: var(--light);
-  left: 55%;
-  overflow: hidden;
-  transition: all .3s ease;
-  border-radius: 10px;
-  font-weight: 600;
-  /* margin-bottom: 12px; */
+  position: absolute;
+  outline: none;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #ffffff;
+  border: none;
+  padding: 0.5% 1%;
+  margin-left: 60%;
+  bottom: 2.6%;
+  text-align: center;
+  /* text-decoration: none; */
+  /* display: inline-block; */
+  font-size: 16px;
+  font-weight: bolder;
+  /* margin: 2% 1%; */
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
 .popup-view .update-btn {
   /* right: 20%; */
-  background: var(--blue);
+  color: var(--blue);
 }
 
 .popup-view .update-btn:hover {
-  background: darkblue;
+  text-decoration: underline;
 }
 
 .popup-view .cancel-btn {
-  /* right: 3%; */
-  background: var(--red);
+  right: 6%;
+  color: var(--red);
 }
 
 .popup-view .cancel-btn:hover {
-  background: darkred;
+  text-decoration: underline;
 }
 
 /* @media screen and (max-width: 950px) {

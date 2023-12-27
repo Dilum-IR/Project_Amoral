@@ -9,14 +9,15 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
+
+    </head>
 
 <body>
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
-    <?php include 'navigationbar.php' ?>
+    <?php include_once 'navigationbar.php' ?>
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
@@ -225,14 +226,50 @@
                     <div class="input-box">
                         <span class="details addr">District</span>
                     
-                        <input type="text" name="district">
+                        <select name="district">
+                            <option value="Ampara">Ampara</option>
+                            <option value="Anuradhapura">Anuradhapura</option>
+                            <option value="Badulla">Badulla</option>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Hambantota">Hambantota</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Kalutara">Kalutara</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Kegalle">Kegalle</option>
+                            <option value="Kilinochchi">Kilinochchi</option>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <option value="Mannar">Mannar</option>
+                            <option value="Matale">Matale</option>
+                            <option value="Matara">Matara</option>
+                            <option value="Monaragala">Monaragala</option>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <option value="Puttalam">Puttalam</option>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <option value="Vavuniya">Vavuniya</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Design</span>
+                        <div class="design" style="height:300px; width: 100%;"></div>
+                    </div>
+
+                    <div class="input-box location">
+                        <span class="details">Location</span>
+                        <div id="map" style="height: 400px; width: 100%;"></div>
                     </div>
                 </div>
                 <!-- hidden element -->
                 <div class="input-box">
                     <!-- <span class="details">Order Id </span> -->
-                    <input name="order_status" type="hidden" required onChange="" readonly value="cutting" />
-                    <input name="user_id" type="hidden" required onChange="" readonly value="0023456" />
+                    <input name="latitude" type="hidden" required />
+                    <input name="longitude" type="hidden" required />
                 </div>
 
 
@@ -248,6 +285,7 @@
     <div id="overlay" class="overlay"></div>
 
 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>

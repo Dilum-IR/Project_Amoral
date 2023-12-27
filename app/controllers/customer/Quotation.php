@@ -29,6 +29,29 @@ class Quotation extends Controller{
             $this->view('customer/quotation', $data);
 
             $errors = [];
+
+            if (isset($_POST['newQuotation']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+                //need to validate
+ 
+                    unset($_POST['newQuotation']);
+                    $_POST['user_id'] = $id['user_id'];
+                    $_POST['order_placed_on'] = date('Y-m-d');
+                    $_POST['order_status'] = 'Quotation';
+                    $_POST['is_quotation'] = 1;
+                    if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0){
+                        $filedata = file_get_contents($_FILES["file"]["tmp_name"]);
+                        $_POST['image'] = $filedata;
+                    }
+                    else{
+                        echo "Error: " . $_FILES["file"]["error"];
+                    }
+                    if(isset($_POST['user_id'])){
+                        $order->insert($_POST);
+                        unset($_POST['user_id']);
+                        redirect('customer/quotation');
+                    }
+            }            
+
             if (isset($_POST['report'])) {
                 
 

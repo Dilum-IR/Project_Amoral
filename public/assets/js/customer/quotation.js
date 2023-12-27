@@ -2,6 +2,33 @@ let popupView = document.getElementById("popup-view");
 let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
+let closeReportBtn = document.querySelector(".popup-report .close-icon a");
+let closeViewBtn = document.querySelector(".popup-view .close-icon a");
+let closeNewBtn = document.querySelector(".popup-new .close-icon a");
+
+closeReportBtn.addEventListener("click", closeReport);
+closeViewBtn.addEventListener("click", closeView);
+closeNewBtn.addEventListener("click", closeNew);
+
+const search = document.querySelector(".form input"),
+        table_rows = document.querySelectorAll("tbody tr");
+
+search.addEventListener('input', performSearch);
+
+function performSearch() {
+    table_rows.forEach((row, i) => {
+        let search_data = search.value.toLowerCase(),
+            row_text = '';
+
+        for(let j=0; j<row.children.length - 1; j++){
+            row_text += row.children[j].textContent.toLowerCase();
+            
+        }
+        console.log(row_text);
+
+        row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+    })
+}
 
 function openView(button) {
   
@@ -13,6 +40,9 @@ function openView(button) {
     if (orderData) {
       // Parse the JSON data
       const order = JSON.parse(orderData);
+
+      const img = document.createElement("img");
+        img.src = "data:image/jpeg;base64," + order.image;
       
       // Populate the "update-form" fields with the order data
       document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
@@ -29,6 +59,8 @@ function openView(button) {
 
       document.querySelector('.update-form input[name="user_id"]').value =order.user_id;
       document.querySelector('.update-form input[name="district"]').value =order.district;
+      
+      document.querySelector('.update-form .image').appendChild(img);
   
       
       // Show the "update-form" popup
@@ -59,4 +91,45 @@ function openNew(){
 function closeNew(){
     popupNew.classList.remove("open-popup-new");
     overlay.classList.remove("overlay-active");
+}
+
+var map;
+var marker;
+var infowindow;
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 7.8731, lng: 80.7718},
+        zoom: 8
+    });
+
+        map.addListener('click', function(event) {
+            if(marker){
+                marker.setMap(null);
+            }
+
+            marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map
+            });
+
+            // if(infowindow){
+            //     infowindow.close();
+            // }
+
+            // infowindow = new google.maps.InfoWindow({
+            //     content: 'Your custom message here'
+            // });
+
+            // infowindow.open(map, marker);
+
+            google.maps.event.addEventListener(marker, 'click', function(){
+                marker.setMap(null);
+            });
+
+    });
+
+
+
+    
+
 }

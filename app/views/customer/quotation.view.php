@@ -9,6 +9,8 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
 </head>
 
 <body>
@@ -26,10 +28,14 @@
 
         <form>
             <div class="form">
-				<input class="form-group" type="text" placeholder="Search...">
-                <button class="icon-button" onclick="">
-                    <i class='bx bx-search icon'></i>
-                </button>
+            <form action="#">
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
 				<input class="new-btn" type="button" onclick="openNew()" value="+New Request">
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
@@ -82,8 +88,112 @@
 
     <!-- POPUP -->
     <div class="popup-new">
+        <div class="close-icon">
+          <a href="#">
+            <i class="bx bx-x" id="gen-pop-close"></i>
+            <!-- <span class="link_name">Close</span> -->
+          </a>
+        </div>
         <h2>New Quotation Request</h2>
-        <form method="POST">
+        <form class="new-form" method="POST">
+                <div class="user-details">
+
+                    <div class="input-box">
+                        <span class="details">Material </span>
+                        <select name="material">
+                            <option value="Crocodile">Crocodile</option>
+                            <option value="Wetlook">Wetlook</option>
+                            <option value="Baby Crocodile">Baby Crocodile</option>
+                        </select>
+                        
+                    </div>
+
+                    <div class="input-box sizes">
+                        <span class="details">Sizes & Quantity</span><br>
+                        <div class="sizeChart">
+                            <span class="size">S</span>
+                        
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                            <span class="size">M</span>
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                            <span class="size">L</span>
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                                <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                                <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                                <br>
+                        </div>
+                    </div>
+
+                    <div class="input-box design">
+                        <span class="details">Design</span>
+                        <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload">
+                    </div>
+
+                    
+
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+                    
+                        <input type="date" name="dispatch_date">
+                    </div>
+
+                    <div class="input-box location">
+                        <span class="details"> Delivery Location</span>
+                        <div id="map" style="height: 300px; width: 100%;"></div>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details addr">District</span>
+                    
+                        <select name="district">
+                            <option value="Ampara">Ampara</option>
+                            <option value="Anuradhapura">Anuradhapura</option>
+                            <option value="Badulla">Badulla</option>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Hambantota">Hambantota</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Kalutara">Kalutara</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Kegalle">Kegalle</option>
+                            <option value="Kilinochchi">Kilinochchi</option>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <option value="Mannar">Mannar</option>
+                            <option value="Matale">Matale</option>
+                            <option value="Matara">Matara</option>
+                            <option value="Monaragala">Monaragala</option>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <option value="Puttalam">Puttalam</option>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <option value="Vavuniya">Vavuniya</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+                <div class="btns">
+                    <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
+                    <button type="submit" class="close-btn" value="newQuotation" name="newQuotation">Submit</button>
+                </div>
+
+
+
+
+            </form>
+
+        <!-- <form method="POST" class="new-req">
             <div class="form">
                 <div class="input-box">
                     <span class="details">Material</span><br>
@@ -92,30 +202,9 @@
                         <option value="Wetlook">Wetlook</option>
                         <option value="Baby Crocodile">Baby Crocodile</option>
                     </select>
-                </div>
-                <div class="input-box">
-                    <span class="details">Sizes & Quantity</span><br>
-                    <div class="sizeChart">
-                        <span class="size">S</span>
-                    
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">M</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
-                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">L</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                        <br>
-                </div>
+                </div> -->
 
-                </div>
-
+<!-- 
                 <div class="input-box">
                     <span class="details">Delivery Address</span>
                     <input type="text" name="address" placeholder="Enter delivery address">
@@ -126,6 +215,7 @@
                     <input type="date" name="dispatch_date">
                 </div>
                 
+                
                     <span class="details">T-shirt Design</span>
                     <input enctype="multipart/form-data" type="file" name="design" id="fileToUpload">
                 
@@ -134,11 +224,17 @@
                 <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
                 <button type="submit" class="close-btn" value="newQuotation" name="newQuotation">Submit</button>
             </div>
-        </form>
+        </form> -->
     </div> 
                
 
     <div class="popup-report">
+        <div class="close-icon">
+            <a href="#">
+                <i class="bx bx-x" id="gen-pop-close"></i>
+                <!-- <span class="link_name">Close</span> -->
+            </a>
+        </div>
         <h2>Report Your Problem</h2>
         <form method="POST">
 
@@ -160,6 +256,13 @@
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+        <div class="close-icon">
+          <a href="#">
+            <i class="bx bx-x" id="gen-pop-close"></i>
+            <!-- <span class="link_name">Close</span> -->
+          </a>
+        </div>
+        
         <h2>Request Details</h2>
 
         
@@ -196,6 +299,7 @@
                                 <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                                 <br>
                         </div>
+                    </div>
 
                     <div class="input-box">
                         <span class="details">Request Placed On</span>
@@ -210,6 +314,14 @@
                         <span class="details addr">Address</span>
                     
                         <input type="text" name="district">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Delivery Location</span>
+                        <div id="map" style="height: 300px; width: 100%;"></div>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Design</span>
+                        <div class="image"></div>
                     </div>
                 </div>
                 <!-- hidden element -->
