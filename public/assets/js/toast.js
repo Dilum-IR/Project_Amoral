@@ -92,7 +92,11 @@ try {
       // popup when verification code not sent
       case 8:
         setTimeout(() => {
-          toastApply("Network Error", "Resend verification code");
+          toastApply("Network Error", "Use the resend verification code");
+        }, 50);
+      case 9:
+        setTimeout(() => {
+          toastApply("Email is not Verifyed", "Please Verify Your Email..");
         }, 50);
       default:
         break;
