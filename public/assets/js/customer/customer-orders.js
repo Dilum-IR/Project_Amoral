@@ -213,6 +213,8 @@ function initMap() {
 
     });
 
-
+    closeViewBtn.addEventListener('click', function(){
+        marker.setMap(null);
+    });
 
 }
