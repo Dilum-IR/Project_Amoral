@@ -21,11 +21,12 @@ window.onload = function(){
         main.classList.toggle("open")
         menuBtnChange()
     })
-
-    searchBtn.addEventListener("click",function(){
-        sidebar.classList.toggle("open")
-        menuBtnChange()
-    })
+    
+    // searchBtn.addEventListener("click",function(){
+       
+    //     sidebar.classList.toggle("open")
+    //     menuBtnChange()
+    // })
 
     function menuBtnChange(){
         if(sidebar.classList.contains("open")){
