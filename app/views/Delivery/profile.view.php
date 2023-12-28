@@ -52,7 +52,7 @@
       <div class="right">
         <!-- Information Section -->
         <div class="info">
-          <h3>Personal Information
+          <h3 class="h3" >Personal Information
             <hr>
           </h3>
           <form action="">
@@ -110,7 +110,7 @@
 
         <!-- Change Password Section -->
         <div class="info">
-          <h3>Security Update
+          <h3 class="h3">Security Update
             <hr>
           </h3>
           <form action="">

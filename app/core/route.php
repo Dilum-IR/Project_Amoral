@@ -4,12 +4,13 @@ $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
 route('signin', 'SignIn@index');
 route('signup', 'SignUp@index');
+route('logout', 'Logout@index');
 
 route('verify', 'EmailVerify@index');
-route('verifyOtp', 'EmailVerify@VerifyData');
 
-
-route('logout', 'Logout@index');
+// ajax calling endpoints
+route('verifyOtp', 'EmailVerify@verifyData');
+route('resendOtp', 'EmailVerify@resendOtp');
 
 
 route('home', 'Home@index');
@@ -18,7 +19,6 @@ route('customer/overview', 'customer/customerOverview@index');
 route('customer/orders', 'customer/customerOrders@index');
 route('customer/profile', 'customer/Profile@index');
 route('customer/quotation', 'customer/Quotation@index');
-
 
 
 route('manager/overview', 'manager/Overview@index');

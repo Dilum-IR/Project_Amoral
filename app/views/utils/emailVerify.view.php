@@ -61,7 +61,13 @@ if (
                         <input type="text" maxlength="1">
                         <input type="text" maxlength="1">
                     </div>
-                    <p>Don't receive the OTP ? <span class="timer"> </span><button id="resend">Resend</button></p>
+                    <p>Don't receive the OTP ? <span class="timer"></span>
+                    <form method="POST">
+                        <input id="resend" type="submit" name="resend" value="Resend">
+                        <input type="hidden" name="dumy" value="dumy">
+                        <input type="hidden" name="emaii" value="<? $email ?>">
+                    </form>
+                    </p>
                     <button class="verify" id="otpVerify" disabled onclick=""><span>Verify</span> <i class='bx bx-loader-circle bx-spin' style='color:#ffffff'></i></button>
 
                 </div>
@@ -73,11 +79,12 @@ if (
             $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
 
             $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
+            $u = htmlspecialchars($_GET['u'] ?? 0);
 
             ?>
             <script>
                 let verify = "<?= $email; ?>"
-
+                let u = "<?= $u; ?>"
 
                 let successData = {
                     "success_no": <?= $success_no ?>,
@@ -107,9 +114,9 @@ if (
 
                             data = {
                                 email_otp: otp,
-                                email: verify
+                                email: verify,
+                                un: u
                             }
-
 
                             $.ajax({
                                 type: "POST",
@@ -117,29 +124,47 @@ if (
                                 data: data,
                                 cache: false,
                                 success: function(res) {
-                                    if (res == 1) {
-                                        // otp valid state
-                                        toastApply("Valid OTP Code ", "Verification Successfull 😀🎉", 0);
+                                    // convet to the json type
+                                    console.log(res)
+                                    try {
 
-                                        setTimeout(() => {
-                                            toastApply("Signup Success", "Login with Amoral... 😀🎉", 0);
-                                        }, 5500);
-                                        window.location.href = "http://localhost/project_Amoral/public/signin"
-                                        return
+                                        Jsondata = JSON.parse(res)
 
-                                    } else {
-                                        toastApply("Invalid OTP Code ", "Verification Invalid. Try Again", 1);
+                                        if (Jsondata.flag === 1) {
+                                            // otp valid state
+                                            toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 0);
+
+                                            if (u == 1 || u == 2) {
+                                                return
+                                            } else {
+
+                                                setTimeout(() => {
+                                                    toastApply("Signup Success", "Login with Amoral... 😀🎉", 0);
+                                                }, 5500);
+
+                                                setTimeout(() => {
+                                                    window.location.href = "http://localhost/project_Amoral/public/signin"
+                                                }, 10000);
+                                                return
+                                            }
+
+                                        } else {
+                                            toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 1);
+                                        }
+                                    } catch (error) {
+
                                     }
+
 
                                 },
                                 error: function(xhr, status, error) {
-                                    return xhr;
+                                    // return xhr;
                                 }
                             })
 
                         })
 
-
+                        //      http://localhost/project_Amoral/public/verify?success_no=3&flag=0&hash=$2y$10$4TIw8dwyFPijeLLrl6/w3.qjeLOiKfObgfVzUUV/w5xw/u59Xh0XC&code=19258387&email=rdinduwara19158%40gmail.com&u=1
 
                     })
 

@@ -40,7 +40,7 @@ h3 {
   display: flex;
   box-shadow: 0 0px 10px -5px rgba(197, 197, 197, 0.288);
   border-radius: 30px;
-  
+
   /* Prevents scroll bars */
   /* overflow: hidden;  */
 }
@@ -60,11 +60,9 @@ h3 {
   text-align: center;
 }
 
-.wrapper .left-part{
-
+.wrapper .left-part {
   align-items: center;
   justify-content: center;
-
 }
 
 .wrapper .left img {
@@ -73,13 +71,13 @@ h3 {
   width: 65%; /* Adjusted photo size */
   box-shadow: -5px 0px 50px -30px rgb(255, 255, 255);
   border: 2px solid white;
-
 }
-.profile-name,.profession{
+.profile-name,
+.profession {
   font-size: 27px;
   letter-spacing: 1.5px;
 }
-.edit-icon a{
+.edit-icon a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,12 +85,12 @@ h3 {
   font-size: 15px;
   font-weight: bold;
   color: rgb(255, 255, 255);
-  .bxs-edit{
+  .bxs-edit {
     margin-right: 5px;
     font-size: 18px;
   }
 }
-.edit-icon a .link_name:hover{
+.edit-icon a .link_name:hover {
   text-decoration: underline;
 }
 .wrapper .left h4 {
@@ -121,8 +119,7 @@ h3 {
   border-color: #e0e0e0;
   border: 1px solid gray;
 }
-.wrapper .right .info h3,
-.wrapper .right .projects h3 {
+.wrapper .right .info h3 {
   margin-bottom: 15px;
   padding-bottom: 5px;
   color: #353c4e;
@@ -146,7 +143,7 @@ h3 {
 
 .wrapper .right .info_data .data h4,
 .wrapper .right .projects_data .data h4 {
-  color: #353c4e;
+  /* color: #353c4e; */
   margin-bottom: 5px;
   font-size: 1.1em;
 }
@@ -180,17 +177,17 @@ h3 {
 }
 
 /* password hide  */
- .info .hide{
+.info .hide {
   color: #bbb;
   font-size: 1.35rem;
   transition: 0.4s;
 }
 
-.info .hide:hover{
+.info .hide:hover {
   color: #555555;
   cursor: pointer;
 }
-.hide-icon{
+.hide-icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -246,17 +243,27 @@ ion-icon {
 }
 
 /* Responsive design */
-@media screen and (min-width: 1300px) and (min-height:1100px) {
+@media screen and (min-width: 1300px) and (min-height: 1100px) {
   .wrapper .left,
   .wrapper .right {
     width: 30% 70%;
     height: 100%;
   }
 }
-@media screen and (max-width: 1300px) {
+
+@media screen and (min-width: 1450px) {
   .wrapper .left,
   .wrapper .right {
     width: 30% 70%;
-    height: 89vh;
+    height: 88vh;
   }
+  .wrapper .right .info_data .data label{
+    font-size: 1.5em;
+    margin-bottom: 50px;
+  }
+  
+  .wrapper .right .info .h3{
+    margin-top: 50px;
+  }
+ 
 }
