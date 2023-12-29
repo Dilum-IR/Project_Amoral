@@ -8,19 +8,18 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/tool/nav.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/tool/tool.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/js/tool/tool.js">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/js/tool/fabric.js">
+
 </head>
 
 <body>
-    <?php include 'navigationbar.php'; ?>
+
 
     <div class="design-tool">
         <label for="t-shirt-type">Select T-Shirt Type</label>
         <select name="" id="t-shirt-type" onchange="updateTshirtType()">
-            <option value="crew_neck_front.png">Crew Neck</option>
-            <option value="polo_collar_front.png">Polo Collar</option>
-            <option value="long_sleeve_front.png">Long Sleeve</option>
+            <option value="<?= ROOT ?>/assets/images/tool/crew_neck_front.png">Crew Neck</option>
+            <option value="<?= ROOT ?>/assets/images/tool/polo_collar_front.png">Polo Collar</option>
+            <option value="<?= ROOT ?>/assets/images/tool/long_sleeve_front.png">Long Sleeve</option>
         </select>
 
         <label for="t-shirt-side">Select Side</label>
@@ -30,7 +29,7 @@
         </select>
         <div id="t-shirt" class="t-shirt">
 
-            <img id="t-shirt-image" src="crew_neck_front.png" alt="t-shirt-image">
+            <img id="t-shirt-image" src="<?= ROOT ?>/assets/images/tool/crew_neck_front.png" alt="t-shirt-image">
 
             <div class="design-area">
                 <div class="canvas-area">
@@ -122,6 +121,9 @@
     <div id="display-color-code">Selected Color : <span id="selected-color">#000000</span></div>
     <input type="color" id="t-shirt-color-picker" class="t-shirt-color-picker" onchange="updateColorCode()">
 
+
+    <script src="<?= ROOT ?>/assets/js/tool/fabric.js"></script>
+    <script src="<?= ROOT ?>/assets/js/tool/tool.js"></script>
 </body>
 
 </html>

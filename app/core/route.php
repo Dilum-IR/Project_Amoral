@@ -41,3 +41,5 @@ route('manager/employeedetails','manager/EmployeeDetails@index');
 route('signinData', 'SignIn@formData');
 
 route('guest','guest/Guest@index');
+
+route('tool', 'tool/Tool@index');

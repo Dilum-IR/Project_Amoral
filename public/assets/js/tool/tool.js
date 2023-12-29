@@ -91,14 +91,16 @@ function textFormat() {
     }
 }
 
+var rootPath = "<?= ROOT ?>/assets/images/tool/";
+
 function updateTshirtSide() {
     var selectedSide = tshirtSide.options[tshirtSide.selectedIndex].value;
     var selectedType = tshirtType.options[tshirtType.selectedIndex].value;
-    // console.log("update t shirt side");
+    console.log("update t shirt side");
     if ((selectedSide == "front-side") && (selectedType == "crew_neck_front.png")) {
         tshirtImage.src = selectedType;
     } else if ((selectedSide == "back-side") && (selectedType == "crew_neck_front.png")) {
-        tshirtImage.src = "crew_neck_back.png";
+        tshirtImage.src = ROOT + "assets/images/tool/crew_neck_back.png";
 
     } else if ((selectedSide == "front-side") && (selectedType == "polo_collar_front.png")) {
         tshirtImage.src = selectedType;
