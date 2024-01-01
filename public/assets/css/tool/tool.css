@@ -1,0 +1,48 @@
+* {
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+  }
+
+.t-shirt {
+    width: 530px;
+    height: 630px;
+    position: relative;
+    background-color:white;
+    align-items: center;
+    justify-content: center;
+}
+
+.design-area {
+    position: absolute;
+    top: 60px;
+    left: 122px;
+    z-index: 10;
+    width: 200px;
+    height: 400px;
+}
+
+.canvas-area {
+    width: 200px;
+    height: 400px;
+    position: relative;
+    user-select: none;
+}
+
+#canvas {
+    position: absolute;
+    width: 220px;
+    height: 430px;
+    user-select: none;
+    cursor: default;
+}
+
+.t-shirt-canvas{
+    margin-left: 29px; 
+    margin-top: 32px;
+}
+
+.t-shirt-canvas:hover{
+    border: 1px solid black;
+}

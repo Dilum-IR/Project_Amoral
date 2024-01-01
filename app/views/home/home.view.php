@@ -21,7 +21,7 @@
 <body>
     <?php include 'navigationbar.php'; ?>
 
-    <a href="<?= ROOT ?>/signin">SignIN</a>
+    <a href="<?= ROOT ?>/signin">Sign</a>
     <h1> Home file view</h1>
 
     <section id="welcome-section" class="welcome-section">
