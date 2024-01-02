@@ -6,8 +6,6 @@ class _404 extends Controller
         // echo "404 Page Not Found controller";
         
         $this->view('utils/404');
-
-
     }
 }
 

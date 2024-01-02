@@ -96,9 +96,6 @@ class EmployeeDetails extends Controller
             $employee->insert($data);
 
         }
-
-
-
     
         // redirect("manager/employeedetails");
     }
