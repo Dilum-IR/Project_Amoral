@@ -356,9 +356,8 @@
       </div>
     </section>
     <!-- Scripts -->
-    <script src="<?=ROOT?>/assets/js/profile.js"></script>
+    <script src="<?=ROOT?>/assets/js/manager/profile.js"></script>
     <script src="<?=ROOT?>/assets/js/script-bar.js"></script>
 
 </body>
-
 </html>

@@ -1,0 +1,250 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@100;200;300;400;500;600;700;800&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap");
+/* 
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+} */
+
+/* body,
+input {
+  font-family: "Poppins", sans-serif;
+} */
+/* 
+main {
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
+  background-color: rgb(209, 209, 209);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.box {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  background-color: white;
+  height: 570px;
+  box-shadow: 2px 5px 10px 2px rgb(138, 134, 134);
+  /* box-shadow: 0 60px 40px -30px rgb(0, 0, 0,0.27); */
+  border-radius: 30px;
+  /* padding: 2rem; */
+}
+
+.inner-box {
+  /* display: flex; */
+  position: absolute;
+  /* background-color: rebeccapurple; */
+  width: 92%;
+  height: 89%;
+  padding: 3.3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+/* images slider */
+
+.carousel {
+  position: absolute;
+  height: 100%;
+  width: 55%;
+  top: 0;
+  left: 45%;
+  padding-top: 5px;
+  /* background-color: #bababa; */
+  border-radius: 2rem;
+  display: grid;
+  overflow: hidden;
+  grid-template-rows: auto 1fr;
+  padding-bottom: 2rem;
+  transition: 0.8s ease-in-out;
+  margin-top: 1.8%;
+}
+
+.image {
+  width: 90%;
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  opacity: 0;
+  border-radius: 10%;
+  margin-left: 2%;
+  transition: opacity 0.5s linear, transform 1.2s ease-in-out;
+}
+
+.image.img-2,
+.image.img-3,
+.image.img-4 {
+  box-shadow: 2px 5px 10px 2px rgb(138, 134, 134);
+}
+.img-1 {
+  transform: translate(0, -50px);
+}
+.img-2 {
+  transform: scale(0.4, 0.5);
+}
+.img-3 {
+  transform: scale(0.3) rotate(-10deg);
+  /* transform: scale(0.3) rotate(-20deg); */
+}
+.img-4 {
+  transform: scale(0.4, 0.5);
+  /* transform: scale(0.4, 0.5); */
+}
+.images-wrapper {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%;
+  margin-left: 2%;
+}
+
+.mySlides{
+    width: 100%;
+}
+.image.show {
+  opacity: 1;
+  transform: none;
+}
+
+.text-slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: -1%;
+  /* background-color: red; */
+}
+.text-wrap {
+  max-height: 2.2rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.text-group {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  transform: translateY(0);
+  transition: 0.5s;
+}
+
+.text-group h2 {
+  line-height: 2.2rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+.bullets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bullets span {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin: 0 0.25rem;
+  border-radius: 50%;
+  background-color: #aaaa;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bullets span.active {
+  background-color: #000000;
+  width: 1.1rem;
+  border-radius: 1rem;
+}
+
+@media (max-width: 850px) {
+  .box {
+    height: auto;
+    max-width: 550px;
+    overflow: hidden;
+  }
+  .inner-box {
+    position: static;
+    transform: none;
+    width: revert;
+    height: revert;
+    padding: 2rem;
+  }
+  .form-warp {
+    position: revert;
+    width: 100%;
+    height: auto;
+  }
+
+  form {
+    max-width: revert;
+    padding: 1.5rem 2.5rem 2rem;
+    transition: transform 0.8s ease-in-out, opacity 0.45s linear;
+  }
+
+  .heading {
+    margin: 2rem 0;
+  }
+
+  form.sign-up-form {
+    transform: translateX(100%);
+  }
+
+  main.sign-up-mode form.sign-in-form {
+    transform: translateX(-100%);
+  }
+  main.sign-up-mode form.sign-up-form {
+    transform: translateX(0%);
+  }
+
+  .carousel {
+    position: revert;
+    width: 100%;
+    height: auto;
+    padding: 3rem 2rem;
+    display: flex;
+  }
+  .images-wrapper {
+    display: none;
+  }
+  .text-slider {
+    width: 100%;
+  }
+}
+
+@media (max-width: 530px) {
+  main {
+    padding: 1rem;
+  }
+  .box {
+    border-radius: 2rem;
+  }
+
+  .inner-box {
+    padding: 1rem;
+  }
+  .carousel {
+    padding: 1.5rem 1rem;
+    border-radius: 1.6rem;
+  }
+
+  .text-wrap {
+    margin-bottom: 1rem;
+  }
+
+  .text-group h2 {
+    font-size: 1.2rem;
+  }
+  form {
+    padding: 1rem 2rem 1.5rem;
+  }
+}

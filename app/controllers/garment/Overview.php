@@ -4,7 +4,15 @@ class Overview extends Controller
 {
     public function index()
     {
-        // echo "this is a about controller";
-        $this->view('garment/overview');
+
+        // $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
+        // if ($username != 'User') {
+            
+            $this->view('garment/overview');
+       
+        // }else{
+        //     redirect('home');
+        // }
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Quotation extends Controller{
+class Quotation extends Controller
+{
     public function index()
     {
   
