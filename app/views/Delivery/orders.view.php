@@ -40,37 +40,36 @@
                     <th></th>
                     <th class="ordId">OrderId</th>
                     <th class="Name">Customer Name</th>
-                    <th class="Distric">Distric</th>
-                    <th class="desc">Description</th>
+                    <th class="Distric">District</th>
                     <th class="stth">Status</th>
-                    <th class="cost">Delivery charges</th>
                     <th></th>
                 </tr>
             </thead>
-            <tr>
-                <td>1</td>
-                <td class="ordId">002345</td>
-                <td class="Name">Sadeep Chathushan</td>
-                <td class="Distric">Matara</td>
-                <td class="desc">Material : Wetlook <br>
-                    Sizes & Quantity : S - 2
-                </td>
-                <td class="st">
-                   <!-- <div class="text-status">On the way</div>-->
-                   <div class="text-info">
-                  <select name="profession" id="profession" required class="edit-popup-gen">
-                  <option value="First">Package Pending</option>
-                    <option value="Secound">Package Received</option>
-                    <option value="Third">Package On the way</option>
-                    <option value="Fouth">Package Delivered</option>
-                   
 
-                  </select>
-                </div>
-                </td>
-                <td class="cost">Rs. 2400</td>
-                <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-            </tr>
+            <?php
+            if (isset($data)) {
+                // show($data);
+                $sn=1;
+                foreach ($data as $item) {
+                    if ($item->order_status == 'Package_OnWay') {
+                        // echo $item->order_status;
+                    
+            ?>
+                    <tr>
+                        <td><?php echo $sn++?></td>
+                        <td class="ordId"><?php echo $item->order_id?></td>
+                        <td class="Name">thiran</td>
+                        <td class="Distric"><?php echo $item->district?></td>
+                        <td class="stth"><?php echo $item->order_status?></td>
+                        <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td>
+                    </tr>
+
+            <?php
+                    }
+                }
+            }
+
+            ?>
         </table>
 
     </section>
@@ -85,42 +84,29 @@
         <input type="text" placeholder="Enter your email">
         <h4>Problem : </h4>
         <textarea name="problem" id="problem" cols="30" rows="10" placeholder="Enter your problem"></textarea>
-		<div class="btns">
-			<button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
-			<button type="button" class="close-btn" onclick="closeReport()">Submit</button>
-		</div>
+        <div class="btns">
+            <button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
+            <button type="button" class="close-btn" onclick="closeReport()">Submit</button>
+        </div>
     </div>
 
 
 
     <div class="popup-view" id="popup-view">
-        <button type="button" class="update-btn pb">Update Order</button>
-        <button type="button" class="cancel-btn pb">Cancel Order</button>
+
         <h2>Order Details</h2>
         <div class="status">
 
             <ul>
                 <li>
-                    <iconify-icon
-                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
                         <i class="uil uil-check"></i>
                     </div>
                     <p class="text">Package Pending</p>
                 </li>
-               <!-- <li>
-                   
-                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>  
-                      <box-icon name='package' ></box-icon>
-                    
-                    <div class="progress two">
-                        <i class="uil uil-check"></i>  
-                       <i class='bx bx-package' ></i>
-                        
-                    </div>
-                    <p class="text">Package Received</p>
-                </li>--> 
+
                 <li>
                     <iconify-icon icon="game-icons:card-pickup"></iconify-icon>
                     <div class="progress two">
@@ -155,34 +141,17 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input type="text" required onChange="" readonly value="0023456" />
+                        <input type="text" required onChange="" readonly value="1" />
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Material </span>
-                        <input type="text" required onChange="" readonly value="Wetlook" />
-                    </div>
-
-                    <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span>
-                        <input class="size" type="text" required onChange="" readonly value="S" />
-                        <p>_</p>
-                        <input class="size" type="text" required onChange="" readonly value="2" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Cost Per Product</span>
-                        <input type="text" required onChange="" readonly value="Rs. 1200" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Total Cost</span>
-                        <input type="text" required onChange="" readonly value="Rs. 2400" />
+                        <span class="details">Customer Name </span>
+                        <input type="text" required onChange="" readonly value="thiran" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Delivery Address</span>
-                        <input type="text" required onChange="" readonly value="Colombo" />
+                        <input type="text" required onChange="" readonly value="matara" />
                     </div>
 
                     <div class="input-box">
@@ -195,9 +164,16 @@
                         <input type="text" required onChange="" readonly value="2023/10/29" />
                     </div>
                 </div>
+                <button type="submit" class="update-btn">Update Order</button>
             </form>
         </div>
-        <button type="button" class="ok-btn" onclick="closeView()">OK</button>
+        <div class="btn-ok">
+
+            <button type="button" class="ok-btn" onclick="closeView()">OK</button>
+        </div>
+
+
+
     </div>
     <div id="overlay" class="overlay"></div>
 

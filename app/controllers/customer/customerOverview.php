@@ -3,12 +3,12 @@ class CustomerOverview extends Controller
 {
     public function index()
     {
- 
-        // if ($username != 'User') {
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
+        if ($username != 'User') {
             $this->view('customer/overview');
-        // }else{
-        //     redirect('home');
-        // }
+        }else{
+            redirect('home');
+        }
     }
 }

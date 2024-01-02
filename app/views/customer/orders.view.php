@@ -28,63 +28,58 @@
         <form>
             <div class="form">
 				<input class="form-group" type="text" placeholder="Search...">
-                <button class="icon-button" onclick="">
-                    <i class='bx bx-search icon'></i>
-                </button>
+				<i class='bx bx-search icon'></i>
 				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 
         </form>
 
-        <div class="table">
-            <!-- <div class="table-header">
-                <p>Order Details</p>
-                <div>
-                    <input placeholder="order"/>
-                    <button class="add_new">+ Add New</button>
-                </div>
-            </div> -->
-            <div class="table-section">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order Id</th>
-                            <th>Design</th>
-                            <th>Material</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($data as $order): ?>
-                        <?php if(!$order->is_quotation): ?>
-                        <tr>
-                            <td class="ordId"><?php echo $order->order_id ?></td>
-                            <td></td>
-                            <td><?php echo $order->material ?></td>
-                            <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
-                            <td class="st">
-                                <div class="text-status"><?php echo $order->order_status ?></div>
-                            </td>
-                        
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
-                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                        </tr>
-                        
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="ordId">OrderId</th>
+                    <th class="desc">Description</th>
+                    <th class="stth">Status</th>
+                    <th class="cost">Cost</th>
+                    <th></th>
+                </tr>
+            </thead>
+                <?php $count = 1; foreach($data as $order): ?>
+                    <tr>
+                        <td><?php echo $count; $count++; ?></td>
+                        <td class="ordId"><?php echo $order->order_id ?></td>
+                        <td class="desc">Material : <?php echo $order->material ?><br>Quantity : <?php echo $order->quantity ?></td>
+                        <td class="st">
+                            <div class="text-status"><?php echo $order->order_status ?></div>
+                        </td>
+                        <td class="cost"><?php echo $order->total_price ?></td>
+                        <td><button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($order); ?>' onclick="openView(this)">View Order</button></td>
+                        <td><button type="button" class="pay-btn" onclick="">Pay</button></td>
+                    </tr>
+                <?php endforeach; ?>
+    
+
+            <!-- <tr>
+                <td>1</td>
+                <td class="ordId">002345</td>
+                <td class="desc">Material : Wetlook <br>
+                    Sizes & Quantity : S - 2
+                </td>
+                <td class="st">
+                    <div class="text-status">Processing</div>
+                </td>
+                <td class="cost">Rs. 2400</td>
+                <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
+            </tr> -->
+        </table>
 
     </section>
 
 
     <!-- POPUP -->
-               
+
 
     <div class="popup-report">
         <h2>Report Your Problem</h2>
@@ -103,7 +98,7 @@
 
         </form>
     </div>
-    
+
 
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
@@ -120,8 +115,7 @@
 
             <ul>
                 <li>
-                    <iconify-icon
-                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
                         <i class="uil uil-check"></i>
@@ -167,7 +161,7 @@
 
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="" />
+                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
                         
                     </div>
 
@@ -179,20 +173,18 @@
                         <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                         <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
                         <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                        <br>
-                        <span class="size">M</span>
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                    <br>
+                    <span class="size">M</span>
+                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                    <br>
+                    <span class="size">L</span>
+                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
                         <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                         <br>
-                        <span class="size">L</span>
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                            <br>
-                    </div>
-                    </div>
-                    <div class="input-box">
+                </div>
                     </div>
                     <div class="input-box">
                         <span class="details">Total Price</span>
@@ -208,7 +200,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
-                    
+
                         <input type="date" name="dispatch_date">
                     </div>
                     <div class="input-box">

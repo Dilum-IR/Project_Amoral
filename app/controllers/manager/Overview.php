@@ -4,9 +4,14 @@ class Overview extends Controller
 {
     public function index()
     {
- 
-        
-        // echo "this is a about controller";
-        $this->view('manager/overview');
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
+        if ($username != 'User') {
+            
+            $this->view('manager/overview');
+              
+        }else{
+            redirect('home');
+        }
     }
 }

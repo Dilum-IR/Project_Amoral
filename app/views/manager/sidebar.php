@@ -5,7 +5,7 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/overview">
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
                 </a>
@@ -34,6 +34,13 @@
             </li>
             <li>
                 <a href="#">
+                    <i class="bx bxs-spreadsheet"></i>
+                    <span class="link_name">Quatations</span>
+                </a>
+                <span class="tooltip">Quatations</span>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/manager/employeedetails">
                     <i class="bx bxs-user-detail"></i>
                     <span class="link_name">Employee Details</span>
                 </a>
@@ -48,12 +55,19 @@
             </li>
             <li>
                 <a href="#">
+                    <i class="bx bxs-building-house"></i>
+                    <span class="link_name">Reports</span>
+                </a>
+                <span class="tooltip">Reports</span>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/manager/profile">
                     <i class="bx bxs-user-circle"></i>
                     <span class="link_name">Profile</span>
                 </a>
                 <span class="tooltip">Profile</span>
             </li>
-            <li class="profile">
+            <li class="<?=ROOT?>/manager/profile">
                 <div class="profile_details">
                     <img src="<?=ROOT?>/assets/images/manager/elon_musk.jpg" alt="profile image">
                     <div class="profile_content">
