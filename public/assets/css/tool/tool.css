@@ -3,16 +3,65 @@
     margin: 0%;
     box-sizing: border-box;
     font-family: Poppins, sans-serif;
-  }
+}
+.desgin-tool-main{
+    margin-top: 6%;
+    width: 100%;
+    /* background-color: green; */
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.t-shirt-section{
+    background-color: red;
+
+}
+
+.t-shirt-front-back{
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    /* background-color: greenyellow; */
+} 
+
+.t-shirt-icons{
+    height: auto;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 17px;
+    /* background-color: rgb(255, 255, 255); */
+}
+
+
+
+.design-section{
+    width: 100%;
+    /* background-color: green; */
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .t-shirt {
     width: 530px;
     height: 630px;
     position: relative;
-    background-color:white;
+    background-color: white;
     align-items: center;
     justify-content: center;
 }
+
+.t-shirt-icon{
+    background-color: black;
+    height: 59px;
+}
+
+
 
 .design-area {
     position: absolute;
@@ -38,11 +87,11 @@
     cursor: default;
 }
 
-.t-shirt-canvas{
-    margin-left: 29px; 
+.t-shirt-canvas {
+    margin-left: 29px;
     margin-top: 32px;
 }
 
-.t-shirt-canvas:hover{
+.t-shirt-canvas:hover {
     border: 1px solid black;
 }
