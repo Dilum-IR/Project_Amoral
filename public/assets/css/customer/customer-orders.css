@@ -36,27 +36,44 @@ body{
   width: calc(100% - 250px);
 }
 
-#main h2 {
+.breadcrumb {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  grid-gap: 8px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 23px 20px;
+}
+.breadcrumb li a {
+  text-decoration: none;
+  color: grey;
+}
 
-  padding: 10px 10px;
-  text-align: center;
-  background: #f4f7fc;
+.breadcrumb li a.active {
+  color: black;
+  /* font-weight: bold; */
+  font-size: 17px;
+}
+
+.breadcrumb .bx-chevron-right {
+  font-size: 25px;
 }
 
 #main form {
-  background: #F4F7FC;
   top: 64px;
   padding-bottom: 10px;
 }
 
 form .form-input {
+  position: relative;
   display: flex;
   align-items: center;
   height: 36px;
 }
 
 form .form-input input {
-  flex-grow: 0.01;
+  width: 200px;
   padding: 0 16px;
   height: 100%;
   border: none;
@@ -70,7 +87,7 @@ form .form-input input {
 }
 
 form .form-input input:focus {
-  flex-grow: 0.1;
+  width: 300px;
 }
 
 form .form-input button {
@@ -160,15 +177,14 @@ form .form-input button:hover {
   border: none;
   padding: 0.5% 1%;
   /* left: 57%; */
-  top: 7.6%;
+  top: 9%;
   text-align: center;
   /* text-decoration: none; */
   /* display: inline-block; */
   font-size: 16px;
   font-weight: bolder;
   /* margin: 2% 1%; */
-  cursor: pointer;
-  border-radius: 12px;
+
   box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -177,7 +193,10 @@ form .form-input button:hover {
   text-decoration: underline;
 }
 
-
+table{
+  position: absolute;
+  margin-top: 20px;
+}
 
 .table-header{
     display: flex;
@@ -207,8 +226,7 @@ td button{
     font-size: 16px;
     font-weight: bolder;
     margin: 2% 1%;
-    cursor: pointer;
-    border-radius: 12px;
+
     box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -328,7 +346,7 @@ tr:hover{
   top: 58%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
   visibility: hidden;
@@ -420,8 +438,7 @@ textarea {
   /* display: inline-block; */
   font-weight: bolder;
   /* margin: 2% 1%; */
-  cursor: pointer;
-  border-radius: 12px;
+
   box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -755,8 +772,7 @@ select {
   font-size: 16px;
   font-weight: bolder;
   /* margin: 2% 1%; */
-  cursor: pointer;
-  border-radius: 12px;
+
   box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 

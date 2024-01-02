@@ -38,14 +38,30 @@ class Quotation extends Controller{
                     $_POST['order_placed_on'] = date('Y-m-d');
                     $_POST['order_status'] = 'Quotation';
                     $_POST['is_quotation'] = 1;
-                    if(isset($_FILES["file"]) && $_FILES["file"]["error"] == 0){
-                        $filedata = file_get_contents($_FILES["file"]["tmp_name"]);
-                        $_POST['image'] = $filedata;
-                    }
-                    else{
-                        echo "Error: " . $_FILES["file"]["error"];
-                    }
+
+                    // $folder = ROOT . 'uploads/images';
+                    
+
+                    // $allowed = ['image/jpeg', 'image/jpg'];
+                    // show($_FILES['image']);die;
+
+                    // if(!empty($_FILES['image']['name'])){
+                    //     if($_FILES['image']['error'] == 0){
+                    //         if(in_array($_FILES['image']['type'], $allowed)){
+                    //             $destination = $folder. '/' . time(). '_' . basename($_FILES['image']['name']);
+                    //             console_log($destination);
+                    //             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+                    //             $_POST['image'] = $destination;
+                    //         }else{
+                    //             $errors[] = 'File type not allowed';
+                    //         }
+                    //     }else{
+                    //         $errors[] = 'File not uploaded';
+                    //     }
+                    // }
+
                     if(isset($_POST['user_id'])){
+                        show($_POST);
                         $order->insert($_POST);
                         unset($_POST['user_id']);
                         redirect('customer/quotation');

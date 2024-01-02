@@ -100,27 +100,17 @@
               </ul> -->
 
                     <div class="insights">
-                        <div class="orders">
+                        <div class="orders card">
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
                                 <div class="left">
                                     <h3>Total Orders</h3>
                                     <h1>453</h1>
-
-                                </div>
-                                <div class="progress">
-                                    <svg>
-                                        <circle cx='38' cy='38' r='36'></circle>
-                                    </svg>
-
-                                    <div class="number">
-                                        <p>61%</p>
-                                    </div>
                                 </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+
                         </div>
-                        <div class="sales">
+                        <div class="sales card">
                             <i class='bx bxs-dollar-circle'></i>
                             <div class="middle">
                                 <div class="left">
@@ -128,19 +118,11 @@
                                     <h1>$ 2500,00</h1>
 
                                 </div>
-                                <div class="progress">
-                                    <svg>
-                                        <circle cx='38' cy='38' r='36'></circle>
-                                    </svg>
 
-                                    <div class="number">
-                                        <p>73%</p>
-                                    </div>
-                                </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+          
                         </div>
-                        <div class="sales">
+                        <div class="sales card">
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
                                 <div class="left">
@@ -148,17 +130,9 @@
                                     <h1>$ 2500,00</h1>
 
                                 </div>
-                                <div class="progress">
-                                    <svg>
-                                        <circle cx='38' cy='38' r='36'></circle>
-                                    </svg>
 
-                                    <div class="number">
-                                        <p>68%</p>
-                                    </div>
-                                </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+        
                         </div>
                     </div>
 
@@ -178,52 +152,30 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>Date Order</th>
+                                        <th>Order Id</th>
+                                        <th>Design</th>
+                                        <th>Material</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach ($data as $order): ?>
+                                    <?php if(!$order->is_quotation): ?>
                                     <tr>
                                         <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
+                                            <?php echo $order->order_id ?>
                                         </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status completed">Completed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
+                                        <td></td>   
+                                        <td><?php echo $order->material ?></td>
+                                        <td class="status">
+                                            <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
+                                            <div>
+                                                <?php echo $order->order_status ?>
+                                            </div>
                                         </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status pending">Pending</span></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status process">Process</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status completed">Completed</span></td>
-                                    </tr>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -276,6 +228,9 @@
     </section>
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <script>
+        
+    </script>
 </body>
 
 </html>

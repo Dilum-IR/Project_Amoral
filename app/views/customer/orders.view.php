@@ -24,7 +24,16 @@
     <!-- content  -->
     <section id="main" class="main">
 
-        <h2>Your Orders</h2>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Orders</a>
+            </li>
+
+        </ul>
 
         <form>
             <div class="form">

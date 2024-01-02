@@ -36,27 +36,45 @@ body{
   width: calc(100% - 250px);
 }
 
-#main h2 {
-  position: relative;
-  padding: 10px 10px;
-  text-align: center;
-  background: #f4f7fc;
+.breadcrumb {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  grid-gap: 8px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 23px 20px;
+}
+.breadcrumb li a {
+  text-decoration: none;
+  color: grey;
+}
+
+.breadcrumb li a.active {
+  color: black;
+  /* font-weight: bold; */
+  font-size: 17px;
+}
+
+.breadcrumb .bx-chevron-right {
+  font-size: 25px;
 }
 
 #main form {
-  background: #F4F7FC;
   top: 64px;
   padding-bottom: 10px;
 }
 
 form .form-input {
+  position: relative;
   display: flex;
   align-items: center;
   height: 36px;
+  top: 7.6%;
 }
 
 form .form-input input {
-  flex-grow: 0.01;
+  width: 200px;
   padding: 0 16px;
   height: 100%;
   border: none;
@@ -70,7 +88,7 @@ form .form-input input {
 }
 
 form .form-input input:focus {
-  flex-grow: 0.1;
+  width: 300px;
 }
 
 form .form-input button {
@@ -160,15 +178,13 @@ form .form-input button:hover {
   border: none;
   padding: 0.5% 1%;
   /* left: 57%; */
-  top: 7.6%;
+  top: 9%;
   text-align: center;
   /* text-decoration: none; */
   /* display: inline-block; */
   font-size: 16px;
   font-weight: bolder;
   /* margin: 2% 1%; */
-  cursor: pointer;
-  border-radius: 12px;
   box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -177,7 +193,10 @@ form .form-input button:hover {
   text-decoration: underline;
 }
 
-
+table{
+  position: absolute;
+  margin-top: 20px;
+}
 
 .table-header{
     display: flex;
@@ -207,8 +226,7 @@ td button{
     font-size: 16px;
     font-weight: bolder;
     margin: 2% 1%;
-    cursor: pointer;
-    border-radius: 12px;
+
     box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -306,6 +324,7 @@ tr:hover{
 .st {
   padding: 0%;
   margin-left: 2%;
+  width: 20px;
 }
 
 .text-status {
@@ -328,7 +347,7 @@ tr:hover{
   top: 58%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
   visibility: hidden;
@@ -391,18 +410,16 @@ tr:hover{
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
-  padding-left: 8%;
+  padding-left: 0;
   width: 20%;
 }
 
-
-
-.new-form .sizes {
+.popup-new .user-details .sizeChart{
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  left: 0;
 }
-
 
 .user-details .input-box input,
 select {
@@ -412,10 +429,172 @@ select {
   border-radius: 5px;
   border: 1px solid #ccc;
   padding-left: 15px;
+  margin-left: 10px;
   font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
 }
+
+
+
+.list-section {
+  margin: 0 auto;
+  /* max-width: 800px; */
+  padding: 0 20px;
+  background-color: var(--light);
+  border-radius: 10px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  display: flex;
+}
+
+.list-section__title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  /* text-align: center; */
+  color: var(--blk);
+}
+
+/* .product-container {
+  display: flex;
+} */
+
+.flex-half {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel span{
+  font-size: x-large;
+}
+
+.carousel-left-btn,
+.carousel-right-btn {
+  background-color: var(--light);
+
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-left-btn:hover,
+.carousel-right-btn:hover {
+  color: var(--primary);
+}
+
+
+.carousel-image {
+  width: 400px;
+  height: 400px;
+  min-width: 400px;
+  min-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 0.5rem;
+}
+
+.image-count {
+  font-size: 1.2rem;
+  /* font-weight: bold; */
+  text-align: center;
+  /* margin-top: 10px; */
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+
+}
+
+.detail-item label {
+  font-size: 1rem;
+
+}
+
+.detail-item span {
+  font-size: 1rem;
+  /* font-weight: 500; */
+}
+
+#image-form {
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.center-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/*  */
+#drop_zone {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  /* border: 1px solid black; */
+  text-align: center;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: white;
+  color: var(--blk);
+}
+
+#drop_zone:hover {
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+}
+
+
+#preview {
+  display: none;
+  max-width: 300px;
+  max-height: 300px;
+  /* min-width: 300px;
+  min-height: 300px; */
+  /* padding: 1rem; */
+  object-fit: cover;
+  text-align: center;
+  /* background-color: white; */
+
+}
+
+.delete-image-btn {
+  font-size: 2rem;
+  color: var(--blk);
+  cursor: pointer;
+  text-align: center;
+  margin: 0.5rem;
+}
+
+.delete-image-btn:hover {
+  color: var(--danger);
+}
+/*  */
+
+.iconify{
+  font-size: 1.5rem;
+  color: #000;
+}
+
 
 .popup-new .btns{
   position: relative;
@@ -454,7 +633,7 @@ select {
   /* display: inline-block; */
   font-weight: bolder;
   /* margin: 2% 1%; */
-  border-radius: 12px;
+
   box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -474,13 +653,13 @@ select {
   padding-bottom: 2%;
 }
 
-.popup-report input
+.popup-report input,
 textarea {
   position: relative;
   left: 9%;
   width: 80%;
-  background: #d5dfe7d5;
-  border-radius: 20px;
+  background: #f0f0f0;
+  border-radius: 10px;
   border-style: solid;
   border: #000;
   outline-width: 1px;
@@ -527,8 +706,7 @@ textarea {
   /* display: inline-block; */
   font-weight: bolder;
   /* margin: 2% 1%; */
-  cursor: pointer;
-  border-radius: 12px;
+
   box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
@@ -682,7 +860,7 @@ button.pay:hover {
   transform: scale(1.1);
 }
 
-.user-details .input-box input,
+/* .user-details .input-box input,
 select {
   width: 80%;
   height: 45px;
@@ -693,7 +871,7 @@ select {
   font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
-}
+} */
 
 .popup-view .pb{
   position: relative;
@@ -707,7 +885,7 @@ select {
   left: 55%;
   overflow: hidden;
   transition: all .3s ease;
-  border-radius: 10px;
+  border-radius: 6px;
   font-weight: 600;
   /* margin-bottom: 12px; */
   border: none;

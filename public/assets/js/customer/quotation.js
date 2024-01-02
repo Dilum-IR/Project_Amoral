@@ -41,8 +41,6 @@ function openView(button) {
       // Parse the JSON data
       const order = JSON.parse(orderData);
 
-      const img = document.createElement("img");
-        img.src = "data:image/jpeg;base64," + order.image;
       
       // Populate the "update-form" fields with the order data
       document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
@@ -57,11 +55,8 @@ function openView(button) {
       document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
       document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
-      document.querySelector('.update-form input[name="user_id"]').value =order.user_id;
       document.querySelector('.update-form input[name="district"]').value =order.district;
-      
-      document.querySelector('.update-form .image').appendChild(img);
-  
+ 
       
       // Show the "update-form" popup
       // document.querySelector(".popup-view").classList.add("open-popup-view");

@@ -24,7 +24,16 @@
     <!-- content  -->
     <section id="main" class="main">
 
-        <h2>Your Quotation Requests</h2>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Quotation Requests</a>
+            </li>
+
+        </ul>
 
         <form>
             <div class="form">
@@ -285,17 +294,17 @@
                             <span class="size">S</span>
                         
                             <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
+                            <input class="st" type="number" id="quantity" name="small" value="0" min="0" >
                             <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
                             <span class="size">M</span>
                             <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
+                            <input class="st" type="number" id="quantity" name="medium" value="0" min="0" >
                             <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
                             <span class="size">L</span>
                             <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                                <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
+                                <input class="st" type="number" id="quantity" name="large" value="0" min="0">
                                 <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                                 <br>
                         </div>
@@ -321,7 +330,182 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Design</span>
-                        <div class="image"></div>
+                        <div class="image">
+                            <div class="flex-half">
+                                <div class="add-section">
+                                    <div style="text-align: right;">
+                                        <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+                                    </div>
+                                    <div id="imageForm" style="display: none;" class="center-items">
+                                        <form action="<?php echo ROOT ?>/add/product_image" method="post" enctype="multipart/form-data">
+                                            <div id="drop_zone">Drag and drop your image here, or click to select image</div>
+                                            <img id="preview" style="display: block; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                                            <input name="image" type="file" id="file_input" style="display: none;" accept="image/*">
+                
+                                            <button class="form-btn submit-btn" style="width: 50%;">Upload</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function toggleImageForm() {
+                                        var x = document.getElementById("imageForm");
+                                        if (x.style.display === "none") {
+                                            x.style.display = "block";
+                                        } else {
+                                            x.style.display = "none";
+                                        }
+                                    }
+
+                                    let dropZone = document.getElementById('drop_zone');
+                                    let fileInput = document.getElementById('file_input');
+                                    let preview = document.getElementById('preview');
+
+                                    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                                        dropZone.addEventListener(eventName, preventDefaults, false);
+                                    });
+
+                                    function preventDefaults(e) {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                    }
+
+                                    function handleFiles(files) {
+                                        ([...files]).forEach(uploadFile);
+                                    }
+
+                                    function uploadFile(file) {
+                                        let reader = new FileReader();
+                                        reader.onloadend = function() {
+                                            preview.src = reader.result;
+                                            preview.style.display = 'block';
+                                        }
+                                        reader.readAsDataURL(file);
+                                    }
+
+                                    fileInput.addEventListener('change', function(e) {
+                                        handleFiles(this.files);
+                                    }, false);
+
+                                    // Event listeners for file drop
+                                    dropZone.addEventListener('drop', function(e) {
+                                        let dt = e.dataTransfer;
+                                        let files = dt.files;
+
+                                        handleFiles(files);
+                                    }, false);
+
+                                    // Event listener for drop zone click to trigger file input click
+                                    dropZone.addEventListener('click', function() {
+                                        fileInput.click();
+                                    }, false);
+                                </script>
+                               
+                                <!-- fetch product images -->
+                                <?php
+                                $url = ROOT . "/assets/uploads/designs" . $order->order_id;
+                                $response = file_get_contents($url);
+                                $images = json_decode($response, true);
+                                // show($images);
+
+                                ?>
+                                <div class="carousel">
+                                    <button class="carousel-left-btn" id="prevBtn">
+                                        <span class="material-symbols-outlined">
+                                            <
+                                        </span>
+                                    </button>
+                                    <div id="carouselImages">
+                                        <!-- Carousel images will be populated here -->
+                                    </div>
+                                    <button class="carousel-right-btn" id="nextBtn">
+                                        <span class="material-symbols-outlined">
+                                            >
+                                        </span>
+                                    </button>
+                                </div>
+                                <!-- show number of images and current image like 4/5 -->
+                                <div style="text-align: center; height:">
+                                    <a onclick="deleteImage()">
+                                        <iconify-icon icon="uiw:delete"></iconify-icon>
+                                    </a>
+
+                                </div>
+
+                                <div class="image-count"></div>
+
+
+                            </div>
+                            <script>
+                                const carouselImages = document.getElementById('carouselImages');
+                                const imageCount = document.querySelector('.image-count');
+
+                                let images = <?php echo json_encode($images) ?>;
+                                let currentImage = 0;
+
+                                images.forEach(image => {
+                                    carouselImages.innerHTML += `
+                                    <img src="<?php echo ROOT . '/' ?>${image.image_url}" alt="Product Image-${image.product_image_id}" class="carousel-image">
+                                `;
+                                });
+
+                                imageCount.innerHTML = ${currentImage + 1}/${images.length};
+
+
+
+                                const prevBtn = document.getElementById('prevBtn');
+                                const nextBtn = document.getElementById('nextBtn');
+
+                                // Add event listeners to carousel buttons
+                                prevBtn.addEventListener('click', () => {
+                                    // Decrease currentImage index
+                                    currentImage--;
+                                    // If currentImage is less than 0, set it to the last image
+                                    if (currentImage < 0) {
+                                        currentImage = images.length - 1;
+                                    }
+                                    updateCarousel();
+                                });
+
+                                nextBtn.addEventListener('click', () => {
+                                    currentImage++;
+                                    if (currentImage >= images.length) {
+                                        currentImage = 0;
+                                    }
+                                    updateCarousel();
+                                });
+
+                                function updateCarousel() {
+
+                                    carouselImages.innerHTML = '';
+                                    carouselImages.innerHTML += `
+                            <img src="<?php echo ROOT . '/' ?>${images[currentImage].image_url}" alt="Product Image-${images[currentImage].product_image_id}" class="carousel-image">
+                        `;
+                                    // Update image count
+                                    imageCount.innerHTML = ${currentImage + 1}/${images.length};
+                                }
+
+                                // Initial carousel update
+                                updateCarousel();
+
+                                // Delete image
+                                function deleteImage() {
+                                    // Get image id
+                                    let imageId = images[currentImage].product_image_id;
+                                    console.log(imageId);
+                                    // Send delete request
+                                    let xhr = new XMLHttpRequest();
+                                    xhr.open('DELETE', '<?php echo ROOT . '/delete/product_images/' ?>' + imageId, true);
+                                    xhr.onload = function() {
+                                        if (this.status == 200) {
+                                            // Reload page
+                                            location.reload();
+                                        }
+                                    }
+                                    xhr.send();
+                                }
+                            </script>
+                        </div>
                     </div>
                 </div>
                 <!-- hidden element -->
