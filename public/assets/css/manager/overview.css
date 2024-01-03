@@ -1,10 +1,6 @@
-* {
-  scroll-behavior: smooth;
-}
-
 body {
     background: rgb(240, 240, 250);
-
+    scroll-behavior: smooth;
   }
   
   #main {
@@ -17,7 +13,7 @@ body {
     z-index: 1;
     /* margin-left: 5px; */
     width: calc(100% - 78px);
-
+    scroll-behavior: smooth;
   }
   #main.open {
     width: calc(100% - 250px);
@@ -171,7 +167,8 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
   }
-  main .insights > div {
+  main .insights > div,
+  main .material > div {
     /* width: 250px; */
     margin-top: 20px;
     background: white;
@@ -179,18 +176,18 @@ body {
     border-radius: 20px;
     box-shadow: 0px 0px 20px 0px rgb(187, 184, 184);
     transition: 0.5s ease-in-out;
-    border-right: 10px solid rgb(233, 229, 229);
   }
   main .insights > div:hover {
     box-shadow: 0 5px 10px 5px rgb(161, 161, 161);
     border-right: 10px solid black;
   }
   
-  main .insights .card{
+  main .insights .card,
+  main .material .card {
     display: flex;
     align-items: center;
     gap: 50px;
-   
+    position: relative;
   }
 
   main .insights .bx {
@@ -202,14 +199,15 @@ body {
     color: white;
   }
   main .insights i::before {
-    background: rgb(18, 211, 0);
+    background: rgb(49 97 45);
     border-radius: 20%;
     padding: 5px;
     font-size: 50px;
     margin-left: 10px;
   }
   
-  main .insights > div .middle {
+  main .insights > div .middle,
+  main .material > div .middle {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -220,7 +218,7 @@ body {
     /* background-color: red; */
   }
   
-  main .insights .progress {
+  /* main .insights .progress {
     position: relative;
     width: 92px;
     height: 92px;
@@ -250,9 +248,147 @@ body {
     justify-content: center;
     align-items: center;
   }
-  
   main .insights small {
     display: block;
+  }
+   */
+  
+  main .material{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+
+    margin-top: 20px;
+
+    box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+    border-radius: 20px;
+    background: ghostwhite;
+    padding: 24px;
+    overflow-x: auto;
+  }
+
+  .open-material{
+    background: #000000;
+  }
+
+  /* main .material .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s all;
+} */
+
+ main .open-material:hover .middle {
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+main .open-material:hover .delete-material-btn{
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+
+  main .material span{
+    grid-column: 1/-1;
+    height: 32px;
+  }
+  
+  main .material h2{
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  main .material .edit-material-btn{
+    background-color: #000000; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    position: relative;
+    left: 90%;
+    top: -40px;
+    cursor: pointer;
+    border-radius: 3px;
+    transform: scale(0.9);
+    transition: all 0.3s ease-in-out;
+  }
+
+  main .material .edit-material-btn:hover{
+    /* background-color: #0e5110; */
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .delete-material-btn {
+    position: absolute;
+    left: 40%;
+    border: 2px solid red;
+
+    background: whitesmoke;
+    border: none;
+    color: rgb(246, 53, 53);
+    padding: 11px 18px;
+    border-radius: 50%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin: 4px 2px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.delete-material-btn:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
+}
+
+.delete-material-btn i {
+    /* margin-right: 5px; */
+}
+
+  main .material .card{
+    padding: 20px 20px;
+    position: relative;
+  }
+
+  main .material > div:hover {
+    box-shadow: 0 5px 10px 5px rgb(161, 161, 161);
+   }
+
+  .update-btn {
+    background-color: #000000; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 0px 4px 71px;
+    cursor: pointer;
+    border-radius: 30px;
+    transform: scale(0.9);
+    transition: all 0.3s ease-in-out;
+}
+
+  .update-btn:hover {
+    background-color: #0e5110; /* Green */
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
   }
   
   /* <!-- Insights Containers  --> */
@@ -418,7 +554,7 @@ body {
   
   
   /* <!-- left side container --> */
-  .table-data{
+  .table-data {
     display: flex;
     flex-wrap: wrap;
     grid-gap: 24px;
@@ -427,7 +563,7 @@ body {
     color: var(--dark);
   }
   
-  .table-data > div{
+  .table-data > div {
     box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
     border-radius: 20px;
     background: ghostwhite;
@@ -453,6 +589,28 @@ body {
     flex-grow: 1;
     flex-basis: 500px;
   }
+
+  .table-data .order .view-all-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transform: scale(0.9);
+}
+
+  .table-data .order .view-all-btn:hover {
+    
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+
   .table-data .order table {
     width: 100%;
     border-collapse: collapse;
