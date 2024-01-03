@@ -11,7 +11,12 @@
 <body>
 
 <div class="erro_page">
+    <img src="<?=ROOT?>/assets/images/404.gif" alt="">
     <p>404 View Page Not Found </p>
+    <div class="erro_page" >
+
+        <a href="<?=ROOT?>/home">Home</a> 
+    </div>
 
 </div>
 </body>

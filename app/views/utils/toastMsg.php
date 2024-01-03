@@ -2,14 +2,11 @@
 
     <div class="toast-header">
 
-        <ion-icon class="icon" name="alert-circle-outline"></ion-icon>
-
-        <!-- success icon -->
-        <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
-        
-        <strong class="toast-head">Wrong Notification</strong>
+        <!-- <ion-icon class="icon" name="alert-circle-outline"></ion-icon> -->
+        <i class='icon bx bx-error-circle bx-tada' ></i>
+        <strong class="toast-head"></strong>
         <small class="small">4 sec</small>
-
+        <!-- <i class='bx bx-check-circle'></i> -->
     </div>
     <hr>
 

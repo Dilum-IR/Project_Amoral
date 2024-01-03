@@ -4,6 +4,7 @@
 <head>
   <title>Amoral</title>
   <!-- Link Styles -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style-bar.css">
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/customer/profile.css">
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/customer/boxicons.min.css">
 
@@ -339,6 +340,7 @@
     <!-- Scripts -->
     <script src="<?=ROOT?>/assets/js/customer/profile.js"></script>
     <script src="<?=ROOT?>/assets/js/script-bar.js"></script>
+    <script src="<?=ROOT?>/assets/js/nav-bar.js"></script>
 
 </body>
 
