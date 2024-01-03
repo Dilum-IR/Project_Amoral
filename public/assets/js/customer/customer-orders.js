@@ -135,7 +135,7 @@ function openView(button) {
 function closeView(){
     popupView.classList.remove("open-popup-view");
     overlay.classList.remove("overlay-active");
-    popupView.style.transition = "none";
+    
 }	
 
 function openReport(){

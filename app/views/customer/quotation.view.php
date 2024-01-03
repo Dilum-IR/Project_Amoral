@@ -275,7 +275,7 @@
         <h2>Request Details</h2>
 
         
-            <form class="update-form" method="POST">
+            <form class="update-form" method="POST" enctype="multipart/form-data">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Request Id </span>
@@ -337,13 +337,12 @@
                                         <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
                                     </div>
                                     <div id="imageForm" style="display: none;" class="center-items">
-                                        <form action="<?php echo ROOT ?>/add/product_image" method="post" enctype="multipart/form-data">
+                                        
                                             <div id="drop_zone">Drag and drop your image here, or click to select image</div>
                                             <img id="preview" style="display: block; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
                                             <input name="image" type="file" id="file_input" style="display: none;" accept="image/*">
-                
-                                            <button class="form-btn submit-btn" style="width: 50%;">Upload</button>
-                                        </form>
+        
+                                     
                                     </div>
                                 </div>
 
@@ -401,14 +400,7 @@
                                     }, false);
                                 </script>
                                
-                                <!-- fetch product images -->
-                                <?php
-                                $url = ROOT . "/assets/uploads/designs" . $order->order_id;
-                                $response = file_get_contents($url);
-                                $images = json_decode($response, true);
-                                // show($images);
 
-                                ?>
                                 <div class="carousel">
                                     <button class="carousel-left-btn" id="prevBtn">
                                         <span class="material-symbols-outlined">
@@ -508,12 +500,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- hidden element -->
-                <div class="input-box">
-                    <!-- <span class="details">Order Id </span> -->
-                    <input name="order_status" type="hidden" required onChange="" readonly value="cutting" />
-                    <input name="user_id" type="hidden" required onChange="" readonly value="0023456" />
-                </div>
+
 
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->

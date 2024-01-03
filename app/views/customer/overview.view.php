@@ -99,6 +99,8 @@
                     </li>
               </ul> -->
 
+
+
                     <div class="insights">
                         <div class="orders card">
                             <i class='bx bxs-calendar-check'></i>
@@ -228,9 +230,7 @@
     </section>
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
-    <script>
-        
-    </script>
+    <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
 </body>
 
 </html>

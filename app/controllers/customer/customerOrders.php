@@ -36,15 +36,15 @@ class CustomerOrders extends Controller
 
                 $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
                 if (empty($description)) {
-                    $errors[] = 'Description is required.';
+                    $errors['desc'] = 'Description is required.';
                 }
             
                 $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
                 if (empty($email)) {
-                    $errors[] = 'Email is required.';
+                    $errors['email'] = 'Email is required.';
                 } 
                 elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                    $errors[] = 'Email is not valid.';
+                    $errors['email'] = 'Email is not valid.';
                 }
         
                 if (empty($errors)) {
@@ -59,15 +59,13 @@ class CustomerOrders extends Controller
                     if (isset($_POST['user_id'])) {
         
                         $report->insert($_POST);
-                        unset($_POST['user_id']);
-                        // redirect('customer/orders');
+                        unset($_POST);
+                        redirect('customer/orders');
         
                     }                
                 } else {
-             
-                    foreach ($errors as $error) {
-                        echo $error . '<br>';
-                    }
+                    
+                    $_SESSION['errors'] = $errors;
                 }
             }else{
       

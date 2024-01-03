@@ -26,10 +26,50 @@ class Quotation extends Controller
             $data = $order->where($id);
 
 
+            // show($data);
+            show($id);            
             
-            $this->view('customer/quotation', $data);
 
+
+
+            if (isset($_POST['updateOrder'])){
+                $order_id = $_POST['order_id'];
+                show($_POST);
+                unset($_POST['updateOrder']);
+                $arr = $_POST;
+                if (isset($arr)){
+                    show($arr);
+
+                    if (isset($_FILES['image'])) {
+                        $file = $_FILES['image'];
+                        
+                        // Check if the file is an image
+                        // if (getimagesize($file['tmp_name']) !== false) {
+                            // Generate a unique name for the file
+                            $filename = time(). '_' . $file['name'];
+                            
+                            // Move the file to the uploads directory
+                            if (move_uploaded_file($file['tmp_name'], ROOT.'/uploads/' . $filename)) {
+                                // Insert the file name into the database
+                                $_POST['image'] = $filename;
+                
+                            } else {
+                                echo 'Failed to upload image';
+                            }
+                        // } else {
+                        //     $errors['image'] = 'The uploaded file is not an image';
+                        // }
+                    } else {
+                        echo 'No image file was sent';
+                    }
+                   
+                    $update = $order->update($order_id, $arr, 'order_id');
+                    redirect('customer/quotation');
+                }
+            }
             $errors = [];
+
+            $this->view('customer/quotation', $data);
 
             if (isset($_POST['newQuotation']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
                 //need to validate
@@ -39,27 +79,29 @@ class Quotation extends Controller
                     $_POST['order_placed_on'] = date('Y-m-d');
                     $_POST['order_status'] = 'Quotation';
                     $_POST['is_quotation'] = 1;
-
-                    // $folder = ROOT . 'uploads/images';
-                    
-
-                    // $allowed = ['image/jpeg', 'image/jpg'];
-                    // show($_FILES['image']);die;
-
-                    // if(!empty($_FILES['image']['name'])){
-                    //     if($_FILES['image']['error'] == 0){
-                    //         if(in_array($_FILES['image']['type'], $allowed)){
-                    //             $destination = $folder. '/' . time(). '_' . basename($_FILES['image']['name']);
-                    //             console_log($destination);
-                    //             move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-                    //             $_POST['image'] = $destination;
-                    //         }else{
-                    //             $errors[] = 'File type not allowed';
-                    //         }
-                    //     }else{
-                    //         $errors[] = 'File not uploaded';
-                    //     }
-                    // }
+            
+                    if (isset($_FILES['image'])) {
+                        $file = $_FILES['image'];
+                        alert($file['name']);
+                        // Check if the file is an image
+                        if (getimagesize($file['tmp_name']) !== false) {
+                            // Generate a unique name for the file
+                            $filename = time(). '_' . $file['name'];
+                            alert($filename);
+                            // Move the file to the uploads directory
+                            if (move_uploaded_file($file['tmp_name'], ROOT.'/uploads/' . $filename)) {
+                                // Insert the file name into the database
+                                $_POST['image'] = $filename;
+                
+                            } else {
+                                echo 'Failed to upload image';
+                            }
+                        } else {
+                            $errors['image'] = 'The uploaded file is not an image';
+                        }
+                    } else {
+                        echo 'No image file was sent';
+                    }
 
                     if(isset($_POST['user_id'])){
                         show($_POST);

@@ -20,7 +20,7 @@ body{
 
 #main {
   position: fixed;
-  /* top: 78px; */
+  top: 78px;
   width: calc(100% - 80px);
   height: max-content;
   left: 64px;
@@ -43,7 +43,7 @@ body{
   grid-gap: 8px;
   flex-wrap: wrap;
   padding: 0;
-  margin: 23px 20px;
+  margin: 16px 35px;
 }
 .breadcrumb li a {
   text-decoration: none;

@@ -13,6 +13,7 @@ body {
     z-index: 1;
     /* margin-left: 5px; */
     width: calc(100% - 78px);
+    scroll-behavior: smooth;
   }
   #main.open {
     width: calc(100% - 250px);

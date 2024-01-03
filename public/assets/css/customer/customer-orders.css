@@ -20,7 +20,7 @@ body{
 
 #main {
   position: fixed;
-  /* top: 78px; */
+  top: 78px;
   width: calc(100% - 80px);
   height: max-content;
   left: 64px;
@@ -43,7 +43,7 @@ body{
   grid-gap: 8px;
   flex-wrap: wrap;
   padding: 0;
-  margin: 23px 20px;
+  margin: 16px 35px;
 }
 .breadcrumb li a {
   text-decoration: none;
@@ -177,7 +177,7 @@ form .form-input button:hover {
   border: none;
   padding: 0.5% 1%;
   /* left: 57%; */
-  top: 9%;
+  top: 7.8%;
   text-align: center;
   /* text-decoration: none; */
   /* display: inline-block; */
@@ -230,14 +230,14 @@ td button{
     box-shadow: 2px 2px 11px -5px var(--color-default);
 }
 
-td button:nth-child(1){
+/* td button:nth-child(1){
     color: #0239cf;
     
 }
 
 td button:nth-child(2){
     color: #7a0ae9;
-}
+} */
 
 .add_new{
     padding: 10px 20px;
@@ -301,7 +301,9 @@ tr.hide{
   line-height: 0;
 }
 
-tr.hide td{
+tr.hide td,
+tr.hide td button,
+tr.hide td div{
   padding: 0;
   height: 0;
   border: none;
@@ -312,7 +314,6 @@ tr.hide td{
 tr.hide td *{
   visibility: hidden;
 }
-
 
 
 tr:hover{
@@ -345,12 +346,13 @@ tr:hover{
   /* margin-bottom: 3%; */
   top: 58%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0);
+  transform: translate(-50%, -60%) scale(0);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
   visibility: hidden;
-  transition:  none .3s;
+  opacity: 0;
+  transition: opacity 0.5s;
   justify-content: center;
 }
 
@@ -364,6 +366,7 @@ tr:hover{
 .open-popup-new,
 .open-popup-report {
   visibility: visible;
+  opacity: 1;
   transform: translate(-50%, -50%) scale(1);
   z-index: 101;
 }
