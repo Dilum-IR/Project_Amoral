@@ -16,7 +16,8 @@ class Quotation extends Controller
                 unset($_POST['newQuotation']);
                 $_POST['user_id'] = $_SESSION['USER']->id;
                 $_POST['order_status'] = "quotation";
-                // show($_POST);
+                
+                show($_POST);
                 $order->insert($_POST);
                 redirect('customer/quotation');
             }

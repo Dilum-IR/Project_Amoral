@@ -54,8 +54,6 @@ class User
 			return;
 		}
 		
-		
-		
 		// is empty password 
 		if (empty($data['password']) || empty($data['re-password'])) {
 			$this->errors['flag'] = true;
@@ -69,13 +67,13 @@ class User
 			return;
 		}
 		// password validation
-		// else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#^%?\$&*~]).{5,}$/", $data['password'])) {
-		// 	$this->errors['flag'] = true;
-		// 	$this->errors['error'] = "password is not Valid ";
-		// 	$this->errors['error_no'] = 5;
-		// 	return;
+		else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#^%?\$&*~]).{5,}$/", $data['password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "password is not Valid ";
+			$this->errors['error_no'] = 5;
+			return;
 			
-		// }
+		}
 
 
 		// errors no then hash passwords
