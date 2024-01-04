@@ -20,7 +20,7 @@
 <body>
 
   <?php
-  show($data);  
+  // show($data);  
   ?>
 
 
@@ -71,7 +71,7 @@
                 </div>
                 <div class="data">
                   <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City</label>
-                  <input class="pro_input" type="text" id="pro_city" name="city" value="Matara">
+                  <input class="pro_input" type="text" id="pro_city" name="city" value="<?= $data->city ?>">
                 </div>
               </div>
 
@@ -79,12 +79,12 @@
                 <div class="data">
                   <label class="pro_label" for="pro_address">Address</label>
                   <input class="pro_input" type="text" id="pro_address" name="address"
-                    value="No:614/2,Matarahena, Beragama,Makandura">
+                    value="<?= $data->address ?>">
                 </div>
 
                 <div class="data">
                   <label class="pro_label" for="pro_date">Date of Birth</label>
-                  <input class="pro_input" type="date" id="pro_date" name="DOB" value="">
+                  <input class="pro_input" type="date" id="pro_date" name="DOB" value="<?= $data->DOB ?>">
                 </div>
               </div>
 
@@ -92,11 +92,11 @@
                 <div class="data">
 
                   <label class="pro_label" for="pro_email">Email</label>
-                  <input class="pro_input" type="email" id="pro_email" name="email" value="chathu43sadeep@gmail.com">
+                  <input class="pro_input" type="email" id="pro_email" name="email" value="<?= $data->email ?>">
                 </div>
                 <div class="data">
                   <label class="pro_label" for="pro_number">Contact Number</label>
-                  <input class="pro_input" type="text" id="pro_number" name="contact_number" value="077-8827260">
+                  <input class="pro_input" type="text" id="pro_number" name="contact_number" value="<?= $data->contact_number ?>">
                 </div>
 
 
@@ -105,7 +105,7 @@
               <div class="info_data" id="last-element">
                 <div class="data">
                   <label class="pro_label" for="pro_profession">Profession</label>
-                  <input class="pro_input" type="text" id="pro_profession" name="emp_status" value="Distributor" disabled>
+                  <input class="pro_input" type="text" id="pro_profession" name="emp_status" value="<?= $data->emp_status ?>" disabled>
                 </div>
                 <div class="pro_button">
                   <button type="button" class="small_btn discard_btn" name="discard" value="discard">Discard</button>
@@ -174,8 +174,6 @@
             </div>
           </form>
         </div>
-
-        <!-- Change Password Section -->
       </div>
     </div>
 

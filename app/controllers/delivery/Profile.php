@@ -22,7 +22,7 @@ class Profile extends Controller
 
                 unset($_POST['saveP']);
                 $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
-                show($_POST);
+                //show($_POST);
             }
 
             // get the session user data for bind to the profile info
