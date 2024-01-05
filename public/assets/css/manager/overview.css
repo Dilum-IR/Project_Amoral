@@ -370,6 +370,7 @@ main .open-material:hover .delete-material-btn{
    }
 
   .update-btn {
+    position: absolute;
     background-color: #000000; /* Green */
     border: none;
     color: white;
@@ -378,7 +379,7 @@ main .open-material:hover .delete-material-btn{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 0px 4px 71px;
+    margin: 4px 0px 4px 44%;
     cursor: pointer;
     border-radius: 30px;
     transform: scale(0.9);
