@@ -198,14 +198,14 @@
 
                         </div>
 
-                        <div class="orders card">
+                        <div class="add card">
                             <!-- <i class='bx bxs-calendar-check'></i> -->
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Cotton</h3>
-                                    <h1>453</h1>
+                                    <i class='bx bxs-plus-circle'></i>
+                                    <h3 style="margin-left: 42%; width: 100%; ">Add a material</h3>
                                 </div>
-                                <button class="update-btn">Update</button>
+                               
                             </div>
 
                         </div>

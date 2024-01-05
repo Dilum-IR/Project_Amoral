@@ -390,7 +390,34 @@ main .open-material:hover .delete-material-btn{
     transform: scale(1);
     transition: all 0.3s ease-in-out;
   }
+
+ .material .add{
+  border-style: dashed;
+  border-width: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, height 0.3s ease-in-out;
+  height: 0;
+ }
+
+ .material .open-add{
+  opacity: 1;
+  height: 100px;
+  transition: opacity 0.3s ease-in-out, height 0.2s ease-in-out;
+ }
+
+  .material .add i{
+    font-size: 50px;
+    color: #000000;
+    margin-left: 72%;
+    transition: transform 0.3s ease-in-out;
+    /* margin-top: 20%; */
+  }
   
+  .material .add i:hover{
+    color: #0e5110;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+  }
   /* <!-- Insights Containers  --> */
   
   /* chat container */
