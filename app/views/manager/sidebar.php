@@ -69,11 +69,11 @@
             </li>
             <li class="<?=ROOT?>/manager/profile">
                 <div class="profile_details">
-                    <img src="<?=ROOT?>/assets/images/manager/elon_musk.jpg" alt="profile image">
+                    <!-- <img src="<?=ROOT?>/assets/images/manager/elon_musk.jpg" alt="profile image">
                     <div class="profile_content">
                         <div class="name">Elon Musk</div>
                         <div class="designation">Manager</div>
-                    </div>
+                    </div> -->
                 </div>
                 <a href="<?= ROOT ?>/logout">
                     <i class="bx bx-log-out" id="log_out">Log out</i>
