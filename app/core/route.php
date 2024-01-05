@@ -22,6 +22,7 @@ route('customer/quotation', 'customer/Quotation@index');
 
 
 route('manager/overview', 'manager/Overview@index');
+route('manager/customerorders', 'manager/CustomerOrders@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
 

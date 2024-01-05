@@ -12,7 +12,7 @@
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/customerorders">
                     <i class="bx bxs-cart-alt"></i>
                     <span class="link_name">Customer Orders</span>
                 </a>
