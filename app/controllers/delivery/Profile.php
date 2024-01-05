@@ -15,8 +15,9 @@ class Profile extends Controller
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 
                 unset($_POST['save']);
-                // show($_POST);
+                show($_POST);
                 $this->changeInfo($_POST, $_SESSION['USER']->emp_id, $employee);
+               
             }
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
 
@@ -29,7 +30,7 @@ class Profile extends Controller
             $data = $this->userInfo($_SESSION['USER']->emp_id, $employee);
 
 
-            // show($data);
+           // show($data);
 
             $this->view('delivery/profile',$data);
 
@@ -61,8 +62,15 @@ class Profile extends Controller
     //  user chanage info data
     private function changeInfo($data, $id, $employee)
     {
+        $Eid['emp_id'] =$id;
 
-        // show($data);
+        $update=$employee->update($id,$data,'emp_id');
+        redirect('delivery/profile');
+
+    
+        
+
+        //show($data);
 
     }
 

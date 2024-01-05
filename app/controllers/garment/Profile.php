@@ -26,7 +26,7 @@ class Profile extends Controller
             
             $data =$this->userInfo($_SESSION['USER']->emp_id,$employee);
             //show($data);
-            $this->view('garment/profile');
+            $this->view('garment/profile',$data);
             
        
         }else{

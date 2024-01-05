@@ -9,42 +9,42 @@ class Profile extends Controller
 
         if ($username != 'User') {
 
-            $employee = new Employee;
+            $user = new User;
 
             if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])){
                 unset($_POST['save']);
                 // show($_POST);
-                $this->changeInfo($_POST,$_SESSION['USER']->emp_id,$employee);
+                $this->changeInfo($_POST,$_SESSION['USER']->id,$user);
             }
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
 
                 unset($_POST['saveP']);
-                $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
+                $this->changePassword($_POST, $_SESSION['USER']->id, $user);
                 //show($_POST);
             }
 
              // get the session user data for bind to the profile info
-             $data = $this->userInfo($_SESSION['USER']->emp_id, $employee);
+             $data = $this->userInfo($_SESSION['USER']->id, $user);
 
 
              // show($data);
 
-            $this->view('customer/profile');
+            $this->view('customer/profile',$data);
        
         }else{
             redirect('home');
         }
     }
 
-    private function userInfo($id,$employee){
+    private function userInfo($id,$user){
 
-        $arr['emp_id'] = $id;
+        $arr['id'] = $id;
 
-        $row = $employee->first($arr);
+        $row = $user->first($arr);
 
         unset($row->password);
-        unset($row->emp_id);
+        unset($row->id);
         
         $data = ['data' => $row];
         return $data;
@@ -54,7 +54,7 @@ class Profile extends Controller
     }
 
     //  user chanage info data
-    private function changeInfo($data, $id, $employee)
+    private function changeInfo($data, $id, $user)
     {
 
         // show($data);
@@ -62,7 +62,7 @@ class Profile extends Controller
     }
 
     //  user chanage password
-    private function changePassword($data, $id, $employee)
+    private function changePassword($data, $id, $user)
     {
 
     }

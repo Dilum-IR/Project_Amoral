@@ -27,6 +27,7 @@
 
   <!-- Sidebar -->
   <?php include 'sidebar.php' ?>
+ 
   <!-- Sidebar -->
 
   <!-- Navigation bar -->
