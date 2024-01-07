@@ -19,7 +19,7 @@
                 <span class="tooltip">Customer Orders</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/garmentorders">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Garment Orders</span>
                 </a>
