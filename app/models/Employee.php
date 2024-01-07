@@ -101,7 +101,7 @@ class Employee
 			$this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#\$&*~]";
 		}
 
-		// show($this->errors);
+		//  show($this->errors);
 
 		if (empty($this->errors)) {
 
@@ -197,7 +197,7 @@ class Employee
 			$this->errors['flag'] = true;
 			$this->errors['error'] = "Contact Number is invalid ";
 		}
-		 show($this->errors);
+		 //show($this->errors);
 
 		
 

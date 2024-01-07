@@ -27,14 +27,14 @@
 
   <!-- Sidebar -->
   <?php
-  //  include 'sidebar.php'
+    include 'sidebar.php'
     ?>
  
   <!-- Sidebar -->
 
   <!-- Navigation bar -->
   <?php
-  //  include 'navigationbar.php'
+    include 'navigationbar.php'
     ?>
   <!-- Navigation Bar -->
 
