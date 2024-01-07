@@ -26,12 +26,16 @@
 
 
   <!-- Sidebar -->
-  <?php include 'sidebar.php' ?>
+  <?php
+  //  include 'sidebar.php'
+    ?>
  
   <!-- Sidebar -->
 
   <!-- Navigation bar -->
-  <?php include 'navigationbar.php' ?>
+  <?php
+  //  include 'navigationbar.php'
+    ?>
   <!-- Navigation Bar -->
 
   <section class="main" id="main">
@@ -68,7 +72,7 @@
               <div class="info_data">
                 <div class="data">
                   <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name </label>
-                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value=<?= $data->emp_name ?>>
+                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value= "<?= $data->emp_name ?>">
                 </div>
                 <div class="data">
                   <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City</label>
@@ -93,7 +97,7 @@
                 <div class="data">
 
                   <label class="pro_label" for="pro_email">Email</label>
-                  <input class="pro_input" type="email" id="pro_email" name="email" value="<?= $data->email ?>">
+                  <input class="pro_input" type="text" id="pro_email" name="email" value="<?= $data->email ?>">
                 </div>
                 <div class="data">
                   <label class="pro_label" for="pro_number">Contact Number</label>
@@ -113,6 +117,41 @@
                   <button type="submit" class="small_btn save_btn" name="save" value="save">Save Changes</button>
                 </div>
               </div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const form = document.querySelector('form');
+                    const saveButton = form.querySelector('.save_btn');
+                    const initialData = <?= json_encode($data) ?>;
+
+                    // Function to check if any changes are made
+                    function hasChanges() {
+                        const formData = new FormData(form);
+                        const currentData = {};
+                        
+                        formData.forEach((value, key) => {
+                          currentData[key] = value;
+                        });
+                        console.log(JSON.stringify(initialData) == JSON.stringify(currentData));
+
+                        return JSON.stringify(initialData) !== JSON.stringify(currentData);
+                    }
+
+                    // Enable or disable the "Save Changes" button based on changes
+                    function updateSaveButtonState() {
+                        saveButton.disabled = !hasChanges();
+
+                    }
+
+                    // Attach change event listeners to input fields
+                    form.querySelectorAll('input, select, textarea').forEach(input => {
+                        input.addEventListener('change', updateSaveButtonState);
+                    });
+
+                    // Initial check
+                    updateSaveButtonState();
+                });
+            </script>
 
 
               <?php

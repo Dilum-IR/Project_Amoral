@@ -15,24 +15,26 @@ class Profile extends Controller
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 
                 unset($_POST['save']);
-                show($_POST);
+                //show($_POST);
                 $this->changeInfo($_POST, $_SESSION['USER']->emp_id, $employee);
-               
+
             }
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
 
                 unset($_POST['saveP']);
-                $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
+                $result = $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
                 //show($_POST);
             }
 
             // get the session user data for bind to the profile info
             $data = $this->userInfo($_SESSION['USER']->emp_id, $employee);
 
+            // $data['msg'] = $result;
+            // $data['error'] = $employee->errors;
 
-           // show($data);
+            // show($data);
 
-            $this->view('delivery/profile',$data);
+            $this->view('delivery/profile', $data);
 
         } else {
             redirect('home');
@@ -49,8 +51,9 @@ class Profile extends Controller
 
         unset($row->password);
         unset($row->emp_id);
-        
-        $data = ['data' => $row];
+
+        $data['data'] = $row;
+
         return $data;
         // show($row);
 
@@ -62,13 +65,26 @@ class Profile extends Controller
     //  user chanage info data
     private function changeInfo($data, $id, $employee)
     {
-        $Eid['emp_id'] =$id;
+        if ($employee->changeInfoValidate($data)) {
 
-        $update=$employee->update($id,$data,'emp_id');
-        redirect('delivery/profile');
+            show($data);
+            $update = $employee->update($id, $data, 'emp_id');
+            //echo $update;
+            if ($update) {
 
-    
-        
+                redirect('delivery/profile');
+
+            } else {
+
+            }
+
+        }
+
+
+
+
+
+
 
         //show($data);
 
@@ -77,6 +93,36 @@ class Profile extends Controller
     //  user chanage password
     private function changePassword($data, $id, $employee)
     {
+
+        if ($employee->passwordResetValidate($data)) {
+
+            $arr['emp_id'] = $id;
+
+            $row = $employee->first($arr);
+
+            show($employee->errors);
+
+            $checkpassword = password_verify($data['password'], $row->password);
+            if ($checkpassword === true) {
+
+                $hash = password_hash($data['confirm_password'], PASSWORD_DEFAULT);
+                $update = $employee->update($id, ['password' => $hash], 'emp_id');
+                // echo ("$update");
+                // redirect("delivery/profile");
+
+                show($employee->errors);
+
+                return "success";
+
+
+            } else {
+                return "Invalid";
+                //redirect("delivery/profile");
+                // echo ("Incorrect password");
+            }
+
+
+        }
 
     }
 
