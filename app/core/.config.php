@@ -6,20 +6,20 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     // define('DBHOST', 'localhost');
     define('DBHOST', 'localhost:3308');
-    define('DBNAME', 'amoral_db');
     define('DBUSER', 'root');
     define('DBPASS', '');
-    define('DBDRIVER', '');
+    define('DBDRIVER', '');    
+    define('DBNAME', 'amoral_db');
 
     define('ROOT', 'http://localhost/project_Amoral/public');
 } else {
 
     // database configaration
-    define('DBNAME', 'amoral_db');
     define('DBHOST', 'localhost');
     define('DBUSER', 'root');
     define('DBPASS', '');
-    define('DBDRIVER', '');
+    define('DBDRIVER', '');    
+    define('DBNAME', 'amoral_db');
 
     define('ROOT', 'https://www.websitename.com');
 }

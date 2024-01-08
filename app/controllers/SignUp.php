@@ -189,6 +189,11 @@ class SignUp extends Controller
                     $res = $sendmail->sendVerificationEmail($email, $verificationCode, $POST['fullname']);
 
                     $response = $user->insert($POST);
+                    
+                    // save user email in another table for chat with users
+                    $all_users = new AllUsers();
+                    $arr['email'] = $_POST['email'];
+                    $all_users->insert($arr);
 
                     // email hashing & redirect to the OTP verify page
                     if ($res) {

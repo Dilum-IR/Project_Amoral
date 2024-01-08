@@ -7,7 +7,7 @@ class Quotation extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User') {
+        // if ($username != 'User') {
 
             $order = new Order;
 
@@ -23,8 +23,9 @@ class Quotation extends Controller
             }
 
             $this->view('customer/quotation');
-        } else {
-            redirect('home');
-        }
+            
+        // } else {
+        //     redirect('home');
+        // }
     }
 }

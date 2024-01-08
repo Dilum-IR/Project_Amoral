@@ -177,6 +177,6 @@ if (
 <?php
     } else {
         // add toast msg for refresh time
-        redirect("signin");
+        redirect("404");
     }
 }
