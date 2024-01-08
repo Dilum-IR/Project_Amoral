@@ -65,7 +65,6 @@ setInterval(moveSlider, 2000);
 
 //password visibility
 function togglePasswordVisibility(passwordId, iconId) {
-  console.log("dfcvb");
 
   var passwordField = document.getElementById(passwordId);
   var toggleIcon = document.getElementById(iconId);

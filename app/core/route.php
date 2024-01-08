@@ -47,3 +47,5 @@ route('signinData', 'SignIn@formData');
 route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
+
+route('404', '_404@index');
