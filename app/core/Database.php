@@ -29,8 +29,6 @@ trait Database
                 return $result;
             }
         }
-
-
         return false;
     }
     public function get_row($quary, $data = [])
