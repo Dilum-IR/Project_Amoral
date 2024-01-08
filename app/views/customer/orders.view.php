@@ -37,7 +37,7 @@
 
         <form>
             <div class="form">
-                <form action="#">
+                <form>
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
                         <button type="submit" class="search-btn">
@@ -80,10 +80,10 @@
                             <td><?php echo $order->material ?></td>
                             <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
                             <td class="st">
-                                <div class="text-status"><?php echo $order->order_status ?></div>
+                                <div class="text-status <?php echo $order->order_status ?>"><?php echo $order->order_status ?></div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         
@@ -102,7 +102,7 @@
 
     <div class="popup-report">
         <div class="close-icon">
-            <a href="#">
+            <a href="">
                 <i class="bx bx-x" id="gen-pop-close"></i>
                 <!-- <span class="link_name">Close</span> -->
             </a>
@@ -110,19 +110,61 @@
         <h2>Report Your Problem</h2>
         <form method="POST">
 
-            <h4>Title : </h4>
+            <h4>Title :  
+                <?php if(isset($_SESSION['errors']['title'])): ?>
+                    <span class="error title">*<?php echo $_SESSION['errors']['title']; ?></span>  
+                <?php endif; ?>
+            </h4> 
             <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email : </h4>
+            <h4>Your email :
+                <?php if(isset($_SESSION['errors']['email'])): ?> 
+                    <span class="error email">*<?php echo $_SESSION['errors']['email']; ?></span>
+                <?php endif; ?>
+            </h4>
             <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem : </h4>
+            <h4>Problem :
+                <?php if(isset($_SESSION['errors']['desc'])): ?> 
+                    <span class="error desc">*<?php echo $_SESSION['errors']['desc']; ?></span>
+                <?php endif; ?>
+            </h4>
             <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
             <div class="btns">
                 <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
-                <button type="submit" class="close-btn" name="report" value="Submit" >Submit</button>
+                <button type="submit" class="submit-btn" name="report" value="Submit" >Submit</button>
             </div>
 
         </form>
     </div>
+            <script>
+                var form = document.querySelector(".popup-report form");
+                var errors = <?php echo json_encode($_SESSION['errors']); ?>;
+
+                form.addEventListener('submit', function(event) {
+                    var errorFields = ['title', 'email', 'desc'];
+                    var hasAnyError = false;
+                    errorFields.forEach(field => {
+                        var hasError = errors[field] && errors[field].length > 0;
+                        var errorMessage = document.querySelector(".popup-report .error." + field);
+                        if(hasError){
+                            errorMessage.style.visibility = "visible";
+                            hasAnyError = true;
+                        } else {
+                            errorMessage.style.visibility = "hidden";
+                        }
+                    });
+                    if(hasAnyError){
+                        event.preventDefault(); // Prevent the form from being submitted
+                    }
+
+
+                });
+            </script>
+
+            <!-- <?php
+                if (isset($_SESSION['errors'])) {
+                    unset($_SESSION['errors']);
+                }
+            ?> -->
     
 
     <div class="popup-view" id="popup-view">
@@ -130,7 +172,7 @@
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
         
         <div class="close-icon">
-          <a href="#">
+          <a href="">
             <i class="bx bx-x" id="gen-pop-close"></i>
             <!-- <span class="link_name">Close</span> -->
           </a>
@@ -197,7 +239,7 @@
                         <span class="size">S</span>
                     
                         <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="small">
+                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
                         <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                         <br>
                         <span class="size">M</span>

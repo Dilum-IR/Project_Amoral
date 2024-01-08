@@ -107,36 +107,72 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Total Orders</h3>
-                                    <h1>453</h1>
+                                    <?php $count = 0; ?>
+                                    <?php foreach ($data as $order): ?>
+                                    <?php if(!$order->is_quotation): ?>
+                                        <?php $count++; ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <h1><?php echo $count ?></h1>
+                                   
                                 </div>
                             </div>
 
                         </div>
                         <div class="sales card">
+                            <i class='bx bxs-calendar-check'></i>
+                            <div class="middle">
+                                <div class="left">
+                                    <h3>Total Quotations</h3>
+                                    <?php $count = 0; ?>
+                                    <?php foreach ($data as $order): ?>
+                                    <?php if($order->is_quotation): ?>
+                                        <?php $count++; ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <h1><?php echo $count ?></h1>
+                                    
+                                </div>
+
+                            </div>
+        
+                        </div>
+                        <div class="sales card">
                             <i class='bx bxs-dollar-circle'></i>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Sales</h3>
-                                    <h1>$ 2500,00</h1>
-
+                                    <h3>Total Value</h3>
+                                    <?php $total = 0; ?>
+                                    <?php foreach ($data as $order): ?>
+                                    <?php if(!$order->is_quotation): ?>
+                                        <?php $total += ($order->unit_price * ($order->small + $order->large + $order->medium)) - ((100 - $order->discount)/100); ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <h1>Rs. <?php echo $total ?></h1>
                                 </div>
 
                             </div>
           
                         </div>
                         <div class="sales card">
-                            <i class='bx bxs-calendar-check'></i>
+                            <i class='bx bxs-dollar-circle'></i>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Orders</h3>
-                                    <h1>$ 2500,00</h1>
-
+                                    <h3>Remaining Payments</h3>
+                                    <?php $rem = 0; ?>
+                                    <?php foreach ($data as $order): ?>
+                                    <?php if(!$order->is_quotation): ?>
+                                        <?php $rem += $order->remaining_payment; ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <h1>Rs. <?php echo $rem ?></h1>
                                 </div>
 
                             </div>
-        
+          
                         </div>
                     </div>
+
 
                     <!-- Anlysis Containers -->
 
@@ -148,8 +184,8 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Orders</h3>
-                                <i class='bx bx-search'></i>
-                                <i class='bx bx-filter'></i>
+                                <a href="<?= ROOT ?>/customer/orders" class="view-all-btn">View All</a>
+                                <!-- <button class="view-all-btn">View All</button> -->
                             </div>
                             <table>
                                 <thead>
@@ -158,6 +194,7 @@
                                         <th>Design</th>
                                         <th>Material</th>
                                         <th>Status</th>
+                                        <th>Delivery Expected On</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -175,6 +212,7 @@
                                                 <?php echo $order->order_status ?>
                                             </div>
                                         </td>
+                                        <td><?php echo $order->dispatch_date ?></td>
                                     </tr>
                                     <?php endif; ?>
                                     <?php endforeach; ?>

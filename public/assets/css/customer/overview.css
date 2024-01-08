@@ -168,8 +168,9 @@ body {
   
   main .insights {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
+    
   }
   main .insights > div {
     /* width: 250px; */
@@ -445,8 +446,26 @@ body {
     font-size: 24px;
     font-weight: 600;
   }
-  .table-data .head .bx {
+
+  .table-data .order .view-all-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
+    transform: scale(0.9);
+}
+
+  .table-data .order .view-all-btn:hover {
+    
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
   }
   
   .table-data .order {
@@ -460,18 +479,14 @@ body {
   .table-data .order table th {
     padding-bottom: 12px;
     font-size: 13px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid var(--grey);
   }
   .table-data .order table td {
     padding: 16px 0;
+    text-align: center;
   }
-  .table-data .order table tr td:first-child {
-    display: flex;
-    align-items: center;
-    grid-gap: 12px;
-    padding-left: 6px;
-  }
+
   .table-data .order table td img {
     width: 36px;
     height: 36px;
@@ -493,6 +508,8 @@ body {
     flex-wrap: wrap;
     align-content: space-between;
     gap: 10px;
+    justify-content: center;
+    
   }
   .table-data .order table tr .status .completed  {
     color: blue;

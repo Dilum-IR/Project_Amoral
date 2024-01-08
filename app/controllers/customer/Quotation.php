@@ -27,7 +27,7 @@ class Quotation extends Controller
 
 
             // show($data);
-            show($id);            
+            // show($id);            
             
 
 
@@ -71,10 +71,12 @@ class Quotation extends Controller
 
             $this->view('customer/quotation', $data);
 
-            if (isset($_POST['newQuotation']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+            if ( isset($_POST['newQuotation']) && $_POST['newQuotation'] === 'newQuotation' && $_SERVER['REQUEST_METHOD'] === 'POST'){
                 //need to validate
+                // show($_POST['newQuotation']);
  
                     unset($_POST['newQuotation']);
+                    // $_SESSION['newQuotation'] = null;
                     $_POST['user_id'] = $id['user_id'];
                     $_POST['order_placed_on'] = date('Y-m-d');
                     $_POST['order_status'] = 'Quotation';
@@ -104,10 +106,26 @@ class Quotation extends Controller
                     }
 
                     if(isset($_POST['user_id'])){
-                        show($_POST);
+
+                        echo "fdgfdddggggggggggggggggffffffffffffffffffffffffgffffggf";
+
                         $order->insert($_POST);
-                        unset($_POST['user_id']);
-                        redirect('customer/quotation');
+
+                        $keys = array_keys($_POST);
+                        // show($keys);
+                        
+                        foreach ($keys as $key) {
+                            unset($_POST[$key]);
+                        }
+
+                        show($_POST);
+
+                        unset($order);
+
+                        // redirect('customer/quotation');
+                        // exit();
+                        die();
+
                     }
             }            
 

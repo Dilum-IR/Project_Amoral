@@ -32,7 +32,11 @@ class CustomerOrders extends Controller
 
             $errors = [];
             if (isset($_POST['report'])) {
-                
+                // unset($_SESSION['errors']);
+                $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+                if(empty($title)){
+                    $errors['title'] = 'Title is required.';
+                }
 
                 $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
                 if (empty($description)) {
@@ -64,8 +68,9 @@ class CustomerOrders extends Controller
         
                     }                
                 } else {
-                    
+                    unset($_POST['report']);
                     $_SESSION['errors'] = $errors;
+                    $errors = array();
                 }
             }else{
       

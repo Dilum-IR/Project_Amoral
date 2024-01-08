@@ -15,10 +15,14 @@
 
 <body>
     <!-- Sidebar -->
-    <?php include 'sidebar.php' ?>
+    <?php 
+    include 'sidebar.php' 
+    ?>
     <!-- Navigation bar -->
 
-    <?php include 'navigationbar.php' ?>
+    <?php 
+    include 'navigationbar.php' 
+    ?>
 
 
     <!-- content  -->
@@ -82,7 +86,7 @@
                             <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
 
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit request"><i class="fas fa-edit"></i> View Request</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         <?php endif; ?>

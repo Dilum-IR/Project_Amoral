@@ -23,10 +23,10 @@ body{
 #main {
   position: absolute;
   top: 78px;
-  width: calc(100% - 80px);
+  width: calc(100% - 78px);
   height: max-content;
-  left: 64px;
-  margin-left: 20px;
+  left: 78px;
+  padding-left: 20px;
   transition: all 0.5s ease;
   z-index: 2;
   border-radius: 50px;
@@ -193,22 +193,22 @@ form .form-input button:hover {
 
 
 td button{
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: #ffffff;
-    border: none;
-    padding: 3% 4%;
-    text-align: center;
-    /* text-decoration: none; */
-    /* display: inline-block; */
-    font-size: 16px;
-    font-weight: bolder;
-    margin: 2% 1%;
-
-    box-shadow: 2px 2px 11px -5px var(--color-default);
+  outline: none;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #000000;
+  border: none;
+  padding: 3% 6%;
+  text-align: center;
+  /* text-decoration: none; */
+  /* display: inline-block; */
+  font-size: 15px;
+  /* font-weight: bolder; */
+  margin: 2% 1%;
+  box-shadow: 2px 2px 11px -5px var(--color-default);
+  color: white;
 }
 
 /* td button:nth-child(1){
@@ -417,6 +417,15 @@ textarea {
   color: var(--dark);
 }
 
+.popup-report .error{
+  color: red;
+  font-size: 14px;
+  position: relative;
+  left: 1%;
+  /* visibility: hidden; */
+  
+}
+
 .popup-report .btns {
   position: relative;
   left: 40%;
@@ -427,7 +436,7 @@ textarea {
   align-items: center;
 }
 
-.popup-report .close-btn,
+.popup-report .submit-btn,
 .cancelR-btn {
   /* position: relative; */
   /* right: 1%; */
@@ -464,7 +473,7 @@ textarea {
 }
 
 .cancelR-btn:hover,
-.close-btn:hover {
+.submit-btn:hover {
   text-decoration: underline;
 }
 
@@ -738,11 +747,11 @@ form .sizes {
 }
 
 button.pay {
-  position: relative;
+  position: absolute;
   width: 48px;
   height: 31px;
-  top: -38px;
-  right: -239px;
+  margin-top: 6px;
+  right: 11%;
   background: #50cf3ef7;
   border: lightgreen;
   border-radius: 5px;

@@ -105,7 +105,7 @@ function openView(button) {
       document.querySelector('.update-form input[name="large"]').value = order.large;
 
       
-      document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
+      document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * (order.small + order.large + order.medium);
       document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
       document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
         document.querySelector('.update-form input[name="dispatch_date"]').min = formattedDate;
@@ -156,16 +156,25 @@ function closeNew(){
     overlay.classList.remove("overlay-active");
 }
 
+// window.onload = function(){
+//     if(hasErrors){
+//         document.querySelector(".popup-report .submit-btn").disabled = true;
+//     }
+//     document.querySelector(".popup-report .submit-btn").addEventListener('click', function() {
+//         console.log("clicked");
+//         if(hasErrors){
+//             console.log("error");
+//             document.querySelector(".popup-report .error").style.visibility = "visible";
+//         }    
+//     });
+// }
+
 var map;
 var marker;
 var infowindow;
 var flag = true;
 function initMap() {
 
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 7.8731, lng: 80.7718},
-        zoom: 8
-    });
 
     map.addListener('mouseover', function(){
         var lat = document.querySelector('input[name="latitude"]').value;
@@ -173,9 +182,28 @@ function initMap() {
         
 
         if(lat && lng && flag){
+            var position = {lat: parseFloat(lat), lng: parseFloat(lng)};
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: position,
+                zoom: 8
+            });
             marker = new google.maps.Marker({
-                position: {lat: parseFloat(lat), lng: parseFloat(lng)},
+                position: position,
                 map: map
+            });
+            
+        }else{
+            
+            navigator.geolocation.getCurrentPosition(function(pos, error) {
+                
+                if(error){
+                    console.log(error);
+                }else{
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
+                        zoom: 8
+                    });
+                }
             });
         }
         flag = false;
