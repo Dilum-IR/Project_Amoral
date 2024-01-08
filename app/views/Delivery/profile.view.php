@@ -19,13 +19,23 @@
 
 <body>
 
+  <?php
+  // show($data);  
+  ?>
+
+
 
   <!-- Sidebar -->
-  <?php include 'sidebar.php' ?>
+  <?php
+    include 'sidebar.php'
+    ?>
+ 
   <!-- Sidebar -->
 
   <!-- Navigation bar -->
-  <?php include 'navigationbar.php' ?>
+  <?php
+    include 'navigationbar.php'
+    ?>
   <!-- Navigation Bar -->
 
   <section class="main" id="main">
@@ -52,58 +62,104 @@
       <div class="right">
         <!-- Information Section -->
         <div class="info">
-          <h3 class="h3" >Personal Information
+          <h3 class="h3">Personal Information
             <hr>
           </h3>
-          <form action="">
+          <form method="POST">
 
-            <div class="info_data">
-              <div class="data">
-                <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name </label>
-                <input class="pro_input" type="text" id="pro_username" name="pro_username" value="Sadeep">
-              </div>
-              <div class="data">
-                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City</label>
-                <input class="pro_input" type="text" id="pro_city" name="pro_city" value="Matara">
-              </div>
-            </div>
-
-            <div class="info_data">
-              <div class="data">
-                <label class="pro_label" for="pro_address">Address</label>
-                <input class="pro_input" type="text" id="pro_address" name="pro_address" value="No:614/2,Matarahena, Beragama,Makandura">
+            <?php if (isset($data)) {
+              ?>
+              <div class="info_data">
+                <div class="data">
+                  <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name </label>
+                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value= "<?= $data->emp_name ?>">
+                </div>
+                <div class="data">
+                  <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City</label>
+                  <input class="pro_input" type="text" id="pro_city" name="city" value="<?= $data->city ?>">
+                </div>
               </div>
 
-              <div class="data">
-                <label class="pro_label" for="pro_date">Date of Birth</label>
-                <input class="pro_input" type="date" id="pro_date" name="pro_date" value="">
-              </div>
-            </div>
+              <div class="info_data">
+                <div class="data">
+                  <label class="pro_label" for="pro_address">Address</label>
+                  <input class="pro_input" type="text" id="pro_address" name="address"
+                    value="<?= $data->address ?>">
+                </div>
 
-            <div class="info_data">
-              <div class="data">
-
-                <label class="pro_label" for="pro_email">Email</label>
-                <input class="pro_input" type="email" id="pro_email" name="pro_email" value="chathu43sadeep@gmail.com">
-              </div>
-              <div class="data">
-                <label class="pro_label" for="pro_number">Contact Number</label>
-                <input class="pro_input" type="text" id="pro_number" name="pro_number" value="077-8827260">
+                <div class="data">
+                  <label class="pro_label" for="pro_date">Date of Birth</label>
+                  <input class="pro_input" type="date" id="pro_date" name="DOB" value="<?= $data->DOB ?>">
+                </div>
               </div>
 
+              <div class="info_data">
+                <div class="data">
 
-            </div>
+                  <label class="pro_label" for="pro_email">Email</label>
+                  <input class="pro_input" type="text" id="pro_email" name="email" value="<?= $data->email ?>">
+                </div>
+                <div class="data">
+                  <label class="pro_label" for="pro_number">Contact Number</label>
+                  <input class="pro_input" type="text" id="pro_number" name="contact_number" value="<?= $data->contact_number ?>">
+                </div>
 
-            <div class="info_data" id="last-element">
-              <div class="data">
-                <label class="pro_label" for="pro_profession">Profession</label>
-                <input class="pro_input" type="text" id="pro_profession" name="pro_profession" value="Distributor" disabled>
+
               </div>
-              <div class="pro_button">
-                <button type="button" class="small_btn discard_btn">Discard</button>
-                <button type="submit" class="small_btn save_btn">Save Changes</button>
+
+              <div class="info_data" id="last-element">
+                <div class="data">
+                  <label class="pro_label" for="pro_profession">Profession</label>
+                  <input class="pro_input" type="text" id="pro_profession" name="emp_status" value="<?= $data->emp_status ?>" disabled>
+                </div>
+                <div class="pro_button">
+                  <button type="button" class="small_btn discard_btn" name="discard" value="discard">Discard</button>
+                  <button type="submit" class="small_btn save_btn" name="save" value="save">Save Changes</button>
+                </div>
               </div>
-            </div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const form = document.querySelector('form');
+                    const saveButton = form.querySelector('.save_btn');
+                    const initialData = <?= json_encode($data) ?>;
+
+                    // Function to check if any changes are made
+                    function hasChanges() {
+                        const formData = new FormData(form);
+                        const currentData = {};
+                        
+                        formData.forEach((value, key) => {
+                          currentData[key] = value;
+                        });
+                        console.log(JSON.stringify(initialData) == JSON.stringify(currentData));
+
+                        return JSON.stringify(initialData) !== JSON.stringify(currentData);
+                    }
+
+                    // Enable or disable the "Save Changes" button based on changes
+                    function updateSaveButtonState() {
+                        saveButton.disabled = !hasChanges();
+
+                    }
+
+                    // Attach change event listeners to input fields
+                    form.querySelectorAll('input, select, textarea').forEach(input => {
+                        input.addEventListener('change', updateSaveButtonState);
+                    });
+
+                    // Initial check
+                    updateSaveButtonState();
+                });
+            </script>
+
+
+              <?php
+            }else{
+              redirect("signin");
+            }
+             ?>
+
           </form>
 
         </div>
@@ -113,12 +169,13 @@
           <h3 class="h3">Security Update
             <hr>
           </h3>
-          <form action="">
+          <form method="POST">
             <div class="info_data">
               <div class="data">
                 <label class="pro_label" for="pro_email">Current Password</label>
                 <span class="hide-icon">
-                  <input class="pro_input" type="password" id="c-password" name="pro_email" placeholder="Enter current password">
+                  <input class="pro_input" type="password" id="c-password" name="password"
+                    placeholder="Enter current password">
 
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
@@ -129,7 +186,8 @@
                 <label class="pro_label" for="pro_date">New Password</label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="password" id="n-password" name="pro_date" placeholder="Enter New password">
+                  <input class="pro_input" type="password" id="n-password" name="new_password"
+                    placeholder="Enter New password">
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                   </a>
@@ -142,21 +200,20 @@
                 <label class="pro_label" for="pro_profession">Confirm Password</label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="text" id="re-password" name="pro_profession" placeholder="Enter Confirm password">
+                  <input class="pro_input" type="text" id="re-password" name="confirm_password"
+                    placeholder="Enter Confirm password">
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                   </a>
                 </span>
               </div>
               <div class="pro_button">
-                <button type="button" class="small_btn discard_btn">Discard</button>
-                <button type="submit" class="small_btn save_btn">Save Changes</button>
+                <button type="button" class="small_btn discard_btn" name="discardP" value="discardP">Discard</button>
+                <button type="submit" class="small_btn save_btn" name="saveP" value="saveP">Save Changes</button>
               </div>
             </div>
           </form>
         </div>
-
-        <!-- Change Password Section -->
       </div>
     </div>
 
