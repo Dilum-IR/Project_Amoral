@@ -99,10 +99,17 @@ function openView(button) {
       
       document.querySelector('.update-form input[name="material"]').value = order.material;
       
-      document.querySelector('.update-form input[name="small"]').value = order.small;
-      document.querySelector('.update-form input[name="medium"]').value = order.medium;
+      if(document.querySelector('.update-form input[name="small"]') !== null){
+          document.querySelector('.update-form input[name="small"]').value = order.small;
+      }
 
-      document.querySelector('.update-form input[name="large"]').value = order.large;
+      if(document.querySelector('.update-form input[name="medium"]')){
+          document.querySelector('.update-form input[name="medium"]').value = order.medium;
+
+      }
+     
+
+    //   document.querySelector('.update-form input[name="large"]').value = order.large;
 
       
       document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * (order.small + order.large + order.medium);
@@ -124,7 +131,7 @@ function openView(button) {
       var orderPlacedOn = new Date(order.order_placed_on);
       if(((currentDate - orderPlacedOn)/(1000 * 60 * 60 * 24)) > 2){
             orderCancel.style.display = "none";
-            orderUpdate.style.left = "16%";
+            orderUpdate.style.left = "70%";
       }
 
 

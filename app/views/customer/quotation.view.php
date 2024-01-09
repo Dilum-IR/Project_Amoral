@@ -41,7 +41,7 @@
 
         <form>
             <div class="form">
-            <form action="#">
+            <form>
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
                         <button type="submit" class="search-btn">
@@ -102,7 +102,7 @@
     <!-- POPUP -->
     <div class="popup-new">
         <div class="close-icon">
-          <a href="#">
+          <a href="">
             <i class="bx bx-x" id="gen-pop-close"></i>
             <!-- <span class="link_name">Close</span> -->
           </a>
@@ -243,7 +243,7 @@
 
     <div class="popup-report">
         <div class="close-icon">
-            <a href="#">
+            <a href="">
                 <i class="bx bx-x" id="gen-pop-close"></i>
                 <!-- <span class="link_name">Close</span> -->
             </a>
@@ -270,7 +270,7 @@
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
         <div class="close-icon">
-          <a href="#">
+          <a href="">
             <i class="bx bx-x" id="gen-pop-close"></i>
             <!-- <span class="link_name">Close</span> -->
           </a>
@@ -432,7 +432,7 @@
 
 
                             </div>
-                            <script>
+                            <!-- <script>
                                 const carouselImages = document.getElementById('carouselImages');
                                 const imageCount = document.querySelector('.image-count');
 
@@ -500,7 +500,7 @@
                                     }
                                     xhr.send();
                                 }
-                            </script>
+                            </script> -->
                         </div>
                     </div>
                 </div>

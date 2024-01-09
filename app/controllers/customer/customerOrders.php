@@ -4,6 +4,7 @@ class CustomerOrders extends Controller
 {
     public function index()
     {
+        
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
         
@@ -32,6 +33,7 @@ class CustomerOrders extends Controller
 
             $errors = [];
             if (isset($_POST['report'])) {
+                show($_POST['report']);
                 // unset($_SESSION['errors']);
                 $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
                 if(empty($title)){
@@ -53,24 +55,30 @@ class CustomerOrders extends Controller
         
                 if (empty($errors)) {
                     $report = new CustomerReport;
-    
-                    unset($_POST['report']);
                     
                     $_POST['user_id'] = $id['user_id'];
     
                     $_POST['report_date'] = date('Y-m-d');
                     
                     if (isset($_POST['user_id'])) {
-        
+
                         $report->insert($_POST);
-                        unset($_POST);
-                        redirect('customer/orders');
+                        unset($_POST['report']);
+                        // redirect('customer/orders');
         
                     }                
                 } else {
-                    unset($_POST['report']);
                     $_SESSION['errors'] = $errors;
+                    
                     $errors = array();
+                    $_SESSION['form_data'] = $_POST;
+                    $_SESSION['form_id'] = "report";
+
+                    show($_SESSION['errors']);
+                    show($_SESSION['form_data']);
+                    show($_SESSION['form_id']);
+                    unset($_POST);
+                    // redirect('customer/orders');
                 }
             }else{
       

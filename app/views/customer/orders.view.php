@@ -13,11 +13,22 @@
     </head>
 
 <body>
+
+    <?php 
+        if(!empty($_SESSION['errors']) && !empty($_SESSION['form_data']) && !empty($_SESSION['form_id'])){
+            $errors = $_SESSION['errors'];
+            $form_data = $_SESSION['form_data'];
+            $form_id = $_SESSION['form_id'];
+            unset($_SESSION['errors']);
+            unset($_SESSION['form_data']);
+            unset($_SESSION['form_id']);
+        }
+    ?>
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
-    <?php include_once 'navigationbar.php' ?>
+    <!-- <?php include_once 'navigationbar.php' ?> -->
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
@@ -99,10 +110,11 @@
 
     <!-- POPUP -->
                
+  
 
     <div class="popup-report">
         <div class="close-icon">
-            <a href="">
+            <a>
                 <i class="bx bx-x" id="gen-pop-close"></i>
                 <!-- <span class="link_name">Close</span> -->
             </a>
@@ -111,60 +123,64 @@
         <form method="POST">
 
             <h4>Title :  
-                <?php if(isset($_SESSION['errors']['title'])): ?>
-                    <span class="error title">*<?php echo $_SESSION['errors']['title']; ?></span>  
+                <?php if(!empty($errors['title'])): ?>
+                    <span class="error title">*<?php echo $errors['title']; ?></span>  
                 <?php endif; ?>
             </h4> 
             <input name="title" type="text" placeholder="Enter your title">
             <h4>Your email :
-                <?php if(isset($_SESSION['errors']['email'])): ?> 
-                    <span class="error email">*<?php echo $_SESSION['errors']['email']; ?></span>
+                <?php if(isset($errors['email'])): ?> 
+                    <span class="error email">*<?php echo $errors['email']; ?></span>
                 <?php endif; ?>
             </h4>
             <input name="email" type="text" placeholder="Enter your email">
             <h4>Problem :
-                <?php if(isset($_SESSION['errors']['desc'])): ?> 
-                    <span class="error desc">*<?php echo $_SESSION['errors']['desc']; ?></span>
+                <?php if(isset($errors['desc'])): ?> 
+                    <span class="error desc">*<?php echo $errors['desc']; ?></span>
                 <?php endif; ?>
             </h4>
             <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
             <div class="btns">
                 <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
-                <button type="submit" class="submit-btn" name="report" value="Submit" >Submit</button>
+                <button type="submit" class="submit-btn" name="report" >Submit</button>
             </div>
 
         </form>
     </div>
             <script>
-                var form = document.querySelector(".popup-report form");
-                var errors = <?php echo json_encode($_SESSION['errors']); ?>;
-
-                form.addEventListener('submit', function(event) {
-                    var errorFields = ['title', 'email', 'desc'];
-                    var hasAnyError = false;
-                    errorFields.forEach(field => {
-                        var hasError = errors[field] && errors[field].length > 0;
-                        var errorMessage = document.querySelector(".popup-report .error." + field);
-                        if(hasError){
-                            errorMessage.style.visibility = "visible";
-                            hasAnyError = true;
-                        } else {
-                            errorMessage.style.visibility = "hidden";
-                        }
-                    });
-                    if(hasAnyError){
-                        event.preventDefault(); // Prevent the form from being submitted
+                <?php if(!empty($errors)): ?>
+                    if("<?php echo $form_id ?>" === "report"){
+                        console.log('<?php echo $form_id ?>');
+                        openReport();
                     }
+                    else{
+                        console.log('no errors');
+                    }
+                <?php endif; ?>
+                <?php if(!empty($form_data)): ?>
+                    if("<?php echo $form_id ?>" === "report"){
+                        console.log('report');
+                        openReport();
+                    }
+                    else{
+                        console.log('no errors');
+                    }
+                <?php endif; ?>
+                <?php if(!empty($form_id)): ?>
+                    if("<?php echo $form_id ?>" === "report"){
+                        console.log('report');
+                        openReport();
+                    }
+                    else{
+                        console.log('no errors');
+                    }
+                <?php endif; ?>
 
 
-                });
+
             </script>
 
-            <!-- <?php
-                if (isset($_SESSION['errors'])) {
-                    unset($_SESSION['errors']);
-                }
-            ?> -->
+
     
 
     <div class="popup-view" id="popup-view">
@@ -238,20 +254,27 @@
                     <div class="sizeChart">
                         <span class="size">S</span>
                     
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                         <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                        <br>
-                        <span class="size">M</span>
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                        <br>
-                        <span class="size">L</span>
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                            <br>
+                        <button class="removeSize">x</button>
+                        <button class="addSize">+</button>
+                        <select id="sizeDropdown">
+                            <option value="small">S</option>
+                            <option value="medium">M</option>
+                            <option value="large">L</option>
+                            <option value="xl">XL</option>
+                        </select>
+                       <br>
+
+                       <script>
+                            var addSizeButton = document.querySelector('.addSize');
+                            var sizeDropdown = document.getElementById('sizeDropdown');
+
+                            addSizeButton.addEventListener('click', function(event) {
+                                event.preventDefault();
+                                
+                            });
+                       </script>
+
                     </div>
                     </div>
                     <div class="input-box">

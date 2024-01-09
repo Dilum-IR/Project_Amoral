@@ -82,28 +82,44 @@ class Quotation extends Controller
                     $_POST['order_status'] = 'Quotation';
                     $_POST['is_quotation'] = 1;
             
-                    if (isset($_FILES['image'])) {
-                        $file = $_FILES['image'];
-                        alert($file['name']);
-                        // Check if the file is an image
-                        if (getimagesize($file['tmp_name']) !== false) {
-                            // Generate a unique name for the file
-                            $filename = time(). '_' . $file['name'];
-                            alert($filename);
-                            // Move the file to the uploads directory
-                            if (move_uploaded_file($file['tmp_name'], ROOT.'/uploads/' . $filename)) {
-                                // Insert the file name into the database
-                                $_POST['image'] = $filename;
-                
-                            } else {
-                                echo 'Failed to upload image';
-                            }
-                        } else {
-                            $errors['image'] = 'The uploaded file is not an image';
+                   
+                        $targetdir = ROOT.'/uploads/designs/';
+                        $targetfile = $targetdir . basename($_FILES['image']['name']);
+                        $uploadOk = 1;
+                        $imageFileType = strtolower(pathinfo($targetfile, PATHINFO_EXTENSION));
+
+                        $check = getimagesize($_FILES['image']['tmp_name']);
+                        if($check == false){
+                            $errors['image'] = 'File is not an image.';
+                            $uploadOk = 0;
                         }
-                    } else {
-                        echo 'No image file was sent';
-                    }
+
+                        if(file_exists($targetfile)){
+                            $errors['image'] = 'File already exists.';
+                            $uploadOk = 0;
+                        }
+
+                        if($_FILES['image']['size'] > 500000){
+                            $errors['image'] = 'File is too large.';
+                            $uploadOk = 0;
+                        }
+
+                        $allowedTypes = ['jpg', 'jpeg', 'png'];
+                        if(!in_array($imageFileType, $allowedTypes)){
+                            $errors['image'] = 'File type not allowed.';
+                            $uploadOk = 0;
+                        }
+
+                        if($uploadOk == 0){
+                            $errors['image'] = 'File not uploaded.';
+                        }else{
+                            if(move_uploaded_file($_FILES['image']['tmp_name'], $targetfile)){
+                                $_POST['image'] = basename($_FILES['image']['name']);
+                            }else{
+                                $errors['image'] = 'File not uploaded.';
+                            }
+                        }
+                    
 
                     if(isset($_POST['user_id'])){
 

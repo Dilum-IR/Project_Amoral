@@ -438,43 +438,31 @@ textarea {
 
 .popup-report .submit-btn,
 .cancelR-btn {
-  /* position: relative; */
-  /* right: 1%; */
-  font-size: 16px;
-  color: var(--red);
-  /* cursor: pointer;
-  padding: 5px 15px;
-  border-radius: 6px;
-  color: #000;
-  border: none;
-  background: var(--red); */
-  margin-left: 15px;
-
   position: absolute;
-  outline: none;
+  top: -8px;
+  background-color: black;
+  color: white;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: #ffffff;
-  padding: 1% 3.8%;
-  /* left: 57%; */
+  padding: 8px 15px;
+  border-radius: 25px;
   text-align: center;
-  /* text-decoration: none; */
-  /* display: inline-block; */
-  font-weight: bolder;
-  /* margin: 2% 1%; */
-
-  box-shadow: 2px 2px 11px -5px var(--color-default);
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transform: scale(0.9);
 }
 
 .popup-report .cancelR-btn {
   right: 29%;
-  color: var(--blue);
+ 
 }
 
 .cancelR-btn:hover,
 .submit-btn:hover {
-  text-decoration: underline;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
 }
 
 .overlay {
@@ -736,12 +724,43 @@ form .user-details .input-box .addr {
   width: 20%;
 }
 
+button.removeSize {
+  border: none;
+  position: relative;
+  right: 5px;
+  font-size: 17px;
+  bottom: 2px;
+  cursor: pointer;
+}
+
+button.addSize {
+  border: none;
+  font-size: 21px;
+  left: 24px;
+  position: relative;
+  cursor: pointer;
+}
+
+select#sizeDropdown {
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* background: url(path_to_your_icon.png) no-repeat right center; */
+  padding-right: 15px;
+  color: white;
+}
+
+select#sizeDropdown option{
+  color: #000;
+}
+
 .input-box.location {
   margin-top: -242px;
 }
 
 form .sizes {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -781,42 +800,37 @@ select {
 
 .popup-view .pb{
   position: absolute;
-  outline: none;
+  bottom: 20px;
+  background-color: black;
+  color: white;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 10px;
-  background-color: #ffffff;
-  border: none;
-  padding: 0.5% 1%;
-  margin-left: 60%;
-  bottom: 2.6%;
+  padding: 8px 15px;
+  border-radius: 25px;
   text-align: center;
-  /* text-decoration: none; */
-  /* display: inline-block; */
+  text-decoration: none;
+  display: inline-block;
   font-size: 16px;
-  font-weight: bolder;
-  /* margin: 2% 1%; */
-
-  box-shadow: 2px 2px 11px -5px var(--color-default);
+  margin: 4px 2px;
+  cursor: pointer;
+  transform: scale(0.9);
 }
 
 .popup-view .update-btn {
-  /* right: 20%; */
-  color: var(--blue);
+  left: 58%;
+  
 }
 
-.popup-view .update-btn:hover {
-  text-decoration: underline;
+.pb:hover {
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
 }
 
 .popup-view .cancel-btn {
   right: 6%;
-  color: var(--red);
 }
 
 .popup-view .cancel-btn:hover {
-  text-decoration: underline;
+  background-color: red;
 }
 
 /* @media screen and (max-width: 950px) {
