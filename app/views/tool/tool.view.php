@@ -53,6 +53,22 @@
             <br>
             <br>
 
+            <label for="t-shirt-color-picker">T-Shirt Color</label>
+            <div class="t-shirt-color-preset">
+                <div onclick="changeTshirtColor('black')" class="color-circle" id="black"></div>
+                <div onclick="changeTshirtColor('blue')" class="color-circle" id="blue"></div>
+                <div onclick="changeTshirtColor('#000435')" class="color-circle" id="navy"></div>
+                <div onclick="changeTshirtColor('white')" class="color-circle" id="white"></div>
+                <div onclick="changeTshirtColor('red')" class="color-circle" id="red"></div>
+                <div onclick="changeTshirtColor('green')" class="color-circle" id="green"></div>
+            </div>
+            <input type="color" id="t-shirt-color-picker" class="t-shirt-color-picker" onchange="updateColorCode()">
+            <div>Selected Color : <span id="selected-color">#000000</span></div>
+
+
+            <br>
+            <br>
+
             <label for="t-shirt-design">Select a Design</label>
             <select name="" id="t-shirt-design">
                 <option value=""></option>
@@ -83,87 +99,81 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+
+        <div class="text-editor">
+            <div class="text-section">
+                <div class="text-add-and-text-box">
+                    <input type="text" id="t-shirt-text" placeholder="Add Text...">
+                    <button id="add-text-button" onclick="addTshirtText()">Add</button>
+                </div>
+                <br>
+                <div class="font-change">
+                    <!-- <label id="font-lable" for="text-font">Font</label> -->
+                    <div>Font</div>
+                    <select name="" class="text-font" id="text-font" onchange="changeFont()">
+                        <option value="Arial" style="font-family: Arial; font-weight: bolder; font-size: 16px;">Arial</option>
+                        <option value="Verdana" style="font-family: Verdana; font-weight: bolder; font-size: 16px;">Verdana</option>
+                        <option value="Georgia" style="font-family: Georgia; font-weight: bolder; font-size: 16px;">Georgia</option>
+                        <option value="Times New Roman" style="font-family: 'Times New Roman'; font-weight: normal; font-size: 16px;">
+                            Times New Roman</option>
+                        <option value="Courier New" style="font-family: 'Courier New'; font-weight: normal; font-size: 16px;">Courier
+                            New</option>
+                        <option value="Impact" style="font-family: Impact; font-weight: bolder; font-size: 16px;">Impact</option>
+                        <option value="Comic Sans MS" style="font-family: 'Comic Sans MS'; font-weight: normal; font-size: 16px;">Comic
+                            Sans MS</option>
+                        <option value="Tahoma" style="font-family: Tahoma; font-weight: bold; font-size: 16px;">Tahoma</option>
+                        <option value="Palatino Linotype" style="font-family: 'Palatino Linotype'; font-weight: normal; font-size: 16px;">Palatino Linotype</option>
+                        <option value="Lucida Sans Unicode" style="font-family: 'Lucida Sans Unicode'; font-weight: normal; font-size: 16px;">Lucida Sans Unicode
+                        </option>
+                        <option value="Garamond" style="font-family: Garamond; font-weight: bold; font-size: 16px;">Garamond</option>
+                        <option value="Book Antiqua" style="font-family: 'Book Antiqua'; font-weight: normal; font-size: 16px;">Book
+                            Antiqua</option>
+                        <option value="Arial Black" style="font-family: 'Arial Black'; font-weight: bolder; font-size: 16px;">Arial
+                            Black</option>
+                        <option value="Century Gothic" style="font-family: 'Century Gothic'; font-weight: normal; font-size: 16px;">
+                            Century Gothic</option>
+                        <option value="Franklin Gothic Medium" style="font-family: 'Franklin Gothic Medium'; font-weight: normal; font-size: 16px;">Franklin Gothic Medium
+                        </option>
+                        <option value="Rockwell" style="font-family: Rockwell; font-weight: bold; font-size: 16px;">Rockwell</option>
+                    </select>
+                </div>
+                <br>
+                <div class="text-format">
+                    <div class="text-format-icons" id="text-format-icons-bold" onclick="changeIconColor('bold')">
+                        <i type="format" class='bx bx-bold' id="text-bold" value="bold" onclick="changeFormat('bold')"></i>
+                    </div>
+                    <div class="text-format-icons" id="text-format-icons-italic" onclick="changeIconColor('italic')">
+                        <i type="format" class='bx bx-italic' id="text-italic" value="italic" onclick="changeFormat('italic')"></i>
+                    </div>
+                    <div class="text-format-icons" id="text-format-icons-underline" onclick="changeIconColor('underline')">
+                        <i type="format" class='bx bx-underline' id="text-underline" value="underline" onclick="changeDecoration('underline')"></i>
+                    </div>
+                    <div class="text-format-icons" id="text-format-icons-line-through" onclick="changeIconColor('line-through')">
+                        <i type="format" class='bx bx-strikethrough' id="text-strike" value="strike" onclick="changeDecoration('line-through')"></i>
+                    </div>
+                </div>
+
+                <!-- <div class="t-shirt-text-font">
+                    <label for="text-font-size">Font Size</label>
+                    <input type="number" id="text-font-size" value="40" onchange="changeFontSize()">
+                </div> -->
+
+                <div class="t-shirt-text-color">
+                    <label for="text-color">Text Color</label>
+                    <input type="color" id="text-color" value="#000000" onchange="changeTextColor()">
+                    <div>Selected Color : <span id="selected-text-color">#000000</span></div>
+                </div>
+
+                <br>
+                <br>
+            </div>
+
             <button id="download-button" onclick="downloadImage()">Download Design</button>
         </div>
 
-
-        <div class="text-section">
-            <label for="t-shirt-text">Add a Text</label>
-            <input type="text" id="t-shirt-text" placeholder="Type Here...">
-            <button onclick="addTshirtText()">Add Text</button>
-            <label for="text-font">Change Font Style</label>
-            <select name="" id="text-font" onchange="changeFont()">
-                <option value="Arial" style="font-family: Arial; font-weight: bolder; font-size: 16px;">Arial</option>
-                <option value="Verdana" style="font-family: Verdana; font-weight: bolder; font-size: 16px;">Verdana</option>
-                <option value="Georgia" style="font-family: Georgia; font-weight: bolder; font-size: 16px;">Georgia</option>
-                <option value="Times New Roman" style="font-family: 'Times New Roman'; font-weight: normal; font-size: 16px;">
-                    Times New Roman</option>
-                <option value="Courier New" style="font-family: 'Courier New'; font-weight: normal; font-size: 16px;">Courier
-                    New</option>
-                <option value="Impact" style="font-family: Impact; font-weight: bolder; font-size: 16px;">Impact</option>
-                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS'; font-weight: normal; font-size: 16px;">Comic
-                    Sans MS</option>
-                <option value="Tahoma" style="font-family: Tahoma; font-weight: bold; font-size: 16px;">Tahoma</option>
-                <option value="Palatino Linotype" style="font-family: 'Palatino Linotype'; font-weight: normal; font-size: 16px;">Palatino Linotype</option>
-                <option value="Lucida Sans Unicode" style="font-family: 'Lucida Sans Unicode'; font-weight: normal; font-size: 16px;">Lucida Sans Unicode
-                </option>
-                <option value="Garamond" style="font-family: Garamond; font-weight: bold; font-size: 16px;">Garamond</option>
-                <option value="Book Antiqua" style="font-family: 'Book Antiqua'; font-weight: normal; font-size: 16px;">Book
-                    Antiqua</option>
-                <option value="Arial Black" style="font-family: 'Arial Black'; font-weight: bolder; font-size: 16px;">Arial
-                    Black</option>
-                <option value="Century Gothic" style="font-family: 'Century Gothic'; font-weight: normal; font-size: 16px;">
-                    Century Gothic</option>
-                <option value="Franklin Gothic Medium" style="font-family: 'Franklin Gothic Medium'; font-weight: normal; font-size: 16px;">Franklin Gothic Medium
-                </option>
-                <option value="Rockwell" style="font-family: Rockwell; font-weight: bold; font-size: 16px;">Rockwell</option>
-            </select>
-
-            <div class="text-format">
-                <i type="format" class='bx bx-bold' id="text-bold" value="bold" onclick="changeFormat('bold')"></i>
-                <i type="format" class='bx bx-italic' id="text-italic" value="italic" onclick="changeFormat('italic')"></i>
-                <i type="format" class='bx bx-underline' id="text-underline" value="underline" onclick="changeDecoration('underline')"></i>
-                <i type="format" class='bx bx-strikethrough' id="text-strike" value="strike" onclick="changeDecoration('line-through')"></i>
-            </div>
-
-            <div class="t-shirt-text-font">
-                <label for="text-font-size">Font Size</label>
-                <input type="number" id="text-font-size" value="16" oninput="changeFontSize()">
-            </div>
-
-            <br>
-            <br>
-
-            <div class="t-shirt-text-color">
-                <label for="text-color">Text Color</label>
-                <input type="color" id="text-color" value="#000000" onchange="changeTextColor()">
-                <div>Selected Color : <span id="selected-text-color">#000000</span></div>
-            </div>
-
-            <br>
-            <br>
-
-            <label for="t-shirt-color">Select T-Shirt Color</label>
-            <select name="" id="t-shirt-color">
-                <option value="#fff">White</option>
-                <option value="#000">Black</option>
-                <option value="#f00">Red</option>
-                <option value="#008000">Green</option>
-                <option value="#ff0">Yellow</option>
-                <option value="#000080">Navy</option>
-                <option value="#808080">Grey</option>
-            </select>
-
-            <br>
-            <br>
-
-            <div>Selected Color : <span id="selected-color">#000000</span></div>
-            <input type="color" id="t-shirt-color-picker" class="t-shirt-color-picker" onchange="updateColorCode()">
-        </div>
     </div>
-
-
-
     <script src="<?= ROOT ?>/assets/js/tool/fabric.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/tool/tool.js"></script>

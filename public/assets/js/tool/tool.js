@@ -1,6 +1,6 @@
 let canvas = new fabric.Canvas('t-shirt-canvas');
 var defaultFont = "Arial";
-var defaultFontSize = "16"
+// var defaultFontSize = "16px";
 var defaultTextColor = "#000000";
 var lastText = null;
 var selectedDecorations = [];
@@ -16,7 +16,7 @@ function updateColorCode() {
     var colorDisplay = document.getElementById("selected-color");
     var selectedColorCode = colorPicker.value; //Get the selected color code from the color picker
     colorDisplay.textContent = selectedColorCode; //Update the text content of the color display element
-  
+
 }
 
 var tshirtType = '';
@@ -24,7 +24,7 @@ var tshirtImage = document.getElementById("t-shirt-image");
 var tshirtSide = document.getElementById("t-shirt-side");
 
 //change the t shirt type to crew neck polo or long sleeve
-function updateTshirtType(newType){
+function updateTshirtType(newType) {
     tshirtImage.src = rootPath + newType;
     tshirtType = newType;
 }
@@ -38,11 +38,13 @@ function addTshirtText() {
         left: centerX,
         top: centerY,
         fontFamily: defaultFont,
+        // fontSize:  defaultFontSize,
+        textColor: defaultTextColor,
         fontWeight: 'normal',
         textStyle: 'normal',
         textDecoration: 'none',
-        fontSize:  defaultFontSize,
-        textColor: defaultTextColor,
+        textDecorationLine: 'none',
+
         lockScalingY: false
 
     });
@@ -90,38 +92,39 @@ function textFormat() {
         lastText.set({
             fontWeight: selectedDecorations.includes('bold') ? 'bold' : 'normal',
             fontStyle: selectedDecorations.includes('italic') ? 'italic' : 'normal',
-            // fontSize: selectedDecorations.join(''),
             textDecoration: selectedDecorations.join(''),
             textDecorationLine: selectedDecorations.join('')
         });
-        // console.log("textfomat");
+        console.log("textfomat");
         canvas.renderAll();
     }
 }
 
-function changeFontSize(){
-    var fontSize = document.getElementById("text-font-size").value;
-    defaultFontSize = fontSize;
+// function changeFontSize(){
+//     var fontSize = parseInt(document.getElementById("text-font-size").value, 10);
 
-    if (lastText != null) {
-        lastText.set("fontSize", defaultFontSize);
-        canvas.renderAll();
-    }
-}
 
-function changeTextColor(){
-    var textColorPicker = document.getElementById("text-color");
-    
-    textColorPicker.addEventListener("input", function(){
+//     if (lastText) {
+//         lastText.set("fontSize", defaultFontSize);
+
+//     }
+//     canvas.renderAll();
+// }
+
+var textColorPicker = document.getElementById("text-color");;
+
+function changeTextColor() {
+
+    textColorPicker.addEventListener("input", function () {
         var textColor = document.getElementById("text-color").value;
         defaultTextColor = textColor;
         var textColorDisplay = document.getElementById("selected-text-color");
         var selectedColorCode = textColorPicker.value; //Get the selected color code from the color picker
         textColorDisplay.textContent = selectedColorCode; //Update the text content of the color display element
-       
+
         if (lastText != null) {
-                lastText.set("fill", defaultTextColor);
-                canvas.renderAll();
+            lastText.set("fill", defaultTextColor);
+            canvas.renderAll();
         }
     });
 }
@@ -132,47 +135,46 @@ function updateTshirtSide() {
     // var selectedType = tshirtType.valueOf;
     var frontSide = document.getElementById("t-shirt-front");
     var backSide = document.getElementById("t-shirt-back");
-    
-    if(frontSide.checked){
-        if(tshirtType == "crew_neck_front.png"){
+
+    if (frontSide.checked) {
+        if (tshirtType == "crew_neck_front.png") {
             tshirtImage.src = rootPath + tshirtType;
-        }else if(tshirtType == "polo_collar_front.png"){
+        } else if (tshirtType == "polo_collar_front.png") {
             tshirtImage.src = rootPath + tshirtType;
-        }else if(tshirtType == "long_sleeve_front.png"){
+        } else if (tshirtType == "long_sleeve_front.png") {
             tshirtImage.src = rootPath + tshirtType;
         }
-    }else if(backSide.checked){
+    } else if (backSide.checked) {
         // console.log("backside checked");
-        if((tshirtType == "crew_neck_front.png") || (tshirtType== "") ){
+        if ((tshirtType == "crew_neck_front.png") || (tshirtType == "")) {
             // console.log("if backside checked");
             tshirtImage.src = rootPath + "crew_neck_back.png";
-        }else if(tshirtType == "polo_collar_front.png"){
+        } else if (tshirtType == "polo_collar_front.png") {
             tshirtImage.src = rootPath + "polo_collar_back.png";
-        }else if(tshirtType == "long_sleeve_front.png"){
+        } else if (tshirtType == "long_sleeve_front.png") {
             tshirtImage.src = rootPath + "long_sleeve_back.png";
         }
     }
 }
 
 // when you click on another type the radio button should go back to default checked
-document.getElementById("crew-neck-image").addEventListener('click', function(){
-    if(document.getElementById("t-shirt-back").checked){
+document.getElementById("crew-neck-image").addEventListener('click', function () {
+    if (document.getElementById("t-shirt-back").checked) {
         document.getElementById("t-shirt-front").checked = true;
     }
 });
 
-document.getElementById("polo-collar-image").addEventListener('click', function(){
-    if(document.getElementById("t-shirt-back").checked){
+document.getElementById("polo-collar-image").addEventListener('click', function () {
+    if (document.getElementById("t-shirt-back").checked) {
         document.getElementById("t-shirt-front").checked = true;
     }
 });
 
-document.getElementById("long-sleeve-image").addEventListener('click', function(){
-    if(document.getElementById("t-shirt-back").checked){
+document.getElementById("long-sleeve-image").addEventListener('click', function () {
+    if (document.getElementById("t-shirt-back").checked) {
         document.getElementById("t-shirt-front").checked = true;
     }
 });
-
 
 
 function updateTshirtDesign(imageURL) {
@@ -185,18 +187,12 @@ function updateTshirtDesign(imageURL) {
     });
 }
 
-var tshirtColor1 = document.getElementById("t-shirt-color");
-var tshirtColor2 = document.getElementById("t-shirt-color-picker");
+var tshirtColor = document.getElementById("t-shirt-color-picker");
 var tshirtBackground = document.getElementById("t-shirt");
 var tshirtDesign = document.getElementById("t-shirt-design");
 var tshirtCustom = document.getElementById("t-shirt-custom-design");
 
-// change tshirt color
-tshirtColor1.addEventListener("change", function () {
-    tshirtBackground.style.backgroundColor = this.value;
-}, false);
-
-tshirtColor2.addEventListener("input", function () {
+tshirtColor.addEventListener("input", function () {
     tshirtBackground.style.backgroundColor = this.value;
 }, false);
 
@@ -204,6 +200,54 @@ tshirtColor2.addEventListener("input", function () {
 tshirtDesign.addEventListener("change", function () {
     updateTshirtDesign.call(this, this.value);
 }, false);
+
+function changeTshirtColor(color) {
+    tshirtBackground.style.backgroundColor = color;
+
+    if (color == "black") {
+        console.log("black");
+        document.getElementById("black").style.transform = 'scale(1.3)';
+    } else {
+        document.getElementById("black").style.transform = 'scale(1)';
+    }
+
+    if (color == "blue") {
+        console.log("black");
+        document.getElementById("blue").style.transform = 'scale(1.3)';
+    } else {
+        document.getElementById("blue").style.transform = 'scale(1)';
+    }
+
+    if (color == "#000435") {
+        console.log("black");
+        document.getElementById("navy").style.transform = 'scale(1.3)';
+    } else {
+        document.getElementById("navy").style.transform = 'scale(1)';
+    }
+
+    if (color == "white") {
+        console.log("black");
+        document.getElementById("white").style.transform = 'scale(1.3)';
+    } else {
+        document.getElementById("white").style.transform = 'scale(1)';
+    }
+
+    if (color == "red") {
+        console.log("black");
+        document.getElementById("red").style.transform = 'scale(1.3)';
+    } else {
+        document.getElementById("red").style.transform = 'scale(1)';
+    }
+
+    if (color == "green") {
+        console.log("black");
+        document.getElementById("green").style.transform = 'scale(1.3)';
+    } else {
+        document.getElementById("green").style.transform = 'scale(1)';
+    }
+
+}
+
 
 // upload a custom design
 tshirtCustom.addEventListener("change", function (e) {
@@ -231,10 +275,9 @@ tshirtCustom.addEventListener("change", function (e) {
 }, false);
 
 //download the design
-
-function downloadImage(){
+function downloadImage() {
     var downloadContent = document.getElementById('t-shirt');
-    console.log("downloaaaaaaaaaaaaaad");
+    // console.log("downloaaaaaaaaaaaaaad");
     html2canvas(downloadContent).then(function (canvas) {
         var downloadURL = canvas.toDataURL('image/png');
         var downloadLink = document.createElement('a');
@@ -244,7 +287,7 @@ function downloadImage(){
     });
 }
 // document.getElementById('download-button').addEventListener('click', function () {
-    
+
 // });
 
 // remove image from canvas with CTRL+Z
@@ -258,3 +301,27 @@ function downloadImage(){
 
 
 
+// change the color of text decorations icon after clicking
+
+
+function changeIconColor(textDeco) {
+    if (lastText != null) {
+       
+        console.log("text icon color");
+     
+
+        if(textDeco == "bold"){
+            document.getElementById("text-format-icons-bold").style.backgroundColor = 'red';
+        }
+        if(textDeco == "italic"){
+            document.getElementById("text-format-icons-italic").style.backgroundColor = 'red';
+        }
+        if(textDeco == "underline"){
+            document.getElementById("text-format-icons-underline").style.backgroundColor = 'red';
+        }
+        if(textDeco == "line-through"){
+            document.getElementById("text-format-icons-line-through").style.backgroundColor = 'red';
+        }
+    }
+
+}
