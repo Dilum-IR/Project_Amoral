@@ -370,8 +370,8 @@ td.st {
 }
 
 .popup-view{
-  width: 55%;
-  top: 90%;
+  width: 64%;
+  top: 97%;
   bottom: 20%;
 }
 
@@ -493,8 +493,8 @@ textarea {
 
 .popup-view .sizeChart{
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(65px, 1fr));
-  grid-gap: 5px;
+  grid-template-columns: repeat(auto-fit,minmax(61px, 1fr));
+  grid-gap: 0px;
 }
 
 .popup-view .sizeChart span{
@@ -736,6 +736,7 @@ form .sizes {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 button.pay {
@@ -760,23 +761,23 @@ button.pay:hover {
 
 .user-details .input-box input,
 select {
-  width: 70%;
-  /* height: 45px; */
+  width: 80%;
+  height: 38px;
   outline: none;
-  background-color: #d5dfe7d5;
+  background-color: #ffffffd5;
   border-radius: 4px;
-  /* border: 1px solid #ccc; */
+  border: 1px solid black;
   /* padding-left: 15px; */
   font-size: 13px;
   transition: all 0.3s ease-in;
-  /* border-bottom-width: 2px;*/
+  border-bottom-width: 2px;
 }
 
 .user-details select{
 
     margin-left: 10px;
     height: 36px;
-    border: none;
+    /* border: none; */
     padding: 0px 18px;
 
 }
@@ -796,7 +797,14 @@ select {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  transform: scale(0.9);
+  /* transform: scale(0.9); */
+}
+
+.popup-view .pb:hover {
+  /* transform: scale(1); */
+  font-size: 17px;
+  font-weight: 200;
+  transition: all 0.3s ease-in-out;
 }
 
 /* .popup-view .update-btn {

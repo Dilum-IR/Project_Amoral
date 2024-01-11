@@ -104,7 +104,7 @@ function openView(button) {
 
       document.querySelector('.update-form input[name="large"]').value = order.large;
 
-      
+      document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
       document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
       document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
       document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;

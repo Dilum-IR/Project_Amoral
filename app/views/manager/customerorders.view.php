@@ -14,7 +14,7 @@
 
 <body>
     <!-- Sidebar -->
-    <?php include 'sidebar.php' ?>
+    <?php include_once 'sidebar.php' ?>
     <!-- Navigation bar -->
 
     <?php include_once 'navigationbar.php' ?>
@@ -81,7 +81,7 @@
                             <td></td>
                             <td><?php echo $order->material ?></td>
                             <td><?php echo $order->dispatch_date ?></td>
-                            <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
+                            <td class="desc"> <?php echo $order->small + $order->medium + $order->large ?></td>
                             <td class="st">
                                 <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
                                 <div class="progress-bar"></div>
@@ -191,7 +191,7 @@
 
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="" />
+                        <input name="material" type="text" required onChange="" />
                         
                     </div>
 
@@ -223,6 +223,8 @@
                     </div>
                     </div>
                     <div class="input-box">
+                        <span class="details">Unit Price</span>
+                        <input name="unit_price" type="text" required onChange=""  />
                     </div>
                     <div class="input-box">
                         <span class="details">Total Price</span>
@@ -230,7 +232,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Remaining Payment</span>
-                        <input name="remaining_payment" type="text" required onChange="" />
+                        <input name="remaining_payment" type="text"  />
                         
                     </div>
                     <div class="input-box">
