@@ -174,7 +174,7 @@ form .form-input button:hover {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 25px;
+  border-radius: 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -195,20 +195,19 @@ form .form-input button:hover {
 td button{
   outline: none;
   border: none;
-  border-radius: 22px;
+  border-radius: 6px;
   cursor: pointer;
   padding: 10px;
-  background-color: #000000;
+  background-color: #29292966;
   border: none;
-  padding: 3% 6%;
+  padding: 2px 9px;
   text-align: center;
   /* text-decoration: none; */
   /* display: inline-block; */
   font-size: 15px;
-  /* font-weight: bolder; */
+  font-weight: bolder;
   margin: 2% 1%;
-  box-shadow: 2px 2px 11px -5px var(--color-default);
-  color: white;
+  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 }
 
 /* td button:nth-child(1){
@@ -238,12 +237,12 @@ input{
 .table-section{
     
     overflow: auto;
-    box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+    /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
     border-radius: 20px;
     background: ghostwhite;
     margin: 19px 32px;
     overflow-x: auto;
-    border: black 1px solid;
+
 }
 
 table{
@@ -270,11 +269,11 @@ table{
 }
 
 thead th{
-   
-    padding-top: 17px;
-    color: #000000;
-    font-size: 15px;
-    border-bottom: 1px solid black;
+  padding-top: 17px;
+  color: #ffffff;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+  background: black;
 }
 
 th, td{
@@ -341,11 +340,11 @@ tbody tr:hover{
 }
 
 .text-status.processing{
-  background-color: #3bec24;
+  background-color: #1c7012cc;
 }
 
 .text-status.delivering{
-  background-color: #0c5fcd;
+  background-color: #0c5fcdc7;
 }
 
 .popup-view, 
@@ -360,7 +359,7 @@ tbody tr:hover{
   top: 58%;
   left: 50%;
   transform: translate(-50%, -60%) scale(0);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 20px;
   box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
   visibility: hidden;
@@ -407,7 +406,7 @@ textarea {
   left: 9%;
   width: 80%;
   background: #d5dfe7d5;
-  border-radius: 20px;
+  border-radius: 10px;
   border-style: solid;
   border: #000;
   outline-width: 1px;

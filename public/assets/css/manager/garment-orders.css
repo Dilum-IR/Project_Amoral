@@ -83,7 +83,7 @@ form .form-input input {
   background: rgb(255, 255, 255);
   outline: none;
   border-radius: 36px 0 0 36px;
-  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
   margin-left: 37px;
   margin-right: 0;
   transition: 0.3s ease;
@@ -106,7 +106,7 @@ form .form-input button {
   outline: none;
   border-radius: 0 36px 36px 0;
   cursor: pointer;
-  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
   transition: 0.3s ease;
 }
 
@@ -189,24 +189,27 @@ form .form-input button:hover {
 
 
 td button{
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: #ffffff;
-    border: none;
-    padding: 3% 4%;
-    text-align: center;
-    /* text-decoration: none; */
-    /* display: inline-block; */
-    font-size: 16px;
-    font-weight: bolder;
-    margin: 2% 1%;
-
-    box-shadow: 2px 2px 11px -5px var(--color-default);
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #29292966;
+  border: none;
+  padding: 2px 9px;
+  text-align: center;
+  /* text-decoration: none; */
+  /* display: inline-block; */
+  font-size: 15px;
+  font-weight: bolder;
+  margin: 2% 1%;
+  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 }
 
+td button:hover{
+  background-color: #909090a8;
+  transition: all 0.3s ease-in-out;
+}
 /* td button:nth-child(1){
     color: #0239cf;
     
@@ -234,21 +237,21 @@ input{
 .table-section{
     
     overflow: auto;
-    box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+    /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
     border-radius: 20px;
     background: ghostwhite;
     margin: 19px 32px;
     overflow-x: auto;
-    border: black 1px solid;
+    /* border: black 1px solid; */
 }
 
 table{
-    width: 100%;
-    position: relative;
-    min-width: 1000px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    overflow: hidden;
+  width: 100%;
+  position: relative;
+  min-width: 1000px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: hidden;
 }
 
 
@@ -266,11 +269,11 @@ table{
 }
 
 thead th{
-   
-    padding-top: 17px;
-    color: #000000;
-    font-size: 15px;
-    border-bottom: 1px solid black;
+  padding-top: 17px;
+  color: #ffffff;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+  background: black;
 }
 
 th, td{
@@ -336,12 +339,12 @@ tbody tr:hover{
   margin-left: 10%;
 }
 
-.text-status.processing{
-  background-color: #3bec24;
+.text-status.sewing{
+  background-color: #0c5fcdc7;
 }
 
-.text-status.delivering{
-  background-color: #0c5fcd;
+.text-status.cutting{
+  background-color: #1c7012cc;
 }
 
 .popup-view, 

@@ -37,7 +37,7 @@
 
         <form>
             <div class="form">
-                <form action="#">
+                <form >
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
                         <button type="submit" class="search-btn">
@@ -63,8 +63,10 @@
                     <thead>
                         <tr>
                             <th>Order Id</th>
+                            <th>User Id</th>
                             <th>Design</th>
                             <th>Material</th>
+                            <th>Dispatch Date</th>
                             <th>Quantity</th>
                             <th>Status</th>
                             <th></th>
@@ -75,15 +77,17 @@
                         <?php if(!$order->is_quotation): ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
+                            <td><?php echo $order->user_id ?></td>
                             <td></td>
                             <td><?php echo $order->material ?></td>
+                            <td><?php echo $order->dispatch_date ?></td>
                             <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
                             <td class="st">
                                 <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
                                 <div class="progress-bar"></div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         
@@ -102,7 +106,7 @@
 
     <div class="popup-report">
         <div class="close-icon">
-            <a href="#">
+            <a >
                 <i class="bx bx-x" id="gen-pop-close"></i>
                 <!-- <span class="link_name">Close</span> -->
             </a>
@@ -130,7 +134,7 @@
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
         
         <div class="close-icon">
-          <a href="#">
+          <a >
             <i class="bx bx-x" id="gen-pop-close"></i>
             <!-- <span class="link_name">Close</span> -->
           </a>
@@ -194,6 +198,7 @@
                     <div class="input-box sizes">
                     <span class="details">Sizes & Quantity</span><br>
                     <div class="sizeChart">
+                        
                         <span class="size">S</span>
                     
                         <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
@@ -209,7 +214,12 @@
                         <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                             <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
                             <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                            <br>
+                        <br>
+                        <span class="size">XL</span>
+                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="xl" value="0" min="0" max="10">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+
                     </div>
                     </div>
                     <div class="input-box">
@@ -220,8 +230,8 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Remaining Payment</span>
-                        <input name="remaining_payment" type="text" required onChange="" readonly value="" />
-                        <button class="pay" >Pay</button>
+                        <input name="remaining_payment" type="text" required onChange="" />
+                        
                     </div>
                     <div class="input-box">
                         <span class="details">Order Placed On</span>

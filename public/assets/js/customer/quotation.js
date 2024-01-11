@@ -91,13 +91,29 @@ function closeNew(){
 var map;
 var marker;
 var infowindow;
+var circle;
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 7.8731, lng: 80.7718},
-        zoom: 8
-    });
+
 
         map.addListener('click', function(event) {
+            // navigator.geolocation.getCurrentPosition(function(pos, error) {
+                    
+            //     if(error){
+            //         console.log(error);
+            //     }else{
+            //         map = new google.maps.Map(document.getElementById('map'), {
+            //             center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
+            //             zoom: 15
+            //         });
+    
+            //         // marker = new google.maps.Marker({
+            //         //     position: {lat: pos.coords.latitude, lng: pos.coords.longitude},
+            //         //     map: map,
+            //         //     icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' // URL to the blue marker image
+            //         // });
+            //     }
+            // });
+
             if(marker){
                 marker.setMap(null);
             }

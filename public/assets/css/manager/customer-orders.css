@@ -26,7 +26,7 @@ body{
   width: calc(100% - 80px);
   height: max-content;
   left: 64px;
-  margin-left: 20px;
+  padding-left: 20px;
   transition: all 0.5s ease;
   z-index: 2;
   border-radius: 50px;
@@ -83,7 +83,7 @@ form .form-input input {
   background: rgb(255, 255, 255);
   outline: none;
   border-radius: 36px 0 0 36px;
-  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
   margin-left: 37px;
   margin-right: 0;
   transition: 0.3s ease;
@@ -106,7 +106,7 @@ form .form-input button {
   outline: none;
   border-radius: 0 36px 36px 0;
   cursor: pointer;
-  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
   transition: 0.3s ease;
 }
 
@@ -170,7 +170,7 @@ form .form-input button:hover {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 25px;
+  border-radius: 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -189,22 +189,26 @@ form .form-input button:hover {
 
 
 td button{
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: #ffffff;
-    border: none;
-    padding: 3% 4%;
-    text-align: center;
-    /* text-decoration: none; */
-    /* display: inline-block; */
-    font-size: 16px;
-    font-weight: bolder;
-    margin: 2% 1%;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #29292966;
+  border: none;
+  padding: 2px 9px;
+  text-align: center;
+  /* text-decoration: none; */
+  /* display: inline-block; */
+  font-size: 15px;
+  font-weight: bolder;
+  margin: 2% 1%;
+  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
+}
 
-    box-shadow: 2px 2px 11px -5px var(--color-default);
+td button:hover{
+  background-color: #909090a8;
+  transition: all 0.3s ease-in-out;
 }
 
 /* td button:nth-child(1){
@@ -234,12 +238,12 @@ input{
 .table-section{
     
     overflow: auto;
-    box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
-    border-radius: 20px;
+    /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
+    border-radius: 15px;
     background: ghostwhite;
     margin: 19px 32px;
     overflow-x: auto;
-    border: black 1px solid;
+   
 }
 
 table{
@@ -266,11 +270,11 @@ table{
 }
 
 thead th{
-   
-    padding-top: 17px;
-    color: #000000;
-    font-size: 15px;
-    border-bottom: 1px solid black;
+  padding-top: 17px;
+  color: #ffffff;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+  background: black;
 }
 
 th, td{
@@ -321,7 +325,7 @@ tbody tr:hover{
   transition: all 0.3s ease-in-out;
 }
 
-.st {
+td.st {
   padding: 0%;
   margin-left: 2%;
 }
@@ -337,11 +341,11 @@ tbody tr:hover{
 }
 
 .text-status.processing{
-  background-color: #3bec24;
+  background-color: #1c7012cc;
 }
 
 .text-status.delivering{
-  background-color: #0c5fcd;
+  background-color: #0c5fcdc7;
 }
 
 .popup-view, 
@@ -367,7 +371,7 @@ tbody tr:hover{
 
 .popup-view{
   width: 55%;
-  top: 83%;
+  top: 90%;
   bottom: 20%;
 }
 
@@ -488,19 +492,15 @@ textarea {
 }
 
 .popup-view .sizeChart{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  left: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(65px, 1fr));
+  grid-gap: 5px;
 }
 
 .popup-view .sizeChart span{
   margin-left: 0;
 }
 
-.popup-view .size{
-  margin-left: 20%;
-}
 
 .close-icon a {
   padding-top: 1%;
@@ -694,7 +694,7 @@ form .user-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 19px -2px 12px 38px;
+  padding: 1px 0px 14px 45px;
 }
 
 form .user-details .input-box {
@@ -719,8 +719,13 @@ form .user-details .input-box .addr {
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
-  padding-left: 8%;
+  padding-left: 12px;
   width: 20%;
+}
+
+.sizeChart .st{
+  padding: 5px 7px;
+  margin-right: 37px;
 }
 
 .input-box.location {
@@ -755,56 +760,57 @@ button.pay:hover {
 
 .user-details .input-box input,
 select {
-  width: 80%;
-  height: 45px;
+  width: 70%;
+  /* height: 45px; */
   outline: none;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding-left: 15px;
-  font-size: 15px;
+  background-color: #d5dfe7d5;
+  border-radius: 4px;
+  /* border: 1px solid #ccc; */
+  /* padding-left: 15px; */
+  font-size: 13px;
   transition: all 0.3s ease-in;
-  border-bottom-width: 2px;
+  /* border-bottom-width: 2px;*/
+}
+
+.user-details select{
+
+    margin-left: 10px;
+    height: 36px;
+    border: none;
+    padding: 0px 18px;
+
 }
 
 .popup-view .pb{
-  position: absolute;
-  outline: none;
+  position: relative;
+  bottom: 4px;
+  width: 100%;
+  background-color: black;
+  color: white;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 10px;
-  background-color: #ffffff;
-  border: none;
-  padding: 0.5% 1%;
-  margin-left: 60%;
-  bottom: 2.6%;
+  padding: 8px 15px;
+  border-radius: 9px;
   text-align: center;
-  /* text-decoration: none; */
-  /* display: inline-block; */
+  text-decoration: none;
+  display: inline-block;
   font-size: 16px;
-  font-weight: bolder;
-  /* margin: 2% 1%; */
-
-  box-shadow: 2px 2px 11px -5px var(--color-default);
+  margin: 4px 2px;
+  cursor: pointer;
+  transform: scale(0.9);
 }
 
-.popup-view .update-btn {
-  /* right: 20%; */
-  color: var(--blue);
-}
+/* .popup-view .update-btn {
+  right: 27%;
 
-.popup-view .update-btn:hover {
-  text-decoration: underline;
-}
+} */
+
+
 
 .popup-view .cancel-btn {
-  right: 6%;
+  /* right: 6%; */
   color: var(--red);
 }
 
-.popup-view .cancel-btn:hover {
-  text-decoration: underline;
-}
 
 /* @media screen and (max-width: 950px) {
   .btn,

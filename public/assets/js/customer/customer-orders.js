@@ -163,27 +163,18 @@ function closeNew(){
     overlay.classList.remove("overlay-active");
 }
 
-// window.onload = function(){
-//     if(hasErrors){
-//         document.querySelector(".popup-report .submit-btn").disabled = true;
-//     }
-//     document.querySelector(".popup-report .submit-btn").addEventListener('click', function() {
-//         console.log("clicked");
-//         if(hasErrors){
-//             console.log("error");
-//             document.querySelector(".popup-report .error").style.visibility = "visible";
-//         }    
-//     });
-// }
+
+
+        
 
 var map;
 var marker;
 var infowindow;
 var flag = true;
 function initMap() {
+    map = document.getElementById('map');
 
-
-    map.addListener('mouseover', function(){
+    map.addEventListener('mouseover', function(){
         var lat = document.querySelector('input[name="latitude"]').value;
         var lng = document.querySelector('input[name="longitude"]').value;
         
@@ -216,7 +207,7 @@ function initMap() {
         flag = false;
     });
 
-    map.addListener('click', function(event) {
+    map.addEventListener('click', function(event) {
         
 
         if(marker){
@@ -236,7 +227,7 @@ function initMap() {
 
         // infowindow.open(map, marker);
 
-        google.maps.event.addListener(marker, 'rightclick', function(){
+        google.maps.event.addEventListener(marker, 'rightclick', function(){
             marker.setMap(null);
         });
 

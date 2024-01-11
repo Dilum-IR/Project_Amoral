@@ -14,16 +14,7 @@
 
 <body>
 
-    <?php 
-        if(!empty($_SESSION['errors']) && !empty($_SESSION['form_data']) && !empty($_SESSION['form_id'])){
-            $errors = $_SESSION['errors'];
-            $form_data = $_SESSION['form_data'];
-            $form_id = $_SESSION['form_id'];
-            unset($_SESSION['errors']);
-            unset($_SESSION['form_data']);
-            unset($_SESSION['form_id']);
-        }
-    ?>
+
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
@@ -122,23 +113,11 @@
         <h2>Report Your Problem</h2>
         <form method="POST">
 
-            <h4>Title :  
-                <?php if(!empty($errors['title'])): ?>
-                    <span class="error title">*<?php echo $errors['title']; ?></span>  
-                <?php endif; ?>
-            </h4> 
+            <h4>Title : <span class="error title"></span>  </h4> 
             <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email :
-                <?php if(isset($errors['email'])): ?> 
-                    <span class="error email">*<?php echo $errors['email']; ?></span>
-                <?php endif; ?>
-            </h4>
+            <h4>Your email : <span class="error email"></span></h4>
             <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem :
-                <?php if(isset($errors['desc'])): ?> 
-                    <span class="error desc">*<?php echo $errors['desc']; ?></span>
-                <?php endif; ?>
-            </h4>
+            <h4>Problem : <span class="error description"></span></h4>
             <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
             <div class="btns">
                 <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
@@ -147,39 +126,89 @@
 
         </form>
     </div>
-            <script>
-                <?php if(!empty($errors)): ?>
-                    if("<?php echo $form_id ?>" === "report"){
-                        console.log('<?php echo $form_id ?>');
-                        openReport();
-                    }
-                    else{
-                        console.log('no errors');
-                    }
-                <?php endif; ?>
-                <?php if(!empty($form_data)): ?>
-                    if("<?php echo $form_id ?>" === "report"){
-                        console.log('report');
-                        openReport();
-                    }
-                    else{
-                        console.log('no errors');
-                    }
-                <?php endif; ?>
-                <?php if(!empty($form_id)): ?>
-                    if("<?php echo $form_id ?>" === "report"){
-                        console.log('report');
-                        openReport();
-                    }
-                    else{
-                        console.log('no errors');
-                    }
-                <?php endif; ?>
 
+    
 
+<script>
+    let reportForm = document.querySelector(".popup-report form");
+    document.addEventListener('DOMContentLoaded', (event) => {
 
-            </script>
+    if (reportForm) {
+        reportForm.addEventListener("submit", function(event) {
+            // event.preventDefault();    
+            clearErrorMsg();
+            console.log('submit');
+            
+                let errors = validateReport();
+                console.log(Object.values(errors));
+                if(Object.keys(errors).length > 0){
+                    displayErrorMsg(errors);
+                    event.preventDefault();
+                } else{
+                    
+                }
+            });
+            
+        } else {
+            console.error('Form not found');
+        }
+    });
+            
+            
+            function validateReport(){
+                let errors = {};
+                
+                let title = reportForm.querySelector('input[name="title"]').value;
+                if(title.trim() === ''){
+                    errors['title'] = 'Title is required';
+                }
+            
+                let description = reportForm.querySelector('textarea[name="description"]').value;
+                if(description.trim() === ''){
+                    errors['description'] = 'Description is required';
+                }
+            
+                let email = reportForm.querySelector('input[name="email"]').value;
+                if(email.trim() === ''){
+                    errors['email'] = 'Email is required';
+                } else if(!validateEmail(email)){
+                    errors['email'] = 'Invalid email';
+                }
+            
+                return errors;
+            }
+            
+            function validateEmail(email){
+                const re = /\S+@\S+\.\S+/;
+                return re.test(email);
+            }
+            
+        function displayErrorMsg(errors){
+            
+            for (const key in errors) {
+                if (Object.hasOwnProperty.call(errors, key)) {
+                    const error = errors[key];
+                    reportForm.querySelector(`.error.${key}`).innerText = error;
+                }
+            }
+        }
+            
+            
+            function clearErrorMsg(){
+                console.log('clear');
+                let errorElements = reportForm.querySelectorAll('.error');
+            
+                errorElements.forEach(errorElement => {
+                    errorElement.innerText = '';
+                });
+            }
+            
 
+    
+    // let reportForm = document.querySelector(".popup-report form");
+
+    // reportForm.addEventListener("submit", function(event) {
+</script>
 
     
 
@@ -359,13 +388,14 @@
     <div id="overlay" class="overlay"></div>
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
-
+    
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
+
 </body>
 
 </html>

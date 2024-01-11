@@ -23,10 +23,10 @@ body{
 #main {
   position: absolute;
   top: 78px;
-  width: calc(100% - 80px);
+  width: calc(100% - 78px);
   height: max-content;
-  left: 64px;
-  margin-left: 20px;
+  left: 78px;
+  padding-left: 20px;
   transition: all 0.5s ease;
   z-index: 2;
   border-radius: 50px;
@@ -175,7 +175,7 @@ form .form-input button:hover {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 25px;
+  border-radius: 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -214,7 +214,7 @@ input{
   background: ghostwhite;
   margin: 19px 32px;
   overflow-x: auto;
-  border: black 1px solid;
+
 }
 
 table{
@@ -241,11 +241,11 @@ color: #000000;
 }
 
 thead th{
- 
   padding-top: 17px;
-  color: #000000;
+  color: #ffffff;
   font-size: 15px;
   border-bottom: 1px solid black;
+  background: black;
 }
 
 th, td{
@@ -263,20 +263,19 @@ box-sizing: border-box;
 td button{
   outline: none;
   border: none;
-  border-radius: 22px;
+  border-radius: 6px;
   cursor: pointer;
   padding: 10px;
-  background-color: #000000;
+  background-color: #29292966;
   border: none;
-  padding: 3% 6%;
+  padding: 2px 9px;
   text-align: center;
   /* text-decoration: none; */
   /* display: inline-block; */
   font-size: 15px;
-  /* font-weight: bolder; */
+  font-weight: bolder;
   margin: 2% 1%;
-  box-shadow: 2px 2px 11px -5px var(--color-default);
-  color: white;
+  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 }
 
 td img{
@@ -704,12 +703,14 @@ textarea {
 .overlay {
   position: fixed;
   opacity: 0;
-  top: 0;
+  /* top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 0; */
   background: rgb(43 43 43 / 76%);
   pointer-events: none;
+  height: 100%;
+  width: 100%;
 }
 
 .overlay-active {

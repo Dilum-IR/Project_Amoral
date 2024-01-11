@@ -63,9 +63,9 @@
                     <thead>
                         <tr>
                             <th>Order Id</th>
-                            <th>Design</th>
-                            <th>Material</th>
-                            <th>Quantity</th>
+                            <th>Garment Id</th>
+                            <th>In Charge</th>
+                            <th>Customer Order Id</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -75,15 +75,15 @@
                         <!-- <?php if(!$order->is_quotation): ?> -->
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
-                            <td></td>
-                            <!-- <td><?php echo $order->material ?></td> -->
-                            <!-- <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td> -->
+                            <td><?php echo $order->garment_id ?></td>
+                            <td><?php echo $order->emp_name ?></td>
+                            <td><?php echo $order->order_id ?> </td>
                             <td class="st">
-                                <!-- <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div> -->
+                                <div class="text-status <?php echo $order->status?>"><?php echo $order->status ?></div>
                                 <div class="progress-bar"></div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         

@@ -10,7 +10,7 @@ class GarmentOrders extends Controller
 
         if ($username != 'User') {
 
-            $data = $order->findAll('order_id');
+            $data = $order->get('employee', 'emp_name', 'emp_id');
             
             $this->view('manager/garmentorders', $data);
               
