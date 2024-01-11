@@ -74,6 +74,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php if(isset($data)): ?>
                         <?php foreach($data as $order): ?>
                         <?php if(!$order->is_quotation): ?>
                         <tr>
@@ -91,6 +92,7 @@
                         
                         <?php endif; ?>
                         <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -127,90 +129,6 @@
         </form>
     </div>
 
-    
-
-<script>
-    let reportForm = document.querySelector(".popup-report form");
-    document.addEventListener('DOMContentLoaded', (event) => {
-
-    if (reportForm) {
-        reportForm.addEventListener("submit", function(event) {
-            // event.preventDefault();    
-            clearErrorMsg();
-            console.log('submit');
-            
-                let errors = validateReport();
-                console.log(Object.values(errors));
-                if(Object.keys(errors).length > 0){
-                    displayErrorMsg(errors);
-                    event.preventDefault();
-                } else{
-                    
-                }
-            });
-            
-        } else {
-            console.error('Form not found');
-        }
-    });
-            
-            
-            function validateReport(){
-                let errors = {};
-                
-                let title = reportForm.querySelector('input[name="title"]').value;
-                if(title.trim() === ''){
-                    errors['title'] = 'Title is required';
-                }
-            
-                let description = reportForm.querySelector('textarea[name="description"]').value;
-                if(description.trim() === ''){
-                    errors['description'] = 'Description is required';
-                }
-            
-                let email = reportForm.querySelector('input[name="email"]').value;
-                if(email.trim() === ''){
-                    errors['email'] = 'Email is required';
-                } else if(!validateEmail(email)){
-                    errors['email'] = 'Invalid email';
-                }
-            
-                return errors;
-            }
-            
-            function validateEmail(email){
-                const re = /\S+@\S+\.\S+/;
-                return re.test(email);
-            }
-            
-        function displayErrorMsg(errors){
-            
-            for (const key in errors) {
-                if (Object.hasOwnProperty.call(errors, key)) {
-                    const error = errors[key];
-                    reportForm.querySelector(`.error.${key}`).innerText = error;
-                }
-            }
-        }
-            
-            
-            function clearErrorMsg(){
-                console.log('clear');
-                let errorElements = reportForm.querySelectorAll('.error');
-            
-                errorElements.forEach(errorElement => {
-                    errorElement.innerText = '';
-                });
-            }
-            
-
-    
-    // let reportForm = document.querySelector(".popup-report form");
-
-    // reportForm.addEventListener("submit", function(event) {
-</script>
-
-    
 
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->

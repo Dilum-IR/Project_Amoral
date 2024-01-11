@@ -20,15 +20,13 @@ const search = document.querySelector(".form input"),
 
 search.addEventListener('input', performSearch);
 
-closeViewBtn.addEventListener('click', closeView);
-closeReportBtn.addEventListener('click', closeReport);
 
 
 function performSearch() {
     table_rows.forEach((row, i) => {
         let search_data = search.value.toLowerCase(),
-            row_text = '';
-
+        row_text = '';
+        
         for(let j=0; j<row.children.length - 1; j++){
             row_text += row.children[j].textContent.toLowerCase();
             
@@ -38,20 +36,94 @@ function performSearch() {
         row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
     })
 }
- 
 
-// viewOrderBtns.forEach(btn => {
-//     btn.addEventListener('click', () => {
-//         const orderId = btn.dataset.id;
-//         fetch(`/orders/${orderId}`)
-//             .then(response => response.json())
-//             .then(data => {
-//                 // Populate the popup with the order details
-//                 orderDetails.innerHTML = `Material: ${data.material}<br>Quantity: ${data.quantity}`;
-//                 orderPopup.style.display = 'block';
-//             });
-//     });
-// });
+let reportForm = document.querySelector(".popup-report form");
+let cancelReportBtn = document.querySelector(".cancelR-btn");
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+
+    if (reportForm) {
+        cancelReportBtn.addEventListener("click", function(event) {
+            clearErrorMsg();
+        });
+        closeReportBtn.addEventListener('click', function() {
+            clearErrorMsg();
+            closeReport();
+        });
+
+        reportForm.addEventListener("submit", function(event) {
+            // event.preventDefault();    
+            clearErrorMsg();
+            console.log('submit');
+            
+                let errors = validateReport();
+                console.log(Object.values(errors));
+                if(Object.keys(errors).length > 0){
+                    displayErrorMsg(errors);
+                    event.preventDefault();
+                } else{
+                    
+                }
+            });
+            
+        } else {
+            console.error('Form not found');
+        }
+});
+
+
+closeViewBtn.addEventListener('click', closeView);
+
+
+function validateReport(){
+    let errors = {};
+    
+    let title = reportForm.querySelector('input[name="title"]').value;
+    if(title.trim() === ''){
+        errors['title'] = 'Title is required';
+    }
+
+    let description = reportForm.querySelector('textarea[name="description"]').value;
+    if(description.trim() === ''){
+        errors['description'] = 'Description is required';
+    }
+
+    let email = reportForm.querySelector('input[name="email"]').value;
+    if(email.trim() === ''){
+        errors['email'] = 'Email is required';
+    } else if(!validateEmail(email)){
+        errors['email'] = 'Invalid email';
+    }
+
+    return errors;
+}
+
+function validateEmail(email){
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function displayErrorMsg(errors){
+
+for (const key in errors) {
+    if (Object.hasOwnProperty.call(errors, key)) {
+        const error = errors[key];
+        reportForm.querySelector(`.error.${key}`).innerText = error;
+    }
+}
+}
+
+
+function clearErrorMsg(){
+    console.log('clear');
+    let errorElements = reportForm.querySelectorAll('.error');
+
+    errorElements.forEach(errorElement => {
+        errorElement.innerText = '';
+    });
+}
+
 
 function removeActiveClass() {
     progress2.classList.remove("active");
