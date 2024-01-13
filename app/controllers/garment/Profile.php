@@ -54,14 +54,55 @@ class Profile extends Controller
 
     //user change info data
     private function changeInfo($data,$id,$employee){
+        if ($employee->changeInfoValidate($data)) {
 
-        //show($data);
+            //show($data);
+            $update = $employee->update($id, $data, 'emp_id');
+            //echo $update;
+            if ($update) {
+
+                redirect('garment/profile');
+
+            } else {
+
+            }
+
+        }
+        show($data);
     }
 
     //user change password
 
     private function changePassword($data ,$id,$employee){
+        if ($employee->passwordResetValidate($data)) {
 
+            $arr['emp_id'] = $id;
+
+            $row = $employee->first($arr);
+
+            show($employee->errors);
+
+            $checkpassword = password_verify($data['password'], $row->password);
+            if ($checkpassword === true) {
+
+                $hash = password_hash($data['confirm_password'], PASSWORD_DEFAULT);
+                $update = $employee->update($id, ['password' => $hash], 'emp_id');
+    
+                show($employee->errors);
+
+                return "success";
+
+
+            } else {
+                
+                return "Invalid";
+
+            }
+
+
+        }
+
+    
     }
 
 }

@@ -49,13 +49,25 @@ class Profile extends Controller
         $data = ['data' => $row];
         return $data;
         //show($row);
-
-        // $emprow = $employee->first($arr);
     }
 
     //  user chanage info data
     private function changeInfo($data, $id, $user)
     {
+        if ($user->changeInfoValidate($data)) {
+
+            show($data);
+            $update = $user->update($id, $data, 'id');
+            //echo $update;
+            if ($update) {
+
+                redirect('customer/profile');
+
+            } else {
+
+            }
+
+        }
 
         // show($data);
 
@@ -64,6 +76,35 @@ class Profile extends Controller
     //  user chanage password
     private function changePassword($data, $id, $user)
     {
+        // if ($user->passwordResetValidate($data)) {
+
+        //     $arr['id'] = $id;
+
+        //     $row = $user->first($arr);
+
+        //     show($user->errors);
+
+        //     $checkpassword = password_verify($data['password'], $row->password);
+        //     if ($checkpassword === true) {
+
+        //         $hash = password_hash($data['confirm_password'], PASSWORD_DEFAULT);
+        //         $update = $user->update($id, ['password' => $hash], 'id');
+        //         // echo ("$update");
+        //         // redirect("customer/profile");
+
+        //         show($user->errors);
+
+        //         return "success";
+
+
+        //     } else {
+        //         return "Invalid";
+        //         //redirect("customer/profile");
+        //         // echo ("Incorrect password");
+        //     }
+
+
+        // }
 
     }
 }
