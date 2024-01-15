@@ -1,5 +1,6 @@
 let popupView = document.getElementById("popup-view");
-
+let sidebar = document.querySelector(".sidebar");
+let nav = document.querySelector(".home-section");
 let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
 
@@ -119,6 +120,8 @@ function openView(button) {
       
       popupView.style.display = "block";
       document.body.style.overflow = "hidden";
+      sidebar.style.pointerEvents = "none";
+      nav.style.pointerEvents = "none";
 
       var currentDate = new Date();
       var orderPlacedOn = new Date(order.order_placed_on);
@@ -135,7 +138,8 @@ function openView(button) {
 function closeView(){
     popupView.style.display = "none";
     document.body.style.overflow = "auto";
-    
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
 }	
 
 

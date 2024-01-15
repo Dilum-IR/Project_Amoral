@@ -114,6 +114,8 @@ function openView(button) {
       // document.querySelector(".popup-view").classList.add("open-popup-view");
       popupView.style.display = "block";
       document.body.style.overflow = "hidden";
+      sidebar.style.pointerEvents = "none";
+      nav.style.pointerEvents = "none";
 
       var currentDate = new Date();
       var orderPlacedOn = new Date(order.order_placed_on);
@@ -130,7 +132,8 @@ function openView(button) {
 function closeView(){
     popupView.style.display = "none";
     document.body.style.overflow = "auto";
-    
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
 }	
 
 

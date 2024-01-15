@@ -368,7 +368,7 @@ td.st {
   padding: 20px 35px 40px 56px;
   border: 1px solid #888;
   width: 60%; /* Could be more or less, depending on screen size */
-  border-radius: 3px;
+  border-radius: 8px;
   transition: all 0.3s ease-in-out;
 }
 
