@@ -100,89 +100,60 @@
     <!-- POPUP -->
                
 
-    <div class="popup-report">
-        <div class="close-icon">
-            <a href="#">
-                <i class="bx bx-x" id="gen-pop-close"></i>
-                <!-- <span class="link_name">Close</span> -->
-            </a>
-        </div>
-        <h2>Report Your Problem</h2>
-        <form method="POST">
-
-            <h4>Title : </h4>
-            <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email : </h4>
-            <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem : </h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-            <div class="btns">
-                <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
-                <button type="submit" class="close-btn" name="report" value="Submit" >Submit</button>
-            </div>
-
-        </form>
-    </div>
-    
-
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
-        
-        <div class="close-icon">
-          <a href="#">
-            <i class="bx bx-x" id="gen-pop-close"></i>
-            <!-- <span class="link_name">Close</span> -->
-          </a>
-        </div>
-        <h2>Order Details</h2>
-        <div class="status">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+          
+            <h2>Order Details</h2>
+            <div class="status">
 
-            <ul>
-                <li>
- 
-                    <div class="progress one">
-
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text"></p>
-                </li>
-                <li>
-                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
-                    <div class="progress two">
-
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text">Cutting</p>
-                </li>
-                <li>
+                <ul>
+                    <li>
     
-                    <div class="progress three">
+                        <div class="progress one">
 
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text"></p>
-                </li>
-                <li>
-                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
-                    <div class="progress four">
+                            <i class="uil uil-check"></i>
+                        </div>
+                        <p class="text"></p>
+                    </li>
+                    <li>
+                        <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                        <div class="progress two">
 
-                        <!-- <i class="uil uil-check"></i> -->
-                    </div>
-                    <p class="text">Sewing</p>
-                </li>
-                <li>
-                    
-                    <div class="progress five">
+                            <i class="uil uil-check"></i>
+                        </div>
+                        <p class="text">Cutting</p>
+                    </li>
+                    <li>
+        
+                        <div class="progress three">
 
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text"></p>
-                </li>
+                            <i class="uil uil-check"></i>
+                        </div>
+                        <p class="text"></p>
+                    </li>
+                    <li>
+                        <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                        <div class="progress four">
 
-            </ul>
+                            <!-- <i class="uil uil-check"></i> -->
+                        </div>
+                        <p class="text">Sewing</p>
+                    </li>
+                    <li>
+                        
+                        <div class="progress five">
 
-        </div>
+                            <i class="uil uil-check"></i>
+                        </div>
+                        <p class="text"></p>
+                    </li>
+
+                </ul>
+
+            </div>
 
         
             <form class="update-form" method="POST">
@@ -296,9 +267,9 @@
 
 
             </form>
-        
+        </div>
     </div>
-    <div id="overlay" class="overlay"></div>
+
 
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>

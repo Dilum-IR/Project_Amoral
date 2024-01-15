@@ -1,9 +1,8 @@
 let popupView = document.getElementById("popup-view");
-let overlay = document.getElementById("overlay");
-let popupReport = document.querySelector(".popup-report");
+
 let popupNew = document.querySelector(".popup-new");
-let closeViewBtn = document.querySelector(".popup-view .close-icon a");
-let closeReportBtn = document.querySelector(".popup-report .close-icon a");
+let closeViewBtn = document.querySelector(".popup-view .close");
+
 
 
 let progress1 = document.querySelector(".status ul li .one");
@@ -21,7 +20,7 @@ const search = document.querySelector(".form input"),
 search.addEventListener('input', performSearch);
 
 closeViewBtn.addEventListener('click', closeView);
-closeReportBtn.addEventListener('click', closeReport);
+
 
 
 function performSearch() {
@@ -99,10 +98,6 @@ function openView(button) {
       
       document.querySelector('.update-form input[name="material"]').value = order.material;
       
-      document.querySelector('.update-form input[name="small"]').value = order.small;
-      document.querySelector('.update-form input[name="medium"]').value = order.medium;
-
-      document.querySelector('.update-form input[name="large"]').value = order.large;
 
       
       document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
@@ -117,8 +112,8 @@ function openView(button) {
       
       // Show the "update-form" popup
       // document.querySelector(".popup-view").classList.add("open-popup-view");
-      popupView.classList.add("open-popup-view");
-      overlay.classList.add("overlay-active");
+      popupView.style.display = "block";
+      document.body.style.overflow = "hidden";
 
       var currentDate = new Date();
       var orderPlacedOn = new Date(order.order_placed_on);
@@ -133,19 +128,11 @@ function openView(button) {
   
   }
 function closeView(){
-    popupView.classList.remove("open-popup-view");
-    overlay.classList.remove("overlay-active");
+    popupView.style.display = "none";
+    document.body.style.overflow = "auto";
     
 }	
 
-function openReport(){
-    popupReport.classList.add("open-popup-report");
-    overlay.classList.add("overlay-active");
-}
-function closeReport(){
-    popupReport.classList.remove("open-popup-report");
-    overlay.classList.remove("overlay-active");
-}
 
 function openNew(){
     popupNew.classList.add("open-popup-new");

@@ -348,42 +348,43 @@ tbody tr:hover{
 }
 
 .popup-view, 
-.popup-new, 
-.popup-report {
+.popup-new {
+  display: none; 
+  position: fixed;
+  z-index: 2; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px 35px 40px 56px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.close {
+  color: #aaa;
   position: absolute;
-  height: fit-content;
-  width: 45%;
-  background: #ffffff;
-  /* margin-top: 3%; */
-  /* margin-bottom: 3%; */
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -60%) scale(0);
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.5s;
-  justify-content: center;
+  right: 350px;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.popup-view{
-  width: 64%;
-  top: 94%;
-  bottom: 20%;
+.close:hover{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.open-popup-view,
-.open-popup-new,
-.open-popup-report {
-  visibility: visible;
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 101;
-}
-
-.popup-report h2,
 .popup-new h2 {
   text-align: center;
   padding-top: 2%;
@@ -392,14 +393,14 @@ tbody tr:hover{
   font-weight: bold;
 }
 
-.popup-report h4,
+
 .popup-new span {
   text-align: left;
   padding-left: 10%;
   padding-bottom: 2%;
 }
 
-.popup-report input,
+
 .popup-new input,
 textarea {
   position: relative;
@@ -414,74 +415,6 @@ textarea {
   margin-bottom: 2%;
   transition: all 0.3s ease;
   color: var(--dark);
-}
-
-.popup-report .btns {
-  position: relative;
-  left: 40%;
-  width: 50%;
-  height: 40px;
-  display: flex;
-  justify-content:flex-end;
-  align-items: center;
-}
-
-.popup-report .close-btn,
-.cancelR-btn {
-  /* position: relative; */
-  /* right: 1%; */
-  font-size: 16px;
-  color: var(--red);
-  /* cursor: pointer;
-  padding: 5px 15px;
-  border-radius: 6px;
-  color: #000;
-  border: none;
-  background: var(--red); */
-  margin-left: 15px;
-
-  position: absolute;
-  outline: none;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  background-color: #ffffff;
-  padding: 1% 3.8%;
-  /* left: 57%; */
-  text-align: center;
-  /* text-decoration: none; */
-  /* display: inline-block; */
-  font-weight: bolder;
-  /* margin: 2% 1%; */
-
-  box-shadow: 2px 2px 11px -5px var(--color-default);
-}
-
-.popup-report .cancelR-btn {
-  right: 29%;
-  color: var(--blue);
-}
-
-.cancelR-btn:hover,
-.close-btn:hover {
-  text-decoration: underline;
-}
-
-.overlay {
-  position: fixed;
-  opacity: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(0,0,0,0.5);
-  pointer-events: none;
-}
-
-.overlay-active {
-  opacity: 1;
-  pointer-events: all;
-  z-index: 100;
 }
 
 .popup-view h2{
