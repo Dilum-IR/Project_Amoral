@@ -140,13 +140,12 @@
 
             <ul>
                 <li>
-                    <iconify-icon
-                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+ 
                     <div class="progress one">
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Pending</p>
+                    <p class="text"></p>
                 </li>
                 <li>
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
@@ -154,15 +153,15 @@
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Processing</p>
+                    <p class="text">Cutting</p>
                 </li>
                 <li>
-                    <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
+    
                     <div class="progress three">
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Delivery In Progress</p>
+                    <p class="text"></p>
                 </li>
                 <li>
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
@@ -170,7 +169,15 @@
 
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
-                    <p class="text">Delivered</p>
+                    <p class="text">Sewing</p>
+                </li>
+                <li>
+                    
+                    <div class="progress five">
+
+                        <i class="uil uil-check"></i>
+                    </div>
+                    <p class="text"></p>
                 </li>
 
             </ul>

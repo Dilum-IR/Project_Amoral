@@ -571,6 +571,7 @@ textarea {
 .status ul li .one,
 .status ul li .active{
   background-color: green;
+
 }
 
 .progress::after {

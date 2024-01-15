@@ -170,7 +170,7 @@ form .form-input button:hover {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 25px;
+  border-radius: 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -369,8 +369,8 @@ tbody tr:hover{
 }
 
 .popup-view{
-  width: 55%;
-  top: 83%;
+  width: 64%;
+  top: 94%;
   bottom: 20%;
 }
 
@@ -527,7 +527,7 @@ textarea {
   font-family: pop;
   flex-direction: column;
   margin-top: 3%;
-  margin-bottom: 5%;
+  /* margin-bottom: 5%; */
 }
 
 .status ul {
@@ -559,27 +559,43 @@ textarea {
 
 
 .status ul li .progress {
+  position: relative;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   background-color: #191919;
-  margin: 14px 0;
+  margin: 14px 55px;
   display: grid;
   place-items: center;
   color: #fff;
-  position: relative;
+ 
 
 }
 
 .status ul li .one,
 .status ul li .active{
   background-color: green;
+  z-index: 1;
 }
+
+.status ul li .one,
+.status ul li .five{
+  width: 30px;
+  height: 30px;
+  top: -70px;
+}
+
+.status ul li .three{
+  width: 20px;
+  height: 20px;
+  top: -65px;
+}
+
 
 .progress::after {
   content: " ";
   position: absolute;
-  width: 125px;
+  width: 170px;
   height: 5px;
   background-color: #191919;
   right: 30px;
@@ -759,36 +775,42 @@ button.pay:hover {
 .user-details .input-box input,
 select {
   width: 80%;
-  height: 45px;
+  height: 38px;
   outline: none;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding-left: 15px;
-  font-size: 15px;
+  background-color: #ffffffd5;
+  border-radius: 4px;
+  border: 1px solid black;
+  /* padding-left: 15px; */
+  font-size: 13px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
 }
 
-.popup-view .pb{
-  position: absolute;
-  outline: none;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 10px;
-  background-color: #ffffff;
-  border: none;
-  padding: 0.5% 1%;
-  margin-left: 60%;
-  bottom: 2.6%;
-  text-align: center;
-  /* text-decoration: none; */
-  /* display: inline-block; */
-  font-size: 16px;
-  font-weight: bolder;
-  /* margin: 2% 1%; */
+.user-details select{
 
-  box-shadow: 2px 2px 11px -5px var(--color-default);
+  margin-left: 10px;
+  height: 36px;
+  /* border: none; */
+  padding: 0px 18px;
+
+}
+
+.popup-view .pb{
+  position: relative;
+  bottom: 4px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  /* transform: scale(0.9); */
 }
 
 .popup-view .update-btn {
@@ -796,17 +818,16 @@ select {
   color: var(--blue);
 }
 
-.popup-view .update-btn:hover {
-  text-decoration: underline;
+.popup-view .update-btn:hover,
+.popup-view .cancel-btn:hover {
+  font-size: 17px;
+  font-weight: 200;
+  transition: all 0.3s ease-in-out;
 }
 
 .popup-view .cancel-btn {
-  right: 6%;
+  
   color: var(--red);
-}
-
-.popup-view .cancel-btn:hover {
-  text-decoration: underline;
 }
 
 /* @media screen and (max-width: 950px) {
