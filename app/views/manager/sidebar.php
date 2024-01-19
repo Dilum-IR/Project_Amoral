@@ -33,7 +33,7 @@
                 <span class="tooltip">Deliver Packages</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/quotation">
                     <i class="bx bxs-spreadsheet"></i>
                     <span class="link_name">Quatations</span>
                 </a>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Customer</title>
+    <title>Manager</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/quotations.css">
@@ -30,7 +30,7 @@
             </li>
             <i class='bx bx-chevron-right'></i>
             <li>
-                <a href="#" class="active">Customer Orders</a>
+                <a href="#" class="active">Customer Quotations</a>
             </li>
 
         </ul>
@@ -63,27 +63,76 @@
                     <thead>
                         <tr>
                             <th>Order Id</th>
+                            <th>User Id</th>
                             <th>Design</th>
                             <th>Material</th>
                             <th>Quantity</th>
                             <th>Status</th>
-                            <th></th>
+                       
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data as $order): ?>
-                        <?php if(!$order->is_quotation): ?>
+                        <?php foreach($data['quotation'] as $order): ?>
+                        <?php if($order->is_quotation): ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
+                            <td><?php echo $order->user_id ?></td>
                             <td></td>
                             <td><?php echo $order->material ?></td>
-                            <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
-                            <td class="st">
-                                <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                <div class="progress-bar"></div>
-                            </td>
+                            <td class="desc"> <?php echo $order->small + $order->medium + $order->large ?></td>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View </button>
+                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                        </tr>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)" title="Edit order"><i class="fas fa-edit"></i> View order</button>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Quotation Replys</a>
+            </li>
+
+        </ul>
+
+        <div class="table">
+            <!-- <div class="table-header">
+                <p>Order Details</p>
+                <div>
+                    <input placeholder="order"/>
+                    <button class="add_new">+ Add New</button>
+                </div>
+            </div> -->
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>User Id</th>
+                            <th>Design</th>
+                            <th>Material</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($data['quotation'] as $order): ?>
+                        <?php if($order->is_quotation): ?>
+                        <tr>
+                            <td class="ordId"><?php echo $order->order_id ?></td>
+                            <td><?php echo $order->user_id ?></td>
+                            <td></td>
+                            <td><?php echo $order->material ?></td>
+                            <td class="desc"> <?php echo $order->small + $order->medium + $order->large ?></td>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View </button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         
@@ -98,33 +147,7 @@
 
 
     <!-- POPUP -->
-               
-
-    <div class="popup-report">
-        <div class="close-icon">
-            <a href="#">
-                <i class="bx bx-x" id="gen-pop-close"></i>
-                <!-- <span class="link_name">Close</span> -->
-            </a>
-        </div>
-        <h2>Report Your Problem</h2>
-        <form method="POST">
-
-            <h4>Title : </h4>
-            <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email : </h4>
-            <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem : </h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-            <div class="btns">
-                <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
-                <button type="submit" class="close-btn" name="report" value="Submit" >Submit</button>
-            </div>
-
-        </form>
-    </div>
-    
-
+                   
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
@@ -136,47 +159,6 @@
           </a>
         </div>
         <h2>Order Details</h2>
-        <div class="status">
-
-            <ul>
-                <li>
-                    <iconify-icon
-                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
-                    <div class="progress one">
-
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text">Pending</p>
-                </li>
-                <li>
-                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
-                    <div class="progress two">
-
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text">Processing</p>
-                </li>
-                <li>
-                    <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
-                    <div class="progress three">
-
-                        <i class="uil uil-check"></i>
-                    </div>
-                    <p class="text">Delivery In Progress</p>
-                </li>
-                <li>
-                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
-                    <div class="progress four">
-
-                        <!-- <i class="uil uil-check"></i> -->
-                    </div>
-                    <p class="text">Delivered</p>
-                </li>
-
-            </ul>
-
-        </div>
-
         
             <form class="update-form" method="POST">
                 <div class="user-details">

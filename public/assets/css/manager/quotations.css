@@ -189,22 +189,26 @@ form .form-input button:hover {
 
 
 td button{
-    outline: none;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: #ffffff;
-    border: none;
-    padding: 3% 4%;
-    text-align: center;
-    /* text-decoration: none; */
-    /* display: inline-block; */
-    font-size: 16px;
-    font-weight: bolder;
-    margin: 2% 1%;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #29292966;
+  border: none;
+  padding: 2px 9px;
+  text-align: center;
+  /* text-decoration: none; */
+  /* display: inline-block; */
+  font-size: 15px;
+  font-weight: bolder;
+  margin: 2% 1%;
+  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
+}
 
-    box-shadow: 2px 2px 11px -5px var(--color-default);
+td button:hover{
+  background-color: #909090a8;
+  transition: all 0.3s ease-in-out;
 }
 
 /* td button:nth-child(1){
@@ -233,70 +237,70 @@ input{
 
 .table-section{
     
-    overflow: auto;
-    box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
-    border-radius: 20px;
-    background: ghostwhite;
-    margin: 19px 32px;
-    overflow-x: auto;
-    border: black 1px solid;
+  overflow: auto;
+  /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
+  border-radius: 20px;
+  background: ghostwhite;
+  margin: 19px 32px;
+  overflow-x: auto;
+  /* border: black 1px solid; */
 }
 
 table{
-    width: 100%;
-    position: relative;
-    min-width: 1000px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    overflow: hidden;
+width: 100%;
+position: relative;
+min-width: 1000px;
+border-collapse: collapse;
+border-spacing: 0;
+overflow: hidden;
 }
 
 
 .table-header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 20px;
-  background-color: rgb(240, 240, 240);
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+padding: 20px;
+background-color: rgb(240, 240, 240);
 }
 
 .table-header p{
-  color: #000000;
+color: #000000;
 }
 
 thead th{
-   
-    padding-top: 17px;
-    color: #000000;
-    font-size: 15px;
-    border-bottom: 1px solid black;
+padding-top: 17px;
+color: #ffffff;
+font-size: 15px;
+border-bottom: 1px solid black;
+background: black;
 }
 
 th, td{
-    border-bottom: 1px solid #dddddd;
-    padding: 10px 20px;
-    word-break: break-all;
-    text-align: center;
-    align-items: center;
+  border-bottom: 1px solid #dddddd;
+  padding: 10px 20px;
+  word-break: break-all;
+  text-align: center;
+  align-items: center;
 }
 
 td{
-  box-sizing: border-box;
+box-sizing: border-box;
 }
 
 td img{
-    height: 60px;
-    width: 60px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 5px solid #ced0d2;
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 5px solid #ced0d2;
 }
 
 tr.hide{
-  opacity: 0;
-  transform: translateX(100%);
-  line-height: 0;
+opacity: 0;
+transform: translateX(100%);
+line-height: 0;
 }
 
 tr.hide td,
