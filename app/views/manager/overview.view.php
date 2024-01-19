@@ -198,8 +198,9 @@
 
                     </div>
 
+                    <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
                     <script>
-                        let editMaterial = document.querySelector(".edit-material-btn");
+                        // let editMaterial = document.querySelector(".edit-material-btn");
 
                         function addMaterialCard(name, quantity, price, id) {
                             var newCard = document.createElement("div");
@@ -452,7 +453,7 @@
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
-    <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
+    
     
 </body>
 

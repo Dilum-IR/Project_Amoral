@@ -1,4 +1,4 @@
-// let editMaterial = document.querySelector(".edit-material-btn");
+let editMaterial = document.querySelector(".edit-material-btn");
 let editIcon = document.querySelector(".edit-material-btn i");
 
 let materials = document.querySelectorAll(".material .orders.card");
@@ -166,11 +166,11 @@ function setupForm(form, submitAction) {
     });
 
     form.addEventListener("submit", function (event) {
-        event.preventDefault();    
         clearErrorMsg(form);
-
+        
         let errors = validateMaterial(form);
         if (Object.keys(errors).length > 0) {
+            event.preventDefault();    
             displayErrorMsg(errors, form);
         } else {
             let name = form.querySelector('input[name="material_type"]').value;
