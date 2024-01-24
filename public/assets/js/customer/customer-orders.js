@@ -203,8 +203,9 @@ function openView(button) {
       var currentDate = new Date();
       var orderPlacedOn = new Date(order.order_placed_on);
       if(((currentDate - orderPlacedOn)/(1000 * 60 * 60 * 24)) > 2){
-            orderCancel.style.display = "none";
-            orderUpdate.style.left = "70%";
+            orderCancel.style.display = "none";        
+      }else{
+            orderCancel.style.display = "block";
       }
 
 

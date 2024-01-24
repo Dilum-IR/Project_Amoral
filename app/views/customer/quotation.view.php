@@ -55,7 +55,7 @@
 
         </form>
 
-        <div class="table">
+        <div class="table req">
             <!-- <div class="table-header">
                 <p>Order Details</p>
                 <div>
@@ -85,7 +85,77 @@
                                 <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
                             </td>
                             <td><?php echo $order->material ?></td>
-                            <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
+                            <td class="desc"><?php echo $order->small + $order->medium + $order->large ?></td>
+
+                        
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                        </tr>
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Quotation Replies</a>
+            </li>
+
+        </ul>
+
+        <form>
+            <div class="form">
+            <form>
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
+				<input class="new-btn" type="button" onclick="openNew()" value="+New Request">
+				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
+			</div>
+
+        </form>
+
+        <div class="table replies">
+            <!-- <div class="table-header">
+                <p>Order Details</p>
+                <div>
+                    <input placeholder="order"/>
+                    <button class="add_new">+ Add New</button>
+                </div>
+            </div> -->
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Request Id</th>
+                            <th>Design</th>
+                            <th>Material</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($data as $order):?>
+                        <?php if($order->is_quotation): ?>
+                        
+                        <tr>
+                            
+                            <td><?php echo $order->order_id ?></td>
+                            <td class="img">
+                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
+                            </td>
+                            <td><?php echo $order->material ?></td>
+                            <td class="desc"><?php echo $order->small + $order->medium + $order->large ?></td>
 
                         
                             <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>

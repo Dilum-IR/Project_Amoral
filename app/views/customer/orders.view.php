@@ -79,9 +79,11 @@
                         <?php if(!$order->is_quotation): ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
-                            <td></td>
+                            <td class="img">
+                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
+                            </td>
                             <td><?php echo $order->material ?></td>
-                            <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
+                            <td class="desc"><?php echo $order->small + $order->medium + $order->large ?></td>
                             <td class="st">
                                 <div class="text-status <?php echo $order->order_status ?>"><?php echo $order->order_status ?></div>
                             </td>
