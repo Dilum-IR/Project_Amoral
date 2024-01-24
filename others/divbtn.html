@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image within Div as Clickable Button</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button img {
+            width: 100px; /* Set width and height as needed */
+            height: 100px; /* Set width and height as needed */
+        }
+        .button.clicked {
+            border: 2px solid #3498db; /* Change border style as desired */
+        }
+        .button:hover {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div class="button" id="button1">
+        <img src="../public/assets/images/home/1.jpg" alt="Button 1">
+    </div>
+    <div class="button" id="button2">
+        <img src="../public/assets/images/home/2.jpg" alt="Button 2">
+    </div>
+    <!-- Add more buttons with images as needed -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.button');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove 'clicked' class from all buttons
+                    buttons.forEach(btn => {
+                        btn.classList.remove('clicked');
+                    });
+
+                    // Add 'clicked' class to the clicked button
+                    button.classList.add('clicked');
+
+                    // Perform the desired action for each button here
+                    console.log(`Clicked ${button.querySelector('img').alt}`);
+                    // Add your logic based on the image button clicked
+                });
+            });
+        });
+    </script>
+</body>
+</html>

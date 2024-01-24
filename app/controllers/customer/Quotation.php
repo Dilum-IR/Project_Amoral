@@ -90,119 +90,15 @@ class Quotation extends Controller
 
             if ( isset($_POST['newQuotation']) && $_POST['newQuotation'] === 'newQuotation' && $_SERVER['REQUEST_METHOD'] === 'POST'){
                 //need to validate
-                // show($_POST['newQuotation']);
- 
-                    unset($_POST['newQuotation']);
-                    // $_SESSION['newQuotation'] = null;
-                    $_POST['user_id'] = $id['user_id'];
-                    $_POST['order_placed_on'] = date('Y-m-d');
-                    $_POST['order_status'] = 'Quotation';
-                    $_POST['is_quotation'] = 1;
-            
-                   
-                        $targetdir = ROOT.'/uploads/designs/';
-                        $targetfile = $targetdir . basename($_FILES['image']['name']);
-                        $uploadOk = 1;
-                        $imageFileType = strtolower(pathinfo($targetfile, PATHINFO_EXTENSION));
+                unset($_POST['newQuotation']);
+                $_POST['user_id'] = $_SESSION['USER']->id;
+                $_POST['order_status'] = "quotation";
+                // show($_POST);
+                $order->insert($_POST);
+                redirect('customer/quotation');
+        }
 
-                        $check = getimagesize($_FILES['image']['tmp_name']);
-                        if($check == false){
-                            $errors['image'] = 'File is not an image.';
-                            $uploadOk = 0;
-                        }
-
-                        if(file_exists($targetfile)){
-                            $errors['image'] = 'File already exists.';
-                            $uploadOk = 0;
-                        }
-
-                        if($_FILES['image']['size'] > 500000){
-                            $errors['image'] = 'File is too large.';
-                            $uploadOk = 0;
-                        }
-
-                        $allowedTypes = ['jpg', 'jpeg', 'png'];
-                        if(!in_array($imageFileType, $allowedTypes)){
-                            $errors['image'] = 'File type not allowed.';
-                            $uploadOk = 0;
-                        }
-
-                        if($uploadOk == 0){
-                            $errors['image'] = 'File not uploaded.';
-                        }else{
-                            if(move_uploaded_file($_FILES['image']['tmp_name'], $targetfile)){
-                                $_POST['image'] = basename($_FILES['image']['name']);
-                            }else{
-                                $errors['image'] = 'File not uploaded.';
-                            }
-                        }
-                    
-
-                    if(isset($_POST['user_id'])){
-
-                        echo "fdgfdddggggggggggggggggffffffffffffffffffffffffgffffggf";
-
-                        $order->insert($_POST);
-
-                        $keys = array_keys($_POST);
-                        // show($keys);
-                        
-                        foreach ($keys as $key) {
-                            unset($_POST[$key]);
-                        }
-
-                        show($_POST);
-
-                        unset($order);
-
-                        // redirect('customer/quotation');
-                        // exit();
-                        die();
-
-                    }
-            }            
-
-            if (isset($_POST['report'])) {
-                
-
-                $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
-                if (empty($description)) {
-                    $errors[] = 'Description is required.';
-                }
-            
-                $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-                if (empty($email)) {
-                    $errors[] = 'Email is required.';
-                } 
-                elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                    $errors[] = 'Email is not valid.';
-                }
-        
-                if (empty($errors)) {
-                    $report = new CustomerReport;
-    
-                    unset($_POST['report']);
-                    
-                    $_POST['user_id'] = $id['user_id'];
-    
-                    $_POST['report_date'] = date('Y-m-d');
-                    
-                    if (isset($_POST['user_id'])) {
-        
-                        $report->insert($_POST);
-                        unset($_POST['user_id']);
-                        // redirect('customer/orders');
-        
-                    }                
-                } else {
-             
-                    foreach ($errors as $error) {
-                        echo $error . '<br>';
-                    }
-                }
-            }else{
-      
-            }
+            $this->view('customer/quotation');
         } else {
             redirect('home');
         }

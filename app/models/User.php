@@ -54,8 +54,6 @@ class User
 			return;
 		}
 		
-		
-		
 		// is empty password 
 		if (empty($data['password']) || empty($data['re-password'])) {
 			$this->errors['flag'] = true;
