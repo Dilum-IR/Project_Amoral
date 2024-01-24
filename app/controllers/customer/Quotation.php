@@ -71,6 +71,7 @@ class Quotation extends Controller
                                     $_POST['image'] = $new_img_name;
                                 
 
+
                             } else {
                                 $em = "You can't upload files of this type!";
                                 header("Location:../../signup.php?error=$em&$data");
