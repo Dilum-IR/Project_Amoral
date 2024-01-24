@@ -96,7 +96,7 @@ try {
         }, 50);
       case 9:
         setTimeout(() => {
-          toastApply("Email is not Verifyed", "Please Verify Your Email..");
+          toastApply("Email is not Verifyed ", "Please Verify Your Email Address");
         }, 50);
       default:
         break;
@@ -118,7 +118,7 @@ try {
         // popup when verification code sent
         setTimeout(() => {
           toastApply(
-            "Please Verify Your Email",
+            "Please Verify Your Email ",
             "Verification code sent successfully",
             0
           );

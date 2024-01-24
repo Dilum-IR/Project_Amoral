@@ -144,7 +144,7 @@ class EmailVerify extends Controller
                 } else {
 
                     $res['flag'] = 0;
-                    $res['title'] = "Invalid OTP Code";
+                    $res['title'] = "Invalid OTP Code ";
                     $res['msg'] = "Verification Invalid. Try Again";
                     echo json_encode($res);
                     exit;
@@ -153,13 +153,13 @@ class EmailVerify extends Controller
                 // signup verification for popup msgs
                 if ($employee->first($arr)) {
                     $res['flag'] = 1;
-                    $res['title'] = "Valid OTP Code";
+                    $res['title'] = "Valid OTP Code ";
                     $res['msg'] = "Verification Successfull 😀🎉";
                     echo json_encode($res);
                     exit;
                 } else {
                     $res['flag'] = 0;
-                    $res['title'] = "Invalid OTP Code";
+                    $res['title'] = "Invalid OTP Code ";
                     $res['msg'] = "Verification Invalid. Try Again";
 
                     echo json_encode($res);
