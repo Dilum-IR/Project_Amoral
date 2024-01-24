@@ -1,10 +1,6 @@
-* {
-  scroll-behavior: smooth;
-}
-
 body {
     background: rgb(240, 240, 250);
-
+    scroll-behavior: smooth;
   }
   
   #main {
@@ -17,7 +13,7 @@ body {
     z-index: 1;
     /* margin-left: 5px; */
     width: calc(100% - 78px);
-
+    scroll-behavior: smooth;
   }
   #main.open {
     width: calc(100% - 250px);
@@ -168,11 +164,11 @@ body {
   
   main .insights {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
-    
   }
-  main .insights > div {
+  main .insights > div,
+  main .material > div {
     /* width: 250px; */
     margin-top: 20px;
     background: white;
@@ -180,18 +176,18 @@ body {
     border-radius: 20px;
     box-shadow: 0px 0px 20px 0px rgb(187, 184, 184);
     transition: 0.5s ease-in-out;
-    border-right: 10px solid rgb(233, 229, 229);
   }
   main .insights > div:hover {
     box-shadow: 0 5px 10px 5px rgb(161, 161, 161);
     border-right: 10px solid black;
   }
   
-  main .insights .card{
+  main .insights .card,
+  main .material .card {
     display: flex;
     align-items: center;
     gap: 50px;
-   
+    position: relative;
   }
 
   main .insights .bx {
@@ -203,14 +199,15 @@ body {
     color: white;
   }
   main .insights i::before {
-    background: rgb(18, 211, 0);
+    background: rgb(49 97 45);
     border-radius: 20%;
     padding: 5px;
     font-size: 50px;
     margin-left: 10px;
   }
   
-  main .insights > div .middle {
+  main .insights > div .middle,
+  main .material > div .middle {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -221,7 +218,7 @@ body {
     /* background-color: red; */
   }
   
-  main .insights .progress {
+  /* main .insights .progress {
     position: relative;
     width: 92px;
     height: 92px;
@@ -251,13 +248,283 @@ body {
     justify-content: center;
     align-items: center;
   }
-  
   main .insights small {
     display: block;
   }
+   */
   
+  main .material{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+
+    margin-top: 20px;
+
+    box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+    border-radius: 20px;
+    background: ghostwhite;
+    padding: 24px;
+    overflow-x: auto;
+  }
+
+
+  /* main .material .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.5s all;
+} */
+
+
+  main .material span{
+    grid-column: 1/-1;
+    height: 32px;
+  }
+  
+  main .material h2{
+    margin-right: auto;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  main .material .edit-material-btn{
+    background-color: #000000; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    position: relative;
+    left: 90%;
+    top: -40px;
+    cursor: pointer;
+    border-radius: 3px;
+    transform: scale(0.9);
+    transition: all 0.3s ease-in-out;
+  }
+
+  main .material .edit-material-btn:hover{
+    /* background-color: #0e5110; */
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .delete-material-btn {
+    position: absolute;
+    left: 65%;
+    border: 2px solid red;
+
+    background: ghostwhite;
+    border: none;
+    color: rgb(246, 53, 53);
+    padding: 11px 18px;
+    border-radius: 50%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin: 4px 2px;
+    cursor: pointer;
+    /* box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); */
+    transition: all 0.3s ease-in-out;
+    visibility: hidden;
+    transform: scale(0.9);
+}
+
+
+.open-delete-material-btn{
+  visibility: visible;
+  /* transition: all 0.3s ease-in-out; */
+}
+
+/* .open-delete-material-btn:hover {
+    background-color: red;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
+} */
+
+
+  main .material .card{
+    padding: 20px 20px;
+    position: relative;
+  }
+
+  main .material > div:hover {
+    box-shadow: 0 5px 10px 5px rgb(161, 161, 161);
+   }
+
+  .update-btn {
+    position: absolute;
+    background-color: #000000;
+    border: none;
+    color: white;
+    padding: 15px 26px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1px 31px 4px 140px;
+    cursor: pointer;
+    border-radius: 10px;
+    transform: scale(0.9);
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+
+  .update-btn:hover {
+    background-color: #0e5110; /* Green */
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .open-update-btn{
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+  }
+
+ .material .add{
+  border-style: dashed;
+  border-width: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out, height 2s ease;
+  height: 0;
+ }
+
+ .material .open-add{
+    opacity: 1;
+    height: 128px;
+    transition: opacity 1.3s ease-in-out, height 0.8s ease;
+  }
+
+  .material .add i{
+    font-size: 50px;
+    color: #000000;
+    margin-left: 72%;
+    transition: transform 0.3s ease-in-out;
+    /* margin-top: 20%; */
+  }
+  
+  .material .add i:hover{
+    color: #0e5110;
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+  }
   /* <!-- Insights Containers  --> */
+
+  /* <!-- Add Material Form --> */
+  /* The Modal (background) */
+.popup-add,
+.popup-update {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   
+}
+
+.popup-delete {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.error{
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Modal Content */
+.popup-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px 35px 40px 56px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  position: absolute;
+  right: 350px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.popup-content h2{
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.popup-content form{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.popup-content form input{
+  margin-bottom: 6px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.popup-content form input:focus{
+  border: 1px solid #000000;
+}
+
+.popup-content form .btn-add{
+  background-color: #000000; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.popup-content form .btn-add:hover{
+  background-color: #0e5110; /* Green */
+  font-size: 17px;
+  transition: all 0.3s ease-in-out;
+}
+
   /* chat container */
   
   .left-right .right .chat .chat-title {
@@ -419,7 +686,7 @@ body {
   
   
   /* <!-- left side container --> */
-  .table-data{
+  .table-data {
     display: flex;
     flex-wrap: wrap;
     grid-gap: 24px;
@@ -428,7 +695,7 @@ body {
     color: var(--dark);
   }
   
-  .table-data > div{
+  .table-data > div {
     box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
     border-radius: 20px;
     background: ghostwhite;
@@ -445,6 +712,14 @@ body {
     margin-right: auto;
     font-size: 24px;
     font-weight: 600;
+  }
+  .table-data .head .bx {
+    cursor: pointer;
+  }
+  
+  .table-data .order {
+    flex-grow: 1;
+    flex-basis: 500px;
   }
 
   .table-data .order .view-all-btn {
@@ -467,11 +742,7 @@ body {
     transform: scale(1);
     transition: all 0.3s ease-in-out;
   }
-  
-  .table-data .order {
-    flex-grow: 1;
-    flex-basis: 500px;
-  }
+
   .table-data .order table {
     width: 100%;
     border-collapse: collapse;
@@ -479,14 +750,18 @@ body {
   .table-data .order table th {
     padding-bottom: 12px;
     font-size: 13px;
-    text-align: center;
+    text-align: left;
     border-bottom: 1px solid var(--grey);
   }
   .table-data .order table td {
     padding: 16px 0;
-    text-align: center;
   }
-
+  .table-data .order table tr td:first-child {
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
+  }
   .table-data .order table td img {
     width: 36px;
     height: 36px;
@@ -508,8 +783,6 @@ body {
     flex-wrap: wrap;
     align-content: space-between;
     gap: 10px;
-    justify-content: center;
-    
   }
   .table-data .order table tr .status .completed  {
     color: blue;

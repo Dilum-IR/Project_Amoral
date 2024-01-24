@@ -15,7 +15,6 @@ class Order
 		'order_id',
 		'user_id',
 		'material',
-        'quantity',
         'unit_price',
         'total_price',
         'dispatch_date',
@@ -25,7 +24,11 @@ class Order
         'small',
         'medium',
         'large',
-        'address'
+        'district',
+        'image',
+        'is_quotation',
+        'latitude',
+        'longitude'
     ];
 
 }

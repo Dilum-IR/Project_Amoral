@@ -5,8 +5,14 @@ class CustomerOverview extends Controller
     {
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
+        $order = new Order;
+ 
         if ($username != 'User') {
-            $this->view('customer/overview');
+            $id = ['user_id' => $_SESSION['USER']->id];
+            $data = $order->where($id);
+
+            $this->view('customer/overview', $data);
+
         }else{
             redirect('home');
         }
