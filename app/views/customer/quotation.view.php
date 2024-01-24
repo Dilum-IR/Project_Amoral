@@ -80,8 +80,10 @@
                         
                         <tr>
                             
-                            <td class="ordId"><?php echo $order->order_id ?></td>
-                            <td></td>
+                            <td><?php echo $order->order_id ?></td>
+                            <td class="img">
+                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
+                            </td>
                             <td><?php echo $order->material ?></td>
                             <td class="desc"> S - <?php echo $order->small ?><br> M - <?php echo $order->medium ?><br> L - <?php echo $order->large ?></td>
 
@@ -102,12 +104,8 @@
     <!-- POPUP -->
     
     <div class="popup-new">
-        <div class="close-icon">
-          <a href="">
-            <i class="bx bx-x" id="gen-pop-close"></i>
-            <!-- <span class="link_name">Close</span> -->
-          </a>
-        </div>
+        <div class="popup-content">
+        <span class="close">&times;</span>
         <h2>New Quotation Request</h2>
         <form class="new-form" method="POST">
                 <div class="user-details">
@@ -123,7 +121,7 @@
                     </div>
 
                     <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span><br>
+                        <span class="details">Sizes & Quantity</span>
                         <div class="sizeChart">
                             <span class="size">S</span>
                         
@@ -197,10 +195,10 @@
 
                 </div>
 
-                <div class="btns">
-                    <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
-                    <button type="submit" class="close-btn" value="newQuotation" name="newQuotation">Submit</button>
-                </div>
+              
+                <button type="submit" class="close-btn pb" value="newQuotation" name="newQuotation">Submit</button>
+                    <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
+             
 
 
 
@@ -239,43 +237,37 @@
                 <button type="submit" class="close-btn" value="newQuotation" name="newQuotation">Submit</button>
             </div>
         </form> -->
+        </div>
     </div> 
                
 
     <div class="popup-report">
-        <div class="close-icon">
-            <a href="">
-                <i class="bx bx-x" id="gen-pop-close"></i>
-                <!-- <span class="link_name">Close</span> -->
-            </a>
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Report Your Problem</h2>
+            <form method="POST">
+
+                <h4>Title : <span class="error title"></span>  </h4> 
+                <input name="title" type="text" placeholder="Enter your title">
+                <h4>Your email : <span class="error email"></span></h4>
+                <input name="email" type="text" placeholder="Enter your email">
+                <h4>Problem : <span class="error description"></span></h4>
+                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+                
+                <button type="submit" class="close-btn pb" name="report" value="Submit" >Submit</button>
+                <button type="button" class="cancelR-btn pb" onclick="closeReport()" >Cancel</button>
+            
+
+            </form>
         </div>
-        <h2>Report Your Problem</h2>
-        <form method="POST">
-
-            <h4>Title : </h4>
-            <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email : </h4>
-            <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem : </h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-            <div class="btns">
-                <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
-                <button type="submit" class="close-btn" name="report" value="Submit" >Submit</button>
-            </div>
-
-        </form>
     </div>
     
 
     <div class="popup-view" id="popup-view">
+        <div class="popup-content">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
-        <div class="close-icon">
-          <a href="">
-            <i class="bx bx-x" id="gen-pop-close"></i>
-            <!-- <span class="link_name">Close</span> -->
-          </a>
-        </div>
+        <span class="close">&times;</span>
         
         <h2>Request Details</h2>
 
@@ -296,28 +288,57 @@
                     <div class="input-box sizes">
                         <span class="details">Sizes & Quantity</span><br>
                         <div class="sizeChart">
+                      
                             <span class="size">S</span>
                         
                             <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="small" value="0" min="0" >
+                            <input class="st" type="number" id="quantity" name="small"  min="0" >
                             <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
                             <span class="size">M</span>
                             <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="medium" value="0" min="0" >
+                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
                             <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
                             <span class="size">L</span>
                             <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                                <input class="st" type="number" id="quantity" name="large" value="0" min="0">
-                                <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                                <br>
+                            <input class="st" type="number" id="quantity" name="large"  min="0">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+
+
                         </div>
                     </div>
 
                     <div class="input-box">
                         <span class="details">Request Placed On</span>
                         <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Design</span>
+                        <embed name="design" type="application/pdf" style="display: block; width: 250px; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        <div class="image">
+                            <div class="flex-half">
+                                <div class="add-section">
+                                    <div style="text-align: right; position: relative; right: 36px;">
+                                        <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+                                    </div>
+                                    <div id="imageForm" style="display: none; transition: display 0.5s ease;">
+                                        
+                                    <div id="drop_zone">Drag and drop your image here, or click to select image</div>
+                                            <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
+                                            <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                                            
+                                            
+                                    </div>
+                                </div>
+                                    
+                                    
+                                    
+                                    
+                            </div>
+                                
+                        </div>
                     </div>
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
@@ -333,194 +354,80 @@
                         <span class="details">Delivery Location</span>
                         <div id="map" style="height: 300px; width: 100%;"></div>
                     </div>
-                    <div class="input-box">
-                        <span class="details">Design</span>
-                        <div class="image">
-                            <div class="flex-half">
-                                <div class="add-section">
-                                    <div style="text-align: right;">
-                                        <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
-                                    </div>
-                                    <div id="imageForm" style="display: none;" class="center-items">
-                                        
-                                            <div id="drop_zone">Drag and drop your image here, or click to select image</div>
-                                            <img id="preview" style="display: block; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                                            <input name="image" type="file" id="file_input" style="display: none;" accept="image/*">
-        
-                                     
-                                    </div>
-                                </div>
-
-                                <script>
-                                    function toggleImageForm() {
-                                        var x = document.getElementById("imageForm");
-                                        if (x.style.display === "none") {
-                                            x.style.display = "block";
-                                        } else {
-                                            x.style.display = "none";
-                                        }
-                                    }
-
-                                    let dropZone = document.getElementById('drop_zone');
-                                    let fileInput = document.getElementById('file_input');
-                                    let preview = document.getElementById('preview');
-
-                                    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                                        dropZone.addEventListener(eventName, preventDefaults, false);
-                                    });
-
-                                    function preventDefaults(e) {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                    }
-
-                                    function handleFiles(files) {
-                                        ([...files]).forEach(uploadFile);
-                                    }
-
-                                    function uploadFile(file) {
-                                        let reader = new FileReader();
-                                        reader.onloadend = function() {
-                                            preview.src = reader.result;
-                                            preview.style.display = 'block';
-                                        }
-                                        reader.readAsDataURL(file);
-                                    }
-
-                                    fileInput.addEventListener('change', function(e) {
-                                        handleFiles(this.files);
-                                    }, false);
-
-                                    // Event listeners for file drop
-                                    dropZone.addEventListener('drop', function(e) {
-                                        let dt = e.dataTransfer;
-                                        let files = dt.files;
-
-                                        handleFiles(files);
-                                    }, false);
-
-                                    // Event listener for drop zone click to trigger file input click
-                                    dropZone.addEventListener('click', function() {
-                                        fileInput.click();
-                                    }, false);
-                                </script>
-                               
-
-                                <div class="carousel">
-                                    <button class="carousel-left-btn" id="prevBtn">
-                                        <span class="material-symbols-outlined">
-                                            <
-                                        </span>
-                                    </button>
-                                    <div id="carouselImages">
-                                        <!-- Carousel images will be populated here -->
-                                    </div>
-                                    <button class="carousel-right-btn" id="nextBtn">
-                                        <span class="material-symbols-outlined">
-                                            >
-                                        </span>
-                                    </button>
-                                </div>
-                                <!-- show number of images and current image like 4/5 -->
-                                <div style="text-align: center; height:">
-                                    <a onclick="deleteImage()">
-                                        <iconify-icon icon="uiw:delete"></iconify-icon>
-                                    </a>
-
-                                </div>
-
-                                <div class="image-count"></div>
-
-
-                            </div>
-                            <!-- <script>
-                                const carouselImages = document.getElementById('carouselImages');
-                                const imageCount = document.querySelector('.image-count');
-
-                                let images = <?php echo json_encode($images) ?>;
-                                let currentImage = 0;
-
-                                images.forEach(image => {
-                                    carouselImages.innerHTML += `
-                                    <img src="<?php echo ROOT . '/' ?>${image.image_url}" alt="Product Image-${image.product_image_id}" class="carousel-image">
-                                `;
-                                });
-
-                                imageCount.innerHTML = ${currentImage + 1}/${images.length};
-
-
-
-                                const prevBtn = document.getElementById('prevBtn');
-                                const nextBtn = document.getElementById('nextBtn');
-
-                                // Add event listeners to carousel buttons
-                                prevBtn.addEventListener('click', () => {
-                                    // Decrease currentImage index
-                                    currentImage--;
-                                    // If currentImage is less than 0, set it to the last image
-                                    if (currentImage < 0) {
-                                        currentImage = images.length - 1;
-                                    }
-                                    updateCarousel();
-                                });
-
-                                nextBtn.addEventListener('click', () => {
-                                    currentImage++;
-                                    if (currentImage >= images.length) {
-                                        currentImage = 0;
-                                    }
-                                    updateCarousel();
-                                });
-
-                                function updateCarousel() {
-
-                                    carouselImages.innerHTML = '';
-                                    carouselImages.innerHTML += `
-                            <img src="<?php echo ROOT . '/' ?>${images[currentImage].image_url}" alt="Product Image-${images[currentImage].product_image_id}" class="carousel-image">
-                        `;
-                                    // Update image count
-                                    imageCount.innerHTML = ${currentImage + 1}/${images.length};
-                                }
-
-                                // Initial carousel update
-                                updateCarousel();
-
-                                // Delete image
-                                function deleteImage() {
-                                    // Get image id
-                                    let imageId = images[currentImage].product_image_id;
-                                    console.log(imageId);
-                                    // Send delete request
-                                    let xhr = new XMLHttpRequest();
-                                    xhr.open('DELETE', '<?php echo ROOT . '/delete/product_images/' ?>' + imageId, true);
-                                    xhr.onload = function() {
-                                        if (this.status == 200) {
-                                            // Reload page
-                                            location.reload();
-                                        }
-                                    }
-                                    xhr.send();
-                                }
-                            </script> -->
-                        </div>
-                    </div>
                 </div>
-
+                               
 
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
+                <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
                 <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
                 <!-- </form> -->
 
 
             </form>
+            </div>
         
     </div>
-    <div id="overlay" class="overlay"></div>
+    
 
 
 
+                    
+                    
+    <script>
+        function toggleImageForm() {
+            var x = document.getElementById("imageForm");
+
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        let dropZone = document.getElementById('drop_zone');
+        let fileInput = document.getElementById('file_input');
+        let preview = document.getElementById('preview');
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleFiles(files) {
+            ([...files]).forEach(uploadFile);
+        }
+
+        function uploadFile(file) {
+            let reader = new FileReader();
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.style.height = 'auto';
+            }
+            reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener('change', function(e) {
+            handleFiles(this.files);
+        }, false);
+
+        // Event listeners for file drop
+        dropZone.addEventListener('drop', function(e) {
+            let dt = e.dataTransfer;
+            let files = dt.files;
+
+            handleFiles(files);
+        }, false);
+
+        // Event listener for drop zone click to trigger file input click
+        dropZone.addEventListener('click', function() {
+            fileInput.click();
+        }, false);
+    </script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

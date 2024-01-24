@@ -1,10 +1,11 @@
 let popupView = document.getElementById("popup-view");
-let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
-let closeViewBtn = document.querySelector(".popup-view .close-icon a");
-let closeReportBtn = document.querySelector(".popup-report .close-icon a");
+let closeViewBtn = document.querySelector(".popup-view .close");
+let closeReportBtn = document.querySelector(".popup-report .close");
 
+let sidebar = document.querySelector(".sidebar");
+let nav = document.getElementById("navbar");
 
 let progress1 = document.querySelector(".status ul li .one");
 let progress2 = document.querySelector(".status ul li .two");
@@ -194,10 +195,10 @@ function openView(button) {
         document.querySelector('.update-form input[name="longitude"]').value =order.longitude;
   
       
-      // Show the "update-form" popup
-      // document.querySelector(".popup-view").classList.add("open-popup-view");
-      popupView.classList.add("open-popup-view");
-      overlay.classList.add("overlay-active");
+        popupView.style.display = "block";
+        document.body.style.overflow = "hidden";
+        sidebar.style.pointerEvents = "none";
+        nav.style.pointerEvents = "none";
 
       var currentDate = new Date();
       var orderPlacedOn = new Date(order.order_placed_on);
@@ -211,19 +212,26 @@ function openView(button) {
   }
   
   }
-function closeView(){
-    popupView.classList.remove("open-popup-view");
-    overlay.classList.remove("overlay-active");
-    
+  function closeView(){
+    popupView.style.display = "none";
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
 }	
 
 function openReport(){
-    popupReport.classList.add("open-popup-report");
-    overlay.classList.add("overlay-active");
+    popupReport.style.display = "block";
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
 }
 function closeReport(){
-    popupReport.classList.remove("open-popup-report");
-    overlay.classList.remove("overlay-active");
+    popupReport.style.display = "none";
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
+
+    reportForm.reset();
 }
 
 function openNew(){

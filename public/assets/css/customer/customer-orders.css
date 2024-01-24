@@ -348,39 +348,50 @@ tbody tr:hover{
 }
 
 .popup-view, 
-.popup-new, 
+.popup-new,
 .popup-report {
-  position: absolute;
-  height: fit-content;
-  width: 45%;
-  background: #ffffff;
-  /* margin-top: 3%; */
-  /* margin-bottom: 3%; */
-  top: 58%;
-  left: 50%;
-  transform: translate(-50%, -60%) scale(0);
-  border-radius: 3px;
-  padding: 20px;
-  box-shadow: 0 0 0 1px #1b1c1d, 0 0 0 4px #292e3542;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.5s;
-  justify-content: center;
+  display: none; 
+  position: fixed;
+  z-index: 2; 
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
-.popup-view{
+.popup-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px 35px 40px 56px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.popup-report .popup-content {
   width: 55%;
-  top: 83%;
-  bottom: 20%;
 }
 
-.open-popup-view,
-.open-popup-new,
-.open-popup-report {
-  visibility: visible;
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 101;
+.close {
+  color: #aaa;
+  position: absolute;
+  right: 350px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.popup-report .close {
+  right: 400px;
+}
+
+.close:hover{
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .popup-report h2,
@@ -392,21 +403,19 @@ tbody tr:hover{
   font-weight: bold;
 }
 
-.popup-report h4,
-.popup-new span {
+.popup-report h4{
   text-align: left;
-  padding-left: 10%;
+  /* padding-left: 10%; */
   padding-bottom: 2%;
 }
 
 .popup-report input,
-.popup-new input,
-textarea {
+textarea{
   position: relative;
-  left: 9%;
-  width: 80%;
+  left: 2px;
+  width: 96%;
   background: #d5dfe7d5;
-  border-radius: 10px;
+  border-radius: 5px;
   border-style: solid;
   border: #000;
   outline-width: 1px;
@@ -414,6 +423,11 @@ textarea {
   margin-bottom: 2%;
   transition: all 0.3s ease;
   color: var(--dark);
+}
+
+.popup-report textarea{
+  height: 100px;
+  margin-left: 10px;
 }
 
 .popup-report .error{
@@ -425,60 +439,31 @@ textarea {
   
 }
 
-.popup-report .btns {
+.popup-report .pb {
   position: relative;
-  left: 40%;
-  width: 50%;
-  height: 40px;
-  display: flex;
-  justify-content:flex-end;
-  align-items: center;
-}
-
-.popup-report .submit-btn,
-.cancelR-btn {
-  position: absolute;
-  top: -8px;
+  bottom: 4px;
+  width: 100%;
   background-color: black;
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 25px;
+  border-radius: 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  transform: scale(0.9);
 }
 
-.popup-report .cancelR-btn {
-  right: 29%;
- 
-}
-
-.cancelR-btn:hover,
-.submit-btn:hover {
-  transform: scale(1);
+.popup-report .pb:hover {
+  font-size: 17px;
+  font-weight: 200;
   transition: all 0.3s ease-in-out;
 }
 
-.overlay {
-  position: fixed;
-  opacity: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgb(0,0,0,0.5);
-  pointer-events: none;
-}
-
-.overlay-active {
-  opacity: 1;
-  pointer-events: all;
-  z-index: 100;
+.popup-report .cancel-btn:hover {
+  background: darkred;
 }
 
 .popup-view h2{

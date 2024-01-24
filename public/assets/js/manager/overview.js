@@ -14,6 +14,7 @@ editMaterial.addEventListener("click", function () {
 
 // Get the modal
 var addMaterial = document.getElementById("add-material");
+console.log(addMaterial);
 var updateMaterial = document.getElementById("update-material");
 
 // Get the button that opens the modal

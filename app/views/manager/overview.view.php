@@ -198,65 +198,7 @@
 
                     </div>
 
-                    <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
-                    <script>
-                        // let editMaterial = document.querySelector(".edit-material-btn");
 
-                        function addMaterialCard(name, quantity, price, id) {
-                            var newCard = document.createElement("div");
-                            newCard.className = "orders card";
-
-                            
-                            newCard.innerHTML = `
-                                <button class="delete-material-btn" data-id="${id}" onclick="openDelete(this)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <div class="middle">
-                                    <div class="left">
-                                        <h3>${name}</h3>
-                                        <h1>${quantity} Meters</h1>
-                                        <p>Rs. ${price} per meter</p>
-                                    </div>
-                                    <button class="update-btn" data-name="${name}" data-quantity="${quantity}" data-price="${price}" data-id="${id}" onclick="openUpdate(this)">Update</button>
-                                </div>
-                            `;
-
-                      
-                            document.querySelector(".add.card").before(newCard);
-
-                            let deleteMaterial = newCard.querySelector(".delete-material-btn");
-                            let updateBtn = newCard.querySelector(".update-btn");
-
-                            editMaterial.addEventListener("click", function () {
-                                deleteMaterial.classList.toggle("open-delete-material-btn");
-                                updateBtn.classList.toggle("open-update-btn");
-                            });
-
-                            // updateBtn.onclick = function () {
-                            //     updateMaterial.style.display = "block";
-                            //     document.body.style.overflow = "hidden";
-                            // }
-
-                            // deleteMaterial.onclick = function () {
-                            //     document.getElementById("deleteConfirmation").style.display = "block";
-                            //     document.body.style.overflow = "hidden";
-
-                            // }
-                            
-                            var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
-                            console.log(deleteMaterialSuccess);
-                            if(deleteMaterialSuccess){
-                                newCard.remove();
-                            }
-
-                        }
-
-
-                        <?php foreach($data['materialStock'] as $material): ?>
-                            addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>', '<?php echo $material->stock_id ?>');
-                        <?php endforeach; ?>
-
-                    </script>
 
                     <!--popup to add materials-->
 
@@ -450,6 +392,65 @@
 
         </div>
     </section>
+    <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
+                    <script>
+                        // let editMaterial = document.querySelector(".edit-material-btn");
+
+                        function addMaterialCard(name, quantity, price, id) {
+                            var newCard = document.createElement("div");
+                            newCard.className = "orders card";
+
+                            
+                            newCard.innerHTML = `
+                                <button class="delete-material-btn" data-id="${id}" onclick="openDelete(this)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <div class="middle">
+                                    <div class="left">
+                                        <h3>${name}</h3>
+                                        <h1>${quantity} Meters</h1>
+                                        <p>Rs. ${price} per meter</p>
+                                    </div>
+                                    <button class="update-btn" data-name="${name}" data-quantity="${quantity}" data-price="${price}" data-id="${id}" onclick="openUpdate(this)">Update</button>
+                                </div>
+                            `;
+
+                      
+                            document.querySelector(".add.card").before(newCard);
+
+                            let deleteMaterial = newCard.querySelector(".delete-material-btn");
+                            let updateBtn = newCard.querySelector(".update-btn");
+
+                            editMaterial.addEventListener("click", function () {
+                                deleteMaterial.classList.toggle("open-delete-material-btn");
+                                updateBtn.classList.toggle("open-update-btn");
+                            });
+
+                            // updateBtn.onclick = function () {
+                            //     updateMaterial.style.display = "block";
+                            //     document.body.style.overflow = "hidden";
+                            // }
+
+                            // deleteMaterial.onclick = function () {
+                            //     document.getElementById("deleteConfirmation").style.display = "block";
+                            //     document.body.style.overflow = "hidden";
+
+                            // }
+                            
+                            var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
+                            console.log(deleteMaterialSuccess);
+                            if(deleteMaterialSuccess){
+                                newCard.remove();
+                            }
+
+                        }
+
+
+                        <?php foreach($data['materialStock'] as $material): ?>
+                            addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>', '<?php echo $material->stock_id ?>');
+                        <?php endforeach; ?>
+
+                    </script>
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>

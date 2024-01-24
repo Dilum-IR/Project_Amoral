@@ -106,40 +106,32 @@
   
 
     <div class="popup-report">
-        <div class="close-icon">
-            <a>
-                <i class="bx bx-x" id="gen-pop-close"></i>
-                <!-- <span class="link_name">Close</span> -->
-            </a>
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Report Your Problem</h2>
+            <form method="POST">
+
+                <h4>Title : <span class="error title"></span>  </h4> 
+                <input name="title" type="text" placeholder="Enter your title">
+                <h4>Your email : <span class="error email"></span></h4>
+                <input name="email" type="text" placeholder="Enter your email">
+                <h4>Problem : <span class="error description"></span></h4>
+                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+                
+                <button type="submit" class="close-btn pb" name="report" value="Submit" >Submit</button>
+                <button type="button" class="cancelR-btn pb" onclick="closeReport()" >Cancel</button>
+            
+
+            </form>
         </div>
-        <h2>Report Your Problem</h2>
-        <form method="POST">
-
-            <h4>Title : <span class="error title"></span>  </h4> 
-            <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email : <span class="error email"></span></h4>
-            <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem : <span class="error description"></span></h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-            <div class="btns">
-                <button type="button" class="cancelR-btn" onclick="closeReport()" >Cancel</button>
-                <button type="submit" class="submit-btn" name="report" >Submit</button>
-            </div>
-
-        </form>
     </div>
 
 
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
-        
-        <div class="close-icon">
-          <a href="">
-            <i class="bx bx-x" id="gen-pop-close"></i>
-            <!-- <span class="link_name">Close</span> -->
-          </a>
-        </div>
+        <div class="popup-content">
+        <span class="close">&times;</span>
         <h2>Order Details</h2>
         <div class="status">
 
@@ -301,9 +293,9 @@
 
 
             </form>
-        
+        </div>
     </div>
-    <div id="overlay" class="overlay"></div>
+
 
 
     
