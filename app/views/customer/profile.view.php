@@ -59,7 +59,7 @@
               <div class="info_data">
                 <div class="data">
                   <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name </label>
-                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value=<?= $data->fullname ?>>
+                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value="<?= $data->fullname ?>">
                 </div>
                 <div class="data">
                   <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City</label>
