@@ -318,6 +318,7 @@ transition: all 0.3s ease-in-out;
 
 
 .popup-view, 
+.popup-view-reply,
 .popup-new,
 .popup-report {
   display: none; 
@@ -638,21 +639,20 @@ select {
   color: #000;
 }
 
-.popup-view h2{
+.popup-view h2,
+.popup-view-reply h2 {
   text-align: center;
   padding-top: 1%;
   margin: 20px;
 }
 
-.popup-view .sizeChart,
-.popup-new .sizeChart{
+.sizeChart{
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(54px, 1fr));
   grid-gap: 0px;
 }
 
-.popup-view .sizeChart span,
-.popup-new .sizeChart span{
+.sizeChart span{
   margin-left: 0;
 }
 
@@ -661,7 +661,7 @@ select {
   margin-right: 37px;
 }
 
-.popup-view .size{
+.size{
   margin-left: 20%;
 }
 
@@ -739,6 +739,7 @@ button.pay:hover {
 
 
 .popup-view .pb,
+.popup-view-reply .pb,
 .popup-new .pb{
   position: relative;
   bottom: 4px;
@@ -758,6 +759,7 @@ button.pay:hover {
 }
 
 .popup-view .pb:hover,
+.popup-view-reply .pb:hover,
 .popup-new .pb:hover{
   /* transform: scale(1); */
   font-size: 17px;
@@ -766,13 +768,15 @@ button.pay:hover {
 }
 
 
-.popup-view .update-btn:hover {
+.popup-view .update-btn:hover,
+ .popup-view-reply .update-btn:hover{
   background: green;
 }
 
 
 
-.popup-view .cancel-btn:hover {
+.popup-view .cancel-btn:hover,
+.popup-view-reply .cancel-btn:hover{
   background: darkred;
 }
 

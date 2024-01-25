@@ -75,7 +75,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data as $order):?>
+                        <?php foreach($data['quotation'] as $order):?>
                         <?php if($order->is_quotation): ?>
                         
                         <tr>
@@ -119,8 +119,7 @@
                         </button>
                     </div>
                 </form>
-				<input class="new-btn" type="button" onclick="openNew()" value="+New Request">
-				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
+	
 			</div>
 
         </form>
@@ -145,8 +144,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data as $order):?>
-                        <?php if($order->is_quotation): ?>
+                        <?php foreach($data['quotation_reply'] as $order):?>
+                       
                         
                         <tr>
                             
@@ -158,10 +157,10 @@
                             <td class="desc"><?php echo $order->small + $order->medium + $order->large ?></td>
 
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openViewReply(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
-                        <?php endif; ?>
+                        
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -431,6 +430,112 @@
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->
                 <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
                 <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
+                <!-- </form> -->
+
+
+            </form>
+            </div>
+        
+    </div>
+
+    <div class="popup-view-reply" id="popup-view-reply">
+        <div class="popup-content">
+        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
+        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+        <span class="close">&times;</span>
+        
+        <h2>Request Details</h2>
+
+        
+            <form class="update-form" method="POST" enctype="multipart/form-data">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Request Id </span>
+                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Material </span>
+                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
+                        
+                    </div>
+
+                    <div class="input-box sizes">
+                        <span class="details">Sizes & Quantity</span><br>
+                        <div class="sizeChart">
+                      
+                            <span class="size">S</span>
+                        
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="small"  min="0" >
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                            <span class="size">M</span>
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+                            <span class="size">L</span>
+                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
+                            <input class="st" type="number" id="quantity" name="large"  min="0">
+                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <br>
+
+
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Request Placed On</span>
+                        <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Design</span>
+                        <embed name="design" type="application/pdf" style="display: block; width: 250px; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        <div class="image">
+                            <div class="flex-half">
+                                <div class="add-section">
+                                    <div style="text-align: right; position: relative; right: 36px;">
+                                        <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+                                    </div>
+                                    <div id="imageForm" style="display: none; transition: display 0.5s ease;">
+                                        
+                                    <div id="drop_zone">Drag and drop your image here, or click to select image</div>
+                                            <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
+                                            <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                                            
+                                            
+                                    </div>
+                                </div>
+                                    
+                                    
+                                    
+                                    
+                            </div>
+                                
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+                    
+                        <input type="date" name="dispatch_date">
+                    </div>
+                    <div class="input-box">
+                        <span class="details addr">Address</span>
+                    
+                        <input type="text" name="district">
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Delivery Location</span>
+                        <div id="map" style="height: 300px; width: 100%;"></div>
+                    </div>
+                </div>
+                               
+
+
+                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                <button type="submit" class="update-btn pb" name="updateOrder">Place Order</button>
+                <button type="button" onclick="" class="cancel-btn pb">Cancel Request</button>
                 <!-- </form> -->
 
 

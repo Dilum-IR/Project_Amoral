@@ -1,16 +1,19 @@
 let popupView = document.getElementById("popup-view");
+let popupViewReply = document.getElementById("popup-view-reply");
 let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
 let closeReportBtn = document.querySelector(".popup-report .close");
 let closeViewBtn = document.querySelector(".popup-view .close");
 let closeNewBtn = document.querySelector(".popup-new .close");
+let closeReplyBtn = document.querySelector(".popup-view-reply .close");
 
 let sidebar = document.querySelector(".sidebar");
 let nav = document.getElementById("navbar");
 
 closeReportBtn.addEventListener("click", closeReport);
 closeViewBtn.addEventListener("click", closeView);
+closeReplyBtn.addEventListener("click", closeViewReply);
 closeNewBtn.addEventListener("click", closeNew);
 
 const search = document.querySelector(".form input"),
@@ -157,6 +160,51 @@ function openView(button) {
 }
 function closeView(){
     popupView.style.display = "none";
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
+}	
+
+function openViewReply(button) {
+  
+    // Get the data attribute value from the clicked button
+    const orderData = button.getAttribute("data-order");
+    
+    console.log(orderData);
+  
+    if (orderData) {
+        // Parse the JSON data
+        const order = JSON.parse(orderData);
+
+        
+        // Populate the "update-form" fields with the order data
+        document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
+        
+        document.querySelector('.update-form input[name="material"]').value = order.material;
+        
+        document.querySelector('.update-form input[name="small"]').value = order.small;
+        document.querySelector('.update-form input[name="medium"]').value = order.medium;
+
+        document.querySelector('.update-form input[name="large"]').value = order.large;
+        // document.querySelector('.update-form input[name="xlarge"]').value = order.xl;
+
+        document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
+        document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
+
+        document.querySelector('.update-form input[name="district"]').value =order.district;
+
+        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.image;
+
+
+        popupViewReply.style.display = "block";
+        document.body.style.overflow = "hidden";
+        sidebar.style.pointerEvents = "none";
+        nav.style.pointerEvents = "none";
+      
+  }
+}
+function closeViewReply(){
+    popupViewReply.style.display = "none";
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";

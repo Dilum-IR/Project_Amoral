@@ -20,11 +20,12 @@ class Quotation extends Controller
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
         
         $order = new Order;
+        $quotation_reply = new QuotationReply;
         
         if ($username != 'User') {
             $id = ['user_id' => $_SESSION['USER']->id];
-            $data= $order->where($id);
-            
+            $data['quotation']= $order->where($id);
+            $data['quotation_reply'] = $quotation_reply->getReplyDetails($id);
 
             // show($data);
             // show($id);            
@@ -85,7 +86,7 @@ class Quotation extends Controller
                     redirect('customer/quotation');
                 }
             
-            $errors = [];
+        
 
             $this->view('customer/quotation', $data);
 
@@ -97,9 +98,9 @@ class Quotation extends Controller
                 // show($_POST);
                 $order->insert($_POST);
                 redirect('customer/quotation');
-        }
+            }
 
-            $this->view('customer/quotation');
+            
         } else {
             redirect('home');
         }
