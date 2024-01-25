@@ -10,13 +10,14 @@ var selectedDecorations = [];
 // var defaultStrike = "none";
 var rootPath = "http://localhost/project_Amoral/public/assets/images/tool/";
 
+var colorPicker = document.getElementById("t-shirt-color-picker");
 
-function updateColorCode() {
-    var colorPicker = document.getElementById("t-shirt-color-picker");
-    var colorDisplay = document.getElementById("selected-color");
-    var selectedColorCode = colorPicker.value; //Get the selected color code from the color picker
-    colorDisplay.textContent = selectedColorCode; //Update the text content of the color display element
-
+function updateColorCode(){
+    colorPicker.addEventListener("input", function(){
+        var colorDisplay = document.getElementById("selected-color");
+        var selectedColorCode = colorPicker.value; //Get the selected color code from the color picker
+        colorDisplay.textContent = selectedColorCode; //Update the text content of the color display element
+    });
 }
 
 var tshirtType = '';
@@ -28,6 +29,10 @@ function updateTshirtType(newType) {
     tshirtImage.src = rootPath + newType;
     tshirtType = newType;
 }
+
+// tshirtDesign.addEventListener("change", function () {
+//     updateTshirtDesign.call(this, this.value);
+// }, false);
 
 function addTshirtText() {
     var tshirtText = document.getElementById("t-shirt-text").value;
@@ -111,7 +116,7 @@ function textFormat() {
 //     canvas.renderAll();
 // }
 
-var textColorPicker = document.getElementById("text-color");;
+var textColorPicker = document.getElementById("text-color");
 
 function changeTextColor() {
 
@@ -189,17 +194,17 @@ function updateTshirtDesign(imageURL) {
 
 var tshirtColor = document.getElementById("t-shirt-color-picker");
 var tshirtBackground = document.getElementById("t-shirt");
-var tshirtDesign = document.getElementById("t-shirt-design");
 var tshirtCustom = document.getElementById("t-shirt-custom-design");
 
 tshirtColor.addEventListener("input", function () {
     tshirtBackground.style.backgroundColor = this.value;
 }, false);
 
-// change tshirt design
-tshirtDesign.addEventListener("change", function () {
-    updateTshirtDesign.call(this, this.value);
-}, false);
+// change tshirt design from available designs
+// tshirtDesign.addEventListener("change", function () {
+//     updateTshirtDesign.call(this, this.value);
+// }, false);
+
 
 function changeTshirtColor(color) {
     tshirtBackground.style.backgroundColor = color;
@@ -225,12 +230,12 @@ function changeTshirtColor(color) {
         document.getElementById("navy").style.transform = 'scale(1)';
     }
 
-    if (color == "white") {
-        console.log("black");
-        document.getElementById("white").style.transform = 'scale(1.3)';
-    } else {
-        document.getElementById("white").style.transform = 'scale(1)';
-    }
+    // if (color == "white") {
+    //     console.log("black");
+    //     document.getElementById("white").style.transform = 'scale(1.3)';
+    // } else {
+    //     document.getElementById("white").style.transform = 'scale(1)';
+    // }
 
     if (color == "red") {
         console.log("black");
@@ -248,11 +253,43 @@ function changeTshirtColor(color) {
 
 }
 
+// upload an available design
+// tshirtDesign.addEventListener("change", function (e) {
+//     var readImage = new FileReader();
+//     console.log("file read")
+//     readImage.onload = function (event) {
+//         var imageObject = new Image();
+//         imageObject.src = event.target.result;
+//         // console.log("before image object");
+//         // create a new image in fabric.js when filereader loads an image
+//         imageObject.onload = function () {
+//             var newImage = new fabric.Image(imageObject);
+//             // console.log("image object");
+//             newImage.scaleToHeight(300);
+//             newImage.scaleToWidth(300);
+//             canvas.centerObject(newImage);
+//             canvas.add(newImage);
+//             canvas.renderAll();
+//         };
+//     }
+//     if (e.target.files[0]) {
+//         // console.log(" after image object");
+//         readImage.readAsDataURL(e.target.files[0]);
+//     }
+// }, false);
+
+var availableImages = document.querySelectorAll(".available-images");
+availableImages.forEach(function (image) {
+    image.addEventListener("click", function () {
+        var imageURL = this.src;
+        updateTshirtDesign(imageURL);
+    });
+});
 
 // upload a custom design
 tshirtCustom.addEventListener("change", function (e) {
     var readImage = new FileReader();
-
+    console.log("tshirtcustom");
     readImage.onload = function (event) {
         var imageObject = new Image();
         imageObject.src = event.target.result;
@@ -292,36 +329,42 @@ function downloadImage() {
 
 // remove image from canvas with CTRL+Z
 
-// document.addEventListener("keydown", function (e) {
-//     if ((e.ctrlKey || e.metaKey) && (e.key === 'z' || e.key === 'Z')) {
-//         console.log("pressed ctrl+z")
-//         canvas.remove(canvas.getActiveObject());
-//     }
-// }, false);
+document.addEventListener("keydown", function (e) {
+    var keyCode = e.keyCode;
+    if (keyCode == 46 || keyCode == 42) {
+        canvas.remove(canvas.getActiveObject());
+    }
+}, false);
 
 
 
 // change the color of text decorations icon after clicking
 
+function changeIconColor(iconId) {
+    var icon = document.getElementById(iconId);
+    var currentText;
+    console.log("icon")
 
-function changeIconColor(textDeco) {
-    if (lastText != null) {
-       
-        console.log("text icon color");
-     
+    // if(currentText != lastText){
+    //     icon.classList.remove('drop-shadow')
+    // }
 
-        if(textDeco == "bold"){
-            document.getElementById("text-format-icons-bold").style.backgroundColor = 'red';
-        }
-        if(textDeco == "italic"){
-            document.getElementById("text-format-icons-italic").style.backgroundColor = 'red';
-        }
-        if(textDeco == "underline"){
-            document.getElementById("text-format-icons-underline").style.backgroundColor = 'red';
-        }
-        if(textDeco == "line-through"){
-            document.getElementById("text-format-icons-line-through").style.backgroundColor = 'red';
-        }
+    if ((lastText != null)) {
+        currentText = lastText
+        icon.classList.toggle('drop-shadow');
     }
-
+    // console.log(currentText)
+    console.log(lastText)
 }
+
+// download icon animation flip
+
+function animateDownload() {
+    const icon = document.getElementById('download-icon');
+    icon.classList.add('rotate');
+
+    // Reset the rotation after 300ms
+    setTimeout(() => {
+      icon.classList.remove('rotate');
+    }, 500);
+  }

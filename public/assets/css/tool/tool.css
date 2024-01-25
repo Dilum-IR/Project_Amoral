@@ -1,13 +1,13 @@
-:root{
-    --color-default:#191919;
-    --color-second:#333333;
-    --color-white:#fff;
-    --color-gray-one:#4C4C4C;
-    --color-gray-two:#B3B3B3;
-    --color-gray-three:#E6E6E6;
-    --color-light:#E6E6E6;
-    --color-red:#ff0000;
-  }
+:root {
+    --color-default: #191919;
+    --color-second: #333333;
+    --color-white: #fff;
+    --color-gray-one: #4C4C4C;
+    --color-gray-two: #B3B3B3;
+    --color-gray-three: #E6E6E6;
+    --color-light: #E6E6E6;
+    --color-red: #ff0000;
+}
 
 * {
     padding: 0%;
@@ -17,7 +17,7 @@
 }
 
 .desgin-tool-main {
-    position: fixed;
+    position: relative;
     top: 70px;
     width: 100%;
     background-color: var(--color-light);
@@ -35,7 +35,7 @@
     /* background-color: greenyellow; */
 }
 
-.t-shirt-image{
+.t-shirt-image {
     border-radius: 25px;
 }
 
@@ -45,14 +45,21 @@
     align-items: center;
     /* justify-content: center; */
     gap: 17px;
+    padding: 10px;
     /* background-color: rgb(255, 255, 255); */
+}
+
+.t-shirt-icon{
+    background-color: #ff0000;
 }
 
 .t-shirt-section{
     margin-left: 0px;
-}
+    align-items: center;
+    z-index: 1;
+} 
 
-.text-section{
+.text-section, .t-shirt-section {
     background-color: white;
     padding: 15px;
     border-radius: 25px;
@@ -63,7 +70,7 @@
     display: flex;
     gap: 11px;
     /* background-color: red; */
-    margin-top: 8px;
+    /* margin-top: 8px; */
 }
 
 .color-circle {
@@ -157,7 +164,7 @@
     border: 1px solid black;
 }
 
-#t-shirt-text{
+#t-shirt-text {
     border: 2px solid grey;
     border-radius: 25px;
     padding: 10px;
@@ -170,18 +177,24 @@
     color: #191919;
 }
 
-#t-shirt-text::placeholder{
+#t-shirt-text::placeholder {
     color: #33333392;
 }
 
-#t-shirt-text:focus{
+#t-shirt-text:focus {
     box-shadow: 0px 3px 1px rgb(0 0 0 / 33%);
 }
 
-#add-text-button{
+.text-add-and-text-box {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+#add-text-button {
     font-size: 16px;
     width: 80px;
-    height: 40px; 
+    height: 40px;
     background-color: black;
     border-radius: 25px;
     border-style: none;
@@ -189,7 +202,7 @@
     color: white;
 }
 
-#add-text-button:hover{
+#add-text-button:hover {
     background-color: white;
     color: black;
     border-style: solid;
@@ -198,13 +211,14 @@
     text-decoration: underline;
 }
 
-.font-change{
+.font-change {
     display: flex;
     gap: 20px;
+    padding: 10px;
     align-items: center;
 }
 
-.text-font{
+.text-font {
     border: 2px solid grey;
     border-radius: 25px;
     padding: 10px;
@@ -214,33 +228,215 @@
     outline: none;
     transition: box-shadow 0.3s ease;
     background-color: white;
-    color: #191919; 
+    color: #191919;
 }
 
-.text-format{
+.text-format {
     display: flex;
-    gap: 25px;
-}
-
-.text-format i{
-    font-size: 40px;
+    gap: 49px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .text-format i {
-    font-size: 40px;
-    color: white;
+    font-size: 30px;
+}
+
+.text-format i {
+    font-size: 30px;
+    color: black;
 }
 
 
-.text-format-icons{
-    height: 40px;
-    border-radius: 25px;
-    width: 40px;
-    background-color: #4C4C4C;
+.text-format-icons {
+    height: 3%;
+    border-radius: 0px;
+    width: 30px;
+    /* padding: 10px; */
+    background-color: white;
+    border-radius: 5px;
     align-items: center;
     justify-content: center;
+
 }
+
+.text-format-icons.drop-shadow {
+    box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.499);
+    background-color: #B3B3B3;
+}
+
 
 /* .text-format-icons {
     background-color: black;  
 } */
+
+.t-shirt-text-color, .t-shirt-color-picker-select {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 10px;
+}
+
+#text-color, .t-shirt-color-picker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 91px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.t-shirt-color-picker::-webkit-color-swatch {
+    border-radius: 15px;
+    border: none;
+}
+
+#text-color::-webkit-color-swatch {
+    border-radius: 15px;
+    border: none;
+}
+
+#text-color::-moz-color-swatch {
+    border-radius: 15px;
+    border: none;
+}
+
+#download-button {
+    width: 100%;
+    display: flex;
+    gap: 25px;
+    padding: 15px 15px;
+    font-size: 16px;
+    background-color: var(--color-second);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+#download-icon {
+    transition: transform 0.3s ease;
+    border-color: #E6E6E6;
+    font-size: 20px;
+
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.text-editor{
+    align-items: center;
+    z-index: 1;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.t-shirt-label {
+    position: relative;
+    color: #191919;
+    /* font-family: "Poppins", sans-serif; */
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 2px solid #191919;
+    padding: 10px 10px;
+    border-radius: 20px;
+    height: 40px;
+}
+
+.t-shirt-label::before {
+    content: "";
+    height: 15px;
+    width: 15px;
+    border: 3px solid #191919;
+    border-radius: 25px;
+    margin-right: 5px;
+}
+
+.select-side:checked + .t-shirt-label::before {
+    height: 15px;
+    width: 15px;
+    border: 3px solid #ffffff;
+    background-color: #191919;
+}
+
+.select-side:checked + .t-shirt-label {
+    background-color: #191919;
+    color: #ffffff;
+}
+
+.t-shirt-color-select{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+#t-shirt-custom-design {
+    display: none;
+  }
+
+  .upload-button-label {
+    display: flex;
+    gap: 15px;
+    padding: 15px 15px;
+    font-size: 16px;
+    background-color: var(--color-second);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.7); */
+    align-items: center;
+    justify-content: center;
+  }
+
+  #upload-button-icon {
+    margin-right: 5px;
+    font-size: 20px;
+  }
+
+  /* #t-shirt-custom-design:hover + .upload-button-label {
+    background-color: var(--color-second);
+  } */
+
+  .t-shirt-front-back{
+    display: flex;
+    padding: 10px;
+  }
+
+  .custom-designs {
+    width: 323px;
+    height: 200px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .available-designs {
+    margin-bottom: 10px; /* Add some margin between each image container */
+
+  }
+
+  .available-images {
+    width: 40%; /* Make the image fill its container */
+    height: auto; /* Maintain the aspect ratio */
+    margin: 14px;
+  }

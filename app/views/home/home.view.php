@@ -46,7 +46,7 @@
                 </div> -->
 
         <div class="main-img">
-            <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/fullscreen-image-1.jpg">
+            <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover.jpg">
             <!-- <img class="welcome-img" src="3.jpg">
                     <img class="welcome-img" src="2.jpg">
                     <img class="welcome-img" src="1.jpg"> -->
@@ -86,10 +86,10 @@
             <div class="slide-text">
                 Welcome to Amoral, your ultimate destination for personalized style! Dive into a seamless design experience on our platform, where you can effortlessly create, print, and order custom t-shirts that reflect your individuality. Let your imagination run wild as you embark on a journey of self-expression with Amoral.
                 <div class="sign-up-text">
-                <a class="sign-up-box" href="<?= ROOT ?>/signin">
+                    <!-- <a class="sign-up-box" href="<?= ROOT ?>/signin">
                         <i class='bx bxs-user icon'></i>
                         Sign In
-                    </a>
+                    </a> -->
                     <a class="sign-up-box" href="<?= ROOT ?>/signup">
                         <i class='bx bxs-user icon'></i>
                         Sign Up
@@ -120,7 +120,9 @@
 
         <div class="design-tool">
             <div class="tool-description">
-                Revamp your T-shirt collection effortlessly on your own, an online tool that lets you add personalized designs to your favorite tees with a simple drag-and-drop interface.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Revamp your T-shirt collection effortlessly on your own, an online tool that lets you add personalized designs to your favorite tees with a simple drag-and-drop interface.
+                <br>
+                <br>
                 <button class="design-tool-button">Start Designing</button>
             </div>
 
@@ -168,7 +170,7 @@
                 <div class="services-tab">
                     Custom T-Shirt Printing
                     <div class="service-description">Choose from a variety of t-shirt styles, colors, and sizes, and let your creativity run wild. Whether it's a single personalized t-shirt or a bulk order for an event, we ensure vibrant prints that stand out.
-</div>
+                    </div>
                 </div>
                 <div class="services-tab">
                     Design Your Own T-Shirt

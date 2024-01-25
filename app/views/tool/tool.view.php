@@ -31,17 +31,16 @@
             </select> -->
 
             <br>
-            <br>
 
             <div class="t-shirt-front-back">
                 <p>Side</p>
                 <div>
                     <input class="select-side" type="radio" name="t-shirt-side" id="t-shirt-front" value="front-side" checked onclick="updateTshirtSide()">
-                    <label for="t-shirt-front">Front</label>
+                    <label class="t-shirt-label" for="t-shirt-front">Front</label>
                 </div>
                 <div>
                     <input class="select-side" type="radio" name="t-shirt-side" id="t-shirt-back" value="back-side" onclick="updateTshirtSide()">
-                    <label for="t-shirt-back">Back</label>
+                    <label class="t-shirt-label" for="t-shirt-back">Back</label>
                 </div>
             </div>
             <!-- <label for="t-shirt-side">Select Side</label>
@@ -51,43 +50,53 @@
             </select> -->
 
             <br>
-            <br>
 
-            <label for="t-shirt-color-picker">T-Shirt Color</label>
-            <div class="t-shirt-color-preset">
-                <div onclick="changeTshirtColor('black')" class="color-circle" id="black"></div>
-                <div onclick="changeTshirtColor('blue')" class="color-circle" id="blue"></div>
-                <div onclick="changeTshirtColor('#000435')" class="color-circle" id="navy"></div>
-                <div onclick="changeTshirtColor('white')" class="color-circle" id="white"></div>
-                <div onclick="changeTshirtColor('red')" class="color-circle" id="red"></div>
-                <div onclick="changeTshirtColor('green')" class="color-circle" id="green"></div>
+            <div class="t-shirt-color-select">
+                <label for="t-shirt-color-picker">T-Shirt Color</label>
+                <div class="t-shirt-color-preset">
+                    <div onclick="changeTshirtColor('black')" class="color-circle" id="black"></div>
+                    <div onclick="changeTshirtColor('blue')" class="color-circle" id="blue"></div>
+                    <div onclick="changeTshirtColor('#000435')" class="color-circle" id="navy"></div>
+                    <div onclick="changeTshirtColor('red')" class="color-circle" id="red"></div>
+                    <div onclick="changeTshirtColor('green')" class="color-circle" id="green"></div>
+                </div>
             </div>
-            <input type="color" id="t-shirt-color-picker" class="t-shirt-color-picker" onchange="updateColorCode()">
-            <div>Selected Color : <span id="selected-color">#000000</span></div>
-
-
             <br>
+            <div class="t-shirt-color-picker-select">
+                <input type="color" id="t-shirt-color-picker" class="t-shirt-color-picker" onchange="updateColorCode()">
+                <div>Selected Color : <span id="selected-color">#000000</span></div>
+            </div>
             <br>
 
             <label for="t-shirt-design">Select a Design</label>
-            <select name="" id="t-shirt-design">
+            <!-- <select name="" id="t-shirt-design">
                 <option value=""></option>
                 <option value="batman.png">Logo</option>
-                <!-- <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option> -->
-            </select>
+            </select> -->
 
+            <div class="custom-designs">
+                <div class="available-designs" id="available-designs">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                </div>
+            </div>
             <br>
             <br>
 
-            <label for="t-shirt-custom-design">Upload an Image</label>
             <input type="file" name="" id="t-shirt-custom-design" accept="image/png">
-            <br>
-            <br>
+            <label class="upload-button-label" for="t-shirt-custom-design"><i id="upload-button-icon" class='bx bx-upload'></i>Upload a Design</label> 
         </div>
 
         <div class="design-section">
@@ -111,7 +120,7 @@
                 <br>
                 <div class="font-change">
                     <!-- <label id="font-lable" for="text-font">Font</label> -->
-                    <div>Font</div>
+                    <div>Font Style</div>
                     <select name="" class="text-font" id="text-font" onchange="changeFont()">
                         <option value="Arial" style="font-family: Arial; font-weight: bolder; font-size: 16px;">Arial</option>
                         <option value="Verdana" style="font-family: Verdana; font-weight: bolder; font-size: 16px;">Verdana</option>
@@ -141,16 +150,16 @@
                 </div>
                 <br>
                 <div class="text-format">
-                    <div class="text-format-icons" id="text-format-icons-bold" onclick="changeIconColor('bold')">
+                    <div class="text-format-icons" id="text-format-icons-bold" onclick="changeIconColor('text-format-icons-bold')">
                         <i type="format" class='bx bx-bold' id="text-bold" value="bold" onclick="changeFormat('bold')"></i>
                     </div>
-                    <div class="text-format-icons" id="text-format-icons-italic" onclick="changeIconColor('italic')">
+                    <div class="text-format-icons" id="text-format-icons-italic" onclick="changeIconColor('text-format-icons-italic')">
                         <i type="format" class='bx bx-italic' id="text-italic" value="italic" onclick="changeFormat('italic')"></i>
                     </div>
-                    <div class="text-format-icons" id="text-format-icons-underline" onclick="changeIconColor('underline')">
+                    <div class="text-format-icons" id="text-format-icons-underline" onclick="changeIconColor('text-format-icons-underline')">
                         <i type="format" class='bx bx-underline' id="text-underline" value="underline" onclick="changeDecoration('underline')"></i>
                     </div>
-                    <div class="text-format-icons" id="text-format-icons-line-through" onclick="changeIconColor('line-through')">
+                    <div class="text-format-icons" id="text-format-icons-line-through" onclick="changeIconColor('text-format-icons-line-through')">
                         <i type="format" class='bx bx-strikethrough' id="text-strike" value="strike" onclick="changeDecoration('line-through')"></i>
                     </div>
                 </div>
@@ -163,14 +172,12 @@
                 <div class="t-shirt-text-color">
                     <label for="text-color">Text Color</label>
                     <input type="color" id="text-color" value="#000000" onchange="changeTextColor()">
-                    <div>Selected Color : <span id="selected-text-color">#000000</span></div>
+                    <div>Color : <span id="selected-text-color">#000000</span></div>
                 </div>
-
-                <br>
-                <br>
             </div>
 
-            <button id="download-button" onclick="downloadImage()">Download Design</button>
+            <br>
+            <button id="download-button" onclick="downloadImage() ; animateDownload()"> Download Design <i id="download-icon" class='bx bx-download'></i> </button>
         </div>
 
     </div>
