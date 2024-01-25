@@ -193,7 +193,7 @@
                     <div class="input-box sizes">
                     <span class="details">Sizes & Quantity</span><br>
                     <div class="sizeChart">
-                        <span class="size">S</span>
+                        <!-- <span class="size">S</span>
                     
                         <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
                         <button class="removeSize">x</button>
@@ -214,11 +214,26 @@
                                 event.preventDefault();
                                 
                             });
-                       </script>
+                       </script> -->
+
+                       <span class="size">S</span>
+                        
+                        <input class="st" type="number" id="quantity" name="small"  min="0" >
+                        <br>
+                        <span class="size">M</span>
+                        <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                        <br>
+                        <span class="size">L</span>
+                        <input class="st" type="number" id="quantity" name="large"  min="0">
+                        <br>
 
                     </div>
                     </div>
+                    <!-- <div class="input-box">
+                    </div> -->
                     <div class="input-box">
+                        <span class="details">Unit Price</span>
+                        <input name="unit_price" type="text" required onChange="" readonly value="" />
                     </div>
                     <div class="input-box">
                         <span class="details">Total Price</span>
@@ -287,17 +302,36 @@
                     <input name="longitude" type="hidden" required />
                 </div>
 
-
-                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
                 <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
-                <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
-                <!-- </form> -->
-
-
+                <button type="button" class="cancel-btn pb">Cancel Order</button>
+                
             </form>
         </div>
     </div>
 
+
+
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to cancel this order?</p>
+            <div class="cd-buttons">
+                <a href="">Yes</a>
+                <a href="">No</a>
+            </div>
+            
+        </div> 
+    </div> 
+
+    <div class="cu-popup" role="alert">
+        <div class="cu-popup-container">
+            <p>Are you sure you want to update this order?</p>
+            <div class="cu-buttons">
+                <input type="button" class="yes"  value="Yes"/>
+                <input type="button" class="no" value="No"/>
+            </div>
+            
+        </div> 
+    </div> 
 
 
     

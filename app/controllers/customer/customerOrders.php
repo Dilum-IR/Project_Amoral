@@ -16,11 +16,11 @@ class CustomerOrders extends Controller
             show($id);
             $data = $order->where($id);
 
-            // show($data);
+            show($_POST);
 
             if (isset($_POST['updateOrder'])){
                 $order_id = $_POST['order_id'];
-                
+                unset($_POST['total_price']);
                 unset($_POST['updateOrder']);
                 $arr = $_POST;
                 if (isset($arr)){
