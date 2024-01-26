@@ -16,6 +16,7 @@ closeViewBtn.addEventListener("click", closeView);
 closeReplyBtn.addEventListener("click", closeViewReply);
 closeNewBtn.addEventListener("click", closeNew);
 
+//search tables
 const search = document.querySelector(".form input"),
         table_rows = document.querySelectorAll("tbody tr");
 
@@ -236,13 +237,15 @@ function closeNew(){
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
+
+    document.querySelector(".new-form").reset();
 }
 
 var map;
 var marker;
 var infowindow;
 var circle;
-function initMap() {
+async function initMap() {
 
 
         map.addListener('click', function(event) {
@@ -294,3 +297,5 @@ function initMap() {
     
 
 }
+
+initMap();

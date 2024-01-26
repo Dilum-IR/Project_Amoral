@@ -330,7 +330,7 @@ transition: all 0.3s ease-in-out;
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.7);
 }
 
 .popup-content {
@@ -733,9 +733,64 @@ button.pay:hover {
   margin-top: -125px;
 }
 
-.popup-new .input-box.location{
-  margin-top: -85px;
+.add.card .left {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  margin-left: 40%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  color: #000000aa;
+  transition: all 0.5s ease-in-out;
 }
+
+.add.card .left:hover{
+  color: #000000;
+}
+
+i.fas.fa-minus {
+  position: relative;
+  right: 25px;
+  color: red;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+hr.first {
+  border-top: 1px dashed #911515;
+  border-bottom: none;
+}
+hr.second {
+  height: 2px;
+  background-color: #000;
+  border: none;
+  margin: 5px;
+}
+
+
+.radio-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 20px 47% 20px 36%;
+  align-items: center;
+}
+
+.radio-btns input[type="radio"]:checked + label {
+  color: #000; 
+}
+
+.radio-btns input[type="radio"]:not(:checked) + label {
+  color: #999; 
+}
+
+.radio-btns label {
+  cursor: pointer;
+}
+
+/* .popup-new .input-box.location{
+  margin-top: -85px;
+} */
 
 
 .popup-view .pb,
@@ -798,3 +853,18 @@ button.pay:hover {
   }
 } */
 
+
+/* new quotation pick up or delivery */
+
+.pickup,
+.delivery{
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.2s ease-in-out, height 2s ease;
+}
+
+.is-checked{
+  opacity: 1;
+  height: auto;
+  transition: opacity 1.3s ease-in-out, height 0.8s ease;
+}

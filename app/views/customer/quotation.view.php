@@ -176,9 +176,10 @@
         <div class="popup-content">
         <span class="close">&times;</span>
         <h2>New Quotation Request</h2>
+        
         <form class="new-form" method="POST">
+            
                 <div class="user-details">
-
                     <div class="input-box">
                         <span class="details">Material </span>
                         <select name="material">
@@ -192,22 +193,24 @@
                     <div class="input-box sizes">
                         <span class="details">Sizes & Quantity</span>
                         <div class="sizeChart">
+                            <span class="size">XS</span>
+                            <input class="st" type="number" id="quantity" name="xs"  min="0" >
+                            <br>
                             <span class="size">S</span>
-                        
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <input class="st" type="number" id="quantity" name="small"  min="0" >
                             <br>
                             <span class="size">M</span>
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
+                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
                             <br>
                             <span class="size">L</span>
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                                <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
-                                <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                                <br>
+                            <input class="st" type="number" id="quantity" name="large"  min="0">
+                            <br>
+                            <span class="size">XL</span>
+                            <input class="st" type="number" id="quantity" name="xl"  min="0">
+                            <br>
+                            <span class="size">2XL</span>
+                            <input class="st" type="number" id="quantity" name="2xl"  min="0">
+                            <br>
                         </div>
                     </div>
 
@@ -215,9 +218,125 @@
                         <span class="details">Design</span>
                         <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload">
                     </div>
+                
+                </div>
 
+                <hr class="first">
+
+                <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4>
+
+                <div class="add card">
+     
+                    <div class="left">
+                        <i class='bx bxs-plus-circle'></i>
+                        <h4>Add a material</h4>
+                    </div>
                     
+                </div>
 
+                <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin-left: 38px;">
+
+                <hr>
+                <div class="radio-btns">
+                    <input type="radio" id="pickup" name="deliveryOption" value="Pick Up">
+                    <label for="pickup">Pick Up</label>
+
+                    <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
+                    <label for="delivery">Delivery</label>
+                </div>
+
+                <div class="user-details pickup">
+                    <div class="input-box">
+                        <span class="details">Pick Up Date</span>
+                    
+                        <input type="date" name="dispatch_date">
+                    </div>
+                </div>
+
+                <script>
+                    //toggle delivery options
+                    let delivery = document.getElementById("delivery");
+                    let pickUp = document.getElementById("pickup");
+
+
+                    pickUp.addEventListener('click', togglePickUp);
+                    delivery.addEventListener('click', toggleDelivery);
+
+                    function togglePickUp(){
+                        
+                        document.querySelector(".user-details.pickup").classList.add("is-checked");
+                        document.querySelector(".user-details.delivery").classList.remove("is-checked");
+                        
+                    }
+
+                    function toggleDelivery(){
+                        document.querySelector(".user-details.delivery").classList.add("is-checked");
+                        document.querySelector(".user-details.pickup").classList.remove("is-checked");
+                    }
+                </script>
+
+                <script>
+                        let addMaterial = document.querySelector(".add.card");
+
+                        function addMaterialCard() {
+                            var newCard = document.createElement("div");
+                            newCard.className = "user-details";
+
+                            
+                            newCard.innerHTML = `
+                            <i class="fas fa-minus remove"></i>
+                                <div class="input-box">
+                                    <span class="details">Material </span>
+                                    <select name="material">
+                                        <option value="Crocodile">Crocodile</option>
+                                        <option value="Wetlook">Wetlook</option>
+                                        <option value="Baby Crocodile">Baby Crocodile</option>
+                                    </select>
+                                    
+                                </div>
+
+                                <div class="input-box sizes">
+                                    <span class="details">Sizes & Quantity</span>
+                                    <div class="sizeChart">
+                                        <span class="size">XS</span>
+                                        <input class="st" type="number" id="quantity" name="xs"  min="0" >
+                                        <br>
+                                        <span class="size">S</span>
+                                        <input class="st" type="number" id="quantity" name="small"  min="0" >
+                                        <br>
+                                        <span class="size">M</span>
+                                        <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                                        <br>
+                                        <span class="size">L</span>
+                                        <input class="st" type="number" id="quantity" name="large"  min="0">
+                                        <br>
+                                        <span class="size">XL</span>
+                                        <input class="st" type="number" id="quantity" name="xl"  min="0">
+                                        <br>
+                                        <span class="size">2XL</span>
+                                        <input class="st" type="number" id="quantity" name="2xl"  min="0">
+                                        <br>
+                                    </div>
+                                </div>
+                            `;
+
+                      
+                            document.querySelector(".add.card").before(newCard);
+
+                            let removeCard = newCard.querySelector("i");
+                            removeCard.addEventListener('click', function(){
+                                newCard.remove();
+                            });
+
+                        }
+
+                        addMaterial.addEventListener('click', addMaterialCard);
+
+
+
+                    </script>
+
+                <div class="user-details delivery">
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     
@@ -360,21 +479,17 @@
                       
                             <span class="size">S</span>
                         
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                             <input class="st" type="number" id="quantity" name="small"  min="0" >
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
                             <span class="size">M</span>
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                             <input class="st" type="number" id="quantity" name="medium"  min="0" >
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
                             <span class="size">L</span>
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
                             <input class="st" type="number" id="quantity" name="large"  min="0">
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
                             <br>
-
+                            <span class="size">XL</span>
+                            <input class="st" type="number" id="quantity" name="xl"  min="0">
+                            <br>
 
                         </div>
                     </div>
@@ -515,6 +630,7 @@
                                 
                         </div>
                     </div>
+                    
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     

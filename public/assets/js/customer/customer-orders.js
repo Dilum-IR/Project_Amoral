@@ -273,7 +273,7 @@ var map;
 var marker;
 var infowindow;
 var flag = true;
-function initMap() {
+async function initMap() {
     map = document.getElementById('map');
 
     map.addEventListener('mouseover', function () {
@@ -348,3 +348,5 @@ function initMap() {
     });
 
 }
+
+initMap();
