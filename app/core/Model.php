@@ -22,13 +22,63 @@ trait Model
         // run the quary stage
         return $this->quary($quary);
     }
+    public function findAll_selectedColumn($order_column = 'id')
+    {
+        $quary = "SELECT ";
 
-    public function first($data, $data_not = [])
+        foreach ($this->allowedCloumns as $key) {
+            $quary .= $key . ",";
+        }
+        $quary = trim($quary, ",");
+
+        $quary .= " FROM $this->table ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
+
+    public function first($data,$order_column = "id" , $orderType= 'ASC',$data_not = [])
     {
 
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
         $quary = "SELECT * FROM $this->table WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " && ";
+        }
+        foreach ($keys_not as $key) {
+            $quary .= $key . " != :" . $key . " && ";
+        }
+
+        $quary = trim($quary, " && ");
+        $quary .= " ORDER BY $order_column $orderType limit $this->limit offset $this->offset";
+
+        // echo $quary;
+
+        $data = array_merge($data, $data_not);
+        // run the quary stage
+        $result = $this->quary($quary, $data);
+        if ($result) {
+
+            return $result[0];
+        }
+        return false;
+    }
+    public function first_selectedColumn($data, $data_not = [])
+    {
+
+        $keys = array_keys($data);
+        $keys_not = array_keys($data_not);
+        $quary = "SELECT ";
+
+        foreach ($this->allowedCloumns as $key) {
+            $quary .= $key . ",";
+        }
+        $quary = trim($quary, ",");
+
+        $quary .= " FROM $this->table WHERE ";
 
         foreach ($keys as $key) {
             $quary .= $key . " = :" . $key . " && ";
@@ -150,6 +200,82 @@ trait Model
 
         $data = array_merge($data, $data_not);
         // run the quary stage
+        return $this->quary($quary, $data);
+    }
+
+    public function findAll_withInner($reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+
+        $quary = "SELECT * FROM $this->table JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
+
+    // FIND DATA USING INNER JOIN
+    public function find_withInner($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+        $keys = array_keys($data);
+
+        $quary = "SELECT * FROM $this->table JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " AND ";
+        }
+        $quary = trim($quary, " AND ");
+
+        $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        echo $quary;
+        // run the quary stage
+        return $this->quary($quary, $data);
+    }
+
+    // FIND DATA USING LEFT OUTER JOIN
+    public function find_withLOJ($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+        $keys = array_keys($data);
+
+        $quary = "SELECT * FROM $this->table LEFT OUTER JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " AND ";
+        }
+        $quary = trim($quary, " AND ");
+
+        $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        echo $quary;
+        // run the quary stage
+        return $this->quary($quary, $data);
+    }
+
+    // FIND DATA USING RIGHT OUTER JOIN
+    public function find_withROJ($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+        $keys = array_keys($data);
+
+        $quary = "SELECT * FROM $this->table LEFT OUTER JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " AND ";
+        }
+        $quary = trim($quary, " AND ");
+
+        $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        echo $quary;
+        // run the quary stage
+
         return $this->quary($quary, $data);
     }
 }

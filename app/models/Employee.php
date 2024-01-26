@@ -9,12 +9,12 @@ class Employee
 
 	protected $allowedCloumns = [
 
+		'emp_id',
 		'emp_name',
 		'email',
-		'password',
 		'contact_number',
-		'address',
 		'emp_status',
+		'emp_image'
 	];
 
 	public function validate($data)

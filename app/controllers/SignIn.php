@@ -2,6 +2,7 @@
 
 class SignIn extends Controller
 {
+    // use Auth;
 
     public function index()
     {
@@ -88,12 +89,22 @@ class SignIn extends Controller
                         } else {
                             // popup seccess msg
 
+
+                            // genarate token
+                            // $token = $this->generateToken();
+
+                            // $data['token'] = $token;
+                            // $this->updateUserToken($row->id, $data, 'id', $user);
+
                             // create session variable
                             session_start();
                             $_SESSION['USER'] = $row;
-
+                            // $_SESSION['user_token'] = $token;
+                            $_SESSION['token_expiry'] = time() + (60 * 30);
+                            
                             // check session user
                             $username  = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
 
                             $msg = "Sign In Successfull";
                             $success = 'flag=' . 0 . '&success=' . $msg . '&success_no=' . 2;
@@ -223,7 +234,7 @@ class SignIn extends Controller
 
                     $response = $user->insert($POST);
 
-                    
+
                     // save user email in another table for chat with users
                     $all_users = new AllUsers();
                     $arr['email'] = $_POST['email'];
@@ -244,7 +255,6 @@ class SignIn extends Controller
 
                         redirect("verify?$msg");
                         exit;
-                        
                     } else if (!$res) {
                         $hashMail = password_hash($POST['email'], PASSWORD_DEFAULT);
 

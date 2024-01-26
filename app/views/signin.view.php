@@ -211,7 +211,6 @@
     $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
     $success_msg = htmlspecialchars($_GET['success'] ?? '');
 
-
     ?>
 
     <script>

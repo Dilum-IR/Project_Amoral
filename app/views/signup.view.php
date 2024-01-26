@@ -99,7 +99,7 @@
 
 
                                 </div>
-                                <input type="submit" name="signIn" value="SignIn" class="sign-btn">
+                                <input type="submit" name="signIn" value="SignIn" class="sign-btn" accesskey="enter">
                                 <p class="text">
                                     Forget your password or your login details?
                                     <a href="#" id="help" class="toggle-1">Get Help</a> Signing in
