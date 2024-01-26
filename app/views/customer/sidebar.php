@@ -11,7 +11,7 @@
         <ul class="nav-list">
             <li>
 
-                <a href="<?=ROOT?>/customer/overview">
+                <a href="<?=ROOT?>/customer/overview" class="nav-link">
 
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
@@ -19,44 +19,41 @@
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-                <a href="<?= ROOT ?>/customer/orders">
-                    <i class="bx bxs-cart-alt"></i>
+                <a href="<?= ROOT ?>/customer/orders" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i>
                     <span class="link_name">Orders</span>
                 </a>
                 <span class="tooltip">Orders</span>
             </li>
             <li>
-                <a href="<?=ROOT ?>/customer/quotation">
-                    <i class="bx bxs-cart-alt"></i>
+                <a href="<?=ROOT ?>/customer/quotation" class="nav-link">
+                    <i class="fas fa-exchange-alt"></i>
                     <span class="link_name">Quotation Requests</span>
                 </a>
                 <span class="tooltip">Quotation Requests</span>
             </li>
             <li>
-                <a href="#">
+                <a href="#" class="nav-link">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Design Tool</span>
                 </a>
                 <span class="tooltip">Design Tool</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/customer/profile">
+                <a href="<?=ROOT?>/customer/profile" class="nav-link">
                     <i class="bx bxs-user-circle"></i>
                     <span class="link_name">Profile</span>
                 </a>
                 <span class="tooltip">Profile</span>
             </li>
-            <li class="profile">
-                <a href="<?= ROOT ?>/logout">
+            <li class="logout">
+                <a href="<?= ROOT ?>/logout" class="nav-link logout">
+                    <span class="link_name">Log Out</span>
                     <i class="bx bx-log-out" id="log_out"></i>
                 </a>
-                <div class="profile_details">
-                    <img src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="profile image">
-                   
-                    <div class="profile_content">
-                        <div class="name">Elon Musk</div>
-                    </div>
-                </div>
+                <span class="tooltip">Logout</span>
             </li>
         </ul>
     </div>
+
+    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>

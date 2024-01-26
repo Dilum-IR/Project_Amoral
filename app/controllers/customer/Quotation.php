@@ -20,7 +20,7 @@ class Quotation extends Controller
                 show($_POST);
                 $order->insert($_POST);
                 redirect('customer/quotation');
-            }
+        }
 
             $this->view('customer/quotation');
             
