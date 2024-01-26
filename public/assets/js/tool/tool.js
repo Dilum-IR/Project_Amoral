@@ -368,3 +368,4 @@ function animateDownload() {
       icon.classList.remove('rotate');
     }, 500);
   }
+

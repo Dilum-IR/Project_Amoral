@@ -45,24 +45,67 @@
 
                 </div> -->
 
-        <div class="main-img">
-            <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover.jpg">
-            <!-- <img class="welcome-img" src="3.jpg">
-                    <img class="welcome-img" src="2.jpg">
-                    <img class="welcome-img" src="1.jpg"> -->
+        <!-- <div class="main-img">
 
+            <div class="home-image-slider">
+                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_1.jpg">
+            </div>
+            <div class="home-image-slider">
+                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_2.jpg">
+            </div>
+            <div class="home-image-slider">
+                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_3.jpg">
+            </div>
+            <div class="home-image-slider">
+                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_4.jpg">
+            </div>
+      
             <h3 class="brand-name" data-text="AMORAL...">AMORAL...</h3>
 
-            <!-- <div class="main-text">
-                <div class="welcome-text">
-                    Welcome to Amoral, your ultimate destination for personalized style! Dive into a seamless design experience on our platform, where you can effortlessly create, print, and order custom t-shirts that reflect your individuality. Let your imagination run wild as you embark on a journey of self-expression with Amoral.
-                </div>
+        </div> -->
+         <!--image slider start-->
+  <div class="main-slider">
+    <div class="main-slides">
+      <!--radio buttons start-->
+      <input type="radio" name="radio-btn" id="radio1">
+      <input type="radio" name="radio-btn" id="radio2">
+      <input type="radio" name="radio-btn" id="radio3">
+      <input type="radio" name="radio-btn" id="radio4">
+      <!--radio buttons end-->
 
-            </div> -->
+      <!--slide images start-->
+      <div class="main-slide first">
+        <img src="<?= ROOT ?>/assets/images/home/home_cover_1.jpg" alt="">
+      </div>
+      <div class="main-slide">
+        <img src="<?= ROOT ?>/assets/images/home/home_cover_2.jpg" alt="">
+      </div>
+      <div class="main-slide">
+        <img src="<?= ROOT ?>/assets/images/home/home_cover_3.jpg" alt="">
+      </div>
+      <div class="main-slide">
+        <img src="<?= ROOT ?>/assets/images/home/home_cover_4.jpg" alt="">
+      </div>
+      <!--slide images end-->
 
-
-
-        </div>
+      <!--automatic navigation start-->
+      <div class="main-navigation-auto">
+        <div class="auto-btn1"></div>
+        <div class="auto-btn2"></div>
+        <div class="auto-btn3"></div>
+        <div class="auto-btn4"></div>
+      </div>
+      <!--automatic navigation end-->
+    </div>
+    <!--manual navigation start-->
+    <div class="main-navigation-manual">
+      <label for="radio1" class="manual-btn"></label>
+      <label for="radio2" class="manual-btn"></label>
+      <label for="radio3" class="manual-btn"></label>
+      <label for="radio4" class="manual-btn"></label>
+    </div>
+    <!--manual navigation end-->
+  </div>
 
 
         <div class="slide-images">
@@ -266,7 +309,6 @@
         <!--main-content-->
     </footer>
     <script src="<?= ROOT ?>/assets/js/home/home.js"></script>
-
 </body>
 
 </html>

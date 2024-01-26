@@ -1605,3 +1605,93 @@ footer {
     margin: 5px 0;
   }
 }
+
+.main-slider {
+  margin-top: -2px;
+  /* width: 100vw; */
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-slides {
+  width: 400%;
+  height: 100%;
+  display: flex;
+}
+
+.main-slide {
+  width: 25%;
+  transition: 2s;
+}
+
+.main-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-left: 0px;
+}
+
+.main-navigation-manual,
+.main-navigation-auto {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.manual-btn,
+.main-navigation-auto div {
+  border: 2px solid #191919;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.manual-btn:not(:last-child),
+.main-navigation-auto div:not(:last-child) {
+  margin-right: 40px;
+}
+
+.manual-btn:hover {
+  background: #191919;
+}
+
+#radio1:checked~.first {
+  margin-left: 0;
+}
+
+#radio2:checked~.first {
+  margin-left: -25%;
+}
+
+#radio3:checked~.first {
+  margin-left: -50%;
+}
+
+#radio4:checked~.first {
+  margin-left: -75%;
+}
+
+#radio1:checked~.main-navigation-auto .auto-btn1,
+#radio2:checked~.main-navigation-auto .auto-btn2,
+#radio3:checked~.main-navigation-auto .auto-btn3,
+#radio4:checked~.main-navigation-auto .auto-btn4 {
+  background: #191919;
+}
+
+input[type="radio"] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
+  display: none;
+}
+
+input[type="radio"]:not(:first-child) {
+  display: none;
+}

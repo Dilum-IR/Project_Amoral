@@ -48,5 +48,14 @@ function showSlides() {
     }
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
-    setTimeout(showSlides, 8000); // Change image every 2 seconds
+    setTimeout(showSlides, 8000); // Change image every 8 seconds
 }
+
+var counter = 1;
+setInterval(function () {
+    document.getElementById('radio' + counter).checked = true;
+    counter++;
+    if (counter > 4) {
+        counter = 1;
+    }
+}, 5000);
