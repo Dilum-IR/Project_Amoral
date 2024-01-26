@@ -234,7 +234,7 @@
                     
                 </div>
 
-                <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin-left: 38px;">
+                <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin: 7%;">
 
                 <hr>
                 <div class="radio-btns">
