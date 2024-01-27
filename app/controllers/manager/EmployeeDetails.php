@@ -78,8 +78,9 @@ class EmployeeDetails extends Controller
         $arr['email'] = $_POST['email'];
         $row = $employee->first($arr);
 
-        if (!$row) {
-
+        if (!$row) 
+        {
+            
             // password hashing 
             $password = $data['contact_number'];
             $hash = password_hash($password, PASSWORD_BCRYPT);

@@ -17,6 +17,7 @@ spl_autoload_register(function ($classname) {
 
 require_once '../app/Providers/Router.php';
 require '../app/helpers/sendmail.php'; 
+// require '../app/Auth/userValidate.php';
 require 'route.php';
 require 'App.php';
 require '.config.php';

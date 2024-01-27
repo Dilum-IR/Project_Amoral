@@ -8,11 +8,10 @@ class User
 	protected $table = 'users';
 
 	protected $allowedCloumns = [
+		"id",
 		'fullname',
 		'email',
-		'password',
 		'user_status',
-		'email_otp',
 		'email_verified',
 		'user_image',
 	];

@@ -6,6 +6,8 @@ route('signin', 'SignIn@index');
 route('signup', 'SignUp@index');
 route('logout', 'Logout@index');
 
+route('about', 'about/About@index');
+
 route('verify', 'EmailVerify@index');
 
 // ajax calling endpoints
@@ -27,6 +29,7 @@ route('manager/garmentorders', 'manager/GarmentOrders@index');
 route('manager/quotation', 'manager/Quotation@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
+route('manager/chat', 'manager/Chat@index');
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index');

@@ -15,6 +15,7 @@ class SendMail
         }
 
         try {
+            
             // Replace with your SMTP server & port
             ini_set("SMTP", "smtp.gmail.com");
             ini_set("smtp_port", "587");
