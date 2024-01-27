@@ -38,7 +38,7 @@ trait Model
         return $this->quary($quary);
     }
 
-    public function first($data,$order_column = "id" , $orderType= 'ASC',$data_not = [])
+    public function first($data,$data_not = [])
     {
 
         $keys = array_keys($data);
@@ -53,7 +53,7 @@ trait Model
         }
 
         $quary = trim($quary, " && ");
-        $quary .= " ORDER BY $order_column $orderType limit $this->limit offset $this->offset";
+    //    $quary .= " ORDER BY $order_column $orderType limit $this->limit offset $this->offset";
 
         // echo $quary;
 
@@ -194,6 +194,28 @@ trait Model
         }
 
         $quary = trim($quary, " && ");
+        // $quary .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+
+        $data = array_merge($data, $data_not);
+        // run the quary stage
+        return $this->quary($quary, $data);
+    }
+    public function whereOR($data, $data_not = [])
+    {
+        $keys = array_keys($data);
+        $keys_not = array_keys($data_not);
+        $quary = "SELECT * FROM $this->table WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " OR ";
+        }
+        foreach ($keys_not as $key) {
+            $quary .= $key . " != :" . $key . " OR ";
+        }
+
+        $quary = trim($quary, " OR ");
         // $quary .= " ORDER BY $this->order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;

@@ -15,6 +15,29 @@ class ChatData
         'time'
     ];
 
+    public function lastChatmsg($data)
+    {
+
+        $keys = array_keys($data);
+        $quary = "SELECT * FROM $this->table WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " && ";
+        }
+        
+        $quary = trim($quary, " && ");
+       $quary .= " ORDER BY time DESC limit $this->limit offset $this->offset";
+
+        $data = array_merge($data);
+        // run the quary stage
+        $result = $this->quary($quary, $data);
+        if ($result) {
+
+            return $result[0];
+        }
+        return false;
+    }
+
     public function msgValidate($data)
     {
         $this->errors = [];

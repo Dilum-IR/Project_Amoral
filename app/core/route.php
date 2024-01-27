@@ -29,7 +29,11 @@ route('manager/garmentorders', 'manager/GarmentOrders@index');
 route('manager/quotation', 'manager/Quotation@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
-route('manager/chat', 'manager/Chat@index');
+
+//  chat path
+route('manager/chat', 'manager/ChatBox@index');
+route('manager/chatbox', 'manager/ChatBox@chatbox');
+route('manager/saveMsg', 'manager/ChatBox@saveMsg');
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index');

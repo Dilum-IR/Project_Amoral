@@ -88,7 +88,7 @@ class Chat implements MessageComponentInterface
                     // The sender is not the receiver, send to each client connected 
                     $client->send(json_encode([
                         'typing' => 'y',
-                        'name' => $data->name
+                        'user_id' => $data->user_id
                     ]));
                 }
             }
@@ -107,7 +107,8 @@ class Chat implements MessageComponentInterface
                 if ($from !== $client) {
                     // The sender is not the receiver, send to each client connected 
                     $client->send(json_encode([
-                        'name' => $data->name,
+                        'user_id' => $data->user_id,
+                        'chat_id' => $data->chat_id,
                         'date' => $data->date,
                         'msg' => $data->msg
                     ]));
@@ -116,7 +117,19 @@ class Chat implements MessageComponentInterface
         }
     }
  
+    protected function broadcastOnlineStatus($isOnline, ConnectionInterface $excludeConnection) {
+        $status = [
+            'type' => 'status',
+            'online' => $isOnline,
+            // 'userId' => 
+        ];
 
+        foreach ($this->clients as $client) {
+            if ($client !== $excludeConnection) {
+                $client->send(json_encode($status));
+            }
+        }
+    }
 
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
