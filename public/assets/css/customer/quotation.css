@@ -729,6 +729,15 @@ button.pay:hover {
   transform: scale(1.1);
 }
 
+.popup-new .fileType{
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 90px;
+  margin-left: 60px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
 .popup-new .input-box.design{
   margin-top: -125px;
 }
@@ -857,7 +866,8 @@ hr.second {
 /* new quotation pick up or delivery */
 
 .pickup,
-.delivery{
+.delivery,
+.design .imagesUpload{
   opacity: 0;
   height: 0;
   transition: opacity 0.2s ease-in-out, height 2s ease;

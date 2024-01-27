@@ -339,8 +339,8 @@
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&loading=async&callback=initMap"></script>
 
 </body>
 

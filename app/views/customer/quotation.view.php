@@ -10,7 +10,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
 </head>
 
 <body>
@@ -216,10 +216,33 @@
 
                     <div class="input-box design">
                         <span class="details">Design</span>
-                        <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload">
+                        <div class="fileType">
+                            <h5 class="pdf">PDF</h5>
+                            <h5 class="images">Images</h5>
+                        </div>
+                        <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload"><br>
+                        <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload" class="imagesUpload">
+
                     </div>
                 
                 </div>
+
+                <script>
+                    //toggle upload options
+                    let pdf = document.querySelector(".design .pdf");
+                    let images = document.querySelector(".design .images");
+
+
+                    pdf.addEventListener('click', function(){
+                        document.querySelector(".design .imagesUpload").classList.remove("is-checked");
+
+                    });
+                    images.addEventListener('click', function(){
+                        document.querySelector(".design .imagesUpload").classList.add("is-checked");
+
+                    });
+
+                </script>
 
                 <hr class="first">
 
@@ -320,8 +343,9 @@
                                 </div>
                             `;
 
-                      
+                            newCard.style.transition = "all 0.5s ease-in-out";
                             document.querySelector(".add.card").before(newCard);
+
 
                             let removeCard = newCard.querySelector("i");
                             removeCard.addEventListener('click', function(){
@@ -383,9 +407,12 @@
 
                 </div>
 
+                <input name="latitude" type="hidden" required />
+                <input name="longitude" type="hidden" required />
+
               
                 <button type="submit" class="close-btn pb" value="newQuotation" name="newQuotation">Submit</button>
-                    <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
+                <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
              
 
 
