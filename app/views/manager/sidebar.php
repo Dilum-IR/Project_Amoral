@@ -12,14 +12,14 @@
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/customerorders">
                     <i class="bx bxs-cart-alt"></i>
                     <span class="link_name">Customer Orders</span>
                 </a>
                 <span class="tooltip">Customer Orders</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/garmentorders">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Garment Orders</span>
                 </a>
@@ -33,7 +33,7 @@
                 <span class="tooltip">Deliver Packages</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/quotation">
                     <i class="bx bxs-spreadsheet"></i>
                     <span class="link_name">Quatations</span>
                 </a>
@@ -67,17 +67,14 @@
                 </a>
                 <span class="tooltip">Profile</span>
             </li>
-            <li class="<?=ROOT?>/manager/profile">
-                <div class="profile_details">
-                    <img src="<?=ROOT?>/assets/images/manager/elon_musk.jpg" alt="profile image">
-                    <div class="profile_content">
-                        <div class="name">Elon Musk</div>
-                        <div class="designation">Manager</div>
-                    </div>
-                </div>
-                <a href="<?= ROOT ?>/logout">
-                    <i class="bx bx-log-out" id="log_out">Log out</i>
+
+            <li class="logout">
+                <a href="<?= ROOT ?>/logout" class="nav-link logout">
+                    <span class="link_name">Log Out</span>
+                    <i class="bx bx-log-out" id="log_out"></i>
+
                 </a>
+                <span class="tooltip">Logout</span>
             </li>
         </ul>
     </div>

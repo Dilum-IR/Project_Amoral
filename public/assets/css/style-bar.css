@@ -297,14 +297,14 @@ body{
 
 .notifi-box {
   width: 300px;
-  position: fixed;
+  position: absolute;
   /* transition-property: 63px; */
-  left: 1142px;
+  right: 73px;
   top: 49px;
   box-shadow: 0 4px 8px 0 rgb(83 87 148 / 36%), 0 6px 20px 0 rgb(0 0 0 / 56%);
-  background: whitesmoke;
+  background: rgb(240, 240, 250);
   border-radius: 5px;
-  transition: all .5s ease;
+  transition: opacity 0.5s ease, height 0.5s ease;
   padding: 5px;
 
   height: 0;
@@ -331,7 +331,7 @@ body{
 }
 
 .notifi-item:hover{
-  background-color: #eee;
+  background-color: #0298cf0d;
 }
 
 .notifi-item i {

@@ -3,7 +3,7 @@
 <section class="home-section" id="navbar">
         <nav>
             <div class="company-logo">
-                <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="#" class="logo">
+                <img  src="<?= ROOT ?>/assets/images/amorallogo.png" alt="#" class="logo">
             </div>
             <div class="nav-icons">
                 <a href="#" class="nav-link">

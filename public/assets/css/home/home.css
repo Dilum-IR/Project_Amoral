@@ -943,14 +943,13 @@ nav .icon-cancel {
   margin-top: 11%;
 }
 
-.sign-up-box{
-  font-size: 25px;
-  border-radius: 25px;
+.sign-up-box {
+  font-size: 20px;
+  border-radius: 10px;
   position: relative;
-  left: 1%;
   color: white;
   background-color: var(--color-default);
-  padding: 20px;
+  padding: 15px;
   text-decoration: none;
   transition: transform 0.3s ease-in-out;
   box-shadow: 2px 5px 10px 2px rgb(138, 134, 134);
@@ -1115,6 +1114,7 @@ nav .icon-cancel {
   border-radius: 25px;
   border-style: none;
   transition: 0.3s ease;
+  cursor: pointer;
 
 }
 

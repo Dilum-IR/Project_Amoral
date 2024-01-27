@@ -43,13 +43,13 @@ nav .nav-link .icon {
 	margin-right: 0px;
 	
 }
-img{
-    size: 10px;
-    margin-left: 12%;
-}
+
+   
 nav .logo{
     height: 70px;
-   width: 70px;
+    size: 10px;
+    margin-left: 12%;
+    width: 70px;
     align-items: center;
     justify-content: center;
 }

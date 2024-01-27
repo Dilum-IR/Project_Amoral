@@ -89,7 +89,7 @@ class EmailVerify extends Controller
                         redirect("garment/overview?$success");
                         exit;
                     } else  if ($empData->emp_status == 'merchandiser') {
-                        redirect("garment/overview?$success");
+                        redirect("merchandiser/overview?$success");
                         exit;
                     } else if ($empData->emp_status == 'manager') {
                         redirect("manager/overview?$success");

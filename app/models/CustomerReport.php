@@ -3,7 +3,7 @@
 class CustomerReport{
     use Model;
 
-    protected $table = 'report';
+    protected $table = 'report_customer';
 
     protected $allowedcolumns = [
         'report_id',
@@ -13,4 +13,25 @@ class CustomerReport{
         'description',
         'report_date',
     ];
+
+    public function validate($data){
+
+        $this->errors = [];
+
+        if(empty($data['title'])){
+            $errors['title'] = 'Title is required.';
+        }
+
+        if(empty($data['description'])){
+            $errors['desc'] = 'Description is required.';
+        }
+
+        if(empty($data['email'])){
+            $errors['email'] = 'Email is required.';
+        }elseif(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            $errors['email'] = 'Email is not valid.';
+        }
+
+        return $errors;
+    }
 }
