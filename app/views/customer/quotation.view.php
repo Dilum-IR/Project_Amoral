@@ -84,8 +84,17 @@
                             <td class="img">
                                 <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
                             </td>
-                            <td><?php echo $order->material ?></td>
-                            <td class="desc"><?php echo $order->small + $order->medium + $order->large ?></td>
+                            <td><?php foreach($data['material_sizes'] as $sizes):?>
+                            <?php if($sizes->order_id == $order->order_id) :?>
+                            <?php echo $sizes->material_id ?>
+                            <?php endif;?>
+                            <?php endforeach;?></td>
+                            <td class="desc"><?php foreach($data['material_sizes'] as $sizes):?>
+                            <?php if($sizes->order_id == $order->order_id) :?>
+                            <!-- There should be 2xl but error so need to change it to xxl -->
+                            <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl ?> 
+                            <?php endif;?>
+                            <?php endforeach;?></td>
 
                         
                             <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
@@ -182,10 +191,15 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <select name="material">
-                            <option value="Crocodile">Crocodile</option>
-                            <option value="Wetlook">Wetlook</option>
-                            <option value="Baby Crocodile">Baby Crocodile</option>
+                        <select name="material[]">
+                            <?php foreach($data['materials'] as $material):?>
+                                <option value="<?php echo $material->material_type?>"><?php echo $material->material_type?></option>
+                            <?php endforeach;?>
+                            
+                            <?php foreach($data['materials'] as $material):?>
+                                <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>">
+                            <?php endforeach;?>
+                            
                         </select>
                         
                     </div>
@@ -194,56 +208,123 @@
                         <span class="details">Sizes & Quantity</span>
                         <div class="sizeChart">
                             <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs"  min="0" >
+                            <input class="st" type="number" id="quantity" name="xs[]"  min="0" >
                             <br>
                             <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small"  min="0" >
+                            <input class="st" type="number" id="quantity" name="small[]"  min="0" >
                             <br>
                             <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                            <input class="st" type="number" id="quantity" name="medium[]"  min="0" >
                             <br>
                             <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large"  min="0">
+                            <input class="st" type="number" id="quantity" name="large[]"  min="0">
                             <br>
                             <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl"  min="0">
+                            <input class="st" type="number" id="quantity" name="xl[]"  min="0">
                             <br>
                             <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="2xl"  min="0">
+                            <input class="st" type="number" id="quantity" name="2xl[]"  min="0">
                             <br>
                         </div>
                     </div>
 
                     <div class="input-box design">
                         <span class="details">Design</span>
-                        <div class="fileType">
-                            <h5 class="pdf">PDF</h5>
-                            <h5 class="images">Images</h5>
+                        <div class="radio-btns">
+                            <input type="radio" id="pdf" name="uploadOption" value="PDF">
+                            <label for="pickup">PDF</label>
+
+                            <input type="radio" id="imagesUpload" name="uploadOption" value="Images">
+                            <label for="delivery">Images</label>
                         </div>
-                        <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload"><br>
-                        <input enctype="multipart/form-data" type="file" name="image" id="fileToUpload" class="imagesUpload">
+                        <input enctype="multipart/form-data" type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
+                        <button class="removeButton pdf" data-input-id="pdfFileToUpload">Remove</button><br>
 
+                        <input enctype="multipart/form-data" type="file" name="image1" id="imageFileToUpload1" accept="image/*" style="display: none;">
+                        <button class="removeButton img1" data-input-id="imageFileToUpload1">Remove</button><br>
+
+                        <input enctype="multipart/form-data" type="file" name="image2" id="imageFileToUpload2" accept="image/*" style="display: none;">
+                        <button class="removeButton img2" data-input-id="imageFileToUpload2">Remove</button><br>
                     </div>
-                
+
+                    <script>
+                        //toggle upload options
+                        let pdf = document.querySelector(".design #pdf");
+                        let images = document.querySelector(".design #imagesUpload");
+                        let pdfUpload = document.querySelector("#pdfFileToUpload");
+                        let imagesUpload1 = document.querySelector("#imageFileToUpload1");
+                        let imagesUpload2 = document.querySelector("#imageFileToUpload2");
+                        let removePdfButton = document.querySelector(".removeButton.pdf");
+                        let removeImg1Button = document.querySelector(".removeButton.img1");
+                        let removeImg2Button = document.querySelector(".removeButton.img2");
+
+
+
+                        pdf.addEventListener('click', function(){
+                            pdfUpload.style.display = "block";
+                            imagesUpload1.style.display = "none";
+                            imagesUpload2.style.display = "none";
+                            removeImg1Button.style.display = "none";
+                            removeImg2Button.style.display = "none";
+                            if(pdfUpload.files.length > 0) {
+                                removePdfButton.style.display = "block";
+                            } 
+
+                        });
+
+                        images.addEventListener('click', function(){
+                            imagesUpload1.style.display = "block";
+                            imagesUpload2.style.display = "block";
+                            pdfUpload.style.display = "none";
+                            removePdfButton.style.display = "none";
+                            if(imagesUpload1.files.length > 0) {
+                                removeImg1Button.style.display = "block";
+                            } 
+                            if(imagesUpload2.files.length > 0) {
+                                removeImg2Button.style.display = "block";
+                            } 
+                        });
+
+                        pdfUpload.addEventListener('change', function(){
+                            if(pdfUpload.files.length > 0) {
+                                removePdfButton.style.display = "block";
+                            } 
+                        });
+
+                        imagesUpload1.addEventListener('change', function(){
+                            if(imagesUpload1.files.length > 0) {
+                                removeImg1Button.style.display = "block";
+                            } 
+                        });
+
+                        imagesUpload2.addEventListener('change', function(){
+                            if(imagesUpload2.files.length > 0) {
+                                removeImg2Button.style.display = "block";
+                            } 
+                        });
+
+                        removePdfButton.addEventListener('click', function(event){
+                            event.preventDefault();
+                            clearInputAndHideButton(pdfUpload, removePdfButton);
+                        });
+
+                        removeImg1Button.addEventListener('click', function(event){
+                            event.preventDefault();
+                            clearInputAndHideButton(imagesUpload1, removeImg1Button);
+                        });
+
+                        removeImg2Button.addEventListener('click', function(event){
+                            event.preventDefault();
+                            clearInputAndHideButton(imagesUpload2, removeImg2Button);
+                        });
+
+                        function clearInputAndHideButton(input, button) {
+                            input.value = '';
+                            button.style.display = "none";
+                        }
+                    </script>
+
                 </div>
-
-                <script>
-                    //toggle upload options
-                    let pdf = document.querySelector(".design .pdf");
-                    let images = document.querySelector(".design .images");
-
-
-                    pdf.addEventListener('click', function(){
-                        document.querySelector(".design .imagesUpload").classList.remove("is-checked");
-
-                    });
-                    images.addEventListener('click', function(){
-                        document.querySelector(".design .imagesUpload").classList.add("is-checked");
-
-                    });
-
-                </script>
-
                 <hr class="first">
 
                 <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4>
@@ -310,34 +391,39 @@
                             <i class="fas fa-minus remove"></i>
                                 <div class="input-box">
                                     <span class="details">Material </span>
-                                    <select name="material">
-                                        <option value="Crocodile">Crocodile</option>
-                                        <option value="Wetlook">Wetlook</option>
-                                        <option value="Baby Crocodile">Baby Crocodile</option>
+                                    <select name="material[]">
+                                        <?php foreach($data['materials'] as $material):?>
+                                            <option value="<?php echo $material->material_type?>"><?php echo $material->material_type?></option>
+                                        <?php endforeach;?>
+                                        
+                                        <?php foreach($data['materials'] as $material):?>
+                                            <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>">
+                                        <?php endforeach;?>
+                                        
                                     </select>
-                                    
+                                                
                                 </div>
 
                                 <div class="input-box sizes">
                                     <span class="details">Sizes & Quantity</span>
                                     <div class="sizeChart">
                                         <span class="size">XS</span>
-                                        <input class="st" type="number" id="quantity" name="xs"  min="0" >
+                                        <input class="st" type="number" id="quantity" name="xs[]"  min="0" >
                                         <br>
                                         <span class="size">S</span>
-                                        <input class="st" type="number" id="quantity" name="small"  min="0" >
+                                        <input class="st" type="number" id="quantity" name="small[]"  min="0" >
                                         <br>
                                         <span class="size">M</span>
-                                        <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                                        <input class="st" type="number" id="quantity" name="medium[]"  min="0" >
                                         <br>
                                         <span class="size">L</span>
-                                        <input class="st" type="number" id="quantity" name="large"  min="0">
+                                        <input class="st" type="number" id="quantity" name="large[]"  min="0">
                                         <br>
                                         <span class="size">XL</span>
-                                        <input class="st" type="number" id="quantity" name="xl"  min="0">
+                                        <input class="st" type="number" id="quantity" name="xl[]"  min="0">
                                         <br>
                                         <span class="size">2XL</span>
-                                        <input class="st" type="number" id="quantity" name="2xl"  min="0">
+                                        <input class="st" type="number" id="quantity" name="2xl[]"  min="0">
                                         <br>
                                     </div>
                                 </div>
@@ -375,32 +461,8 @@
                     <div class="input-box">
                         <span class="details addr">District</span>
                     
-                        <select name="district">
-                            <option value="Ampara">Ampara</option>
-                            <option value="Anuradhapura">Anuradhapura</option>
-                            <option value="Badulla">Badulla</option>
-                            <option value="Batticaloa">Batticaloa</option>
-                            <option value="Colombo">Colombo</option>
-                            <option value="Galle">Galle</option>
-                            <option value="Gampaha">Gampaha</option>
-                            <option value="Hambantota">Hambantota</option>
-                            <option value="Jaffna">Jaffna</option>
-                            <option value="Kalutara">Kalutara</option>
-                            <option value="Kandy">Kandy</option>
-                            <option value="Kegalle">Kegalle</option>
-                            <option value="Kilinochchi">Kilinochchi</option>
-                            <option value="Kurunegala">Kurunegala</option>
-                            <option value="Mannar">Mannar</option>
-                            <option value="Matale">Matale</option>
-                            <option value="Matara">Matara</option>
-                            <option value="Monaragala">Monaragala</option>
-                            <option value="Mullaitivu">Mullaitivu</option>
-                            <option value="Nuwara Eliya">Nuwara Eliya</option>
-                            <option value="Polonnaruwa">Polonnaruwa</option>
-                            <option value="Puttalam">Puttalam</option>
-                            <option value="Ratnapura">Ratnapura</option>
-                            <option value="Trincomalee">Trincomalee</option>
-                            <option value="Vavuniya">Vavuniya</option>
+                        <select name="city">
+
                         </select>
                     </div>
 
@@ -480,102 +542,104 @@
 
     <div class="popup-view" id="popup-view">
         <div class="popup-content">
-        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
-        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
-        <span class="close">&times;</span>
-        
-        <h2>Request Details</h2>
-
-        
-            <form class="update-form" method="POST" enctype="multipart/form-data">
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Request Id </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
-                        
-                    </div>
-
-                    <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span><br>
-                        <div class="sizeChart">
-                      
-                            <span class="size">S</span>
-                        
-                            <input class="st" type="number" id="quantity" name="small"  min="0" >
-                            <br>
-                            <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
-                            <br>
-                            <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large"  min="0">
-                            <br>
-                            <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl"  min="0">
-                            <br>
-
-                        </div>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Request Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Design</span>
-                        <embed name="design" type="application/pdf" style="display: block; width: 250px; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                        <div class="image">
-                            <div class="flex-half">
-                                <div class="add-section">
-                                    <div style="text-align: right; position: relative; right: 36px;">
-                                        <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+    
+            <span class="close">&times;</span>
+            
+            <h2>Request Details</h2>
+            
+                <form class="update-form" method="POST" enctype="multipart/form-data">
+                    <div class="user-details">
+                        <div class="input-box">
+                          
+                            <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                            <div class="image">
+                                <div class="flex-half">
+                                    <div class="add-section">
+                                        <div style="text-align: right; position: relative; right: 50px;">
+                                            <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+                                        </div>
+                                        <div id="imageForm" style="display: none; transition: display 0.5s ease;">
+                                            
+                                        <div id="drop_zone">Drag and drop your image here, or click to select image</div>
+                                                <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
+                                                <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                                                
+                                                
+                                        </div>
                                     </div>
-                                    <div id="imageForm" style="display: none; transition: display 0.5s ease;">
                                         
-                                    <div id="drop_zone">Drag and drop your image here, or click to select image</div>
-                                            <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
-                                            <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                                            
-                                            
-                                    </div>
+                                        
+                                        
+                                        
                                 </div>
                                     
-                                    
-                                    
-                                    
                             </div>
-                                
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Request Id </span>
+                            <input name="order_id" type="text" required onChange="" readonly value="0023456" />
+                        </div>
+
+                        <div class="input-box" style="height: 0;">
+
+                        </div>
+
+                        <div class="input-box placedDate">
+                            <span class="details">Request Placed On</span>
+                            <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Material </span>
+                            <input name="material" type="text" required onChange="" readonly value="Wetlook" />
+                            
+                        </div>
+
+                        <div class="input-box sizes">
+                            <span class="details">Sizes & Quantity</span><br>
+                            <div class="sizeChart">
+                        
+                                <span class="size">S</span>
+                            
+                                <input class="st" type="number" id="quantity" name="small"  min="0" >
+                                <br>
+                                <span class="size">M</span>
+                                <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                                <br>
+                                <span class="size">L</span>
+                                <input class="st" type="number" id="quantity" name="large"  min="0">
+                                <br>
+                                <span class="size">XL</span>
+                                <input class="st" type="number" id="quantity" name="xl"  min="0">
+                                <br>
+
+                            </div>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Delivery Expected On</span>
+                        
+                            <input type="date" name="dispatch_date">
+                        </div>
+                        <div class="input-box">
+                            <span class="details addr">Address</span>
+                        
+                            <input type="text" name="district">
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Delivery Location</span>
+                            <div id="map" style="height: 300px; width: 100%;"></div>
                         </div>
                     </div>
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                    
-                        <input type="date" name="dispatch_date">
-                    </div>
-                    <div class="input-box">
-                        <span class="details addr">Address</span>
-                    
-                        <input type="text" name="district">
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Delivery Location</span>
-                        <div id="map" style="height: 300px; width: 100%;"></div>
-                    </div>
-                </div>
-                               
+                                
 
 
-                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
-                <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
-                <!-- </form> -->
+                    <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                    <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
+                    <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
+                    <!-- </form> -->
 
 
-            </form>
+                </form>
             </div>
         
     </div>

@@ -31,5 +31,29 @@ class Order
         'longitude'
     ];
 
+    function findLast(){
+        $quary = "SELECT * FROM $this->table
+        ORDER BY order_id DESC
+        LIMIT 1;";
+        return $this->quary($quary);
+    }
+
+    function getFullData($data){
+        $keys = array_keys($data);
+        $quary = "SELECT $this->table.user_id, order_material.* 
+        FROM order_material 
+        INNER JOIN $this->table 
+        ON $this->table.order_id = order_material.order_id 
+        WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " && ";
+        }
+
+        $quary = trim($quary, " && ");
+
+        return $this->quary($quary, $data);
+    }
+
 }
 

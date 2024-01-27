@@ -831,6 +831,42 @@ select {
   background: darkred;
 }
 
+.popup-view .input-box.placedDate {
+  margin-top: -200px;
+}
+
+hr.first {
+  border-top: 1px dashed #911515;
+  border-bottom: none;
+}
+hr.second {
+  height: 2px;
+  background-color: #000;
+  border: none;
+  margin: 5px;
+}
+
+
+.radio-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 20px 47% 20px 36%;
+  align-items: center;
+}
+
+.radio-btns input[type="radio"]:checked + label {
+  color: #000; 
+}
+
+.radio-btns input[type="radio"]:not(:checked) + label {
+  color: #999; 
+}
+
+.radio-btns label {
+  cursor: pointer;
+}
+
 /* @media screen and (max-width: 950px) {
   .btn,
   .desc,
@@ -950,6 +986,17 @@ select {
 }
 
 
+.pickup,
+.delivery{
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.2s ease-in-out, height 2s ease;
+}
 
+.is-checked{
+  opacity: 1;
+  height: auto;
+  transition: opacity 1.3s ease-in-out, height 0.8s ease;
+}
 
 

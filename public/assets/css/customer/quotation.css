@@ -473,6 +473,7 @@ select{
 }
 
 
+
 .user-details .input-box input,
 select {
   width: 80%;
@@ -516,53 +517,7 @@ select {
   padding: 0 20px;
 }
 
-.carousel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-}
 
-.carousel span{
-  font-size: x-large;
-}
-
-.carousel-left-btn,
-.carousel-right-btn {
-  background-color: var(--light);
-
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.carousel-left-btn:hover,
-.carousel-right-btn:hover {
-  color: var(--primary);
-}
-
-
-.carousel-image {
-  width: 400px;
-  height: 400px;
-  min-width: 400px;
-  min-height: 400px;
-  object-fit: cover;
-  border-radius: 10px;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin-top: 0.5rem;
-}
-
-.image-count {
-  font-size: 1.2rem;
-  /* font-weight: bold; */
-  text-align: center;
-  /* margin-top: 10px; */
-}
 
 .detail-item {
   display: flex;
@@ -643,7 +598,7 @@ select {
 .popup-view-reply h2 {
   text-align: center;
   padding-top: 1%;
-  margin: 20px;
+  margin: 25px 20px;
 }
 
 .sizeChart{
@@ -740,6 +695,29 @@ button.pay:hover {
 
 .popup-new .input-box.design{
   margin-top: -125px;
+}
+
+.removeButton {
+  color: red;
+  position: relative;
+  border: none;
+ 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-left: 67%;
+  cursor: pointer;
+  display: none;
+}
+
+.popup-new .input-box.design .radio-btns{
+  margin-left: 20%;
+}
+
+.popup-new .input-box.design .radio-btns input{
+  height: auto;
 }
 
 .add.card .left {
@@ -842,6 +820,10 @@ hr.second {
 .popup-view .cancel-btn:hover,
 .popup-view-reply .cancel-btn:hover{
   background: darkred;
+}
+
+.popup-view .input-box.placedDate {
+  margin-top: -184px;
 }
 
 /* @media screen and (max-width: 950px) {

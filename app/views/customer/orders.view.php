@@ -177,11 +177,22 @@
         </div>
 
         
-            <form class="update-form" method="POST">
+        <form class="update-form" method="POST">
                 <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Design</span>
+                        <div class="design" style="height:300px; width: 100%;"></div>
+                    </div>
                     <div class="input-box">
                         <span class="details">Order Id </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box" style="height: 0;">
+
+                    </div>
+                    <div class="input-box placedDate">
+                        <span class="details">Order Placed On</span>
+                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
                     </div>
 
                     <div class="input-box">
@@ -191,46 +202,22 @@
                     </div>
 
                     <div class="input-box sizes">
-                    <span class="details">Sizes & Quantity</span><br>
-                    <div class="sizeChart">
-                        <!-- <span class="size">S</span>
-                    
-                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
-                        <button class="removeSize">x</button>
-                        <button class="addSize">+</button>
-                        <select id="sizeDropdown">
-                            <option value="small">S</option>
-                            <option value="medium">M</option>
-                            <option value="large">L</option>
-                            <option value="xl">XL</option>
-                        </select>
-                       <br>
+                        <span class="details">Sizes & Quantity</span><br>
+                        <div class="sizeChart">
+                        <span class="size">S</span>
+                            
+                            <input class="st" type="number" id="quantity" name="small"  min="0" >
+                            <br>
+                            <span class="size">M</span>
+                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
+                            <br>
+                            <span class="size">L</span>
+                            <input class="st" type="number" id="quantity" name="large"  min="0">
+                            <br>
 
-                       <script>
-                            var addSizeButton = document.querySelector('.addSize');
-                            var sizeDropdown = document.getElementById('sizeDropdown');
-
-                            addSizeButton.addEventListener('click', function(event) {
-                                event.preventDefault();
-                                
-                            });
-                       </script> -->
-
-                       <span class="size">S</span>
-                        
-                        <input class="st" type="number" id="quantity" name="small"  min="0" >
-                        <br>
-                        <span class="size">M</span>
-                        <input class="st" type="number" id="quantity" name="medium"  min="0" >
-                        <br>
-                        <span class="size">L</span>
-                        <input class="st" type="number" id="quantity" name="large"  min="0">
-                        <br>
-
+                        </div>
                     </div>
-                    </div>
-                    <!-- <div class="input-box">
-                    </div> -->
+            
                     <div class="input-box">
                         <span class="details">Unit Price</span>
                         <input name="unit_price" type="text" required onChange="" readonly value="" />
@@ -244,10 +231,49 @@
                         <input name="remaining_payment" type="text" required onChange="" readonly value="" />
                         <button class="pay" >Pay</button>
                     </div>
+                </div>
+
+                <hr class="second">
+                <div class="radio-btns">
+                    <input type="radio" id="pickup" name="deliveryOption" value="Pick Up">
+                    <label for="pickup">Pick Up</label>
+
+                    <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
+                    <label for="delivery">Delivery</label>
+                </div>
+
+                <div class="user-details pickup">
                     <div class="input-box">
-                        <span class="details">Order Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
+                        <span class="details">Pick Up Date</span>
+                    
+                        <input type="date" name="dispatch_date">
                     </div>
+                </div>
+
+                <script>
+                    //toggle delivery options
+                    let delivery = document.getElementById("delivery");
+                    let pickUp = document.getElementById("pickup");
+
+
+                    pickUp.addEventListener('click', togglePickUp);
+                    delivery.addEventListener('click', toggleDelivery);
+
+                    function togglePickUp(){
+                        
+                        document.querySelector(".user-details.pickup").classList.add("is-checked");
+                        document.querySelector(".user-details.delivery").classList.remove("is-checked");
+                        
+                    }
+
+                    function toggleDelivery(){
+                        document.querySelector(".user-details.delivery").classList.add("is-checked");
+                        document.querySelector(".user-details.pickup").classList.remove("is-checked");
+                    }
+                </script>                
+
+                <div class="user-details delivery">
+
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     
@@ -285,28 +311,24 @@
                         </select>
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Design</span>
-                        <div class="design" style="height:300px; width: 100%;"></div>
-                    </div>
 
                     <div class="input-box location">
                         <span class="details">Location</span>
                         <div id="map" style="height: 400px; width: 100%;"></div>
                     </div>
-                </div>
-                <!-- hidden element -->
-                <div class="input-box">
-                    <!-- <span class="details">Order Id </span> -->
-                    <input name="latitude" type="hidden" required />
-                    <input name="longitude" type="hidden" required />
-                </div>
 
+                    <!-- hidden element -->
+                    <div class="input-box">
+                        <input name="latitude" type="hidden" required />
+                        <input name="longitude" type="hidden" required />
+                    </div>
+                    
+                </div>
                 <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
                 <button type="button" class="cancel-btn pb">Cancel Order</button>
                 
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
 
