@@ -39,38 +39,113 @@ function performSearch() {
 
 let reportForm = document.querySelector(".popup-report form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
-
+let newForm = document.querySelector(".popup-new form");
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
     if (reportForm) {
         cancelReportBtn.addEventListener("click", function(event) {
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
         });
         closeReportBtn.addEventListener('click', function() {
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
             closeReport();
         });
 
         reportForm.addEventListener("submit", function(event) {
             // event.preventDefault();    
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
             console.log('submit');
             
                 let errors = validateReport();
                 console.log(Object.values(errors));
                 if(Object.keys(errors).length > 0){
-                    displayErrorMsg(errors);
+                    displayErrorMsg(reportForm, errors);
                     event.preventDefault();
                 } else{
                     
                 }
             });
             
-        } else {
+    } else {
             console.error('Form not found');
-        }
+    }
+
+    if(newForm){
+        closeNewBtn.addEventListener('click', function() {
+            clearErrorMsg(newForm);
+            closeNew();
+        });
+
+        newForm.addEventListener("submit", function(event) {
+            // event.preventDefault();    
+            clearErrorMsg(newForm);
+            console.log('submit');
+            
+                let errors = validateNewForm();
+                console.log(Object.values(errors));
+                if(Object.keys(errors).length > 0){
+                    displayErrorMsg(newForm, errors);
+                    event.preventDefault();
+                } else{
+                    
+                }
+            });
+    
+    }
+        
 });
+
+var today = new Date().toISOString().split('T')[0];
+document.getElementsByName('dispatch_date_delivery')[0].setAttribute('min', today);
+document.getElementsByName('dispatch_date_pickup')[0].setAttribute('min', today);
+
+
+function validateNewForm(){
+    let errors = {};
+
+    var xs = document.getElementsByName('xs[]');
+    var small = document.getElementsByName('small[]');
+    var medium = document.getElementsByName('medium[]');
+    var large = document.getElementsByName('large[]');
+    var xl = document.getElementsByName('xl[]');
+    var xxl = document.getElementsByName('xxl[]');
+
+    var arrays = [xs, small, medium, large, xl, xxl];
+   
+
+    for (var i = 0; i < xs.length; i++) {
+        // Check if at least one element at this position is not zero
+        var flag = arrays.some(function(array) {
+            return array[i] && array[i].value !== "0";
+        });
+
+        if (!flag) {
+            errors['sizes' + i] = 'No values for sizes';
+        }
+    }
+
+    var pdf = document.getElementById('pdfFileToUpload');
+    var image1 = document.getElementById('imageFileToUpload1');
+    var image2 = document.getElementById('imageFileToUpload2');
+
+    if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+        errors['files'] = 'No files selected';
+    }
+
+    var dispatch_date_pickup = document.getElementsByName('dispatch_date_pickup')[0];
+    var dispatch_date_delivery = document.getElementsByName('dispatch_date_delivery')[0];
+    var city = document.getElementsByName('city')[0];
+
+    if ((dispatch_date_pickup.value === '') && (dispatch_date_delivery.value === '' || city.value === '')) {
+        errors['delivery'] = 'No delivery details';
+    }
+
+
+    return errors;
+
+
+}
 
 
 function validateReport(){
@@ -101,20 +176,20 @@ function validateEmail(email){
     return re.test(email);
 }
 
-function displayErrorMsg(errors){
+function displayErrorMsg(Form, errors){
 
 for (const key in errors) {
     if (Object.hasOwnProperty.call(errors, key)) {
         const error = errors[key];
-        reportForm.querySelector(`.error.${key}`).innerText = error;
+        Form.querySelector(`.error.${key}`).innerText = "*";
     }
 }
 }
 
 
-function clearErrorMsg(){
+function clearErrorMsg(Form){
     console.log('clear');
-    let errorElements = reportForm.querySelectorAll('.error');
+    let errorElements = Form.querySelectorAll('.error');
 
     errorElements.forEach(errorElement => {
         errorElement.innerText = '';

@@ -30,7 +30,7 @@ class Quotation extends Controller
             $data['material_sizes'] = $order->getFullData($id);
             $data['quotation_reply'] = $quotation_reply->getReplyDetails($id);
             $data['materials'] = $materials->getMaterialNames();
-            show($data['material_sizes']);
+            // show($data['material_sizes']);
             // show($data);
             // show($id);            
             
@@ -39,7 +39,7 @@ class Quotation extends Controller
 
             if (isset($_POST['updateOrder'])){
                 $order_id = $_POST['order_id'];
-                show($_POST);
+                // show($_POST);
                 unset($_POST['updateOrder']);
                 
 
@@ -107,8 +107,13 @@ class Quotation extends Controller
                     $_POST['is_delivery'] = 0;
                 }
 
-                if (isset($_FILES['pdf'])) {
+                $order_data = $order->findLast();
+                $order_id = $order_data[0]->order_id + 1;
 
+                $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
+
+                if (isset($_FILES['pdf'])) {
+                    // show($_FILES);
                     $img_name = $_FILES['pdf']['name'];
                     $tmp_name = $_FILES['pdf']['tmp_name'];
                     $error = $_FILES['pdf']['error'];
@@ -201,13 +206,12 @@ class Quotation extends Controller
 
                 }
 
-                $arrOrder = ['user_id' => $_SESSION['USER']->id, 'dispatch_date'=>$_POST['dispatch_date'], 'order_placed_on' => $current_date, 
+                $arrOrder = ['user_id' => $_SESSION['USER']->id, 'dispatch_date'=>$dispatch_date, 'order_placed_on' => $current_date, 
                     'order_status' => 'quotation', 'city' => $_POST['city'], 'pdf' => $pdf, 'image1' => $img1, 'image2' => $img2, 
                     'is_delivery' => $_POST['is_delivery'], 'is_quotation' => 1, 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
-                show($_POST['material']);
+                // show($_POST['material']);
                 $order->insert($arrOrder);
-                $order_data = $order->findLast();
-                show($order_data);
+
      
                 
 
@@ -219,19 +223,19 @@ class Quotation extends Controller
                     $medium = $_POST['medium'][$i];
                     $large = $_POST['large'][$i];
                     $xl = $_POST['xl'][$i];
-                    $xxl = $_POST['2xl'][$i];
+                    $xxl = $_POST['xxl'][$i];
 
                     $material_data = $materials->where(['material_type' => $material]);
                     show($material_data);
                     $order_material->insert([
-                        'order_id' => $order_data[0]->order_id,
+                        'order_id' => $order_id,
                         'material_id' => $material_data[0]->stock_id,
                         'xs' => $xs,
                         'small' => $small,
                         'medium' => $medium,
                         'large' => $large,
                         'xl' => $xl,
-                        '2xl' => $xxl
+                        'xxl' => $xxl
                     ]);
                 }
 

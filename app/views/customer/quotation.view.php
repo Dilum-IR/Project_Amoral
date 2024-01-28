@@ -76,7 +76,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($data['quotation'] as $order):?>
-                        <?php if($order->is_quotation): ?>
+                        <?php if($order->is_quotation && $order->order_status == "quotation"): ?>
                         
                         <tr>
                             
@@ -84,17 +84,20 @@
                             <td class="img">
                                 <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
                             </td>
-                            <td><?php foreach($data['material_sizes'] as $sizes):?>
-                            <?php if($sizes->order_id == $order->order_id) :?>
-                            <?php echo $sizes->material_id ?>
-                            <?php endif;?>
-                            <?php endforeach;?></td>
-                            <td class="desc"><?php foreach($data['material_sizes'] as $sizes):?>
-                            <?php if($sizes->order_id == $order->order_id) :?>
-                            <!-- There should be 2xl but error so need to change it to xxl -->
-                            <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl ?> 
-                            <?php endif;?>
-                            <?php endforeach;?></td>
+                            <td>
+                                <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                    <?php echo $sizes->material_type ?>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
+                            <td class="desc">
+                                <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
 
                         
                             <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
@@ -162,8 +165,20 @@
                             <td class="img">
                                 <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
                             </td>
-                            <td><?php echo $order->material ?></td>
-                            <td class="desc"><?php echo $order->small + $order->medium + $order->large ?></td>
+                            <td>
+                                <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                    <?php echo $sizes->material_type ?>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
+                            <td class="desc">
+                                <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
 
                         
                             <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openViewReply(this)"><i class="fas fa-edit"></i> View</button>
@@ -186,7 +201,7 @@
         <span class="close">&times;</span>
         <h2>New Quotation Request</h2>
         
-        <form class="new-form" method="POST">
+        <form class="new-form" method="POST" enctype="multipart/form-data">
             
                 <div class="user-details">
                     <div class="input-box">
@@ -205,31 +220,31 @@
                     </div>
 
                     <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span>
+                        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
                         <div class="sizeChart">
                             <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs[]"  min="0" >
+                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
                             <br>
                             <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small[]"  min="0" >
+                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
                             <br>
                             <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium[]"  min="0" >
+                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
                             <br>
                             <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large[]"  min="0">
+                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
                             <br>
                             <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl[]"  min="0">
+                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
                             <br>
                             <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="2xl[]"  min="0">
+                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
                             <br>
                         </div>
                     </div>
 
                     <div class="input-box design">
-                        <span class="details">Design</span>
+                        <span class="details">Design<span class="error files"></span></span>
                         <div class="radio-btns">
                             <input type="radio" id="pdf" name="uploadOption" value="PDF">
                             <label for="pickup">PDF</label>
@@ -237,13 +252,13 @@
                             <input type="radio" id="imagesUpload" name="uploadOption" value="Images">
                             <label for="delivery">Images</label>
                         </div>
-                        <input enctype="multipart/form-data" type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
+                        <input type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
                         <button class="removeButton pdf" data-input-id="pdfFileToUpload">Remove</button><br>
 
-                        <input enctype="multipart/form-data" type="file" name="image1" id="imageFileToUpload1" accept="image/*" style="display: none;">
+                        <input type="file" name="image1" id="imageFileToUpload1" accept="image/*" style="display: none;">
                         <button class="removeButton img1" data-input-id="imageFileToUpload1">Remove</button><br>
 
-                        <input enctype="multipart/form-data" type="file" name="image2" id="imageFileToUpload2" accept="image/*" style="display: none;">
+                        <input type="file" name="image2" id="imageFileToUpload2" accept="image/*" style="display: none;">
                         <button class="removeButton img2" data-input-id="imageFileToUpload2">Remove</button><br>
                     </div>
 
@@ -288,18 +303,22 @@
                         pdfUpload.addEventListener('change', function(){
                             if(pdfUpload.files.length > 0) {
                                 removePdfButton.style.display = "block";
+                                imagesUpload1.value = '';
+                                imagesUpload2.value = '';
                             } 
                         });
 
                         imagesUpload1.addEventListener('change', function(){
                             if(imagesUpload1.files.length > 0) {
                                 removeImg1Button.style.display = "block";
+                                pdfUpload.value = '';
                             } 
                         });
 
                         imagesUpload2.addEventListener('change', function(){
                             if(imagesUpload2.files.length > 0) {
                                 removeImg2Button.style.display = "block";
+                                pdfUpload.value = '';
                             } 
                         });
 
@@ -347,14 +366,38 @@
 
                     <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
                     <label for="delivery">Delivery</label>
+                    <span class="error delivery"></span>
                 </div>
 
                 <div class="user-details pickup">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
                     
-                        <input type="date" name="dispatch_date">
+                        <input type="date" name="dispatch_date_pickup">
                     </div>
+                </div>
+
+                <div class="user-details delivery">
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+                    
+                        <input type="date" name="dispatch_date_delivery">
+                    </div>
+
+                    <div class="input-box location">
+                        <span class="details"> Delivery Location</span>
+                        <div id="map" style="height: 300px; width: 100%;"></div>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details addr">District</span>
+                    
+                        <select name="city">
+
+                        </select>
+                    </div>
+
+
                 </div>
 
                 <script>
@@ -370,18 +413,20 @@
                         
                         document.querySelector(".user-details.pickup").classList.add("is-checked");
                         document.querySelector(".user-details.delivery").classList.remove("is-checked");
+                        document.getElementByName("dispatch_date_delivery").value = "";
                         
                     }
 
                     function toggleDelivery(){
                         document.querySelector(".user-details.delivery").classList.add("is-checked");
                         document.querySelector(".user-details.pickup").classList.remove("is-checked");
+                        document.getElementByName("dispatch_date_pickup").value = "";
                     }
                 </script>
 
                 <script>
                         let addMaterial = document.querySelector(".add.card");
-
+                        let count = 0;
                         function addMaterialCard() {
                             var newCard = document.createElement("div");
                             newCard.className = "user-details";
@@ -408,22 +453,22 @@
                                     <span class="details">Sizes & Quantity</span>
                                     <div class="sizeChart">
                                         <span class="size">XS</span>
-                                        <input class="st" type="number" id="quantity" name="xs[]"  min="0" >
+                                        <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
                                         <br>
                                         <span class="size">S</span>
-                                        <input class="st" type="number" id="quantity" name="small[]"  min="0" >
+                                        <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
                                         <br>
                                         <span class="size">M</span>
-                                        <input class="st" type="number" id="quantity" name="medium[]"  min="0" >
+                                        <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
                                         <br>
                                         <span class="size">L</span>
-                                        <input class="st" type="number" id="quantity" name="large[]"  min="0">
+                                        <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
                                         <br>
                                         <span class="size">XL</span>
-                                        <input class="st" type="number" id="quantity" name="xl[]"  min="0">
+                                        <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
                                         <br>
                                         <span class="size">2XL</span>
-                                        <input class="st" type="number" id="quantity" name="2xl[]"  min="0">
+                                        <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
                                         <br>
                                     </div>
                                 </div>
@@ -436,38 +481,30 @@
                             let removeCard = newCard.querySelector("i");
                             removeCard.addEventListener('click', function(){
                                 newCard.remove();
+                                count--;
                             });
 
                         }
 
-                        addMaterial.addEventListener('click', addMaterialCard);
+                        
+                        var materialCount = <?php echo count($data['materials']) ?>;
+
+                        addMaterial.addEventListener('click', function(){
+                            if(count < materialCount-1) {
+                                addMaterialCard();
+                                count++;
+                            }
+                            else{
+                                alert("You can only add " + materialCount + " materials");
+                            }
+                        });
+                      
 
 
 
                     </script>
 
-                <div class="user-details delivery">
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                    
-                        <input type="date" name="dispatch_date">
-                    </div>
 
-                    <div class="input-box location">
-                        <span class="details"> Delivery Location</span>
-                        <div id="map" style="height: 300px; width: 100%;"></div>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details addr">District</span>
-                    
-                        <select name="city">
-
-                        </select>
-                    </div>
-
-
-                </div>
 
                 <input name="latitude" type="hidden" required />
                 <input name="longitude" type="hidden" required />

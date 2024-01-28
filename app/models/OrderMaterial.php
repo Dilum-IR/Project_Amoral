@@ -14,6 +14,6 @@ class OrderMaterial{
         'medium',
         'large',
         'xl',
-        '2xl'
+        'xxl'
     ];
 }

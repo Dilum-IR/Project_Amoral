@@ -405,7 +405,7 @@ select{
   margin-left: 10px;
 }
 
-.popup-report .error{
+ .error{
   color: red;
   font-size: 14px;
   position: relative;
