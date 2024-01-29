@@ -145,11 +145,11 @@ class ChatBox extends Controller
         if ($days_difference > 0) {
             $times_ago = $days_difference . " days ago";
         } elseif ($hours_difference > 0) {
-            $times_ago = $hours_difference . " hours ago";
+            $times_ago = $hours_difference . " h ago";
         } elseif ($minutes_difference > 0) {
-            $times_ago = $minutes_difference . " minutes ago";
+            $times_ago = $minutes_difference . " min ago";
         } elseif ($seconds_difference > 0) {
-            $times_ago = $seconds_difference . " seconds ago";
+            $times_ago = $seconds_difference . " sec ago";
         } elseif ($seconds_difference == 0) {
             $times_ago = " Just Now";
         }

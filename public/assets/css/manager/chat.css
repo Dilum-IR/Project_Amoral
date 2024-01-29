@@ -153,11 +153,11 @@ input {
   gap: 5px;
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
-  .status {
+  #status-c {
     width: 12px;
     height: 12px;
     border-radius: 10px;
-    background-color: rgb(0, 238, 0);
+    /* background-color: rgb(0, 238, 0); */
   }
 }
 .user_box .chat-all-users p {
@@ -292,6 +292,7 @@ input {
   /* align-self: flex-end; */
   margin-bottom: 10px;
   padding-right: 10px;
+  background-color: #0000008f;
 }
 .chat-message {
   height: 60%;
