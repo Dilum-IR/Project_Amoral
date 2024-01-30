@@ -156,7 +156,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($data['quotation_reply'] as $order):?>
-                            <?php if($order->is_quotation && $order->order_status == "reply"): ?>
+                            <?php if($order->is_quotation && $order->order_status === "reply"): ?>
                         
                         <tr>
                             

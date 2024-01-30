@@ -338,6 +338,10 @@ tbody tr:hover{
   margin-left: 10%;
 }
 
+.text-status.pending{
+  background-color: #cfb103c7;
+}
+
 .text-status.processing{
   background-color: #1c7012cc;
 }
@@ -840,9 +844,8 @@ hr.first {
   border-bottom: none;
 }
 hr.second {
-  height: 2px;
-  background-color: #000;
-  border: none;
+
+  border: dashed 1px #695d5d6b;
   margin: 5px;
 }
 

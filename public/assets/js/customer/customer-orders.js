@@ -161,6 +161,7 @@ function openView(button) {
 
     // Get the data attribute value from the clicked button
     const orderData = button.getAttribute("data-order");
+    const materialData = button.getAttribute("data-material");
 
     console.log(orderData);
 
@@ -169,6 +170,7 @@ function openView(button) {
     if (orderData) {
         // Parse the JSON data
         const order = JSON.parse(orderData);
+        const material = JSON.parse(materialData);
 
         switch (order.order_status) {
             case 'processing':
@@ -180,7 +182,7 @@ function openView(button) {
                 progress3.classList.add("active");
                 break;
 
-            case 'delivered':
+            case 'completed':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress4.classList.add("active");
@@ -195,32 +197,40 @@ function openView(button) {
         // Populate the "update-form" fields with the order data
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
 
-        document.querySelector('.update-form input[name="material"]').value = order.material;
+        let existingCards = document.querySelectorAll('.user-details.new-card');
 
-        if (document.querySelector('.update-form input[name="small"]') !== null) {
-            document.querySelector('.update-form input[name="small"]').value = order.small;
+        // Remove each existing newCard element
+        existingCards.forEach(function(card) {
+            card.remove();
+        });
+
+        $qunatity = 0;
+        for(let i=0; i<material.length; i++){
+            console.log(material[i]);
+            addMaterialCardView(material[i]);
+            $qunatity += parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
         }
-
-        if (document.querySelector('.update-form input[name="medium"]') !== null) {
-            document.querySelector('.update-form input[name="medium"]').value = order.medium;
-        }
-
-
-
-        document.querySelector('.update-form input[name="large"]').value = order.large;
+        console.log($qunatity);
+        document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
         document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
 
+        if(order.is_delivery == 1){
+            document.querySelector(".delivery").classList.add("is-checked");
+            document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
+            document.querySelector('.update-form input[name="district"]').value =order.city;
+        }else{
+            document.querySelector(".pickup").classList.add("is-checked");
+            document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
+        }
 
 
-
-        document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * order.small + order.unit_price * order.medium + order.unit_price * order.large;
-
+        document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * $qunatity;
+        document.querySelector('.update-form input[name="discount"]').value = order.discount;
         document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
-        document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
-        document.querySelector('.update-form input[name="dispatch_date"]').min = formattedDate;
+        
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
-        document.querySelector('.update-form select[name="district"]').value = order.district;
+        document.querySelector('.update-form select[name="city"]').value = order.city;
         document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
         document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
 
@@ -268,6 +278,72 @@ function closeReport() {
 }
 
 
+let countv = 0;
+function addMaterialCardView(material) {
+    var newCard = document.createElement("div");
+    newCard.className = "user-details new-card";
+
+    
+    newCard.innerHTML = `
+    <i class="fas fa-minus remove"></i>
+        <div class="input-box">
+            <span class="details">Material </span>
+            <input name="material[]" value="${material['material_type']}" readonly value="">
+                
+                
+                <?php foreach($data['materials'] as $material):?>
+                    <input type="hidden" name="material_id[]" value="${material['material_id']}">
+                <?php endforeach;?>
+                
+            </input>
+                        
+        </div>
+
+        <div class="input-box sizes">
+            <span class="details">Sizes & Quantity</span>
+            <div class="sizeChart">
+                <span class="size">XS</span>
+                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
+                <br>
+                <span class="size">S</span>
+                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
+                <br>
+                <span class="size">M</span>
+                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
+                <br>
+                <span class="size">L</span>
+                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
+                <br>
+                <span class="size">XL</span>
+                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
+                <br>
+                <span class="size">2XL</span>
+                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
+                <br>
+            </div>
+        </div>
+    `;
+
+    newCard.style.transition = "all 0.5s ease-in-out";
+    document.querySelector(".popup-view .add.card").before(newCard);
+    countv++;
+
+    let removeCard = newCard.querySelector("i");
+
+    removeCard.addEventListener('click', function(){
+        countv--;
+        if(countv == 0){
+            removeCard.style.display = "none";
+        } else {
+            newCard.remove();
+        }
+    });
+    
+
+}
+
+
+
 
 var map;
 var marker;
@@ -277,36 +353,36 @@ async function initMap() {
     map = document.getElementById('map');
 
     map.addEventListener('mouseover', function () {
-        var lat = document.querySelector('input[name="latitude"]').value;
-        var lng = document.querySelector('input[name="longitude"]').value;
+        // var lat = document.querySelector('input[name="latitude"]').value;
+        // var lng = document.querySelector('input[name="longitude"]').value;
 
 
-        if (lat && lng && flag) {
-            var position = { lat: parseFloat(lat), lng: parseFloat(lng) };
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: position,
-                zoom: 8
-            });
-            marker = new google.maps.Marker({
-                position: position,
-                map: map
-            });
+        // if (lat && lng && flag) {
+        //     var position = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        //     map = new google.maps.Map(document.getElementById('map'), {
+        //         center: position,
+        //         zoom: 8
+        //     });
+        //     marker = new google.maps.Marker({
+        //         position: position,
+        //         map: map
+        //     });
 
-        } else {
+        // } else {
 
-            navigator.geolocation.getCurrentPosition(function (pos, error) {
+        //     navigator.geolocation.getCurrentPosition(function (pos, error) {
 
-                if (error) {
-                    console.log(error);
-                } else {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: { lat: pos.coords.latitude, lng: pos.coords.longitude },
-                        zoom: 8
-                    });
-                }
-            });
-        }
-        flag = false;
+        //         if (error) {
+        //             console.log(error);
+        //         } else {
+        //             map = new google.maps.Map(document.getElementById('map'), {
+        //                 center: { lat: pos.coords.latitude, lng: pos.coords.longitude },
+        //                 zoom: 8
+        //             });
+        //         }
+        //     });
+        // }
+        // flag = false;
     });
 
     map.addEventListener('click', function (event) {
