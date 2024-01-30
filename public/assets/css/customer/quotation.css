@@ -748,9 +748,8 @@ hr.first {
   border-bottom: none;
 }
 hr.second {
-  height: 2px;
-  background-color: #000;
-  border: none;
+
+  border: dashed 1px #5a4a4a7b;
   margin: 5px;
 }
 
@@ -822,8 +821,12 @@ hr.second {
   background: darkred;
 }
 
-.popup-view .input-box.placedDate {
+.input-box.placedDate {
   margin-top: -184px;
+}
+
+.input-box.city {
+  margin-top: -240px;
 }
 
 /* @media screen and (max-width: 950px) {
@@ -849,16 +852,18 @@ hr.second {
 
 .pickup,
 .pickupV,
+.pickupVR,
 .deliveryV,
+.deliveryVR,
 .delivery,
 .design .imagesUpload{
   opacity: 0;
   height: 0;
-  transition: opacity 0.2s ease-in-out, height 2s ease;
+  transition: opacity 0.2s ease-in-out, height 1s ease;
 }
 
 .is-checked{
   opacity: 1;
   height: auto;
-  transition: opacity 1.3s ease-in-out, height 0.8s ease;
+  transition: opacity 0.8s ease-in-out, height 0.4s ease;
 }

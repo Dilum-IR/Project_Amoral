@@ -333,7 +333,15 @@ class Quotation extends Controller
                 redirect('customer/quotation');
             }
 
-            if ( isset($_POST['cancelOrder']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+            if(isset($_POST['placeOrder']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+                $order_id = $_POST['order_id'];
+                unset($_POST['placeOrder']);
+                $arr = ['order_status' => "pending", 'is_quotation' => 0];
+                $updateOrder = $order->update($order_id, $arr, 'order_id');
+                redirect('customer/quotation');
+            }
+
+            if ( isset($_POST['cancelReq']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
                 $order_id = $_POST['order_id'];
                 $arr = ['order_status' => "cancelled"];   
                 $updateCancel = $order->update($order_id, $arr, 'order_id');

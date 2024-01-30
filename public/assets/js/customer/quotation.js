@@ -268,13 +268,13 @@ function closeView(){
 function openViewReply(button) {
   
     // Get the data attribute value from the clicked button
-    const orderData = button.getAttribute("data-order");
+    const orderData = button.getAttribute("data-reply-order");
     
     console.log(orderData);
   
     if (orderData) {
- const orderData = button.getAttribute("data-order");
-    const materialData = button.getAttribute("data-material");
+    const orderData = button.getAttribute("data-reply-order");
+    const materialData = button.getAttribute("data-reply-material");
     
     console.log(materialData);
   
@@ -285,18 +285,8 @@ function openViewReply(button) {
 
         
         // Populate the "update-form" fields with the order data
-        document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
+        document.querySelector('.reply-form input[name="order_id"]').value = order.order_id;
         
-        // document.querySelector('.update-form input[name="material[]"]').value = material[0].material_type;
-        
-        // document.querySelector('.update-form input[name="xs[]"]').value = material[0].xs;
-        // document.querySelector('.update-form input[name="small[]"]').value = material[0].small;
-        // document.querySelector('.update-form input[name="medium[]"]').value = material[0].medium;
-
-        // document.querySelector('.update-form input[name="large[]"]').value = material[0].large;
-        // document.querySelector('.update-form input[name="xl[]"]').value = material[0].xl;
-        // document.querySelector('.update-form input[name="xxl[]"]').value = material[0].xxl;
-
                 // Select all existing newCard elements
         let existingCards = document.querySelectorAll('.user-details.new-card');
 
@@ -305,21 +295,31 @@ function openViewReply(button) {
             card.remove();
         });
 
+        $qunatity = 0;
         for(let i=0; i<material.length; i++){
             console.log(material[i]);
-            addMaterialCardView(material[i]);
+            addMaterialCardViewReply(material[i]);
+            $qunatity += parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
         }
-        document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
+        console.log($qunatity);
+        document.querySelector('.reply-form input[name="order_placed_on"]').value = order.order_placed_on;
 
         if(order.is_delivery == 1){
-            document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
-            document.querySelector('.update-form input[name="district"]').value =order.city;
+            document.querySelector(".deliveryVR").classList.add("is-checked");
+            document.querySelector('.reply-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
+            document.querySelector('.reply-form input[name="district"]').value =order.city;
         }else{
-            document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
+            document.querySelector(".pickupVR").classList.add("is-checked");
+            document.querySelector('.reply-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
         }
 
 
-        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+        document.querySelector('.reply-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+
+        document.querySelector('.reply-form input[name="unit_price"]').value = order.unit_price;
+        document.querySelector('.reply-form input[name="total_price"]').value = order.unit_price * $qunatity;
+        document.querySelector('.reply-form input[name="special_note"]').value = order.special_note;
+        document.querySelector('.reply-form input[name="discount"]').value = order.discount;
 
         popupViewReply.style.display = "block";
         document.body.style.overflow = "hidden";
@@ -429,6 +429,56 @@ function addMaterialCardView(material) {
     });
     
 
+}
+
+
+function addMaterialCardViewReply(material){
+    var newCard = document.createElement("div");
+    newCard.className = "user-details new-card";
+
+    
+    newCard.innerHTML = `
+ 
+        <div class="input-box">
+            <span class="details">Material </span>
+            <input name="material[]" value="${material['material_type']}" readonly value="">
+                
+                
+                <?php foreach($data['materials'] as $material):?>
+                    <input type="hidden" name="material_id[]" value="${material['material_id']}">
+                <?php endforeach;?>
+                
+            </input>
+                        
+        </div>
+
+        <div class="input-box sizes">
+            <span class="details">Sizes & Quantity</span>
+            <div class="sizeChart">
+                <span class="size">XS</span>
+                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
+                <br>
+                <span class="size">S</span>
+                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
+                <br>
+                <span class="size">M</span>
+                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
+                <br>
+                <span class="size">L</span>
+                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
+                <br>
+                <span class="size">XL</span>
+                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
+                <br>
+                <span class="size">2XL</span>
+                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
+                <br>
+            </div>
+        </div>
+    `;
+
+    newCard.style.transition = "all 0.5s ease-in-out";
+    document.querySelector(".popup-view-reply .add.card").before(newCard);
 }
 
 var map;

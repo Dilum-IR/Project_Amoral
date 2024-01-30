@@ -68,7 +68,7 @@
                     <thead>
                         <tr>
                             <th>Request Id</th>
-                            <!-- <th>Design</th> -->
+                            <th>Placed Date</th>
                             <th>Material</th>
                             <th>Quantity</th>
                             <th></th>
@@ -81,10 +81,7 @@
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
-                            <!-- <td class="img">
-                                <?php $img = ($order->image1) ? $order->image1 : $order->pdf ?>
-                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $img ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
-                            </td> -->
+                            <td><?php echo $order->order_placed_on ?></td>
                             <td>
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
@@ -151,7 +148,7 @@
                     <thead>
                         <tr>
                             <th>Request Id</th>
-                            <!-- <th>Design</th> -->
+                            <th>Placed Date</th>
                             <th>Material</th>
                             <th>Quantity</th>
                             <th></th>
@@ -164,13 +161,11 @@
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
-                            <!-- <td class="img">
-                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
-                            </td> -->
+                            <td><?php echo $order->order_placed_on ?></td>
                             <td>
                             <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php $material[] = $sizes?>
+                                        <?php $material_reply[] = $sizes?>
                                     <?php echo $sizes->material_type ?><br>
                                     <?php endif;?>
                                 <?php endforeach;?>
@@ -184,7 +179,7 @@
                             </td>
 
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openViewReply(this)"><i class="fas fa-edit"></i> View</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-reply-order='<?= json_encode($order); ?>' data-reply-material='<?= json_encode($material_reply); ?>' onclick="openViewReply(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         <?php endif; ?>
@@ -598,9 +593,9 @@
                         
                     </div>
 
-                        <div class="add card">
+                    <div class="add card">
 
-                        </div>
+                    </div>
 
                     <hr class="second">
                     <div class="radio-btns">
@@ -632,8 +627,8 @@
                             <div id="map" style="height: 300px; width: 100%;"></div>
                         </div>
 
-                        <div class="input-box">
-                            <span class="details addr">District</span>
+                        <div class="input-box city">
+                            <span class="details addr">City</span>
                         
                             <select name="city">
 
@@ -647,7 +642,7 @@
 
                     <!-- <form method="POST" class="popup-view" id="popup-view"> -->
                     <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
-                    <button type="button" onclick="" class="cancel-btn pb" name="cancelOrder">Cancel Order</button>
+                    <button type="submit" onclick="" class="cancel-btn pb" name="cancelReq">Cancel Order</button>
                     <!-- </form> -->
 
 
@@ -658,8 +653,7 @@
 
     <script>
         //toggle delivery options
-        let ViewForm = document.querySelector(".update-form");
-        console.log(ViewForm);
+        
         let deliveryV = document.getElementById("deliveryV");
         let pickUpV = document.getElementById("pickupV");
 
@@ -701,33 +695,11 @@
         <h2>Request Details</h2>
 
         
-            <form class="update-form" method="POST" enctype="multipart/form-data">
+            <form class="reply-form" method="POST" enctype="multipart/form-data">
                <div class="user-details">
                         <div class="input-box">
                           
                             <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                            <div class="image">
-                                <div class="flex-half">
-                                    <div class="add-section">
-                                        <div style="text-align: right; position: relative; right: 50px;">
-                                            <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Update Design</a>
-                                        </div>
-                                        <div id="imageForm" style="display: none; transition: display 0.5s ease;">
-                                            
-                                        <div id="drop_zone">Drag and drop your image here, or click to select image</div>
-                                                <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
-                                                <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                                                
-                                                
-                                        </div>
-                                    </div>
-                                        
-                                        
-                                        
-                                        
-                                </div>
-                                    
-                            </div>
                         </div>
                         <div class="input-box">
                             <span class="details">Request Id </span>
@@ -745,33 +717,25 @@
                         
                     </div>
 
-                        <div class="add card">
+                    <div class="add card">
 
-                        </div>
-
-                    <hr class="second">
-                    <div class="radio-btns">
-                        <input type="radio" id="pickupV" name="deliveryOption" value="Pick Up">
-                        <label for="pickup">Pick Up</label>
-
-                        <input type="radio" id="deliveryV" name="deliveryOption" value="Delivery">
-                        <label for="delivery">Delivery</label>
-                        <span class="error delivery"></span>
                     </div>
 
-                    <div class="user-details pickupV">
+                    <hr class="second">
+
+                    <div class="user-details pickupVR">
                         <div class="input-box">
                             <span class="details">Pick Up Date</span>
                         
-                            <input type="date" name="dispatch_date_pickup">
+                            <input type="text" name="dispatch_date_pickup" readonly value="" >
                         </div>
                     </div>
 
-                    <div class="user-details deliveryV">
+                    <div class="user-details deliveryVR">
                         <div class="input-box">
                             <span class="details">Delivery Expected On</span>
                         
-                            <input type="date" name="dispatch_date_delivery">
+                            <input type="text" name="dispatch_date_delivery" readonly value="">
                         </div>
 
                         <div class="input-box location">
@@ -779,21 +743,43 @@
                             <div id="map" style="height: 300px; width: 100%;"></div>
                         </div>
 
-                        <div class="input-box">
-                            <span class="details addr">District</span>
+                        <div class="input-box city">
+                            <span class="details addr">City</span>
                         
-                            <select name="city">
+                            <input name="city" readonly value="" />
 
-                            </select>
                         </div>
 
 
                     </div>
 
+                    <hr class="second">
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Unit Price</span>
+                            <input name="unit_price" type="text" required onChange="" readonly value="" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Total Price</span>
+                            <input name="total_price" type="text" required onChange="" readonly value="" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Discount</span>
+                            <input name="discount" type="text" required onChange="" readonly value="" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Special Note </span>
+                            <input name="special_note" id="" cols="30" rows="5" readonly value="No special notes" />
+                        </div>
+                    </div>
+
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                <button type="submit" class="update-btn pb" name="updateOrder">Place Order</button>
-                <button type="button" onclick="" class="cancel-btn pb">Cancel Request</button>
+                <button type="submit" class="update-btn pb" name="placeOrder">Place Order</button>
+                <button type="submit" onclick="" class="cancel-btn pb" name="cancelReq">Cancel Request</button>
                 <!-- </form> -->
 
 
@@ -801,11 +787,7 @@
             </div>
         
     </div>
-    
 
-
-
-                    
                     
     <script>
         function toggleImageForm() {
