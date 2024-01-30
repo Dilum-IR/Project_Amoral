@@ -68,7 +68,7 @@
                     <thead>
                         <tr>
                             <th>Request Id</th>
-                            <th>Design</th>
+                            <!-- <th>Design</th> -->
                             <th>Material</th>
                             <th>Quantity</th>
                             <th></th>
@@ -77,30 +77,32 @@
                     <tbody>
                         <?php foreach($data['quotation'] as $order):?>
                         <?php if($order->is_quotation && $order->order_status == "quotation"): ?>
-                        
+                            <?php $material = array(); ?>
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
-                            <td class="img">
-                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
-                            </td>
+                            <!-- <td class="img">
+                                <?php $img = ($order->image1) ? $order->image1 : $order->pdf ?>
+                                <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $img ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
+                            </td> -->
                             <td>
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                    <?php echo $sizes->material_type ?>
+                                        <?php $material[] = $sizes?>
+                                    <?php echo $sizes->material_type ?><br>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
                             <td class="desc">
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
 
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         <?php endif; ?>
@@ -149,7 +151,7 @@
                     <thead>
                         <tr>
                             <th>Request Id</th>
-                            <th>Design</th>
+                            <!-- <th>Design</th> -->
                             <th>Material</th>
                             <th>Quantity</th>
                             <th></th>
@@ -157,18 +159,19 @@
                     </thead>
                     <tbody>
                         <?php foreach($data['quotation_reply'] as $order):?>
-                       
+                            <?php if($order->is_quotation && $order->order_status == "reply"): ?>
                         
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
-                            <td class="img">
+                            <!-- <td class="img">
                                 <embed src="<?php echo "/Project_Amoral/public/uploads/designs/" . $order->image ; ?>" type="application/pdf" width="171px" height="221px" scrolling="no" style="zoom:0.55; overflow: hidden;" alt="image">
-                            </td>
+                            </td> -->
                             <td>
-                                <?php foreach($data['material_sizes'] as $sizes):?>
+                            <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                    <?php echo $sizes->material_type ?>
+                                        <?php $material[] = $sizes?>
+                                    <?php echo $sizes->material_type ?><br>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
@@ -181,10 +184,10 @@
                             </td>
 
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' onclick="openViewReply(this)"><i class="fas fa-edit"></i> View</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openViewReply(this)"><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
-                        
+                        <?php endif; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -518,39 +521,6 @@
 
 
             </form>
-
-        <!-- <form method="POST" class="new-req">
-            <div class="form">
-                <div class="input-box">
-                    <span class="details">Material</span><br>
-                    <select name="material">
-                        <option value="Crocodile">Crocodile</option>
-                        <option value="Wetlook">Wetlook</option>
-                        <option value="Baby Crocodile">Baby Crocodile</option>
-                    </select>
-                </div> -->
-
-<!-- 
-                <div class="input-box">
-                    <span class="details">Delivery Address</span>
-                    <input type="text" name="address" placeholder="Enter delivery address">
-                </div>
-
-                <div class="input-box">
-                    <span class="details">Delivery Expected On</span>
-                    <input type="date" name="dispatch_date">
-                </div>
-                
-                
-                    <span class="details">T-shirt Design</span>
-                    <input enctype="multipart/form-data" type="file" name="design" id="fileToUpload">
-                
-            </div>
-            <div class="btns">
-                <button type="button" class="cancel-btn" onclick="closeNew()">Cancel</button>
-                <button type="submit" class="close-btn" value="newQuotation" name="newQuotation">Submit</button>
-            </div>
-        </form> -->
         </div>
     </div> 
                
@@ -593,7 +563,7 @@
                                 <div class="flex-half">
                                     <div class="add-section">
                                         <div style="text-align: right; position: relative; right: 50px;">
-                                            <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+                                            <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Update Design</a>
                                         </div>
                                         <div id="imageForm" style="display: none; transition: display 0.5s ease;">
                                             
@@ -614,7 +584,7 @@
                         </div>
                         <div class="input-box">
                             <span class="details">Request Id </span>
-                            <input name="order_id" type="text" required onChange="" readonly value="0023456" />
+                            <input name="order_id" type="text" required onChange="" readonly value="" />
                         </div>
 
                         <div class="input-box" style="height: 0;">
@@ -623,56 +593,61 @@
 
                         <div class="input-box placedDate">
                             <span class="details">Request Placed On</span>
-                            <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
+                            <input name="order_placed_on" type="text" required onChange="" readonly value="" />
                         </div>
-                        <div class="input-box">
-                            <span class="details">Material </span>
-                            <input name="material" type="text" required onChange="" readonly value="Wetlook" />
-                            
-                        </div>
-
-                        <div class="input-box sizes">
-                            <span class="details">Sizes & Quantity</span><br>
-                            <div class="sizeChart">
                         
-                                <span class="size">S</span>
-                            
-                                <input class="st" type="number" id="quantity" name="small"  min="0" >
-                                <br>
-                                <span class="size">M</span>
-                                <input class="st" type="number" id="quantity" name="medium"  min="0" >
-                                <br>
-                                <span class="size">L</span>
-                                <input class="st" type="number" id="quantity" name="large"  min="0">
-                                <br>
-                                <span class="size">XL</span>
-                                <input class="st" type="number" id="quantity" name="xl"  min="0">
-                                <br>
+                    </div>
 
-                            </div>
+                        <div class="add card">
+
                         </div>
 
+                    <hr class="second">
+                    <div class="radio-btns">
+                        <input type="radio" id="pickupV" name="deliveryOption" value="Pick Up">
+                        <label for="pickup">Pick Up</label>
+
+                        <input type="radio" id="deliveryV" name="deliveryOption" value="Delivery">
+                        <label for="delivery">Delivery</label>
+                        <span class="error delivery"></span>
+                    </div>
+
+                    <div class="user-details pickupV">
+                        <div class="input-box">
+                            <span class="details">Pick Up Date</span>
+                        
+                            <input type="date" name="dispatch_date_pickup">
+                        </div>
+                    </div>
+
+                    <div class="user-details deliveryV">
                         <div class="input-box">
                             <span class="details">Delivery Expected On</span>
                         
-                            <input type="date" name="dispatch_date">
+                            <input type="date" name="dispatch_date_delivery">
                         </div>
-                        <div class="input-box">
-                            <span class="details addr">Address</span>
-                        
-                            <input type="text" name="district">
-                        </div>
-                        <div class="input-box">
-                            <span class="details">Delivery Location</span>
+
+                        <div class="input-box location">
+                            <span class="details"> Delivery Location</span>
                             <div id="map" style="height: 300px; width: 100%;"></div>
                         </div>
+
+                        <div class="input-box">
+                            <span class="details addr">District</span>
+                        
+                            <select name="city">
+
+                            </select>
+                        </div>
+
+
                     </div>
                                 
 
 
                     <!-- <form method="POST" class="popup-view" id="popup-view"> -->
                     <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
-                    <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
+                    <button type="button" onclick="" class="cancel-btn pb" name="cancelOrder">Cancel Order</button>
                     <!-- </form> -->
 
 
@@ -680,6 +655,42 @@
             </div>
         
     </div>
+
+    <script>
+        //toggle delivery options
+        let ViewForm = document.querySelector(".update-form");
+        console.log(ViewForm);
+        let deliveryV = document.getElementById("deliveryV");
+        let pickUpV = document.getElementById("pickupV");
+
+
+        pickUpV.addEventListener('click', togglePickUpV);
+        deliveryV.addEventListener('click', toggleDeliveryV);
+
+        function togglePickUpV(){
+            
+            document.querySelector(".user-details.pickupV").classList.add("is-checked");
+            document.querySelector(".user-details.deliveryV").classList.remove("is-checked");
+            // document.getElementsByName("dispatch_date_delivery")[1].value = "";
+            
+        }
+
+        function toggleDeliveryV(){
+            document.querySelector(".user-details.deliveryV").classList.add("is-checked");
+            document.querySelector(".user-details.pickupV").classList.remove("is-checked");
+            // document.getElementsByName("dispatch_date_pickup")[1].value = "";
+        }
+
+        document.getElementsByName("dispatch_date_delivery")[1].addEventListener('change', function(){
+            document.getElementsByName("dispatch_date_pickup")[1].value = "";
+            document.getElementsByName("city")[1].value = "";
+        });
+
+        document.getElementsByName("dispatch_date_pickup")[1].addEventListener('change', function(){
+            document.getElementsByName("dispatch_date_delivery")[1].value = "";
+        });
+
+    </script>
 
     <div class="popup-view-reply" id="popup-view-reply">
         <div class="popup-content">
@@ -691,90 +702,93 @@
 
         
             <form class="update-form" method="POST" enctype="multipart/form-data">
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Request Id </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
-                        
-                    </div>
-
-                    <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span><br>
-                        <div class="sizeChart">
-                      
-                            <span class="size">S</span>
-                        
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="small"  min="0" >
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                            <br>
-                            <span class="size">M</span>
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="medium"  min="0" >
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                            <br>
-                            <span class="size">L</span>
-                            <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                            <input class="st" type="number" id="quantity" name="large"  min="0">
-                            <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                            <br>
-
-
-                        </div>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Request Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Design</span>
-                        <embed name="design" type="application/pdf" style="display: block; width: 250px; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                        <div class="image">
-                            <div class="flex-half">
-                                <div class="add-section">
-                                    <div style="text-align: right; position: relative; right: 36px;">
-                                        <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Add Design</a>
+               <div class="user-details">
+                        <div class="input-box">
+                          
+                            <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                            <div class="image">
+                                <div class="flex-half">
+                                    <div class="add-section">
+                                        <div style="text-align: right; position: relative; right: 50px;">
+                                            <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Update Design</a>
+                                        </div>
+                                        <div id="imageForm" style="display: none; transition: display 0.5s ease;">
+                                            
+                                        <div id="drop_zone">Drag and drop your image here, or click to select image</div>
+                                                <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
+                                                <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                                                
+                                                
+                                        </div>
                                     </div>
-                                    <div id="imageForm" style="display: none; transition: display 0.5s ease;">
                                         
-                                    <div id="drop_zone">Drag and drop your image here, or click to select image</div>
-                                            <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
-                                            <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                                            
-                                            
-                                    </div>
+                                        
+                                        
+                                        
                                 </div>
                                     
-                                    
-                                    
-                                    
                             </div>
-                                
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Request Id </span>
+                            <input name="order_id" type="text" required onChange="" readonly value="" />
+                        </div>
+
+                        <div class="input-box" style="height: 0;">
+
+                        </div>
+
+                        <div class="input-box placedDate">
+                            <span class="details">Request Placed On</span>
+                            <input name="order_placed_on" type="text" required onChange="" readonly value="" />
+                        </div>
+                        
+                    </div>
+
+                        <div class="add card">
+
+                        </div>
+
+                    <hr class="second">
+                    <div class="radio-btns">
+                        <input type="radio" id="pickupV" name="deliveryOption" value="Pick Up">
+                        <label for="pickup">Pick Up</label>
+
+                        <input type="radio" id="deliveryV" name="deliveryOption" value="Delivery">
+                        <label for="delivery">Delivery</label>
+                        <span class="error delivery"></span>
+                    </div>
+
+                    <div class="user-details pickupV">
+                        <div class="input-box">
+                            <span class="details">Pick Up Date</span>
+                        
+                            <input type="date" name="dispatch_date_pickup">
                         </div>
                     </div>
-                    
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                    
-                        <input type="date" name="dispatch_date">
+
+                    <div class="user-details deliveryV">
+                        <div class="input-box">
+                            <span class="details">Delivery Expected On</span>
+                        
+                            <input type="date" name="dispatch_date_delivery">
+                        </div>
+
+                        <div class="input-box location">
+                            <span class="details"> Delivery Location</span>
+                            <div id="map" style="height: 300px; width: 100%;"></div>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details addr">District</span>
+                        
+                            <select name="city">
+
+                            </select>
+                        </div>
+
+
                     </div>
-                    <div class="input-box">
-                        <span class="details addr">Address</span>
-                    
-                        <input type="text" name="district">
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Delivery Location</span>
-                        <div id="map" style="height: 300px; width: 100%;"></div>
-                    </div>
-                </div>
-                               
 
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->

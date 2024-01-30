@@ -848,6 +848,8 @@ hr.second {
 /* new quotation pick up or delivery */
 
 .pickup,
+.pickupV,
+.deliveryV,
 .delivery,
 .design .imagesUpload{
   opacity: 0;
