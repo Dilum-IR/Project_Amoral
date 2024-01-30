@@ -108,7 +108,7 @@
                                 <div class="left">
                                     <h3>Total Orders</h3>
                                     <?php $count = 0; ?>
-                                    <?php foreach ($data as $order): ?>
+                                    <?php foreach ($data['order'] as $order): ?>
                                     <?php if(!$order->is_quotation): ?>
                                         <?php $count++; ?>
                                     <?php endif; ?>
@@ -125,7 +125,7 @@
                                 <div class="left">
                                     <h3>Total Quotations</h3>
                                     <?php $count = 0; ?>
-                                    <?php foreach ($data as $order): ?>
+                                    <?php foreach ($data['order'] as $order): ?>
                                     <?php if($order->is_quotation): ?>
                                         <?php $count++; ?>
                                     <?php endif; ?>
@@ -143,9 +143,13 @@
                                 <div class="left">
                                     <h3>Total Value</h3>
                                     <?php $total = 0; ?>
-                                    <?php foreach ($data as $order): ?>
+                                    <?php foreach ($data['order'] as $order): ?>
                                     <?php if(!$order->is_quotation): ?>
-                                        <?php $total += ($order->unit_price * ($order->small + $order->large + $order->medium)) - ((100 - $order->discount)/100); ?>
+                                        <?php foreach ($data['material_sizes'] as $sizes): ?>
+                                            <?php if($order->order_id == $sizes->order_id): ?>
+                                                <?php $total += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                     <?php endforeach; ?>
                                     <h1>Rs. <?php echo $total ?></h1>
@@ -160,7 +164,7 @@
                                 <div class="left">
                                     <h3>Remaining Payments</h3>
                                     <?php $rem = 0; ?>
-                                    <?php foreach ($data as $order): ?>
+                                    <?php foreach ($data['order'] as $order): ?>
                                     <?php if(!$order->is_quotation): ?>
                                         <?php $rem += $order->remaining_payment; ?>
                                     <?php endif; ?>
@@ -191,21 +195,28 @@
                                 <thead>
                                     <tr>
                                         <th>Order Id</th>
-                                        <th>Design</th>
+                                        <th>Placed Date</th>
                                         <th>Material</th>
                                         <th>Status</th>
                                         <th>Delivery Expected On</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($data as $order): ?>
+                                    <?php foreach ($data['order'] as $order): ?>
                                     <?php if(!$order->is_quotation): ?>
                                     <tr>
                                         <td>
                                             <?php echo $order->order_id ?>
                                         </td>
-                                        <td></td>   
-                                        <td><?php echo $order->material ?></td>
+                                        <td><?php echo $order->order_placed_on ?></td>   
+                                        <td>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                               
+                                                <?php echo $sizes->material_type ?><br>
+                                            <?php endif;?>
+                                        <?php endforeach;?>    
+                                        </td>
                                         <td class="status">
                                             <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
                                             <div>
