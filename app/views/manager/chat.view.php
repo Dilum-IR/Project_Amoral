@@ -121,10 +121,9 @@
                             <h2 id="header-user">Hi, <?= $_SESSION['USER']->emp_name ?></h2>
                             <div class="user-status hide">
                                 <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
-                                <p id='typing' class="user-online">Online</p>
+                                <p id='typing' class="user-online">Offline</p>
                                 <div id="userOnline"></div>
                             </div>
-                            <!-- <div ></div> -->
 
                         </div>
                     </div>
@@ -141,7 +140,7 @@
                 </div>
                 <div class="chat-input hide">
                     <input type="text" id="message-input" onkeyup='typing()' placeholder="Type a message..." required>
-                    <button onclick="emptycheck()" accesskey="enter">Send<span><i class='bx bx-send bx-flashing-hover send_icon'></i> </span></button>
+                    <button onclick="emptycheck()" accesskey="enter">Send<span><i class='bx bxl-telegram bx-flashing-hover send_icon'></i> </span></button>
                 </div>
             </div>
         </div>
@@ -505,6 +504,8 @@
                         chatBody.appendChild(div);
                         chatBody.appendChild(p);
 
+                        isOnlineUser()
+
 
                     } else if (typeof data.typing !== 'undefined') {
 
@@ -517,6 +518,8 @@
 
                             userStatus.classList.remove("hide");
                             usertyping.innerHTML = "Online";
+                            isOnlineUser()
+
 
                         }, 2000);
 
@@ -529,8 +532,9 @@
                     onlineUser = data
                 }
 
-                isOnlineUser()
-
+                if (typeof data.typing == 'undefined') {
+                    isOnlineUser()
+                }
 
             } catch (error) {
 
@@ -547,14 +551,14 @@
 
                 if (typeof onlineUser.type !== "undefined") {
 
-                    
+
                     if (chatBoxData != null) {
-                        
-                        
+
+
                         if ((onlineUser.user_id == chatBoxData.chat_box.from_id ||
-                        onlineUser.user_id == chatBoxData.chat_box.to_id &&
-                        onlineUser.online)) {
-                            
+                                onlineUser.user_id == chatBoxData.chat_box.to_id &&
+                                onlineUser.online)) {
+
                             console.log(chatBoxData.chat_box.from_id)
                             console.log(chatBoxData.chat_box.to_id)
                             console.log(onlineUser.user_id)
@@ -612,7 +616,6 @@
         }
 
         setInterval(5000, isOnlineUser());
-
     </script>
 
 </body>
