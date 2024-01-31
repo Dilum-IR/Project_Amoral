@@ -175,19 +175,19 @@ form .form-input button:hover {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 9px;
+  border-radius: 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  transform: scale(0.9);
+  /* transform: scale(0.9); */
 }
 
 .btn:hover,
 .new-btn:hover {
-  transform: scale(1);
+  /* transform: scale(1); */
   transition: all 0.3s ease-in-out;
 }
 

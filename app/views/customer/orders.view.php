@@ -19,7 +19,7 @@
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
-    <!-- <?php include_once 'navigationbar.php' ?> -->
+    <?php include_once 'navigationbar.php' ?>
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
@@ -47,7 +47,7 @@
                         </button>
                     </div>
                 </form>
-				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
+				<!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 

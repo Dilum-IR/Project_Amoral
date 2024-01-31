@@ -1,11 +1,10 @@
-    <!-- Navigation Bar -->
-    <section class="home-section" id="navbar">
+<section class="home-section" id="navbar">
         <nav>
             <div class="nav-icons">
                 <div class="nav-link notifi">
                     <i class='bx bxs-bell-ring icon'></i>
                     <span class="bell-notification">5</span>
-</div>
+                </div>
                 <a href="#" class="nav-link">
                     <i class='bx bxs-chat icon'></i>
                     <span class="chat-notification">8</span>
@@ -25,6 +24,7 @@
             </div>
         </nav>
     </section>
+
 
     
 

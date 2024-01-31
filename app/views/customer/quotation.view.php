@@ -15,16 +15,10 @@
 
 <body>
     <!-- Sidebar -->
-    <?php 
-    include 'sidebar.php' 
-    ?>
+    <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
-    <?php 
-    include 'navigationbar.php' 
-    ?>
-
-
+    <?php include_once 'navigationbar.php' ?>
     <!-- content  -->
     <section id="main" class="main">
 
@@ -157,7 +151,7 @@
                     <tbody>
                         <?php foreach($data['quotation_reply'] as $order):?>
                             <?php if($order->is_quotation && $order->order_status === "reply"): ?>
-                        
+                                <?php $material_reply = array(); ?>
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
@@ -554,7 +548,7 @@
                         <div class="input-box">
                           
                             <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                            <div class="image">
+                            <!-- <div class="image">
                                 <div class="flex-half">
                                     <div class="add-section">
                                         <div style="text-align: right; position: relative; right: 50px;">
@@ -575,7 +569,7 @@
                                         
                                 </div>
                                     
-                            </div>
+                            </div> -->
                         </div>
                         <div class="input-box">
                             <span class="details">Request Id </span>
@@ -593,8 +587,18 @@
                         
                     </div>
 
+
+                    <!-- <hr class="first"> -->
+
+                    <!-- <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4> -->
+
                     <div class="add card">
 
+                        <!-- <div class="left">
+                            <i class='bx bxs-plus-circle'></i>
+                            <h4>Add a material</h4>
+                        </div> -->
+                        
                     </div>
 
                     <hr class="second">
