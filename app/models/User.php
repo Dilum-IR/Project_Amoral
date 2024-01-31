@@ -7,7 +7,7 @@ class User
 
 	protected $table = 'users';
 
-	protected $allowedCloumns = [
+	public $allowedCloumns = [
 		"id",
 		'fullname',
 		'email',

@@ -66,14 +66,14 @@ trait Model
         }
         return false;
     }
-    public function first_selectedColumn($data, $data_not = [])
+    public function first_selectedColumn($data,$allowedCloumns ,$data_not = [])
     {
 
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
         $quary = "SELECT ";
 
-        foreach ($this->allowedCloumns as $key) {
+        foreach ($allowedCloumns as $key) {
             $quary .= $key . ",";
         }
         $quary = trim($quary, ",");

@@ -7,7 +7,7 @@ class Employee
 
 	protected $table = 'employee';
 
-	protected $allowedCloumns = [
+	public $allowedCloumns = [
 
 		'emp_id',
 		'emp_name',
@@ -15,6 +15,11 @@ class Employee
 		'contact_number',
 		'emp_status',
 		'emp_image'
+	];
+	public $chatForCloumn = [
+
+		'emp_id',
+		'email'
 	];
 
 	public function validate($data)

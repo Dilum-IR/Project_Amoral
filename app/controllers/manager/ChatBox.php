@@ -111,8 +111,8 @@ class ChatBox extends Controller
             $newData['email'] = $email;
 
             // get the already chated users more details using users & employee tables
-            $userData = $user->first_selectedColumn($newData);
-            $empData = $employee->first_selectedColumn($newData);
+            $userData = $user->first_selectedColumn($newData,$user->allowedCloumns);
+            $empData = $employee->first_selectedColumn($newData,$employee->allowedCloumns);
 
             // add that data in to the array
             if ($userData) {

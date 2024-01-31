@@ -22,6 +22,9 @@ route('customer/orders', 'customer/customerOrders@index');
 route('customer/profile', 'customer/Profile@index');
 route('customer/quotation', 'customer/Quotation@index');
 
+route('customer/saveMsg', 'customer/customerOverview@chat_msg');
+route('customer/chatbox', 'customer/customerOverview@chat_data');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
@@ -29,6 +32,7 @@ route('manager/garmentorders', 'manager/GarmentOrders@index');
 route('manager/quotation', 'manager/Quotation@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
+
 
 //  chat path
 route('manager/chat', 'manager/ChatBox@index');
