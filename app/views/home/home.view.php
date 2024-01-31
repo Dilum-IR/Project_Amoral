@@ -18,94 +18,65 @@
 </head>
 
 <body>
-    <?php include 'navigationbar.php'; ?>
 
+
+    <?php include 'navigationbar.php' ?>
+    <div class="loader">
+        <div class="loading-logo">
+            <img src="<?= ROOT ?>/assets/images/home/amorallogo.png" alt="">
+        </div>
+    </div>
     <a href="<?= ROOT ?>/signin">Sign</a>
     <h1> Home file view</h1>
 
     <section id="welcome-section" class="welcome-section">
-        <!-- <div class="welcome-text">
-                    <h2>
-                        Welcome to AMORAL
-                    </h2>
-                    <h3>
-                        Welcome to Amoral, your one-stop destination for custom-designed T-shirts that perfectly reflect your unique style and preferences. <a href="<?= ROOT ?>/signin" class="text-nav-link">Register</a> now to place your order. (If you have a garment factory you can <a href="<?= ROOT ?>/guest" class="text-nav-link">join with us</a>. Let's work together. Join us now.)
-                    </h3>
+        <div class="main-slider-container">
+            <h3 class="brand-name" data-text="AMORAL">AMORAL</h3>
+            <!--image slider start-->
+            <div class="main-slider">
+                <div class="main-slides">
+                    <!--radio buttons start-->
+                    <input type="radio" name="radio-btn" id="radio1">
+                    <input type="radio" name="radio-btn" id="radio2">
+                    <input type="radio" name="radio-btn" id="radio3">
+                    <input type="radio" name="radio-btn" id="radio4">
+                    <!--radio buttons end-->
 
-                    <br>
-                    <a href="<?= ROOT ?>/signin" class="home-nav-link">
-                        <i class='bx bxs-user icon'></i>
-                        Sign Up
-                    </a>
-                    <br>
-                    <a href="<?= ROOT ?>/guest" class="home-partnership-link">
-                        <i class='bx bxs-file icon'></i>
-                        Partnership with AMORAL
-                    </a>
+                    <!--slide images start-->
+                    <div class="main-slide first">
+                        <img src="<?= ROOT ?>/assets/images/home/home_cover_1.jpg" alt="">
+                    </div>
+                    <div class="main-slide">
+                        <img src="<?= ROOT ?>/assets/images/home/home_cover_2.jpg" alt="">
+                    </div>
+                    <div class="main-slide">
+                        <img src="<?= ROOT ?>/assets/images/home/home_cover_3.jpg" alt="">
+                    </div>
+                    <div class="main-slide">
+                        <img src="<?= ROOT ?>/assets/images/home/home_cover_4.jpg" alt="">
+                    </div>
+                    <!--slide images end-->
 
-                </div> -->
+                    <!--automatic navigation start-->
+                    <div class="main-navigation-auto">
+                        <div class="auto-btn1"></div>
+                        <div class="auto-btn2"></div>
+                        <div class="auto-btn3"></div>
+                        <div class="auto-btn4"></div>
+                    </div>
+                    <!--automatic navigation end-->
+                </div>
+                <!--manual navigation start-->
+                <div class="main-navigation-manual">
+                    <label for="radio1" class="manual-btn"></label>
+                    <label for="radio2" class="manual-btn"></label>
+                    <label for="radio3" class="manual-btn"></label>
+                    <label for="radio4" class="manual-btn"></label>
+                </div>
+                <!--manual navigation end-->
 
-        <!-- <div class="main-img">
-
-            <div class="home-image-slider">
-                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_1.jpg">
             </div>
-            <div class="home-image-slider">
-                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_2.jpg">
-            </div>
-            <div class="home-image-slider">
-                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_3.jpg">
-            </div>
-            <div class="home-image-slider">
-                <img class="welcome-img" id="welcome-img" src="<?= ROOT ?>/assets/images/home/home_cover_4.jpg">
-            </div>
-      
-            <h3 class="brand-name" data-text="AMORAL...">AMORAL...</h3>
-
-        </div> -->
-         <!--image slider start-->
-  <div class="main-slider">
-    <div class="main-slides">
-      <!--radio buttons start-->
-      <input type="radio" name="radio-btn" id="radio1">
-      <input type="radio" name="radio-btn" id="radio2">
-      <input type="radio" name="radio-btn" id="radio3">
-      <input type="radio" name="radio-btn" id="radio4">
-      <!--radio buttons end-->
-
-      <!--slide images start-->
-      <div class="main-slide first">
-        <img src="<?= ROOT ?>/assets/images/home/home_cover_1.jpg" alt="">
-      </div>
-      <div class="main-slide">
-        <img src="<?= ROOT ?>/assets/images/home/home_cover_2.jpg" alt="">
-      </div>
-      <div class="main-slide">
-        <img src="<?= ROOT ?>/assets/images/home/home_cover_3.jpg" alt="">
-      </div>
-      <div class="main-slide">
-        <img src="<?= ROOT ?>/assets/images/home/home_cover_4.jpg" alt="">
-      </div>
-      <!--slide images end-->
-
-      <!--automatic navigation start-->
-      <div class="main-navigation-auto">
-        <div class="auto-btn1"></div>
-        <div class="auto-btn2"></div>
-        <div class="auto-btn3"></div>
-        <div class="auto-btn4"></div>
-      </div>
-      <!--automatic navigation end-->
-    </div>
-    <!--manual navigation start-->
-    <div class="main-navigation-manual">
-      <label for="radio1" class="manual-btn"></label>
-      <label for="radio2" class="manual-btn"></label>
-      <label for="radio3" class="manual-btn"></label>
-      <label for="radio4" class="manual-btn"></label>
-    </div>
-    <!--manual navigation end-->
-  </div>
+        </div>
 
 
         <div class="slide-images">
@@ -133,15 +104,15 @@
                         <i class='bx bxs-user icon'></i>
                         Sign In
                     </a> -->
-                    <a class="sign-up-box" href="<?= ROOT ?>/signup">
+                    <button id="home-sign-up-box-1" class="home-sign-up-box-1" href="<?= ROOT ?>/signup">
                         <i class='bx bxs-user icon'></i>
                         Sign Up
-                    </a>
+                    </button>
                     <br>
-                    <a class="sign-up-box" href="<?= ROOT ?>/guest">
+                    <button id="home-sign-up-box-2" class="home-sign-up-box-2" href="<?= ROOT ?>/guest">
                         <i class='bx bxs-user icon'></i>
                         Sign Up for a Partnership
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -186,6 +157,8 @@
 
             <div class="deal-description">
                 A strategic partnership deal has been forged between two industry leaders, promising to leverage their respective strengths to drive innovation, expand market reach, and create a synergistic impact on the ever-evolving business landscape.
+                <br>
+                <br>
                 <button class="partnership-deal-button">Partnership Deal</button>
             </div>
         </div>
@@ -195,14 +168,14 @@
                 <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
                 <div class="deal-text">
                     <p class="deal-p">See the Collection</p>
-                    <button class="deal-button">Shop Now</button>
+                    <button class="deal-button"> <span>Shop Now</span> </button>
                 </div>
             </div>
             <div class="deal-section place-now">
                 <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
                 <div class="deal-text">
                     <p class="deal-p">Place your order now</p>
-                    <button class="deal-button">Place Order</button>
+                    <button class="deal-button"><span>Place Order</span></button>
                 </div>
             </div>
         </div>

@@ -51,6 +51,7 @@ function showSlides() {
     setTimeout(showSlides, 8000); // Change image every 8 seconds
 }
 
+// main image slider
 var counter = 1;
 setInterval(function () {
     document.getElementById('radio' + counter).checked = true;
@@ -59,3 +60,12 @@ setInterval(function () {
         counter = 1;
     }
 }, 5000);
+
+// loading screen hide
+window.addEventListener("load", ()=> {
+    document.querySelector(".loader").classList.add("loader--hidden");
+
+    document.querySelector(".loader").addEventListener("trasnsitionend", () => {
+        document.body.removeChild(document.querySelector(".loader"));
+    });
+});

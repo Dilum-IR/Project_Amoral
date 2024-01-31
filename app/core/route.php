@@ -43,3 +43,5 @@ route('signinData', 'SignIn@formData');
 route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
+
+route('premade', 'premade/Premade@Index');

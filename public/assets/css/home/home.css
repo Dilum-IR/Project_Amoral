@@ -775,7 +775,7 @@ nav .icon-cancel {
 }
 
 .blog-card .description .read-more a::after {
-  content: "ÃƒÂ¯Ã‚ÂÃ‚Â¡";
+  content: "ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚ÂÃƒâ€šÃ‚Â¡";
   font-family: FontAwesome;
   margin-left: -10px;
   opacity: 0;
@@ -883,11 +883,11 @@ nav .icon-cancel {
 }
 
 .brand-name {
-  z-index: 1;
-  position: absolute;
-  font-size: 14vw;
+  z-index: 2;
+  position: relative;
+  font-size: 20vw;
   top: 8%;
-  left: 4%;
+  /* left: 4%; */
   color: transparent;
   -webkit-text-stroke: rgba(255, 255, 255, 0.23);
   text-transform: uppercase;
@@ -896,15 +896,18 @@ nav .icon-cancel {
 .brand-name::before {
   content: attr(data-text);
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -1%;
+  left: 0px;
   width: 0;
-  height: 100%;
+  font-size: 20vw;
+  height: 182.5%;
   color: white;
   -webkit-text-stroke: 0px rgba(255, 255, 255, 0.23);
   border-right: 0px solid rgb(255, 255, 255);
   overflow: hidden;
-  animation: color-animation 5s linear infinite;
+  text-align: right;
+  animation: color-animation 7s linear 1;
+  background-color: #000000b0;
 }
 
 @keyframes color-animation {
@@ -923,6 +926,7 @@ nav .icon-cancel {
   }
 }
 
+
 /* .main-text {
   position: absolute;
   top: 50%;
@@ -937,29 +941,97 @@ nav .icon-cancel {
   position: relative;
   font-size: 22px;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   /* background-color: red; */
   width: 100%;
-  margin-top: 11%;
+  margin-top: 4%;
+  margin-left: -4px;
 }
 
-.sign-up-box {
-  font-size: 20px;
-  border-radius: 10px;
-  position: relative;
+.home-sign-up-box-1 {
+  width: 10vw;
+  height: 7.2vh;
+  margin: 5px;
+  background: black;
   color: white;
-  background-color: var(--color-default);
-  padding: 15px;
-  text-decoration: none;
-  transition: transform 0.3s ease-in-out;
-  box-shadow: 2px 5px 10px 2px rgb(138, 134, 134);
+  border: none;
+  border-radius: 2em;
+  font-size: 1.4vw;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
-.sign-up-box:hover {
-  text-decoration: underline;
-  transform: translateY(-5px);
-  
+#home-sign-up-box-1:hover {
+  color: black;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+
 }
+
+#home-sign-up-box-1:after {
+  content: "";
+  background: white;
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
+}
+
+#home-sign-up-box-1:hover:after {
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.home-sign-up-box-2 {
+  width: 21vw;
+  height: 7.2vh;
+  margin: 5px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 2em;
+  font-size: 1.4vw;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#home-sign-up-box-2:hover {
+  color: black;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+}
+
+#home-sign-up-box-2:after {
+  content: "";
+  background: white;
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
+}
+
+#home-sign-up-box-2:hover:after {
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+
 
 /* image slider */
 
@@ -1029,7 +1101,7 @@ nav .icon-cancel {
 
 .slide-text {
   margin-top: 8%;
-  font-size: 28px;
+  font-size: 1.8vw;
   position: relative;
   /* top: -630px; */
   /* background-color: #ff0000; */
@@ -1042,7 +1114,7 @@ nav .icon-cancel {
 
 /* welcome text */
 
-.welcome-textt{
+.welcome-textt {
   font-size: 34px;
   position: relative;
   width: 100%;
@@ -1076,11 +1148,10 @@ nav .icon-cancel {
   display: flex;
   position: relative;
   align-items: center;
-
 }
 
 .tool-description {
-  font-size: 28px;
+  font-size: 1.8vw;
   position: relative;
   width: 32%;
   margin-left: 2%;
@@ -1107,28 +1178,26 @@ nav .icon-cancel {
 
 .design-tool-button {
   position: relative;
-  font-size: 20px;
-  width: 200px;
-  height: 50px;
+  font-size: 1.4vw;
+  width: 15vw;
+  height: 7vh;
   background-color: white;
-  border-radius: 25px;
+  border-radius: 2em;
   border-style: none;
   transition: 0.3s ease;
   cursor: pointer;
-
 }
 
 .design-tool-button:hover {
   position: relative;
-  font-size: 20px;
+  font-size: 1.4vw;
   color: white;
-  width: 200px;
-  height: 50px;
+  width: 15vw;
+  height: 7vh;
   background-color: rgb(0, 0, 0);
-  border-radius: 25px;
+  border-radius: 2em;
   border-style: solid;
   border-color: white;
-
 }
 
 /* partnership deal  */
@@ -1159,7 +1228,7 @@ nav .icon-cancel {
 }
 
 .deal-description {
-  font-size: 28px;
+  font-size: 1.8vw;
   position: relative;
   width: 47%;
   margin-left: 16%;
@@ -1171,29 +1240,29 @@ nav .icon-cancel {
 
 .partnership-deal-button {
   position: relative;
-  font-size: 20px;
+  font-size: 1.4vw;
   margin-left: 26%;
-  width: 200px;
-  height: 50px;
+  width: 14vw;
+  height: 7vh;
   background-color: black;
-  border-radius: 25px;
+  border-radius: 2em;
   border-style: none;
   transition: 0.3s ease;
   color: white;
   /* margin-right: 113%; */
+  cursor: pointer;
 }
 
 .partnership-deal-button:hover {
   position: relative;
-  font-size: 20px;
+  font-size: 1.4vw;
   color: black;
-  width: 200px;
-  height: 50px;
+  width: 14vw;
+  height: 7vh;
   background-color: white;
-  border-radius: 25px;
+  border-radius: 2em;
   border-style: solid;
   border-color: black;
-  
 }
 
 /* shopping deals */
@@ -1234,14 +1303,18 @@ nav .icon-cancel {
   justify-content: center;
   align-items: center;
   text-align: center;
+  /* display: block; */
 }
 
 .deal-p {
-  top: 25%;
-  font-size: 5vh;
+  margin-top: 40%;
+  font-size: 35px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
-
+/* 
 .deal-button {
   position: relative;
   font-size: 25px;
@@ -1259,15 +1332,78 @@ nav .icon-cancel {
   color: white;
   border-color: rgb(0, 0, 0);
   transform: translateY(-5px);
+} */
+
+.deal-button {
+  margin-left: 36%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: black;
+  font-size: 20px;
+  box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+
 }
 
+.deal-button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: white;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.deal-button:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.deal-button span {
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  padding: 18px 25px;
+  color: #fff;
+  letter-spacing: 2px;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.deal-button:hover span {
+  color: var(--color-default);
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 .deal-section:hover .deal-text {
-  display: flex;
+  display: block;
 }
 
 @media only screen and (max-width: 768px) {
   .deal-section {
-      width: 100%;
+    width: 100%;
   }
 }
 
@@ -1343,23 +1479,23 @@ nav .icon-cancel {
 }
 
 /* waves */
+/* 
 
-
-.line-1{
+.line-1 {
   z-index: 15;
   opacity: 0.5;
 }
 
-.line-2{
+.line-2 {
   z-index: 10;
   opacity: 0.7;
 }
 
-.line-3{
+.line-3 {
   z-index: 5;
 }
 
-.wave{
+.wave {
   position: absolute;
   left: 0;
   width: 100%;
@@ -1369,39 +1505,39 @@ nav .icon-cancel {
   transform-origin: center bottom;
 }
 
-.wave1{
+.wave1 {
   background-image: url("<?= ROOT ?>/assets/images/wave/wave-1.png");
   -webkit-background-size: 50% 80px;
   background-size: 50% 80px;
 }
 
-.wave2{
+.wave2 {
   background-image: url("<?= ROOT ?>/assets/images/wave/wave-2.png");
   -webkit-background-size: 50% 100px;
   background-size: 50% 100px;
   animation: animate 12s linear infinite;
 }
 
-.wave3{
+.wave3 {
   background-image: url("<?= ROOT ?>/assets/images/wave/wave-3.png");
   -webkit-background-size: 50% 80px;
   background-size: 50% 80px;
   animation: wavy-animation 12s linear infinite;
 }
 
-@keyframes wavy-animation{
-  0%{
-      transform: translateX(0) translateZ(0) scaleY(1);
+@keyframes wavy-animation {
+  0% {
+    transform: translateX(0) translateZ(0) scaleY(1);
   }
 
-  50%{
-      transform: translateX(-25%) translateZ(0) scaleY(1-0.5);
+  50% {
+    transform: translateX(-25%) translateZ(0) scaleY(1-0.5);
   }
 
-  100%{
-      transform: translateX(-50%) translateZ(0) scaleY(1);
+  100% {
+    transform: translateX(-50%) translateZ(0) scaleY(1);
   }
-}
+} */
 
 
 /* footer */
@@ -1607,16 +1743,16 @@ footer {
 }
 
 .main-slider {
-  margin-top: -2px;
+  margin-top: -32%;
   /* width: 100vw; */
-  height: 100vh;
+  /* height: 100vh; */
   overflow: hidden;
   position: relative;
 }
 
 .main-slides {
   width: 400%;
-  height: 100%;
+  /* height: 70%; */
   display: flex;
 }
 
@@ -1649,11 +1785,13 @@ footer {
   border-radius: 10px;
   cursor: pointer;
   transition: 1s;
+  display: none
 }
 
 .manual-btn:not(:last-child),
 .main-navigation-auto div:not(:last-child) {
   margin-right: 40px;
+  display: none
 }
 
 .manual-btn:hover {
@@ -1681,6 +1819,7 @@ footer {
 #radio3:checked~.main-navigation-auto .auto-btn3,
 #radio4:checked~.main-navigation-auto .auto-btn4 {
   background: #191919;
+  display: none
 }
 
 input[type="radio"] {
@@ -1694,4 +1833,39 @@ input[type="radio"] {
 
 input[type="radio"]:not(:first-child) {
   display: none;
+}
+
+.loader {
+  height: 350px;
+  width: 350px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  perspective: 800px;
+}
+
+.loading-logo {
+  z-index: 99;
+  height: 200px;
+  width: 200px;
+  background-color: black;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform-style: preserve-3d;
+  animation: spin 2s infinite;
+}
+
+@keyframes spin {
+  50% {
+    transform: rotateX(-180deg);
+  }
+
+  100% {
+    transform: rotateX(-180deg) rotateY(-180deg);
+  }
 }
