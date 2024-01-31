@@ -38,21 +38,24 @@ class Order
         return $this->quary($quary);
     }
 
-    function getFullData($data){
+    function getFullData($data=[]){
         $keys = array_keys($data);
         $quary = "SELECT $this->table.user_id, order_material.*, material_stock.material_type 
         FROM order_material 
         INNER JOIN $this->table 
         ON $this->table.order_id = order_material.order_id 
         INNER JOIN material_stock
-        ON material_stock.stock_id = order_material.material_id
-        WHERE ";
+        ON material_stock.stock_id = order_material.material_id";
 
-        foreach ($keys as $key) {
-            $quary .= $key . " = :" . $key . " && ";
+        if (!empty($keys)) {
+            $quary .= " WHERE ";
+
+            foreach ($keys as $key) {
+                $quary .= $key . " = :" . $key . " && ";
+            }
+
+            $quary = trim($quary, " && ");
         }
-
-        $quary = trim($quary, " && ");
 
         return $this->quary($quary, $data);
     }

@@ -124,11 +124,15 @@
                                 <div class="left">
                                     <h3>Total Sales</h3>
                                     <?php $totalSales = 0; ?>
-                                    <?php foreach($data['customerOrder'] as $order): 
-                                        if(!$order->is_quotation):
-                                            $totalSales += ($order->unit_price * ($order->small + $order->large + $order->medium)) - ((100 - $order->discount)/100);
-                                        endif;
-                                    endforeach; ?>
+                                    <?php foreach ($data['customerOrder'] as $order): ?>
+                                    <?php if(!$order->is_quotation): ?>
+                                        <?php foreach ($data['material_sizes'] as $sizes): ?>
+                                          
+                                                <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
+                                       
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <?php endforeach; ?>
                                     <h1><?php echo "Rs. " , $totalSales ?></h1>
 
                                 </div>
@@ -272,7 +276,7 @@
                                 <thead>
                                     <tr>
                                         <th>Order Id</th>
-                                        <th>Design</th>
+                                        <th>Placed On</th>
                                         <th>Material</th>
                                         <th>Status</th>
                                     </tr>
@@ -284,8 +288,15 @@
                                         <td>
                                             <?php echo $order->order_id ?>
                                         </td>
-                                        <td></td>   
-                                        <td><?php echo $order->material ?></td>
+                                        <td><?php echo $order->order_placed_on ?></td>   
+                                        <td>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                               
+                                                <?php echo $sizes->material_type ?><br>
+                                            <?php endif;?>
+                                        <?php endforeach;?>    
+                                        </td>
                                         <td class="status">
                                             <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
                                             <div>
@@ -319,8 +330,8 @@
                                 <thead>
                                     <tr>
                                         <th>Order Id</th>
-                                        <th>Design</th>
-                                        <th>Material</th>
+                                        <th>CustomerOrder Id</th>
+                                        <th>Placed On</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -331,8 +342,8 @@
                                         <td>
                                             <?php echo $order->garment_order_id ?>
                                         </td>
-                                        <td></td>   
                                         <td><?php echo $order->order_id ?></td>
+                                        <td><?php echo $order->placed_date ?></td>   
                                         <td class="status">
                                             <i class='bx bxs-circle <?php echo $order->status ?>' style="font-size: 12px;"></i>
                                             <div>
@@ -408,8 +419,8 @@
                 <div class="middle">
                     <div class="left">
                         <h3>${name}</h3>
-                        <h1>${quantity} Meters</h1>
-                        <p>Rs. ${price} per meter</p>
+                        <h1>${quantity} Kg</h1>
+                        <p>Rs. ${price} per Kg</p>
                     </div>
                     <button class="update-btn" data-name="${name}" data-quantity="${quantity}" data-price="${price}" data-id="${id}" onclick="openUpdate(this)">Update</button>
                 </div>
