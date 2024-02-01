@@ -451,7 +451,7 @@ select{
 }
 
 .new-form .user-details .input-box {
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   width: calc(100% / 2 - 20px);
   overflow: hidden;
 }
@@ -563,19 +563,6 @@ select {
 }
 
 
-#preview {
-  display: none;
-  max-width: 250px;
-  max-height: 200px;
-  /* min-width: 300px;
-  min-height: 300px; */
-  /* padding: 1rem; */
-  object-fit: cover;
-  text-align: center;
-  /* background-color: white; */
-
-}
-
 .delete-image-btn {
   font-size: 2rem;
   color: var(--blk);
@@ -599,6 +586,13 @@ select {
   text-align: center;
   padding-top: 1%;
   margin: 25px 20px;
+}
+
+.popup-view .reply h4{
+  text-align: center;
+  padding-top: 1%;
+  margin-bottom: 25px;
+  cursor: pointer;
 }
 
 .sizeChart{
@@ -693,15 +687,15 @@ button.pay:hover {
   cursor: pointer;
 }
 
-.popup-new .input-box.design{
-  margin-top: -125px;
-}
+/* .popup-new .input-box.design{
+  height: -375px;
+} */
 
 .removeButton {
   color: red;
   position: relative;
   border: none;
- 
+  background: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -814,7 +808,9 @@ hr.second {
   background: green;
 }
 
-
+.popup-view .reply-btn:hover{
+  background: #007bff;
+}
 
 .popup-view .cancel-btn:hover,
 .popup-view-reply .cancel-btn:hover{
