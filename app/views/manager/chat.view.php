@@ -33,7 +33,8 @@
 
                 <div class="chat-all-users">
                     <div class="chat-head">
-                        <p>Amoral Chat</p>
+                        <p class="chatname"><b>AMORAL &nbsp; </b>CHAT</p>
+                        
 
                         <div class="dropdown" style="float:right;">
                             <button class="dropbtn">Type</button>
@@ -42,7 +43,7 @@
                                 <a href="#">Customers</a>
                                 <a href="#">Delivary man</a>
                             </div>
-                            <hr>
+                        
                         </div>
                     </div>
 
@@ -307,6 +308,7 @@
             p.style.borderRadius = "5px";
             p.style.display = "inline-block";
             p.style.maxWidth = "70%";
+            p.style.lineHeight = "20px";
             p.innerHTML = chatMsg.msg + "<br> <small> <em>" + ampmTime + "</em></small>";
 
             if (loadWithTime != formattedDate) {

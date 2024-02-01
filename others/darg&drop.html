@@ -4,30 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  </head>
-  <body>
-    <div class="categories">
-      <div class="category" id="pickupCategory">
-        <h2>Pickup Category</h2>
-        <div class="draggable" draggable="true" id="item1">Item 1</div>
-        <div class="draggable" draggable="true" id="item2">Item 2</div>
-      </div>
-
-      <div class="category" id="preparedCategory">
-        <h2>Prepared Category</h2>
-        <div class="draggable" draggable="true" id="item3">Item 2</div>
-      </div>
-
-      <div class="category" id="deliveryCategory">
-        <h2>Delivery Category</h2>
-        <div class="draggable" draggable="true" id="item4">Item 2</div>
-      </div>
-
-      <div class="category" id="finishedCategory">
-        <h2>Finished Category</h2>
-      </div>
-    </div>
-
     <style>
       .categories {
         display: flex;
@@ -63,6 +39,31 @@
       }
     </style>
 
+  </head>
+  <body>
+    <div class="categories">
+      <div class="category" id="pickupCategory">
+        <h2>Pickup Category</h2>
+        <div class="draggable" draggable="true" id="item1">Item 1</div>
+        <div class="draggable" draggable="true" id="item2">Item 2</div>
+      </div>
+
+      <div class="category" id="preparedCategory">
+        <h2>Prepared Category</h2>
+        <div class="draggable" draggable="true" id="item3">Item 2</div>
+      </div>
+
+      <div class="category" id="deliveryCategory">
+        <h2>Delivery Category</h2>
+        <div class="draggable" draggable="true" id="item4">Item 2</div>
+      </div>
+
+      <div class="category" id="finishedCategory">
+        <h2>Finished Category</h2>
+      </div>
+    </div>
+
+ 
     <script>
       const draggables = document.querySelectorAll(".draggable");
       const dropzones = document.querySelectorAll(".category");
