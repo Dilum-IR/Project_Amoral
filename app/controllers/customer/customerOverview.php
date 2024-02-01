@@ -9,7 +9,9 @@ class CustomerOverview extends Controller
 
         if ($username != 'User') {
             $id = ['user_id' => $_SESSION['USER']->id];
-            $data = $order->where($id);
+            $data['order'] = $order->where($id);
+            $data['material_sizes'] = $order->getFullData($id);
+
 
             $this->view('customer/overview', $data);
         } else {

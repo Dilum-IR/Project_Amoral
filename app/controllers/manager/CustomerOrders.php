@@ -7,10 +7,14 @@ class CustomerOrders extends Controller
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         $order = new Order;
+        $materials = new MaterialStock;
+        $order_material = new OrderMaterial;
 
         if ($username != 'User') {
 
-            $data = $order->findAll('order_id');
+            $data['orders'] = $order->findAll('order_id');
+            $data['material_sizes'] = $order->getFullData();
+            $data['materials'] = $materials->getMaterialNames();
             
             $this->view('manager/customerorders', $data);
               

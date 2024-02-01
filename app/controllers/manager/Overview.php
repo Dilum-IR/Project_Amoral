@@ -13,6 +13,7 @@ class Overview extends Controller
         if ($username != 'User') {
             $data['deleteMaterial'] = 'false';
             $data['customerOrder'] = $customerOrder->findAll('order_id');
+            $data['material_sizes'] = $customerOrder->getFullData();
             $data['garmentOrder'] = $garmentOrder->findAll('order_id');
             $data['materialStock'] = $materialStock->findAll('stock_id');
             $this->view('manager/overview', $data);

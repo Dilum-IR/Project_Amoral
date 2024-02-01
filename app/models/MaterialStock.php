@@ -12,4 +12,9 @@ class MaterialStock{
         'quantity',
         'unit_price'
     ];
+
+    function getMaterialNames(){
+        $quary = "SELECT stock_id, material_type FROM $this->table";
+        return $this->quary($quary);
+    }
 }
