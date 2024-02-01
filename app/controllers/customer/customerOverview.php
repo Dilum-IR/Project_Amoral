@@ -68,7 +68,11 @@ class CustomerOverview extends Controller
                 // get the chat Id for included all chat messages
                 $chatMsgs = $this->chatbox($chatId[0]->chat_id);
 
-                echo json_encode($chatMsgs);
+                $chatAllData['chat'] = $chatId;
+                $chatAllData['chatMsgs'] = $chatMsgs;
+                $chatAllData['log_user'] = $userChatId->id;
+
+                echo json_encode($chatAllData);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -86,15 +90,24 @@ class CustomerOverview extends Controller
 
         return $chatMsg;
     }
-    
+
     public function saveMsg()
     {
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User' && $_SESSION['USER']->emp_status == "manager") {
+        if ($username != 'User' && $_SESSION['USER']->user_status == "customer") {
 
-            $chatData = new ChatData();
-            $chatData->insert($_POST);
+            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+                $chatData = new ChatData();
+                $chatData->insert($_POST);
+            } else {
+
+                redirect("404");
+            }
+        }else{
+            redirect("404");
+
         }
     }
 }
