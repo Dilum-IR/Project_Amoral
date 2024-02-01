@@ -16,7 +16,7 @@ class CustomerOrders extends Controller
         if ($username != 'User') {
             
             $id = ['user_id' => $_SESSION['USER']->id];
-            show($id);
+            // show($id);
             $data['order'] = $order->where($id);
             $data['material_sizes'] = $order->getFullData($id);
             $data['materials'] = $materials->getMaterialNames();

@@ -148,8 +148,8 @@ class Quotation extends Controller
                
                    
                 $update1 = $order->update($order_id, $arrOrder, 'order_id');
-                show($update1);
-                show($_POST['material']);
+                // show($update1);
+                // show($_POST['material']);
 
                 for ($i = 0; $i < count($_POST['material']); $i++) {
                     $material = $_POST['material'][$i];
@@ -161,7 +161,7 @@ class Quotation extends Controller
                     $xxl = $_POST['xxl'][$i];
 
                     $material_data = $materials->where(['material_type' => $material]);
-                    show($material_data);
+                    // show($material_data);
                     $update2 = $order_material->updateOrderMaterial((object)array(
                         'order_id' => $order_id,
                         'material_id' => $material_data[0]->stock_id),
@@ -174,7 +174,7 @@ class Quotation extends Controller
                             'xxl' => $xxl
                         ]);
 
-                    show($update2);
+                    // show($update2);
                 }
 
                 unset($_POST);
@@ -317,7 +317,7 @@ class Quotation extends Controller
                     $xxl = $_POST['xxl'][$i];
 
                     $material_data = $materials->where(['material_type' => $material]);
-                    show($material_data);
+                    // show($material_data);
                     $insert2 = $order_material->insert([
                         'order_id' => $order_id,
                         'material_id' => $material_data[0]->stock_id,
