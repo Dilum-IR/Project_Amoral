@@ -62,4 +62,7 @@ route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
 
+
+route('premade', 'premade/Premade@Index');
+
 route('404', '_404@index');

@@ -1,0 +1,382 @@
+html{
+    background-color: black;
+}
+.slides-container {
+    height: 100%;
+    position: relative;
+    z-index: -1;
+}
+
+.full-screen-slide {
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; */
+    position: absolute;
+
+}
+
+.flex-container {
+    display: flex;
+    position: relative;
+    /* height: 100%; */
+    width: 100%;
+}
+
+.flex-container>div {
+    flex: 1;
+}
+
+.pre-design {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+    /* display: none; */
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    object-fit: cover;
+}
+
+.slide-btn {
+    position: absolute;
+    margin-top: 24%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.slide-btn-left {
+    left: 0;
+}
+
+.slide-btn-right {
+    right: 0;
+}
+
+.div-info-1{
+    display: flex;
+    top: 100%;
+    background-color: black;
+    width: 100%;
+    /* margin-left: 5%; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* padding: 29px; */
+    position: relative;
+}
+
+
+.div-info-2 {
+    gap: 40px;
+}
+
+
+.div-1-1,
+.div-1-2,
+.div-1-3 {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* padding: 10px; */
+    /* height: 100%; */
+    width: 100%;
+}
+
+.item-info,
+.material-info,
+.price-info {
+    display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+    .slide-btn {
+        width: 10%;
+    }
+}
+
+.price-info {
+    align-items: center;
+    justify-content: left;
+    text-align: center;
+    background-color: #fff;
+    /* White background */
+    color: #000;
+    /* Black text color */
+    padding: 15px;
+    width: 50%;
+    display: flex;
+    gap: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Box shadow */
+}
+
+.item-info {
+    align-items: center;
+    justify-content: left;
+    text-align: center;
+    background-color: #fff;
+    /* White background */
+    color: #000;
+    /* Black text color */
+    padding: 15px;
+    width: 50%;
+    display: flex;
+    gap: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Box shadow */
+}
+
+.material-info {
+    align-items: center;
+    justify-content: left;
+    text-align: center;
+    background-color: #fff;
+    /* White background */
+    color: #000;
+    /* Black text color */
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    /* border-radius: 8px; */
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Box shadow */
+}
+
+.price-info label,
+.item-info label,
+.material-info label {
+    font-weight: bold;
+    display: block;
+
+    color: #333;
+    /* Dark gray color for the text */
+    font-size: 16px;
+    transition: color 0.3s ease-in-out;
+    /* Smooth transition */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    /* Text shadow for "popped out" effect */
+}
+
+#unit-price-info {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.55),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset 0 0 5px rgba(0, 0, 0, 0.2);
+    /* Additional inner shadow */
+    padding: 10px;
+    width: 34%;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    color: #555;
+    /* Dark gray color for the text */
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+    /* Smooth transition */
+}
+
+#item-code {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.55),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset 0 0 5px rgba(0, 0, 0, 0.2);
+    /* Additional inner shadow */
+    padding: 10px;
+    width: 34%;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    color: #555;
+    /* Dark gray color for the text */
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+    /* Smooth transition */
+}
+
+#material-type {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.55),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset 0 0 5px rgba(0, 0, 0, 0.2);
+    /* Additional inner shadow */
+    padding: 10px;
+    width: 34%;
+    border-radius: 25px;
+    outline: none;
+    font-size: 16px;
+    color: #555;
+    /* Dark gray color for the text */
+    transition: box-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+    /* Smooth transition */
+}
+
+#unit-price-info::before {
+    content: attr(value);
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    /* Light gray color for the "bottom" layer of text */
+    z-index: -1;
+}
+
+#item-code::before {
+    content: attr(value);
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    /* Light gray color for the "bottom" layer of text */
+    z-index: -1;
+}
+
+#material-type::before {
+    content: attr(value);
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    /* Light gray color for the "bottom" layer of text */
+    z-index: -1;
+}
+
+#unit-price-info:hover,
+#unit-price-info:focus {
+    box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.55),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset 0 0 5px rgba(0, 0, 0, 0.4);
+    /* Increase inner shadow on hover/focus */
+    color: #333;
+    /* Darken text color on hover/focus */
+}
+
+#item-code:hover,
+#item-code:focus {
+    box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.55),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset 0 0 5px rgba(0, 0, 0, 0.4);
+    /* Increase inner shadow on hover/focus */
+    color: #333;
+    /* Darken text color on hover/focus */
+}
+
+#material-type:hover,
+#material-type:focus {
+    box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.55),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset 0 0 5px rgba(0, 0, 0, 0.4);
+    /* Increase inner shadow on hover/focus */
+    color: #333;
+    /* Darken text color on hover/focus */
+}
+
+/* Optional: Hover effect for the entire container */
+/* .price-info:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  
+}
+
+.item-info:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+ 
+}
+
+.material-info:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+} */
+.place-order-button{
+    z-index: 2;
+    width: 100%;
+    /* background-color: red; */
+    margin-top: -26%;
+}
+
+.place-button {
+    /* display: inline-block; */
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #4C4C4C;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease-in;
+    z-index: 1;
+    margin-top: 0px;
+    /* top: 73%; */
+    /* left: 31%; */
+}
+
+.place-button::before,
+.place-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    transform: skew(15deg);
+    transition: all 0.5s;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.place-button::before {
+    left: -10px;
+    background: #191919;
+}
+
+.place-button::after {
+    right: -10px;
+    background: #333333;
+}
+
+.place-button:hover::before,
+.place-button:hover::after {
+    width: 58%;
+}
+
+.place-button:hover span {
+    color: #ffffff;
+    transition: 0.3s;
+}
+
+.place-button span {
+    color: #000000;
+    font-size: 18px;
+    transition: all 0.3s ease-in;
+}
+
+
+.image-container {
+    margin-left: 1.5%;
+    margin-top: 6%;
+    padding: 2px;
+    position: absolute;
+    width: 30%;
+    /* max-width: 100%; */
+    /* overflow: hidden; */
+    align-items: center;
+}
