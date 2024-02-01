@@ -4,19 +4,6 @@ class Quotation extends Controller
 {
     public function index()
     {
-
-        // $order = new Order;
-
-        // // show($_POST);
-        // if (isset($_POST['newQuotation'])){
-        //     //need to validate
-        //         unset($_POST['newQuotation']);
-        //         $order->insert($_POST);
-        //         redirect('customer/quotation');
-        // }
-
-        // $this->view('customer/quotation');
-
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         $order = new Order;
@@ -110,8 +97,8 @@ class Quotation extends Controller
                             $img_ex_lc2 = strtolower($img_ex2);
 
 
-                        // convet to image extetion into lowercase and store it in variable
-                        $img_ex_lc = strtolower($img_ex);
+                            // convet to image extetion into lowercase and store it in variable
+                            $img_ex_lc = strtolower($img_ex);
 
                             // check the allowed extention is present user upload image
                             if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
@@ -134,26 +121,27 @@ class Quotation extends Controller
                                 $img2 = $new_img_name2;
 
 
-                            // move upload image for that folder
+                                // move upload image for that folder
 
-                            move_uploaded_file($tmp_name, $img_upload_path);
-                            $_POST['image'] = $new_img_name;
-                        } else {
-                            $em = "You can't upload files of this type!";
-                            header("Location:../../signup.php?error=$em&$data");
-                            exit;
-                        }
+                                move_uploaded_file($tmp_name, $img_upload_path);
+                                $_POST['image'] = $new_img_name;
+                            } else {
+                                $em = "You can't upload files of this type!";
+                                header("Location:../../signup.php?error=$em&$data");
+                                exit;
+                            }
 
                     
 
+                        }
                 }
             
 
                 $arrOrder = ['user_id' => $_SESSION['USER']->id, 'dispatch_date'=>$dispatch_date, 
                     'city' => $_POST['city'], 'pdf' => $pdf, 'image1' => $img1, 'image2' => $img2, 
                     'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
-               
-                   
+            
+                
                 $update1 = $order->update($order_id, $arrOrder, 'order_id');
                 // show($update1);
                 // show($_POST['material']);
@@ -194,7 +182,7 @@ class Quotation extends Controller
 
 
             if ( isset($_POST['newQuotation']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
-
+                // show($_POST);
                 //need to validate
                 unset($_POST['newQuotation']);
 
@@ -313,7 +301,7 @@ class Quotation extends Controller
                 $insert1 = $order->insert($arrOrder);
                 $order_data = $order->findLast();
                 $order_id = $order_data[0]->order_id;
-     
+    
                 
 
                 // Assuming $_POST['material'] and $_POST['size'] are arrays of equal length
@@ -356,11 +344,13 @@ class Quotation extends Controller
                 $arr = ['order_status' => "cancelled"];   
                 $updateCancel = $order->update($order_id, $arr, 'order_id');
             }
+        }
             
-         else {
+        else {
             redirect('home');
 
         }
     }
+
 }
-}
+

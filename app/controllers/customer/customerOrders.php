@@ -20,8 +20,9 @@ class CustomerOrders extends Controller
             $data['order'] = $order->where($id);
             $data['material_sizes'] = $order->getFullData($id);
             $data['materials'] = $materials->getMaterialNames();
-
-
+            
+            
+            $this->view('customer/orders', $data);
             show($_POST);
 
             if (isset($_POST['updateOrder'])){
@@ -168,7 +169,7 @@ class CustomerOrders extends Controller
                 redirect('customer/orders');
             }
             
-            $this->view('customer/orders', $data);
+            
 
             
             if (isset($_POST['report'])) {
@@ -196,5 +197,7 @@ class CustomerOrders extends Controller
         }
 
     }
+
+    
 
 }

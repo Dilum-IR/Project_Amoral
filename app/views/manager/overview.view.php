@@ -60,44 +60,7 @@
                             <span class="text">Download PDF</span>
                         </a> -->
                     </div>
-                    <!-- Navigation path -->
-
-                    <!-- Anlysis Containers -->
-                    <!-- <ul class="box-info">
-                    <li>
-                        <i class='bx bxs-calendar-check'></i>
-                        <span class="text">
-                            <h3>1020</h3>
-                            <p>New Order</p>
-                        </span>
-                    </li>
-                    <li>
-                        <i class='bx bxs-group'></i>
-                        <span class="text">
-                            <span class="data-precentage">
-
-                                <h3>2834</h3>
-                               
-                                <i class='bx bxs-down-arrow'></i>
-                            </span>
-                            <p>Pending</p>
-                        </span>
-                    </li>
-                    <li>
-                        <i class='bx bxs-dollar-circle'></i>
-                        <span class="text">
-                            <h3>$2543</h3>
-                            <p>Total Sales</p>
-                        </span>
-                    </li>
-                    <li>
-                        <i class='bx bxs-dollar-circle'></i>
-                        <span class="text">
-                            <h3>$2543</h3>
-                            <p>Total Sales</p>
-                        </span>
-                    </li>
-              </ul> -->
+    
 
 
 
@@ -175,6 +138,7 @@
 
                         </div>
                     </div>
+        
 
 
 
@@ -368,37 +332,7 @@
                 </main>
 
                 <div class="right">
-                    <div class="chat">
-                        <div class="chat-title">
-                            <h3>Chat With Company</h3>
-                        </div>
-                        <div class="chat-container">
-                            <!-- update -->
-
-                            <div class="chat-box" id="chat-box"></div>
-                            <input type="text" id="message-input" placeholder="Type a message...">
-                            <button onclick="sendMessage()">Send</button>
-
-                            <!-- <div class="profile-photo">
-
-
-                            </div>
-                            <div class="message-box">
-                                message
-                                <p><b>Mike John</b>
-                                    asbggsdzjgsdgsdsdxgfchvjbkawdsfegd
-                                </p>
-                                <small class="text-muted">
-                                    2 Minutes ago
-                                </small> -->
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
+                   </div>
             </div>
 
         </div>

@@ -185,6 +185,9 @@ function openView(button) {
         }
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
+        document.querySelector('.update-form input[name="user_id"]').value = order.user_id;
+        document.querySelector('.update-form input[name="fullname"]').value = order.fullname;
+
         if(order.is_delivery == 1){
             document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
             document.querySelector('.update-form input[name="district"]').value =order.city;

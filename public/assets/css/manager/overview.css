@@ -2,6 +2,18 @@ body {
     background: rgb(240, 240, 250);
     scroll-behavior: smooth;
   }
+
+  ::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(184, 181, 218, 0.707);
+  border-radius: 50px;
+}
   
   #main {
     /* margin-left: 100px; */
@@ -401,7 +413,7 @@ body {
 
  .material .open-add{
     opacity: 1;
-    height: 128px;
+    height: auto;
     transition: opacity 1.3s ease-in-out, height 0.8s ease;
   }
 
@@ -527,13 +539,7 @@ body {
 
   /* chat container */
   
-  .left-right .right .chat .chat-title {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 10px;
-  }
+
   
   .left-right .right {
     width: 35%;
@@ -547,40 +553,7 @@ body {
     position: relative;
   }
   
-  .chat-container {
-    max-width: 100%;
-    /* margin: 20px auto;    */
-    padding: 20px;
-    /* background-color: #fff; */
-    /* border-radius: 8px; */
-  }
-  
-  .chat-container .chat-box {
-    height: 300px;
-    overflow-y: scroll;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  
-  .chat-container input[type="text"] {
-    /* width: calc(100% - 70px); */
-    padding: 8px;
-    margin-right: 10px;
-  }
-  
-  .chat-container button {
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .chat-container button:hover {
-    background-color: #0056b3;
-  }
+
   
   /* chat container */
   

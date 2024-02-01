@@ -234,6 +234,9 @@ function openView(button) {
         document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
         document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
 
+        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+
+
 
         popupView.classList.add("is-visible");
         document.body.style.overflow = "hidden";
