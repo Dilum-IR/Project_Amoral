@@ -2,157 +2,150 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/chat.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/chat.css">
 
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <script src="<?= ROOT ?>/assets/js/manager/chat.js"></script>
-    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
-
-    <title>Amoral Chat</title>
+    <title>Popup Chat</title>
 </head>
 
 <body>
-    <!-- Sidebar -->
-    <?php include 'sidebar.php' ?>
-    <!-- Sidebar -->
-    <?php include 'navigationbar.php';
+    <button class="chat-btn" id="toggle-chat-btn" onclick="toggleChat('<?= $_SESSION['USER']->email?>')">
+        <i class="bx bx-message-rounded-dots bx-flashing-hover chat-icon" id="chat-msg"></i>
+    </button>
 
+    <div class="chat-popup" id="chat-popup">
 
-    // show($data);
-    ?>
+        <div class="chat-container">
 
+            <div class="chat-header">
 
-    <div class="header">
-        <div class="container">
+                <!-- <span class="close-btn" onclick="toggleChat()">×</span> -->
 
-            <div class="user_box">
+                <div class="main-content">
 
-                <div class="chat-all-users">
-                    <div class="chat-head">
-                        <p>Amoral Chat</p>
-
-                        <div class="dropdown" style="float:right;">
-                            <button class="dropbtn">Type</button>
-                            <div class="dropdown-content">
-                                <a href="#" onclick="">All Users</a>
-                                <a href="#">Customers</a>
-                                <a href="#">Delivary man</a>
-                            </div>
-                            <hr>
+                    <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
+                    <div class="user">
+                        <p id="header-user">Chat With Amoral</p>
+                        <div class="user-status hide">
+                            <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
+                            <p id='typing' class="user-online">Offline</p>
+                            <div id="userOnline"></div>
                         </div>
+
                     </div>
-
-
                 </div>
+                <img class="logo" src="<?= ROOT ?>/assets/images/manager/amoral80.png" alt="">
 
-                <div class="search-content">
-                    <input type="text" id="search" placeholder="Search" required>
-                    <button class="search-icon"><i class='bx bx-search bx-flashing-hover'></i></button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="chat-message"></div>
 
-                </div>
-
-                <div class="all-chat">
-
-
-                    <?php
-                    // show($data);
-
-                    if (isset($data['chatedUsers'])) {
-                        foreach ($data['chatedUsers'] as $value) {
-                            // show($value);
-                            $jsonData = json_encode($value);
-
-                            if ($value->user_status == 'customer') {
-
-                    ?>
-                                <!-- user is customer -->
-                                <div class="user-content" onclick='selectChat(<?= $jsonData ?>)'>
-                                    <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
-                                    <div class="user-data">
-                                        <div class="name-time">
-                                            <h4><?= $value->fullname ?></h4>
-                                            <p><?= $value->last_msg->time ?></p>
-
-                                        </div>
-
-                                        <p><?= $value->last_msg->msg ?></p>
-                                    </div>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <!-- user is employee -->
-                                <div class="user-content" onclick='selectChat(<?= $jsonData ?>)'>
-                                    <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
-                                    <div class="user-data">
-                                        <div class="name-time">
-                                            <h4><?= $value->emp_name ?></h4>
-                                            <p><?= $value->last_msg->time ?></p>
-
-                                        </div>
-                                        <p><?= $value->last_msg->msg ?></p>
-                                    </div>
-                                </div>
-
-                        <?php
-                            }
-                        }
-                    } else {
-                        ?>
-                        <div class="user-data">
-                            <h5>No Chat Messages Yet</h5>
-                        </div>
-                    <?php
-                    }
-                    ?>
-                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="message-input" onkeyup='typing()' placeholder="Type a message..." required>
+                <button id="sendbtn" onclick="emptycheck()" accesskey="enter"><span><i class='bx bxl-telegram bx-flashing-hover send_icon'></i> </span></button>
             </div>
 
-            <div class="chat-container">
-                <div class="chat-header">
-                    <div class="main-content">
-
-                        <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
-                        <div class="user">
-                            <h2 id="header-user">Hi, <?= $_SESSION['USER']->emp_name ?></h2>
-                            <div class="user-status hide">
-                                <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
-                                <p id='typing' class="user-online">Offline</p>
-                                <div id="userOnline"></div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <img class="logo" src="<?= ROOT ?>/assets/images/manager/amoral80.png" alt="">
-                </div>
-                <div class="chat-body" id="chat-body">
-                    <div class="chat-message">
-                        <!-- <p class="msg">Today</p> -->
-                        <p class="msg">🔐 Messages are end-to-end encrypted. No one outside of this chat, can read or listen to them. Learn more.</p>
-
-                        <i class='bx bx-message-rounded-add bx-tada-hover no-chat' style='color:#ffffff'></i>
-                    </div>
-
-                </div>
-                <div class="chat-input hide">
-                    <input type="text" id="message-input" onkeyup='typing()' placeholder="Type a message..." required>
-                    <button onclick="emptycheck()" accesskey="enter">Send<span><i class='bx bxl-telegram bx-flashing-hover send_icon'></i> </span></button>
-                </div>
-            </div>
         </div>
     </div>
-
-    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
     <!-- Import JQuary Library script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+
     <script>
-        var userID = "<?= $data['chatedUsers'][0]->log_user ?>"
+        let chatVisible = false;
+
+        function toggleChat(email) {
+            const chatPopup = document.getElementById("chat-popup");
+            const toggleChatBtn = document.getElementById("toggle-chat-btn");
+            const chat_msg = document.getElementById("chat-msg");
+
+            if (!chatVisible) {
+                // If chat is not visible, show it
+                chatPopup.style.display = "block";
+                chatPopup.classList.add("slide-in");
+                chat_msg.classList.remove(
+                    "bx-message-rounded-dots",
+                    "bx-flashing-hover"
+                );
+                chat_msg.classList.add(
+                    "bx-chevron-up",
+                    "bx-flashing",
+                    "bx-rotate-180"
+                );
+                getUserChat(email);
+                
+
+            } else {
+                // If chat is visible, hide it with animation
+                chatPopup.classList.remove("slide-in");
+                chatPopup.classList.add("slide-out");
+
+                chat_msg.classList.remove(
+                    "bx-chevron-up",
+                    "bx-flashing",
+                    "bx-rotate-180"
+                );
+                chat_msg.classList.add(
+                    "bx-message-rounded-dots",
+                    "bx-flashing-hover"
+                );
+
+                // Set a timeout to remove the chat after the animation completes
+                setTimeout(() => {
+                    chatPopup.style.display = "none";
+                    chatPopup.classList.remove("slide-out");
+                }, 400); // Adjust the timeout to match the animation duration
+            }
+
+            chatVisible = !chatVisible;
+
+        }
+
+        function getUserChat(email) {
+            
+            data = {
+                email: email
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: "<?= ROOT ?>/customer/chatbox",
+                data: data,
+                cache: false,
+                success: function(res) {
+                    try {
+
+                        Jsondata = JSON.parse(res)
+                        console.log(Jsondata)
+
+                        // Jsondata.forEach(element => {
+
+                        //     loadMessage(element, chatUserData);
+                        // });
+
+                        // console.log(Jsondata)
+                        // console.log(chatUserData)
+
+                    } catch (error) {
+
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // return xhr;
+                }
+            })
+
+
+
+        }
+    </script>
+
+    <script>
+        var userID 
         var socket = null;
 
         var chatInput = document.querySelector(".chat-input");
@@ -504,7 +497,7 @@
                         chatBody.appendChild(div);
                         chatBody.appendChild(p);
 
-                        isOnlineUser()
+                        // isOnlineUser()
 
 
                     } else if (typeof data.typing !== 'undefined') {
@@ -518,7 +511,7 @@
 
                             userStatus.classList.remove("hide");
                             usertyping.innerHTML = "Online";
-                            isOnlineUser()
+                            // isOnlineUser()
 
 
                         }, 2000);
@@ -533,7 +526,7 @@
                 }
 
                 if (typeof data.typing == 'undefined') {
-                    isOnlineUser()
+                    // isOnlineUser()
                 }
 
             } catch (error) {
@@ -617,6 +610,7 @@
 
         setInterval(5000, isOnlineUser());
     </script>
+
 
 </body>
 

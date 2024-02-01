@@ -35,6 +35,7 @@ class EmployeeDetails extends Controller
             // Employee registration
             if (isset($_POST["newEmployee"])) {
 
+                // show($_POST);
                 unset($_POST["newEmployee"]);
                 $this->employeeAdd($_POST);
             }
@@ -49,11 +50,11 @@ class EmployeeDetails extends Controller
         }
 
         // show($_POST);
-        if (isset($_POST["newEmployee"])) {
-            unset($_POST["newEmployee"]);
-            $employee->insert($_POST);
-            redirect("manager/employeedetails");
-        }
+        // if (isset($_POST["newEmployee"])) {
+        //     unset($_POST["newEmployee"]);
+        //     $employee->insert($_POST);
+        //     redirect("manager/employeedetails");
+        // }
 
         if (isset($_POST["remove_emp"])) {
 
@@ -74,11 +75,13 @@ class EmployeeDetails extends Controller
         // show($data);
 
         $employee = new Employee;
+        $user = new User;
 
         $arr['email'] = $_POST['email'];
-        $row = $employee->first($arr);
+        $empRow = $employee->first($arr);
+        $userRow = $user->first($arr);
 
-        if (!$row) 
+        if (!$empRow && !$userRow) 
         {
             
             // password hashing 
@@ -94,6 +97,6 @@ class EmployeeDetails extends Controller
             $all_users->insert($arr);
         }
 
-        // redirect("manager/employeedetails");
+        redirect("manager/employeedetails");
     }
 }

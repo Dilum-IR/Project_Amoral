@@ -120,7 +120,7 @@ if (
 
                             $.ajax({
                                 type: "POST",
-                                url: "http://localhost/project_Amoral/public/verifyOtp",
+                                url: "<?=ROOT?>/verifyOtp",
                                 data: data,
                                 cache: false,
                                 success: function(res) {

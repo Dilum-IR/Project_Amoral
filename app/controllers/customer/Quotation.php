@@ -4,7 +4,7 @@ class Quotation extends Controller
 {
     public function index()
     {
-  
+
         // $order = new Order;
 
         // // show($_POST);
@@ -18,8 +18,9 @@ class Quotation extends Controller
         // $this->view('customer/quotation');
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-        
+
         $order = new Order;
+
         $order_material = new OrderMaterial;
         $quotation_reply = new QuotationReply;
         $materials = new MaterialStock;
@@ -37,7 +38,8 @@ class Quotation extends Controller
             $this->view('customer/quotation', $data);
 
 
-            if (isset($_POST['updateOrder'])){
+
+            if (isset($_POST['updateOrder'])) {
                 $order_id = $_POST['order_id'];
                 // show($_POST);
                 unset($_POST['updateOrder']);
@@ -107,8 +109,9 @@ class Quotation extends Controller
                             $img_ex_lc1 = strtolower($img_ex1);
                             $img_ex_lc2 = strtolower($img_ex2);
 
-                            // allowed image extetions
-                            $allowed_exs = array("jpg", "jpeg", "png", "pdf");
+
+                        // convet to image extetion into lowercase and store it in variable
+                        $img_ex_lc = strtolower($img_ex);
 
                             // check the allowed extention is present user upload image
                             if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
@@ -131,12 +134,16 @@ class Quotation extends Controller
                                 $img2 = $new_img_name2;
 
 
-                            } else {
-                                $em = "You can't upload files of this type!";
-                                header("Location:../../signup.php?error=$em&$data");
-                                exit;
-                            }
+                            // move upload image for that folder
+
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                            $_POST['image'] = $new_img_name;
+                        } else {
+                            $em = "You can't upload files of this type!";
+                            header("Location:../../signup.php?error=$em&$data");
+                            exit;
                         }
+
                     
 
                 }
@@ -181,13 +188,16 @@ class Quotation extends Controller
                 redirect('customer/quotation');
             }
             
-        
+
 
             
 
+
             if ( isset($_POST['newQuotation']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+
                 //need to validate
                 unset($_POST['newQuotation']);
+
 
                 date_default_timezone_set('Asia/Kolkata');
                 $current_date = date("Y-m-d");
@@ -349,6 +359,7 @@ class Quotation extends Controller
             
          else {
             redirect('home');
+
         }
     }
 }

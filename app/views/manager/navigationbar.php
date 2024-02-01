@@ -6,7 +6,7 @@
                     <i class='bx bxs-bell-ring icon'></i>
                     <span class="bell-notification">5</span>
 </div>
-                <a href="#" class="nav-link">
+                <a href="<?=ROOT?>/manager/chat" class="nav-link">
                     <i class='bx bxs-chat icon'></i>
                     <span class="chat-notification">8</span>
                 </a>
