@@ -67,12 +67,10 @@
                 </a>
                 <span class="tooltip">Profile</span>
             </li>
-
             <li class="logout">
                 <a href="<?= ROOT ?>/logout" class="nav-link logout">
                     <span class="link_name">Log Out</span>
                     <i class="bx bx-log-out" id="log_out"></i>
-
                 </a>
                 <span class="tooltip">Logout</span>
             </li>

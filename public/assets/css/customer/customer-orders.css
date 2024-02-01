@@ -165,7 +165,6 @@ form .form-input button:hover {
 
 .btn, 
 .view-order-btn, 
-.pay-btn, 
 .ok-btn,
 .new-btn {
   position: absolute;
@@ -174,19 +173,19 @@ form .form-input button:hover {
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 9px;
+  border-radius: 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  transform: scale(0.9);
+  /* transform: scale(0.9); */
 }
 
 .btn:hover,
 .new-btn:hover {
-  transform: scale(1);
+  /* transform: scale(1); */
   transition: all 0.3s ease-in-out;
 }
 
@@ -339,6 +338,10 @@ tbody tr:hover{
   margin-left: 10%;
 }
 
+.text-status.pending{
+  background-color: #cfb103c7;
+}
+
 .text-status.processing{
   background-color: #1c7012cc;
 }
@@ -350,7 +353,7 @@ tbody tr:hover{
 .popup-view, 
 .popup-new,
 .popup-report {
-  display: none; 
+  
   position: fixed;
   z-index: 2; 
   left: 0;
@@ -359,7 +362,20 @@ tbody tr:hover{
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.7);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+
+.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
 .popup-content {
@@ -469,21 +485,25 @@ textarea{
 .popup-view h2{
   text-align: center;
   padding-top: 1%;
-  /* margin: 20px; */
+  margin: 20px;
 }
 
-.popup-view .sizeChart{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  left: 0;
+.sizeChart{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(54px, 1fr));
+  grid-gap: 0px;
 }
 
-.popup-view .sizeChart span{
+.sizeChart span{
   margin-left: 0;
 }
 
-.popup-view .size{
+.sizeChart .st{
+  padding: 5px 7px;
+  margin-right: 37px;
+}
+
+.size{
   margin-left: 20%;
 }
 
@@ -739,22 +759,22 @@ select#sizeDropdown option{
   color: #000;
 }
 
-.input-box.location {
-  margin-top: -242px;
-}
+
 
 form .sizes {
-  display: grid;
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 button.pay {
-  position: absolute;
+
+  position: relative;
   width: 48px;
   height: 31px;
   margin-top: 6px;
-  right: 11%;
+  right: 21%;
   background: #50cf3ef7;
   border: lightgreen;
   border-radius: 5px;
@@ -783,38 +803,71 @@ select {
 }
 
 .popup-view .pb{
-  position: absolute;
-  bottom: 20px;
+  position: relative;
+  bottom: 4px;
+  width: 100%;
   background-color: black;
   color: white;
   border: none;
   padding: 8px 15px;
-  border-radius: 25px;
+  border-radius: 9px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  transform: scale(0.9);
+  /* transform: scale(0.9); */
 }
 
-.popup-view .update-btn {
-  left: 58%;
-  
-}
-
-.pb:hover {
-  transform: scale(1);
+.popup-view .pb:hover{
+  /* transform: scale(1); */
+  font-size: 17px;
+  font-weight: 200;
   transition: all 0.3s ease-in-out;
 }
 
-.popup-view .cancel-btn {
-  right: 6%;
+.popup-view .update-btn:hover{
+  background: green;
 }
 
-.popup-view .cancel-btn:hover {
-  background-color: red;
+.popup-view .cancel-btn:hover{
+  background: darkred;
+}
+
+.popup-view .input-box.placedDate {
+  margin-top: -200px;
+}
+
+hr.first {
+  border-top: 1px dashed #911515;
+  border-bottom: none;
+}
+hr.second {
+
+  border: dashed 1px #695d5d6b;
+  margin: 5px;
+}
+
+
+.radio-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 20px 47% 20px 36%;
+  align-items: center;
+}
+
+.radio-btns input[type="radio"]:checked + label {
+  color: #000; 
+}
+
+.radio-btns input[type="radio"]:not(:checked) + label {
+  color: #999; 
+}
+
+.radio-btns label {
+  cursor: pointer;
 }
 
 /* @media screen and (max-width: 950px) {
@@ -834,3 +887,119 @@ select {
     
   }
 } */
+
+.cd-popup,
+.cu-popup{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(94, 110, 141, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+
+.cd-popup.is-visible,
+.cu-popup.is-visible{
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+.cd-popup-container,
+.cu-popup-container{
+  width: 50%;
+  max-width: 400px;
+  margin: 4em auto;
+  margin-top: 15%;
+  background: #FFF;
+  border-radius: 0.4em;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+ 
+}
+
+.cd-popup-container p,
+.cu-popup-container p{
+  padding: 3em 1em;
+}
+
+.cd-popup-container .cd-buttons:after,
+.cu-popup-container .cu-buttons:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.cd-popup-container .cd-buttons input,
+.cu-popup-container .cu-buttons input{
+  float: left;
+  
+  list-style: none;
+}
+
+.cd-popup-container .cd-buttons,
+.cu-popup-container .cu-buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.cd-popup-container .cd-buttons input,
+.cu-popup-container .cu-buttons input{
+  display: block;
+  height: 35px;
+  text-transform: uppercase;
+  color: #FFF;
+  background: black;
+  outline: none;
+  border: none;
+  margin: 0%;
+  border-radius: 0;
+  text-align: center;
+  font-size: 14px;
+  padding-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.cd-popup-container .cd-buttons input:first-child ,
+.cu-popup-container .cu-buttons input:first-child {
+  background: #fc3b56;
+}
+
+
+.cd-popup-container .cd-buttons input.cd-popup-close,
+.cu-popup-container .cu-buttons input.cu-popup-close{
+  background: #e6e6e6;
+  color: #8f8f8f;
+}
+
+.cd-popup-container .cd-buttons input:hover,
+.cu-popup-container .cu-buttons input:hover{
+  font-size: 16px;
+  font-weight: 200;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+
+.pickup,
+.delivery{
+  opacity: 0;
+  height: 0;
+  transition: opacity 0.2s ease-in-out, height 2s ease;
+}
+
+.is-checked{
+  opacity: 1;
+  height: auto;
+  transition: opacity 1.3s ease-in-out, height 0.8s ease;
+}
+
+

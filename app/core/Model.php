@@ -301,8 +301,8 @@ trait Model
         return $this->quary($quary, $data);
     }
     //function to access a value of another table by foreign key
-    public function get($table, $field, $id_column='id'){
-        $quary = "SELECT $this->table.*, $table.$field FROM $this->table INNER JOIN $table ON $this->table.$id_column = $table.$id_column";
+    public function get($table, $id_column='id'){
+        $quary = "SELECT $this->table.*, $table.* FROM $this->table INNER JOIN $table ON $this->table.$id_column = $table.$id_column";
         // echo $quary;
         return $this->quary($quary);
     }
