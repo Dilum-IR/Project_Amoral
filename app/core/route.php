@@ -3,9 +3,16 @@
 $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
 route('signin', 'SignIn@index');
-
-
+route('signup', 'SignUp@index');
 route('logout', 'Logout@index');
+
+route('about', 'about/About@index');
+
+route('verify', 'EmailVerify@index');
+
+// ajax calling endpoints
+route('verifyOtp', 'EmailVerify@verifyData');
+route('resendOtp', 'EmailVerify@resendOtp');
 
 
 route('home', 'Home@index');
@@ -15,11 +22,22 @@ route('customer/orders', 'customer/customerOrders@index');
 route('customer/profile', 'customer/Profile@index');
 route('customer/quotation', 'customer/Quotation@index');
 
+route('customer/saveMsg', 'customer/customerOverview@chat_msg');
+route('customer/chatbox', 'customer/customerOverview@chat_data');
 
 
 route('manager/overview', 'manager/Overview@index');
+route('manager/customerorders', 'manager/CustomerOrders@index');
+route('manager/garmentorders', 'manager/GarmentOrders@index');
+route('manager/quotation', 'manager/Quotation@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
+
+
+//  chat path
+route('manager/chat', 'manager/ChatBox@index');
+route('manager/chatbox', 'manager/ChatBox@chatbox');
+route('manager/saveMsg', 'manager/ChatBox@saveMsg');
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index');
@@ -44,4 +62,7 @@ route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
 
+
 route('premade', 'premade/Premade@Index');
+
+route('404', '_404@index');

@@ -30,9 +30,9 @@ class Orders extends Controller
             // update the order status  
             if (isset($_POST['updateGorder'])) {
 
-                // show($_POST);
+                show($_POST);
 
-                $garment_id = $_POST['garment_id'];
+                $garment_id = $_POST['order_id'];
 
                 $switch = $_POST['status'];
 

@@ -9,100 +9,143 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
+
+    </head>
 
 <body>
+
+
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
-    <?php include 'navigationbar.php' ?>
+    <?php include_once 'navigationbar.php' ?>
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
     <!-- content  -->
     <section id="main" class="main">
 
-        <h2>Your Orders</h2>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Orders</a>
+            </li>
+
+        </ul>
 
         <form>
             <div class="form">
-				<input class="form-group" type="text" placeholder="Search...">
-				<i class='bx bx-search icon'></i>
-				<input class="new-btn" type="button" onclick="openNew()" value="+ New Order">
+                <form>
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
+				<!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
 				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
 			</div>
 
         </form>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="ordId">OrderId</th>
-                    <th class="desc">Description</th>
-                    <th class="stth">Status</th>
-                    <th class="cost">Cost</th>
-                    <th></th>
-                </tr>
-            </thead>
-                <?php $count = 1; foreach($data as $order): ?>
-                    <tr>
-                        <td><?php echo $count; $count++; ?></td>
-                        <td class="ordId"><?php echo $order->order_id ?></td>
-                        <td class="desc">Material : <?php echo $order->material ?><br>Quantity : <?php echo $order->quantity ?></td>
-                        <td class="st">
-                            <div class="text-status"><?php echo $order->order_status ?></div>
-                        </td>
-                        <td class="cost"><?php echo $order->total_price ?></td>
-                        <td><button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($order); ?>' onclick="openView(this)">View Order</button></td>
-                        <td><button type="button" class="pay-btn" onclick="">Pay</button></td>
-                    </tr>
-                <?php endforeach; ?>
-    
-
-            <!-- <tr>
-                <td>1</td>
-                <td class="ordId">002345</td>
-                <td class="desc">Material : Wetlook <br>
-                    Sizes & Quantity : S - 2
-                </td>
-                <td class="st">
-                    <div class="text-status">Processing</div>
-                </td>
-                <td class="cost">Rs. 2400</td>
-                <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-            </tr> -->
-        </table>
+        <div class="table">
+            <!-- <div class="table-header">
+                <p>Order Details</p>
+                <div>
+                    <input placeholder="order"/>
+                    <button class="add_new">+ Add New</button>
+                </div>
+            </div> -->
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Placed Date</th>
+                            <th>Material</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($data['order'] as $order):?>
+                            <?php if(!$order->is_quotation && $order->order_status != "cancelled"): ?>
+                        
+                        <tr>
+                            
+                            <td><?php echo $order->order_id ?></td>
+                            <td><?php echo $order->order_placed_on ?></td>
+                            <td>
+                            <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                        <?php $material[] = $sizes?>
+                                    <?php echo $sizes->material_type ?><br>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
+                            <td class="desc">
+                                <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
+                            <td class="st">
+                                <div class="text-status <?php echo $order->order_status ?>"><?php echo $order->order_status ?></div>
+                            </td>
+                        
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                        </tr>
+                        
+                        <?php endif; ?>
+                        <?php endforeach; ?>
+               
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </section>
 
 
     <!-- POPUP -->
                
+  
 
     <div class="popup-report">
-        <h2>Report Your Problem</h2>
-        <form method="POST">
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Report Your Problem</h2>
+            <form method="POST">
 
-            <h4>Title : </h4>
-            <input name="title" type="text" placeholder="Enter your title">
-            <h4>Your email : </h4>
-            <input name="email" type="text" placeholder="Enter your email">
-            <h4>Problem : </h4>
-            <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-            <div class="btns">
-                <button type="button" class="cancelR-btn" onclick="closeReport()" Style="color: white">Cancel</button>
-                <button type="submit" class="close-btn" name="report" value="Submit" Style="color: white">Submit</button>
-            </div>
+                <h4>Title : <span class="error title"></span>  </h4> 
+                <input name="title" type="text" placeholder="Enter your title">
+                <h4>Your email : <span class="error email"></span></h4>
+                <input name="email" type="text" placeholder="Enter your email">
+                <h4>Problem : <span class="error description"></span></h4>
+                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+                
+                <button type="submit" class="close-btn pb" name="report" value="Submit" >Submit</button>
+                <button type="button" class="cancelR-btn pb" onclick="closeReport()" >Cancel</button>
+            
 
-        </form>
+            </form>
+        </div>
     </div>
-    
+
 
     <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+        <div class="popup-content">
+        <span class="close">&times;</span>
         <h2>Order Details</h2>
         <div class="status">
 
@@ -145,80 +188,166 @@
 
         </div>
 
-        <div class="container1">
-            <form class="update-form" method="POST">
+        
+        <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
+                        <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+
+                    </div>
+                    <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
+                        <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
+                    <div class="input-box" style="height: 0;">
 
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
-                        
                     </div>
-
-                    <div class="input-box sizes">
-                    <span class="details">Sizes & Quantity</span><br>
-                    <div class="sizeChart">
-                        <span class="size">S</span>
-                    
-                        <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="small" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">M</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                    <input class="st" type="number" id="quantity" name="medium" value="0" min="0" max="10">
-                    <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                    <br>
-                    <span class="size">L</span>
-                    <!-- <button class="btn btn-secondary" type="button" id="decrement-btn">-</button> -->
-                        <input class="st" type="number" id="quantity" name="large" value="0" min="0" max="10">
-                        <!-- <button class="btn btn-secondary" type="button" id="increment-btn">+</button> -->
-                        <br>
-                </div>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Total Price</span>
-                        <input name="total_price" type="text" required onChange="" readonly value="2023/10/01" />
-                    </div>
-                    <div class="input-box">
+                    <div class="input-box placedDate">
                         <span class="details">Order Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="2023/10/02" />
+                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
                     </div>
+
+                </div>
+
+                <div class="add card"></div>
+
+
+                <hr class="second">
+                
+                <div class="radio-btns">
+                    <input type="radio" id="pickup" name="deliveryOption" value="Pick Up">
+                    <label for="pickup">Pick Up</label>
+
+                    <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
+                    <label for="delivery">Delivery</label>
+                </div>
+
+                <div class="user-details pickup">
+                    <div class="input-box">
+                        <span class="details">Pick Up Date</span>
+                    
+                        <input type="text" name="dispatch_date_pickup" readonly value="" />
+                    </div>
+                </div>
+
+                <script>
+                    //toggle delivery options
+                    let delivery = document.getElementById("delivery");
+                    let pickUp = document.getElementById("pickup");
+
+
+                    pickUp.addEventListener('click', togglePickUp);
+                    delivery.addEventListener('click', toggleDelivery);
+
+                    function togglePickUp(){
+                        
+                        document.querySelector(".user-details.pickup").classList.add("is-checked");
+                        document.querySelector(".user-details.delivery").classList.remove("is-checked");
+                        
+                    }
+
+                    function toggleDelivery(){
+                        document.querySelector(".user-details.delivery").classList.add("is-checked");
+                        document.querySelector(".user-details.pickup").classList.remove("is-checked");
+                    }
+                </script>                
+
+                <div class="user-details delivery">
+
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     
-                        <input type="date" name="dispatch_date">
+                        <input type="text" name="dispatch_date_delivery" readonly value="" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details addr">City</span>
+                    
+                        <select name="city">
+
+                        </select>
+                    </div>
+
+
+                    <div class="input-box location">
+                        <span class="details">Location</span>
+                        <div id="map" style="height: 400px; width: 100%;"></div>
+                    </div>
+
+                    <!-- hidden element -->
+                    <div class="input-box">
+                        <input name="latitude" type="hidden" required />
+                        <input name="longitude" type="hidden" required />
+                    </div>
+                
+                    
+                </div>
+
+                <hr class="second">
+
+
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Unit Price</span>
+                        <input name="unit_price" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Discount</span>
+                        <input name="discount" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Total Price</span>
+                        <input name="total_price" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Remaining Payment</span>
+                        <input name="remaining_payment" type="text" required onChange="" readonly value="" />
+                        <button class="pay" >Pay</button>
                     </div>
                 </div>
-                <!-- hidden element -->
-                <div class="input-box">
-                    <!-- <span class="details">Order Id </span> -->
-                    <input name="order_status" type="hidden" required onChange="" readonly value="cutting" />
-                    <input name="user_id" type="hidden" required onChange="" readonly value="0023456" />
-                </div>
+                
 
+                <input type="button" class="update-btn pb"  value="Update Order" />
+                <button type="button" class="cancel-btn pb">Cancel Order</button>
 
-                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
-                <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
-                <!-- </form> -->
-
-
-            </form>
-        </div>
+                <div class="cu-popup" role="alert">
+                    <div class="cu-popup-container">
+                        <p>Are you sure you want to update this order?</p>
+                        <div class="cu-buttons">
+                            <input type="submit" class="yes"  value="Yes" name="updateOrder"/>
+                            <input type="button" class="no" value="No"/>
+                        </div>
+                        
+                    </div> 
+                </div> 
+                
+            </div>
+        </form>
     </div>
-    <div id="overlay" class="overlay"></div>
+
+
+
+    <div class="cd-popup" role="alert">
+        <div class="cd-popup-container">
+            <p>Are you sure you want to cancel this order?</p>
+            <div class="cd-buttons">
+                <a href="">Yes</a>
+                <a href="">No</a>
+            </div>
+            
+        </div> 
+    </div> 
 
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    
+    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
+
 </body>
 
 </html>

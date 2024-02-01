@@ -11,7 +11,6 @@ class Home extends Controller
             unset($_SESSION['USER']);
         } 
 
-
         // require_once 'Model.php';
         // echo "this is a home controller";
 

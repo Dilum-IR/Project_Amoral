@@ -6,11 +6,11 @@ const images = document.querySelectorAll(".image");
 
 const signup_button = document.getElementById("sign-up-btn");
 
-
 signup_button.addEventListener("submit", function (e) {
   e.preventDefault();
-  const data = new FormData(signup_button);
-  console.log(data);
+  // const data = new FormData(signup_button);
+  // console.log(data);
+  // signup_button.setAttribute("disabled", true);
 });
 
 inputs.forEach((input) => {
@@ -18,6 +18,11 @@ inputs.forEach((input) => {
   input.addEventListener("focus", () => {
     input.classList.add("active");
   });
+
+  // input class name rename when the input field for values added
+  if (input.value != "") {
+    input.classList.add("active");
+  }
 
   // input class name remove when the clicked outside the page
   input.addEventListener("blur", () => {
@@ -56,12 +61,19 @@ function moveSlider() {
 
 setInterval(moveSlider, 2000);
 
-if (dataValidate.flag === true) {
-  try {
-    toastApply(dataValidate.fullname.name, dataValidate.fullname.nameError);
 
-    setTimeout(() => {
-      toastApply(dataValidate.password, dataValidate.passwordError);
-    }, 5000);
-  } catch (error) {}
+
+//password visibility
+function togglePasswordVisibility(passwordId, iconId) {
+
+  var passwordField = document.getElementById(passwordId);
+  var toggleIcon = document.getElementById(iconId);
+
+  if (passwordField.type === "password") {
+    toggleIcon.setAttribute("name", "eye-off-outline");
+    passwordField.type = "text";
+  } else {
+    passwordField.type = "password";
+    toggleIcon.setAttribute("name", "eye-outline");
+  }
 }
