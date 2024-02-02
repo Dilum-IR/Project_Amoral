@@ -18,7 +18,7 @@ trait Database
     {
 
         $con = $this->connect();
-        $stm = $con->prepare($quary); 
+        $stm = $con->prepare($quary);
 
         $check = $stm->execute($data);
 
@@ -29,8 +29,6 @@ trait Database
                 return $result;
             }
         }
-
-
         return false;
     }
     public function get_row($quary, $data = [])

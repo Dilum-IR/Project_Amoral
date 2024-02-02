@@ -2,7 +2,14 @@ let popupView = document.getElementById("popup-view");
 let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 
-function openView(){
+function openView(data){
+
+    const orderData = data.getAttribute("data-order");
+
+    console.log(orderData)
+
+
+
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 }

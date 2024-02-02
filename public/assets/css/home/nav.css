@@ -108,6 +108,32 @@ nav .nav-link .chat-notification {
     color: var(--color-white);
     background-color: #ff0000;
 }
+
+/* Navigation bar icon title style  */
+.tooltips::after {
+  width: max-content;
+  content: attr(value);
+  display: block;
+  position: absolute;
+  bottom: -50px; /* Adjust the position of the tooltip */
+  left: auto;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #333; /* Background color of the tooltip */
+  color: white; /* Text color of the tooltip */
+  font-size: 14px; /* Font size of the tooltip text */
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show the tooltip on hover */
+.tooltips:hover::after {
+  opacity: 1;
+}
+/* Navigation bar icon title style  */
+
+
 /* nav .nav-profile{
   float: right;
   width: 10px;
@@ -157,6 +183,27 @@ nav .nav-link .nav-link-profile{
     display: block;
   }
 } */
+
+
+/* Center Navigation */
+.nav-icons a{
+  text-decoration: none;
+  color: white;
+
+}
+
+.nav-icons .center-nav p{
+  width: 100px;
+}
+.nav-icons .center-nav .hr{
+  display: none;
+  opacity: 0;
+}
+
+.nav-icons .center-nav .hr:hover{
+  opacity: 1;
+}
+/*  Center Navigation */
 
 @media (height <= 500px){
   .sidebar li.profile{
