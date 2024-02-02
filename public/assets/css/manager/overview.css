@@ -14,20 +14,20 @@ body {
   background: rgba(184, 181, 218, 0.707);
   border-radius: 50px;
 }
-  
-  #main {
-    /* margin-left: 100px; */
-    position: absolute;
-    top: 78px;
-    left: 78px;
-    height: 100%;
-    transition: all 0.5s ease;
-    z-index: 1;
-    /* margin-left: 5px; */
-    width: calc(100% - 78px);
-    scroll-behavior: smooth;
-  }
-  #main.open {
+
+#main {
+  /* margin-left: 100px; */
+  position: absolute;
+  top: 78px;
+  left: 78px;
+  height: 100%;
+  transition: all 0.5s ease;
+  z-index: 1;
+  /* margin-left: 5px; */
+  width: calc(100% - 78px);
+  scroll-behavior: smooth;
+}
+#main.open {
     width: calc(100% - 250px);
     left: 250px;
   }
@@ -180,7 +180,8 @@ body {
     gap: 15px;
   }
   main .insights > div,
-  main .material > div {
+  main .material > div,
+  main .printingType > div{
     /* width: 250px; */
     margin-top: 20px;
     background: white;
@@ -194,8 +195,7 @@ body {
     border-right: 10px solid black;
   }
   
-  main .insights .card,
-  main .material .card {
+  main .insights .card {
     display: flex;
     align-items: center;
     gap: 50px;
@@ -218,8 +218,7 @@ body {
     margin-left: 10px;
   }
   
-  main .insights > div .middle,
-  main .material > div .middle {
+  main .insights > div .middle {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -265,7 +264,8 @@ body {
   }
    */
   
-  main .material{
+  main .material,
+  main .printingType {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
@@ -293,18 +293,21 @@ body {
 } */
 
 
-  main .material span{
+  main .material span,
+  main .printingType span {
     grid-column: 1/-1;
     height: 32px;
   }
   
-  main .material h2{
+  main .material h2,
+  main .printingType h2 {
     margin-right: auto;
     font-size: 24px;
     font-weight: 600;
   }
 
-  main .material .edit-material-btn{
+  main .material .edit-material-btn,
+  main .printingType .edit-printingType-btn{
     background-color: #000000; /* Green */
     border: none;
     color: white;
@@ -322,13 +325,15 @@ body {
     transition: all 0.3s ease-in-out;
   }
 
-  main .material .edit-material-btn:hover{
+  main .material .edit-material-btn:hover,
+  main .printingType .edit-printingType-btn:hover{
     /* background-color: #0e5110; */
     transform: scale(1);
     transition: all 0.3s ease-in-out;
   }
 
-  .delete-material-btn {
+  .delete-material-btn,
+  .delete-printingType-btn{
     position: absolute;
     left: 65%;
     border: 2px solid red;
@@ -351,7 +356,8 @@ body {
 }
 
 
-.open-delete-material-btn{
+.open-delete-material-btn,
+.open-delete-printingType-btn{
   visibility: visible;
   /* transition: all 0.3s ease-in-out; */
 }
@@ -364,12 +370,14 @@ body {
 } */
 
 
-  main .material .card{
+  main .material .card,
+  main .printingType .card{
     padding: 20px 20px;
     position: relative;
   }
 
-  main .material > div:hover {
+  main .material > div:hover,
+  main .printingType > div:hover {
     box-shadow: 0 5px 10px 5px rgb(161, 161, 161);
    }
 
@@ -379,6 +387,7 @@ body {
     border: none;
     color: white;
     padding: 15px 26px;
+    bottom: 39px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -403,29 +412,33 @@ body {
     transition: all 0.3s ease-in-out;
   }
 
- .material .add{
+ .material .add,
+ .printingType .add{
   border-style: dashed;
   border-width: 2px;
+  text-align: center;
   opacity: 0;
   transition: opacity 0.2s ease-in-out, height 2s ease;
   height: 0;
  }
 
- .material .open-add{
+ .material .open-add,
+ .printingType .open-add{
     opacity: 1;
     height: auto;
     transition: opacity 1.3s ease-in-out, height 0.8s ease;
   }
 
-  .material .add i{
+  .material .add i,
+  .printingType .add i{
     font-size: 50px;
     color: #000000;
-    margin-left: 72%;
     transition: transform 0.3s ease-in-out;
     /* margin-top: 20%; */
   }
   
-  .material .add i:hover{
+  .material .add i:hover,
+  .printingType .add i:hover{
     color: #0e5110;
     transform: scale(1.2);
     transition: all 0.3s ease-in-out;

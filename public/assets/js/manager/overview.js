@@ -1,30 +1,38 @@
 let editMaterial = document.querySelector(".edit-material-btn");
+let editPrintingType = document.querySelector(".edit-printingType-btn");
 let editIcon = document.querySelector(".edit-material-btn i");
 
 let materials = document.querySelectorAll(".material .orders.card");
-let addCard = document.querySelector(".add.card");
+let MaterialaddCard = document.querySelector(".material .add.card");
+let PrintingTypeaddCard = document.querySelector(".printingType .add.card");
 console.log(materials);
 
 editMaterial.addEventListener("click", function () {
 
-    addCard.classList.toggle("open-add");
+    MaterialaddCard.classList.toggle("open-add");
+
+});
+
+editPrintingType.addEventListener("click", function () {
+
+    PrintingTypeaddCard.classList.toggle("open-add");
 
 });
 
 
-// Get the modal
+// material stock js 
 var addMaterial = document.getElementById("add-material");
 console.log(addMaterial);
 var updateMaterial = document.getElementById("update-material");
 
-// Get the button that opens the modal
+
 var btn = document.querySelector(".add.card");
 
 var updateBtn = document.querySelectorAll(".update-btn");
 
-// Get the <span> element that closes the modal
-var span = document.querySelectorAll(".close");
-console.log(span);
+
+var spanMaterial = document.querySelectorAll(".close");
+console.log(spanMaterial);
 
 // When the user clicks on the button, open the modal
 btn.onclick = function () {
@@ -33,34 +41,20 @@ btn.onclick = function () {
     document.body.style.overflow = "hidden";
 }
 
-// updateBtn.forEach(function (btn) {
-//     btn.onclick = function () {
-//         console.log('update');
-//         const materialData = this.getAttribute("data-material");
-//         console.log(materialData);
-
-//         document.querySelector('.update-form input[name="material_type"]').value = materialData.material_type;
-//         document.querySelector('.update-form input[name="quantity"]').value = materialData.quantity;
-//         document.querySelector('.update-form input[name="unit_price"]').value = materialData.unit_price;
-
-//         updateMaterial.style.display = "block";
-//         document.body.style.overflow = "hidden";
-//     }
-// })
-
-function openUpdate(button) {
+function openUpdateMaterial(button) {
     console.log('update');
 
     document.querySelector('.popup-update input[name="material_type"]').value = button.getAttribute("data-name");
     document.querySelector('.popup-update input[name="quantity"]').value = button.getAttribute("data-quantity");
     document.querySelector('.popup-update input[name="unit_price"]').value = button.getAttribute("data-price");
+    document.querySelector('.popup-update input[name="ppm"]').value = button.getAttribute("data-ppm");	
     document.querySelector('.popup-update input[name="stock_id"]').value = button.getAttribute("data-id");
 
     updateMaterial.style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
-function openDelete(button) {
+function openDeleteMaterial(button) {
     console.log('delete');
     console.log(button.getAttribute("data-id"));
     document.querySelector('.popup-delete input[name="stock_id"]').value = button.getAttribute("data-id");
@@ -76,68 +70,76 @@ function closeDelete() {
 }
 
 
-// When the user clicks on <span> (x), close the modal
-span.forEach(function (btn) {
+// When the user clicks on <spanMaterial> (x), close the modal
+spanMaterial.forEach(function (btn) {
     btn.onclick = function () {
 
         updateMaterial.style.display = "none";
 
         document.body.style.overflow = "auto";
     }
-})
+});
+
+// printing type js 
+var addPrintingType = document.getElementById("add-printingType");
+console.log(addPrintingType);
+var updatePrintingType = document.getElementById("update-printingType");
 
 
+var btnPrintingType = document.querySelector(".printingType .add.card");
 
-function addMaterialCard(name, quantity, price) {
-    var newCard = document.createElement("div");
-    newCard.className = "orders card";
-
-
-    newCard.innerHTML = `
-        <button class="delete-material-btn">
-            <i class="fa fa-trash"></i>
-        </button>
-        <div class="middle">
-            <div class="left">
-                <h3>${name}</h3>
-                <h1>${quantity}</h1>
-                <p>Rs. ${price} per meter</p>
-            </div>
-            <button class="update-btn">Update</button>
-        </div>
-    `;
-
-    console.log(newCard);
-
-    document.querySelector(".add.card").before(newCard);
-
-    let deleteMaterial = newCard.querySelector(".delete-material-btn");
-    let updateBtn = newCard.querySelector(".update-btn");
-
-    editMaterial.addEventListener("click", function () {
-        deleteMaterial.classList.toggle("open-delete-material-btn");
-        updateBtn.classList.toggle("open-update-btn");
-
-        editIcon.classList.toggle("bx-edit");
-        editIcon.classList.toggle("bx-check");
-
-    });
-
-    // updateBtn.onclick = function (button) {
-    //     console.log('update');
-    //     var updateMaterial = document.getElementById("update-material");
+var updateBtnPrintingType = document.querySelectorAll(".printingType .update-btn");
 
 
-    //     updateMaterial.style.display = "block";
-    //     document.body.style.overflow = "hidden";
-    // }
+var spanPrintingType = document.querySelectorAll(".printingType .close");
+console.log(spanMaterial);
 
-    deleteMaterial.onclick = function () {
-        newCard.remove();
-    }
-
-
+// When the user clicks on the button, open the modal
+btnPrintingType.onclick = function () {
+    addPrintingType.style.display = "block";
+    console.log('add');
+    //   modal.style.transition = "0.5s ease-in-out";
+    document.body.style.overflow = "hidden";
 }
+
+function openUpdatePrintingType(button) {
+    console.log('update');
+
+    document.querySelector('.popup-update input[name="material_type"]').value = button.getAttribute("data-name");
+    document.querySelector('.popup-update input[name="quantity"]').value = button.getAttribute("data-quantity");
+    document.querySelector('.popup-update input[name="unit_price"]').value = button.getAttribute("data-price");
+    document.querySelector('.popup-update input[name="ppm"]').value = button.getAttribute("data-ppm");	
+    document.querySelector('.popup-update input[name="stock_id"]').value = button.getAttribute("data-id");
+
+    updatePrintingType.style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function openPrintingType(button) {
+    console.log('delete');
+    console.log(button.getAttribute("data-id"));
+    document.querySelector('.popup-delete input[name="stock_id"]').value = button.getAttribute("data-id");
+
+
+    document.getElementById('deleteConfirmation').style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function closeDelete() {
+    document.getElementById('deleteConfirmation').style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+
+// When the user clicks on <spanMaterial> (x), close the modal
+spanPrintingType.forEach(function (btn) {
+    btn.onclick = function () {
+
+        updatePrintingType.style.display = "none";
+
+        document.body.style.overflow = "auto";
+    }
+});
 
 
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -177,8 +179,9 @@ function setupForm(form, submitAction) {
             let name = form.querySelector('input[name="material_type"]').value;
             let quantity = form.querySelector('input[name="quantity"]').value;
             let price = form.querySelector('input[name="unit_price"]').value;
+            let ppm = form.querySelector('input[name="ppm"]').value;
 
-            submitAction(name, quantity, price);
+            submitAction(name, quantity, price, ppm);
 
             form.style.display = "none";
             document.body.style.overflow = "auto";
