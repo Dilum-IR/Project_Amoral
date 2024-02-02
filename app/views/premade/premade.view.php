@@ -38,12 +38,12 @@
                                 <div class="place-order-button">
                                     <button class="place-button" id="place-button-1"><span>Place Order</span></button>
                                 </div>
-                                <br><br><br>
+                                <br><br>
                                 <div class="div-info-1">
                                     <div class="material-info">
-                                        <label for="material-type">Material :</label>
+                                        <label for="material-type">Material</label>
                                         <input type="text" id="material-type" value="Wetlook" readonly>
-                                        <label for="unit-price-info">Unit Price (Rs) :</label>
+                                        <label for="unit-price-info">Price (Rs)</label>
                                         <input type="number" id="unit-price-info" value="1500" readonly>
                                     </div>
                                     <!-- <div class="price-info">
@@ -60,12 +60,12 @@
                                 <div class="place-order-button">
                                     <button class="place-button" id="place-button-2"><span>Place Order</span></button>
                                 </div>
-                                <br><br><br>
+                                <br><br>
                                 <div class="div-info-1">
                                     <div class="material-info">
-                                        <label for="material-type">Material :</label>
+                                        <label for="material-type">Material</label>
                                         <input type="text" id="material-type" value="Wetlook" readonly>
-                                        <label for="unit-price-info">Unit Price (Rs) :</label>
+                                        <label for="unit-price-info">Price (Rs)</label>
                                         <input type="number" id="unit-price-info" value="1500" readonly>
 
                                     </div>
@@ -83,12 +83,12 @@
                                 <div class="place-order-button">
                                     <button class="place-button" id="place-button-3"><span>Place Order</span></button>
                                 </div>
-                                <br><br><br>
+                                <br><br>
                                 <div class="div-info-1">
                                     <div class="material-info">
-                                        <label for="material-type">Material :</label>
+                                        <label for="material-type">Material</label>
                                         <input type="text" id="material-type" value="Wetlook" readonly>
-                                        <label for="unit-price-info">Unit Price (Rs) :</label>
+                                        <label for="unit-price-info">Price (Rs)</label>
                                         <input type="number" id="unit-price-info" value="1500" readonly>
                                     </div>
 

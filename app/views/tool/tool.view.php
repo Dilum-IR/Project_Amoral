@@ -95,7 +95,7 @@
             <br>
             <br>
 
-            <input type="file" name="" id="t-shirt-custom-design" accept="image/png">
+            <input type="file" name="" id="t-shirt-custom-design" accept="image/png, image/jpeg">
             <label class="upload-button-label" for="t-shirt-custom-design"><i id="upload-button-icon" class='bx bx-upload'></i>Upload a Design</label> 
         </div>
 
