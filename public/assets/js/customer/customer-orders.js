@@ -192,7 +192,7 @@ function openView(button) {
 
         var today = new Date();
         var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-
+        console.log(formattedDate);
 
         // Populate the "update-form" fields with the order data
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;

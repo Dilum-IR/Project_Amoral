@@ -276,7 +276,7 @@ body {
     border-radius: 20px;
     background: ghostwhite;
     padding: 24px;
-    overflow-x: auto;
+    /* overflow-x: auto; */
   }
 
 
