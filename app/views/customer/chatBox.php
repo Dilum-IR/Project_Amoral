@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <button class="chat-btn" id="toggle-chat-btn" onclick="toggleChat('<?= $_SESSION['USER']->email?>')">
+    <button class="chat-btn" id="toggle-chat-btn" onclick="toggleChat('<?= $_SESSION['USER']->email ?>')">
         <i class="bx bx-message-rounded-dots bx-flashing-hover chat-icon" id="chat-msg"></i>
     </button>
 
@@ -40,7 +40,6 @@
 
             </div>
             <div class="chat-body" id="chat-body">
-                <div class="chat-message"></div>
 
             </div>
             <div class="chat-input">
@@ -57,6 +56,29 @@
 
     <script>
         let chatVisible = false;
+
+        var chatBoxData
+
+        var userID 
+        var socket = null;
+
+        var chatInput = document.querySelector(".chat-input");
+        var userStatus = document.querySelector(".user-status");
+        var userImge = document.querySelector(".userImg");
+
+        let selectChatId = 0;
+
+        var onlineUser;
+
+        var chatBody = document.getElementById('chat-body');
+
+        chatBody.scrollTop = chatBody.scrollHeight + 100;
+
+        chatBody.scrollTo({
+            bottom: chatBody.scrollHeight,
+            behavior: 'smooth'
+        });
+
 
         function toggleChat(email) {
             const chatPopup = document.getElementById("chat-popup");
@@ -76,8 +98,9 @@
                     "bx-flashing",
                     "bx-rotate-180"
                 );
+
                 getUserChat(email);
-                
+
 
             } else {
                 // If chat is visible, hide it with animation
@@ -106,11 +129,11 @@
         }
 
         function getUserChat(email) {
-            
+
             data = {
                 email: email
             }
-            
+
             $.ajax({
                 type: "POST",
                 url: "<?= ROOT ?>/customer/chatbox",
@@ -120,103 +143,28 @@
                     try {
 
                         Jsondata = JSON.parse(res)
+
+                        // get that data using local variable when to use futures
+                        chatBoxData = Jsondata
+                        selectChatId = Jsondata.chat[0].chat_id
+
+                        document.getElementById("chat-body").textContent = ''
+
                         console.log(Jsondata)
 
-                        // Jsondata.forEach(element => {
+                        Jsondata.chatMsgs.forEach(element => {
 
-                        //     loadMessage(element, chatUserData);
-                        // });
-
-                        // console.log(Jsondata)
-                        // console.log(chatUserData)
-
-                    } catch (error) {
-
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // return xhr;
-                }
-            })
-
-
-
-        }
-    </script>
-
-    <script>
-        var userID 
-        var socket = null;
-
-        var chatInput = document.querySelector(".chat-input");
-        var userStatus = document.querySelector(".user-status");
-        var userImge = document.querySelector(".userImg");
-
-        var chatBoxData
-        var selectChatBox = false;
-        let selectChatId = 0;
-
-        var onlineUser;
-
-        var chatBody = document.getElementById('chat-body');
-
-        chatBody.scrollTop = chatBody.scrollHeight + 100;
-
-        chatBody.scrollTo({
-            bottom: chatBody.scrollHeight,
-            behavior: 'smooth'
-        });
-
-
-        function selectChat(chatUserData) {
-
-            // get that data using local variable when to use futures
-            chatBoxData = chatUserData
-
-            // console.log(chatBoxData)
-
-            selectChatBox = true;
-            selectChatId = chatUserData.chat_box.chat_id;
-
-            header_user = document.getElementById("header-user");
-            var chatBody = document.getElementById("chat-body");
-
-            chatInput.classList.remove("hide");
-            userStatus.classList.remove("hide");
-            userImge.classList.remove("hide");
-
-            // Clear existing messages in the chat body
-            chatBody.innerHTML = "";
-
-            if (chatUserData.user_status == "customer") {
-
-                header_user.innerHTML = chatUserData.fullname
-            } else {
-                header_user.innerHTML = chatUserData.emp_name
-            }
-
-            data = {
-                chat_id: chatUserData.chat_box.chat_id
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "<?= ROOT ?>/manager/chatbox",
-                data: data,
-                cache: false,
-                success: function(res) {
-                    // convet to the json type
-                    try {
-
-                        Jsondata = JSON.parse(res)
-                        // console.log(Jsondata)
-
-                        Jsondata.forEach(element => {
-
-                            loadMessage(element, chatUserData);
+                            loadMessage(element, Jsondata.log_user);
                         });
-                        // console.log(Jsondata)
-                        // console.log(chatUserData)
+
+                        userID = Jsondata.log_user
+
+                        // messages load time socket opend
+                        socket.onopen = function(e) {
+                            console.log('Connection established!');
+                        };
+
+                        // isOnlineUser();
 
                     } catch (error) {
 
@@ -227,35 +175,13 @@
                 }
             })
 
-            try {
-
-                // messages load time socket opend
-                socket.onopen = function(e) {
-                    console.log('Connection established!');
-                };
-
-                // socket.send(JSON.stringify({
-                //     'newRoute': `${chatBoxData.chat_box.chat_id}`,
-                //     'onlineStatus': 'online',
-                //     'user_id': userID,
-                //     'chat_id': selectChatId,
-
-                // }));
 
 
-                isOnlineUser();
-
-
-            } catch (error) {
-                console.error(error);
-            }
         }
 
         socket = new WebSocket(`ws://localhost:8080?userId=${userID}`);
 
         try {
-
-            // while (true) {
 
             // socket.send(JSON.stringify({
             //     // 'newRoute': `${chatBoxData.chat_box.chat_id}`,
@@ -264,9 +190,6 @@
             //     'chat_id': selectChatId,
             // }));
 
-            // }
-
-
         } catch (error) {
             // console.error(error);
         }
@@ -274,23 +197,9 @@
 
         loadWithTime = 0;
 
-        function loadMessage(chatMsg, chatUserData) {
+        function loadMessage(chatMsg, userId) {
 
             var dateTime = new Date(chatMsg.time);
-
-            //formatted date ("Jan 28, 2024")
-            var formattedDate = dateTime.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
-
-            // formatted time ("12:06:34 PM")
-            var ampmTime = dateTime.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
 
             var div = document.createElement("div");
             var p = document.createElement("p");
@@ -299,12 +208,17 @@
             p.style.marginBottom = "10px";
             p.style.borderRadius = "5px";
             p.style.display = "inline-block";
+            p.style.fontSize = "13px";
+            p.style.lineHeight = "20px";
             p.style.maxWidth = "70%";
-            p.innerHTML = chatMsg.msg + "<br> <small> <em>" + ampmTime + "</em></small>";
+            p.innerHTML = chatMsg.msg + "<br> <small> <em>" + formatTime(dateTime)  + "</em></small>";
 
-            if (loadWithTime != formattedDate) {
+            div.style.color = "white";
+            div.style.fontSize = "14px";
 
-                loadWithTime = formattedDate;
+            if (loadWithTime != formatDate(dateTime) ) {
+
+                loadWithTime = formatDate(dateTime) ;
 
                 div.innerHTML = loadWithTime;
                 div.style.maxWidth = "100%";
@@ -313,14 +227,14 @@
 
             if (reciveTimedisplay && sendTimedisplay) {
 
-                div.innerHTML = formattedDate;
+                div.innerHTML = formatDate(dateTime) ;
                 div.style.maxWidth = "100%";
                 div.style.textAlign = "center";
 
                 sendTimedisplay = false;
             }
 
-            if (chatUserData.log_user === chatMsg.user_id) {
+            if (userId === chatMsg.user_id) {
 
                 p.style.background = "black";
                 p.style.color = "white";
@@ -337,6 +251,8 @@
 
             document.getElementById("chat-body").appendChild(div);
             document.getElementById("chat-body").appendChild(p);
+
+            // messages trantion
             var delay = chatMsg.log_user ? 0 : 30000;
 
             setTimeout(function() {
@@ -345,7 +261,6 @@
             }, delay);
 
         }
-
 
         document.onkeyup = enter;
 
@@ -359,8 +274,9 @@
             if (text == "") {
                 return;
             } else {
-                send(text);
                 document.getElementById("message-input").value = "";
+                send(text);
+                // console.log();
             }
         }
 
@@ -369,29 +285,15 @@
 
             var currentDate = new Date();
 
-            //formatted date ("Jan 28, 2024")
-            var formattedDate = currentDate.toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
-            });
-
-            //formatted time ("12:06:34 PM")
-            var formattedTime = currentDate.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true
-            });
-
             socket.send(JSON.stringify({
-                'chat_id': chatBoxData.chat_box.chat_id,
+                'chat_id': chatBoxData.chat[0].chat_id,
                 'msg': query,
                 'user_id': chatBoxData.log_user,
-                'date': formattedDate,
-                'time': formattedTime
+                'date': formatDate(currentDate),
+                'time': formatTime(currentDate) 
             }));
 
-            sendMessage(query, formattedDate, formattedTime);
+            sendMessage(query, formatDate(currentDate), formatTime(currentDate) );
         }
 
 
@@ -408,8 +310,13 @@
             p.style.borderRadius = "5px";
             p.style.display = "inline-block";
             p.style.maxWidth = "70%";
+            p.style.fontSize = "13px";
             p.style.lineHeight = "20px";
             p.innerHTML = query + "<br> <small> <em>" + formattedTime + "</em></small>";
+
+            div.style.color = "white";
+            div.style.fontSize = "14px";
+
 
             if (reciveTimedisplay && sendTimedisplay) {
 
@@ -427,16 +334,18 @@
 
             let data = {
                 'msg': query,
-                'chat_id': chatBoxData.chat_box.chat_id,
+                'chat_id': chatBoxData.chat[0].chat_id,
                 'user_id': chatBoxData.log_user,
             };
 
             $.ajax({
                 type: "POST",
-                url: "<?= ROOT ?>/manager/saveMsg",
+                url: "<?= ROOT ?>/customer/saveMsg",
                 data: data,
                 cache: false,
-                success: function(res) {},
+                success: function(res) {
+                    
+                },
                 error: function(xhr, status, error) {
                     // return xhr;
                 }
@@ -452,7 +361,7 @@
             socket.send(JSON.stringify({
                 'typing': 'y',
                 'user_id': chatBoxData.log_user,
-                'chat_id': chatBoxData.chat_box.chat_id,
+                'chat_id': chatBoxData.chat[0].chat_id,
             }));
         }
 
@@ -463,10 +372,9 @@
 
                 let data = JSON.parse(e.data);
 
-                console.log(data);
+                // console.log(data);
 
-
-                if (selectChatBox && data.chat_id == selectChatId) {
+                if ( data.chat_id == selectChatId) {
 
                     // if ( data.typing == null || data.msg == null ) {
                     //     return;
@@ -484,6 +392,11 @@
                         p.style.display = "inline-block";
                         p.style.maxWidth = "60%";
                         p.innerHTML = data.msg + "<br> <small> <em>" + data.time + "</em></small>";
+
+
+                        div.style.color = "white";
+                        div.style.fontSize = "14px";
+
 
                         if (reciveTimedisplay && sendTimedisplay) {
 
@@ -609,6 +522,26 @@
         }
 
         setInterval(5000, isOnlineUser());
+
+        function formatDate(currentDate) {
+            //formatted date ("Jan 28, 2024")
+            var formattedDate = currentDate.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            return formattedDate;
+        }
+
+        function formatTime(currentDate) {
+            //formatted time ("12:06:34 PM")
+            var formattedTime = currentDate.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            });
+            return formattedTime;
+        }
     </script>
 
 

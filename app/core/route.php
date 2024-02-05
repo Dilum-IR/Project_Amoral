@@ -22,7 +22,8 @@ route('customer/orders', 'customer/customerOrders@index');
 route('customer/profile', 'customer/Profile@index');
 route('customer/quotation', 'customer/Quotation@index');
 
-route('customer/saveMsg', 'customer/customerOverview@chat_msg');
+// customer ajax chat endpoint
+route('customer/saveMsg', 'customer/customerOverview@saveMsg');
 route('customer/chatbox', 'customer/customerOverview@chat_data');
 
 
@@ -34,7 +35,7 @@ route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
 
 
-//  chat path
+// manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');
 route('manager/chatbox', 'manager/ChatBox@chatbox');
 route('manager/saveMsg', 'manager/ChatBox@saveMsg');
@@ -61,5 +62,8 @@ route('signinData', 'SignIn@formData');
 route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
+
+
+route('premade', 'premade/Premade@Index');
 
 route('404', '_404@index');

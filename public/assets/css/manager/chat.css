@@ -21,6 +21,12 @@ input {
   align-items: baseline;
   justify-content: space-between;
 }
+
+.chat-all-users .chat-head .chatname{
+  font-weight: normal;
+  font-family: "Poppins";
+  font-size: 20px;
+}
 .dropbtn {
   background-color: #000000;
   color: white;
@@ -78,8 +84,8 @@ input {
 .user_box {
   padding: 10px;
   padding-top: 10px;
-  height: 75vh;
-  width: 20%;
+  height: 85vh;
+  width: 22%;
   border-radius: 5px;
   border: solid 1px #1a1a1a7a;
   background-color: white;
@@ -89,7 +95,7 @@ input {
 .user_box .all-chat {
   margin-top: 3px;
   overflow-y: scroll;
-  height: 60vh;
+  height: 100vh;
 }
 .search-content {
   display: flex;

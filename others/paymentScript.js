@@ -1,5 +1,6 @@
 function paymentGateway() {
   $(document).ready(function () {
+    
     data = {
       type: "hi server sdgsfxg",
     };
