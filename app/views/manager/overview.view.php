@@ -263,7 +263,7 @@
                             <span class="close">&times;</span>
                             <h2>Add a printing type</h2>
                             <form id="addPrintingTypeForm" method="POST">
-                                <label for="materialName">Printing Type: <span class="error printingType"> </span></label><br>
+                                <label for="materialName">Printing Type: <span class="error type"></span></label><br>
                                 <input type="text" id="materialName" name="material_type"><br>
                                 <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
                                 <input type="text" id="materialQuantity" name="quantity"><br>
@@ -298,10 +298,18 @@
                         <span class="close">&times;</span>
                         <h2>Update Printing Type</h2>
                         <form id="updatePrintingTypeForm" method="POST">
-                            <label for="materialName">Printing Type: <span class="error printingType"> </span></label><br>
+                            <label for="materialName">Printing Type: <span class="error type"> </span></label><br>
                             <input type="text" id="materialName" name="material_type"><br>
                             <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
-                            <input type="text" id="materialQuantity" name="quantity"><br>
+                            <div class="materialBx">
+                                <?php foreach ($data['materialStock'] as $material): ?>
+                                <div class="checkbx">
+                                    <input type="checkbox" id="<?php echo $material->material_type?>" name="materials[]" value="<?php echo $material->material_type?>">
+                                    <label for="<?php echo $material->material_type?>"><?php echo $material->material_type?></label>
+                                </div>
+                            <?php endforeach; ?>    
+                            </div>
+                            <br>
                             <label for="materialPrice">Price Addition: <span class="error price"></span></label><br>
                             <input type="text" id="materialPrice" name="unit_price"><br><br>
 
@@ -480,7 +488,7 @@
 
         }
 
-        function addPrintingTypeCard(printingType, materials, price, ppm, id) {
+        function addPrintingTypeCard(printingType,price,id) {
             var newCard = document.createElement("div");
             newCard.className = "orders card";
 
@@ -492,16 +500,16 @@
                 <div class="middle">
                     <div class="left">
                         <h3>${printingType}</h3>
-                        <h1>${materials} Kg</h1>
-                        <p>Rs. ${price} per Kg</p>
+                       
+                        <p>Rs. ${price}</p>
 
                     </div>
-                    <button class="update-btn" data-printingType="${printingType}" data-materials="${materials}" data-price="${price}" data-id="${id}" onclick="openUpdate(this)">Update</button>
+                    <button class="update-btn" data-printingType="${printingType}" data-price="${price}" data-id="${id}" onclick="openUpdatePrintingType(this)">Update</button>
                 </div>
             `;
 
         
-            document.querySelector(".add.card").before(newCard);
+            document.querySelector(".printingType .add.card").before(newCard);
 
             let deletePrintingType = newCard.querySelector(".delete-printingType-btn");
             let updateBtn = newCard.querySelector(".update-btn");
@@ -533,6 +541,10 @@
 
         <?php foreach($data['materialStock'] as $material): ?>
             addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>','<?php echo $material->ppm ?>', '<?php echo $material->stock_id ?>');
+        <?php endforeach; ?>
+
+        <?php foreach($data['printingType'] as $printingType): ?>
+            addPrintingTypeCard('<?php echo $printingType->printing_type ?>', '<?php echo $printingType->price ?>', '<?php echo $printingType->ptype_id ?>');
         <?php endforeach; ?>
 
     </script>

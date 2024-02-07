@@ -9,6 +9,7 @@ class Overview extends Controller
         $customerOrder = new Order;
         $garmentOrder = new GarmentOrder;
         $materialStock = new MaterialStock;
+        $printingType = new PrintingType;
 
         if ($username != 'User') {
             $data['deleteMaterial'] = 'false';
@@ -16,6 +17,7 @@ class Overview extends Controller
             $data['material_sizes'] = $customerOrder->getFullData();
             $data['garmentOrder'] = $garmentOrder->findAll('order_id');
             $data['materialStock'] = $materialStock->findAll('stock_id');
+            $data['printingType'] = $printingType->findAll('ptype_id');
             $this->view('manager/overview', $data);
             
             if(isset($_POST['addMaterial'])){

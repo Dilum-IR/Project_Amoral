@@ -31,7 +31,7 @@ var btn = document.querySelector(".add.card");
 var updateBtn = document.querySelectorAll(".update-btn");
 
 
-var spanMaterial = document.querySelectorAll(".close");
+var spanMaterial = document.querySelectorAll(".material .popup-update .close");
 console.log(spanMaterial);
 
 // When the user clicks on the button, open the modal
@@ -91,10 +91,10 @@ var btnPrintingType = document.querySelector(".printingType .add.card");
 var updateBtnPrintingType = document.querySelectorAll(".printingType .update-btn");
 
 
-var spanPrintingType = document.querySelectorAll(".printingType .close");
+var spanPrintingType = document.querySelectorAll("#update-printingType .close");
 console.log(spanMaterial);
 
-// When the user clicks on the button, open the modal
+
 btnPrintingType.onclick = function () {
     addPrintingType.style.display = "block";
     console.log('add');
@@ -125,6 +125,13 @@ function openPrintingType(button) {
     document.body.style.overflow = "hidden";
 }
 
+var closeAddPrintingType = document.querySelector("#add-printingType .close");
+
+closeAddPrintingType.addEventListener("click", function () {
+    addPrintingType.style.display = "none";
+    document.body.style.overflow = "auto";
+});
+
 function closeDelete() {
     document.getElementById('deleteConfirmation').style.display = "none";
     document.body.style.overflow = "auto";
@@ -134,7 +141,7 @@ function closeDelete() {
 // When the user clicks on <spanMaterial> (x), close the modal
 spanPrintingType.forEach(function (btn) {
     btn.onclick = function () {
-
+        console.log('close');
         updatePrintingType.style.display = "none";
 
         document.body.style.overflow = "auto";

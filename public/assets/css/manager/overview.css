@@ -374,6 +374,7 @@ body {
   main .printingType .card{
     padding: 20px 20px;
     position: relative;
+    height: 120px;
   }
 
   main .material > div:hover,
@@ -387,7 +388,7 @@ body {
     border: none;
     color: white;
     padding: 15px 26px;
-    bottom: 39px;
+    bottom: 26px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -457,9 +458,23 @@ body {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   
+}
+
+.popup-update .materialBx {
+  position: relative;
+  margin-left: 10%;
+  /* text-align: center; */
+}
+
+.popup-update .checkbx {
+  display: flex;
+  /* align-content: space-between; */
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-direction: row;
+  gap: 25px;
 }
 
 .popup-delete {
