@@ -104,18 +104,28 @@ class Overview extends Controller
                 $currentAssociations = $materialPrintingType->where(['ptype_id' => $_POST['ptype_id']]);
 
                 foreach($stockIds as $stockId){
-                    // Update the association for the checked material
-                    $materialPrintingType->update($_POST['ptype_id'], ['ptype_id' => $_POST['ptype_id'], 'stock_id' => $stockId], 'ptype_id');
-
-                    $currentAssociations = array_filter($currentAssociations, function($association) use ($stockId) {
-                        return $association->stock_id != $stockId;
+                    // Check if an association for the checked material already exists
+                    $existingAssociation = array_filter($currentAssociations, function($association) use ($stockId) {
+                        return $association->stock_id == $stockId;
                     });
+
+                    // If an association already exists, skip to the next iteration
+                    if(!empty($existingAssociation)){
+                        continue;
+                    }
+
+                    // Add the new association
+                    $materialPrintingType->insert(['ptype_id' => $_POST['ptype_id'], 'stock_id' => $stockId]);
                 }
 
-                // Remove the associations for the unchecked materials
+                // Remove any associations that are no longer checked
                 foreach($currentAssociations as $association){
-                    $materialPrintingType->delete($association['id']);
+                    if(!in_array($association->stock_id, $stockIds)){
+                        // This association was unchecked, so remove it
+                        $materialPrintingType->delete($association->mp_id, 'mp_id');
+                    }
                 }
+
                 unset($_POST);
                 redirect('manager/overview');
             }
