@@ -370,8 +370,8 @@ body {
 } */
 
 
-  main .material .card,
-  main .printingType .card{
+  .material .card,
+  .printingType .card{
     padding: 20px 20px;
     position: relative;
     height: 120px;

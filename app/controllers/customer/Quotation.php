@@ -11,6 +11,8 @@ class Quotation extends Controller
         $order_material = new OrderMaterial;
         $quotation_reply = new QuotationReply;
         $materials = new MaterialStock;
+        $sleeveType = new Sleeves;
+        $material_printingType = new MaterialPrintingType;
         
         if ($username != 'User') {
             $id = ['user_id' => $_SESSION['USER']->id];
@@ -18,6 +20,9 @@ class Quotation extends Controller
             $data['material_sizes'] = $order->getFullData($id);
             $data['quotation_reply'] = $quotation_reply->getReplyDetails($id);
             $data['materials'] = $materials->getMaterialNames();
+            $data['sleeveType'] = $sleeveType->findAll('sleeve_id');
+            $data['material_printingType'] = $material_printingType->getFullData();	
+            // show($data['material_printingType']);
             // show($data['material_sizes']);
             // show($data);
             // show($id);            

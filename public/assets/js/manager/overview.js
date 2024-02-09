@@ -60,12 +60,12 @@ function openDeleteMaterial(button) {
     document.querySelector('.popup-delete input[name="stock_id"]').value = button.getAttribute("data-id");
 
 
-    document.getElementById('deleteConfirmation').style.display = "block";
+    document.getElementById('deleteConfirmation-material').style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
 function closeDelete() {
-    document.getElementById('deleteConfirmation').style.display = "none";
+    document.getElementById('deleteConfirmation-materila').style.display = "none";
     document.body.style.overflow = "auto";
 }
 
@@ -104,24 +104,40 @@ btnPrintingType.onclick = function () {
 
 function openUpdatePrintingType(button) {
     console.log('update');
+    var materialsJson = button.getAttribute('data-materials');
+    var materials = JSON.parse(materialsJson);
+    console.log(materialsJson);
+    var checkboxes = document.querySelectorAll('.popup-update input[type=checkbox]');
+    var materialsString = materials.map(function(material) {
+        return material.join(",");
+    });
+    console.log(materialsString);
+    checkboxes.forEach(function(checkbox){
+        console.log(checkbox.value);
 
-    document.querySelector('.popup-update input[name="material_type"]').value = button.getAttribute("data-name");
-    document.querySelector('.popup-update input[name="quantity"]').value = button.getAttribute("data-quantity");
-    document.querySelector('.popup-update input[name="unit_price"]').value = button.getAttribute("data-price");
-    document.querySelector('.popup-update input[name="ppm"]').value = button.getAttribute("data-ppm");	
-    document.querySelector('.popup-update input[name="stock_id"]').value = button.getAttribute("data-id");
+        if(materialsString.includes(checkbox.value)){
+            checkbox.checked = true;
+        }else{
+            checkbox.checked = false;
+        }
+    });
+
+    document.querySelector('.popup-update input[name="printing_type"]').value = button.getAttribute("data-printingType");
+    document.querySelector('.popup-update input[name="price"]').value = button.getAttribute("data-price");
+
+    document.querySelector('.popup-update input[name="ptype_id"]').value = button.getAttribute("data-id");
 
     updatePrintingType.style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
-function openPrintingType(button) {
+function openDeletePrintingType(button) {
     console.log('delete');
     console.log(button.getAttribute("data-id"));
-    document.querySelector('.popup-delete input[name="stock_id"]').value = button.getAttribute("data-id");
+    document.querySelector('.popup-delete input[name="ptype_id"]').value = button.getAttribute("data-id");
 
 
-    document.getElementById('deleteConfirmation').style.display = "block";
+    document.getElementById('deleteConfirmation-ptype').style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
@@ -133,7 +149,7 @@ closeAddPrintingType.addEventListener("click", function () {
 });
 
 function closeDelete() {
-    document.getElementById('deleteConfirmation').style.display = "none";
+    document.getElementById('deleteConfirmation-ptype').style.display = "none";
     document.body.style.overflow = "auto";
 }
 
