@@ -153,13 +153,37 @@
 
                         <div class="add card">
                             <!-- <i class='bx bxs-calendar-check'></i> -->
-                            <div class="middle">
+                            <!-- <div class="middle"> -->
                                 <div class="left">
                                     <i class='bx bxs-plus-circle'></i>
-                                    <h3 style="margin-left: 42%; width: 100%; ">Add a material</h3>
+                                    <h3 style="width: 100%; ">Add a material</h3>
                                 </div>
                                
-                            </div>
+                            <!-- </div> -->
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="printingType">
+                        <span>
+                            <h2>Printing Types</h2>
+                            <button class="edit-printingType-btn">
+                                <i class="bx bx-edit"></i>
+                            </button>
+                        </span>
+                        
+
+                        <div class="add card">
+                            <!-- <i class='bx bxs-calendar-check'></i> -->
+                            <!-- <div class="middle"> -->
+                                <div class="left">
+                                    <i class='bx bxs-plus-circle'></i>
+                                    <h3 style="width: 100%;">Add a printing type</h3>
+                                </div>
+                               
+                            <!-- </div> -->
 
                         </div>
 
@@ -183,6 +207,8 @@
                                 <input type="text" id="materialQuantity" name="quantity"><br>
                                 <label for="materialPrice">Unit Price: <span class="error price"></span></label><br>
                                 <input type="text" id="materialPrice" name="unit_price"><br><br>
+                                <label for="ppm">Approximate products that can be made per 1Kg: <span class="error ppm"></span></label><br>
+                                <input type="text" id="ppm" name="ppm"><br><br>
                                 <input type="submit" class="btn-add" name="addMaterial" value="Add Material">
                             </form>
                         </div>
@@ -190,10 +216,10 @@
                     </div>
 
                     <!-- Delete confirmation popup -->
-                    <div id="deleteConfirmation" class="popup-delete">
+                    <div id="deleteConfirmation-material" class="popup-delete">
                         <!-- Modal content -->
                         <div class="popup-content">
-                            <h2>Are you sure you want to delete this material?</h2>
+                            <h2>Are you sure you want to delete this?</h2>
                             <form id="deleteMaterialForm" method="POST">
                                 <input type="hidden" id="materialId" name="stock_id">
                                 <input type="submit" value="Yes, delete it" name="deleteMaterial">
@@ -217,6 +243,8 @@
                                 <input type="text" id="materialQuantity" name="quantity"><br>
                                 <label for="materialPrice">Unit Price: <span class="error price"></span></label><br>
                                 <input type="text" id="materialPrice" name="unit_price"><br><br>
+                                <label for="ppm">Approximate products that can be made per 1Kg: <span class="error ppm"></span></label><br>
+                                <input type="text" id="ppm" name="ppm"><br><br>
                                 <input type="hidden" id="materialId" name="stock_id">
                                 <br>
                                 <input type="submit" class="btn-add" name="updateMaterial" value="Update Material">
@@ -224,6 +252,83 @@
                         </div>
                     </div>
 
+                
+                    
+                    <!--popup to add materials-->
+
+                    <div id="add-printingType" class="popup-add">
+
+                        <!-- Modal content -->
+                        <div class="popup-content">
+                            <span class="close">&times;</span>
+                            <h2>Add a printing type</h2>
+                            <form id="addPrintingTypeForm" method="POST">
+                                <label for="pType">Printing Type: <span class="error ptype"></span></label><br>
+                                <input type="text" id="pType" name="printing_type"><br>
+                                <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
+                                <div class="materialBx">
+                                    <?php foreach ($data['materialStock'] as $material): ?>
+                                    <div class="checkbx">
+                                        <input type="checkbox" id="<?php echo $material->material_type?>" name="PtypeMaterials[]" value="<?php echo $material->material_type . ',' . $material->stock_id?>">
+                                        <label for="<?php echo $material->material_type?>"><?php echo $material->material_type?></label>
+                                    </div>
+                                <?php endforeach; ?>    
+                                </div>
+                                <br>
+                                <label for="ptypePrice">Price Addition: <span class="error price"></span></label><br>
+                                <input type="text" id="ptypePrice" name="price"><br><br>
+    
+                                <input type="submit" class="btn-add" name="addPrintingType" value="Add Printing Type">
+                            </form>
+                        </div>
+
+                    </div>
+
+                        <!-- Delete confirmation popup -->
+                    <div id="deleteConfirmation-ptype" class="popup-delete">
+                        <!-- Modal content -->
+                        <div class="popup-content">
+                            <h2>Are you sure you want to delete this printing type?</h2>
+                            <form id="deletePrintingTypeForm" method="POST">
+                                <input type="hidden" id="ptypeId" name="ptype_id">
+                                <input type="submit" value="Yes, delete it" name="deletePType">
+                                <button type="button" id="cancelDelete" onclick="closeDelete()">No, cancel</button>
+                            </form>
+                        </div>
+                    </div>
+
+                <!--popup to update printing types-->
+
+                <div id="update-printingType" class="popup-update">
+
+                    <!-- Modal content -->
+                    <div class="popup-content">
+                        <span class="close">&times;</span>
+                        <h2>Update Printing Type</h2>
+                        <form id="updatePrintingTypeForm" method="POST">
+                            <label for="pType">Printing Type: <span class="error pType"> </span></label><br>
+                            <input type="text" id="pType" name="printing_type"><br>
+                            <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
+                            <div class="materialBx">
+                                <?php foreach ($data['materialStock'] as $material): ?>
+                                <div class="checkbx">
+                                    <input type="checkbox" id="<?php echo $material->material_type?>" name="PtypeMaterials[]" value="<?php echo $material->material_type . ',' . $material->stock_id?>">
+                                    <label for="<?php echo $material->material_type?>"><?php echo $material->material_type?></label>
+                                </div>
+                            <?php endforeach; ?>    
+                            </div>
+                            <br>
+                            <label for="ptypePrice">Price Addition: <span class="error price"></span></label><br>
+                            <input type="text" id="materialPrice" name="price"><br><br>
+
+                            <input type="hidden" id="ptypeId" name="ptype_id">
+                            <br>
+                            <input type="submit" class="btn-add" name="updatePrintingType" value="Update Printing Type">
+                        </form>
+                    </div>
+                </div>
+
+                <div id="add-printingType" class="popup-add-printingType">
                     <!-- Anlysis Containers -->
 
 
@@ -256,7 +361,7 @@
                                         <td>
                                         <?php foreach($data['material_sizes'] as $sizes):?>
                                             <?php if($sizes->order_id == $order->order_id) :?>
-                                               
+                                                
                                                 <?php echo $sizes->material_type ?><br>
                                             <?php endif;?>
                                         <?php endforeach;?>    
@@ -341,13 +446,13 @@
     <script>
         // let editMaterial = document.querySelector(".edit-material-btn");
 
-        function addMaterialCard(name, quantity, price, id) {
+        function addMaterialCard(name, quantity, price, ppm, id) {
             var newCard = document.createElement("div");
             newCard.className = "orders card";
 
             
             newCard.innerHTML = `
-                <button class="delete-material-btn" data-id="${id}" onclick="openDelete(this)">
+                <button class="delete-material-btn" data-id="${id}" onclick="openDeleteMaterial(this)">
                     <i class="fa fa-trash"></i>
                 </button>
                 <div class="middle">
@@ -355,8 +460,9 @@
                         <h3>${name}</h3>
                         <h1>${quantity} Kg</h1>
                         <p>Rs. ${price} per Kg</p>
+
                     </div>
-                    <button class="update-btn" data-name="${name}" data-quantity="${quantity}" data-price="${price}" data-id="${id}" onclick="openUpdate(this)">Update</button>
+                    <button class="update-btn" data-name="${name}" data-quantity="${quantity}" data-price="${price}" data-id="${id}" data-ppm="${ppm}" onclick="openUpdateMaterial(this)">Update</button>
                 </div>
             `;
 
@@ -390,9 +496,61 @@
 
         }
 
+        function addPrintingTypeCard(printingType, price, materialsJson, id) {
+            var newCard = document.createElement("div");
+            newCard.className = "orders card";
+
+            newCard.innerHTML = `
+                <button class="delete-printingType-btn" data-id="${id}" onclick="openDeletePrintingType(this)">
+                    <i class="fa fa-trash"></i>
+                </button>
+                <div class="middle">
+                    <div class="left">
+                        <h3>${printingType}</h3>
+                        <p>Rs. ${price}</p>
+                    </div>
+                    <button class="update-btn" data-printingType="${printingType}" data-price="${price}" data-materials='${materialsJson}' data-id="${id}" onclick="openUpdatePrintingType(this)">Update</button>
+                </div>
+            `;
+
+        
+            document.querySelector(".printingType .add.card").before(newCard);
+
+            let deletePrintingType = newCard.querySelector(".delete-printingType-btn");
+            let updateBtn = newCard.querySelector(".update-btn");
+
+            editPrintingType.addEventListener("click", function () {
+                deletePrintingType.classList.toggle("open-delete-printingType-btn");
+                updateBtn.classList.toggle("open-update-btn");
+            });
+
+            // updateBtn.onclick = function () {
+            //     updateMaterial.style.display = "block";
+            //     document.body.style.overflow = "hidden";
+            // }
+
+            // deleteMaterial.onclick = function () {
+            //     document.getElementById("deleteConfirmation").style.display = "block";
+            //     document.body.style.overflow = "hidden";
+
+            // }
+            
+            var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
+            console.log(deleteMaterialSuccess);
+            if(deleteMaterialSuccess){
+                newCard.remove();
+            }
+
+        }
+
 
         <?php foreach($data['materialStock'] as $material): ?>
-            addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>', '<?php echo $material->stock_id ?>');
+            addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>','<?php echo $material->ppm ?>', '<?php echo $material->stock_id ?>');
+        <?php endforeach; ?>
+
+        <?php foreach($data['printingType'] as $printingType): ?>
+            <?php $materialsJson = json_encode($data['materialPrintingType'][$printingType->ptype_id]); ?>
+            addPrintingTypeCard('<?php echo $printingType->printing_type ?>', '<?php echo $printingType->price ?>', '<?php echo $materialsJson ?>' , '<?php echo $printingType->ptype_id ?>');
         <?php endforeach; ?>
 
     </script>

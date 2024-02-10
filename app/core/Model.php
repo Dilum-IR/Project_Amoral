@@ -251,9 +251,9 @@ trait Model
         }
         $quary = trim($quary, " AND ");
 
-        $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        $quary .= " ORDER BY $this->table.$refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
-        echo $quary;
+        // echo $quary;
         // run the quary stage
         return $this->quary($quary, $data);
     }

@@ -67,8 +67,7 @@
                             <th>Placed On</th>
                             <th>Material</th>
                             <th>Quantity</th>
-                            <th>Status</th>
-                       
+                            <th>Status</th>                    
                         </tr>
                     </thead>
                     <tbody>
@@ -852,7 +851,7 @@
             fileInput.click();
         }, false);
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
 
     <script src="<?= ROOT ?>/assets/js/manager/quotations.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
