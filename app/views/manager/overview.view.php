@@ -4,7 +4,7 @@
 <head>
     <!-- <meta http-equiv="refresh" content="2; url=<?= ROOT ?>/garment/overview"> -->
 
-    <title>Amoral</title>
+    <title>Manager</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/overview.css">
@@ -535,9 +535,9 @@
 
             // }
             
-            var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
-            console.log(deleteMaterialSuccess);
-            if(deleteMaterialSuccess){
+            var deletePTypeSuccess = <?php echo $data['deletePType'] ?>;
+            console.log(deletePTypeSuccess);
+            if(deletePTypeSuccess){
                 newCard.remove();
             }
 

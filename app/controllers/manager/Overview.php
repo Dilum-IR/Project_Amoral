@@ -14,6 +14,7 @@ class Overview extends Controller
 
         if ($username != 'User') {
             $data['deleteMaterial'] = 'false';
+            $data['deletePType'] = 'false';
             $data['customerOrder'] = $customerOrder->findAll('order_id');
             $data['material_sizes'] = $customerOrder->getFullData();
             $data['garmentOrder'] = $garmentOrder->findAll('order_id');
@@ -128,6 +129,14 @@ class Overview extends Controller
 
                 unset($_POST);
                 redirect('manager/overview');
+            }
+
+            if(isset($_POST['deletePType'])){
+                unset($_POST['deletePType']);
+                $printingType->delete($_POST['ptype_id'], 'ptype_id');
+                unset($_POST);
+                $data['deletePType'] = 'true';
+                redirect('manager/overview', $data);
             }
             
         }else{
