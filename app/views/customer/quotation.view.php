@@ -198,22 +198,23 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <select name="material[]">
+                        <select name="material">
+                            <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach($data['materials'] as $material):?>
-                                <option value="<?php echo $material->material_type?>"><?php echo $material->material_type?></option>
-                            <?php endforeach;?>
-                            
-                            <?php foreach($data['materials'] as $material):?>
-                                <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>">
+                                <option value="<?php echo $material->stock_id?>"><?php echo $material->material_type ?></option>
+                                <!-- <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>"> -->
                             <?php endforeach;?>
                             
                         </select>
                         
                     </div>
 
+
+
                     <div class="input-box">
                         <span class="details">Sleeves</span>
                         <select name="sleeve">
+                            <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach($data['sleeveType'] as $sleeve):?>
                                 <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
                             <?php endforeach;?>
@@ -223,9 +224,7 @@
                     <div class="input-box">
                         <span class="details">Printing Type</span>
                         <select name="printingType">
-                            <?php foreach($data['material_printingType'] as $ptype):?>
-                                <option value="<?php echo $ptype->printing_type?>"><?php echo $ptype->printing_type?></option>
-                            <?php endforeach;?>
+                            
                         </select>
                     </div>
 
@@ -410,6 +409,22 @@
 
                 </div>
 
+                <hr class="second">
+
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Unit Price</span>
+                        <input name="unit_price" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Total Price</span>
+                        <input name="total_price" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <p>You will be notified about possible discounts later</p>
+                </div>
+
                 <script>
                     //toggle delivery options
                     let delivery = document.getElementById("delivery");
@@ -444,19 +459,37 @@
                             
                             newCard.innerHTML = `
                             <i class="fas fa-minus remove"></i>
+                            
                                 <div class="input-box">
                                     <span class="details">Material </span>
                                     <select name="material[]">
+                                        <option value="" selected hidden style="color: grey;">Select</option>
                                         <?php foreach($data['materials'] as $material):?>
-                                            <option value="<?php echo $material->material_type?>"><?php echo $material->material_type?></option>
-                                        <?php endforeach;?>
-                                        
-                                        <?php foreach($data['materials'] as $material):?>
-                                            <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>">
+                                            <option value="<?php echo $material->stock_id?>"><?php echo $material->material_type ?></option>
+                                            <!-- <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>"> -->
                                         <?php endforeach;?>
                                         
                                     </select>
-                                                
+                                    
+                                </div>
+
+
+
+                                <div class="input-box">
+                                    <span class="details">Sleeves</span>
+                                    <select name="sleeve">
+                                        <option value="" selected hidden style="color: grey;">Select</option>
+                                        <?php foreach($data['sleeveType'] as $sleeve):?>
+                                            <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
+                                        <?php endforeach;?>
+                                    </select>
+                                </div>
+
+                                <div class="input-box" style="margin-left: 30px;">
+                                    <span class="details">Printing Type</span>
+                                    <select name="printingType[]">
+                                        
+                                    </select>
                                 </div>
 
                                 <div class="input-box sizes">
@@ -494,11 +527,38 @@
                                 count--;
                             });
 
-                        }
+                            let material = newCard.querySelector("select[name='material[]']");
+                            let printingType = newCard.querySelector("select[name='printingType[]']");
+                            console.log(material);
+                            console.log(printingType);
 
                         
-                        var materialCount = <?php echo count($data['materials']) ?>;
+                            
+                            material.addEventListener('change', function(){
+                                let materialId = material.value;
+                                let materialType = material.options[material.selectedIndex].text;
+                                let noOptions = true;
+                                let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
+                                let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
+                                materialPrintingType.forEach(function(item){
+                                    if(item.stock_id == materialId) {
+                                        printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
+                                        noOptions = false;
+                                    }
+                                });
+                                if(noOptions) {
+                                    printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
+                                }
+                                
+                                printingType.innerHTML = printingTypeOptions;
+                                console.log(printingType);
+                            });
 
+                        }
+
+                        //restrict the no of additional orders that can be made inside the same order
+                        var materialCount = <?php echo count($data['materials'])*count($data['printingType'])*count($data['sleeveType'])-1 ?>;
+                        console.log(materialCount);
                         addMaterial.addEventListener('click', function(){
                             if(count < materialCount-1) {
                                 addMaterialCard();
@@ -508,6 +568,8 @@
                                 alert("You can only add " + materialCount + " materials");
                             }
                         });
+
+
                       
 
 
@@ -809,6 +871,44 @@
             </div>
         
     </div>
+
+    <script>
+                        //toggle printing type options
+
+                        document.addEventListener('DOMContentLoaded', (event) => {
+                           
+                            
+                                let material = document.querySelector(".user-details select[name='material']");
+                                let printingType = document.querySelector(".user-details select[name='printingType']");
+                           
+
+                            
+                                
+                                material.addEventListener('change', function(){
+                                    let materialId = material.value;
+                                    let materialType = material.options[material.selectedIndex].text;
+                                    let noOptions = true;
+                                    let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
+                                    let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
+                                    materialPrintingType.forEach(function(item){
+                                        if(item.stock_id == materialId) {
+                                            printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
+                                            noOptions = false;
+                                        }
+                                    });
+                                    if(noOptions) {
+                                        printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
+                                    }
+                                    
+                                    printingType.innerHTML = printingTypeOptions;
+                                    
+                                });
+                         
+                            
+                        });
+
+
+                    </script>
 
                     
     <script>
