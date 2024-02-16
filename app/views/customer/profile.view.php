@@ -19,7 +19,7 @@
 
 <body>
 
-  
+
   <!-- Sidebar -->
   <?php include 'sidebar.php' ?>
   <!-- Navigationbar -->
@@ -92,8 +92,7 @@
 
                 <div class="data">
                   <label class="pro_label" for="pro_number">Contact Number</label>
-                  <input class="pro_input" type="text" id="pro_number" name="contact_number"
-                    value="<?= $data->contact_number ?>">
+                  <input class="pro_input" type="text" id="pro_number" name="contact_number" value="<?= $data->phone ?>">
                 </div>
 
                 <div class="pro_button">
