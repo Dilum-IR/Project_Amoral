@@ -22,31 +22,57 @@
 
     <!-- content  -->
     <section id="main" class="main">
+    <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Orders</a>
+            </li>
 
-        <h2>Your Orders</h2>
+        </ul>
 
         <form>
             <div class="form">
-                <input class="form-group" type="text" placeholder="Search...">
-                <i class='bx bx-search icon'></i>
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
-            </div>
+                <form>
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
+				<!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
+				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
+			</div>
 
         </form>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th></th>
                     <th class="ordId">OrderId</th>
                     <th class="Name">Customer Name</th>
                     <th class="Distric">District</th>
                     <th class="stth">Status</th>
                     <th></th>
                 </tr>
+                <tbody>
+        <tr>
+            <td>101</td>
+            <td>John Doe</td>
+            <td>New York</td>
+            <td>Shipped</td>
+                     <td><button type="submit" name="selectItem"  class="view-order-btn" onclick="openView()">View Order</button>
+</td>
+        </tr>
+        
+       
+    </tbody>
             </thead>
 
-            <?php
+            <!-- <?php
             if (isset($data)) {
                 // show($data);
                 $sn=1;
@@ -61,15 +87,18 @@
                         <td class="Name">thiran</td>
                         <td class="Distric"><?php echo $item->district?></td>
                         <td class="stth"><?php echo $item->order_status?></td>
-                        <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td>
+                        <!-- <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td> -->
+                        <td><button type="submit" name="selectItem"  class="view-order-btn" onclick="openView()">View Order</button></td>
                     </tr>
+
 
             <?php
                     }
                 }
             }
 
-            ?>
+            ?> -->
+            
         </table>
 
     </section>
