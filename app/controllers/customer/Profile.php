@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Profile extends Controller
 {
@@ -11,10 +11,10 @@ class Profile extends Controller
 
             $user = new User;
 
-            if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
                 unset($_POST['save']);
                 // show($_POST);
-                $this->changeInfo($_POST,$_SESSION['USER']->id,$user);
+                $this->changeInfo($_POST, $_SESSION['USER']->id, $user);
             }
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
@@ -24,20 +24,21 @@ class Profile extends Controller
                 //show($_POST);
             }
 
-             // get the session user data for bind to the profile info
-             $data = $this->userInfo($_SESSION['USER']->id, $user);
+            // get the session user data for bind to the profile info
+            $data = $this->userInfo($_SESSION['USER']->id, $user);
 
 
-             // show($data);
+            // show($data);
 
-            $this->view('customer/profile',$data);
-       
-        }else{
+            $this->view('customer/profile', $data);
+
+        } else {
             redirect('home');
         }
     }
 
-    private function userInfo($id,$user){
+    private function userInfo($id, $user)
+    {
 
         $arr['id'] = $id;
 
@@ -45,7 +46,7 @@ class Profile extends Controller
 
         unset($row->password);
         unset($row->id);
-        
+
         $data = ['data' => $row];
         return $data;
         //show($row);
@@ -76,35 +77,35 @@ class Profile extends Controller
     //  user chanage password
     private function changePassword($data, $id, $user)
     {
-        // if ($user->passwordResetValidate($data)) {
+        if ($user->passwordResetValidate($data)) {
 
-        //     $arr['id'] = $id;
+            $arr['id'] = $id;
 
-        //     $row = $user->first($arr);
+            $row = $user->first($arr);
 
-        //     show($user->errors);
+            show($user->errors);
 
-        //     $checkpassword = password_verify($data['password'], $row->password);
-        //     if ($checkpassword === true) {
+            $checkpassword = password_verify($data['password'], $row->password);
+            if ($checkpassword === true) {
 
-        //         $hash = password_hash($data['confirm_password'], PASSWORD_DEFAULT);
-        //         $update = $user->update($id, ['password' => $hash], 'id');
-        //         // echo ("$update");
-        //         // redirect("customer/profile");
+                $hash = password_hash($data['confirm_password'], PASSWORD_DEFAULT);
+                $update = $user->update($id, ['password' => $hash], 'id');
+                // echo ("$update");
+                // redirect("customer/profile");
 
-        //         show($user->errors);
+                show($user->errors);
 
-        //         return "success";
-
-
-        //     } else {
-        //         return "Invalid";
-        //         //redirect("customer/profile");
-        //         // echo ("Incorrect password");
-        //     }
+                return "success";
 
 
-        // }
+            } else {
+                return "Invalid";
+                //redirect("customer/profile");
+                // echo ("Incorrect password");
+            }
+
+
+        }
 
     }
 }
