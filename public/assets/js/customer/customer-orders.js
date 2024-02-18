@@ -210,30 +210,31 @@ function openView(button) {
         $qunatity = 0;
         for(let i=0; i<material.length; i++){
             console.log(material[i]);
-            addMaterialCardView(material[i]);
             $qunatity += parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
+            addMaterialCardView(material[i], $qunatity);
         }
         console.log($qunatity);
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
-        document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
+        // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
 
         if(order.is_delivery == 1){
             document.querySelector(".delivery").classList.add("is-checked");
             document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
-            document.querySelector('.update-form input[name="district"]').value =order.city;
+            document.querySelector('.update-form input[name="city"]').value =order.city;
         }else{
             document.querySelector(".pickup").classList.add("is-checked");
             document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
         }
 
 
-        document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * $qunatity;
-        document.querySelector('.update-form input[name="discount"]').value = order.discount;
-        document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
+        document.querySelector('.update-form .totalPrice').innerHTML = order.total_price;
+        console.log(order.total_price);
+        // document.querySelector('.update-form input[name="discount"]').value = order.discount;
+        // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
         
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
-        document.querySelector('.update-form select[name="city"]').value = order.city;
+        document.querySelector('.update-form input[name="city"]').value = order.city;
         document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
         document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
 
@@ -315,9 +316,11 @@ function closeNew(){
 
 
 let countv = 0;
-function addMaterialCardView(material) {
+function addMaterialCardView(material, quantity) {
     var newCard = document.createElement("div");
     newCard.className = "user-details new-card";
+
+    
 
     
     newCard.innerHTML = `
@@ -333,6 +336,26 @@ function addMaterialCardView(material) {
                 
             </input>
                         
+        </div>
+
+        <div class="input-box">
+            <span class="details">Sleeves</span>
+            <input name="sleeve[]" value="${material['type']}" readonly value="">
+                
+                <?php foreach($data['sleeveType'] as $sleeve):?>
+                    <input type="hidden" name="sleeve_id[]" value="${material['sleeve_id']}">
+               <?php endforeach;?>
+            </input>
+        </div>
+
+        <div class="input-box" style="margin-left: 30px;">
+            <span class="details">Printing Type</span>
+            <input name="printingType[]" value="${material['printing_type']}" readonly value="">
+                
+                <?php foreach($data['printingType'] as $printing):?>
+                    <input type="hidden" name="ptype_id[]" value="${material['ptype_id']}">
+                <?php endforeach;?>
+            </input>
         </div>
 
         <div class="input-box sizes">
@@ -370,10 +393,27 @@ function addMaterialCardView(material) {
         countv--;
         if(countv == 0){
             removeCard.style.display = "none";
+            newCard.querySelector(".input-box").style.marginLeft = "30px";
         } else {
             newCard.remove();
         }
     });
+
+    var newPriceRow = document.createElement("tr");
+    newPriceRow.className = "units";
+
+    newPriceRow.innerHTML = `
+        <td class="materialType">${material['material_type']}</td>
+        <td class="sleeveType">${material['type']}</td>
+        <td class="printingType">${material['printing_type']}</td>
+        <td class="quantityAll">${quantity}</td>
+        <td class="unitPrice">${material['unit_price']}</td>
+
+        <input type="hidden" name="unit_price[]"> `;
+
+    document.querySelector(".price-details-container .total").before(newPriceRow);
+
+
     
 
 }

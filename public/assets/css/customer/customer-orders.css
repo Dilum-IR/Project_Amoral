@@ -20,6 +20,25 @@ body{
   /* background: url('../../images/customer/bg.png') center / cover; */
 }
 
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #202020;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #000000;
+}
+
+::-webkit-scrollbar-track{
+  background: #f1f1f1;
+}
+
+
+
 #main {
   position: absolute;
   top: 78px;
@@ -943,7 +962,7 @@ select {
 }
 
 .popup-view .input-box.placedDate {
-  margin-top: -200px;
+  margin-top: -180px;
 }
 
 hr.first {

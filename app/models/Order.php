@@ -38,12 +38,16 @@ class Order
 
     function getFullData($data=[]){
         $keys = array_keys($data);
-        $quary = "SELECT $this->table.user_id, order_material.*, material_stock.material_type 
+        $quary = "SELECT $this->table.user_id, order_material.*, material_stock.material_type, sleeves.type, printing_type.printing_type
         FROM order_material 
         INNER JOIN $this->table 
         ON $this->table.order_id = order_material.order_id 
         INNER JOIN material_stock
-        ON material_stock.stock_id = order_material.material_id";
+        ON material_stock.stock_id = order_material.material_id
+        INNER JOIN sleeves
+        ON sleeves.sleeve_id = order_material.sleeve_id
+        INNER JOIN printing_type
+        ON printing_type.ptype_id = order_material.ptype_id ";
 
         if (!empty($keys)) {
             $quary .= " WHERE ";

@@ -76,6 +76,8 @@
                     <?php foreach($data['order'] as $order):?>
                             <?php if($order->order_status != "cancelled"): ?>
                                 <?php $material = array(); ?>
+                                <?php $sleeve = array(); ?>
+                                <?php $pType = array(); ?>
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
@@ -84,6 +86,7 @@
                             <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
                                         <?php $material[] = $sizes?>
+                                        
                                     <?php echo $sizes->material_type ?><br>
                                     <?php endif;?>
                                 <?php endforeach;?>
@@ -261,9 +264,8 @@
                     <div class="input-box">
                         <span class="details addr">City</span>
                     
-                        <select name="city">
+                        <input name="city" type="text">
 
-                        </select>
                     </div>
 
 
@@ -283,8 +285,33 @@
 
                 <hr class="second">
 
+                <div class="prices">
+                    
+                    <p style="text-align: right; margin: 10px 30px;"></p><br>
+                    
+                    <table class="price-details-container">
+                        <tr>
+                            <th>Material</th>
+                            <th>Sleeve Type</th>
+                            <th>Printing Type</th>
+                            <th>Quantity</th>
+                            <th>Unit Price(Rs.)</th>
+                        </tr>
+    
+                        <tr class="total">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td class="totalPrice">0</td>
 
-                <div class="user-details">
+                            <input type="hidden" name="total_price" />
+                        </tr>
+                    </table>
+                </div>
+
+
+                <!-- <div class="user-details">
                     <div class="input-box">
                         <span class="details">Unit Price</span>
                         <input name="unit_price" type="text" required onChange="" readonly value="" />
@@ -302,7 +329,7 @@
                         <input name="remaining_payment" type="text" required onChange="" readonly value="" />
                         <button class="pay" >Pay</button>
                     </div>
-                </div>
+                </div> -->
                 
 
                 <input type="button" class="update-btn pb"  value="Update Order" />
