@@ -22,7 +22,7 @@
 
     <!-- content  -->
     <section id="main" class="main">
-    <ul class="breadcrumb">
+        <ul class="breadcrumb">
             <li>
                 <a href="#">Home</a>
             </li>
@@ -43,79 +43,95 @@
                         </button>
                     </div>
                 </form>
-				<!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
-				<input class="btn" type="button" onclick="openReport()" value="Report Problem">
-			</div>
+                <!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
+                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+            </div>
 
         </form>
+        <div class="table">
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="ordId">OrderId</th>
+                            <th class="Name">Customer Name</th>
+                            <th class="Distric">District</th>
+                            <th class="stth">Status</th>
+                            <th></th>
+                        </tr>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>John Doe</td>
+                            <td>New York</td>
+                            <td>Shipped</td>
+                            <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                    Order</button>
+                            </td>
+                        </tr>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="ordId">OrderId</th>
-                    <th class="Name">Customer Name</th>
-                    <th class="Distric">District</th>
-                    <th class="stth">Status</th>
-                    <th></th>
-                </tr>
-                <tbody>
-        <tr>
-            <td>101</td>
-            <td>John Doe</td>
-            <td>New York</td>
-            <td>Shipped</td>
-                     <td><button type="submit" name="selectItem"  class="view-order-btn" onclick="openView()">View Order</button>
-</td>
-        </tr>
-        
-       
-    </tbody>
-            </thead>
 
-            <!-- <?php
-            if (isset($data)) {
-                // show($data);
-                $sn=1;
-                foreach ($data as $item) {
-                    if ($item->order_status == 'Package_OnWay') {
-                        // echo $item->order_status;
+                    </tbody>
+                    </thead>
+
+
+
+
+
+                    <!-- <?php
+                    if (isset($data)) {
+                        // show($data);
+                        $sn = 1;
+                        foreach ($data as $item) {
+                            if ($item->order_status == 'Package_OnWay') {
+                                // echo $item->order_status;
                     
-            ?>
+                                ?>
                     <tr>
-                        <td><?php echo $sn++?></td>
-                        <td class="ordId"><?php echo $item->order_id?></td>
+                        <td><?php echo $sn++ ?></td>
+                        <td class="ordId"><?php echo $item->order_id ?></td>
                         <td class="Name">thiran</td>
-                        <td class="Distric"><?php echo $item->district?></td>
-                        <td class="stth"><?php echo $item->order_status?></td>
+                        <td class="Distric"><?php echo $item->district ?></td>
+                        <td class="stth"><?php echo $item->order_status ?></td>
                         <!-- <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td> -->
-                        <td><button type="submit" name="selectItem"  class="view-order-btn" onclick="openView()">View Order</button></td>
-                    </tr>
+                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                        Order</button></td>
+                                </tr>
 
 
-            <?php
+                                <?php
+                            }
+                        }
                     }
-                }
-            }
 
-            ?> -->
-            
-        </table>
+                    ?> -->
+
+                </table>
+            </div>
+        </div>
 
     </section>
 
 
     <!-- POPUP -->
     <div class="popup-report">
-        <h2>Report Your Problem</h2>
-        <h4>Your name : </h4>
-        <input type="text" placeholder="Enter your name">
-        <h4>Your email : </h4>
-        <input type="text" placeholder="Enter your email">
-        <h4>Problem : </h4>
-        <textarea name="problem" id="problem" cols="30" rows="10" placeholder="Enter your problem"></textarea>
-        <div class="btns">
-            <button type="button" class="cancelR-btn" onclick="closeReport()">Cancel</button>
-            <button type="button" class="close-btn" onclick="closeReport()">Submit</button>
+        <div class="popup-content">
+            <span class="close">&times;</span>
+            <h2>Report Your Problem</h2>
+            <form class="form" method="POST">
+
+                <h4>Title : <span class="error title"></span>  </h4> 
+                <input name="title" type="text" placeholder="Enter your title">
+                <h4>Your email : <span class="error email"></span></h4>
+                <input name="email" type="text" placeholder="Enter your email">
+                <h4>Problem : <span class="error description"></span></h4>
+                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+                
+                <button type="submit" class="close-btn pb" name="report" value="Submit" >Submit</button>
+                <button type="button" class="cancelR-btn pb" onclick="closeReport()" >Cancel</button>
+            
+
+            </form>
         </div>
     </div>
 
@@ -128,7 +144,8 @@
 
             <ul>
                 <li>
-                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                    <iconify-icon
+                        icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
                         <i class="uil uil-check"></i>
