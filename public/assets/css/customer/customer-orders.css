@@ -309,6 +309,7 @@ tr.hide td div{
   border: none;
   margin: 0;
   border-bottom: none;
+  font-size: 0;
 }
 
 tr.hide td *{
