@@ -774,6 +774,12 @@ hr.second {
   cursor: pointer;
 }
 
+.price-details-container {
+  min-width: auto;
+  margin-bottom: 20px;
+}
+
+
 /* .popup-new .input-box.location{
   margin-top: -85px;
 } */

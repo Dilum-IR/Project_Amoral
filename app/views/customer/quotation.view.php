@@ -198,7 +198,7 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <select name="material">
+                        <select name="material[]">
                             <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach($data['materials'] as $material):?>
                                 <option value="<?php echo $material->stock_id?>"><?php echo $material->material_type ?></option>
@@ -213,7 +213,7 @@
 
                     <div class="input-box">
                         <span class="details">Sleeves</span>
-                        <select name="sleeve">
+                        <select name="sleeve[]">
                             <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach($data['sleeveType'] as $sleeve):?>
                                 <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
@@ -223,7 +223,7 @@
 
                     <div class="input-box">
                         <span class="details">Printing Type</span>
-                        <select name="printingType">
+                        <select name="printingType[]">
                             
                         </select>
                     </div>
@@ -411,19 +411,105 @@
 
                 <hr class="second">
 
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Unit Price</span>
-                        <input name="unit_price" type="text" required onChange="" readonly value="" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Total Price</span>
-                        <input name="total_price" type="text" required onChange="" readonly value="" />
-                    </div>
-
-                    <p>You will be notified about possible discounts later</p>
+                <div class="prices">
+                    
+                    <p style="text-align: right; margin: 10px 30px;"></p><br>
+                    
+                    <table class="price-details-container">
+                        <tr>
+                            <th>Material</th>
+                            <th>Sleeve Type</th>
+                            <th>Printing Type</th>
+                            <th>Quantity</th>
+                            <th>Unit Price(Rs.)</th>
+                        </tr>
+                        <tr>
+                            <td class="materialType"></td>
+                            <td class="sleeveType"></td>
+                            <td class="printingType"></td>
+                            <td class="quantityAll">0</td>
+                            <td class="unitPrice">0</td>
+                        </tr>
+                    </table>
                 </div>
+                
+                    
+                    <!-- <p>You will be notified about possible discounts later</p> -->
+                    
+                
+
+                <script>
+                    //add price data dynamically
+                    let material = document.querySelector(".user-details select[name='material[]']");
+                    let sleeve = document.querySelector(".user-details select[name='sleeve[]']");
+                    let printingType = document.querySelector(".user-details select[name='printingType[]']");
+                    let quantity = document.querySelector(".sizes");
+                    // let addMaterial = document.querySelector(".add.card");
+                    let data = document.querySelector(".price-details-container");
+                    let materialPrice = 0, sleevePrice = 0, printingTypePrice = 0;
+
+                    let sizesArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+                    let quantityAll = document.querySelector(".quantityAll");
+
+                    sizesArr.forEach(function(size){
+                        let input = document.querySelector(`input[name='${size}[]']`);
+                        input.addEventListener('change', function(){
+                            let total = 0;
+                            sizesArr.forEach(function(size){
+                                total += parseInt(document.querySelector(`input[name='${size}[]']`).value);
+                            });
+                            quantityAll.innerHTML = total;
+                        });
+                    });
+                    
+                    let allMaterials = <?php echo json_encode($data['material_prices']) ?>;
+                    let allSleeves = <?php echo json_encode($data['sleeveType']) ?>;
+                    let allPrintingTypes = <?php echo json_encode($data['material_printingType']) ?>;
+                    console.log(allMaterials);
+
+                    function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice){
+                        let totalPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
+                        doc.querySelector(".unitPrice").innerHTML = totalPrice;
+                    }
+
+                    material.addEventListener('change', function(){
+                        console.log(material.value);
+                        allMaterials.forEach(function(item){
+                            if(item.stock_id == material.value) {
+                                data.querySelector(".materialType").innerHTML = item.material_type;
+                                materialPrice = item.unit_price;
+                            }
+                        });
+
+                        updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+                    });
+
+                    sleeve.addEventListener('change', function(){
+                        console.log(sleeve.value);
+                        allSleeves.forEach(function(item){
+                            if(item.type == sleeve.value) {
+                                data.querySelector(".sleeveType").innerHTML = item.type;
+                                sleevePrice = item.price;
+                            }
+                        });
+
+                        updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+                    });
+
+                    printingType.addEventListener('change', function(){
+                        console.log(printingType.value);
+                        allPrintingTypes.forEach(function(item){
+                            if(item.printing_type == printingType.value) {
+                                data.querySelector(".printingType").innerHTML = item.printing_type;
+                                printingTypePrice = item.price;
+                            }
+                        });
+
+                        updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+                    });
+                        
+
+                </script>
 
                 <script>
                     //toggle delivery options
@@ -520,10 +606,78 @@
                             newCard.style.transition = "all 0.5s ease-in-out";
                             document.querySelector(".add.card").before(newCard);
 
+                            let newPriceRow = document.createElement("tr");
+                           
+                            newPriceRow.innerHTML = `
+                                <td class="materialType"></td>
+                                <td class="sleeveType"></td>
+                                <td class="printingType"></td>
+                                <td class="quantityAll">0</td>
+                                <td class="unitPrice">0</td>
+                            `;
+
+                            document.querySelector(".price-details-container").appendChild(newPriceRow);
+
+                            let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+
+                            sizeArr.forEach(function(size){
+                                let input = newCard.querySelector(`input[name='${size}[]']`);
+                                input.addEventListener('change', function(){
+                                    let total = 0;
+                                    sizeArr.forEach(function(size){
+                                        total += parseInt(newCard.querySelector(`input[name='${size}[]']`).value);
+                                    });
+                                    newPriceRow.querySelector(".quantityAll").innerHTML = total;
+                                });
+                            });
+
+                            let material1 = newCard.querySelector("select[name='material[]']");
+                            let sleeve1 = newCard.querySelector("select[name='sleeve']");
+                            let printingType1 = newCard.querySelector("select[name='printingType[]']");
+                            let quantity1 = newCard.querySelector(".sizes");
+                            let data1 = newPriceRow;
+                            let materialPrice1 = 0, sleevePrice1 = 0, printingTypePrice1 = 0;
+
+                            material1.addEventListener('change', function(){
+                                allMaterials.forEach(function(item){
+                                    if(item.stock_id == material1.value) {
+                                        data1.querySelector(".materialType").innerHTML = item.material_type;
+                                        materialPrice1 = item.unit_price;
+                                    }
+                                });
+
+                                updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
+                            });
+
+                            sleeve1.addEventListener('change', function(){
+                                allSleeves.forEach(function(item){
+                                    if(item.type == sleeve1.value) {
+                                        data1.querySelector(".sleeveType").innerHTML = item.type;
+                                        sleevePrice1 = item.price;
+                                    }
+                                });
+
+                                updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
+                            });
+
+                            printingType1.addEventListener('change', function(){
+                                allPrintingTypes.forEach(function(item){
+                                    if(item.printing_type == printingType1.value) {
+                                        data1.querySelector(".printingType").innerHTML = item.printing_type;
+                                        printingTypePrice1 = item.price;
+                                    }
+                                });
+
+                                updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
+                            });
+
+                            
+
 
                             let removeCard = newCard.querySelector("i");
                             removeCard.addEventListener('click', function(){
                                 newCard.remove();
+                                newPriceRow.remove();
                                 count--;
                             });
 
@@ -878,8 +1032,8 @@
                         document.addEventListener('DOMContentLoaded', (event) => {
                            
                             
-                                let material = document.querySelector(".user-details select[name='material']");
-                                let printingType = document.querySelector(".user-details select[name='printingType']");
+                                let material = document.querySelector(".user-details select[name='material[]']");
+                                let printingType = document.querySelector(".user-details select[name='printingType[]']");
                            
 
                             

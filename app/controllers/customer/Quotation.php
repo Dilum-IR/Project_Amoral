@@ -21,6 +21,7 @@ class Quotation extends Controller
             $data['material_sizes'] = $order->getFullData($id);
             $data['quotation_reply'] = $quotation_reply->getReplyDetails($id);
             $data['materials'] = $materials->getMaterialNames();
+            $data['material_prices'] = $materials->findAll('stock_id');
             $data['sleeveType'] = $sleeveType->findAll('sleeve_id');
             $data['material_printingType'] = $material_printingType->getFullData();	
             $data['printingType'] = $printingType->findAll('ptype_id');
