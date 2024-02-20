@@ -22,6 +22,8 @@
 
 
     <?php include 'navigationbar.php' ?>
+    <?php include 'chooseSignup.php' ?>
+
     <div class="loader">
         <div class="loading-logo">
             <img src="<?= ROOT ?>/assets/images/home/amorallogo.png" alt="">
@@ -105,14 +107,14 @@
                         <i class='bx bxs-user icon'></i>
                         Sign In
                     </a> -->
-                    <button id="home-sign-up-box-1" class="home-sign-up-box-1" href="<?= ROOT ?>/signup">
+                    <button id="home-sign-up-box-1" class="home-sign-up-box-1" href="<?= ROOT ?>/signin">
                         <i class='bx bxs-user icon'></i>
-                        Sign Up
+                        Sign In
                     </button>
                     <br>
-                    <button id="home-sign-up-box-2" class="home-sign-up-box-2" href="<?= ROOT ?>/guest">
+                    <button id="home-sign-up-box-2" class="home-sign-up-box-2"  onclick="hidePopup('popup1')">
                         <i class='bx bxs-user icon'></i>
-                        Sign Up for a Partnership
+                        Sign Up
                     </button>
                 </div>
             </div>
