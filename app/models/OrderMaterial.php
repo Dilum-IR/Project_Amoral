@@ -9,6 +9,9 @@ class OrderMaterial{
     protected $allowedCloumns = [
         'order_id',
         'material_id',
+        'sleeve_id',
+        'ptype_id',
+        'unit_price',
         'xs',
         'small',
         'medium',
