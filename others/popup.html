@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Popups</title>
+    <style>
+         body {
+            overflow: hidden; /* Disable scroll when popup is displayed */
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Dark overlay color */
+            z-index: 999; /* Ensure the overlay is on top of popups */
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0); /* Initial scale set to 0 */
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out; /* Add transition for zoom effect */
+        }
+
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1); /* Change scale to 1 for zoom-in */
+        }
+    </style>
+</head>
+
+<body>
+
+     <!-- Dark overlay -->
+     <div id="overlay"></div>
+
+
+    <!-- Button 1 -->
+    <button onclick="showPopup('popup1')">Open Popup 1</button>
+
+    <!-- Popup 1 -->
+    <div id="popup1" class="popup">
+        <!-- Popup content for Popup 1 -->
+        <p>This is Popup 1 content.</p>
+        <button onclick="hidePopup('popup1')">Close</button>
+    </div>
+
+    <!-- Button 2 -->
+    <button onclick="showPopup('popup2')">Open Popup 2</button>
+
+    <!-- Popup 2 -->
+    <div id="popup2" class="popup">
+        <!-- Popup content for Popup 2 -->
+        <p>This is Popup 2 content.</p>
+        <button onclick="hidePopup('popup2')">Close</button>
+    </div>
+
+    <!-- Button 3 -->
+    <button onclick="showPopup('popup3')">Open Popup 3</button>
+
+    <!-- Popup 3 -->
+    <div id="popup3" class="popup">
+        <!-- Popup content for Popup 3 -->
+        <p>This is Popup 3 content.</p>
+        <button onclick="hidePopup('popup3')">Close</button>
+    </div>
+
+    <script>
+        function showPopup(popupId) {
+            var popup = document.getElementById(popupId);
+            var overlay = document.getElementById('overlay');
+
+            if (overlay && popup) {
+                popup.style.display = "block";
+                overlay.style.display = "block";
+                // Trigger reflow to apply the initial scale before adding the show class
+                void popup.offsetWidth;
+                // Add show class to trigger the animation
+                popup.classList.add("show");
+            }
+        }
+
+        function hidePopup(popupId) {
+            var popup = document.getElementById(popupId);
+            var overlay = document.getElementById('overlay');
+
+            if (overlay && popup) {
+                // Remove show class to trigger the zoom-out animation
+                popup.classList.remove("show");
+                
+                // Hide the popup after the animation completes
+                setTimeout(function () {
+                    overlay.style.display = "none";
+                    popup.style.display = "none";
+                }, 300); // 300 milliseconds should match the transition duration
+            }
+        }
+    </script>
+
+</body>
+
+</html>

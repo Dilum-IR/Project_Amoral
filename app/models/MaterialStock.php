@@ -10,7 +10,8 @@ class MaterialStock{
         'stock_id',
         'material_type',
         'quantity',
-        'unit_price'
+        'unit_price',
+        'ppm'
     ];
 
     function getMaterialNames(){

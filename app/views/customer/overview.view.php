@@ -112,9 +112,9 @@
                                     <h3>Total Orders</h3>
                                     <?php $count = 0; ?>
                                     <?php foreach ($data['order'] as $order): ?>
-                                    <?php if(!$order->is_quotation): ?>
+                                    
                                         <?php $count++; ?>
-                                    <?php endif; ?>
+                                    
                                     <?php endforeach; ?>
                                     <h1><?php echo $count ?></h1>
                                    
@@ -122,24 +122,7 @@
                             </div>
 
                         </div>
-                        <div class="sales card">
-                            <i class='bx bxs-calendar-check'></i>
-                            <div class="middle">
-                                <div class="left">
-                                    <h3>Total Quotations</h3>
-                                    <?php $count = 0; ?>
-                                    <?php foreach ($data['order'] as $order): ?>
-                                    <?php if($order->is_quotation): ?>
-                                        <?php $count++; ?>
-                                    <?php endif; ?>
-                                    <?php endforeach; ?>
-                                    <h1><?php echo $count ?></h1>
-                                    
-                                </div>
-
-                            </div>
         
-                        </div>
                         <div class="sales card">
                             <i class='bx bxs-dollar-circle'></i>
                             <div class="middle">
@@ -147,13 +130,13 @@
                                     <h3>Total Value</h3>
                                     <?php $total = 0; ?>
                                     <?php foreach ($data['order'] as $order): ?>
-                                    <?php if(!$order->is_quotation): ?>
+                                    
                                         <?php foreach ($data['material_sizes'] as $sizes): ?>
                                             <?php if($order->order_id == $sizes->order_id): ?>
-                                                <?php $total += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
+                                                <?php $total += ($order->total_price)?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
-                                    <?php endif; ?>
+                                    
                                     <?php endforeach; ?>
                                     <h1>Rs. <?php echo $total ?></h1>
                                 </div>
@@ -168,9 +151,9 @@
                                     <h3>Remaining Payments</h3>
                                     <?php $rem = 0; ?>
                                     <?php foreach ($data['order'] as $order): ?>
-                                    <?php if(!$order->is_quotation): ?>
+                                    
                                         <?php $rem += $order->remaining_payment; ?>
-                                    <?php endif; ?>
+                                   
                                     <?php endforeach; ?>
                                     <h1>Rs. <?php echo $rem ?></h1>
                                 </div>
@@ -206,7 +189,7 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach ($data['order'] as $order): ?>
-                                    <?php if(!$order->is_quotation): ?>
+                                    
                                     <tr>
                                         <td>
                                             <?php echo $order->order_id ?>
@@ -228,7 +211,7 @@
                                         </td>
                                         <td><?php echo $order->dispatch_date ?></td>
                                     </tr>
-                                    <?php endif; ?>
+                                   
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>

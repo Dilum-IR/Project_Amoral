@@ -26,13 +26,6 @@
                 <span class="tooltip">Orders</span>
             </li>
             <li>
-                <a href="<?=ROOT ?>/customer/quotation" class="nav-link">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span class="link_name">Quotation Requests</span>
-                </a>
-                <span class="tooltip">Quotation Requests</span>
-            </li>
-            <li>
                 <a href="#" class="nav-link">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Design Tool</span>
