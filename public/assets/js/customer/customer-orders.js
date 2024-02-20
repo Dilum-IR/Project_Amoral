@@ -63,6 +63,22 @@ updateYes.addEventListener('click', function(){
     updateConfirm.classList.remove('is-visible');
 });
 
+//validate the delivery dates
+let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
+let datesView = document.querySelectorAll('.popup-view input[type="date"]');
+
+let today = new Date();
+let todayStr = today.toISOString().split('T')[0];
+let fiveDaysLater = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6).toISOString().split('T')[0];
+
+datesNew.forEach(date => {
+    date.setAttribute('min', todayStr);
+});
+
+datesView.forEach(date => {
+    date.setAttribute('min', fiveDaysLater);
+});
+
 
 let reportForm = document.querySelector(".popup-report form");
 let newForm = document.querySelector(".popup-new form");
@@ -201,16 +217,23 @@ function openView(button) {
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
 
         let existingCards = document.querySelectorAll('.user-details.new-card');
+        let existingPriceRows = document.querySelectorAll('.price-details-container .units');
 
         // Remove each existing newCard element
         existingCards.forEach(function(card) {
             card.remove();
         });
 
+        // Remove each existing priceRow element
+        existingPriceRows.forEach(function(row) {
+            row.remove();
+        }
+        );
+
         $qunatity = 0;
         for(let i=0; i<material.length; i++){
             console.log(material[i]);
-            $qunatity += parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
+            $qunatity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
             addMaterialCardView(material[i], $qunatity);
         }
         console.log($qunatity);
@@ -387,6 +410,21 @@ function addMaterialCardView(material, quantity) {
     document.querySelector(".popup-view .add.card").before(newCard);
     countv++;
 
+    
+    var newPriceRow = document.createElement("tr");
+    newPriceRow.className = "units";
+    
+    newPriceRow.innerHTML = `
+    <td class="materialType">${material['material_type']}</td>
+    <td class="sleeveType">${material['type']}</td>
+    <td class="printingType">${material['printing_type']}</td>
+    <td class="quantityAll">${quantity}</td>
+    <td class="unitPrice">${material['unit_price']}</td>
+    
+    <input type="hidden" name="unit_price[]" value="${material['unit_price']}"> `;
+    
+    document.querySelector(".price-details-container .total").before(newPriceRow);
+    
     let removeCard = newCard.querySelector("i");
 
     removeCard.addEventListener('click', function(){
@@ -395,29 +433,41 @@ function addMaterialCardView(material, quantity) {
             removeCard.style.display = "none";
             newCard.querySelector(".input-box").style.marginLeft = "30px";
         } else {
+            //remove cards and reduce the prices from the total
+            let removedPrice = parseInt(newPriceRow.querySelector(".unitPrice").innerText) * parseInt(newPriceRow.querySelector(".quantityAll").innerText);
+            let tot = parseInt(document.querySelector(".popup-view .totalPrice").innerText);
+            // console.log(removedPrice);
             newCard.remove();
+            newPriceRow.remove();
+            document.querySelector(".popup-view .totalPrice").innerHTML = tot - removedPrice;
         }
     });
 
-    var newPriceRow = document.createElement("tr");
-    newPriceRow.className = "units";
-
-    newPriceRow.innerHTML = `
-        <td class="materialType">${material['material_type']}</td>
-        <td class="sleeveType">${material['type']}</td>
-        <td class="printingType">${material['printing_type']}</td>
-        <td class="quantityAll">${quantity}</td>
-        <td class="unitPrice">${material['unit_price']}</td>
-
-        <input type="hidden" name="unit_price[]"> `;
-
-    document.querySelector(".price-details-container .total").before(newPriceRow);
-
-
-    
-
+    //update price when quantity is changed
+    let quantityInputs = newCard.querySelectorAll(".st");
+    quantityInputs.forEach(input =>{
+        input.addEventListener('change', function(){
+            let quantity = 0;
+            quantityInputs.forEach(input =>{
+                quantity += parseInt(input.value);
+            });
+            newPriceRow.querySelector(".quantityAll").innerText = quantity;
+            updateTotalPrice();
+        })
+    })
+ 
 }
 
+function updateTotalPrice(){
+    let total = 0;
+    document.querySelectorAll(".units").forEach(function(unit){
+        total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
+    });
+    document.querySelector(".popup-view .totalPrice").innerHTML = total;
+
+    document.querySelector(".popup-view input[name='total_price']").value = total;
+    console.log("tot"+document.querySelector(".popup-new input[name='total_price']").value);
+}
 
 
 

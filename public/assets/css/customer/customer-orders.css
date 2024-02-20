@@ -370,6 +370,10 @@ tbody tr:hover{
   background-color: #0c5fcdc7;
 }
 
+.text-status.cancelled{
+  background-color: #cf0303c7;
+}
+
 .popup-view, 
 .popup-new,
 .popup-report {

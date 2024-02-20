@@ -74,7 +74,7 @@
                     </thead>
                     <tbody>
                     <?php foreach($data['order'] as $order):?>
-                            <?php if($order->order_status != "cancelled"): ?>
+                           
                                 <?php $material = array(); ?>
                                 <?php $sleeve = array(); ?>
                                 <?php $pType = array(); ?>
@@ -106,7 +106,7 @@
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         
-                        <?php endif; ?>
+                        
                         <?php endforeach; ?>
                
                     </tbody>
@@ -228,7 +228,7 @@
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
                     
-                        <input type="text" name="dispatch_date_pickup" readonly value="" />
+                        <input type="date" name="dispatch_date_pickup">
                     </div>
                 </div>
 
@@ -259,7 +259,7 @@
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     
-                        <input type="text" name="dispatch_date_delivery" readonly value="" />
+                        <input type="date" name="dispatch_date_delivery" >
                     </div>
                     <div class="input-box">
                         <span class="details addr">City</span>
@@ -346,22 +346,22 @@
                     </div> 
                 </div> 
                 
+                <div class="cd-popup" role="alert">
+                    <div class="cd-popup-container">
+                        <p>Are you sure you want to cancel this order?</p>
+                        <div class="cd-buttons">
+                            <input type="submit" class="yes"  value="Yes" name="cancelOrder"/>
+                            <input type="button" class="no" value="No"/>
+                        </div>
+                        
+                    </div> 
+                </div> 
             </div>
         </form>
     </div>
 
 
 
-    <div class="cd-popup" role="alert">
-        <div class="cd-popup-container">
-            <p>Are you sure you want to cancel this order?</p>
-            <div class="cd-buttons">
-                <a href="">Yes</a>
-                <a href="">No</a>
-            </div>
-            
-        </div> 
-    </div> 
 
 
 
@@ -627,7 +627,7 @@
                 
 
                 <script>
-                    //add price data dynamically
+                    //add price data dynamically in new order popup
                     let material = document.querySelector(".popup-new .user-details select[name='material[]']");
                     let sleeve = document.querySelector(".popup-new .user-details select[name='sleeve[]']");
                     let printingType = document.querySelector(".popup-new .user-details select[name='printingType[]']");
@@ -662,8 +662,7 @@
 
                     function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice){
                         let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
-                        doc.querySelector(".unitPrice").innerHTML = unitPrice;
-                     
+                        doc.querySelector(".unitPrice").innerHTML = unitPrice;                    
 
                         doc.querySelector("input[name='unit_price[]']").value = unitPrice;
                         console.log("efdsf"+doc.querySelector("input[name='unit_price[]']").value);
@@ -676,7 +675,7 @@
                         document.querySelectorAll(".units").forEach(function(unit){
                             total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
                         });
-                        document.querySelector(".totalPrice").innerHTML = total;
+                        document.querySelector(".popup-new .totalPrice").innerHTML = total;
 
                         document.querySelector(".popup-new input[name='total_price']").value = total;
                         console.log("tot"+document.querySelector(".popup-new input[name='total_price']").value);
@@ -736,13 +735,22 @@
 
                         updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
                     });
+
+
+
+                    //add price data dynamically in new order popup
+                    let qunatityView = document.querySelector(".popup-view .sizes");
+
+                    
+
+
                         
 
                 </script>
 
                 <script>
  
-                    //toggle delivery options
+                    //toggle delivery options of new order
                     let deliveryN = document.getElementById("deliveryN");
                     let pickUpN = document.getElementById("pickupN");
 
@@ -750,22 +758,40 @@
                     pickUpN.addEventListener('click', togglePickUpN);
                     deliveryN.addEventListener('click', toggleDeliveryN);
 
+                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                        pickupDate.addEventListener('change', function(){
+                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate =>{
+                                deliveryDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                        deliveryDate.addEventListener('change', function(){
+                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate =>{
+                                pickupDate.value = "";
+                            });
+
+                        });
+                    });
+
                     function togglePickUpN(){
                         
                         document.querySelector(".user-details.pickupN").classList.add("is-checked");
                         document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-                        document.querySelector(".deliveryN #dispatch_date_delivery").value = "";
                         
                     }
 
                     function toggleDeliveryN(){
                         document.querySelector(".user-details.deliveryN").classList.add("is-checked");
                         document.querySelector(".user-details.pickupN").classList.remove("is-checked");
-                        document.querySelector(".pickupN #dispatch_date_pickup").value = "";
                     }
                 </script>
 
                 <script>
+
+                    //add new order for different parameters(material, sleeve, printing type, quantity) in the same order
                         let addMaterial = document.querySelector(".popup-new .add.card");
                         let count = 0;
                         function addMaterialCard() {
@@ -835,7 +861,8 @@
 
                             newCard.style.transition = "all 0.5s ease-in-out";
                             addMaterial.before(newCard);
-
+                            
+                            //add new price row for the new material
                             let newPriceRow = document.createElement("tr");
                             newPriceRow.className = "units";
                            
@@ -846,11 +873,11 @@
                                 <td class="quantityAll">0</td>
                                 <td class="unitPrice">0</td>
 
-                                <input type="hidden" name="unit_price[]" >   
+                                <input type="hidden" name="unit_price[]">   
 
                             `;
 
-                            document.querySelector(".price-details-container .total").before(newPriceRow);
+                            document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
 
                             let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
 
@@ -927,7 +954,7 @@
 
                             
 
-
+                            //remove the card and the price row
                             let removeCard = newCard.querySelector("i");
                             removeCard.addEventListener('click', function(){
                                 newCard.remove();
