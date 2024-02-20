@@ -232,7 +232,7 @@ trait Model
                             ON $this->table.$refe_column1 = $reference_table.$refe_column2
                             ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
-        echo $quary;
+        // echo $quary;
         // run the quary stage
         return $this->quary($quary);
     }
@@ -253,7 +253,7 @@ trait Model
 
         $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
-        echo $quary;
+        // echo $quary;
         // run the quary stage
         return $this->quary($quary, $data);
     }
@@ -274,7 +274,7 @@ trait Model
 
         $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
-        echo $quary;
+        // echo $quary;
         // run the quary stage
         return $this->quary($quary, $data);
     }
@@ -295,11 +295,12 @@ trait Model
 
         $quary .= " ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
-        echo $quary;
+        // echo $quary;
         // run the quary stage
 
         return $this->quary($quary, $data);
     }
+    
     //function to access a value of another table by foreign key
     public function get($table, $id_column='id'){
         $quary = "SELECT $this->table.*, $table.* FROM $this->table INNER JOIN $table ON $this->table.$id_column = $table.$id_column";

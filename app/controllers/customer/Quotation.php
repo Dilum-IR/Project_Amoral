@@ -364,3 +364,4 @@ class Quotation extends Controller
     }
 }
 }
+}
