@@ -167,7 +167,7 @@
                             <td class="desc">
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
@@ -209,6 +209,24 @@
                             
                         </select>
                         
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Sleeves</span>
+                        <select name="sleeve">
+                            <?php foreach($data['sleeveType'] as $sleeve):?>
+                                <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Printing Type</span>
+                        <select name="printingType">
+                            <?php foreach($data['material_printingType'] as $ptype):?>
+                                <option value="<?php echo $ptype->printing_type?>"><?php echo $ptype->printing_type?></option>
+                            <?php endforeach;?>
+                        </select>
                     </div>
 
                     <div class="input-box sizes">

@@ -67,13 +67,13 @@
                             <th>Placed On</th>
                             <th>Material</th>
                             <th>Quantity</th>
-                            <th>Status</th>
-                       
+                            <th>Status</th>                    
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($data['quotation'] as $order): ?>
-                        <?php if($order->is_quotation): ?>
+                        <?php if($order->is_quotation && $order->order_status == "quotation"): ?>
+                            <?php $material = array(); ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
                             <td><?php echo $order->user_id ?></td>
@@ -139,7 +139,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($data['quotation_reply'] as $order): ?>
-                    
+                            <?php $material_reply = array(); ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
                             <td><?php echo $order->user_id ?></td>
@@ -155,7 +155,7 @@
                             <td class="desc">
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
@@ -183,6 +183,16 @@
         <form class="new-form" method="POST" enctype="multipart/form-data">
             
                 <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Customer</span>
+                        <select name="users">
+                            <?php foreach($data['users'] as $user): ?>
+                                <option value="<?php echo $user->id ?>"><?php echo $user->id."-". $user->fullname ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    
+
                     <div class="input-box">
                         <span class="details">Material </span>
                         <select name="material[]">
@@ -517,13 +527,13 @@
                                 <div class="flex-half">
                                     <div class="add-section">
                                         <div style="text-align: right; position: relative; right: 50px;">
-                                            <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Update Design</a>
+                                            <!-- <a href="#" class="table-section__add-link" onclick="toggleImageForm()">Update Design</a> -->
                                         </div>
                                         <div id="imageForm" style="display: none; transition: display 0.5s ease;">
                                             
                                         <div id="drop_zone">Drag and drop your image here, or click to select image</div>
                                                 <input name="image" type="file" id="file_input" style="display: none;" accept="pdf/*">
-                                                <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                                                <!-- <embed id="preview" name="preview" type="application/pdf" style="display: block; height:0; margin: 0 auto; margin-bottom:0.8rem; background-color:white; border-radius:10px;"> -->
                                                 
                                                 
                                         </div>
@@ -552,6 +562,17 @@
                         
                     </div>
 
+                    <div class="user-details users">
+                        <div class="input-box">
+                            <span class="details">Customer ID</span>
+                            <input name="user_id" type="text" required onChange="" readonly value="" />
+                        </div>
+                        <div class="input-box">
+                            <span class="details">Customer Name</span>
+                            <input name="fullname" type="text" required onChange="" readonly value="" />
+                        </div>
+                    </div>
+
                     <div class="add card">
 
                     </div>
@@ -566,7 +587,7 @@
                         <span class="error delivery"></span>
                     </div>
 
-                    <div class="user-details pickupV">
+                    <div class="user-details pickupV ">
                         <div class="input-box">
                             <span class="details">Pick Up Date</span>
                         
@@ -596,12 +617,35 @@
 
 
                     </div>
-                                
+
+                    <hr class="second">
+
+                    <div class="reply">
+                        <h4>Reply</h4>
+                    </div>
+                        <div class="user-details reply">
+                            <div class="input-box">
+                                <span class="details">Unit Price</span>
+                                <input name="unit_price" type="text" />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Discount</span>
+                                <input name="discount" type="text" required onChange="" />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Special Note </span>
+                                <input name="special_note" id="" cols="30" rows="5" />
+                            </div>
+                        </div>
+                             
 
 
                     <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                    <button type="submit" class="update-btn pb" name="updateOrder">Update Order</button>
-                    <button type="submit" onclick="" class="cancel-btn pb" name="cancelReq">Cancel Order</button>
+                    <button type="submit" class="reply-btn pb" name="reply">Reply</button>
+                    <button type="submit" class="update-btn pb" name="updateOrder">Update Request</button>
+                    <button type="submit" onclick="" class="cancel-btn pb" name="cancelReq">Cancel Request</button>
                     <!-- </form> -->
 
 
@@ -615,10 +659,15 @@
         
         let deliveryV = document.getElementById("deliveryV");
         let pickUpV = document.getElementById("pickupV");
-
+        let reply = document.querySelector(".reply h4");
 
         pickUpV.addEventListener('click', togglePickUpV);
         deliveryV.addEventListener('click', toggleDeliveryV);
+        reply.addEventListener('click', toggleReply);
+
+        function toggleReply(){
+            document.querySelector(".user-details.reply").classList.toggle("is-checked");
+        }
 
         function togglePickUpV(){
             
@@ -802,7 +851,7 @@
             fileInput.click();
         }, false);
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
 
     <script src="<?= ROOT ?>/assets/js/manager/quotations.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>

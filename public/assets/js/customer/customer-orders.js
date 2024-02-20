@@ -192,7 +192,7 @@ function openView(button) {
 
         var today = new Date();
         var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-
+        console.log(formattedDate);
 
         // Populate the "update-form" fields with the order data
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
@@ -233,6 +233,9 @@ function openView(button) {
         document.querySelector('.update-form select[name="city"]').value = order.city;
         document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
         document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
+
+        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+
 
 
         popupView.classList.add("is-visible");

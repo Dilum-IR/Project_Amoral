@@ -76,7 +76,7 @@
                     <tbody>
                     <?php foreach($data['order'] as $order):?>
                             <?php if(!$order->is_quotation && $order->order_status != "cancelled"): ?>
-                        
+                                <?php $material = array(); ?>
                         <tr>
                             
                             <td><?php echo $order->order_id ?></td>
@@ -92,7 +92,7 @@
                             <td class="desc">
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> 
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>

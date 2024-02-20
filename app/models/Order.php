@@ -60,5 +60,13 @@ class Order
         return $this->quary($quary, $data);
     }
 
+    function getUserData(){
+        $quary = "SELECT $this->table.*, users.*
+        FROM $this->table
+        INNER JOIN users
+        ON users.id = $this->table.user_id;";
+        return $this->quary($quary);
+    }
+
 }
 
