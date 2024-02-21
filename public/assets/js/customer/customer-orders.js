@@ -192,7 +192,7 @@ function openView(button) {
         const material = JSON.parse(materialData);
 
         switch (order.order_status) {
-            case 'processing':
+            case 'cutting' || 'printing' || 'sewing':
                 progress2.classList.add("active");
                 break;
 
@@ -234,14 +234,16 @@ function openView(button) {
         }
         );
 
-        $qunatity = 0;
+        let quantity = 0;
+        let countv = 0;
+
         for(let i=0; i<material.length; i++){
             console.log(material[i]);
-            $qunatity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
-            addMaterialCardView(material[i], $qunatity);
+            quantity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
+            addMaterialCardView(material[i], quantity, countv);
         }
-        console.log($qunatity);
-        document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
+    
+        // document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
         // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
 
@@ -347,8 +349,7 @@ function closeNew(){
 }
 
 
-let countv = 0;
-function addMaterialCardView(material, quantity) {
+function addMaterialCardView(material, quantity, countv) {
     var newCard = document.createElement("div");
     newCard.className = "user-details new-card";
 
@@ -436,12 +437,16 @@ function addMaterialCardView(material, quantity) {
     
     let removeCard = newCard.querySelector("i");
 
+    // hide the remove button for the first card
+    console.log(newCard.nextElementSibling);
+    if(!newCard.previousElementSibling.classList.contains("new-card") && countv == 1){
+        removeCard.style.display = "none";
+        newCard.querySelector(".input-box").style.marginLeft = "30px";
+    }
+
     removeCard.addEventListener('click', function(){
         countv--;
-        if(countv == 0){
-            removeCard.style.display = "none";
-            newCard.querySelector(".input-box").style.marginLeft = "30px";
-        } else {
+
             //remove cards and reduce the prices from the total
             let removedPrice = parseInt(newPriceRow.querySelector(".unitPrice").innerText) * parseInt(newPriceRow.querySelector(".quantityAll").innerText);
             let tot = parseInt(document.querySelector(".popup-view .totalPrice").innerText);
@@ -449,7 +454,7 @@ function addMaterialCardView(material, quantity) {
             newCard.remove();
             newPriceRow.remove();
             document.querySelector(".popup-view .totalPrice").innerHTML = tot - removedPrice;
-        }
+        
     });
 
     //update price when quantity is changed
@@ -462,8 +467,8 @@ function addMaterialCardView(material, quantity) {
             });
             newPriceRow.querySelector(".quantityAll").innerText = quantity;
             updateTotalPrice();
-        })
-    })
+        });
+    });
  
 }
 
@@ -475,7 +480,7 @@ function updateTotalPrice(){
     document.querySelector(".popup-view .totalPrice").innerHTML = total;
 
     document.querySelector(".popup-view input[name='total_price']").value = total;
-    console.log("tot"+document.querySelector(".popup-new input[name='total_price']").value);
+    console.log("tot"+document.querySelector(".popup-view input[name='total_price']").value);
 }
 
 

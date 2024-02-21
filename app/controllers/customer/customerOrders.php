@@ -10,7 +10,6 @@ class CustomerOrders extends Controller
         
         $order = new Order;
         $order_material = new OrderMaterial;
-        $quotation_reply = new QuotationReply;
         $materials = new MaterialStock;
         $sleeveType = new Sleeves;
         $material_printingType = new MaterialPrintingType;
@@ -23,7 +22,6 @@ class CustomerOrders extends Controller
             // show($id);
             $data['order'] = $order->where($id);
             $data['material_sizes'] = $order->getFullData($id);
-            $data['quotation_reply'] = $quotation_reply->getReplyDetails($id);
             $data['materials'] = $materials->getMaterialNames();
             $data['material_prices'] = $materials->findAll('stock_id');
             $data['sleeveType'] = $sleeveType->findAll('sleeve_id');
@@ -214,7 +212,7 @@ class CustomerOrders extends Controller
                 $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
             
 
-                $arrOrder = ['user_id' => $_SESSION['USER']->id, 'total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
+                $arrOrder = ['total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
                     'city' => $_POST['city'],
                     'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
                    
@@ -256,7 +254,7 @@ class CustomerOrders extends Controller
                         'xl' => $xl,
                         'xxl' => $xxl
                     ]);
-                    show($insert2);
+                    // show($insert2);
                 }
 
                 unset($_POST);

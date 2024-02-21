@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Customer</title>
+    <title>Manager</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/customer-orders.css">
@@ -66,15 +66,15 @@
                             <th>User Id</th>
                             <th>Placed Date</th>
                             <th>Material</th>
-                            <th>Dispatch Date</th>
                             <th>Quantity</th>
+                            <th>Dispatch Date</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($data['orders'] as $order): ?>
-                        <?php if(!$order->is_quotation): ?>
+                        
                             <?php $material = array(); ?>
                         <tr>
                             <td class="ordId"><?php echo $order->order_id ?></td>
@@ -88,7 +88,6 @@
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
-                            <td><?php echo $order->dispatch_date ?></td>
                             <td class="desc">
                                 <?php foreach($data['material_sizes'] as $sizes):?>
                                     <?php if($sizes->order_id == $order->order_id) :?>
@@ -96,16 +95,17 @@
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </td>
+                            <td><?php echo $order->dispatch_date ?></td>
                             <td class="st">
                                 <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
                                 <div class="progress-bar"></div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
                         
-                        <?php endif; ?>
+                     
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -135,17 +135,35 @@
                     </div>
                     <p class="text">Pending</p>
                 </li>
+
                 <li>
-                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                    <iconify-icon icon="tabler:cut"></iconify-icon>
                     <div class="progress two">
 
                         <i class="uil uil-check"></i>
                     </div>
-                    <p class="text">Processing</p>
+                    <p class="text">Cutting</p>
                 </li>
                 <li>
-                    <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
+                    <iconify-icon icon="tabler:shirt-filled"></iconify-icon>
                     <div class="progress three">
+
+                        <i class="uil uil-check"></i>
+                    </div>
+                    <p class="text">Printing</p>
+                </li>
+                <li>
+                    <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
+                    <div class="progress four">
+
+                        <i class="uil uil-check"></i>
+                    </div>
+                    <p class="text">Sewing</p>
+                </li>
+
+                <li>
+                    <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
+                    <div class="progress five">
 
                         <i class="uil uil-check"></i>
                     </div>
@@ -153,7 +171,7 @@
                 </li>
                 <li>
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
-                    <div class="progress four">
+                    <div class="progress six">
 
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
@@ -172,7 +190,7 @@
 
                     </div>
                     <div class="input-box">
-                        <span class="details">Order Id </span>
+                        <span class="details">Order ID </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
                     <div class="input-box" style="height: 0;">
@@ -182,6 +200,8 @@
                         <span class="details">Order Placed On</span>
                         <input name="order_placed_on" type="text" required onChange="" readonly value="" />
                     </div>
+
+                    <input name="order_status" type="hidden" required onChange="" readonly value="" />
 
                 </div>
 
@@ -202,7 +222,7 @@
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
                     
-                        <input type="text" name="dispatch_date_pickup" readonly value="" />
+                        <input type="date" name="dispatch_date_pickup" >
                     </div>
                 </div>
 
@@ -214,6 +234,8 @@
 
                     pickUp.addEventListener('click', togglePickUp);
                     delivery.addEventListener('click', toggleDelivery);
+
+
 
                     function togglePickUp(){
                         
@@ -233,14 +255,14 @@
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                     
-                        <input type="text" name="dispatch_date_delivery" readonly value="" />
+                        <input type="date" name="dispatch_date_delivery" >
                     </div>
                     <div class="input-box">
                         <span class="details addr">City</span>
                     
-                        <select name="city">
+                        <input name="city" type="text">
 
-                        </select>
+                        
                     </div>
 
 
@@ -251,8 +273,8 @@
 
                     <!-- hidden element -->
                     <div class="input-box">
-                        <input name="latitude" type="hidden" required />
-                        <input name="longitude" type="hidden" required />
+                        <input name="latitude" type="hidden"  />
+                        <input name="longitude" type="hidden"  />
                     </div>
                 
                     
@@ -260,26 +282,68 @@
 
                 <hr class="second">
 
+                <div style="display: flex;text-align: center;flex-direction: column;padding: 5px;">
+                    <h3>Customer Details</h3>
+                </div>
 
-                <div class="user-details">
+                <div class="user-details customer">
                     <div class="input-box">
-                        <span class="details">Unit Price</span>
-                        <input name="unit_price" type="text" required onChange="" readonly value="" />
+                        <span class="details">Customer ID</span>
+                        <input name="id" type="text"  />
                     </div>
                     <div class="input-box">
-                        <span class="details">Discount</span>
-                        <input name="discount" type="text" required onChange="" readonly value="" />
+                        <span class="details">Customer Name</span>
+                        <input name="fullname" type="text"  />
                     </div>
                     <div class="input-box">
-                        <span class="details">Total Price</span>
-                        <input name="total_price" type="text" required onChange="" readonly value="" />
+                        <span class="details">Contact Number</span>
+                        <input name="phone" type="text"  />
                     </div>
                     <div class="input-box">
-                        <span class="details">Remaining Payment</span>
-                        <input name="remaining_payment" type="text" required onChange="" readonly value="" />
-                        <button class="pay" >Pay</button>
+                        <span class="details">Email</span>
+                        <input name="email" type="email"  />
                     </div>
                 </div>
+
+                <hr class="second">
+
+                <div style="display: flex;text-align: center;flex-direction: column;padding: 5px;">
+                    <h3>Payment Details</h3>
+                </div>
+
+                <div class="prices">
+                    
+                    <p style="text-align: right; margin: 10px 30px;"></p><br>
+                    
+                    <table class="price-details-container">
+                        <tr>
+                            <th>Material</th>
+                            <th>Sleeve Type</th>
+                            <th>Printing Type</th>
+                            <th>Quantity</th>
+                            <th>Unit Price(Rs.)</th>
+                        </tr>
+
+                        <tr class="discount">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Discount</td>
+                            <td class="discountPercentage">0</td>
+                        </tr>
+    
+                        <tr class="total">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td class="totalPrice">0</td>
+
+                            <input type="hidden" name="total_price" />
+                        </tr>
+                    </table>
+                </div>
+
                 
 
                 <input type="button" class="update-btn pb"  value="Update Order" />
@@ -299,6 +363,27 @@
             </div>
         </form>
     </div>
+
+    <script>
+            // clear the other option when one is selected in the delivery options
+            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                pickupDate.addEventListener('change', function(){
+                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate =>{
+                        deliveryDate.value = "";
+                    });
+
+                });
+            });
+
+            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                deliveryDate.addEventListener('change', function(){
+                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate =>{
+                        pickupDate.value = "";
+                    });
+
+                });
+            });
+    </script>
 
 
 

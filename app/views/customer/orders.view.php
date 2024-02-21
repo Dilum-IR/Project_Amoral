@@ -99,7 +99,13 @@
                                 <?php endforeach;?>
                             </td>
                             <td class="st">
-                                <div class="text-status <?php echo $order->order_status ?>"><?php echo $order->order_status ?></div>
+                                <div class="text-status <?php echo $order->order_status ?>">
+                                    <?php if($order->order_status == 'cutting' || $order->order_status == 'printing' || $order->order_status == 'sewing'): ?>
+                                        <?php echo "processing" ?>
+                                    <?php else: ?>
+                                        <?php echo $order->order_status ?>
+                                    <?php endif; ?>
+                                </div>
                             </td>
                         
                             <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
@@ -198,7 +204,7 @@
 
                     </div>
                     <div class="input-box">
-                        <span class="details">Order Id </span>
+                        <span class="details">Order ID </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
                     <div class="input-box" style="height: 0;">
@@ -758,6 +764,7 @@
                     pickUpN.addEventListener('click', togglePickUpN);
                     deliveryN.addEventListener('click', toggleDeliveryN);
 
+                    // clear the other option when one is selected
                     document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
                         pickupDate.addEventListener('change', function(){
                             document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate =>{

@@ -362,7 +362,15 @@ tbody tr:hover{
   background-color: #cfb103c7;
 }
 
-.text-status.processing{
+.text-status.cutting{
+  background-color: #1c7012cc;
+}
+
+.text-status.printing{
+  background-color: #1c7012cc;
+}
+
+.text-status.sewing{
   background-color: #1c7012cc;
 }
 
