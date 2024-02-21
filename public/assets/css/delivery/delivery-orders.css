@@ -76,7 +76,6 @@ section#main {
 
 
 
-
 form .form-input {
   position: relative;
   display: flex;
@@ -411,21 +410,38 @@ table tbody tr.active-row {
   padding: 2% 13%;
   margin-left: 0%;
 }
-.popup-report .popup-content .form{
-  width: auto;
-}
+
 
 .popup-view,
-.popup-new,
+.popup-new {
+  
+  position: fixed;
+  height: fit-content;
+  width: 50%;
+  background: #ffffff;
+  margin-top: 4%;
+  margin-bottom: 3%;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 12px;
+  padding: 1%;
+  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
+  visibility: hidden;
+  transition: transform .5s, top .5s;
+  justify-content: center;
+  overflow: auto; 
+  
+}
 .popup-report {
   
   position: fixed;
   height: fit-content;
-  width: 60%;
+  width: 50%;
   background: #ffffff;
-  margin-top: 3%;
+  margin-top: 4%;
   margin-bottom: 3%;
-  top: 50%;
+  top: 44%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   border-radius: 12px;
@@ -437,6 +453,7 @@ table tbody tr.active-row {
   
   
 }
+
 
 .open-popup-view,
 .open-popup-new,
@@ -455,12 +472,18 @@ table tbody tr.active-row {
 
 .popup-content {
   background-color: #fefefe;
-  margin: 5% auto; /* 15% from the top and centered */
+  margin: 5% 5%; /* 15% from the top and centered */
   padding: 0.2% 0.35% 0.4% 0.56%;
   /* border: 1px solid #888; */
-  width: 100%; /* Could be more or less, depending on screen size */
+  width: 90%; /* Could be more or less, depending on screen size */
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+}
+
+.popup-report .popup-content .form{
+  width: 275%;
+  position: relative;
+  padding-right: 100%;
 }
 
 .popup-report .popup-content {
@@ -492,6 +515,7 @@ table tbody tr.active-row {
   padding-bottom: 4%;
   margin: 4px;
   font-weight: bold;
+  width: 160%;
 }
 
 .popup-report h4{
@@ -610,7 +634,7 @@ textarea{
 
 .status ul {
   display: flex;
-  margin-top: 80px;
+  margin-top: 10%;
 }
 
 .status ul li {
@@ -621,14 +645,14 @@ textarea{
 }
 
 .status ul li iconify-icon {
-  font-size: 35px;
+  font-size: 175%;
   color: #fff;
   margin: -60px 60px;
   z-index: 1;
 }
 
 .status ul li .text {
-  font-size: 14px;
+  font-size: 75%;
   font-weight: 600;
   color: #191919;
 }
@@ -737,15 +761,47 @@ ul li .active .uil{
   }
 }
 
-
+/* .container2{
+  
+  background-color: #000;
+} */
 
 .container1 {
-  max-width: 700px;
+  max-width: 100%;
+  width: 40%;
+  background: #ffffff;
+  padding: 10% 15%;
+  border-radius: 10px; /* Adjust border radius as needed */
+  margin-left: 0%;
+  overflow: hidden;
+  font-size: small;
+}
+
+.container1 .emptitle {
+  font-size: 2.5rem; /* Adjust font size */
+  font-weight: 500;
+  position: relative;
+}
+
+.container1 .emptitle::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 11px;
+  transform: translateX(-50%); /* Center the line */
+  height: 4px;
+  width: 50px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+}
+
+/* .container1 {
+  max-width: 100%;
   width: 100%;
   background: #ffffff;
-  padding: 25px 30px;
-  border-radius: 15px;
-  margin-left: 8%;
+  padding: 10% 15%;
+  border-radius: 100%;
+  margin-left: 0%;
   overflow: hidden;
 }
 
@@ -764,7 +820,7 @@ ul li .active .uil{
   width: 50px;
   border-radius: 5px;
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
-}
+} */
 
 
 /* student form details  */
@@ -773,17 +829,26 @@ ul li .active .uil{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 10px 0 12px 0;
+  margin: -57% 2% -56% -125%;
+  width: 350%;
+  left: 0%;
 }
 
 form .user-details .input-box {
   margin-bottom: 10px;
-  width: calc(100% / 2 - 20px);
+  /* width: calc(100% / 2 - 20px); */
   overflow: hidden;
+  padding: 10px 20px;
+  margin: 0 10px;
+  outline: none;
+  /* border: 1px solid #393a3b22; */
+  border-radius: 6px;
+  color: #0c1c22;
 }
 
 .user-details .input-box .details {
   display: block;
+  font-size: 14px;
   font-weight: 500;
   margin-bottom: 5px;
 }
@@ -805,8 +870,8 @@ form .user-details .input-box {
 
 .user-details .input-box input,
 select {
-  width: 100%;
-  height: 45px;
+  width: 50%;
+  height: 40px;
   outline: none;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -814,6 +879,7 @@ select {
   font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
+  background-color: #d5dfe7d5;
 }
 
 
