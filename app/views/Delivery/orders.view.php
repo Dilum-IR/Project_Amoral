@@ -113,7 +113,7 @@
     </section>
 
 
-    <!-- POPUP -->
+    <!-- POPUP REPORT -->
     <div class="popup-report">
         <div class="popup-content">
             <span class="close">&times;</span>
@@ -135,7 +135,7 @@
         </div>
     </div>
 
-
+        <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
 
@@ -210,9 +210,21 @@
                         <input type="text" required onChange="" readonly value="2023/10/29" />
                     </div>
                 </div>
-                <button type="submit" class="update-btn">Update Order</button>
+                
             </form>
         </div>
+
+
+        <!-- VIEW MAP -->
+
+        <!-- <div class="container2">
+            <h1>fbk</h1>
+
+
+        </div> -->
+        <button type="submit" class="update-btn">Update Order</button>
+
+
         <div class="btn-ok">
 
             <button type="button" class="ok-btn" onclick="closeView()">OK</button>
