@@ -11,24 +11,6 @@ class EmailVerify extends Controller
             unset($_SESSION['USER']);
         }
 
-        // Resend method
-        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            // show($_POST);
-            echo "resend";
-            $user = new User;
-            $employee = new Employee;
-
-            $arr['email'] = $_POST['email'];
-
-            $userData = $user->first($arr);
-            $empData = $user->first($arr);
-
-
-            if ($userData) {
-            } else if ($empData) {
-            }
-        }
-
         $this->view('utils/emailVerify');
     }
 
@@ -53,7 +35,8 @@ class EmailVerify extends Controller
                 // echo json_encode($userData);
                 if ($userData) {
                     // not verified customer email 
-                    $this->Verify($user, $employee, $_POST);
+                    $user_type = "user";
+                    $this->Verify($user, $employee, $_POST, $user_type, $userData);
                 } else {
                     // all data unset method
                     foreach ($_POST as $key => $value) {
@@ -71,7 +54,8 @@ class EmailVerify extends Controller
 
                 if ($empData && $user_n === 2) {
                     // not verified employee email 
-                    $this->Verify($user, $employee, $_POST);
+                    $user_type = "employee";
+                    $this->Verify($user, $employee, $_POST, $user_type, $empData);
                 } else {
                     // all data unset method
                     foreach ($_POST as $key => $value) {
@@ -108,40 +92,47 @@ class EmailVerify extends Controller
         }
     }
 
-    public function resendOtp()
+    // all data include users data
+    private function Verify($user, $employee, $data, $user_type, $allData)
     {
-    }
-
-    private function Verify($user, $employee, $data)
-    {
-
         $arr['email'] = $data['email'];
         // verify that email database include or not
-        if ($user->first($arr)) {
+        if (isset($user_type)) {
 
             // success registration
             $arr['email_otp'] = $data['email_otp'];
 
             // un data included then it comes from the sign in time
             if (isset($data['un']) && ($data['un'] == 1 || $data['un'] == 2)) {
+
                 if ($user->first($arr)) {
+
+                    // verification code valid, when update the user filed
+                    $updateData['email_verified'] = 1;
+                    $updateData['email_otp'] = 0;
+                    $user->update($allData->id, $updateData);
 
                     $res['flag'] = 1;
                     $res['title'] = "Valid OTP Code";
                     $res['msg'] = "Verification Successfull 😀🎉";
 
-                    // echo json_encode($res);
-                    // want to add redirect part for login users
-                    redirect("home");
-
-                    // echo '<script>';
-                    // echo 'setTimeout(function() {';
-                    // echo '  window.location.href = "http://localhost/project_Amoral/public/signin";'; // Replace with your desired URL
-                    // echo '}, 5000);'; 
-                    // echo '</script>';
-                    
+                    echo json_encode($res);
                     exit;
-                } else {
+                } 
+                else if ($employee->first($arr)) {
+
+                    // verification code valid, when update the user filed
+                    $updateData['email_verified'] = 1;
+                    $updateData['email_otp'] = 0;
+                    $employee->update($allData->id, $updateData, 'emp_id');
+
+                    $res['flag'] = 1;
+                    $res['title'] = "Valid OTP Code ";
+                    $res['msg'] = "Verification Successfull 😀🎉";
+                    echo json_encode($res);
+                    exit;
+                } 
+                else {
 
                     $res['flag'] = 0;
                     $res['title'] = "Invalid OTP Code ";
@@ -150,8 +141,15 @@ class EmailVerify extends Controller
                     exit;
                 }
             } else {
+                // No need to check signup time employees verification.
                 // signup verification for popup msgs
-                if ($employee->first($arr)) {
+                if ($user_type == "user") {
+
+                    // verification code valid, when update the user filed
+                    $updateData['email_verified'] = 1;
+                    $updateData['email_otp'] = 0;
+                    $user->update($allData->id, $updateData);
+
                     $res['flag'] = 1;
                     $res['title'] = "Valid OTP Code ";
                     $res['msg'] = "Verification Successfull 😀🎉";
@@ -171,4 +169,78 @@ class EmailVerify extends Controller
             echo 0;
         }
     }
+
+
+    public function resendOtp()
+    {
+
+        // Resend & update the db otp method
+        if (isset($_POST) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            // find user in employee and users table
+            $user = new User;
+            $employee = new Employee;
+
+            $anyId = 0;
+            $anyName = "Anonymous ";
+
+            $arr['email'] = $_POST['email'];
+
+            // Generate a random verification code
+            $verificationCode = mt_rand(100000, 999999);
+
+            $otpData['email_otp'] = $verificationCode;
+
+            $userData = $user->first($arr);
+            $empData = $employee->first($arr);
+
+            //get id for idintify for user & update the that user's verification otp number
+            if ($userData) {
+
+                $propertiesToUnset =
+                    [
+                        'email_otp', 'password', 'phnnum_verified',
+                        'user_status', 'token', 'user_image', 'phone', 'email_verified'
+                    ];
+
+                foreach ($propertiesToUnset as $property) {
+                    if (isset($userData->$property)) {
+                        unset($userData->$property);
+                    }
+                }
+
+                $anyId = $userData->id;
+                $anyName = $userData->fullname . " ";
+                $response = $user->update($anyId, $otpData);
+            } else if ($empData) {
+
+                $anyId = $empData->emp_id;
+                $anyName = $empData->emp_name . " ";
+                $response = $employee->update($anyId, $otpData, "emp_id");
+            } else {
+                redirect('home');
+            }
+
+            if ($response) {
+                $res['flag'] = 0;
+                $res['title'] = "Sorry Try Again";
+                $res['msg'] = "Can't Sent The OTP Code";
+
+                echo json_encode($res);
+            } else {
+                $res['flag'] = 1;
+                $res['title'] = "Please Try Again";
+                $res['msg'] = "OTP Send Successfull 😀🎉";
+                echo json_encode($res);
+            }
+
+            $otpData['email'] = $_POST['email'];
+            $email = $_POST['email'];
+
+            $sendmail = new SendMail;
+
+            $sendmail->sendVerificationEmail($email, $verificationCode, $anyName);
+        }
+    }
+
 }

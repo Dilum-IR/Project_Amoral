@@ -3,6 +3,7 @@ let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
 let closeReportBtn = document.querySelector(".popup-report .close");
+let closeNewBtn = document.querySelector(".popup-new .close");
 let payBtn = document.querySelector(".pay");
 
 let sidebar = document.querySelector(".sidebar");
@@ -64,6 +65,7 @@ updateYes.addEventListener('click', function(){
 
 
 let reportForm = document.querySelector(".popup-report form");
+let newForm = document.querySelector(".popup-new form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
 
 
@@ -100,6 +102,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 closeViewBtn.addEventListener('click', closeView);
+closeNewBtn.addEventListener('click', closeNew);
 
 
 function validateReport() {
@@ -278,6 +281,36 @@ function closeReport() {
     nav.style.pointerEvents = "auto";
 
     reportForm.reset();
+}
+
+function openNew(){
+    popupNew.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
+}
+function closeNew(){
+    popupNew.classList.remove("is-visible");
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
+
+    document.querySelector(".price-details-container").innerHTML = `
+            <tr>
+                <th>Material</th>
+                <th>Sleeve Type</th>
+                <th>Printing Type</th>
+                <th>Quantity</th>
+                <th>Unit Price(Rs.)</th>
+            </tr>
+            <tr>
+                <td class="materialType"></td>
+                <td class="sleeveType"></td>
+                <td class="printingType"></td>
+                <td class="quantityAll">0</td>
+                <td class="unitPrice">0</td>
+            </tr>`;
+    document.querySelector(".new-form").reset();
 }
 
 
