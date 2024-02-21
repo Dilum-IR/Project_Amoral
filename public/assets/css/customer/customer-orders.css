@@ -602,6 +602,10 @@ textarea{
   background-color: green;
 }
 
+.status ul li .cancel{
+  background-color: red;
+}
+
 .progress::after {
   content: " ";
   position: absolute;

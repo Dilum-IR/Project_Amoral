@@ -207,6 +207,10 @@ function openView(button) {
                 progress4.classList.add("active");
                 break;
 
+            case 'cancelled':
+                progress1.classList.add("cancel");
+                break;
+
         }
 
         var today = new Date();
@@ -276,6 +280,11 @@ function openView(button) {
             orderCancel.style.display = "none";
         } else {
             orderCancel.style.display = "block";
+        }
+
+        if(order.order_status == "completed" || order.order_status == "cancelled"){
+            orderUpdate.style.display = "none";
+            orderCancel.style.display = "none";
         }
 
         if(order.remaining_payment == 0){
