@@ -47,7 +47,9 @@ class Profile extends Controller
         unset($row->password);
         unset($row->id);
 
+
         $data = ['data' => $row];
+        // show($data);
         return $data;
         //show($row);
     }

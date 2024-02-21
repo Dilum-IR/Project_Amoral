@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 :root {
-  --grey: #F1F0F6;
-  --dark-grey: #8D8D8D;
+  --grey: #f1f0f6;
+  --dark-grey: #8d8d8d;
   --light: #fff;
   --dark: #000;
-  --green: #81D43A;
-  --light-green: #E3FFCB;
-  --blue: #1775F1;
-  --light-blue: #D0E4FF;
-  --dark-blue: #0C5FCD;
-  --red: #FC3B56;
+  --green: #81d43a;
+  --light-green: #e3ffcb;
+  --blue: #1775f1;
+  --light-blue: #d0e4ff;
+  --dark-blue: #0c5fcd;
+  --red: #fc3b56;
 }
 
-body{
+body {
   min-height: 100vh;
   background: rgb(240, 240, 250);
   scroll-behavior: smooth;
@@ -25,8 +25,8 @@ section#main {
   top: 12%;
   width: calc(100% - 8%);
   height: 100%;
-  left:8%;
-  transition: all .5s ease;
+  left: 8%;
+  transition: all 0.5s ease;
   z-index: 2;
 }
 
@@ -34,7 +34,6 @@ section#main {
   left: 18%;
   width: calc(100% - 20%);
 }
-
 
 .breadcrumb {
   list-style-type: none;
@@ -60,12 +59,11 @@ section#main {
   font-size: 150%;
 }
 
-
 #main h2 {
   position: relative;
   padding: 10px 10px;
   text-align: center;
-  background: #F4F7FC;
+  background: #f4f7fc;
 }
 
 #main form {
@@ -73,8 +71,6 @@ section#main {
   top: 64px;
   padding-bottom: 10px;
 }
-
-
 
 form .form-input {
   position: relative;
@@ -124,13 +120,6 @@ form .form-input button:hover {
   /* color: black; */
 }
 
-
-
-
-
-
-
-
 .form-group {
   position: relative;
   left: 3%;
@@ -141,7 +130,7 @@ form .form-input button:hover {
   border: #000;
   outline-width: 1px;
   padding: 10px 30px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   color: var(--dark);
 }
 
@@ -191,8 +180,6 @@ form .form-input button:hover {
   transition: all 0.3s ease-in-out;
 }
 
-
-
 .view-order-btn {
   /* position: relative;
   left: 30%; */
@@ -212,8 +199,7 @@ form .form-input button:hover {
   /* transform: scale(0.9); */
 }
 
-
-.ok-btn{
+.ok-btn {
   position: absolute;
   top: 51px;
   background-color: black;
@@ -228,12 +214,9 @@ form .form-input button:hover {
   margin: 4px 2px;
   cursor: pointer;
   /* transform: scale(0.9); */
-  
-
 }
 
-
-.new-btn{
+.new-btn {
   position: absolute;
   top: 51px;
   background-color: black;
@@ -259,10 +242,9 @@ form .form-input button:hover {
 .view-order-btn:hover,
 .new-btn:hover,.ok-btn:hover,.update-btn {
   background: darkblue;
-} */ 
+} */
 
-
-input{
+input {
   padding: 10px 20px;
   margin: 0 10px;
   outline: none;
@@ -271,20 +253,16 @@ input{
   color: #0c1c22;
 }
 
-
-
-.table-section{
-    
+.table-section {
   overflow: auto;
   /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
   border-radius: 20px;
   background: ghostwhite;
   margin: 19px 32px;
   overflow-x: auto;
-
 }
 
-table{
+table {
   width: 100%;
   position: relative;
   min-width: 1000px;
@@ -293,7 +271,7 @@ table{
   overflow: hidden;
 }
 
-.table-header{
+.table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -302,11 +280,11 @@ table{
   background-color: rgb(240, 240, 240);
 }
 
-.table-header p{
+.table-header p {
   color: #000000;
 }
 
-thead th{
+thead th {
   padding-top: 17px;
   color: #ffffff;
   font-size: 15px;
@@ -314,27 +292,28 @@ thead th{
   background: black;
 }
 
-th, td{
-    border-bottom: 1px solid #dddddd;
-    padding: 10px 20px;
-    word-break: break-all;
-    text-align: center;
-    align-items: center;
+th,
+td {
+  border-bottom: 1px solid #dddddd;
+  padding: 10px 20px;
+  word-break: break-all;
+  text-align: center;
+  align-items: center;
 }
 
-td{
+td {
   box-sizing: border-box;
 }
 
-td img{
-    height: 60px;
-    width: 60px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 5px solid #ced0d2;
+td img {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 5px solid #ced0d2;
 }
 
-tr.hide{
+tr.hide {
   opacity: 0;
   transform: translateX(100%);
   line-height: 0;
@@ -342,7 +321,7 @@ tr.hide{
 
 tr.hide td,
 tr.hide td button,
-tr.hide td div{
+tr.hide td div {
   padding: 0;
   height: 0;
   border: none;
@@ -350,12 +329,11 @@ tr.hide td div{
   border-bottom: none;
 }
 
-tr.hide td *{
+tr.hide td * {
   visibility: hidden;
 }
 
-
-tbody tr:hover{
+tbody tr:hover {
   cursor: pointer;
   background-color: #0298cf0d;
 
@@ -399,42 +377,38 @@ table tbody tr.active-row {
   color: #009879;
 } */
 
-.st{
+.st {
   padding: 0%;
 }
 
-.text-status{
-  background-color : rgb(16, 197, 52);
+.text-status {
+  background-color: rgb(16, 197, 52);
   border-radius: 12px;
   width: fit-content;
   padding: 2% 13%;
   margin-left: 0%;
 }
 
-
 .popup-view,
 .popup-new {
-  
   position: fixed;
-  height: fit-content;
+  height: 90%;
   width: 50%;
   background: #ffffff;
   margin-top: 4%;
   margin-bottom: 3%;
-  top: 45%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   border-radius: 12px;
   padding: 1%;
   box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
   visibility: hidden;
-  transition: transform .5s, top .5s;
+  transition: transform 0.5s, top 0.5s;
   justify-content: center;
-  overflow: auto; 
-  
+  overflow: auto;
 }
 .popup-report {
-  
   position: fixed;
   height: fit-content;
   width: 50%;
@@ -448,12 +422,9 @@ table tbody tr.active-row {
   padding: 1%;
   box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
   visibility: hidden;
-  transition: transform .5s, top .5s;
+  transition: transform 0.5s, top 0.5s;
   justify-content: center;
-  
-  
 }
-
 
 .open-popup-view,
 .open-popup-new,
@@ -480,7 +451,7 @@ table tbody tr.active-row {
   transition: all 0.3s ease-in-out;
 }
 
-.popup-report .popup-content .form{
+.popup-report .popup-content .form {
   width: 275%;
   position: relative;
   padding-right: 100%;
@@ -502,7 +473,7 @@ table tbody tr.active-row {
   right: 400px;
 }
 
-.close:hover{
+.close:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -518,14 +489,14 @@ table tbody tr.active-row {
   width: 160%;
 }
 
-.popup-report h4{
+.popup-report h4 {
   text-align: left;
   /* padding-left: 10%; */
   padding-bottom: 2%;
 }
 
 .popup-report input,
-textarea{
+textarea {
   position: relative;
   left: 2px;
   width: 96%;
@@ -540,18 +511,17 @@ textarea{
   color: var(--dark);
 }
 
-.popup-report textarea{
+.popup-report textarea {
   height: 100px;
   margin-left: 10px;
 }
 
-.popup-report .error{
+.popup-report .error {
   color: red;
   font-size: 14px;
   position: relative;
   left: 1%;
   /* visibility: hidden; */
-  
 }
 
 .popup-report .pb {
@@ -581,22 +551,6 @@ textarea{
   background: darkred;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .overlay {
   position: fixed;
   opacity: 0;
@@ -604,7 +558,7 @@ textarea{
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
@@ -620,7 +574,6 @@ textarea{
   padding-top: 4%;
   /* margin: 20px; */
 }
-
 
 .status {
   width: 100%;
@@ -722,12 +675,12 @@ ul li .active .uil{
 /* Responsive Css  */
 
 @media (max-width: 980px) {
-  .pb{
+  .pb {
     left: 0;
     top: 2%;
   }
-  
-  .status{
+
+  .status {
     margin-top: 0%;
   }
 
@@ -761,10 +714,14 @@ ul li .active .uil{
   }
 }
 
-/* .container2{
-  
-  background-color: #000;
-} */
+.container2 {
+  margin: 0 5px;
+  margin-right: 80px;
+  padding: 0 5px;
+  border-radius: 50px;
+  max-width: 100%;
+  width: 60%;
+}
 
 .container1 {
   max-width: 100%;
@@ -822,7 +779,6 @@ ul li .active .uil{
   background: linear-gradient(135deg, #71b7e6, #9b59b6);
 } */
 
-
 /* student form details  */
 
 .container1 form .user-details {
@@ -853,7 +809,7 @@ form .user-details .input-box {
   margin-bottom: 5px;
 }
 
-.user-details .input-box .size{
+.user-details .input-box .size {
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
@@ -861,16 +817,15 @@ form .user-details .input-box {
   width: 20%;
 }
 
-.container1 form .sizes{
+.container1 form .sizes {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;;
-
+  justify-content: space-between;
 }
 
 .user-details .input-box input,
 select {
-  width: 50%;
+  width: 100%;
   height: 40px;
   outline: none;
   border-radius: 5px;
@@ -881,11 +836,13 @@ select {
   border-bottom-width: 2px;
   background-color: #d5dfe7d5;
 }
+.detail_content {
+  display: flex;
+}
 
-
-.popup-view .pb{
+.popup-view .pb {
   position: relative;
-
+  /* align-items: `; */
 
   font-size: 14px;
   /* display: flex; */
@@ -893,10 +850,10 @@ select {
   /* align-items: center; */
   padding: 10px 20px;
   color: var(--light);
-  left: 63%;
+  /* left: 63%; */
   overflow: hidden;
 
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   border-radius: 10px;
   font-weight: 600;
   /* margin-bottom: 12px; */
@@ -938,3 +895,33 @@ select {
     
   }
 } */
+
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+
+#map {
+  margin: 20px;
+  height: 450px;
+  width: 100%;
+}
+#map img[src$="map1.png"] {
+  width: 1px;
+  height: 1px;
+}
+
+.btns {
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.update-btn,
+.ok-btn {
+  /* Optional: styling for the buttons */
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+  width: 100%;
+}

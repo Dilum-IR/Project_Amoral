@@ -120,28 +120,27 @@
             <h2>Report Your Problem</h2>
             <form class="form" method="POST">
 
-                <h4>Title : <span class="error title"></span>  </h4> 
+                <h4>Title : <span class="error title"></span> </h4>
                 <input name="title" type="text" placeholder="Enter your title">
                 <h4>Your email : <span class="error email"></span></h4>
                 <input name="email" type="text" placeholder="Enter your email">
                 <h4>Problem : <span class="error description"></span></h4>
-                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-                
-                <button type="submit" class="close-btn pb" name="report" value="Submit" >Submit</button>
-                <button type="button" class="cancelR-btn pb" onclick="closeReport()" >Cancel</button>
-            
+                <textarea name="description" id="problem" cols="30" rows="5"
+                    placeholder="Enter your problem"></textarea>
+
+                <button type="submit" class="close-btn pb" name="report" value="Submit">Submit</button>
+                <button type="button" class="cancelR-btn pb" onclick="closeReport()">Cancel</button>
+
 
             </form>
         </div>
     </div>
 
-        <!-- POPUP VIEW -->
+    <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-
         <h2>Order Details</h2>
         <div class="status">
-
             <ul>
                 <li>
                     <iconify-icon
@@ -179,63 +178,101 @@
                 </li>
 
             </ul>
-
         </div>
 
-        <div class="container1">
-            <form>
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Order Id </span>
-                        <input type="text" required onChange="" readonly value="1" />
+        <div class="detail_content">
+            <div class="container1">
+                <form>
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Order Id </span>
+                            <input type="text" required onChange="" readonly value="1" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Customer Name </span>
+                            <input type="text" required onChange="" readonly value="thiran" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Delivery Address</span>
+                            <input type="text" required onChange="" readonly value="matara" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Order Placed On</span>
+                            <input type="text" required onChange="" readonly value="2023/10/19" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Delivery Expected On</span>
+                            <input type="text" required onChange="" readonly value="2023/10/29" />
+                        </div>
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Customer Name </span>
-                        <input type="text" required onChange="" readonly value="thiran" />
-                    </div>
+                </form>
+            </div>
 
-                    <div class="input-box">
-                        <span class="details">Delivery Address</span>
-                        <input type="text" required onChange="" readonly value="matara" />
-                    </div>
+            <!-- VIEW MAP -->
 
-                    <div class="input-box">
-                        <span class="details">Order Placed On</span>
-                        <input type="text" required onChange="" readonly value="2023/10/19" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                        <input type="text" required onChange="" readonly value="2023/10/29" />
-                    </div>
+            <div class="container2">
+                <!-- <h3> Delivery locations</h3> -->
+                <div id="map">
                 </div>
-                
-            </form>
+            </div>
+
         </div>
 
-
-        <!-- VIEW MAP -->
-
-        <!-- <div class="container2">
-            <h1>fbk</h1>
-
-
-        </div> -->
-        <button type="submit" class="update-btn">Update Order</button>
-
-
-        <div class="btn-ok">
-
+        <div class="btns">
+            <button type="submit" class="update-btn">Update Order</button>
             <button type="button" class="ok-btn" onclick="closeView()">OK</button>
+
         </div>
-
-
-
     </div>
+
+
+
     <div id="overlay" class="overlay"></div>
 
 
+    <script>
+        function initMap() {
+            var location = { lat: 7.873054, lng: 80.771797 }
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7.7,
+                center: { lat: 7.8731, lng: 80.7718 }
+            });
+
+
+            /*Add marker
+            var marker = new google.map.Marker({
+                position:{lat:6.927079,lng:79.861244},
+                map:map, 
+                icon:'map-pin-icon.png'
+            });
+             /*Add marker function*/
+
+            addMarker({ lat: 6.927079, lng: 79.861244 });
+            addMarker({ lat: 7.291418, lng: 80.636696 });
+            addMarker({ lat: 5.9496, lng: 80.5469 });
+
+
+            /*Add marker function*/
+
+            function addMarker(coords) {
+                var marker = new google.maps.Marker({
+                    position: coords,
+                    map: map,
+                    icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                });
+
+            }
+
+
+        }
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDRuOIwM93jm3D-_IrEKZCFShSzp-Idgwo&callback=initMap"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
