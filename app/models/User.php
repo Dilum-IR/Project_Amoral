@@ -56,19 +56,19 @@ class User
 		// is empty password 
 		if (empty($data['password']) || empty($data['re-password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "password is Required ";
+			$this->errors['error'] = "Password is Required ";
 			$this->errors['error_no'] = 4;
 			return;
 		} else if ($data['password'] != $data['re-password']) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "passwords does not match ";
+			$this->errors['error'] = "Passwords does not match ";
 			$this->errors['error_no'] = 4;
 			return;
 		}
 		// password validation
 		// else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#^%?\$&*~]).{5,}$/", $data['password'])) {
 		// 	$this->errors['flag'] = true;
-		// 	$this->errors['error'] = "password is not Valid ";
+		// 	$this->errors['error'] = "Password is not Valid ";
 		// 	$this->errors['error_no'] = 5;
 		// 	return;
 
@@ -113,7 +113,7 @@ class User
 		// is empty password 
 		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "password is Required";
+			$this->errors['error'] = "Password is Required";
 			$this->errors['error_no'] = 4;
 			return;
 		} else if (!preg_match('/^[a-zA-Z0-9!@#\$%^&*_+=\-[\]},.>?\/]+$/', $data['password'])) {
@@ -145,20 +145,34 @@ class User
 		$this->errors = [];
 
 		// is empty password 
-		if (empty($data['password']) || empty($data['new_password']) || empty($data['confirm_password'])) {
+		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is Required";
+			$this->errors['current_password'] = "Password is Required";
+			return;
+			
+		}
+		else if (empty($data['new_password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['new_password'] =  "New password is Required";
+			return;
+			
+		}
+		else if (empty($data['confirm_password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['confirm_password'] =  "Confirm password is Required";
+			return;
 		}
 
 		// password validation
 		if (!($data['new_password'] === $data['confirm_password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is not same";
-
+			$this->errors['password'] = "Passwords are not the same";
+			return;
 		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is not Valid";
-			$this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#\$&*~]";
+			$this->errors['password'] = "New password is not Secure..";
+			$this->errors['passwordError'] = "Password must contain [a-z/A-Z/0-9/!@#\$&*~]";
+			return;
 		}
 
 		//  show($this->errors);
@@ -177,16 +191,16 @@ class User
 		$this->errors = [];
 
 		// is empty Full Name
-		if (empty($data['emp_name'])) {
+		if (empty($data['fullname'])) {
 			$this->errors['flag'] = true;
-			$this->errors['emp_name'] = "Name is required";
+			$this->errors['name'] = "Name is required";
 			// $this->errors['error_no'] = 1;
 			// return;
 		}
 		// name validation - this part include more words validation
-		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['emp_name'])) {
+		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['fullname'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Name is invalid ";
+			$this->errors['name'] = "Name is invalid ";
 			// $this->errors['error_no'] = 2;
 
 		}
@@ -199,8 +213,7 @@ class User
 		//city validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['city'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "City is invalid ";
-
+			$this->errors['city'] = "City is invalid ";
 		}
 
 		// is empty Address
@@ -209,10 +222,9 @@ class User
 			$this->errors['address'] = "Address is required";
 		}
 		//Address validation
-		else if (!preg_match("/^[a-zA-Z0-9\s\.,#-]+$/", $data['address'])) {
+		else if (!preg_match("/^[a-zA-Z0-9\s\.,#:-]+$/", $data['address'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Address is invalid ";
-
+			$this->errors['address'] = "Address is invalid ";
 		}
 		// is empty Email
 		if (empty($data['email'])) {
@@ -220,20 +232,18 @@ class User
 			$this->errors['email'] = "Email is required";
 		} else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Email is invalid ";
+			$this->errors['email'] = "Email is invalid ";
 		}
 
 		// is empty Contact Number
-		if (empty($data['contact_number'])) {
+		if (empty($data['phone'])) {
 			$this->errors['flag'] = true;
-			$this->errors['contact_number'] = "Contact Number is required";
-		} else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/", $data['contact_number'])) {
+			$this->errors['phone'] = "Contact Number is required";
+		} else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/", $data['phone'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Contact Number is invalid ";
+			$this->errors['phone'] = "Contact Number is invalid ";
 		}
-		show($this->errors);
-
-
+		// show($this->errors);
 
 		if (empty($this->errors)) {
 
@@ -241,6 +251,5 @@ class User
 		} else {
 			return false;
 		}
-
 	}
 }
