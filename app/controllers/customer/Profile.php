@@ -122,12 +122,16 @@ class Profile extends Controller
                 return $user->errors;
             }
 
-            $update = $user->update($id, $data, 'id');
+            $user->update($id, $data, 'id');
             $_SESSION['USER']->fullname = $data['fullname'];
 
             // user email is changed then redirect to the sign in page 
             if ($_SESSION['USER']->email != $data['email']) {
 
+                $data = [];
+                $user->update($id, ['email_verified' => 0], 'id');
+                unset($_SESSION["USER"]);
+                session_destroy();
                 redirect('signin');
             } else {
 

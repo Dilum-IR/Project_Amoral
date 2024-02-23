@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
 
 </head>
 
@@ -53,7 +54,7 @@
             (!empty($imagerror) &&  isset($imagerror['error']) && $imagerror['flag'] == 1) ?  "* " . $imagerror['error'] :  '';
             ?>
 
-</p>
+          </p>
         </div>
       </div>
 
@@ -197,8 +198,8 @@
                 </label>
                 <span class="hide-icon">
                   <input class="pro_input" type="password" id="c-password" name="password" placeholder="Enter current password" value="<?= isset($pass) ?  $pass['password'] : "" ?>">
-                  <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','s-toggleIcon')">
-                    <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
+                  <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','c-toggleIcon')">
+                    <ion-icon name="eye-off-outline" id="c-toggleIcon"></ion-icon>
                   </a>
                 </span>
               </div>
@@ -215,8 +216,8 @@
                 <span class="hide-icon">
 
                   <input class="pro_input" type="password" id="n-password" name="new_password" placeholder="Enter New password" value="<?= isset($pass) ?  $pass['new_password'] : "" ?>">
-                  <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','s-toggleIcon')">
-                    <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
+                  <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','n-toggleIcon')">
+                    <ion-icon name="eye-off-outline" id="n-toggleIcon"></ion-icon>
                   </a>
                 </span>
               </div>
@@ -235,9 +236,9 @@
                 </label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="text" id="re-password" name="confirm_password" placeholder="Enter Confirm password" value="<?= isset($pass) ?  $pass['confirm_password'] : "" ?>">
-                  <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','s-toggleIcon')">
-                    <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
+                  <input class="pro_input" type="password" id="re-password" name="confirm_password" placeholder="Enter Confirm password" value="<?= isset($pass) ?  $pass['confirm_password'] : "" ?>">
+                  <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
+                    <ion-icon name="eye-off-outline" id="re-toggleIcon"></ion-icon>
                   </a>
                 </span>
               </div>
@@ -250,13 +251,11 @@
                 </button>
                 <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP">
                   <span>
-
                     Save Changes
                   </span>
                 </button>
               </div>
             </div>
-
           </form>
         </div>
       </div>
