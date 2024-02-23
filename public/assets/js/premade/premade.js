@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Automatic sliding
-    setInterval(nextSlide, 100000); // Change slide every 15 seconds
+    setInterval(nextSlide, 10000); // Change slide every 10 seconds
 
     // Button click events
     const nextBtns = document.querySelectorAll('.slide-btn-right');
