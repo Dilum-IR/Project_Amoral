@@ -26,7 +26,7 @@ class EmployeeDetails extends Controller
 
                 if (isset($arr)) {
 
-                    show($arr);
+                    // show($arr);
                     $update = $employee->update($emp_id, $arr, 'emp_id');
                     redirect('manager/employeedetails');
                 }
@@ -37,6 +37,7 @@ class EmployeeDetails extends Controller
 
                 // show($_POST);
                 unset($_POST["newEmployee"]);
+
                 $this->employeeAdd($_POST);
             }
 
@@ -71,9 +72,6 @@ class EmployeeDetails extends Controller
 
     public function employeeAdd($data)
     {
-
-        // show($data);
-
         $employee = new Employee;
         $user = new User;
 
@@ -81,12 +79,13 @@ class EmployeeDetails extends Controller
         $empRow = $employee->first($arr);
         $userRow = $user->first($arr);
 
-        if (!$empRow && !$userRow) 
-        {
-            
+        if (!$empRow && !$userRow) {
             // password hashing 
-            $password = $data['contact_number'];
-            $hash = password_hash($password, PASSWORD_BCRYPT);
+            // $password = $data['contact_number'];            
+            $randomPassword = $this->generateRandomPassword(7);
+
+            $hash = password_hash($randomPassword, PASSWORD_BCRYPT);
+
             $data['password'] = $hash;
 
             $employee->insert($data);
@@ -95,8 +94,38 @@ class EmployeeDetails extends Controller
             $all_users = new AllUsers();
             $arr['email'] = $_POST['email'];
             $all_users->insert($arr);
+
+            $sendmail = new SendMail;
+            $res = $sendmail->sendVerificationEmail($_POST['email'], $randomPassword, $_POST['emp_name'], "pass");
         }
 
         redirect("manager/employeedetails");
+    }
+
+    function generateRandomPassword($length = 8)
+    {
+        //  password for used characters
+        $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        $numbers = '0123456789';
+        $specialChars = '!@#$%^&*-=+';
+
+        // At least one character from each category
+        $password = $uppercase[mt_rand(0, strlen($uppercase) - 1)];
+        $password .= $lowercase[mt_rand(0, strlen($lowercase) - 1)];
+        $password .= $numbers[mt_rand(0, strlen($numbers) - 1)];
+        $password .= $specialChars[mt_rand(0, strlen($specialChars) - 1)];
+
+        // Fill the remaining length with random characters
+        $remainingLength = $length - 4;
+        $allChars = $uppercase . $lowercase . $numbers . $specialChars;
+        for ($i = 0; $i < $remainingLength; $i++) {
+            $password .= $allChars[mt_rand(0, strlen($allChars) - 1)];
+        }
+
+        // Shuffle the password to make the order of characters
+        $password = str_shuffle($password);
+
+        return $password;
     }
 }
