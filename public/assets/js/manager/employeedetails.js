@@ -1,9 +1,3 @@
-let nextID = 1;
-
-let popupView = document.getElementById("popup-view");
-let overlay = document.getElementById("overlay");
-let popupNew = document.querySelector(".popup-new");
-
 
 // function addEmployee() {
 //     var table = document.getElementById("employee-table");
@@ -306,6 +300,13 @@ let popupNew = document.querySelector(".popup-new");
 //     nextID--;
 //   }
 
+let nextID = 1;
+
+let popupView = document.getElementById("popup-view");
+let overlay = document.getElementById("overlay");
+let popupNew = document.querySelector(".popup-new");
+
+
 function openNew(){
   popupNew.classList.add("open-popup-new");
   overlay.classList.add("overlay-active");
@@ -323,11 +324,12 @@ function closeView(){
 //data fetching ftom submit button
 
   function openView(button) {
+    
   
     // Get the data attribute value from the clicked button
     const empData = button.getAttribute("data-order");
     
-    console.log(empData);
+    console.log("empData");
   
     if (empData) {
       // Parse the JSON data
