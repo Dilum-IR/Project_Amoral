@@ -28,6 +28,7 @@ class EmailVerify extends Controller
                 $user_n  = $_POST['un'];
 
                 $userData = $user->first($arr);
+                $empData = $employee->first($arr);
 
                 unset($userData->password);
                 unset($userData->phnnum_verified);
@@ -37,7 +38,9 @@ class EmailVerify extends Controller
                     // not verified customer email 
                     $user_type = "user";
                     $this->Verify($user, $employee, $_POST, $user_type, $userData);
-                } else {
+                }
+
+                else if (!isset($empData)) {
                     // all data unset method
                     foreach ($_POST as $key => $value) {
                         unset($_POST[$key]);
@@ -50,11 +53,11 @@ class EmailVerify extends Controller
                     exit;
                 }
 
-                $empData = $employee->first($arr);
 
-                if ($empData && $user_n === 2) {
+                else if ($empData) {
                     // not verified employee email 
                     $user_type = "employee";
+                    // echo $user_type;
                     $this->Verify($user, $employee, $_POST, $user_type, $empData);
                 } else {
                     // all data unset method
@@ -118,21 +121,19 @@ class EmailVerify extends Controller
 
                     echo json_encode($res);
                     exit;
-                } 
-                else if ($employee->first($arr)) {
+                } else if ($employee->first($arr)) {
 
                     // verification code valid, when update the user filed
                     $updateData['email_verified'] = 1;
                     $updateData['email_otp'] = 0;
-                    $employee->update($allData->id, $updateData, 'emp_id');
+                    $employee->update($allData->emp_id, $updateData, 'emp_id');
 
                     $res['flag'] = 1;
                     $res['title'] = "Valid OTP Code ";
                     $res['msg'] = "Verification Successfull 😀🎉";
                     echo json_encode($res);
                     exit;
-                } 
-                else {
+                } else {
 
                     $res['flag'] = 0;
                     $res['title'] = "Invalid OTP Code ";
@@ -222,13 +223,13 @@ class EmailVerify extends Controller
             }
 
             if ($response) {
-                $res['flag'] = 0;
+                $res['flag'] = 1;
                 $res['title'] = "Sorry Try Again";
                 $res['msg'] = "Can't Sent The OTP Code";
 
                 echo json_encode($res);
             } else {
-                $res['flag'] = 1;
+                $res['flag'] = 0;
                 $res['title'] = "Please Try Again";
                 $res['msg'] = "OTP Send Successfull 😀🎉";
                 echo json_encode($res);
@@ -242,5 +243,4 @@ class EmailVerify extends Controller
             $sendmail->sendVerificationEmail($email, $verificationCode, $anyName);
         }
     }
-
 }

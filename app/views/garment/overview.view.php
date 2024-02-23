@@ -167,8 +167,6 @@
 
                     <!-- Anlysis Containers -->
 
-
-
                     <div class="table-data">
 
                         <!-- left side container -->
@@ -263,44 +261,10 @@
                             </ul>
                         </div>
 
-
-                        <!-- right side container -->
                     </div>
 
                 </main>
 
-                <div class="right">
-                    <div class="chat">
-                        <div class="chat-title">
-
-                            <h3>Chat With Company</h3>
-                        </div>
-                        <div class="chat-container">
-                            <!-- update -->
-
-                            <div class="chat-box" id="chat-box"></div>
-                            <input type="text" id="message-input" placeholder="Type a message...">
-                            <button onclick="sendMessage()">Send</button>
-
-                            <!-- <div class="profile-photo">
-
-
-                            </div>
-                            <div class="message-box">
-                                message
-                                <p><b>Mike John</b>
-                                    asbggsdzjgsdgsdsdxgfchvjbkawdsfegd
-                                </p>
-                                <small class="text-muted">
-                                    2 Minutes ago
-                                </small> -->
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
 
             </div>
 

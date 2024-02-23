@@ -6,6 +6,7 @@
   <!-- Link Styles -->
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/profile.css">
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/button.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/boxicons.min.css">
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -19,7 +20,6 @@
 
 <body>
 
-
   <!-- Sidebar -->
   <?php include 'sidebar.php' ?>
   <!-- Navigationbar -->
@@ -31,7 +31,7 @@
       <!-- Left Section -->
       <div class="left">
         <div class="left-part">
-          <img src="https://i.imgur.com/cMy8V5j.png" alt="user">
+          <img src="<?= ROOT ?>/uploads/profile_img/default-img.png" alt="user">
           <h2 class="profile-name">Alex William</h2>
           <h4 class="profession">Distributor</h4>
           <div class="edit-pic">
@@ -55,7 +55,7 @@
           <form method="POST">
 
             <?php if (isset($data)) {
-              ?>
+            ?>
               <div class="info_data">
                 <div class="data">
                   <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name </label>
@@ -96,13 +96,17 @@
                 </div>
 
                 <div class="pro_button">
-                  <button type="button" class="small_btn discard_btn" name="discard" value="discard">Discard</button>
-                  <button type="submit" class="small_btn save_btn" name="save" value="save">Save Changes</button>
+                  <button type="button" class="small_btn discard_btn ltor-button" name="discard" value="discard">Discard</button>
+                  <button type="submit" class="small_btn save_btn rtol-button" name="save" value="save">
+                    <span>
+                      Save Changes
+                    </span>
+                  </button>
                 </div>
               </div>
 
 
-              <?php
+            <?php
             } else {
               redirect("signin");
             }
@@ -114,7 +118,7 @@
 
         <!-- Change Password Section -->
         <div class="info">
-          <h3 class="h3">Security Update
+          <h3 class="h3">Change Password
             <hr>
           </h3>
           <form method="POST">
@@ -122,8 +126,7 @@
               <div class="data">
                 <label class="pro_label" for="pro_email">Current Password</label>
                 <span class="hide-icon">
-                  <input class="pro_input" type="password" id="c-password" name="password"
-                    placeholder="Enter current password">
+                  <input class="pro_input" type="password" id="c-password" name="password" placeholder="Enter current password">
 
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
@@ -134,8 +137,7 @@
                 <label class="pro_label" for="pro_date">New Password</label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="password" id="n-password" name="new_password"
-                    placeholder="Enter New password">
+                  <input class="pro_input" type="password" id="n-password" name="new_password" placeholder="Enter New password">
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                   </a>
@@ -148,21 +150,26 @@
                 <label class="pro_label" for="pro_profession">Confirm Password</label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="text" id="re-password" name="confirm_password"
-                    placeholder="Enter Confirm password">
+                  <input class="pro_input" type="text" id="re-password" name="confirm_password" placeholder="Enter Confirm password">
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                   </a>
                 </span>
               </div>
               <div class="pro_button">
-                <button type="button" class="small_btn discard_btn" name="discardP" value="discardP">Discard</button>
-                <button type="submit" class="small_btn save_btn" name="saveP" value="saveP">Save Changes</button>
+                <button type="submit" class="small_btn discard_btn" name="discardP" value="discardP" href="http://localhost/project_Amoral/public/customer/profile">Discard</button>
+                <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP">
+                <span>
+
+                  Save Changes
+                </span>  
+              </button>
               </div>
             </div>
           </form>
         </div>
       </div>
+    </div>
     </div>
 
 

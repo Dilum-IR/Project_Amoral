@@ -126,20 +126,23 @@ if (
                                 success: function(res) {
                                     try {
 
-                                        // convet to the json type
                                         console.log(res)
+                                        // convet to the json type
                                         Jsondata = JSON.parse(res)
+
 
                                         if (Jsondata.flag === 1) {
                                             // otp valid state
 
+                                            // toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 0);
+
                                             if (u == 1 || u == 2) {
-                                                // toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 0);
+
 
                                                 toastApply("Email Verified", "Login with Amoral... 😀🎉", 0);
 
                                                 setTimeout(() => {
-                                                    window.location.href = "<?=ROOT?>/signin"
+                                                    window.location.href = "<?= ROOT ?>/signin"
                                                 }, 4000);
 
                                                 return
@@ -149,7 +152,7 @@ if (
                                                 toastApply("Signup Success", "Login with Amoral... 😀🎉", 0);
 
                                                 setTimeout(() => {
-                                                    window.location.href = "<?=ROOT?>/signin"
+                                                    window.location.href = "<?= ROOT ?>/signin"
                                                 }, 4000);
                                                 return
                                             }

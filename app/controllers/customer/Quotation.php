@@ -32,8 +32,6 @@ class Quotation extends Controller
             
             $this->view('customer/quotation', $data);
 
-
-
             if (isset($_POST['updateOrder'])) {
                 $order_id = $_POST['order_id'];
                 // show($_POST);
@@ -363,4 +361,3 @@ class Quotation extends Controller
 }
 }
 }
-

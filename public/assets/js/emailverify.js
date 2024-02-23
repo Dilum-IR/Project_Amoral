@@ -97,11 +97,10 @@ resend.addEventListener("click", function (e) {
       // convet to the json type
       try {
         Jsondata = JSON.parse(res);
-        console.log(Jsondata);
+        // console.log(Jsondata);
 
         // otp valid state
-        toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, `${Jsondata.flag}`);
-
+        toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, Jsondata.flag);
       } catch (error) {}
     },
     error: function (xhr, status, error) {

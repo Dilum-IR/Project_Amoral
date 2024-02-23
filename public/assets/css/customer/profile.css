@@ -19,7 +19,7 @@ h3 {
 #main {
   position: relative;
   height: 100%;
-  top: 76px;
+  top: 65px;
   left: 76px;
   width: calc(100% - 78px);
   transition: all 0.5s ease;
@@ -35,17 +35,17 @@ h3 {
 
 .wrapper {
   margin-left: 5px;
-  /* height: 88vh; */
   width: 98%;
   display: flex;
-  box-shadow: 0 0px 10px -5px rgba(197, 197, 197, 0.288);
   border-radius: 30px;
+  box-shadow: 0 0px 10px -5px rgb(0, 0, 0);
 
   /* Prevents scroll bars */
   /* overflow: hidden;  */
 }
 
 .wrapper .left {
+  height: 85vh;
   /* background-image: url('https://i.imgur.com/cMy8V5j.png'); */
   /* background-size: cover; */
 
@@ -99,15 +99,22 @@ h3 {
 }
 
 .wrapper .right {
-  height: fit-content;
+  height: 85vh;
   width: 70%; /* Adjusted right section width */
   background: #fff;
   padding: 1% 5%;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   font-size: 0.8em;
+  position: relative;
+  align-items: center;
+  justify-content:space-between;
   /* overflow-y: auto;  */
   /* Enable scroll if needed */
+}
+
+.right .info{
+  margin-top: 40px;
 }
 
 .pro_input {
@@ -229,7 +236,7 @@ ion-icon {
   background-color: #f10800;
 }
 .wrapper .right .pro_button .save_btn:hover {
-  background-color: #00af35;
+  /* background-color: #00af35; */
 }
 
 .wrapper .right .pro_button .discard_btn {
