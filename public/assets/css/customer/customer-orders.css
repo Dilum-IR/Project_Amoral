@@ -20,6 +20,25 @@ body{
   /* background: url('../../images/customer/bg.png') center / cover; */
 }
 
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: #202020;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: #000000;
+}
+
+::-webkit-scrollbar-track{
+  background: #f1f1f1;
+}
+
+
+
 #main {
   position: absolute;
   top: 78px;
@@ -343,12 +362,24 @@ tbody tr:hover{
   background-color: #cfb103c7;
 }
 
-.text-status.processing{
+.text-status.cutting{
+  background-color: #1c7012cc;
+}
+
+.text-status.printing{
+  background-color: #1c7012cc;
+}
+
+.text-status.sewing{
   background-color: #1c7012cc;
 }
 
 .text-status.delivering{
   background-color: #0c5fcdc7;
+}
+
+.text-status.cancelled{
+  background-color: #cf0303c7;
 }
 
 .popup-view, 
@@ -577,6 +608,10 @@ textarea{
 .status ul li .one,
 .status ul li .active{
   background-color: green;
+}
+
+.status ul li .cancel{
+  background-color: red;
 }
 
 .progress::after {
@@ -943,7 +978,7 @@ select {
 }
 
 .popup-view .input-box.placedDate {
-  margin-top: -200px;
+  margin-top: -180px;
 }
 
 hr.first {

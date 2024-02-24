@@ -74,54 +74,50 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        if (!empty($data['order'])) {
 
-                            foreach ($data['order'] as $order) : ?>
-                                <?php if ($order->order_status != "cancelled") : ?>
-                                    <?php $material = array(); ?>
-                                    <tr>
-
-                                        <td><?php echo $order->order_id ?></td>
-                                        <td><?php echo $order->order_placed_on ?></td>
-                                        <td>
-                                            <?php foreach ($data['material_sizes'] as $sizes) : ?>
-                                                <?php if ($sizes->order_id == $order->order_id) : ?>
-                                                    <?php $material[] = $sizes ?>
-                                                    <?php echo $sizes->material_type ?><br>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </td>
-                                        <td class="desc">
-                                            <?php foreach ($data['material_sizes'] as $sizes) :
-                                                if ($sizes->order_id == $order->order_id) :
-                                                    echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl
-                                            ?>
-                                                    <br>
-                                            <?php endif;
-                                            endforeach; ?>
-                                        </td>
-                                        <td class="st">
-                                            <div class="text-status <?php echo $order->order_status ?>"><?php echo $order->order_status ?></div>
-                                        </td>
-
-                                        <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
-                                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                                    </tr>
-
-                                <?php endif; ?>
-                            <?php endforeach;
-                        } else { ?>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>No Orders Avaliable...</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-
-                            </tr>
-                        <?php } ?>
+                    <?php if(isset($data['order'])): ?> 
+                    <?php foreach($data['order'] as $order):?>
+                           
+                                <?php $material = array(); ?>
+                                <?php $sleeve = array(); ?>
+                                <?php $pType = array(); ?>
+                        <tr>
+                            
+                            <td><?php echo $order->order_id ?></td>
+                            <td><?php echo $order->order_placed_on ?></td>
+                            <td>
+                            <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                        <?php $material[] = $sizes?>
+                                        
+                                    <?php echo $sizes->material_type ?><br>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
+                            <td class="desc">
+                                <?php foreach($data['material_sizes'] as $sizes):?>
+                                    <?php if($sizes->order_id == $order->order_id) :?>
+                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </td>
+                            <td class="st">
+                                <div class="text-status <?php echo $order->order_status ?>">
+                                    <?php if($order->order_status == 'cutting' || $order->order_status == 'printing' || $order->order_status == 'sewing'): ?>
+                                        <?php echo "processing" ?>
+                                    <?php else: ?>
+                                        <?php echo $order->order_status ?>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                        
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                        </tr>
+                        
+                        
+                        <?php endforeach; ?>
+                        <?php endif; ?>
 
                     </tbody>
                 </table>
@@ -211,7 +207,7 @@
 
                     </div>
                     <div class="input-box">
-                        <span class="details">Order Id </span>
+                        <span class="details">Order ID </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
                     <div class="input-box" style="height: 0;">
@@ -240,8 +236,9 @@
                 <div class="user-details pickup">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
+                    
+                        <input type="date" name="dispatch_date_pickup">
 
-                        <input type="text" name="dispatch_date_pickup" readonly value="" />
                     </div>
                 </div>
 
@@ -271,15 +268,15 @@
 
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
-
-                        <input type="text" name="dispatch_date_delivery" readonly value="" />
+                    
+                        <input type="date" name="dispatch_date_delivery" >
                     </div>
                     <div class="input-box">
                         <span class="details addr">City</span>
+                    
+                        <input name="city" type="text">
 
-                        <select name="city">
 
-                        </select>
                     </div>
 
 
@@ -299,8 +296,41 @@
 
                 <hr class="second">
 
+                <div class="prices">
+                    
+                    <p style="text-align: right; margin: 10px 30px;"></p><br>
+                    
+                    <table class="price-details-container">
+                        <tr>
+                            <th>Material</th>
+                            <th>Sleeve Type</th>
+                            <th>Printing Type</th>
+                            <th>Quantity</th>
+                            <th>Unit Price(Rs.)</th>
+                        </tr>
 
-                <div class="user-details">
+                        <tr class="discount" style="display: hidden;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Discount(%)</td>
+                            <td class="discountPrice">0</td>
+                        </tr>
+    
+                        <tr class="total">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td class="totalPrice">0</td>
+
+                            <input type="hidden" name="total_price" />
+                        </tr>
+                    </table>
+                </div>
+
+
+                <!-- <div class="user-details">
                     <div class="input-box">
                         <span class="details">Unit Price</span>
                         <input name="unit_price" type="text" required onChange="" readonly value="" />
@@ -318,7 +348,10 @@
                         <input name="remaining_payment" type="text" required onChange="" readonly value="" />
                         <button class="pay">Pay</button>
                     </div>
-                </div>
+
+                </div> -->
+                
+
 
 
                 <input type="button" class="update-btn pb" value="Update Order" />
@@ -331,26 +364,26 @@
                             <input type="submit" class="yes" value="Yes" name="updateOrder" />
                             <input type="button" class="no" value="No" />
                         </div>
+                        
+                    </div> 
+                </div> 
+                
+                <div class="cd-popup" role="alert">
+                    <div class="cd-popup-container">
+                        <p>Are you sure you want to cancel this order?</p>
+                        <div class="cd-buttons">
+                            <input type="submit" class="yes"  value="Yes" name="cancelOrder"/>
+                            <input type="button" class="no" value="No"/>
+                        </div>
+                        
+                    </div> 
+                </div> 
+            </div>
 
-                    </div>
-                </div>
-
-        </div>
         </form>
     </div>
 
 
-
-    <div class="cd-popup" role="alert">
-        <div class="cd-popup-container">
-            <p>Are you sure you want to cancel this order?</p>
-            <div class="cd-buttons">
-                <a href="">Yes</a>
-                <a href="">No</a>
-            </div>
-
-        </div>
-    </div>
 
 
 
@@ -422,11 +455,11 @@
                     <div class="input-box design">
                         <span class="details">Design<span class="error files"></span></span>
                         <div class="radio-btns">
-                            <input type="radio" id="pdf" value="PDF">
-                            <label for="pickup">PDF</label>
+                            <input type="radio" id="pdf" name="fileType" value="PDF">
+                            <label for="pdf">PDF</label>
 
-                            <input type="radio" id="imagesUpload" value="Images">
-                            <label for="delivery">Images</label>
+                            <input type="radio" id="imagesUpload" name="fileType" value="Images">
+                            <label for="imagesUpload">Images</label>
                         </div>
                         <input type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
                         <button class="removeButton pdf" data-input-id="pdfFileToUpload">Remove</button><br>
@@ -616,7 +649,7 @@
 
 
                 <script>
-                    //add price data dynamically
+                    //add price data dynamically in new order popup
                     let material = document.querySelector(".popup-new .user-details select[name='material[]']");
                     let sleeve = document.querySelector(".popup-new .user-details select[name='sleeve[]']");
                     let printingType = document.querySelector(".popup-new .user-details select[name='printingType[]']");
@@ -653,7 +686,8 @@
 
                     function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice) {
                         let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
-                        doc.querySelector(".unitPrice").innerHTML = unitPrice;
+
+                        doc.querySelector(".unitPrice").innerHTML = unitPrice;                    
 
 
                         doc.querySelector("input[name='unit_price[]']").value = unitPrice;
@@ -667,7 +701,7 @@
                         document.querySelectorAll(".units").forEach(function(unit) {
                             total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
                         });
-                        document.querySelector(".totalPrice").innerHTML = total;
+                        document.querySelector(".popup-new .totalPrice").innerHTML = total;
 
                         document.querySelector(".popup-new input[name='total_price']").value = total;
                         console.log("tot" + document.querySelector(".popup-new input[name='total_price']").value);
@@ -727,10 +761,23 @@
 
                         updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
                     });
+
+
+
+                    //add price data dynamically in new order popup
+                    let qunatityView = document.querySelector(".popup-view .sizes");
+
+                    
+
+
+                        
+
                 </script>
 
                 <script>
-                    //toggle delivery options
+ 
+                    //toggle delivery options of new order
+
                     let deliveryN = document.getElementById("deliveryN");
                     let pickUpN = document.getElementById("pickupN");
 
@@ -738,24 +785,45 @@
                     pickUpN.addEventListener('click', togglePickUpN);
                     deliveryN.addEventListener('click', toggleDeliveryN);
 
-                    function togglePickUpN() {
 
+                    // clear the other option when one is selected
+                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                        pickupDate.addEventListener('change', function(){
+                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate =>{
+                                deliveryDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                        deliveryDate.addEventListener('change', function(){
+                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate =>{
+                                pickupDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    function togglePickUpN(){
+                        
                         document.querySelector(".user-details.pickupN").classList.add("is-checked");
                         document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-                        document.querySelector(".deliveryN #dispatch_date_delivery").value = "";
+                        
 
                     }
 
                     function toggleDeliveryN() {
                         document.querySelector(".user-details.deliveryN").classList.add("is-checked");
                         document.querySelector(".user-details.pickupN").classList.remove("is-checked");
-                        document.querySelector(".pickupN #dispatch_date_pickup").value = "";
                     }
                 </script>
 
                 <script>
+
                     let addMaterial = document.querySelector(".popup-new .add.card");
                     let count = 0;
+
 
                     function addMaterialCard() {
                         var newCard = document.createElement("div");
@@ -822,6 +890,7 @@
                                 </div>
                             `;
 
+
                         newCard.style.transition = "all 0.5s ease-in-out";
                         addMaterial.before(newCard);
 
@@ -829,17 +898,20 @@
                         newPriceRow.className = "units";
 
                         newPriceRow.innerHTML = `
+
                                 <td class="materialType"></td>
                                 <td class="sleeveType"></td>
                                 <td class="printingType"></td>
                                 <td class="quantityAll">0</td>
                                 <td class="unitPrice">0</td>
 
-                                <input type="hidden" name="unit_price[]" >   
+                                <input type="hidden" name="unit_price[]">   
 
                             `;
 
-                        document.querySelector(".price-details-container .total").before(newPriceRow);
+
+                            document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
+
 
                         let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
 
@@ -913,8 +985,10 @@
                                 }
                             });
 
+
                             updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
                         });
+
 
 
 

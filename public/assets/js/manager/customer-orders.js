@@ -2,7 +2,7 @@ let popupView = document.getElementById("popup-view");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
-let closeReportBtn = document.querySelector(".popup-report .close");
+let closeNewBtn = document.querySelector(".popup-new .close");
 let payBtn = document.querySelector(".pay");
 
 let sidebar = document.querySelector(".sidebar");
@@ -12,6 +12,8 @@ let progress1 = document.querySelector(".status ul li .one");
 let progress2 = document.querySelector(".status ul li .two");
 let progress3 = document.querySelector(".status ul li .three");
 let progress4 = document.querySelector(".status ul li .four");
+let progress5 = document.querySelector(".status ul li .five");
+let progress6 = document.querySelector(".status ul li .six");
 let orderCancel = document.querySelector("form .cancel-btn");
 let orderUpdate = document.querySelector("form .update-btn");
 let deleteConfirm = document.querySelector(".cd-popup");
@@ -62,6 +64,22 @@ updateYes.addEventListener('click', function(){
     updateConfirm.classList.remove('is-visible');
 });
 
+//validate the delivery dates
+let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
+let datesView = document.querySelectorAll('.popup-view input[type="date"]');
+
+let today = new Date();
+let todayStr = today.toISOString().split('T')[0];
+let fiveDaysLater = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6).toISOString().split('T')[0];
+
+datesNew.forEach(date => {
+    date.setAttribute('min', todayStr);
+});
+
+datesView.forEach(date => {
+    date.setAttribute('min', fiveDaysLater);
+});
+
 
 let reportForm = document.querySelector(".popup-report form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
@@ -98,8 +116,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-
+// close buttons
 closeViewBtn.addEventListener('click', closeView);
+closeNewBtn.addEventListener('click', closeNew);
 
 
 function validateReport() {
@@ -152,9 +171,9 @@ function clearErrorMsg() {
 
 
 function removeActiveClass() {
-    progress2.classList.remove("active");
-    progress3.classList.remove("active");
-    progress4.classList.remove("active");
+    document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+        li.classList.remove("active");
+    });
 }
 
 function openView(button) {
@@ -162,6 +181,8 @@ function openView(button) {
     // Get the data attribute value from the clicked button
     const orderData = button.getAttribute("data-order");
     const materialData = button.getAttribute("data-material");
+    const customersData = button.getAttribute("data-customers");
+
 
     console.log(orderData);
 
@@ -171,49 +192,141 @@ function openView(button) {
         // Parse the JSON data
         const order = JSON.parse(orderData);
         const material = JSON.parse(materialData);
+        const customers = JSON.parse(customersData);
 
         switch (order.order_status) {
-            case 'processing':
+            case 'cutting' :
                 progress2.classList.add("active");
+                break;
+
+            case 'printing':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                break;
+
+            case 'sewing':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress4.classList.add("active");
                 break;
 
             case 'delivering':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
+                progress4.classList.add("active");
+                progress5.classList.add("active");
                 break;
 
             case 'completed':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress4.classList.add("active");
+                progress5.classList.add("active");
+                progress6.classList.add("active");
+                break;
+
+            case 'cancelled':
+                progress1.classList.add("cancel");
                 break;
 
         }
 
+        // update the status bar when clicked the next status
+        let statuses = ['pending', 'cutting', 'printing', 'sewing', 'delivering', 'completed']
+        let changedStatus = order.order_status;
+        let i = -1;
+        let prevStatus = null;
+        
+        document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+            li.addEventListener('click', function () {
+                let prevLi = this.parentElement.previousElementSibling;
+                console.log(prevLi);
+                let nextLi = this.parentElement.nextElementSibling;
+                if ((prevLi && nextLi) || prevLi.querySelector('.progress').classList.contains("five")) {
+                    let prevProgress = prevLi.querySelector('.progress');
+                    let nextProgress = null;
+                    if(!prevProgress.classList.contains("five")){
+                        nextProgress = nextLi.querySelector('.progress');
+
+                    }
+                    console.log(nextProgress);
+                    if (prevProgress && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
+                        this.classList.toggle("active");
+                        console.log(this);
+                    }
+                }
+                if(this.classList.contains("active")){
+                    i++;
+                    updateStatus(this.classList);
+                }else{
+                    changedStatus = prevStatus;                 
+                    i--;
+                }
+                prevStatus = statuses[i];
+                // console.log('prevstatus      '+prevStatus);
+                // console.log('status    '+changedStatus);
+                document.querySelector('.update-form input[name="order_status"]').value = changedStatus;
+                // console.log(document.querySelector('.update-form input[name="order_status"]').value);
+            });
+        });
+
+        function updateStatus(classes){
+            console.log(classes);
+            if (classes.contains("two") && classes.contains("active")) {
+                changedStatus = 'cutting';
+            } else if (classes.contains("three") && classes.contains("active")) {
+                changedStatus = 'printing';
+            } else if (classes.contains("four") && classes.contains("active")) {
+                changedStatus = 'sewing';
+            } else if (classes.contains("five") && classes.contains("active")) {
+                changedStatus = 'delivering';
+            } else if (classes.contains("six") && classes.contains("active")) {
+                changedStatus = 'completed';
+            }
+        }
+
+
         var today = new Date();
         var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
 
-
+       
         // Populate the "update-form" fields with the order data
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
+        document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
 
         let existingCards = document.querySelectorAll('.user-details.new-card');
+        let existingPriceRows = document.querySelectorAll('.price-details-container .units');
 
         // Remove each existing newCard element
         existingCards.forEach(function(card) {
             card.remove();
         });
 
-        $qunatity = 0;
+        // Remove each existing priceRow element
+        existingPriceRows.forEach(function(row) {
+            row.remove();
+        }
+        );
+
+
+        let quantity = 0;
+        let countv = 0;
         for(let i=0; i<material.length; i++){
             console.log(material[i]);
-            addMaterialCardView(material[i]);
-            $qunatity += parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
+            quantity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
+            addMaterialCardView(material[i], quantity, countv);
         }
-        console.log($qunatity);
+        
+
+        // update the total price when discount is updated
+        let discountInput = document.querySelector('.popup-view input[name="discount"]');
+        discountInput.addEventListener('change', function(){
+            updateTotalPrice();
+        });
+
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
-        document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
+        // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
 
         if(order.is_delivery == 1){
             document.querySelector(".delivery").classList.add("is-checked");
@@ -225,18 +338,30 @@ function openView(button) {
         }
 
 
-        document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * $qunatity;
+        document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
         document.querySelector('.update-form input[name="discount"]').value = order.discount;
-        document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
+        // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
         
+        // document.querySelector('.update-form .totalPrice').value = order.total_price;
+
+
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
-        document.querySelector('.update-form select[name="city"]').value = order.city;
+        document.querySelector('.update-form input[name="city"]').value = order.city;
         document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
         document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
 
         document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
 
 
+        // populate the customer details
+        document.querySelector('.update-form input[name="id"]').value = order.user_id;
+        customers.forEach(customer => {
+            if(customer.id == order.user_id){
+                document.querySelector('.update-form input[name="fullname"]').value = customer.fullname;
+                document.querySelector('.update-form input[name="email"]').value = customer.email;
+                document.querySelector('.update-form input[name="phone"]').value = customer.phone;
+            }
+        });
 
         popupView.classList.add("is-visible");
         document.body.style.overflow = "hidden";
@@ -258,37 +383,57 @@ function openView(button) {
     }
 
 }
+
+
 function closeView() {
     popupView.classList.remove("is-visible");
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
+
+    document.querySelector('.update-form').reset();
 }
 
-function openReport() {
-    popupReport.classList.add("is-visible");
+function openNew(){
+    popupNew.classList.add("is-visible");
     document.body.style.overflow = "hidden";
     sidebar.style.pointerEvents = "none";
     nav.style.pointerEvents = "none";
 }
-function closeReport() {
-    popupReport.classList.remove("is-visible");
+function closeNew(){
+    popupNew.classList.remove("is-visible");
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
 
-    reportForm.reset();
+    document.querySelector(".price-details-container").innerHTML = `
+            <tr>
+                <th>Material</th>
+                <th>Sleeve Type</th>
+                <th>Printing Type</th>
+                <th>Quantity</th>
+                <th>Unit Price(Rs.)</th>
+            </tr>
+            <tr>
+                <td class="materialType"></td>
+                <td class="sleeveType"></td>
+                <td class="printingType"></td>
+                <td class="quantityAll">0</td>
+                <td class="unitPrice">0</td>
+            </tr>`;
+    document.querySelector(".new-form").reset();
 }
 
 
-let countv = 0;
-function addMaterialCardView(material) {
+
+
+function addMaterialCardView(material, quantity, countv ) {
     var newCard = document.createElement("div");
     newCard.className = "user-details new-card";
 
     
     newCard.innerHTML = `
-    <i class="fas fa-minus remove"></i>
+        <i class="fas fa-minus remove"></i>
         <div class="input-box">
             <span class="details">Material </span>
             <input name="material[]" value="${material['material_type']}" readonly value="">
@@ -300,6 +445,26 @@ function addMaterialCardView(material) {
                 
             </input>
                         
+        </div>
+
+        <div class="input-box">
+            <span class="details">Sleeves</span>
+            <input name="sleeve[]" value="${material['type']}" readonly value="">
+                
+                <?php foreach($data['sleeveType'] as $sleeve):?>
+                    <input type="hidden" name="sleeve_id[]" value="${material['sleeve_id']}">
+            <?php endforeach;?>
+            </input>
+        </div>
+
+        <div class="input-box" style="margin-left: 30px;">
+            <span class="details">Printing Type</span>
+            <input name="printingType[]" value="${material['printing_type']}" readonly value="">
+                
+                <?php foreach($data['printingType'] as $printing):?>
+                    <input type="hidden" name="ptype_id[]" value="${material['ptype_id']}">
+                <?php endforeach;?>
+            </input>
         </div>
 
         <div class="input-box sizes">
@@ -331,18 +496,71 @@ function addMaterialCardView(material) {
     document.querySelector(".popup-view .add.card").before(newCard);
     countv++;
 
+    var newPriceRow = document.createElement("tr");
+    newPriceRow.className = "units";
+    
+    newPriceRow.innerHTML = `
+    <td class="materialType">${material['material_type']}</td>
+    <td class="sleeveType">${material['type']}</td>
+    <td class="printingType">${material['printing_type']}</td>
+    <td class="quantityAll">${quantity}</td>
+    <td><input type="text" name="unit_price[]" class="unitPrice" style="border: none;" value="${material['unit_price']}"></td>
+`;
+    
+    document.querySelector(".price-details-container .discount").before(newPriceRow);
+    
     let removeCard = newCard.querySelector("i");
+
+    // hide the remove button for the first card
+    console.log(countv);
+    if(!newCard.previousElementSibling.classList.contains("new-card") && countv == 1){
+        removeCard.style.display = "none";
+        newCard.querySelector(".input-box").style.marginLeft = "30px";
+    }
 
     removeCard.addEventListener('click', function(){
         countv--;
-        if(countv == 0){
-            removeCard.style.display = "none";
-        } else {
-            newCard.remove();
-        }
-    });
-    
 
+            //remove cards and reduce the prices from the total
+            let removedPrice = parseInt(newPriceRow.querySelector(".unitPrice").innerText) * parseInt(newPriceRow.querySelector(".quantityAll").innerText);
+            let tot = parseInt(document.querySelector(".popup-view .totalPrice").innerText);
+            // console.log(removedPrice);
+            newCard.remove();
+            newPriceRow.remove();
+            document.querySelector(".popup-view .totalPrice").innerHTML = tot - removedPrice;
+        
+    });
+
+    //update price when quantity is changed
+    let quantityInputs = newCard.querySelectorAll(".st");
+    quantityInputs.forEach(input =>{
+        input.addEventListener('change', function(){
+            let quantity = 0;
+            quantityInputs.forEach(input =>{
+                quantity += parseInt(input.value);
+            });
+            newPriceRow.querySelector(".quantityAll").innerText = quantity;
+            updateTotalPrice();
+        });
+    });
+
+
+}
+
+function updateTotalPrice(){
+    let total = 0;
+    document.querySelectorAll(".units").forEach(function(unit){
+        total += parseInt(unit.querySelector(".popup-view input[name='unit_price[]']").value) * parseInt(unit.querySelector(".quantityAll").innerHTML);
+        // console.log(unit.querySelector(".quantityAll").innerHTML);
+    });
+    let discount = parseInt(document.querySelector(".popup-view input[name='discount']").value);
+    console.log(discount);
+    total *= (100 - discount) / 100;
+    console.log(total);
+    // document.querySelector(".popup-view .totalPrice").innerHTML = total;
+
+    document.querySelector(".popup-view input[name='total_price']").value = total;
+    console.log("tot"+document.querySelector(".popup-view input[name='total_price']").value);
 }
 
 
