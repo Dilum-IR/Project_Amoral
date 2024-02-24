@@ -10,7 +10,7 @@ function show($stuff)
 
 function redirect($path){
 
-    header("Location:  ". ROOT ."/"."$path");
+    header("Location: ". ROOT ."/"."$path");
     die;
 
 }

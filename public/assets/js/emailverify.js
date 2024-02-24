@@ -1,3 +1,5 @@
+const webUrl = "http://localhost/project_Amoral/public";
+
 const inputs = document.querySelectorAll(".otp-card-inputs input");
 const button = document.querySelector(".verify");
 const otp = document.querySelector(".otp-card");
@@ -67,6 +69,7 @@ function startTimer() {
     }
   }, 1000);
 }
+
 //  resend OTP method
 resend.addEventListener("click", function (e) {
   e.preventDefault();
@@ -79,6 +82,30 @@ resend.addEventListener("click", function (e) {
   inputs.forEach((input) => {
     // Clear the otp value of each input field
     input.value = "";
+  });
+
+  data = {
+    email: verify,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: `${webUrl}/resendOtp`,
+    data: data,
+    cache: false,
+    success: function (res) {
+      // convet to the json type
+      try {
+        Jsondata = JSON.parse(res);
+        // console.log(Jsondata);
+
+        // otp valid state
+        toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, Jsondata.flag);
+      } catch (error) {}
+    },
+    error: function (xhr, status, error) {
+      // return xhr;
+    },
   });
 });
 
@@ -101,11 +128,10 @@ function getOtp() {
   setTimeout(() => {
     button.removeAttribute("disabled");
     l_icon.style.display = "none";
-  }, 5000);
+  }, 3000);
 
   // OTP bind & convert to the integer
   var result = parseInt(array.join(""));
 
   return result;
 }
-

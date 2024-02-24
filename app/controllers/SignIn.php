@@ -232,8 +232,7 @@ class SignIn extends Controller
 
                     $res = $sendmail->sendVerificationEmail($email, $verificationCode, $POST['fullname']);
 
-                    $response = $user->insert($POST);
-
+                    $user->insert($POST);
 
                     // save user email in another table for chat with users
                     $all_users = new AllUsers();

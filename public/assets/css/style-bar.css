@@ -319,6 +319,7 @@ body{
 }
 
 .notifi-box h2 span{
+  /* padding-top: 5px; */
   color: #ff0000;
 }
 
@@ -391,7 +392,9 @@ nav .nav-link .icon {
 
 nav .nav-icons{
 	width: auto;
-	padding-top: 22px;
+  align-items: center;
+  justify-content: center;
+	padding-top: 13px;
 	display: flex;
   float: right;
 
@@ -400,7 +403,7 @@ nav .nav-icons{
 
 nav .nav-link .bell-notification {
 	position: absolute;
-	top: -13px;
+	top: -9px;
 	right: 10px;
 	width: 20px;
 	height: 20px;
@@ -429,6 +432,21 @@ nav .nav-link .chat-notification {
 	color: var(--color-light);
 	font-size: 10px;
 	font-weight: 700;
+}
+.nav-icons .notifi{
+	padding-top: 5px;
+
+}
+
+#user_image {
+
+  width: 40px;
+  height: 40px;
+  img{
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+}
 }
 /* nav .nav-profile{
   float: right;

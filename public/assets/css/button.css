@@ -1,0 +1,130 @@
+/* <button class="rtol-button"><span>Place Order</span></button> */
+/* ----------- right to left animated btton ----------- */
+.rtol-button {
+  margin-left: 36%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: black;
+  font-size: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+}
+
+.rtol-button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: white;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.rtol-button:hover {
+  border: 2.5px solid black !important;
+  /* border-style: dashed; */
+  box-shadow: 0px 0px 5px 2px rgba(105, 105, 105, 0.322);
+}
+.rtol-button span {
+  text-align: center;
+  text-decoration: none;
+  width: max-content;
+  /* padding: 18px 25px; */
+  color: #fff;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.rtol-button:hover span {
+  color: black;
+  /* font-size: 14px; */
+  font-weight: bold;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+.rtol-button:hover::after {
+  right: auto;
+  left: 0;
+  width: 100%;
+}
+
+.rtol-button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.514); */
+  background-color: white;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+/* ----------- right to left animated btton ----------- */
+
+/* ----------- left to right animated btton ----------- */
+.ltor-button {
+  margin-left: 36%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  background: black;
+  font-size: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+}
+
+.ltor-button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  background: white;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  right: 0;
+}
+
+.ltor-button:hover {
+  border: 2.5px solid black;
+  /* border-style: dashed; */
+  box-shadow: 0px 0px 5px 2px rgba(105, 105, 105, 0.322);
+}
+.ltor-button span {
+  text-align: center;
+  text-decoration: none;
+  width: max-content;
+  /* padding: 18px 25px; */
+  color: #fff;
+  z-index: 20;
+  transition: all 0.3s ease-in-out;
+}
+
+.ltor-button:hover span {
+  color: black;
+  /* font-size: 14px; */
+  font-weight: bold;
+  animation: scaleUp 0.3s ease-in-out;
+}
+
+.ltor-button:hover::after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+
+.ltor-button:after {
+  content: " ";
+  width: 0%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.514); */
+  background-color: white;
+  position: absolute;
+  transition: all 0.4s ease-in-out;
+  left: 0;
+}
