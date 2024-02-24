@@ -196,6 +196,7 @@ class CustomerOrders extends Controller
                 }
 
                 redirect('customer/orders');
+                exit;
             }
 
             if (isset($_POST['updateOrder'])){

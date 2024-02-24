@@ -756,6 +756,110 @@ button.pay:hover {
   transform: scale(1.1);
 }
 
+.popup-new .fileType{
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 90px;
+  margin-left: 60px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.popup-new .input-box.design{
+  margin-top: -125px;
+}
+
+.removeButton {
+  color: red;
+  position: relative;
+  border: none;
+ 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-left: 67%;
+  cursor: pointer;
+  display: none;
+}
+
+.popup-new .input-box.design .radio-btns{
+  margin-left: 20%;
+}
+
+.popup-new .input-box.design .radio-btns input{
+  height: auto;
+}
+
+.add.card .left {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  margin-left: 40%;
+  margin-bottom: 15px;
+  cursor: pointer;
+  color: #000000aa;
+  transition: all 0.5s ease-in-out;
+}
+
+.add.card .left:hover{
+  color: #000000;
+}
+
+i.fas.fa-minus {
+  position: relative;
+  right: 25px;
+  color: red;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+hr.first {
+  border-top: 1px dashed #911515;
+  border-bottom: none;
+}
+hr.second {
+
+  border: dashed 1px #5a4a4a7b;
+  margin: 5px;
+}
+
+
+.radio-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 20px 47% 20px 36%;
+  align-items: center;
+}
+
+.radio-btns input[type="radio"]:checked + label {
+  color: #000; 
+}
+
+.radio-btns input[type="radio"]:not(:checked) + label {
+  color: #999; 
+}
+
+.radio-btns label {
+  cursor: pointer;
+}
+
+.price-details-container {
+  min-width: auto;
+  margin-bottom: 20px;
+}
+
+.input-box.placedDate {
+  margin-top: -184px;
+}
+
+.input-box.city {
+  margin-top: -240px;
+}
+
+
 .user-details .input-box input,
 select {
   width: 80%;
@@ -769,7 +873,8 @@ select {
   border-bottom-width: 2px;
 }
 
-.popup-view .pb{
+.popup-view .pb,
+.popup-new .pb{
   position: relative;
   bottom: 4px;
   width: 100%;
@@ -787,7 +892,8 @@ select {
   /* transform: scale(0.9); */
 }
 
-.popup-view .pb:hover{
+.popup-view .pb:hover,
+.popup-new .pb:hover{
   /* transform: scale(1); */
   font-size: 17px;
   font-weight: 200;
@@ -962,7 +1068,8 @@ hr.second {
 
 
 .pickup,
-.delivery{
+.delivery,
+.deliveryN{
   opacity: 0;
   height: 0;
   transition: opacity 0.2s ease-in-out, height 2s ease;

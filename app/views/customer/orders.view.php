@@ -73,6 +73,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php if(isset($data['order'])): ?> 
                     <?php foreach($data['order'] as $order):?>
                            
                                 <?php $material = array(); ?>
@@ -114,7 +115,7 @@
                         
                         
                         <?php endforeach; ?>
-               
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -303,6 +304,14 @@
                             <th>Quantity</th>
                             <th>Unit Price(Rs.)</th>
                         </tr>
+
+                        <tr class="discount" style="display: hidden;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Discount(%)</td>
+                            <td class="discountPrice">0</td>
+                        </tr>
     
                         <tr class="total">
                             <td></td>
@@ -439,11 +448,11 @@
                     <div class="input-box design">
                         <span class="details">Design<span class="error files"></span></span>
                         <div class="radio-btns">
-                            <input type="radio" id="pdf" value="PDF">
-                            <label for="pickup">PDF</label>
+                            <input type="radio" id="pdf" name="fileType" value="PDF">
+                            <label for="pdf">PDF</label>
 
-                            <input type="radio" id="imagesUpload" value="Images">
-                            <label for="delivery">Images</label>
+                            <input type="radio" id="imagesUpload" name="fileType" value="Images">
+                            <label for="imagesUpload">Images</label>
                         </div>
                         <input type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
                         <button class="removeButton pdf" data-input-id="pdfFileToUpload">Remove</button><br>

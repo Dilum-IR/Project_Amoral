@@ -2,7 +2,7 @@ let popupView = document.getElementById("popup-view");
 let popupReport = document.querySelector(".popup-report");
 let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
-let closeReportBtn = document.querySelector(".popup-report .close");
+let closeNewBtn = document.querySelector(".popup-new .close");
 let payBtn = document.querySelector(".pay");
 
 let sidebar = document.querySelector(".sidebar");
@@ -116,8 +116,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-
+// close buttons
 closeViewBtn.addEventListener('click', closeView);
+closeNewBtn.addEventListener('click', closeNew);
 
 
 function validateReport() {
@@ -291,7 +292,7 @@ function openView(button) {
        
         // Populate the "update-form" fields with the order data
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
-     
+        document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
 
         let existingCards = document.querySelectorAll('.user-details.new-card');
         let existingPriceRows = document.querySelectorAll('.price-details-container .units');
@@ -316,6 +317,13 @@ function openView(button) {
             addMaterialCardView(material[i], quantity, countv);
         }
         
+
+        // update the total price when discount is updated
+        let discountInput = document.querySelector('.popup-view input[name="discount"]');
+        discountInput.addEventListener('change', function(){
+            updateTotalPrice();
+        });
+
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
         // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
@@ -330,11 +338,11 @@ function openView(button) {
         }
 
 
-        // document.querySelector('.update-form input[name="total_price"]').value = order.unit_price * $qunatity;
-        // document.querySelector('.update-form input[name="discount"]').value = order.discount;
+        document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
+        document.querySelector('.update-form input[name="discount"]').value = order.discount;
         // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
         
-        document.querySelector('.update-form .totalPrice').innerHTML = order.total_price;
+        // document.querySelector('.update-form .totalPrice').value = order.total_price;
 
 
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
@@ -384,6 +392,36 @@ function closeView() {
     nav.style.pointerEvents = "auto";
 
     document.querySelector('.update-form').reset();
+}
+
+function openNew(){
+    popupNew.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
+}
+function closeNew(){
+    popupNew.classList.remove("is-visible");
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
+
+    document.querySelector(".price-details-container").innerHTML = `
+            <tr>
+                <th>Material</th>
+                <th>Sleeve Type</th>
+                <th>Printing Type</th>
+                <th>Quantity</th>
+                <th>Unit Price(Rs.)</th>
+            </tr>
+            <tr>
+                <td class="materialType"></td>
+                <td class="sleeveType"></td>
+                <td class="printingType"></td>
+                <td class="quantityAll">0</td>
+                <td class="unitPrice">0</td>
+            </tr>`;
+    document.querySelector(".new-form").reset();
 }
 
 
@@ -466,9 +504,8 @@ function addMaterialCardView(material, quantity, countv ) {
     <td class="sleeveType">${material['type']}</td>
     <td class="printingType">${material['printing_type']}</td>
     <td class="quantityAll">${quantity}</td>
-    <td class="unitPrice">${material['unit_price']}</td>
-    
-    <input type="hidden" name="unit_price[]" value="${material['unit_price']}"> `;
+    <td><input type="text" name="unit_price[]" class="unitPrice" style="border: none;" value="${material['unit_price']}"></td>
+`;
     
     document.querySelector(".price-details-container .discount").before(newPriceRow);
     
@@ -513,9 +550,14 @@ function addMaterialCardView(material, quantity, countv ) {
 function updateTotalPrice(){
     let total = 0;
     document.querySelectorAll(".units").forEach(function(unit){
-        total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
+        total += parseInt(unit.querySelector(".popup-view input[name='unit_price[]']").value) * parseInt(unit.querySelector(".quantityAll").innerHTML);
+        // console.log(unit.querySelector(".quantityAll").innerHTML);
     });
-    document.querySelector(".popup-view .totalPrice").innerHTML = total;
+    let discount = parseInt(document.querySelector(".popup-view input[name='discount']").value);
+    console.log(discount);
+    total *= (100 - discount) / 100;
+    console.log(total);
+    // document.querySelector(".popup-view .totalPrice").innerHTML = total;
 
     document.querySelector(".popup-view input[name='total_price']").value = total;
     console.log("tot"+document.querySelector(".popup-view input[name='total_price']").value);

@@ -212,6 +212,7 @@ function openView(button) {
                 break;
 
         }
+            
 
         var today = new Date();
         var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
@@ -243,6 +244,16 @@ function openView(button) {
             addMaterialCardView(material[i], quantity, countv);
         }
     
+
+        // if the order is processing only delivery details can be updated
+        let inputs = document.querySelectorAll(".update-form .st");
+        if(order.order_status != "pending"){
+            inputs.forEach(input => {
+                input.setAttribute("readonly", "true");
+                
+            });
+        }
+
         // document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
 
         // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
@@ -259,6 +270,9 @@ function openView(button) {
 
         document.querySelector('.update-form .totalPrice').innerHTML = order.total_price;
         console.log(order.total_price);
+        document.querySelector('.update-form .discountPrice').innerHTML = order.discount;
+        console.log(order.discount);
+
         // document.querySelector('.update-form input[name="discount"]').value = order.discount;
         // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
         
@@ -433,7 +447,7 @@ function addMaterialCardView(material, quantity, countv) {
     
     <input type="hidden" name="unit_price[]" value="${material['unit_price']}"> `;
     
-    document.querySelector(".price-details-container .total").before(newPriceRow);
+    document.querySelector(".price-details-container .discount").before(newPriceRow);
     
     let removeCard = newCard.querySelector("i");
 
