@@ -343,10 +343,6 @@ tbody tr:hover{
   transition: all 0.3s ease-in-out;
 }
 
-.st {
-  padding: 0%;
-  margin-left: 2%;
-}
 
 .text-status {
   display: inline-block;
@@ -355,7 +351,7 @@ tbody tr:hover{
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
-  margin-left: 10%;
+  /* margin-left: 10%; */
 }
 
 .text-status.pending{
@@ -804,9 +800,11 @@ form .sizes {
   flex-direction: column;
 }
 
-button.pay {
 
-  position: relative;
+
+/* button.pay {
+
+  position: absolute;
   width: 48px;
   height: 31px;
   margin-top: 6px;
@@ -823,7 +821,7 @@ button.pay {
 button.pay:hover {
   background: #3bec24;
   transform: scale(1.1);
-}
+} */
 
 .popup-new .fileType{
   display: flex;

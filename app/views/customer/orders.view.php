@@ -111,8 +111,8 @@
                                 </div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
-                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                            <td class="btns"><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                            <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave"></i> Pay</button></td>
                         </tr>
                         
                         

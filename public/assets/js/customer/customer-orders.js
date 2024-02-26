@@ -4,7 +4,7 @@ let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
 let closeReportBtn = document.querySelector(".popup-report .close");
 let closeNewBtn = document.querySelector(".popup-new .close");
-let payBtn = document.querySelector(".pay");
+// let payBtn = document.querySelector(".pay");
 
 let sidebar = document.querySelector(".sidebar");
 let nav = document.getElementById("navbar");
@@ -303,9 +303,9 @@ function openView(button) {
             orderCancel.style.display = "none";
         }
 
-        if(order.remaining_payment == 0){
-            payBtn.style.display = "none";
-        }
+        // if(order.remaining_payment == 0){
+        //     payBtn.style.display = "none";
+        // }
 
     }
 
