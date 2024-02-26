@@ -4,21 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=ROOT ?>/assets/css/_404.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/_404.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/button.css">
+
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
     <title>Amoral</title>
 </head>
 
 <body>
 
-<div class="erro_page">
-    <img src="<?=ROOT?>/assets/images/404.gif" alt="">
-    <p>404 View Page Not Found </p>
-    <div class="erro_page" >
-
-        <a href="<?=ROOT?>/home">Home</a> 
+    <div class="erro_page">
+        <img src="<?= ROOT ?>/assets/images/404.gif" alt="404 image">
+        <p>404 Page Not Found </p>
+        <a href="<?= ROOT ?>/home" class="rtol-button">
+            <span>
+                home
+            </span>
+        </a>
     </div>
-
-</div>
 </body>
 
 </html>

@@ -905,7 +905,7 @@ nav .icon-cancel {
   -webkit-text-stroke: 0px rgba(255, 255, 255, 0.23);
   border-right: 0px solid rgb(255, 255, 255);
   overflow: hidden;
-  text-align: right;
+  text-align: center;
   animation: color-animation 7s linear 1;
   background-color: #000000b0;
 }

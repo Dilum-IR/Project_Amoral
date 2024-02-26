@@ -120,31 +120,40 @@ if (
 
                             $.ajax({
                                 type: "POST",
-                                url: "<?=ROOT?>/verifyOtp",
+                                url: "<?= ROOT ?>/verifyOtp",
                                 data: data,
                                 cache: false,
                                 success: function(res) {
-                                    // convet to the json type
-                                    console.log(res)
                                     try {
 
+                                        console.log(res)
+                                        // convet to the json type
                                         Jsondata = JSON.parse(res)
+
 
                                         if (Jsondata.flag === 1) {
                                             // otp valid state
-                                            toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 0);
+
+                                            // toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 0);
 
                                             if (u == 1 || u == 2) {
+
+
+                                                toastApply("Email Verified", "Login with Amoral... 😀🎉", 0);
+
+                                                setTimeout(() => {
+                                                    window.location.href = "<?= ROOT ?>/signin"
+                                                }, 4000);
+
                                                 return
                                             } else {
+                                                // toastApply(`${Jsondata.title}`, `${Jsondata.msg}`, 0);
+
+                                                toastApply("Signup Success", "Login with Amoral... 😀🎉", 0);
 
                                                 setTimeout(() => {
-                                                    toastApply("Signup Success", "Login with Amoral... 😀🎉", 0);
-                                                }, 5500);
-
-                                                setTimeout(() => {
-                                                    window.location.href = "http://localhost/project_Amoral/public/signin"
-                                                }, 10000);
+                                                    window.location.href = "<?= ROOT ?>/signin"
+                                                }, 4000);
                                                 return
                                             }
 

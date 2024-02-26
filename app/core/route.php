@@ -35,6 +35,7 @@ route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
 
 
+
 // manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');
 route('manager/chatbox', 'manager/ChatBox@chatbox');
@@ -55,6 +56,7 @@ route('customer/orders', 'customer/customerOrders');
 route('manager/overview','manager/Overview@index');
 route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
+route('manager/garmentdetails', 'manager/GarmentDetails@index');
 
 
 route('signinData', 'SignIn@formData');

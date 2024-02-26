@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Customer</title>
+    <title>Amoral</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/quotation.css">
@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
+  <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
 </head>
 
 <body>

@@ -13,6 +13,10 @@ function openView(data){
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 }
+function openView(){
+    popupView.classList.add("open-popup-view");
+    overlay.classList.add("overlay-active");
+}	
 function closeView(){
     popupView.classList.remove("open-popup-view");
     overlay.classList.remove("overlay-active");
