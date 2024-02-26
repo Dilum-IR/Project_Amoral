@@ -20,8 +20,9 @@
     position: relative;
     top: 70px;
     width: 100%;
+    height: 100%;
     background-color: var(--color-light);
-    height: auto;
+    /* height: auto; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,12 +41,15 @@
 }
 
 .t-shirt-icons {
-    height: auto;
+    height: 60px;
     display: flex;
     align-items: center;
     /* justify-content: center; */
-    gap: 17px;
-    padding: 10px;
+    gap: 15px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+
     /* background-color: rgb(255, 255, 255); */
 }
 
@@ -54,17 +58,24 @@
 }
 
 .t-shirt-section {
+    /* height: 100vh; */
     margin-left: 0px;
     align-items: center;
     z-index: 1;
+    /* height: 590px; */
+    /* margin-top:0 ; */
 }
 
 .text-section,
 .t-shirt-section {
+    margin-left: 15px;
+    margin-right: 15px;
     background-color: white;
     padding: 15px;
     border-radius: 25px;
     box-shadow: 0px 0px 10px 1px rgb(199, 199, 199);
+    /* margin-top: 0; */
+    
 }
 
 .t-shirt-color-preset {
@@ -109,7 +120,7 @@
 .design-section {
     width: 47%;
     /* background-color: green; */
-    height: auto;
+    /* height: auto; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -167,7 +178,7 @@
 
 #t-shirt-text {
     border: 2px solid grey;
-    border-radius: 25px;
+    border-radius: 15px;
     padding: 10px;
     height: 40px;
     box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.1);
@@ -197,7 +208,7 @@
     width: 80px;
     height: 40px;
     background-color: black;
-    border-radius: 25px;
+    border-radius: 15px;
     border-style: none;
     transition: 0.3s ease;
     color: white;
@@ -221,7 +232,7 @@
 
 .text-font {
     border: 2px solid grey;
-    border-radius: 25px;
+    border-radius: 15px;
     padding: 10px;
     height: 40px;
     box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.1);
@@ -278,7 +289,9 @@
     gap: 16px;
     align-items: center;
     /* justify-content: center; */
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
 }
 
 #text-color,
@@ -286,8 +299,8 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 91px;
-    height: 50px;
+    width: 80px;
+    height: 40px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -309,7 +322,7 @@
 }
 
 #download-button {
-    width: 100%;
+    width: 90%;
     display: flex;
     gap: 25px;
     padding: 15px 15px;
@@ -324,6 +337,7 @@
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.7);
     align-items: center;
     justify-content: center;
+    margin-left: 20px;
 }
 
 #download-icon {
@@ -350,15 +364,15 @@ input[type="radio"] {
     position: relative;
     color: #191919;
     /* font-family: "Poppins", sans-serif; */
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 7px;
     border: 2px solid #191919;
     padding: 10px 10px;
-    border-radius: 20px;
-    height: 40px;
+    border-radius: 15px;
+    height: 35px;
 }
 
 .t-shirt-label::before {
@@ -386,7 +400,9 @@ input[type="radio"] {
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
 }
 
 #t-shirt-custom-design {
@@ -422,16 +438,18 @@ input[type="radio"] {
 
 .t-shirt-front-back {
     display: flex;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    
 }
 
 .custom-designs {
     width: 323px;
-    height: 200px;
+    height: 180px;
     overflow-y: auto;
     /* Enable vertical scrolling */
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 
 .available-designs {

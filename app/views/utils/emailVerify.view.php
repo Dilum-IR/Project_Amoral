@@ -34,6 +34,7 @@ if (
             <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
             <!-- loading css -->
             <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+            
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
             <title>Amoral Verify</title>
@@ -44,7 +45,7 @@ if (
             <!-- loading page  & toast msg content-->
             <?php
             include "loading.php";
-            include 'toastMsg.php'
+            include 'toastMsg.php';
             ?>
 
             <div class="page-content">

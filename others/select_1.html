@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Lanka Districts</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    select:hover,
+    select:focus {
+      border-color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <label for="districtSelect">Select a District:</label>
+  <select id="districtSelect" >
+    <!-- Populate options dynamically from the array -->
+    <!-- You can use JavaScript to generate these options -->
+    <script>
+      const sriLankaDistricts = [
+        "Colombo",
+        "Gampaha",
+        "Kalutara",
+        "Kandy",
+        "Matale",
+        "Nuwara Eliya",
+        "Galle",
+        "Matara",
+        "Hambantota",
+        "Jaffna",
+        "Mannar",
+        "Vavuniya"
+      ];
+
+      const selectElement = document.getElementById("districtSelect");
+
+      // Populate options dynamically
+      sriLankaDistricts.forEach(district => {
+        const option = document.createElement("option");
+        option.value = district;
+        option.text = district;
+        selectElement.appendChild(option);
+      });
+    </script>
+  </select>
+
+</body>
+</html>

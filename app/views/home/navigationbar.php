@@ -12,15 +12,6 @@
             margin-top: -10px !important;
         }
 
-        .black-btn:hover {
-            position: relative;
-            color:  #191919;
-          
-            background-color:white;
-        
-        }
-
-
         .nav-sign-btn {
             position: relative;
             font-size: 14px;
@@ -44,6 +35,13 @@
             border-style: solid;
             border-color: white;
             border-width: 1px;
+            transition: 0.5s ease-in-out;
+        }
+        .black-btn:hover {
+            position: relative;
+            color:  #191919;
+            background-color:white;
+            
         }
         .white-btn{
             background-color: white;
@@ -51,14 +49,23 @@
             border-style: solid;
             border-color: white;
             border-width: 1px;
+            transition: 0.5s ease-in-out;
+        }
+
+        .white-btn:hover {
+            color:  white !important;
+            background-color:black;
+        
         }
         .icon{
             font-size: 22px !important;
         }
     </style>
     <nav>
-        <div class="company-logo">
-            <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="#" class="logo">
+        <div class="company-logo" >
+            <a href="<?= ROOT ?>/home">
+                <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="logo" class="logo">
+            </a>
         </div>
         <div class="nav-icons">
             <a href="<?= ROOT ?>/tool" class="nav-link tooltips" value="Create Design">
