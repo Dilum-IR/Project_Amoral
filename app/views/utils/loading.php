@@ -4,16 +4,16 @@
 <div class="loader-wrapper">
     <div class="loader"></div>
     <div>
-        <img src="<?= ROOT ?>/assets/images/amorallogo.png" width="80px" height="80px" alt="">
+        <img class="load-img" src="<?= ROOT ?>/assets/images/amorallogo.png" width="80px" height="80px" alt="loading...">
     </div>
 </div>
 
-</div>
 <script>
     $(window).on("load", function() {
-        $(".loader-wrapper").fadeOut(1400);
-        $(".page-content").fadeIn(1500);
+        $(".loader-wrapper").fadeOut(1100);
+        $(".page-content").fadeIn(1200);
     });
+
 </script>
 
 <!-- Jquary library -->

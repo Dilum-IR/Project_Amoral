@@ -94,10 +94,17 @@ try {
         setTimeout(() => {
           toastApply("Network Error", "Use the resend verification code");
         }, 50);
+        break;
+
       case 9:
         setTimeout(() => {
-          toastApply("Email is not Verifyed ", "Please Verify Your Email Address");
+          toastApply(
+            "Email is not Verifyed ",
+            "Please Verify Your Email Address"
+          );
         }, 50);
+        break;
+
       default:
         break;
     }
@@ -108,12 +115,13 @@ try {
         setTimeout(() => {
           toastApply("Sign up", successData.success, 0);
         }, 50);
-
         break;
       case 2:
         setTimeout(() => {
           toastApply("Sign in", successData.success, 0);
         }, 50);
+        break;
+
       case 3:
         // popup when verification code sent
         setTimeout(() => {
@@ -123,8 +131,8 @@ try {
             0
           );
         }, 50);
-
         break;
+
       default:
         break;
     }

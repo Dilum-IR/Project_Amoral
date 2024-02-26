@@ -22,12 +22,14 @@
             <div class="chat-header">
 
                 <!-- <span class="close-btn" onclick="toggleChat()">×</span> -->
+                
+                <!-- 👋 Hi, message us with any questions. We're happy to help! -->
 
                 <div class="main-content">
 
                     <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
                     <div class="user">
-                        <p id="header-user">Chat With Amoral</p>
+                        <p id="header-user">Chat with uc</p>
                         <div class="user-status hide">
                             <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
                             <p id='typing' class="user-online">Offline</p>
