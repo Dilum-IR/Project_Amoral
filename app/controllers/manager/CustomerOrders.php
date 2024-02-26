@@ -16,6 +16,9 @@ class CustomerOrders extends Controller
 
         if ($username != 'User') {
 
+            // show($_SESSION['USER']->emp_id);
+
+
             $data['orders'] = $order->findAll('order_id');
             $data['customers'] = $customer->findAll();
             $data['material_sizes'] = $order->getFullData();
@@ -27,14 +30,15 @@ class CustomerOrders extends Controller
             
             $this->view('manager/customerorders', $data);
 
+            date_default_timezone_set('Asia/Kolkata');
+            $current_date = date("Y-m-d");
+
             if ( isset($_POST['newOrder']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
                 // show($_POST);
                 //need to validate
                 unset($_POST['newOrder']);
 
 
-                date_default_timezone_set('Asia/Kolkata');
-                $current_date = date("Y-m-d");
 
                 if(isset($_POST['latitude']) && $_POST['longitude']){
                     $_POST['is_delivery'] = 1;
@@ -250,6 +254,13 @@ class CustomerOrders extends Controller
                         'xxl' => $xxl
                     ]);
                     // show($insert2);
+                }
+
+                // insert a garment order if the order status is cutting
+                // show($_SESSION['USER']->id);
+                if($_POST['order_status'] == 'cutting'){
+                    $garment_order = new GarmentOrder;
+                    $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending', 'placed_date' => $current_date]);
                 }
 
                 unset($_POST);
