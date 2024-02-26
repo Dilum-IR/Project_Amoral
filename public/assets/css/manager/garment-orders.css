@@ -147,6 +147,104 @@ form .form-input button:hover {
   font-size: 1.2rem;
 }
 
+/* draggable items */
+.garments{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+
+  margin: 19px 32px;
+
+  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  border-radius: 20px;
+  background: ghostwhite;
+  padding: 24px;
+}
+
+.save-edit{
+  background-color: #000000; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  position: relative;
+  left: 90%;
+  top: -70px;
+  cursor: pointer;
+  border-radius: 3px;
+  transform: scale(0.9);
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+}
+
+.categories {
+  display: flex;
+}
+
+.category {
+
+  background-color: #f1f0f6;
+  border: 1px solid #f1f0f6;
+  padding: 10px;
+  margin: 10px;
+  min-width: 220px;
+  border-radius: 10px;
+  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+
+}
+
+.category.orders{
+  min-width: 500px;
+}
+
+.category.orders .items{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(auto, 1fr));
+  gap: 10px;
+}
+
+
+.draggable {
+  border: 1px solid #000000;
+  padding: 5px;
+  margin: 5px 0;
+  cursor: grab;
+}
+
+.draggable.pending{
+  border: 1px solid #f1c40f;
+  background-color: #f1c40f94;
+}
+
+.draggable.sewing{
+  border: 1px solid #0c5fcdc7;
+  background-color: #0c5fcdc7;
+}
+
+.draggable.cutting{
+  border: 1px solid #1c7012cc;
+  background-color: #1c7012cc;
+} 
+
+.dropzone {
+  border: 2px dashed #ccc;
+  min-height: 100px;
+  margin: 10px;
+}
+
+.drag-over {
+  border: 2px dashed #000;
+}
+/* Add a CSS class for the shadow effect */
+
+/* Adjust the shadow properties as needed */
+.shadow {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow effect for the dragged item */
+}
+
 
 .ok-btn {
   position: absolute;
@@ -337,6 +435,10 @@ tbody tr:hover{
   padding: 2px 12px;
   font-size: 1em;
   margin-left: 10%;
+}
+
+.text-status.pending{
+  background-color: #f1c40f;
 }
 
 .text-status.sewing{

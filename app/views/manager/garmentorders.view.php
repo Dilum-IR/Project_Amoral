@@ -50,6 +50,48 @@
 
         </form>
 
+        <div >
+            <div class="garments">
+                <div class="categories">
+                    <div class="category orders" id="pickupCategory">
+                        <h2>Pending Orders</h2>
+                        <div class="items">
+                            <?php if(isset($data['garment_orders'])): ?>
+                                <?php foreach($data['garment_orders'] as $order): ?>
+                                    <?php if($order->status == 'pending'): ?>
+                                        <div class="draggable pending" draggable="true" id="<?php echo $order->garment_order_id ?>"><?php echo $order->garment_order_id ?></div>
+                                    <?php endif;?>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <?php if(isset($data['garments'])): ?>
+                        <?php foreach($data['garments'] as $garment): ?>
+                            <div class="category garments" id="<?php echo $garment->garment_id ?>">
+                                <h3><?php echo $garment->name ?> - <?php echo $garment->location ?></h3>
+                                <!-- <h3></h3> -->
+                                <div class="items">
+                                    <?php if(isset($data['garment_orders'])): ?>
+                                        <?php foreach($data['garment_orders'] as $order): ?>
+                                            <?php if($order->garment_id == $garment->garment_id && $order->status != 'pending'): ?>
+                                                <div class="draggable <?php echo $order->status ?>" draggable="false" id="<?php echo $order->garment_order_id ?>"><?php echo $order->garment_order_id ?></div>
+                                            <?php endif;?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
+                </div>
+            </div>
+
+            <button class="save-edit">
+                <i class="bx bx-edit">Save</i>
+            </button>
+        </div>
+
         <div class="table">
             <!-- <div class="table-header">
                 <p>Order Details</p>
@@ -62,7 +104,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Order Id</th>
+                            <th>Order Id</th>	
                             <th>Garment Id</th>
                             <th>In Charge</th>
                             <th>Customer Order Id</th>
@@ -71,10 +113,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data as $order): ?>
+                        <?php foreach($data['garment_orders'] as $order): ?>
                         <!-- <?php if(!$order->is_quotation): ?> -->
                         <tr>
-                            <td class="ordId"><?php echo $order->order_id ?></td>
+                            <td><?php echo $order->garment_order_id ?></td>
                             <td><?php echo $order->garment_id ?></td>
                             <td><?php echo $order->emp_name ?></td>
                             <td><?php echo $order->order_id ?> </td>
