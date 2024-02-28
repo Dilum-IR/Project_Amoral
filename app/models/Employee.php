@@ -202,7 +202,7 @@ class Employee
 			$this->errors['flag'] = true;
 			$this->errors['error'] = "Contact Number is invalid ";
 		}
-		 show($this->errors);
+		 //show($this->errors);
 
 		
 
