@@ -17,7 +17,7 @@ class Profile extends Controller
                 unset($_POST['save']);
                 // show($_POST);
                 $error = $this->changeInfo($_POST, $_SESSION['USER']->emp_id, $employee);
-
+                //show($error);
             }
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
 
@@ -26,11 +26,30 @@ class Profile extends Controller
                 //show($_POST);
             }
 
-            // get the session user data for bind to the profile info
-            $data = $this->userInfo($_SESSION['USER']->emp_id, $employee);
+            if (!isset($error)) {
+                // get the session user data for bind to the profile info
+
+                $employeedata = $this->userInfo($_SESSION['USER']->emp_id, $employee);
+            }
+
+            $data['error'] = isset($error) ? $error : "";
+            $data['passerror'] = isset($passerror) ? $passerror : "";
+            $data['imagerror'] = isset($imagerror) ? $imagerror : "";
 
             // $data['msg'] = $result;
             // $data['error'] = $employee->errors;
+
+
+            if (isset($error)) {
+                $data['data'] = $_POST;
+            } else {
+                $data['data'] = $employeedata;
+            }
+
+            if (isset($passerror)) {
+                $data['pass'] = $_POST;
+            }
+
 
             // show($data);
 
@@ -52,16 +71,19 @@ class Profile extends Controller
         unset($row->password);
         unset($row->emp_id);
 
-        $data['data'] = $row;
-
-        return $data;
-        // show($row);
-
-        // $emprow = $employee->first($arr);
-
-
+        $empArr['emp_name'] = $row->emp_name;
+        $empArr['email'] = $row->email;
+        $empArr['DOB'] = $row->DOB;
+        $empArr['contact_number'] = $row->contact_number;
+        $empArr['emp_image'] = $row->emp_image;
+        $empArr['city'] = $row->city;
+        $empArr['address'] = $row->address;
+        // show($empArr);
+        return $empArr;
 
     }
+
+
     //  user chanage info data
     private function changeInfo($data, $id, $employee)
     {
@@ -84,7 +106,7 @@ class Profile extends Controller
             }
         }
 
-        if($employee->changeInfoValidate($data)) {
+        if ($employee->changeInfoValidate($data)) {
 
             $user = new User;
 
@@ -100,20 +122,21 @@ class Profile extends Controller
                 return $employee->errors;
             }
 
-            $employee->update($id, $data, 'id');
+            // Update userinfo
+            $employee->update($id, $data, 'emp_id');
             $_SESSION['USER']->fullname = $data['fullname'];
 
             // user email is changed then redirect to the sign in page 
             if ($_SESSION['USER']->email != $data['email']) {
 
                 $data = [];
-                $employee->update($id, ['email_verified' => 0], 'id');
+                $employee->update($id, ['email_verified' => 0], 'emp_id');
                 unset($_SESSION["USER"]);
                 session_destroy();
                 redirect('signin');
             } else {
 
-                redirect('customer/profile');
+                redirect('delivery/profile');
             }
             // show($update);
         } else {
@@ -121,32 +144,6 @@ class Profile extends Controller
         }
     }
 
-
-
-
-
-    // if ($employee->changeInfoValidate($data)) {
-
-    //     show($data);
-    //     $update = $employee->update($id, $data, 'emp_id');
-    //     //echo $update;
-    //     if ($update) {
-
-    //         redirect('delivery/profile');
-
-    //     } else {
-
-    //     }
-
-    // }
-
-
-
-
-
-
-
-    //show($data);
 
 
 
@@ -160,30 +157,90 @@ class Profile extends Controller
 
             $row = $employee->first($arr);
 
-            //show($employee->errors);
-
             $checkpassword = password_verify($data['password'], $row->password);
             if ($checkpassword === true) {
 
                 $hash = password_hash($data['confirm_password'], PASSWORD_DEFAULT);
                 $update = $employee->update($id, ['password' => $hash], 'emp_id');
-                // echo ("$update");
-                // redirect("delivery/profile");
 
-                //show($employee->errors);
+                $employee->errors['flag'] = false;
+                redirect("delivery/profile");
 
-                return "success";
+                return $employee->errors;
 
 
             } else {
-                return "Invalid";
-                //redirect("delivery/profile");
-                // echo ("Incorrect password");
+                $employee->errors['flag'] = true;
+                $employee->errors['password'] = "Invalid Current Password";
+                return $employee->errors;
             }
 
 
+        } else {
+            return $employee->errors;
         }
 
     }
+
+
+
+    // profile picture uploading
+    private function changeImage($data, $id, $user)
+    {
+
+        if ($_SESSION['USER']->user_image != "default-img.png") {
+
+            $currentImgPath = ROOT . "/uploads/profile_img/" . explode(' ', $_SESSION['USER']->fullname)[0];
+
+            // Check if the file exists before attempting to delete it
+            if (file_exists($currentImgPath)) {
+
+                // Remove the current image
+                unlink($currentImgPath);
+            }
+        }
+
+        $img_name = $_FILES['p_p']['name'];
+        $tmp_name = $_FILES['p_p']['tmp_name'];
+        $error = $_FILES['p_p']['error'];
+
+        if ($error === 0) {
+            // get image extention store it in variable
+            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+
+            // convet to image extetion into lowercase and store it in variable
+            $img_ex_lc = strtolower($img_ex);
+
+            // allowed image extetions
+            $allowed_exs = array("jpg", "jpeg", "png");
+
+            // check the allowed extention is present user upload image
+            if (in_array($img_ex_lc, $allowed_exs)) {
+
+                // image name username with image name
+                $new_img_name = explode(' ', $_SESSION['USER']->fullname)[0] . "." . $img_ex_lc;
+
+                // bind the change user image for session variable
+                $_SESSION['USER']->user_image = $new_img_name;
+
+                // creating upload path on root directory
+                $img_upload_path = "../../project_Amoral/public/uploads/profile_img/" . $new_img_name;
+
+                // move upload image for that folder
+                move_uploaded_file($tmp_name, $img_upload_path);
+
+                //update the databse image name
+                $user->update($id, ['emp_image' => $new_img_name], 'emp_id');
+                redirect('delivery/profile');
+            } else {
+                $fileError['flag'] = true;
+                $fileError['error'] = "You can't upload files of '" . $img_ex_lc . " ' type !";
+                // header("Location:../../signup.php?error=$em&$data");
+                return $fileError;
+            }
+        }
+    }
+
+
 
 }
