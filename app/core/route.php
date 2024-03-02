@@ -26,6 +26,9 @@ route('customer/quotation', 'customer/Quotation@index');
 route('customer/saveMsg', 'customer/customerOverview@saveMsg');
 route('customer/chatbox', 'customer/customerOverview@chat_data');
 
+//manager ajax endpoint
+route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');

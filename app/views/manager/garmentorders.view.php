@@ -6,7 +6,7 @@
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/garment-orders.css">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -51,46 +51,104 @@
         </form>
 
         <div >
-            <div class="garments">
-                <div class="categories">
+            <div class="garmentsCard">
+               
+                <div class="left">
                     <div class="category orders" id="pickupCategory">
                         <h2>Pending Orders</h2>
                         <div class="items">
+                        <div class="item">
+                            <p>Order Id</p>
+                            <p>Quantity</p>
+                        </div>
                             <?php if(isset($data['garment_orders'])): ?>
                                 <?php foreach($data['garment_orders'] as $order): ?>
-                                    <?php if($order->status == 'pending'): ?>
-                                        <div class="draggable pending" draggable="true" id="<?php echo $order->garment_order_id ?>"><?php echo $order->garment_order_id ?></div>
+                                    <?php if($order->status == 'pending' && $order->garment_id == null): ?>
+                                        <?php $totQuantity = 0; ?>
+
+                                        <?php foreach($data['order_material'] as $order_material): ?>
+                                            <?php if($order_material->order_id == $order->order_id): ?>
+                                                <?php $totQuantity += $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                        <div class="draggable pending" draggable="true" id="<?php echo $order->garment_order_id ?>"><p><?php echo $order->garment_order_id ?></p><p><?php echo $totQuantity ?></p></div>
                                     <?php endif;?>
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
                     </div>
+                </div>
 
+                <div class="right">
                     <?php if(isset($data['garments'])): ?>
                         <?php foreach($data['garments'] as $garment): ?>
                             <div class="category garments" id="<?php echo $garment->garment_id ?>">
                                 <h3><?php echo $garment->name ?> - <?php echo $garment->location ?></h3>
                                 <!-- <h3></h3> -->
                                 <div class="items">
+                                    <div class="item">
+                                        <p>Orders</p>
+                                        <p>Quantity</p>
+                                    </div>
                                     <?php if(isset($data['garment_orders'])): ?>
+                                        <?php $count = 0; ?>
+                                        <?php $totQuantity = 0; ?>
                                         <?php foreach($data['garment_orders'] as $order): ?>
                                             <?php if($order->garment_id == $garment->garment_id && $order->status != 'pending'): ?>
-                                                <div class="draggable <?php echo $order->status ?>" draggable="false" id="<?php echo $order->garment_order_id ?>"><?php echo $order->garment_order_id ?></div>
+                                                <p><?php $count++; ?></p>
+                                                <?php foreach($data['order_material'] as $order_material): ?>
+                                                    <?php if($order_material->order_id == $order->order_id): ?>
+                                                        <?php $totQuantity += $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
                                             <?php endif;?>
                                         <?php endforeach; ?>
+                                        <div class="item">
+                                            <p><?php echo $count ?></p>
+                                            <p><?php echo $totQuantity ?></p>
+                                        </div>
                                     <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
-
                 </div>
+                
             </div>
 
             <button class="save-edit">
                 <i class="bx bx-edit">Save</i>
             </button>
         </div>
+
+        <!-- assign orders to garments -->
+        <script>
+            $('.save-edit').click(function() {
+                var order = [];
+                var garment = [];
+
+                $('.garments').each(function() {
+                    var id = $(this).attr('id');
+                    var orders = [];
+                    $(this).find('.draggable').each(function() {
+                        var order_id = $(this).attr('id');
+                        orders.push({id: order_id});
+                    });
+                    garment.push({garment_id: id, orders: orders});
+                });
+
+                console.log(garment);
+
+                $.ajax({
+                    url: '<?= ROOT ?>/manager/assignGarment',
+                    type: 'POST',
+                    data: {garments: garment},
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            });
+        </script>
 
         <div class="table">
             <!-- <div class="table-header">
@@ -105,8 +163,9 @@
                     <thead>
                         <tr>
                             <th>Order Id</th>	
-                            <th>Garment Id</th>
-                            <th>In Charge</th>
+                            <th>Garment Name</th>
+                            <th>Cutting Done On</th>
+                            <th>Sewing Done On</th>
                             <th>Customer Order Id</th>
                             <th>Status</th>
                             <th></th>
@@ -117,8 +176,9 @@
                         <!-- <?php if(!$order->is_quotation): ?> -->
                         <tr>
                             <td><?php echo $order->garment_order_id ?></td>
-                            <td><?php echo $order->garment_id ?></td>
-                            <td><?php echo $order->emp_name ?></td>
+                            <td><?php echo $order->name ?></td>
+                            <td><?php echo $order->cut_dispatch_date ?></td>
+                            <td><?php echo $order->sew_dispatch_date ?></td>
                             <td><?php echo $order->order_id ?> </td>
                             <td class="st">
                                 <div class="text-status <?php echo $order->status?>"><?php echo $order->status ?></div>
@@ -320,6 +380,7 @@
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    
     <script src="<?= ROOT ?>/assets/js/manager/garment-orders.js"></script>
 </body>
 
