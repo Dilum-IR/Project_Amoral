@@ -24,6 +24,8 @@
     <!-- content  -->
     <section id="main" class="main">
 
+        <div class="success-msg"> </div>
+
         <ul class="breadcrumb">
             <li>
                 <a href="#">Home</a>
@@ -45,27 +47,30 @@
                         </button>
                     </div>
                 </form>
-				<input class="new-btn" type="button" onclick="openNew()" value="+New Order">
+				<!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
 			</div>
 
         </form>
 
         <div >
             <div class="garmentsCard">
+
+                <span>Assign Orders</span>
                
                 <div class="left">
                     <div class="category orders" id="pickupCategory">
-                        <h2>Pending Orders</h2>
+                        <h3>Unassigned Orders</h3>
                         <div class="items">
-                        <div class="item">
-                            <p>Order Id</p>
-                            <p>Quantity</p>
-                        </div>
+                            <div class="item">
+                                <p>Order Id</p>
+                                <p>Quantity</p>
+                            </div>
+                            <?php $pendingOrders = false; ?>
                             <?php if(isset($data['garment_orders'])): ?>
                                 <?php foreach($data['garment_orders'] as $order): ?>
                                     <?php if($order->status == 'pending' && $order->garment_id == null): ?>
                                         <?php $totQuantity = 0; ?>
-
+                                        <?php $pendingOrders = true; ?>
                                         <?php foreach($data['order_material'] as $order_material): ?>
                                             <?php if($order_material->order_id == $order->order_id): ?>
                                                 <?php $totQuantity += $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
@@ -73,7 +78,14 @@
                                         <?php endforeach; ?>
                                         <div class="draggable pending" draggable="true" id="<?php echo $order->garment_order_id ?>"><p><?php echo $order->garment_order_id ?></p><p><?php echo $totQuantity ?></p></div>
                                     <?php endif;?>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                            <?php if(!$pendingOrders): ?>
+                                <script>
+                                    // document.querySelector('.item').style.display = 'none';
+                                    document.querySelector('.item').innerHTML = 'No orders to display';
+                                </script>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -112,6 +124,7 @@
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
+
                 </div>
                 
             </div>
@@ -145,8 +158,23 @@
                     data: {garments: garment},
                     success: function(response) {
                         console.log(response);
+                        sessionStorage.setItem('successMsg', 'Orders assigned successfully');
+                        location.reload();
+
                     }
                 });
+            });
+
+            $(document).ready(function(){
+                var successMsg = sessionStorage.getItem('successMsg');
+                if(successMsg){
+                    $('.success-msg').html(successMsg);
+                    $('.success-msg').fadeIn(500).delay(2000).fadeOut(500,
+                    function() {
+                        $(this).remove();
+                        sessionStorage.removeItem('successMsg');
+                    });
+                }
             });
         </script>
 
