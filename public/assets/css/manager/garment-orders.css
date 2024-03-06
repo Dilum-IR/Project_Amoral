@@ -171,10 +171,10 @@ form .form-input button:hover {
 /* draggable items */
 .garmentsCard{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 60px;
 
-  margin: 19px 32px;
+  margin: 19px 32px 10px 32px;
 
   box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
   border-radius: 20px;
@@ -420,6 +420,8 @@ th, td{
 
 td{
   box-sizing: border-box;
+  padding: 13px 0px;
+
 }
 
 td img{
@@ -466,7 +468,8 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  
+  width: 105px;
+
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
@@ -486,13 +489,28 @@ tbody tr:hover{
   background-color: #0c5fcdc7;
 }
 
+.text-status.sewed{
+  background-color: #0ccd70;
+}
+
 .text-status.cutting{
   background-color: #1c7012cc;
 }
 
+.text-status.cut{
+  background-color: #12706b;
+}
+
+.text-status.completed{
+  background-color: #6c0c9f;
+}
+
+.text-status.cancelled{
+  background-color: #fc3b56;
+}
+
 .popup-view, 
 .popup-new {
-  display: none; 
   position: fixed;
   z-index: 2; 
   left: 0;
@@ -501,7 +519,20 @@ tbody tr:hover{
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.7);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+
+.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
 .popup-content {
@@ -568,9 +599,14 @@ textarea {
 
 .popup-view .sizeChart{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  left: 0;
+  grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  /* grid-gap: 0px; */
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.sizeChart div {
+  max-width: 110px;
 }
 
 .popup-view .sizeChart span{
@@ -848,16 +884,21 @@ button.pay:hover {
   transform: scale(1.1);
 }
 
+hr.second {
+
+  border: dashed 1px #5a4a4a7b;
+  margin: 5px;
+}
+
 .user-details .input-box input,
 select {
   width: 80%;
-  height: 38px;
+  height: 45px;
   outline: none;
-  background-color: #ffffffd5;
-  border-radius: 4px;
-  border: 1px solid black;
-  /* padding-left: 15px; */
-  font-size: 13px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
 }
@@ -889,21 +930,19 @@ select {
   /* transform: scale(0.9); */
 }
 
-.popup-view .update-btn {
-  /* right: 20%; */
-  color: var(--blue);
-}
-
-.popup-view .update-btn:hover,
-.popup-view .cancel-btn:hover {
+.popup-view .pb:hover{
+  /* transform: scale(1); */
   font-size: 17px;
   font-weight: 200;
   transition: all 0.3s ease-in-out;
 }
 
-.popup-view .cancel-btn {
-  
-  color: var(--red);
+.popup-view .update-btn:hover{
+  background: green;
+}
+
+.popup-view .cancel-btn:hover{
+  background: darkred;
 }
 
 /* @media screen and (max-width: 950px) {

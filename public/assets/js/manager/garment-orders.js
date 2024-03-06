@@ -3,7 +3,8 @@ let popupView = document.getElementById("popup-view");
 let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
 
-
+let sidebar = document.querySelector(".sidebar");
+let nav = document.getElementById("navbar");
 
 let progress1 = document.querySelector(".status ul li .one");
 let progress2 = document.querySelector(".status ul li .two");
@@ -20,7 +21,6 @@ const search = document.querySelector(".form input"),
 search.addEventListener('input', performSearch);
 
 closeViewBtn.addEventListener('click', closeView);
-
 
 
 function performSearch() {
@@ -138,14 +138,19 @@ function openView(button) {
   
     // Get the data attribute value from the clicked button
     const orderData = button.getAttribute("data-order");
-    
-    console.log(orderData);
+    const materialData = button.getAttribute("data-material");
+    // console.log(button.getAttribute('data-customerOrder'));
+    const customerOrderData = button.getAttribute("data-customerOrder");
+
+    // console.log(customerOrderData);
 
     removeActiveClass();
   
     if (orderData) {
       // Parse the JSON data
       const order = JSON.parse(orderData);
+      const material = JSON.parse(materialData);
+      const customerOrder = JSON.parse(customerOrderData);
 
       switch(order.order_status){
         case 'processing':
@@ -171,24 +176,22 @@ function openView(button) {
       
       // Populate the "update-form" fields with the order data
       document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
+      document.querySelector('.update-form input[name="cut_dispatch_date"]').value = order.cut_dispatch_date;
+      document.querySelector('.update-form input[name="sew_dispatch_date"]').value = order.sew_dispatch_date;	
       
-      document.querySelector('.update-form input[name="material"]').value = order.material;
-      
+      console.log(order);
 
-      
-      document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
-      document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
-      document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
-        document.querySelector('.update-form input[name="dispatch_date"]').min = formattedDate;
-      document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
-      document.querySelector('.update-form select[name="district"]').value =order.district;
-        document.querySelector('.update-form input[name="latitude"]').value =order.latitude;
-        document.querySelector('.update-form input[name="longitude"]').value =order.longitude;
+    //   document.querySelector('.update-form input[name="dispatch_date"]').value = order.dispatch_date;
+    //     document.querySelector('.update-form input[name="dispatch_date"]').min = formattedDate;
+      document.querySelector('.update-form input[name="order_placed_on"]').value = customerOrder.order_placed_on;
+     console.log(customerOrder);
+
+     document.querySelector('.update-form input[name="dispatch_date"]').value = customerOrder.dispatch_date;
   
       
       // Show the "update-form" popup
       // document.querySelector(".popup-view").classList.add("open-popup-view");
-      popupView.style.display = "block";
+      popupView.classList.add("is-visible");
       document.body.style.overflow = "hidden";
       sidebar.style.pointerEvents = "none";
       nav.style.pointerEvents = "none";
@@ -197,7 +200,12 @@ function openView(button) {
       var orderPlacedOn = new Date(order.order_placed_on);
       if(((currentDate - orderPlacedOn)/(1000 * 60 * 60 * 24)) > 2){
             orderCancel.style.display = "none";
-            orderUpdate.style.left = "16%";
+         
+      }
+
+
+      for(let i=0; i<material.length; i++){
+        addMaterialCardView(material[i]);
       }
 
 
@@ -206,10 +214,12 @@ function openView(button) {
   
   }
 function closeView(){
-    popupView.style.display = "none";
+    popupView.classList.remove("is-visible");
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
+
+    document.querySelector('.update-form').reset();
 }	
 
 
@@ -220,6 +230,83 @@ function openNew(){
 function closeNew(){
     popupNew.classList.remove("open-popup-new");
     overlay.classList.remove("overlay-active");
+}
+
+function addMaterialCardView(material) {
+    var newCard = document.createElement("div");
+    newCard.className = "user-details new-card";
+
+    
+    newCard.innerHTML = `
+        <div class="input-box">
+            <span class="details">Material </span>
+            <input name="material[]" value="${material['material_type']}" readonly value="">
+                
+                
+                <?php foreach($data['materials'] as $material):?>
+                    <input type="hidden" name="material_id[]" value="${material['material_id']}">
+                <?php endforeach;?>
+                
+            </input>
+                        
+        </div>
+
+        <div class="input-box">
+            <span class="details">Sleeves</span>
+            <input name="sleeve[]" value="${material['type']}" readonly value="">
+                
+                <?php foreach($data['sleeveType'] as $sleeve):?>
+                    <input type="hidden" name="sleeve_id[]" value="${material['sleeve_id']}">
+            <?php endforeach;?>
+            </input>
+        </div>
+
+        <div class="input-box">
+            <span class="details">Printing Type</span>
+            <input name="printingType[]" value="${material['printing_type']}" readonly value="">
+                
+                <?php foreach($data['printingType'] as $printing):?>
+                    <input type="hidden" name="ptype_id[]" value="${material['ptype_id']}">
+                <?php endforeach;?>
+            </input>
+        </div>
+
+        <div class="input-box sizes">
+        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
+        <div class="sizeChart">
+            <div>
+                <span class="size">XS</span>
+                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+            </div>
+            <div>
+                <span class="size">S</span>
+                <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+            </div>
+            <div>
+                <span class="size">M</span>
+                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+            </div>
+            <div>
+                <span class="size">L</span>
+                <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+            </div>
+            <div>
+                <span class="size">XL</span>
+                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+            </div>
+            <div>
+                <span class="size">2XL</span>
+                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+            </div>
+        </div>
+    </div>
+    `;
+
+    newCard.style.transition = "all 0.5s ease-in-out";
+    document.querySelector(".popup-view .add.card").before(newCard);
+
+
+
 }
 
 var map;

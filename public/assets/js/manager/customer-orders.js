@@ -81,6 +81,7 @@ datesView.forEach(date => {
 });
 
 
+
 let reportForm = document.querySelector(".popup-report form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
 
@@ -184,7 +185,7 @@ function openView(button) {
     const customersData = button.getAttribute("data-customers");
 
 
-    console.log(orderData);
+    console.log(materialData);
 
     removeActiveClass();
 
@@ -468,28 +469,34 @@ function addMaterialCardView(material, quantity, countv ) {
         </div>
 
         <div class="input-box sizes">
-            <span class="details">Sizes & Quantity</span>
-            <div class="sizeChart">
+        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
+        <div class="sizeChart">
+            <div>
                 <span class="size">XS</span>
-                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
-                <br>
+                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+            </div>
+            <div>
                 <span class="size">S</span>
-                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
-                <br>
+                <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+            </div>
+            <div>
                 <span class="size">M</span>
-                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
-                <br>
+                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+            </div>
+            <div>
                 <span class="size">L</span>
-                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
-                <br>
+                <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+            </div>
+            <div>
                 <span class="size">XL</span>
-                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
-                <br>
+                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+            </div>
+            <div>
                 <span class="size">2XL</span>
-                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
-                <br>
+                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
             </div>
         </div>
+    </div>
     `;
 
     newCard.style.transition = "all 0.5s ease-in-out";

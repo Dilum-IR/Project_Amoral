@@ -101,9 +101,10 @@
                                 <div class="progress-bar"></div>
                             </td>
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button>
+                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
                             <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                         </tr>
+
                         
                      
                         <?php endforeach; ?>
@@ -418,24 +419,30 @@
                     <div class="input-box sizes">
                         <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
                         <div class="sizeChart">
-                            <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
-                            <br>
-                            <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
-                            <br>
-                            <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
-                            <br>
-                            <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
-                            <br>
-                            <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
-                            <br>
-                            <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
-                            <br>
+                            <div>
+                                <span class="size">XS</span>
+                                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">S</span>
+                                <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">M</span>
+                                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">L</span>
+                                <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">XL</span>
+                                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">2XL</span>
+                                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                            </div>
                         </div>
                     </div>
 

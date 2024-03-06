@@ -289,6 +289,7 @@ th, td{
 
 td{
   box-sizing: border-box;
+  padding: 17px 0px;
 }
 
 td img{
@@ -337,7 +338,7 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  
+  width: 105px;
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
@@ -462,13 +463,16 @@ textarea{
 }
 
 .sizeChart{
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(54px, 1fr));
-  grid-gap: 0px;
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  /* grid-gap: 0px; */
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
-.sizeChart span{
-  margin-left: 0;
+
+.sizeChart div{
+  max-width: 110px;
 }
 
 .sizeChart .st{
@@ -776,7 +780,7 @@ button.pay:hover {
 }
 
 .popup-new .input-box.design{
-  margin-top: -125px;
+  margin-top: -95px;
 }
 
 .removeButton {
