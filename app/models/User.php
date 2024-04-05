@@ -202,7 +202,6 @@ class User
 			$this->errors['flag'] = true;
 			$this->errors['name'] = "Name is invalid ";
 			// $this->errors['error_no'] = 2;
-
 		}
 
 		// is empty City

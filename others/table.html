@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paginated Table</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .table-container {
+        max-height: 400px; /* Set your desired maximum height */
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      tr.selected {
+        background-color: #a6e1ff;
+      }
+
+      button {
+        padding: 10px;
+        /* background-color: #4caf50; */
+        /* color: white; */
+        border: none;
+        cursor: pointer;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .page-link {
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        background-color: #b6b6b6;
+    }
+    .number-page {
+    padding: 5px 10px;
+    margin: 0 5px;
+        background-color: #f4f4f4;
+        border-radius: 5px;
+        color: #000;
+        transition: 0.5s ease-in-out;
+      }
+      .number-page:hover {
+        background-color: #9b9b9b;
+
+        color: #000;
+      }
+      .page-link:hover {
+        /* background-color: #45a049; */
+      }
+      .current-link {
+        height: 35px;
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        color: rgb(0, 0, 0);
+        /* border: 1px solid black; */
+        border-radius: 20px;
+        background-color: #d1cfcf;
+        /* box-shadow: 0 0 5px 5px rgba(128, 128, 128, 0.226); */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+            <th>Select</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Rows will be dynamically added using JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination" id="pagination-container">
+      <!-- Pagination controls will be added using JavaScript -->
+    </div>
+
+    <script>
+      const rowsPerPage = 5;
+      const totalRows = 50; // Set your total number of rows here
+      const totalPages = Math.ceil(totalRows / rowsPerPage);
+      let currentPage = 1;
+
+      function generateRows(start, end) {
+        const tbody = document.getElementById("table-body");
+        tbody.innerHTML = "";
+
+        for (let i = start; i <= end; i++) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          <td>John Doe ${i}</td>
+          <td>john${i}@example.com</td>
+          <td><button onclick="editRow()">Edit</button></td>
+          <td>
+            <select>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <!-- Add more options as needed -->
+            </select>
+          </td>
+        `;
+          tbody.appendChild(row);
+        }
+      }
+
+      function renderPagination() {
+        const paginationContainer = document.getElementById(
+          "pagination-container"
+        );
+        paginationContainer.innerHTML = "";
+
+        // back button
+        const backButton = createPaginationButton(
+          "<<",
+          () => navigatePage(currentPage - 1),
+          2
+        );
+        paginationContainer.appendChild(backButton);
+
+        // remove if the button value is 0
+        if (currentPage - 1 != 0) {
+          const firstButton = createPaginationButton(
+            currentPage - 1,
+            () => navigatePage(currentPage - 1),
+            3
+          );
+          paginationContainer.appendChild(firstButton);
+        }
+
+        // current page include button value
+        const secondButton = createPaginationButton(
+          currentPage,
+          () => {
+            navigatePage(currentPage);
+          },
+          1
+        );
+        paginationContainer.appendChild(secondButton);
+
+        // ... display
+        if (totalPages > 1 && currentPage != totalPages) {
+          paginationContainer.appendChild(createEllipsis());
+        }
+
+        // total page part
+        if (currentPage != totalPages) {
+          const lastButton = createPaginationButton(
+            totalPages,
+            () => navigatePage(totalPages),
+            3
+          );
+          paginationContainer.appendChild(lastButton);
+        }
+
+        // next button
+        const nextButton = createPaginationButton(
+          ">>",
+          () => navigatePage(currentPage + 1),
+          2
+        );
+        paginationContainer.appendChild(nextButton);
+
+        updatePaginationStyles();
+      }
+
+      function createPaginationButton(content, clickHandler, currentNum = 0) {
+        const pageLink = document.createElement("button");
+
+        if (currentNum == 1) {
+          pageLink.className = "page-link";
+        } else if (currentNum == 2) {
+          pageLink.className = "current-link";
+        } else if (currentNum == 3) {
+          pageLink.className = "number-page";
+        } else {
+        }
+        pageLink.textContent = content;
+        pageLink.onclick = clickHandler;
+
+        return pageLink;
+      }
+
+      function navigatePage(page) {
+        currentPage = Math.min(Math.max(page, 1), totalPages);
+        generateRows(
+          (currentPage - 1) * rowsPerPage + 1,
+          currentPage * rowsPerPage
+        );
+        renderPagination();
+      }
+
+      function createEllipsis() {
+        const ellipsis = document.createElement("span");
+        ellipsis.className = "ellipsis";
+        ellipsis.textContent = "...";
+        return ellipsis;
+      }
+
+      function updatePaginationStyles() {
+        const pageLinks = document.querySelectorAll(".page-link");
+        pageLinks.forEach((link) => {
+          link.classList.remove("selected");
+          if (parseInt(link.textContent) === currentPage) {
+            link.classList.add("selected");
+          }
+        });
+      }
+
+      function editRow() {
+        const selectedRows = document.querySelectorAll("tr.selected");
+        if (selectedRows.length === 0) {
+          alert("Please select a row first.");
+        } else {
+          alert("Edit action for selected rows.");
+          // Add your edit logic here
+        }
+      }
+
+      // Initial generation of table rows and pagination controls
+      generateRows(1, rowsPerPage);
+      renderPagination();
+    </script>
+  </body>
+</html>
