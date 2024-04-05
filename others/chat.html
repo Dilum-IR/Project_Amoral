@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .chat-box {
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background-color: #4CAF50;
+            color: #fff;
+            margin-left: auto; /* Push the user's message to the right */
+            word-wrap: break-word; /* Allow long words to break and wrap */
+            white-space: pre-line; /* Preserve newlines and break lines */
+        }
+
+        .other-message {
+            background-color: #e0e0e0;
+            text-align: left;
+        }
+
+        .message-content {
+            text-align: left;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #eee;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 3px;
+        }
+
+        #sendMessageBtn {
+            margin-left: 10px;
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-box">
+    <div class="chat-messages" id="chatMessages">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="input-container">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendMessageBtn" onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        var messageInput = document.getElementById('messageInput');
+        var chatMessages = document.getElementById('chatMessages');
+
+        if (messageInput.value.trim() !== '') {
+            var userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user-message';
+            userMessageDiv.innerHTML = '<div class="message-content">' + messageInput.value + '</div>';
+            
+            // Dynamically set the width based on the text length
+            var textLength = messageInput.value.length;
+            var dynamicWidth = Math.min(textLength * 10, 300); // Adjust the factor (10) and maximum width (300) as needed
+            userMessageDiv.style.maxWidth = '70%';
+            
+            chatMessages.appendChild(userMessageDiv);
+
+            // Clear input after sending the message
+            messageInput.value = '';
+
+            // Scroll to the bottom to show the latest message
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Simulate other user's message after a brief delay
+            setTimeout(function () {
+                var otherMessageDiv = document.createElement('div');
+                otherMessageDiv.className = 'message other-message';
+                otherMessageDiv.innerHTML = '<div class="message-content">This is an example of another user\'s message.</div>';
+                chatMessages.appendChild(otherMessageDiv);
+
+                // Scroll to the bottom after adding other user's message
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 500);
+        }
+    }
+</script>
+
+</body>
+</html>
