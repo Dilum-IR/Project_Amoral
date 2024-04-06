@@ -27,7 +27,8 @@ route('customer/customer-orders', 'customer/customerOverview@index');
 // customer ajax chat endpoint
 route('customer/saveMsg', 'customer/customerOverview@saveMsg');
 route('customer/chatbox', 'customer/customerOverview@chat_data');
-route('customer/p', 'customer/customerOrders@payment');
+route('customer/p', 'customer/customerOrders@payment_process');
+route('customer/p_success', 'customer/customerOrders@payment_success');
 
 
 route('manager/overview', 'manager/Overview@index');
