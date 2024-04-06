@@ -1,3 +1,9 @@
+<?php
+
+// show($data['data1'][0]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +50,7 @@
                     </div>
                 </form>
                 <!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+                <!-- <input class="btn" type="button" onclick="openReport()" value="Report Problem"> -->
             </div>
 
         </form>
@@ -55,20 +61,69 @@
                         <tr>
                             <th class="ordId">OrderId</th>
                             <th class="Name">Customer Name</th>
-                            <th class="Distric">District</th>
+                            <th class="Distric">City</th>
                             <th class="stth">Status</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     <tbody>
+                        <?php
+                        if(!empty($data['data1'])){
+
+                       
+                        foreach ($data['data1'] as $key => $value) {
+
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $value->order_id; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->fullname; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->city; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->order_status; ?>
+                                </td>
+                                <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
+                                </td> -->
+                                <td>
+                                    <button type="submit" class="view-order-btn" style="background-color: red;"
+                                        id="delivered" onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+
+
+                                    <!-- Button 1 -->
+                                    <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+
+                                </td>
+
+                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                        Order</button>
+                                </td>
+                            </tr>
+                        
+                            <?php
+
+                        }
+                    }else{
+                        ?>
                         <tr>
-                            <td>101</td>
-                            <td>John Doe</td>
-                            <td>New York</td>
-                            <td>Shipped</td>
-                            <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                    Order</button>
-                            </td>
-                        </tr>
+<td></td>
+
+
+                        <td>
+                            No Available Orders
+
+
+                        </td>
+<td></td>
+                    </tr>
+
+                        <?php
+                    }
+                        ?>
 
 
                     </tbody>
@@ -113,7 +168,7 @@
     </section>
 
 
-    <!-- POPUP REPORT -->
+    <!-- POPUP -->
     <div class="popup-report">
         <div class="popup-content">
             <span class="close">&times;</span>
@@ -235,44 +290,6 @@
     <div id="overlay" class="overlay"></div>
 
 
-    <script>
-        function initMap() {
-            var location = { lat: 7.873054, lng: 80.771797 }
-            var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 7.7,
-                center: { lat: 7.8731, lng: 80.7718 }
-            });
-
-
-            /*Add marker
-            var marker = new google.map.Marker({
-                position:{lat:6.927079,lng:79.861244},
-                map:map, 
-                icon:'map-pin-icon.png'
-            });
-             /*Add marker function*/
-
-            addMarker({ lat: 6.927079, lng: 79.861244 });
-            addMarker({ lat: 7.291418, lng: 80.636696 });
-            addMarker({ lat: 5.9496, lng: 80.5469 });
-
-
-            /*Add marker function*/
-
-            function addMarker(coords) {
-                var marker = new google.maps.Marker({
-                    position: coords,
-                    map: map,
-                    icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
-                });
-
-            }
-
-
-        }
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDRuOIwM93jm3D-_IrEKZCFShSzp-Idgwo&callback=initMap"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

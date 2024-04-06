@@ -7,11 +7,11 @@ trait Model
 
     use Database;
 
-    protected $limit        = 100;
-    protected $offset       = 0;
-    protected $order_type   = 'ASC';
+    protected $limit = 100;
+    protected $offset = 0;
+    protected $order_type = 'ASC';
     protected $order_column = 'id';
-    public $errors          = [];
+    public $errors = [];
 
     public function findAll($order_column = 'id')
     {
@@ -182,6 +182,7 @@ trait Model
 
     public function where($data, $data_not = [])
     {
+
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
         $quary = "SELECT * FROM $this->table WHERE ";
@@ -238,25 +239,38 @@ trait Model
     }
 
     // FIND DATA USING INNER JOIN
-    public function find_withInner($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    public function find_withInner($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id', $allow_columns = ["*"])
     {
         $keys = array_keys($data);
+        
+        $quary = "SELECT ";
 
-        $quary = "SELECT * FROM $this->table JOIN $reference_table 
+        $l = "";
+        foreach ($allow_columns as $allow_column) {
+            $l .= $allow_column . " , ";
+        }
+        $l = trim($l, " , ");
+        
+        $quary .= $l;
+
+        $quary .= " FROM $this->table JOIN $reference_table 
                             ON $this->table.$refe_column1 = $reference_table.$refe_column2
                             WHERE ";
 
         foreach ($keys as $key) {
             $quary .= $key . " = :" . $key . " AND ";
         }
+
         $quary = trim($quary, " AND ");
 
         $quary .= " ORDER BY $this->table.$refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
+
         // run the quary stage
         return $this->quary($quary, $data);
     }
+
 
     // FIND DATA USING LEFT OUTER JOIN
     public function find_withLOJ($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
