@@ -291,15 +291,16 @@ class CustomerOrders extends Controller
         }
     }
 
-    public function payment()
+    public function payment_process()
     {
         // echo $_POST['id'];4
-        if ($_SESSION['USER']->id != $_POST['user'] || $_SERVER['REQUEST_METHOD'] != 'POST' || empty($_POST)) {
+        if ($_SESSION['USER']->id != $_POST['user'] || $_SERVER['REQUEST_METHOD'] != 'POST' || empty($_POST) || $_SESSION['USER']->user_status != 'customer') {
 
             $arr['isvalid'] = false;
             echo json_encode($arr);
             return;
         }
+
 
         $order = new Order;
         $orderMaterial = new OrderMaterial;
@@ -307,30 +308,58 @@ class CustomerOrders extends Controller
         $materialStock = new MaterialStock;
         $user = new User;
 
-        $findOrder = $order->first(['order_id' => $_POST['id']]);
-        $orderMaterialData = $orderMaterial->first(['order_id' => $_POST['id']]);
+        $all_id = "";
+
+        foreach ($_POST['id'] as $key => $id) {
+            if ($all_id == "") {
+                $all_id = $id;
+            } else {
+
+                $all_id .= ", " . $id;
+            }
+        }
+
+        //foreach ($_POST['id'] as $key => $id) {
+
+        //}
+
+        // get only first order id data for pass to the payhere
+        $findOrder = $order->first(['order_id' => $_POST['id'][0]]);
+
+
+        $orderMaterialData = $orderMaterial->first(['order_id' => $_POST['id'][0]]);
+
         $userData = $user->first(['id' => $_POST['user']]);
 
         $orderPrintingType = $printingType->first(['ptype_id' => $orderMaterialData->ptype_id]);
         $orderMaterialStockType = $materialStock->first(['stock_id' => $orderMaterialData->material_id]);
 
 
-        // $merchant_id = "1225460";
-        // $merchant_secret = "MzAzMzgwMzY2MzEyMzU2MzU5Njk4MTU2MTI5NTMzMzYzMTMyMzY2";
-        $merchant_id = "1226367";
-        $merchant_secret = "NDA4NDUyMjEzMjIyNDQ2NTA0OTY0MDA4NTQ4MDI4MzEwNDgyMDQ3NQ==";
-        $currency = "LKR";
+        $ishalf = "";
+        // check payment is half or not
+        if ($_POST['ishalf'] == "true") {
 
-        $order_id = $_POST['id'];
-        $amount = 3000;
+            $ishalf = "Half ";
+            $amount =  $_POST['total'] / 2;
+        } else {
+            $amount =  $_POST['total'];
+        }
+
+
+        $merchant_id = "1225460";
+        $merchant_secret = "MzAzMzgwMzY2MzEyMzU2MzU5Njk4MTU2MTI5NTMzMzYzMTMyMzY2";
+
+        // $merchant_id = "1226367";
+        // $merchant_secret = "NDA4NDUyMjEzMjIyNDQ2NTA0OTY0MDA4NTQ4MDI4MzEwNDgyMDQ3NQ==";
+        $currency = "LKR";
 
         $hash = strtoupper(
             md5(
                 $merchant_id .
-                $order_id .
-                number_format($findOrder->total_price, 2, '.', '') .
-                $currency .
-                strtoupper(md5($merchant_secret))
+                    $all_id  .
+                    number_format($amount, 2, '.', '') .
+                    $currency .
+                    strtoupper(md5($merchant_secret))
             )
         );
 
@@ -361,9 +390,11 @@ class CustomerOrders extends Controller
         $arr['city'] = $findOrder->city;
         $arr['country'] = "Sri Lanka";
 
-        $arr['items'] = $orderMaterialStockType->material_type . " T-Shirt (" . $orderPrintingType->printing_type . " Printing)";
-        $arr['amount'] =  $findOrder->total_price;
-        $arr['order_id'] = $findOrder->order_id;
+        $arr['items'] = (count($_POST['id']) == 1 ? $ishalf . " Pay For " . $orderMaterialStockType->material_type . " T-Shirt (" . $orderPrintingType->printing_type . " Printing )" : $ishalf . "Pay For Many Orders");
+        $arr['amount'] =   $amount;
+        $arr['order_id'] =  $all_id;
+
+        $arr['ishalf'] =  $_POST['ishalf'];
 
         // $arr['data'] = $findOrder;
         // $arr['user'] = $userData;
@@ -371,5 +402,39 @@ class CustomerOrders extends Controller
         $json_obj = json_encode($arr);
 
         echo $json_obj;
+    }
+
+
+    public function payment_success()
+    {
+        if ($_SESSION['USER']->id != $_POST['user'] || $_SERVER['REQUEST_METHOD'] != 'POST' || empty($_POST) || $_SESSION['USER']->user_status != 'customer') {
+
+            $arr['isvalid'] = false;
+            echo json_encode($arr);
+            return;
+        }
+
+        $order = new Order;
+
+        foreach ($_POST['id'] as $key => $id) {
+
+            $findOrder = $order->first(['order_id' => $id]);
+
+            if ($_POST['ishalf'] == "true") {
+    
+                $update_data['remaining_payment'] = ($findOrder->total_price) / 2;
+                $update_data['pay_type'] = "half";
+                $order->update($id, $update_data, "order_id");
+
+            }else{
+                $update_data['pay_type'] = "full";
+                $update_data['remaining_payment'] = 0;
+                $order->update($id, $update_data, "order_id");
+
+            }
+        }
+
+        $data['success'] = 1; 
+        echo json_encode($data);
     }
 }

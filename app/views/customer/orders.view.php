@@ -86,7 +86,7 @@
                                 <th>Material</th>
                                 <th>Quantity</th>
                                 <th>Status</th>
-                                <th>Total Price(Rs.)</th>
+                                <th>Amount due (Rs.)</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -99,15 +99,14 @@
                                     $sleeve = array();
                                     $pType = array();
 
-
-
+                                    //show($data['order']);
                                 ?>
                                     <tr>
                                         <td>
-                                            <?php if ($order->total_price != 0 && $order->order_status != "cancelled") { ?>
+                                            <?php if ($order->pay_type != "full" && $order->order_status != "cancelled") { ?>
                                                 <label class="custom-checkbox">
                                                     <!-- <input type="checkbox" /> -->
-                                                    <input type="checkbox" onclick="selectRow(this,<?= $order->order_id ?>,<?= $order->total_price ?>)">
+                                                    <input type="checkbox" onclick="selectRow(this,<?= $order->order_id ?>,<?= $order->total_price ?>,<?= $order->remaining_payment ?>,'<?= $order->pay_type ?>')">
                                                     <span class="checkmark"></span>
 
                                                 </label>
@@ -141,7 +140,24 @@
                                             </div>
                                         </td>
                                         <td class="price">
-                                            <?= ($order->total_price == 0) ? "<h4 style='color:green'>Payed</h4>" : $order->total_price . ".00" ?>
+                                            <?php
+
+                                            if ($order->pay_type == "full") {
+                                            ?>
+                                                <h4 style='color:green'>Payed</h4>
+                                            <?php
+
+                                            } else if ($order->remaining_payment != 0) {
+                                            ?>
+                                                <span style='color:red'>remain</span>
+                                            <?php
+
+                                                echo  number_format($order->remaining_payment, 2, '.', ',');
+                                            } else {
+
+                                                echo  number_format($order->total_price, 2, '.', ',');
+                                            }
+                                            ?>
                                         </td>
 
                                         <td class="btns">
@@ -163,24 +179,22 @@
 
 
             <div class="amount-container">
-                <hr>
 
-                <br>
-                <h4>Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment
+                <h4 class="hint">
+                    You can select the orders after Pay for select orders. <br>
+                    ** Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
 
                 </h4>
-                <br>
-                <hr>
 
-                <div class="amount-box">
+                <div id="amount-box-content" class="amount-box disable">
                     <div id="amount-left-content">
 
                         <p class="title">Your total payment will be</p>
                         <div class="choose-orders">
 
                             <div>
-                                <p>Select orders</p>
-                                <p>Select orders</p>
+                                <p>Select Order ID's</p>
+                                <p id="select-element"></p>
                             </div>
                         </div>
                     </div>
@@ -190,18 +204,21 @@
 
                             <h1 class="amount_last">Rs.&nbsp;</h1><br>
                             <h1 id="select-orders-amount"> </h1>
-                            <h1 class="amount_last">.00</h1>
 
                         </div>
-                        <br>
-                        <hr class="dotted">
-                        <p>Half Payment</p>
-                        <div class="center-content">
+                        <div id="half-payment" class="disable">
 
-                            <h1 class="amount_last">Rs.&nbsp;</h1><br>
-                            <h1 id="select-orders-halfamount"> </h1>
-                            <h1 class="amount_last">.00</h1>
+                            <br>
+                            <hr class="dotted">
 
+                            <p>&nbsp;Half Payment</p>
+                            <div class="center-content">
+
+                                <h1 class="amount_last">Rs.&nbsp;</h1><br>
+                                <h1 id="select-orders-halfamount"> </h1>
+
+
+                            </div>
                         </div>
 
                     </div>
@@ -209,11 +226,11 @@
 
                         <div class="right">
 
-                            <div class="right">
+                            <div id="half-checker" class="right disable">
 
                                 <label class="custom-checkbox">
 
-                                    <input type="checkbox" onclick="selectHalfPay(true)">
+                                    <input type="checkbox" id="checkbox" onclick="selectHalfPay()">
                                     <span class="checkmark"></span>
 
                                 </label>
@@ -221,7 +238,12 @@
 
                             </div>
 
-                            <button type="button" class="pay" onclick="paymentGateway('<?= $order->order_id ?>','<?= $_SESSION['USER']->id ?>')"> Pay now</button>
+                            <button type="button" class="pay" id="pay" onclick="paymentGateway('<?= $order->order_id ?>','<?= $_SESSION['USER']->id ?>')"> Pay now
+                                &nbsp;
+                                <span>Rs.</span>
+                                <span id="btn-price"></span>
+
+                            </button>
 
                         </div>
                         <img src="https://www.payhere.lk/downloads/images/payhere_square_banner.png" width="230px" alt="">
@@ -236,36 +258,140 @@
     </div>
 
     <script>
+        select_orders_amount = document.getElementById("select-orders-amount");
+        select_orders_halfamount = document.getElementById("select-orders-halfamount");
+        select_element = document.getElementById("select-element");
+
+        btn_price = document.getElementById("btn-price");
+        amount_box = document.getElementById("amount-box-content");
+        checkbox = document.getElementById("checkbox");
+
+
+        half_payment = document.getElementById("half-payment");
+        half_checker = document.getElementById("half-checker");
+
         var amount = 0
         var id_list = []
+        var half = false;
+
+
+        if (amount != 0) {
+
+            amount_box.classList.remove("disable");
+            amount_box.classList.add("active");
+
+        } else {
+            amount_box.classList.remove("active");
+            amount_box.classList.add("disable");
+            // amount_box.disabled = false;
+        }
 
 
         var all_orders = <?= json_encode($data['order']); ?>
 
-        console.log(all_orders);
         // Function to handle row selection
-        function selectRow(checkbox, id, price) {
+        function selectRow(checkbox, id, price, remain, pay_type) {
 
-            select_orders_amount = document.getElementById("select-orders-amount");
-            select_orders_halfamount = document.getElementById("select-orders-halfamount");
 
+            console.log(id, price, remain, pay_type);
             // get the selected index ids
             let index = id_list.indexOf(id);
 
+            let pay_amount = 0;
+
+
+            if (pay_type == 'no') {
+                pay_amount = price
+            } else if (pay_type == 'half') {
+                pay_amount = remain
+
+            }
+
             if (index !== -1) {
                 id_list.splice(index, 1);
-                amount = amount - price
+                amount = amount - pay_amount
             } else {
 
-                amount = amount + price
+                amount = amount + pay_amount
                 id_list.push(id)
             }
 
-            select_orders_amount.innerHTML = amount;
-            select_orders_halfamount.innerHTML = amount / 2;
+            var order_id_str = "";
+            id_list.forEach(element => {
+                if (order_id_str != "") {
+
+                    order_id_str = order_id_str + ", " + element
+                } else {
+                    order_id_str = element
+
+                }
+            });
+
+            if (order_id_str != "") {
+                order_id_str = "[ " + order_id_str + " ]"
+            }
+            select_orders_amount.innerHTML = amount.toFixed(2);
+
+            // btn_price.innerHTML = amount;
+            selectHalfPay();
+
+            select_element.innerHTML = order_id_str;
+            // payment is grater than 100,000.00 when can pay the half
+            if (amount == 0) {
+
+                // select_orders_amount.innerHTML = "Please Select Yours orders";
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+
+            } else if (amount >= 2000) {
+
+                half_payment.classList.remove("disable");
+                half_payment.classList.add("active");
+
+                half_checker.classList.remove("disable");
+                half_checker.classList.add("active");
+
+
+                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+            } else {
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+            }
+
+
+            if (amount != 0) {
+
+                amount_box.classList.remove("disable");
+                amount_box.classList.add("active");
+
+            } else {
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+                // amount_box.disabled = false;
+            }
+
 
             var row = checkbox.parentNode.parentNode;
             row.classList.toggle("selected");
+
+        }
+
+        function selectHalfPay() {
+            if (checkbox.checked) {
+
+                btn_price.innerHTML = (amount / 2).toFixed(2);
+                half = true;
+            } else {
+
+                btn_price.innerHTML = amount.toFixed(2);
+                half = false;
+            }
 
         }
 
@@ -283,16 +409,7 @@
                     row.classList.remove("selected");
                 }
 
-                getAmount()
             });
-
-        }
-
-        function getAmount() {
-
-
-
-
 
         }
     </script>
@@ -306,8 +423,10 @@
             $(document).ready(function() {
 
                 data = {
-                    id: order_id,
                     user: user,
+                    id: id_list,
+                    total: amount,
+                    ishalf: half
                 };
 
                 $.ajax({
@@ -317,15 +436,14 @@
                     cache: false,
                     success: function(res) {
                         try {
-                            // alert(res);
+
+
                             var obj = JSON.parse(res);
-                            console.log(obj)
-                            // return;
 
                             // Payment completed. It can be a successful failure.
                             payhere.onCompleted = function onCompleted(orderId) {
-                                console.log("Payment completed. OrderID:" + orderId);
                                 // Note: validate the payment and show success or failure page to the customer
+                                PayedOrdersUpdate(orderId, obj.ishalf, user);
                             };
 
                             // Payment window closed
@@ -366,7 +484,6 @@
                                 custom_2: "",
                             };
 
-                            console.log(payment)
 
                             payhere.startPayment(payment);
                         } catch (error) {}
@@ -375,6 +492,41 @@
                 });
 
             });
+        }
+
+        function PayedOrdersUpdate(id, ishalf, user) {
+
+            // Split the string by comma and trim spaces
+            var idsArray = id.split(",").map(function(item) {
+                return parseInt(item.trim(), 10);
+            });
+
+            data = {
+
+                id: idsArray,
+                ishalf: ishalf,
+                user: user
+
+            };
+
+
+            $.ajax({
+                type: "POST",
+                url: "<?= ROOT ?>/customer/p_success",
+                data: data,
+                cache: false,
+                success: function(res) {
+                    try {
+
+                        alert(res);
+
+                        location.reload();
+                    } catch (error) {}
+                },
+                error: function(xhr, status, error) {},
+            });
+
+
         }
     </script>
 
