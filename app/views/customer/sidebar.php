@@ -26,7 +26,7 @@
                 <span class="tooltip">Orders</span>
             </li>
             <li>
-                <a href="#" class="nav-link">
+                <a href="<?=ROOT?>/tool" class="nav-link">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Design Tool</span>
                 </a>

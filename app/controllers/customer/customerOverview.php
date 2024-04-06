@@ -41,15 +41,15 @@ class CustomerOverview extends Controller
                 // session user chat conversation 
                 $chatId = $chat->whereOR($userarr);
 
+                $emp = new Employee();
+
+                $arr = [];
+                $arr['emp_status'] = 'manager';
+
+                $empData = $emp->first_selectedColumn($arr, $emp->chatForCloumn);
+
                 // when chat id is not included then insert the new user data.
                 if ((empty($chatId))) {
-
-                    $emp = new Employee();
-
-                    $arr = [];
-                    $arr['emp_status'] = 'manager';
-
-                    $empData = $emp->first_selectedColumn($arr, $emp->chatForCloumn);
 
                     // find the emp email in all user table
                     $arr = [];
@@ -73,6 +73,7 @@ class CustomerOverview extends Controller
                 $chatAllData['chat'] = $chatId;
                 $chatAllData['chatMsgs'] = $chatMsgs;
                 $chatAllData['log_user'] = $userChatId->id;
+                $chatAllData['empImage'] = $empData->emp_image;
 
                 echo json_encode($chatAllData);
             } catch (\Throwable $th) {

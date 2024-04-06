@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/overview.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
 </head>
 
 <body>
@@ -167,8 +169,6 @@
 
                     <!-- Anlysis Containers -->
 
-
-
                     <div class="table-data">
 
                         <!-- left side container -->
@@ -263,44 +263,10 @@
                             </ul>
                         </div>
 
-
-                        <!-- right side container -->
                     </div>
 
                 </main>
 
-                <div class="right">
-                    <div class="chat">
-                        <div class="chat-title">
-
-                            <h3>Chat With Company</h3>
-                        </div>
-                        <div class="chat-container">
-                            <!-- update -->
-
-                            <div class="chat-box" id="chat-box"></div>
-                            <input type="text" id="message-input" placeholder="Type a message...">
-                            <button onclick="sendMessage()">Send</button>
-
-                            <!-- <div class="profile-photo">
-
-
-                            </div>
-                            <div class="message-box">
-                                message
-                                <p><b>Mike John</b>
-                                    asbggsdzjgsdgsdsdxgfchvjbkawdsfegd
-                                </p>
-                                <small class="text-muted">
-                                    2 Minutes ago
-                                </small> -->
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
 
             </div>
 

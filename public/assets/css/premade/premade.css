@@ -32,8 +32,9 @@ html{
     height: 100%;
     /* object-fit: cover; */
     /* display: none; */
-    border-top-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    /* border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px; */
+    border-radius: 8px;
     object-fit: cover;
 }
 
@@ -145,9 +146,9 @@ html{
     width: 100%;
     display: flex;
     gap: 8px;
-    /* border-radius: 8px; */
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-radius: 8px;
+    /* border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* Box shadow */
 }
@@ -312,7 +313,7 @@ html{
     z-index: 2;
     width: 100%;
     /* background-color: red; */
-    margin-top: -26%;
+    margin-top: -18%;
 }
 
 .place-button {

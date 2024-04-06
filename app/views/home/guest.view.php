@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/guest/guest.css">
   <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">/ -->
-  <title>Document</title>
+  <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
+  <title>Amoral</title>
 </head>
 
 <body>

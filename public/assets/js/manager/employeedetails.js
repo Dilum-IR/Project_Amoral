@@ -1,9 +1,3 @@
-let nextID = 1;
-
-let popupView = document.getElementById("popup-view");
-let overlay = document.getElementById("overlay");
-let popupNew = document.querySelector(".popup-new");
-
 
 // function addEmployee() {
 //     var table = document.getElementById("employee-table");
@@ -306,9 +300,20 @@ let popupNew = document.querySelector(".popup-new");
 //     nextID--;
 //   }
 
+
+
+let sidebar = document.querySelector(".sidebar");
+let nav = document.getElementById("navbar");
+
+let nextID = 1;
+
+let popupView = document.querySelector(".popup-view");
+let overlay = document.getElementById("overlay");
+let popupNew = document.querySelector(".popup-new");
+
+
 function openNew(){
-  popupNew.classList.add("open-popup-new");
-  overlay.classList.add("overlay-active");
+
 }
 function closeNew(){
   popupNew.classList.remove("open-popup-new");
@@ -316,36 +321,42 @@ function closeNew(){
 }
 
 function closeView(){
-  popupView.classList.remove("open-popup-view");
-  overlay.classList.remove("overlay-active");
+  popupView.classList.remove("is-visible");
+  document.body.style.overflow = "auto";
+  sidebar.style.pointerEvents = "auto";
+  nav.style.pointerEvents = "auto";
 }	
 
 //data fetching ftom submit button
 
   function openView(button) {
+    
   
     // Get the data attribute value from the clicked button
-    const empData = button.getAttribute("data-order");
+    const empData = button.getAttribute("data-emp");
     
-    console.log(empData);
+    console.log("empData");
   
     if (empData) {
       // Parse the JSON data
       const emp = JSON.parse(empData);
-      
+      console.log("data fill");
       // Populate the "update-form" fields with the order data
       document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
       
       document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
       
-      // document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
+      document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
       document.querySelector('.update-form input[name="email"]').value = emp.email;
-      document.querySelector('.update-form input[name="address"]').value = emp.address;
+      document.querySelector('.update-form input[name="city"]').value = emp.city;
       document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
       
       // Show the "update-form" popup
-      // document.querySelector(".popup-view").classList.add("open-popup-view");
-      popupView.classList.add("open-popup-view");
-      overlay.classList.add("overlay-active");
-    }
+      document.querySelector(".popup-view").classList.add("open-popup-view");
   }
+      popupView.classList.add("is-visible");
+      document.body.style.overflow = "hidden";
+      sidebar.style.pointerEvents = "none";
+      nav.style.pointerEvents = "none";
+    }
+  

@@ -28,6 +28,7 @@ class EmailVerify extends Controller
                 $user_n  = $_POST['un'];
 
                 $userData = $user->first($arr);
+                $empData = $employee->first($arr);
 
                 unset($userData->password);
                 unset($userData->phnnum_verified);
@@ -37,30 +38,25 @@ class EmailVerify extends Controller
                     // not verified customer email 
                     $user_type = "user";
                     $this->Verify($user, $employee, $_POST, $user_type, $userData);
-                } else {
+                } else if (!isset($empData)) {
                     // all data unset method
-                    foreach ($_POST as $key => $value) {
-                        unset($_POST[$key]);
-                    }
+                    unset($_POST);
+
                     // verified customer email
                     // redirect to the home page
                     $msg = "Sign In Successfull";
                     $success = 'flag=' . 0 . '&success=' . $msg . '&success_no=' . 2;
                     redirect("customer/overview?$success");
                     exit;
-                }
-
-                $empData = $employee->first($arr);
-
-                if ($empData && $user_n === 2) {
+                } else if ($empData) {
                     // not verified employee email 
                     $user_type = "employee";
+                    // echo $user_type;
                     $this->Verify($user, $employee, $_POST, $user_type, $empData);
                 } else {
                     // all data unset method
-                    foreach ($_POST as $key => $value) {
-                        unset($_POST[$key]);
-                    }
+                    unset($_POST);
+
                     // verified employee email 
                     // redirect to the own page
                     $msg = "Sign In Successfull";
@@ -112,27 +108,67 @@ class EmailVerify extends Controller
                     $updateData['email_otp'] = 0;
                     $user->update($allData->id, $updateData);
 
+                    // If user email verifed when enabled for users to chat connection table
+                    if ($user_type == "user") {
+
+                        $allUsers = new AllUsers();
+                        $chat = new Chat();
+                        
+                        $arr = [];
+                        $arr['email'] = $data['email'];
+                        $userChatId = $allUsers->first($arr);
+
+                        // chat id find in then chat table
+                        $userarr['from_id'] = $userChatId->id;
+                        $userarr['to_id'] = $userChatId->id;
+                        
+                        // session user chat conversation 
+                        $chatId = $chat->whereOR($userarr);
+                        
+                        // when chat id is not included then insert the new user data.
+                        if ((empty($chatId))) {
+
+                            $emp = new Employee();
+
+                            // user connect with table include first manager 
+                            $arr = [];
+                            $arr['emp_status'] = 'manager';
+
+                            $empData = $emp->first_selectedColumn($arr, $emp->chatForCloumn);
+
+                            // find the emp email in all user table
+                            $arr = [];
+                            $arr['email'] = $empData->email;
+                            $empChatId = $allUsers->first($arr);
+
+                            // insert the chat conversation
+                            $arr = [];
+                            $arr['from_id'] = $empChatId->id;
+                            $arr['to_id'] = $userChatId->id;
+
+                            $chat->insert($arr);
+                        }
+                    }
+
                     $res['flag'] = 1;
                     $res['title'] = "Valid OTP Code";
                     $res['msg'] = "Verification Successfull 😀🎉";
 
                     echo json_encode($res);
                     exit;
-                } 
-                else if ($employee->first($arr)) {
+                } else if ($employee->first($arr)) {
 
                     // verification code valid, when update the user filed
                     $updateData['email_verified'] = 1;
                     $updateData['email_otp'] = 0;
-                    $employee->update($allData->id, $updateData, 'emp_id');
+                    $employee->update($allData->emp_id, $updateData, 'emp_id');
 
                     $res['flag'] = 1;
                     $res['title'] = "Valid OTP Code ";
                     $res['msg'] = "Verification Successfull 😀🎉";
                     echo json_encode($res);
                     exit;
-                } 
-                else {
+                } else {
 
                     $res['flag'] = 0;
                     $res['title'] = "Invalid OTP Code ";
@@ -222,13 +258,13 @@ class EmailVerify extends Controller
             }
 
             if ($response) {
-                $res['flag'] = 0;
+                $res['flag'] = 1;
                 $res['title'] = "Sorry Try Again";
                 $res['msg'] = "Can't Sent The OTP Code";
 
                 echo json_encode($res);
             } else {
-                $res['flag'] = 1;
+                $res['flag'] = 0;
                 $res['title'] = "Please Try Again";
                 $res['msg'] = "OTP Send Successfull 😀🎉";
                 echo json_encode($res);
@@ -242,5 +278,4 @@ class EmailVerify extends Controller
             $sendmail->sendVerificationEmail($email, $verificationCode, $anyName);
         }
     }
-
 }

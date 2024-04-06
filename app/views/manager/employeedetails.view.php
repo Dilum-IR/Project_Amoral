@@ -5,7 +5,8 @@
     <title>Amoral</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/employeedetails.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/employeedetails2.css">
+    <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/employeepopup.css"> -->
     <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/quotation.css"> -->
     <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/profile.css"> -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -21,69 +22,91 @@
     <?php include 'navigationbar.php' ?>
     <!-- Navigation Bar -->
 
+    <!-- New Table -->
     <!-- content  -->
+
     <section id="main" class="main">
 
-        <h2>Employee Details</h2>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <i class='bx bx-chevron-right'></i>
+            <li>
+                <a href="#" class="active">Employee Details</a>
+            </li>
+
+        </ul>
 
         <form>
             <div class="form">
-                <input class="form-group" type="text" placeholder="Search...">
-                <i class='bx bx-search icon'></i>
-                <input class="new-btn" type="button" onclick="openNew()" value="+ New Employee">
-
+                <form action="#">
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
+                <input class="new-btn" type="button" onclick="openNew(this)" value="Add Employee">
             </div>
 
         </form>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th class="ordId">ID</th>
-                    <th class="desc">Name</th>
-                    <th class="stth">Profession</th>
-                    <th class="cost">Email</th>
-                    <th class="cost">Address</th>
-                    <th class="cost">Contact No.</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <?php $count = 1;
-            foreach ($data as $emp) : ?>
-                <tr>
-                    <td><?php echo $count;
-                        $count++; ?></td>
-                    <td class="ordId"><?php echo $emp->emp_id ?></td>
-                    <td class="desc"><?php echo $emp->emp_name ?></td>
-                    <td class="prof"><?php echo $emp->emp_status ?>
-                    </td>
-                    <td class="cost"><?php echo $emp->email ?></td>
-                    <td class="add"><?php echo $emp->address ?></td>
-                    <td class="cont"><?php echo $emp->contact_number ?></td>
-                    <td><button type="submit" class="view-order-btn" data-order='<?= json_encode($emp); ?>' onclick="openView(this)">Update</button></td>
-                    <form method="POST">
-                        <input type="hidden" name="emp_id" value="<?php echo $emp->emp_id; ?>">
-                        <td><button type="submit" class="view-order-btn-remove" name="remove_emp" value="remove">Remove</button></td>
+        <div class="emp-table">
+            <!-- <div class="table-header">
+                <p>Order Details</p>
+                <div>
+                    <input placeholder="emp"/>
+                    <button class="add_new">+ Add New</button>
+                </div>
+            </div> -->
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>E - mail</th>
+                            <th>Contact No.</th>
+                            <th>City</th>
+                            <th>Position</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // show($data);
+                        foreach ($data as $emp) : ?>
 
-                    </form>
-                </tr>
-            <?php endforeach; ?>
+                            <!-- <?php
+                                    if (!$emp->is_quotation) : ?> -->
+                            <tr>
+                                <td class="ordId"><?php echo $emp->emp_id ?></td>
+                                <td><?php echo $emp->emp_image ?></td>
+                                <td><?php echo $emp->emp_name ?></td>
+                                <td><?php echo $emp->email ?></td>
+                                <td><?php echo $emp->contact_number ?> </td>
+                                <td><?php echo $emp->city ?> </td>
+                                <td><?php echo $emp->emp_status ?> </td>
+                                <!-- <td class="st">
+                                <div class="text-status <?php echo $emp->status ?>"><?php echo $emp->status ?></div>
+                                <div class="progress-bar"></div>
+                                </td> -->
 
 
-            <!-- <tr>
-        <td>1</td>
-        <td class="ordId">002345</td>
-        <td class="desc">Material : Wetlook <br>
-            Sizes & Quantity : S - 2
-        </td>
-        <td class="st">
-            <div class="text-status">Processing</div>
-        </td>
-        <td class="cost">Rs. 2400</td>
-        <td><button type="submit" class="view-order-btn" onclick="openView()">View Order</button></td>
-    </tr> -->
-        </table>
+                                <td><button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)" >View</button> <button style="color: #ff0000de;">Remove</button>
+                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                            </tr>
+
+                            <!-- <?php endif; ?> -->
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
 
     </section>
 
@@ -91,16 +114,18 @@
     <!-- POPUP -->
 
 
-
     <div class="popup-view" id="popup-view">
-        <h2>Employee Details</h2>
+    <!-- Popup content -->
+    <h2>Employee Details</h2>
 
-
-        <div class="container1">
+        <div class="popup-content">
             <form class="update-form" method="POST">
                 <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
-                <button type="button" class="cancel-btn pb">Cancel</button>
+                <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
                 <div class="user-details">
+
+
+                
                     <div class="input-box">
                         <span class="details">Employee Id </span>
                         <input type="text" id="" readonly name="emp_id" />
@@ -109,11 +134,12 @@
                     <div class="input-box">
                         <span class="details">Employee Name </span>
 
-                        <input type="text" required onChange="" value="Steve Jobs" name="emp_name" />
+                        <input type="text" required onChange="" value="" name="emp_name" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Profession</span>
+                        <input type="text" required onChange="" value="" name="emp_status" />
                         <!-- <select name="emp_status">
                         <option name="employee1" value="Manager"></option>
                         <option name="employee2" value="Merchandiser"></option>
@@ -127,8 +153,8 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Address</span>
-                        <input type="text" required onChange="" value="Padukka" name="address" />
+                        <span class="details">City</span>
+                        <input type="text" required onChange="" value="Padukka" name="city" />
                     </div>
 
                     <div class="input-box">
@@ -138,57 +164,58 @@
                 </div>
             </form>
         </div>
-        <button type="button" class="ok-btn" onclick="closeView()">OK</button>
-    </div>
-    <div id="overlay" class="overlay"></div>
+        <!-- <button type="button" class="ok-btn" onclick="closeView()">OK</button> -->
+</div>
+<div id="overlay" class="overlay"></div>
 
-<!--  ----------------------------------------------------------------------
-    Add new Employee
------------------------------------------------------------------------- --> 
+<!-- Popup for Adding New Employee -->
 <div class="popup-new">
-
-        <h2>Add new Employee</h2>
-        <form method="POST">
-            <div class="form">
-                <div class="input-box">
-                    <span class="details">Employee Name</span>
-                    <input type="text" name="emp_name" placeholder="Enter name" required>
-                </div>
-
-                <div class="input-box">
-                    <span class="details">Profession</span><br>
-                    <select name="emp_status">
-                        <option value="manager">Manager</option>
-                        <option value="merchandiser">Merchandiser</option>
-                        <option value="delivery">Delivery</option>
-                    </select>
-                </div>
-
-                <div class="input-box">
-                    <span class="details">E-mail</span><br>
-                    <input type="email" name="email" placeholder="Enter e-mail" required>
-                </div>
-
-                <div class="input-box">
-                    <span class="details">Address</span><br>
-                    <input type="text" name="address" placeholder="Enter Address" required>
-                </div>
-                <div class="input-box">
-                    <span class="details">Contact Number</span>
-                    <input type="text" name="contact_number" placeholder="Enter contact number" required>
-                </div>
-                <!-- <div class="input-box">
-                    <span class="details">Date of Birth</span>
-                    <input type="date" name="birthday">
-                </div> -->
+    
+    <h2>Add new Employee</h2>
+    <form method="POST">
+        <div class="form">
+            <div class="input-box">
+                <span class="details">Employee Name</span>
+                <input type="text" name="emp_name" placeholder="Enter name" required>
             </div>
-            <div class="btns">
-                <button type="submit" class="cancel-btn" value="newEmployee" name="newEmployee">Submit</button>
-                <button type="button" class="close-btn" onclick="closeNew()">Cancel</button>
-            </div>
-        </form>
-    </div>
 
+            <div class="input-box">
+                <span class="details">Profession</span><br>
+                <select name="emp_status">
+                    <option value="manager">Manager</option>
+                    <option value="merchandiser">Merchandiser</option>
+                    <option value="delivery">Delivery</option>
+                </select>
+            </div>
+
+            <div class="input-box">
+                <span class="details">E-mail</span><br>
+                <input type="email" name="email" placeholder="Enter e-mail" required>
+            </div>
+
+            <div class="input-box">
+                <span class="details">Address</span><br>
+                <input type="text" name="address" placeholder="Enter Address" required>
+            </div>
+            <div class="input-box">
+                <span class="details">Contact Number</span>
+                <input type="text" name="contact_number" placeholder="Enter contact number" required>
+            </div>
+            <!-- <div class="input-box">
+                <span class="details">Date of Birth</span>
+                <input type="date" name="birthday">
+            </div> -->
+        </div>
+        <div class="btns">
+            <button type="submit" class="cancel-btn" value="newEmployee" name="newEmployee">Submit</button>
+            <button type="button" class="close-btn" onclick="closeNew()">Cancel</button>
+        </div>
+    </form>
+    <!-- Popup content -->
+</div>
+
+
+    <!-- New Table -->
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

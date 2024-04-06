@@ -37,6 +37,82 @@ function performSearch() {
         row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
     })
 }
+
+// draggable items
+    const draggables = document.querySelectorAll(".draggable");
+    const dropzones = document.querySelectorAll(".category");
+ 
+
+    dropzones.forEach((dropzone) => {
+        dropzone.addEventListener("drop", (e) => {
+            document.querySelector(".save-edit").style.visibility = "visible";
+
+        });
+    });
+
+
+    draggables.forEach((draggable) => {
+    draggable.addEventListener("dragstart", dragStart);
+    draggable.addEventListener("dragend", dragEnd);
+    });
+
+    dropzones.forEach((dropzone) => {
+    dropzone.addEventListener("dragover", dragOver);
+    dropzone.addEventListener("dragenter", dragEnter);
+    dropzone.addEventListener("dragleave", dragLeave);
+    dropzone.addEventListener("drop", drop);
+    });
+
+    let draggedElement = null;
+
+    function dragStart(e) {
+    draggedElement = e.target;
+    e.target.classList.add("dragging");
+    e.dataTransfer.setData("text/plain", e.target.id);
+    draggedElement.style.borderColor = "red"; // Change border color when dragging starts
+    }
+
+    function dragEnd() {
+    draggedElement.classList.remove("dragging");
+    draggedElement.style.borderColor = ""; // Reset border color after dragging ends
+    }
+
+    function dragOver(e) {
+    e.preventDefault();
+    }
+
+    function dragEnter(e) {
+    e.preventDefault();
+    if (e.target.classList.contains("category")) {
+        e.target.style.borderColor = "red"; // Change border color when dragging enters a drop zone
+    }
+    }
+
+    function dragLeave(e) {
+    if (e.target.classList.contains("category")) {
+        e.target.style.borderColor = ""; // Reset border color when dragging leaves a drop zone
+    }
+    }
+
+    function drop(e) {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("text/plain");
+    const draggableElement = document.getElementById(data);
+
+    if (draggedElement && draggableElement) {
+        const targetCategory = e.target.closest(".category");
+        const sourceCategory = draggedElement.closest(".category");
+
+        if (targetCategory !== sourceCategory) {
+        targetCategory.appendChild(draggableElement);
+        }
+    }
+
+    // Reset border color after dropping
+    if (e.target.classList.contains("category")) {
+        e.target.style.borderColor = "";
+    }
+    }
  
 
 // viewOrderBtns.forEach(btn => {

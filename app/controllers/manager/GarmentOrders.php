@@ -7,10 +7,13 @@ class GarmentOrders extends Controller
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         $order = new GarmentOrder;
+        $garments = new Garment;
 
         if ($username != 'User') {
 
-            $data = $order->get('employee', 'emp_id');
+            $data['garment_orders'] = $order->get('employee', 'emp_id');
+            $data['garments'] = $garments->findAll('garment_id');
+            // show($data);
             
             $this->view('manager/garmentorders', $data);
               

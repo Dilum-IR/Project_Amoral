@@ -34,7 +34,6 @@
                 <div class="chat-all-users">
                     <div class="chat-head">
                         <p class="chatname"><b>AMORAL &nbsp; </b>CHAT</p>
-                        
 
                         <div class="dropdown" style="float:right;">
                             <button class="dropbtn">Type</button>
@@ -43,10 +42,9 @@
                                 <a href="#">Customers</a>
                                 <a href="#">Delivary man</a>
                             </div>
-                        
+
                         </div>
                     </div>
-
 
                 </div>
 
@@ -58,7 +56,6 @@
 
                 <div class="all-chat">
 
-
                     <?php
                     // show($data);
 
@@ -68,16 +65,14 @@
                             $jsonData = json_encode($value);
 
                             if ($value->user_status == 'customer') {
-
                     ?>
                                 <!-- user is customer -->
                                 <div class="user-content" onclick='selectChat(<?= $jsonData ?>)'>
-                                    <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
+                                    <img class="userImg" src="<?= ROOT ?>/uploads/profile_img/<?= $value->user_image ?>" alt="user profile">
                                     <div class="user-data">
                                         <div class="name-time">
-                                            <h4><?= $value->fullname ?></h4>
+                                            <h4><?= ucfirst($value->fullname) ?></h4>
                                             <p><?= $value->last_msg->time ?></p>
-
                                         </div>
 
                                         <p><?= $value->last_msg->msg ?></p>
@@ -88,10 +83,10 @@
                             ?>
                                 <!-- user is employee -->
                                 <div class="user-content" onclick='selectChat(<?= $jsonData ?>)'>
-                                    <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
+                                    <img class="userImg" src="<?= ROOT ?>/uploads/profile_img/<?= $value->emp_image ?>" alt="user profile">
                                     <div class="user-data">
                                         <div class="name-time">
-                                            <h4><?= $value->emp_name ?></h4>
+                                            <h4><?= ucfirst($value->emp_name) ?></h4>
                                             <p><?= $value->last_msg->time ?></p>
 
                                         </div>
@@ -117,7 +112,7 @@
                 <div class="chat-header">
                     <div class="main-content">
 
-                        <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
+                        <img class="userImg user-img" src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->emp_image ?>" alt="">
                         <div class="user">
                             <h2 id="header-user">Hi, <?= $_SESSION['USER']->emp_name ?></h2>
                             <div class="user-status hide">
@@ -159,6 +154,7 @@
         var chatInput = document.querySelector(".chat-input");
         var userStatus = document.querySelector(".user-status");
         var userImge = document.querySelector(".userImg");
+        var user_Imge = document.querySelector(".user-img");
 
         var chatBoxData
         var selectChatBox = false;
@@ -175,6 +171,9 @@
             behavior: 'smooth'
         });
 
+        function capitalizeFirstLetter(inputString) {
+            return inputString.charAt(0).toUpperCase() + inputString.slice(1);
+        }
 
         function selectChat(chatUserData) {
 
@@ -198,9 +197,14 @@
 
             if (chatUserData.user_status == "customer") {
 
-                header_user.innerHTML = chatUserData.fullname
+                header_user.innerHTML = capitalizeFirstLetter(chatUserData.fullname)
+                imageUrl = `<?= ROOT ?>/uploads/profile_img/${chatUserData.user_image}`;
+                user_Imge.setAttribute("src", imageUrl);
+
             } else {
-                header_user.innerHTML = chatUserData.emp_name
+                header_user.innerHTML = capitalizeFirstLetter(chatUserData.emp_name)
+                imageUrl = `<?= ROOT ?>/uploads/profile_img/${chatUserData.emp_image}`;
+                user_Imge.setAttribute("src", imageUrl);
             }
 
             data = {

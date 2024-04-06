@@ -7,7 +7,7 @@ trait Model
 
     use Database;
 
-    protected $limit        = 10;
+    protected $limit        = 100;
     protected $offset       = 0;
     protected $order_type   = 'ASC';
     protected $order_column = 'id';
@@ -38,7 +38,7 @@ trait Model
         return $this->quary($quary);
     }
 
-    public function first($data,$data_not = [])
+    public function first($data, $data_not = [])
     {
 
         $keys = array_keys($data);
@@ -53,7 +53,7 @@ trait Model
         }
 
         $quary = trim($quary, " && ");
-    //    $quary .= " ORDER BY $order_column $orderType limit $this->limit offset $this->offset";
+        //    $quary .= " ORDER BY $order_column $orderType limit $this->limit offset $this->offset";
 
         // echo $quary;
 
@@ -66,7 +66,7 @@ trait Model
         }
         return false;
     }
-    public function first_selectedColumn($data,$allowedCloumns ,$data_not = [])
+    public function first_selectedColumn($data, $allowedCloumns, $data_not = [])
     {
 
         $keys = array_keys($data);
@@ -300,9 +300,10 @@ trait Model
 
         return $this->quary($quary, $data);
     }
-    
+
     //function to access a value of another table by foreign key
-    public function get($table, $id_column='id'){
+    public function get($table, $id_column = 'id')
+    {
         $quary = "SELECT $this->table.*, $table.* FROM $this->table INNER JOIN $table ON $this->table.$id_column = $table.$id_column";
         // echo $quary;
         return $this->quary($quary);

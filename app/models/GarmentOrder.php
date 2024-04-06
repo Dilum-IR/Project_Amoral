@@ -11,11 +11,14 @@ class GarmentOrder
 
 
 	protected $allowedCloumns = [
+		'garment_order_id',
 		'garment_id',
 		'order_id',
 		'cut_dispatch_date',
 		'sew_dispatch_date',
 		'status',
+		'placed_date',
+		// 'last modified'
 	];
 
 
