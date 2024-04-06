@@ -19,7 +19,8 @@ class Employee
 	public $chatForCloumn = [
 
 		'emp_id',
-		'email'
+		'email',
+		'emp_image'
 	];
 
 	public function validate($data)

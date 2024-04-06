@@ -62,7 +62,7 @@
           </div>
         </div>
       </div> -->
-      
+
         <!-- Left Section -->
         <div class="left">
           <div class="left-part">

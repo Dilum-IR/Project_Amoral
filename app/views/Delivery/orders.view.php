@@ -168,30 +168,7 @@
     </section>
 
 
-    <!-- Dark overlay -->
-    <div id="alert-overlay"></div>
-
-    <div id="myModal" class="modal disable">
-
-        <div id="modal-content" class="disable">
-
-            <div>
-                <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
-
-            </div>
-
-            <h2>Are you sure ?</h2>
-            <form method="POST">
-                <input type="hidden" name="order_id" id="order_id">
-                <button class="button" id="confirmDelete" value="ok" name="confirm">OK</button>
-            </form>
-            <button class="button" id="cancelDelete" onclick="cancelPopup()">Cancel</button>
-        </div>
-    </div>
-
-
-
-    <!-- POPUP REPORT -->
+    <!-- POPUP -->
     <div class="popup-report">
         <div class="popup-content">
             <span class="close">&times;</span>
@@ -313,44 +290,6 @@
     <div id="overlay" class="overlay"></div>
 
 
-    <script>
-        function initMap() {
-            var location = { lat: 7.873054, lng: 80.771797 }
-            var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 7.7,
-                center: { lat: 7.8731, lng: 80.7718 }
-            });
-
-
-            /*Add marker
-            var marker = new google.map.Marker({
-                position:{lat:6.927079,lng:79.861244},
-                map:map, 
-                icon:'map-pin-icon.png'
-            });
-             /*Add marker function*/
-
-            addMarker({ lat: 6.927079, lng: 79.861244 });
-            addMarker({ lat: 7.291418, lng: 80.636696 });
-            addMarker({ lat: 5.9496, lng: 80.5469 });
-
-
-            /*Add marker function*/
-
-            function addMarker(coords) {
-                var marker = new google.maps.Marker({
-                    position: coords,
-                    map: map,
-                    icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
-                });
-
-            }
-
-
-        }
-    </script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRuOIwM93jm3D-_IrEKZCFShSzp-Idgwo&callback=initMap"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

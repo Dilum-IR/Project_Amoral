@@ -1,4 +1,4 @@
-\<section class="home-section" id="navbar">
+<section class="home-section" id="navbar">
     <nav>
         <div class="nav-icons">
             <div class="nav-link notifi">
