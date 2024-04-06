@@ -925,3 +925,106 @@ select {
   font-size: 16px;
   width: 100%;
 }
+
+#alert-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay color */
+  z-index: 999; /* Ensure the overlay is on top of popups */
+}
+
+/* .modal {
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: max-content;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: auto;
+} */
+
+#modal-content {
+  z-index: 1001;
+  border-radius: 10px;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 25%;
+  text-align: center;
+ 
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: rgb(172, 0, 0);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.icon-warn {
+  margin-left: 27px;
+  font-size: 7rem;
+  display: flexbox;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  width: 100px;
+  height: 37px;
+  font-size: 16px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #fff;
+  transition: 0.3s ease-in;
+}
+#confirmDelete {
+  margin-right: 10px;
+  background-color: #000000;
+}
+
+#cancelDelete {
+  background-color: #f44336;
+}
+
+#confirmDelete:hover {
+  background-color: rgb(16, 187, 0);
+}
+
+#cancelDelete:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+#modal-content .disable,
+.modal .disable {
+  display: none;
+}
+
+#modal-content .active,
+.modal .active {
+  display: block;
+}
+
+.modal .active {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: block  ;
+  position: fixed;
+  
+}

@@ -7,6 +7,11 @@
   <!-- Link Styles -->
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/profile.css">
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/button.css">
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/boxicons.min.css">
+  <!-- loading css -->
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
   <link rel="stylesheet" href="boxicons.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -57,22 +62,35 @@
           </div>
         </div>
       </div> -->
-      <div class="left">
-        <div class="left-part">
-          <img id="profile-image" src="https://i.imgur.com/cMy8V5j.png" alt="user">
-          <h2 class="profile-name">Alex William</h2>
-          <h4 class="profession">Distributor</h4>
-          <div class="edit-pic">
-            <div class="edit-icon">
-              <label for="image-upload">
-                <i class="bx bxs-edit"></i>
-                <span class="link_name">Change Image</span>
-              </label>
-              <input type="file" id="image-upload" style="display: none;">
+      
+        <!-- Left Section -->
+        <div class="left">
+          <div class="left-part">
+            <div>
+              <img src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->user_image ?>" alt="user">
+              <h2 class="profile-name"><?= ucfirst($_SESSION['USER']->emp_name) ?></h2>
+              <h4 class="profession"><?= ucfirst($_SESSION['USER']->emp_status) ?></h4>
             </div>
+
+            <form method="POST" enctype="multipart/form-data">
+              <div class="edit">
+                <div class="edit-icon">
+                  <input type="file" id="fileInput" name="p_p" />
+                  <label for="fileInput">
+                    <i class="bx bxs-edit"></i>
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="change_image" name="change_Image" value="changed">Change Image</button>
+            </form>
+            <p class="image-error">
+              <?=
+              (!empty($imagerror) &&  isset($imagerror['error']) && $imagerror['flag'] == 1) ?  "* " . $imagerror['error'] :  '';
+              ?>
+
+            </p>
           </div>
         </div>
-      </div>
 
       <!-- Right Section -->
       <div class="right">

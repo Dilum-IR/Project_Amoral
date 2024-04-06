@@ -1,3 +1,9 @@
+<?php
+
+// show($data['data1'][0]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +50,7 @@
                     </div>
                 </form>
                 <!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+                <!-- <input class="btn" type="button" onclick="openReport()" value="Report Problem"> -->
             </div>
 
         </form>
@@ -55,20 +61,69 @@
                         <tr>
                             <th class="ordId">OrderId</th>
                             <th class="Name">Customer Name</th>
-                            <th class="Distric">District</th>
+                            <th class="Distric">City</th>
                             <th class="stth">Status</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     <tbody>
+                        <?php
+                        if(!empty($data['data1'])){
+
+                       
+                        foreach ($data['data1'] as $key => $value) {
+
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $value->order_id; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->fullname; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->city; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->order_status; ?>
+                                </td>
+                                <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
+                                </td> -->
+                                <td>
+                                    <button type="submit" class="view-order-btn" style="background-color: red;"
+                                        id="delivered" onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+
+
+                                    <!-- Button 1 -->
+                                    <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+
+                                </td>
+
+                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                        Order</button>
+                                </td>
+                            </tr>
+                        
+                            <?php
+
+                        }
+                    }else{
+                        ?>
                         <tr>
-                            <td>101</td>
-                            <td>John Doe</td>
-                            <td>New York</td>
-                            <td>Shipped</td>
-                            <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                    Order</button>
-                            </td>
-                        </tr>
+<td></td>
+
+
+                        <td>
+                            No Available Orders
+
+
+                        </td>
+<td></td>
+                    </tr>
+
+                        <?php
+                    }
+                        ?>
 
 
                     </tbody>
@@ -111,6 +166,29 @@
         </div>
 
     </section>
+
+
+    <!-- Dark overlay -->
+    <div id="alert-overlay"></div>
+
+    <div id="myModal" class="modal disable">
+
+        <div id="modal-content" class="disable">
+
+            <div>
+                <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
+
+            </div>
+
+            <h2>Are you sure ?</h2>
+            <form method="POST">
+                <input type="hidden" name="order_id" id="order_id">
+                <button class="button" id="confirmDelete" value="ok" name="confirm">OK</button>
+            </form>
+            <button class="button" id="cancelDelete" onclick="cancelPopup()">Cancel</button>
+        </div>
+    </div>
+
 
 
     <!-- POPUP REPORT -->
@@ -272,7 +350,7 @@
         }
     </script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDRuOIwM93jm3D-_IrEKZCFShSzp-Idgwo&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRuOIwM93jm3D-_IrEKZCFShSzp-Idgwo&callback=initMap"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
