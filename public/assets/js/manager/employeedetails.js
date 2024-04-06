@@ -292,40 +292,42 @@ function openNew(button) {
   console.log("addnewemployee");
 
   // Get the data attribute value from the clicked button
-  const empData = button.getAttribute("data-emp");
+  // const empData = button.getAttribute("data-emp");
 
  
 
-  if (empData) {
+ 
     // Parse the JSON data
-    const emp = JSON.parse(empData);
+    // const emp = JSON.parse(empData);
     console.log("data fill");
     // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
+    // document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
     // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
     // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
 
-    document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+    // document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
 
-    document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
-    document.querySelector('.update-form input[name="email"]').value = emp.email;
-    document.querySelector('.update-form input[name="city"]').value = emp.city;
-    document.querySelector('.update-form input[name="address"]').value = emp.address;
-    document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
-    document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+    // document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
+    // document.querySelector('.update-form input[name="email"]').value = emp.email;
+    // document.querySelector('.update-form input[name="city"]').value = emp.city;
+    // document.querySelector('.update-form input[name="address"]').value = emp.address;
+    // document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
+    // document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
 
     // Show the "update-form" popup
-    document.querySelector(".popup-view").classList.add("open-popup-view");
-  }
-  popupView.classList.add("is-visible");
+    // document.querySelector(".popup-view").classList.add("open-popup-view");
+  
+  popupNew.classList.add("is-visible");
   document.body.style.overflow = "hidden";
   sidebar.style.pointerEvents = "none";
   nav.style.pointerEvents = "none";
 }
 
 function closeNew() {
-  popupNew.classList.remove("open-popup-new");
-  overlay.classList.remove("overlay-active");
+  popupNew.classList.remove("is-visible");
+  document.body.style.overflow = "auto";
+  sidebar.style.pointerEvents = "auto";
+  nav.style.pointerEvents = "auto";
 }
 
 function closeView() {

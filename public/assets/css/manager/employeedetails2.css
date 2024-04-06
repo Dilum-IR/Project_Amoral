@@ -426,10 +426,10 @@ textarea {
   position: relative;
   left: 9%;
   width: 80%;
-  background: #d5dfe7d5;
+  background: #f1f1f1d5;
   border-radius: 20px;
-  border-style: solid;
-  border: #000;
+  /* border-style: solid;
+  border: #000; */
   outline-width: 1px;
   padding: 10px 30px;
   margin-bottom: 2%;
@@ -693,6 +693,13 @@ form .user-details-title {
   justify-content: center;
 }
 
+.input-box{
+  border-style: none;
+  align-items: center;
+  justify-content: center;
+  /* text-align: center; */
+}
+
 form .user-details .input-box {
   margin-bottom: 10px;
   width: calc(100% / 2 - 20px);
@@ -758,12 +765,14 @@ button.pay:hover {
 
 .user-details .input-box input,
 select {
-  width: 80%;
+  position: relative;
+  left: 10.5%;
   height: 38px;
   outline: none;
   background-color: #ffffffd5;
   border-radius: 4px;
-  border: 1px solid black;
+  border-style: none;
+  /* border: 1px solid black; */
   /* padding-left: 15px; */
   font-size: 13px;
   transition: all 0.3s ease-in;
@@ -785,6 +794,7 @@ select {
   align-items: center;
   gap: 20px;
 }
+
 
 .pb {
   --color: #00A97F;
@@ -851,6 +861,101 @@ select {
   filter: brightness(.7);
   transform: scale(.98);
  }
+
+ /* add new emp */
+
+
+.new-emp-details {
+  padding: 5px 28px;
+  display: block;
+  width: 80%;
+  /* border: none; */
+  border-radius: 40px;
+  border-style: none;
+  /* outline: none; */
+  font-size: 16px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+  background: white;
+  animation: pulseBorder 2s infinite;
+}
+
+.new-emp-details:focus {
+  box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  border: 1.8px solid transparent;
+  background: linear-gradient(white, white) padding-box, linear-gradient(to right, #000000, #808080) border-box;
+  /* Gradient of black to gray */
+}
+
+.new-emp-details:focus~.placeholder,
+.new-emp-details:not(:focus):valid~.placeholder {
+  /* Adjusted CSS selector */
+  top: -25px;
+  left: 0;
+  font-size: 12px;
+  color: #808080;
+  /* Gray color to match the gradient */
+  font-weight: bold;
+}
+
+.placeholder {
+  position: relative;
+  pointer-events: none;
+  left: 20px;
+  top: 18px;
+  transition: 0.3s ease all;
+  color: #aaa;
+  opacity: 0;
+  /* Hide placeholder by default */
+}
+
+.new-emp-details:focus~.placeholder,
+.new-emp-details:not(:focus):valid~.placeholder {
+  opacity: 1;
+  /* Show placeholder on focus or if input is valid */
+}
+
+@keyframes pulseBorder {
+  0% {
+    border-color: #000;
+  }
+  50% {
+    border-color: #ffffff;
+  }
+  100% {
+    border-color: #000;
+  }
+}
+
+.input-box select{
+  border-style: none;
+  border-color: #000;
+}
+
+.btns{
+  display: flex;
+  /* align-items: left; */
+  justify-content: right;
+  gap: 10px;
+
+}
+
+.emp-image::file-selector-button {
+  height: 35px;
+  background-color: #5d5d5d; /* Green background */
+  color: white; /* White text */
+  padding: 10px 10px; /* Padding around the text */
+  border: none; /* Remove default border */
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer; /* Change mouse cursor on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.emp-image::file-selector-button:hover {
+  background-color: #c9c9c9; /* Darker green background on hover */
+  color: black;
+}
+
 /* 
 .popup-view .pb {
   position: relative;

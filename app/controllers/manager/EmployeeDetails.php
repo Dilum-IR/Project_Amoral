@@ -72,6 +72,7 @@ class EmployeeDetails extends Controller
 
     public function employeeAdd($data)
     {
+        // show($data);
         $employee = new Employee;
         $user = new User;
 

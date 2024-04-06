@@ -49,7 +49,7 @@
                     </div>
                 </form>
                 <div class="add-btn">
-                    <input class="new-btn" type="button" data-emp='<?= json_encode($emp); ?>' onclick="openNew(this)" value="Add Employee">
+                    <input class="new-btn" type="button" onclick="openNew(this)" value="Add Employee">
                 </div>
             </div>
 
@@ -192,47 +192,62 @@
     <!-- Popup for Adding New Employee -->
     <div class="popup-new">
 
-        <h2>Add new Employee</h2>
-        <form method="POST">
-            <div class="form">
-                <div class="input-box">
-                    <span class="details">Employee Name</span>
-                    <input type="text" name="emp_name" placeholder="Enter name" required>
-                </div>
+        <div class="popup-content">
+            <h2>Add new Employee</h2>
+            <form method="POST">
+                <div class="form">
+                    <div class="input-box">
+                        <span class="details">Employee Name</span>
+                        <input class="new-emp-details" type="text" name="emp_name" placeholder="Enter name" required>
+                        <!-- <label class="placeholder" for="input">Enter text here...</label> -->
+                    </div>
 
-                <div class="input-box">
-                    <span class="details">Profession</span><br>
-                    <select name="emp_status">
-                        <option value="manager">Manager</option>
-                        <option value="merchandiser">Merchandiser</option>
-                        <option value="delivery">Delivery</option>
-                    </select>
-                </div>
+                    <div class="input-box">
+                        <span class="details">Profession</span><br>
+                        <select class="new-emp-details" name="emp_status">
+                            <option value="manager">Manager</option>
+                            <option value="merchandiser">Merchandiser</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
 
-                <div class="input-box">
-                    <span class="details">E-mail</span><br>
-                    <input type="email" name="email" placeholder="Enter e-mail" required>
-                </div>
+                    <div class="input-box">
+                        <span class="details">E-mail</span><br>
+                        <input class="new-emp-details" type="email" name="email" placeholder="Enter e-mail" required>
+                    </div>
 
-                <div class="input-box">
-                    <span class="details">Address</span><br>
-                    <input type="text" name="address" placeholder="Enter Address" required>
+                    <div class="input-box">
+                        <span class="details">City</span><br>
+                        <input class="new-emp-details" type="text" name="city" placeholder="Enter Address" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Address</span><br>
+                        <input class="new-emp-details" type="text" name="address" placeholder="Enter Address" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Contact Number</span>
+                        <input class="new-emp-details" type="text" name="contact_number" placeholder="Enter contact number" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Date of Birth</span><br>
+                        <input class="new-emp-details" type="date" name="DOB" placeholder="Enter Address" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Upload an Image</span><br>
+                        <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image" placeholder="Enter Address" required>
+                    </div>
+                    
                 </div>
-                <div class="input-box">
-                    <span class="details">Contact Number</span>
-                    <input type="text" name="contact_number" placeholder="Enter contact number" required>
+                <div class="btns">
+                    <button type="submit" class="update-btn pb" value="newEmployee" name="newEmployee">Submit</button>
+                    <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
                 </div>
-                <!-- <div class="input-box">
-                <span class="details">Date of Birth</span>
-                <input type="date" name="birthday">
-            </div> -->
-            </div>
-            <div class="btns">
-                <button type="submit" class="cancel-btn" value="newEmployee" name="newEmployee">Submit</button>
-                <button type="button" class="close-btn" onclick="closeNew()">Cancel</button>
-            </div>
-        </form>
-        <!-- Popup content -->
+            </form>
+            <!-- Popup content -->
+        </div>
     </div>
     <!-- New Table -->
 
