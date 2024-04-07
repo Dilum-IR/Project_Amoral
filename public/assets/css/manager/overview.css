@@ -843,7 +843,7 @@ body {
   .calendar {
     position: relative;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -948,30 +948,80 @@ body {
   }
   .calendar .days .today {
     font-size: 2rem;
+    color: #fa0089;
   }
-  .calendar .days .event {
+
+  .calendar .days .event{
+    color: #fff;
+    font-size: larger;
+    transform: scale(1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .calendar .days .event.pending {
+    background-color: #93aa36;
+  }
+  .calendar .days .event.pending:hover {
+    background-color: #c8fa00;
+    color: #000000;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .calendar .days .event.processing {
+    background-color: #2af523;
+  }
+  .calendar .days .event.processing:hover {
+    background-color: #00fa3e;
+    color: #000000;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .calendar .days .event.delivering{
+    background-color: #23c1f5;
+  }
+  .calendar .days .event.delivering:hover {
+    background-color: #00a9fa;
+    color: #000000;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .calendar .days .event.completed {
+    background-color: #2a23f5;
+  }
+  .calendar .days .event.completed:hover {
+    background-color: #00a9fa;
+    color: #000000;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .calendar .days .event.cancelled {
+    background-color: #f52323;
+
+  }
+  .calendar .days .event.cancelled:hover {
+    background-color: #fa0000;
+    color: #000000;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .display-orders{
     position: relative;
-  }
-  .calendar .days .event::after {
-    content: "";
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    width: 75%;
-    height: 6px;
-    border-radius: 30px;
-    transform: translateX(-50%);
-    background-color: var(--primary-clr);
-  }
-  .calendar .days .day:hover.event::after {
-    background-color: #fff;
-  }
-  .calendar .days .active.event::after {
-    background-color: #fff;
-    bottom: 20%;
-  }
-  .calendar .days .active.event {
-    padding-bottom: 10px;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  
+    color: #15151b;
+    border-radius: 20px;
+    background-color: rgb(184, 190, 202);
   }
 
   /* .container .right {
@@ -1022,19 +1072,17 @@ body {
     justify-content: center;
     flex-direction: column;
     gap: 5px;
-    padding: 0 20px;
+    padding: 12px 20px;
     padding-left: 50px;
-    color: #fff;
-    background: linear-gradient(90deg, #3f4458, transparent);
+    color: #000000;
+  
     cursor: pointer;
   }
   /* even event */
   .events .event:nth-child(even) {
     background: transparent;
   }
-  .events .event:hover {
-    background: linear-gradient(90deg, var(--primary-clr), transparent);
-  }
+
   .events .event .title {
     display: flex;
     align-items: center;
@@ -1063,7 +1111,7 @@ body {
     color: #fff;
   }
   /* add tick in event after */
-  .events .event::after {
+  /* .events .event::after {
     content: "✓";
     position: absolute;
     top: 50%;
@@ -1079,8 +1127,8 @@ body {
   }
   .events .event:hover::after {
     display: flex;
-  }
-  .add-event {
+  } */
+  /* .add-event {
     position: absolute;
     bottom: 30px;
     right: 30px;
@@ -1102,18 +1150,18 @@ body {
   }
   .add-event i {
     pointer-events: none;
-  }
+  } */
   .events .no-event {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #878895;
   }
-  .add-event-wrapper {
+  /* .add-event-wrapper {
     position: absolute;
     bottom: 100px;
     left: 50%;
@@ -1207,7 +1255,7 @@ body {
   .add-event-footer .add-event-btn:hover {
     background-color: transparent;
     color: var(--primary-clr);
-  }
+  } */
   
   /* media queries */
   
@@ -1257,25 +1305,6 @@ body {
       padding: 20px;
     }
   }
-  
-  .credits {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    padding: 10px;
-    font-size: 12px;
-    color: #fff;
-    background-color: #b38add;
-  }
-  .credits a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  .credits a:hover {
-    text-decoration: underline;
-  }
+
   
   
