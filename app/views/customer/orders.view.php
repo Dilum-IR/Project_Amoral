@@ -293,7 +293,17 @@
         function selectRow(checkbox, id, price, remain, pay_type) {
 
 
-            console.log(id, price, remain, pay_type);
+            // console.log(id, price, remain, pay_type);
+
+            // if select all checkbox is checked when go to the another function
+
+            if (select_all) {
+
+                selectedRowsFromAllSelect(id, price, remain, pay_type);
+
+                return;
+            }
+
             // get the selected index ids
             let index = id_list.indexOf(id);
 
@@ -396,20 +406,157 @@
         }
 
         // Function to select all rows
-        function selectAllRows(all_orders) {
+        function selectAllRows() {
             var checkboxes = document.querySelectorAll("tbody input[type='checkbox']");
             var selectAllCheckbox = document.getElementById("selectAll");
 
             checkboxes.forEach(function(checkbox) {
                 checkbox.checked = selectAllCheckbox.checked;
                 var row = checkbox.parentNode.parentNode;
+
                 if (selectAllCheckbox.checked) {
+
+                    select_all = true;
+
                     row.classList.add("selected");
                 } else {
+                    amount = 0;
+                    id_list = [];
+                    select_all = false;
                     row.classList.remove("selected");
                 }
 
+
             });
+
+            if (selectAllCheckbox.checked) {
+
+                amount = 0;
+                selectedRowsFromAllSelect(0, 0, 0, "null");
+            } else {
+                console.log(id_list);
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+            }
+
+        }
+
+        var select_all = false;
+
+        function selectedRowsFromAllSelect(id, price, remain, pay_type) {
+
+
+            if (id == 0) {
+
+                all_orders.forEach(function(element) {
+                    if (element.order_status != "cancelled" && element.pay_type != "full") {
+
+                        id_list.push(element.order_id);
+
+                        if (element.pay_type == "half") {
+
+                            amount += element.remaining_payment
+                        } else {
+
+                            amount += element.total_price
+                        }
+
+                    }
+
+                });
+            }
+
+
+            // get the selected index ids
+            let index = id_list.indexOf(id);
+
+
+            let pay_amount = 0;
+
+            if (pay_type == 'no') {
+                pay_amount = price
+            } else if (pay_type == 'half') {
+                pay_amount = remain
+
+            }
+
+            if (index != -1) {
+
+                id_list.splice(index, 1);
+                amount = amount - pay_amount
+
+            } else if (id != 0) {
+
+                amount = amount + pay_amount
+                id_list.push(id)
+            }
+
+
+            id_list = [...new Set(id_list)];
+
+            var order_id_str = "";
+            id_list.forEach(element => {
+                if (order_id_str != "") {
+
+                    order_id_str = order_id_str + ", " + element
+                } else {
+                    order_id_str = element
+
+                }
+            });
+
+            if (order_id_str != "") {
+                order_id_str = "[ " + order_id_str + " ]"
+            }
+            select_orders_amount.innerHTML = amount.toFixed(2);
+
+            // btn_price.innerHTML = amount;
+            selectHalfPay();
+
+            
+            select_element.innerHTML = order_id_str;
+            // payment is grater than 100,000.00 when can pay the half
+            if (amount == 0) {
+
+                // select_orders_amount.innerHTML = "Please Select Yours orders";
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+
+            } else if (amount >= 2000) {
+
+                half_payment.classList.remove("disable");
+                half_payment.classList.add("active");
+
+                half_checker.classList.remove("disable");
+                half_checker.classList.add("active");
+
+
+                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+            } else {
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+            }
+
+
+            if (amount != 0) {
+
+                amount_box.classList.remove("disable");
+                amount_box.classList.add("active");
+
+            } else {
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+                // amount_box.disabled = false;
+            }
+
+            console.log(amount);
+            console.log(id_list);
 
         }
     </script>
