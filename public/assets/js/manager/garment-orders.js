@@ -236,7 +236,7 @@ function addMaterialCardView(material) {
     var newCard = document.createElement("div");
     newCard.className = "user-details new-card";
 
-    
+    console.log(material['xs']);
     newCard.innerHTML = `
         <div class="input-box">
             <span class="details">Material </span>
@@ -276,27 +276,27 @@ function addMaterialCardView(material) {
         <div class="sizeChart">
             <div>
                 <span class="size">XS</span>
-                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
             </div>
             <div>
                 <span class="size">S</span>
-                <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
             </div>
             <div>
                 <span class="size">M</span>
-                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
             </div>
             <div>
                 <span class="size">L</span>
-                <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
             </div>
             <div>
                 <span class="size">XL</span>
-                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
             </div>
             <div>
                 <span class="size">2XL</span>
-                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
             </div>
         </div>
     </div>

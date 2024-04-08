@@ -260,7 +260,7 @@ class CustomerOrders extends Controller
                 // insert a garment order if the order status is cutting
                 // show($_SESSION['USER']->id);
                 $current_orders = $garment_order->where(['order_id' => $order_id]);
-                // show($g_orders);
+                // show($current_orders);
 
                 if($_POST['order_status'] == 'cutting' && empty($current_orders)){
                     $garment_order = new GarmentOrder;
