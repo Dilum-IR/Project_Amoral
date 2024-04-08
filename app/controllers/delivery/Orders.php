@@ -27,10 +27,10 @@ class Orders extends Controller
 
         $result = $order->find_withInner(['order_status' => "delivering"], "users", "user_id", "id",$column_names);
 
-// show($_POST);
+// show($result);
 
         $data['data1'] = $result;
-        //show($data);
+        // show($data);
         if(isset($_POST['confirm']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
             unset($_POST['confirm']);
             $_POST['order_status']='delivered';
