@@ -56,6 +56,7 @@ route('manager/overview','manager/Overview@index');
 route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
+route('manager/customerdetails', 'manager/CustomerDetails@index');
 
 
 route('signinData', 'SignIn@formData');
@@ -64,6 +65,6 @@ route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
 
-route('premade', 'premade/Premade@Index');
+route('collection', 'collection/Collection@Index');
 
 route('404', '_404@index');
