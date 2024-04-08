@@ -252,9 +252,9 @@ table{
     width: 100%;
     position: relative;
     min-width: 1000px;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     border-spacing: 0;
-    overflow: hidden;
+    /* overflow-x: scroll; */
 }
 
 
@@ -277,6 +277,21 @@ thead th{
   font-size: 15px;
   border-bottom: 1px solid black;
   background: black;
+  cursor: pointer;
+  
+}
+
+thead th i{
+  font-size: 21px;
+  position: relative;
+  top: 4px;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+thead th.active i{
+  transform: scale(1.2);
+  color: blueviolet;
 }
 
 th, td{
@@ -300,10 +315,17 @@ td img{
     border: 5px solid #ced0d2;
 }
 
+tr{
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
+}
+
 tr.hide{
   opacity: 0;
   transform: translateX(100%);
   line-height: 0;
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
 }
 
 tr.hide td,
@@ -315,7 +337,8 @@ tr.hide td div{
   margin: 0;
   border-bottom: none;
   font-size: 0;
-
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
 }
 
 tr.hide td *{

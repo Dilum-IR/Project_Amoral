@@ -25,7 +25,8 @@ let updateYes = document.querySelector(".cu-popup .yes");
 const viewOrderBtns = document.querySelectorAll('.view-order-btn');
 
 const search = document.querySelector(".form input"),
-    table_rows = document.querySelectorAll("tbody tr");
+    table_rows = document.querySelectorAll(".table-section tbody tr")
+    table_headings = document.querySelectorAll("thead th");
 
 search.addEventListener('input', performSearch);
 
@@ -41,7 +42,54 @@ function performSearch() {
         console.log(row_text);
 
         row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+        row.style.setProperty('--delay', i/40 + 's');
     })
+}
+
+table_headings.forEach((head, i) => {
+    head.onclick = () => {
+        let order = 'asc';
+        table_headings.forEach(head => head.classList.remove("active"));
+        head.classList.add("active");
+        let icon = head.querySelector('i');
+        table_headings.forEach(h => {
+            // console.log(h);
+            if(h!=head && h.className !== "null"){
+                let ic = h.querySelector('i');
+                // console.log(ic);
+                if(ic.className.includes('bx-down-arrow-circle')){
+                    ic.className = "bx bx-up-arrow-circle";
+                }
+            }
+        });
+        if (icon.className.includes('bx-up-arrow-circle')) {
+            // Change to down arrow
+            icon.className = "bx bx-down-arrow-circle";
+            order = 'desc';
+        } else {
+            // Change to up arrow
+            icon.className = "bx bx-up-arrow-circle";
+            order = 'asc';
+        }
+
+
+
+        console.log(i, order);
+        sortTable(i, order);
+
+    }
+});
+
+function sortTable(i, order){
+    [...table_rows].sort((a, b) => {
+        console.log(a.querySelectorAll('.table-section td')[i]);
+        let x = a.querySelectorAll('.table-section tbody td')[i].textContent.trim(),
+            y = b.querySelectorAll('.table-section tbody td')[i].textContent.trim();
+
+
+        return order === 'asc' ? (x < y ? -1 : 1 ) : (x > y ? -1 : 1);
+    }).map(row => document.querySelector('.table-section tbody').appendChild(row));
+
 }
 
 orderCancel.addEventListener('click', function (event) {
