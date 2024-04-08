@@ -11,10 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- loading css -->
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
 </head>
 
 <body>
 
+    <?php
+    include __DIR__ . '/../utils/loading.php';
+    ?>
 
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
@@ -23,112 +30,505 @@
     <?php include_once 'navigationbar.php' ?>
     <!-- Scripts -->
 
-    <!-- content  -->
-    <section id="main" class="main">
+    <div class="page-content">
 
-        <ul class="breadcrumb">
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <i class='bx bx-chevron-right'></i>
-            <li>
-                <a href="#" class="active">Orders</a>
-            </li>
+        <!-- content  -->
+        <section id="main" class="main">
 
-        </ul>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <i class='bx bx-chevron-right'></i>
+                <li>
+                    <a href="#" class="active">Orders</a>
+                </li>
 
-        <form>
-            <div class="form">
-                <form>
-                    <div class="form-input">
-                        <input type="search" placeholder="Search...">
-                        <button type="submit" class="search-btn">
-                            <i class='bx bx-search'></i>
-                        </button>
-                    </div>
-                </form>
-                <input class="new-btn" type="button" onclick="openNew()" value="+New Order">
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
-            </div>
+            </ul>
 
-        </form>
+            <form>
+                <div class="form">
+                    <form>
+                        <div class="form-input">
+                            <input type="search" placeholder="Search...">
+                            <button type="submit" class="search-btn">
+                                <i class='bx bx-search'></i>
+                            </button>
+                        </div>
+                    </form>
+                    <input class="new-btn" type="button" onclick="openNew()" value="+New Order">
+                    <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+                </div>
 
-        <div class="table">
-            <!-- <div class="table-header">
+            </form>
+
+            <div class="table">
+                <!-- <div class="table-header">
                 <p>Order Details</p>
                 <div>
                     <input placeholder="order"/>
                     <button class="add_new">+ Add New</button>
                 </div>
-            </div> -->
-            <div class="table-section">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order Id</th>
-                            <th>Placed Date</th>
-                            <th>Material</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+             </div> -->
 
-                    <?php if(isset($data['order'])): ?> 
-                    <?php foreach($data['order'] as $order):?>
-                           
-                                <?php $material = array(); ?>
-                                <?php $sleeve = array(); ?>
-                                <?php $pType = array(); ?>
-                        <tr>
-                            
-                            <td><?php echo $order->order_id ?></td>
-                            <td><?php echo $order->order_placed_on ?></td>
-                            <td>
-                            <?php foreach($data['material_sizes'] as $sizes):?>
-                                    <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php $material[] = $sizes?>
-                                        
-                                    <?php echo $sizes->material_type ?><br>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </td>
-                            <td class="desc">
-                                <?php foreach($data['material_sizes'] as $sizes):?>
-                                    <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </td>
-                            <td class="st">
-                                <div class="text-status <?php echo $order->order_status ?>">
-                                    <?php if($order->order_status == 'cutting' || $order->order_status == 'printing' || $order->order_status == 'sewing'): ?>
-                                        <?php echo "processing" ?>
-                                    <?php else: ?>
-                                        <?php echo $order->order_status ?>
-                                    <?php endif; ?>
-                                </div>
-                            </td>
-                        
-                            <td class="btns"><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
-                            <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave"></i> Pay</button></td>
-                        </tr>
-                        
-                        
-                        <?php endforeach; ?>
-                        <?php endif; ?>
+                <div class="table-section">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label class="custom-checkbox">
+                                        <input type="checkbox" id="selectAll" onclick="selectAllRows()">
+                                        <span class="checkmark head"></span>
+                                    </label>
+                                </th>
+                                <th>Order Id</th>
+                                <th>Placed Date</th>
+                                <th>Material</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Amount due (Rs.)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
 
-                    </tbody>
-                </table>
+                            <?php if (isset($data['order'])) : ?>
+                                <?php foreach ($data['order'] as $order) :
+
+                                    $material = array();
+                                    $sleeve = array();
+                                    $pType = array();
+
+                                    //show($data['order']);
+                                ?>
+                                    <tr>
+                                        <td>
+                                            <?php if ($order->pay_type != "full" && $order->order_status != "cancelled") { ?>
+                                                <label class="custom-checkbox">
+                                                    <!-- <input type="checkbox" /> -->
+                                                    <input type="checkbox" onclick="selectRow(this,<?= $order->order_id ?>,<?= $order->total_price ?>,<?= $order->remaining_payment ?>,'<?= $order->pay_type ?>')">
+                                                    <span class="checkmark"></span>
+
+                                                </label>
+                                            <?php } ?>
+                                        </td>
+                                        <td><?php echo $order->order_id ?></td>
+                                        <td><?php echo $order->order_placed_on ?></td>
+                                        <td>
+                                            <?php foreach ($data['material_sizes'] as $sizes) : ?>
+                                                <?php if ($sizes->order_id == $order->order_id) : ?>
+                                                    <?php $material[] = $sizes ?>
+
+                                                    <?php echo $sizes->material_type ?><br>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </td>
+                                        <td class="desc">
+                                            <?php foreach ($data['material_sizes'] as $sizes) : ?>
+                                                <?php if ($sizes->order_id == $order->order_id) : ?>
+                                                    <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </td>
+                                        <td class="st">
+                                            <div class="text-status <?php echo $order->order_status ?>">
+                                                <?php if ($order->order_status == 'cutting' || $order->order_status == 'printing' || $order->order_status == 'sewing') : ?>
+                                                    <?php echo "processing" ?>
+                                                <?php else : ?>
+                                                    <?php echo $order->order_status ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                        <td class="price">
+                                            <?php
+
+                                            if ($order->pay_type == "full") {
+                                            ?>
+                                                <h4 style='color:green'>Payed</h4>
+                                            <?php
+
+                                            } else if ($order->remaining_payment != 0) {
+                                            ?>
+                                                <span style='color:red'>remain</span>
+                                            <?php
+
+                                                echo  number_format($order->remaining_payment, 2, '.', ',');
+                                            } else {
+
+                                                echo  number_format($order->total_price, 2, '.', ',');
+                                            }
+                                            ?>
+                                        </td>
+
+                                        <td class="btns">
+                                            <button type="submit" name="selectItem" class="edit-btn" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' onclick="openView(this)"><i class="fas fa-edit"></i> View</button>
+                                            <?php if ($order->total_price != 0) {
+                                            ?>
+                                            <?php
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-    </section>
 
+            <div class="amount-container">
+
+                <h4 class="hint">
+                    You can select the orders after Pay for select orders. <br>
+                    ** Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
+
+                </h4>
+
+                <div id="amount-box-content" class="amount-box disable">
+                    <div id="amount-left-content">
+
+                        <p class="title">Your total payment will be</p>
+                        <div class="choose-orders">
+
+                            <div>
+                                <p>Select Order ID's</p>
+                                <p id="select-element"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="amount-center-content">
+
+                        <div class="center-content">
+
+                            <h1 class="amount_last">Rs.&nbsp;</h1><br>
+                            <h1 id="select-orders-amount"> </h1>
+
+                        </div>
+                        <div id="half-payment" class="disable">
+
+                            <br>
+                            <hr class="dotted">
+
+                            <p>&nbsp;Half Payment</p>
+                            <div class="center-content">
+
+                                <h1 class="amount_last">Rs.&nbsp;</h1><br>
+                                <h1 id="select-orders-halfamount"> </h1>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="amount-right-content">
+
+                        <div class="right">
+
+                            <div id="half-checker" class="right disable">
+
+                                <label class="custom-checkbox">
+
+                                    <input type="checkbox" id="checkbox" onclick="selectHalfPay()">
+                                    <span class="checkmark"></span>
+
+                                </label>
+                                <p>Tick, If half payment </p>
+
+                            </div>
+
+                            <button type="button" class="pay" id="pay" onclick="paymentGateway('<?= $order->order_id ?>','<?= $_SESSION['USER']->id ?>')"> Pay now
+                                &nbsp;
+                                <span>Rs.</span>
+                                <span id="btn-price"></span>
+
+                            </button>
+
+                        </div>
+                        <img src="https://www.payhere.lk/downloads/images/payhere_square_banner.png" width="230px" alt="">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script>
+        select_orders_amount = document.getElementById("select-orders-amount");
+        select_orders_halfamount = document.getElementById("select-orders-halfamount");
+        select_element = document.getElementById("select-element");
+
+        btn_price = document.getElementById("btn-price");
+        amount_box = document.getElementById("amount-box-content");
+        checkbox = document.getElementById("checkbox");
+
+
+        half_payment = document.getElementById("half-payment");
+        half_checker = document.getElementById("half-checker");
+
+        var amount = 0
+        var id_list = []
+        var half = false;
+
+
+        if (amount != 0) {
+
+            amount_box.classList.remove("disable");
+            amount_box.classList.add("active");
+
+        } else {
+            amount_box.classList.remove("active");
+            amount_box.classList.add("disable");
+            // amount_box.disabled = false;
+        }
+
+
+        var all_orders = <?= json_encode($data['order']); ?>
+
+        // Function to handle row selection
+        function selectRow(checkbox, id, price, remain, pay_type) {
+
+
+            console.log(id, price, remain, pay_type);
+            // get the selected index ids
+            let index = id_list.indexOf(id);
+
+            let pay_amount = 0;
+
+
+            if (pay_type == 'no') {
+                pay_amount = price
+            } else if (pay_type == 'half') {
+                pay_amount = remain
+
+            }
+
+            if (index !== -1) {
+                id_list.splice(index, 1);
+                amount = amount - pay_amount
+            } else {
+
+                amount = amount + pay_amount
+                id_list.push(id)
+            }
+
+            var order_id_str = "";
+            id_list.forEach(element => {
+                if (order_id_str != "") {
+
+                    order_id_str = order_id_str + ", " + element
+                } else {
+                    order_id_str = element
+
+                }
+            });
+
+            if (order_id_str != "") {
+                order_id_str = "[ " + order_id_str + " ]"
+            }
+            select_orders_amount.innerHTML = amount.toFixed(2);
+
+            // btn_price.innerHTML = amount;
+            selectHalfPay();
+
+            select_element.innerHTML = order_id_str;
+            // payment is grater than 100,000.00 when can pay the half
+            if (amount == 0) {
+
+                // select_orders_amount.innerHTML = "Please Select Yours orders";
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+
+            } else if (amount >= 2000) {
+
+                half_payment.classList.remove("disable");
+                half_payment.classList.add("active");
+
+                half_checker.classList.remove("disable");
+                half_checker.classList.add("active");
+
+
+                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+            } else {
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+            }
+
+
+            if (amount != 0) {
+
+                amount_box.classList.remove("disable");
+                amount_box.classList.add("active");
+
+            } else {
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+                // amount_box.disabled = false;
+            }
+
+
+            var row = checkbox.parentNode.parentNode;
+            row.classList.toggle("selected");
+
+        }
+
+        function selectHalfPay() {
+            if (checkbox.checked) {
+
+                btn_price.innerHTML = (amount / 2).toFixed(2);
+                half = true;
+            } else {
+
+                btn_price.innerHTML = amount.toFixed(2);
+                half = false;
+            }
+
+        }
+
+        // Function to select all rows
+        function selectAllRows(all_orders) {
+            var checkboxes = document.querySelectorAll("tbody input[type='checkbox']");
+            var selectAllCheckbox = document.getElementById("selectAll");
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = selectAllCheckbox.checked;
+                var row = checkbox.parentNode.parentNode;
+                if (selectAllCheckbox.checked) {
+                    row.classList.add("selected");
+                } else {
+                    row.classList.remove("selected");
+                }
+
+            });
+
+        }
+    </script>
 
     <!-- POPUP -->
 
+    <script>
+        function paymentGateway(order_id, user) {
+            // var paymentData = JSON.parse(dataString);
+
+            $(document).ready(function() {
+
+                data = {
+                    user: user,
+                    id: id_list,
+                    total: amount,
+                    ishalf: half
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "<?= ROOT ?>/customer/p",
+                    data: data,
+                    cache: false,
+                    success: function(res) {
+                        try {
+
+
+                            var obj = JSON.parse(res);
+
+                            // Payment completed. It can be a successful failure.
+                            payhere.onCompleted = function onCompleted(orderId) {
+                                // Note: validate the payment and show success or failure page to the customer
+                                PayedOrdersUpdate(orderId, obj.ishalf, user);
+                            };
+
+                            // Payment window closed
+                            payhere.onDismissed = function onDismissed() {
+                                // Note: Prompt user to pay again or show an error page
+                                console.log("Payment dismissed");
+                            };
+
+                            // Error occurred
+                            payhere.onError = function onError(error) {
+                                // Note: show an error page
+                                console.log("Error:" + error);
+                            };
+
+                            // Put the payment variables here
+                            var payment = {
+                                sandbox: true,
+                                merchant_id: obj["merchant_id"], // Replace your Merchant ID
+                                hash: obj["hash"], // *Replace with generated hash retrieved from backend
+                                return_url: "http://localhost/project_Amoral/others/checkout.php", // Important
+                                cancel_url: "http://localhost/project_Amoral/others/checkout.php", // Important
+                                notify_url: "http://localhost/project_Amoral/others/successPay.php",
+                                order_id: obj["order_id"],
+                                items: obj["items"],
+                                amount: obj["amount"],
+                                currency: obj["currency"],
+                                first_name: obj["first_name"],
+                                last_name: obj["last_name"],
+                                email: obj["email"],
+                                phone: obj["phone"],
+                                address: obj["address"],
+                                city: obj["city"],
+                                country: obj["country"],
+                                delivery_address: obj["address"],
+                                delivery_city: "Kalutara",
+                                delivery_country: "Sri Lanka",
+                                custom_1: "",
+                                custom_2: "",
+                            };
+
+
+                            payhere.startPayment(payment);
+                        } catch (error) {}
+                    },
+                    error: function(xhr, status, error) {},
+                });
+
+            });
+        }
+
+        function PayedOrdersUpdate(id, ishalf, user) {
+
+            // Split the string by comma and trim spaces
+            var idsArray = id.split(",").map(function(item) {
+                return parseInt(item.trim(), 10);
+            });
+
+            data = {
+
+                id: idsArray,
+                ishalf: ishalf,
+                user: user
+
+            };
+
+
+            $.ajax({
+                type: "POST",
+                url: "<?= ROOT ?>/customer/p_success",
+                data: data,
+                cache: false,
+                success: function(res) {
+                    try {
+
+                        alert(res);
+
+                        location.reload();
+                    } catch (error) {}
+                },
+                error: function(xhr, status, error) {},
+            });
+
+
+        }
+    </script>
 
 
     <div class="popup-report">
@@ -236,7 +636,7 @@
                 <div class="user-details pickup">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
-                    
+
                         <input type="date" name="dispatch_date_pickup">
 
                     </div>
@@ -268,12 +668,12 @@
 
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
-                    
-                        <input type="date" name="dispatch_date_delivery" >
+
+                        <input type="date" name="dispatch_date_delivery">
                     </div>
                     <div class="input-box">
                         <span class="details addr">City</span>
-                    
+
                         <input name="city" type="text">
 
 
@@ -297,9 +697,9 @@
                 <hr class="second">
 
                 <div class="prices">
-                    
+
                     <p style="text-align: right; margin: 10px 30px;"></p><br>
-                    
+
                     <table class="price-details-container">
                         <tr>
                             <th>Material</th>
@@ -316,7 +716,7 @@
                             <td>Discount(%)</td>
                             <td class="discountPrice">0</td>
                         </tr>
-    
+
                         <tr class="total">
                             <td></td>
                             <td></td>
@@ -350,7 +750,7 @@
                     </div>
 
                 </div> -->
-                
+
 
 
 
@@ -364,21 +764,21 @@
                             <input type="submit" class="yes" value="Yes" name="updateOrder" />
                             <input type="button" class="no" value="No" />
                         </div>
-                        
-                    </div> 
-                </div> 
-                
+
+                    </div>
+                </div>
+
                 <div class="cd-popup" role="alert">
                     <div class="cd-popup-container">
                         <p>Are you sure you want to cancel this order?</p>
                         <div class="cd-buttons">
-                            <input type="submit" class="yes"  value="Yes" name="cancelOrder"/>
-                            <input type="button" class="no" value="No"/>
+                            <input type="submit" class="yes" value="Yes" name="cancelOrder" />
+                            <input type="button" class="no" value="No" />
                         </div>
-                        
-                    </div> 
-                </div> 
-            </div>
+
+                    </div>
+                </div>
+        </div>
 
         </form>
     </div>
@@ -687,7 +1087,7 @@
                     function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice) {
                         let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
 
-                        doc.querySelector(".unitPrice").innerHTML = unitPrice;                    
+                        doc.querySelector(".unitPrice").innerHTML = unitPrice;
 
 
                         doc.querySelector("input[name='unit_price[]']").value = unitPrice;
@@ -766,16 +1166,9 @@
 
                     //add price data dynamically in new order popup
                     let qunatityView = document.querySelector(".popup-view .sizes");
-
-                    
-
-
-                        
-
                 </script>
 
                 <script>
- 
                     //toggle delivery options of new order
 
                     let deliveryN = document.getElementById("deliveryN");
@@ -788,8 +1181,8 @@
 
                     // clear the other option when one is selected
                     document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
-                        pickupDate.addEventListener('change', function(){
-                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate =>{
+                        pickupDate.addEventListener('change', function() {
+                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
                                 deliveryDate.value = "";
                             });
 
@@ -797,19 +1190,19 @@
                     });
 
                     document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
-                        deliveryDate.addEventListener('change', function(){
-                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate =>{
+                        deliveryDate.addEventListener('change', function() {
+                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
                                 pickupDate.value = "";
                             });
 
                         });
                     });
 
-                    function togglePickUpN(){
-                        
+                    function togglePickUpN() {
+
                         document.querySelector(".user-details.pickupN").classList.add("is-checked");
                         document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-                        
+
 
                     }
 
@@ -820,7 +1213,6 @@
                 </script>
 
                 <script>
-
                     let addMaterial = document.querySelector(".popup-new .add.card");
                     let count = 0;
 
@@ -910,7 +1302,7 @@
                             `;
 
 
-                            document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
+                        document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
 
 
                         let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
@@ -1070,6 +1462,10 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
+
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 </body>
 

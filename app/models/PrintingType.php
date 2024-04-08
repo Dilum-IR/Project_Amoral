@@ -1,6 +1,6 @@
 <?php
 
-class printingType{
+class PrintingType{
 
     use Model;  
 

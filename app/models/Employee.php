@@ -19,7 +19,8 @@ class Employee
 	public $chatForCloumn = [
 
 		'emp_id',
-		'email'
+		'email',
+		'emp_image'
 	];
 
 	public function validate($data)
@@ -202,7 +203,7 @@ class Employee
 			$this->errors['flag'] = true;
 			$this->errors['error'] = "Contact Number is invalid ";
 		}
-		 show($this->errors);
+		 //show($this->errors);
 
 		
 
