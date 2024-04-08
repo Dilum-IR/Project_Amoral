@@ -56,6 +56,6 @@ class GarmentOrder
         ON printing_type.ptype_id = order_material.ptype_id ";
 
 
-        return $this->quary($quary, $data);
+        return $this->quary($quary);
     }
 }

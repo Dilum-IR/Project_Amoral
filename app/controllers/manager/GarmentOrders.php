@@ -13,13 +13,13 @@ class GarmentOrders extends Controller
         if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
 
             // $data['garment_orders'] = $order->get('employee', 'emp_id');
-            $data['garments'] = $garments->findAll('garment_id');
+            $data['garments'] = $garments->findAll_withLOJ("employee", "garment_id", "emp_id");
             $data['order_material'] = $order_material->findAll('order_id');
             $data['material_sizes'] = $order->getMaterialData();
             
             $data['garment_orders'] = $order->findAll_withLOJ("garment", "garment_id", "garment_id");
             $data['customer_orders'] = $order->findAll_withLOJ("orders", "order_id", "order_id");
-            // show($data);
+            // show($data['garment_orders']);
             
             $this->view('manager/garmentorders', $data);
               

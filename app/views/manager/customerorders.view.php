@@ -73,41 +73,47 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data['orders'] as $order): ?>
-                        
-                            <?php $material = array(); ?>
-                        <tr>
-                            <td class="ordId"><?php echo $order->order_id ?></td>
-                            <td><?php echo $order->user_id ?></td>
-                            <td><?php echo $order->order_placed_on ?></td>
-                            <td>
-                            <?php foreach($data['material_sizes'] as $sizes):?>
-                                    <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php $material[] = $sizes?>
-                                    <?php echo $sizes->material_type ?><br>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </td>
-                            <td class="desc">
+                        <?php if(!empty($data['orders'])): ?>
+                            <?php foreach($data['orders'] as $order): ?>
+                            
+                                <?php $material = array(); ?>
+                            <tr>
+                                <td class="ordId"><?php echo $order->order_id ?></td>
+                                <td><?php echo $order->user_id ?></td>
+                                <td><?php echo $order->order_placed_on ?></td>
+                                <td>
                                 <?php foreach($data['material_sizes'] as $sizes):?>
-                                    <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </td>
-                            <td><?php echo $order->dispatch_date ?></td>
-                            <td class="st">
-                                <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                <div class="progress-bar"></div>
-                            </td>
-                        
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
-                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                        </tr>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php $material[] = $sizes?>
+                                        <?php echo $sizes->material_type ?><br>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </td>
+                                <td class="desc">
+                                    <?php foreach($data['material_sizes'] as $sizes):?>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </td>
+                                <td><?php echo $order->dispatch_date ?></td>
+                                <td class="st">
+                                    <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
+                                    <div class="progress-bar"></div>
+                                </td>
+                            
+                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
+                                <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                            </tr>
 
+                            
                         
-                     
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="8">No orders to display</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

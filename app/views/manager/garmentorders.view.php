@@ -51,7 +51,7 @@
                                 <p>Quantity</p>
                             </div>
                             <?php $pendingOrders = false; ?>
-                            <?php if(isset($data['garment_orders'])): ?>
+                            <?php if(!empty($data['garment_orders'])): ?>
                                 <?php foreach($data['garment_orders'] as $order): ?>
                                     <?php if($order->status == 'pending' && $order->garment_id == null): ?>
                                         <?php $totQuantity = 0; ?>
@@ -77,17 +77,19 @@
                 </div>
 
                 <div class="right">
-                    <?php if(isset($data['garments'])): ?>
+                    <?php if(!empty($data['garments'])): ?>
                         <?php foreach($data['garments'] as $garment): ?>
                             <div class="category garments" id="<?php echo $garment->garment_id ?>">
-                                <h3><?php echo $garment->name ?> - <?php echo $garment->location ?></h3>
+                                <h3><?php echo $garment->emp_name ?> - <?php echo $garment->location ?></h3>
+                                <h4>Day Capacity: <?php echo $garment->day_capacity ?></h4>
+                                <h4>Workers: <?php echo $garment->no_workers ?></h4>
                                 <!-- <h3></h3> -->
                                 <div class="items">
                                     <div class="item">
                                         <p>Orders</p>
                                         <p>Quantity</p>
                                     </div>
-                                    <?php if(isset($data['garment_orders'])): ?>
+                                    <?php if(!empty($data['garment_orders'])): ?>
                                         <?php $count = 0; ?>
                                         <?php $totQuantity = 0; ?>
                                         <?php foreach($data['garment_orders'] as $order): ?>
@@ -200,36 +202,49 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data['garment_orders'] as $order): ?>
-                            <?php $materials = array(); ?>
-                            <?php $customer_order; ?>
-                            <?php foreach($data['material_sizes'] as $order_material): ?>
-                                <?php if($order_material->order_id == $order->order_id): ?>
-                                    <?php $materials[] = $order_material; ?>
-                                <?php endif; ?>
+                        <?php if(!empty($data['garment_orders'])): ?>
+                            <?php foreach($data['garment_orders'] as $order): ?>
+                                <?php $materials = array(); ?>
+                                <?php $customer_order; ?>
+                                <?php foreach($data['material_sizes'] as $order_material): ?>
+                                    <?php if($order_material->order_id == $order->order_id): ?>
+                                        <?php $materials[] = $order_material; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php foreach($data['customer_orders'] as $cus_order): ?>
+                                    <?php if($cus_order->order_id == $order->order_id): ?>
+                                        <?php $customer_order = $cus_order; ?>
+                                    
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+
+                                <?php $garment_name = ''; ?>
+                                <?php foreach($data['garments'] as $garment): ?>
+                                    <?php if($garment->garment_id == $order->garment_id): ?>
+                                        <?php $garment_name = $garment->emp_name; ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <tr>
+                                <td><?php echo $order->garment_order_id ?></td>
+                                <td><?php echo $garment_name ?></td>
+                                <td><?php echo $order->cut_dispatch_date ?></td>
+                                <td><?php echo $order->sew_dispatch_date ?></td>
+                                <td><?php echo $order->order_id ?> </td>
+                                <td class="st">
+                                    <div class="text-status <?php echo $order->status?>"><?php echo $order->status ?></div>
+                                    <div class="progress-bar"></div>
+                                </td>
+                            
+                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($materials); ?>' data-customerOrder='<?= json_encode($customer_order); ?>'  onclick="openView(this)"><i class="fas fa-edit"></i> View</button></td>
+                                <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                            </tr>
+                            
                             <?php endforeach; ?>
-                            <?php foreach($data['customer_orders'] as $cus_order): ?>
-                                <?php if($cus_order->order_id == $order->order_id): ?>
-                                    <?php $customer_order = $cus_order; ?>
-                                 
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <tr>
-                            <td><?php echo $order->garment_order_id ?></td>
-                            <td><?php echo $order->name ?></td>
-                            <td><?php echo $order->cut_dispatch_date ?></td>
-                            <td><?php echo $order->sew_dispatch_date ?></td>
-                            <td><?php echo $order->order_id ?> </td>
-                            <td class="st">
-                                <div class="text-status <?php echo $order->status?>"><?php echo $order->status ?></div>
-                                <div class="progress-bar"></div>
-                            </td>
-                        
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($materials); ?>' data-customerOrder='<?= json_encode($customer_order); ?>'  onclick="openView(this)"><i class="fas fa-edit"></i> View</button></td>
-                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                        </tr>
-                        
-                        <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7">No orders to display</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
