@@ -237,8 +237,8 @@ input {
 }
 
 .table-section {
-
-  overflow: auto;
+    /* width: 100%; */
+  /* overflow: auto; */
   /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
   border-radius: 20px;
   background: ghostwhite;
@@ -248,7 +248,7 @@ input {
 }
 
 table {
-  width: 100%;
+  width: 120%;
   position: relative;
   min-width: 1000px;
   border-collapse: collapse;
@@ -572,6 +572,10 @@ textarea {
   font-size: 13px;
 }
 
+.table-section table{
+    overflow: auto;
+}
+
 /* Active Css  */
 
 
@@ -634,6 +638,13 @@ ul li .active .uil{
   }
 }
 
+/* @media (max-width: 100%) {
+    .table-section{
+        overflow: scroll;
+    }
+    
+} */
+
 /* .container1 {
   width: 100%;
   background: #ffffff;
@@ -666,7 +677,7 @@ form .user-details {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 19px -2px 12px 38px;
+  margin: 21px -2px 19px 5px;
 }
 
 form .profile-image {
@@ -704,6 +715,7 @@ form .user-details .input-box {
   margin-bottom: 10px;
   width: calc(100% / 2 - 20px);
   overflow: hidden;
+  border-style: none;
 }
 
 /* .form .user-details .profile-image img {
@@ -767,16 +779,19 @@ button.pay:hover {
 select {
   position: relative;
   left: 10.5%;
-  height: 38px;
+  height: 40px;
+  width: 80%;
+  margin-bottom: 8px;
   outline: none;
-  background-color: #ffffffd5;
-  border-radius: 4px;
+  background-color: #aaaaaa75;
+  border-radius: 25px;
   border-style: none;
   /* border: 1px solid black; */
   /* padding-left: 15px; */
   font-size: 13px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .user-details select {
@@ -955,6 +970,7 @@ select {
   background-color: #c9c9c9; /* Darker green background on hover */
   color: black;
 }
+
 
 /* 
 .popup-view .pb {

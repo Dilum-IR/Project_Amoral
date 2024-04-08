@@ -5,7 +5,7 @@
     <title>Amoral</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/employeedetails.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/customerdetails.css">
     <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/employeepopup.css"> -->
     <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/quotation.css"> -->
     <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/profile.css"> -->
@@ -33,7 +33,7 @@
             </li>
             <i class='bx bx-chevron-right'></i>
             <li>
-                <a href="#" class="active">Employee Details</a>
+                <a href="#" class="active">Customer Details</a>
             </li>
 
         </ul>
@@ -49,7 +49,7 @@
                     </div>
                 </form>
                 <div class="add-btn">
-                    <input class="new-btn" type="button" onclick="openNew(this)" value="Add Employee">
+                    <input class="new-btn" type="button" onclick="openNew(this)" value="Add Customer">
                 </div>
             </div>
 
@@ -67,38 +67,38 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>E - mail</th>
-                            <th>Contact No.</th>
-                            <th>City</th>
-                            <th>Position</th>
-                            <th></th>
+                            <th >Id</th>
+                            <th >Name</th>
+                            <th >City</th>
+                            <th >Address</th>
+                            <th >Contact No.</th>
+                            <th >E-mail</th>
+                            <!-- <th>Position</th> -->
+                            <th ></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         // show($data);
-                        foreach ($data as $emp) : ?>
+                        foreach ($data as $cst) : ?>
 
                             <tr>
-                                <td class="ordId"><?php echo $emp->emp_id ?></td>
-                                <td><?php echo $emp->emp_image ?></td>
-                                <td><?php echo $emp->emp_name ?></td>
-                                <td><?php echo $emp->email ?></td>
-                                <td><?php echo $emp->contact_number ?> </td>
-                                <td><?php echo $emp->city ?> </td>
-                                <td><?php echo $emp->emp_status ?> </td>
+                                <td class="ordId"><?php echo $cst->id ?></td>
+                                <td><?php echo $cst->fullname ?></td>
+                                <td><?php echo $cst->city ?></td>
+                                <td><?php echo $cst->address ?></td>
+                                <td><?php echo $cst->phone ?> </td>
+                                <td><?php echo $cst->email ?> </td>
                                 <!-- <td class="st">
-                                <div class="text-status <?php echo $emp->status ?>"><?php echo $emp->status ?></div>
+                                <div class="text-status <?php echo $cst->status ?>"><?php echo $cst->status ?></div>
                                 <div class="progress-bar"></div>
                                 </td> -->
 
-                                <td><button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button> <button style="color: #ff0000de;">Remove</button>
+                                <td><button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-cst='<?= json_encode($cst); ?>' onclick="openView(this)">View</button> <button style="color: #ff0000de;">Remove</button>
                                     <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                             </tr>
 
+                    
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -114,13 +114,13 @@
 
     <div class="popup-view" id="popup-view">
         <!-- Popup content -->
-        <h2>Employee Details</h2>
+        <h2>Customer Details</h2>
 
         <div class="popup-content">
             <form class="update-form" method="POST">
 
                 <div class="user-details-title">
-                    <h3>Edit Employee Details</h3>
+                    <h3>Edit Customer Details</h3>
                 </div>
 
                 <div class="profile-image">
@@ -130,12 +130,12 @@
                 <div class="user-details">
 
                     <div class="input-box">
-                        <span class="details">Employee Id </span>
+                        <span class="details">Customer Id </span>
                         <input type="text" id="" readonly name="emp_id" />
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Employee Name </span>
+                        <span class="details">Customer Name </span>
 
                         <input type="text" required onChange="" value="" name="emp_name" />
                     </div>
@@ -186,15 +186,15 @@
     </div>
     <div id="overlay" class="overlay"></div>
 
-    <!-- Popup for Adding New Employee -->
+    <!-- Popup for Adding New Customer -->
     <div class="popup-new">
 
         <div class="popup-content">
-            <h2>Add new Employee</h2>
+            <h2>Add new Customer</h2>
             <form method="POST">
                 <div class="form">
                     <div class="input-box">
-                        <span class="details">Employee Name</span>
+                        <span class="details">Customer Name</span>
                         <input class="new-emp-details" type="text" name="emp_name" placeholder="Enter name" required>
                         <!-- <label class="placeholder" for="input">Enter text here...</label> -->
                     </div>
@@ -253,7 +253,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="<?= ROOT ?>/assets/js/manager/employeedetails.js"></script>
+    <script src="<?= ROOT ?>/assets/js/manager/customerdetails.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 
