@@ -57,19 +57,19 @@ table_headings.forEach((head, i) => {
             if(h!=head && h.className !== "null"){
                 let ic = h.querySelector('i');
                 // console.log(ic);
-                if(ic.className.includes('bx-down-arrow-circle')){
-                    ic.className = "bx bx-up-arrow-circle";
+                if(ic.className.includes('bx-up-arrow-circle')){
+                    ic.className = "bx bx-down-arrow-circle";
                 }
             }
         });
         if (icon.className.includes('bx-up-arrow-circle')) {
             // Change to down arrow
             icon.className = "bx bx-down-arrow-circle";
-            order = 'desc';
+            order = 'asc';
         } else {
             // Change to up arrow
             icon.className = "bx bx-up-arrow-circle";
-            order = 'asc';
+            order = 'desc';
         }
 
 

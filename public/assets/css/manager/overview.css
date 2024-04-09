@@ -958,41 +958,12 @@ body {
     transition: all 0.3s ease-in-out;
   }
 
-  .calendar .days .event.pending {
-    background-color: #93aa36;
-  }
-  .calendar .days .event.pending:hover {
-    background-color: #c8fa00;
-    color: #000000;
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-  }
 
-  .calendar .days .event.processing {
+  .calendar .days .event {
     background-color: #2af523;
   }
-  .calendar .days .event.processing:hover {
+  .calendar .days .event:hover {
     background-color: #00fa3e;
-    color: #000000;
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .calendar .days .event.delivering{
-    background-color: #23c1f5;
-  }
-  .calendar .days .event.delivering:hover {
-    background-color: #00a9fa;
-    color: #000000;
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .calendar .days .event.completed {
-    background-color: #2a23f5;
-  }
-  .calendar .days .event.completed:hover {
-    background-color: #00a9fa;
     color: #000000;
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;

@@ -28,6 +28,7 @@ route('customer/chatbox', 'customer/customerOverview@chat_data');
 
 //manager ajax endpoint
 route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
+route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
 
 
 route('manager/overview', 'manager/Overview@index');

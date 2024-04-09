@@ -239,12 +239,12 @@ input{
 
 .table-section{
     
-    overflow: auto;
+    overflow: hidden;
     /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
     border-radius: 20px;
     background: ghostwhite;
     margin: 19px 32px;
-    overflow-x: auto;
+    /* overflow-x: auto; */
 
 }
 

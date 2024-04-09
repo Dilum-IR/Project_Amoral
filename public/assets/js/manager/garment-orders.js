@@ -1,7 +1,8 @@
 let popupView = document.getElementById("popup-view");
-
+let popupSetDeadline = document.getElementById("popup-set-deadline");
 let popupNew = document.querySelector(".popup-new");
 let closeViewBtn = document.querySelector(".popup-view .close");
+let closeSetDeadlineBtn = document.querySelector(".popup-set-deadline .close");
 
 let sidebar = document.querySelector(".sidebar");
 let nav = document.getElementById("navbar");
@@ -21,6 +22,7 @@ const search = document.querySelector(".form input"),
 search.addEventListener('input', performSearch);
 
 closeViewBtn.addEventListener('click', closeView);
+closeSetDeadlineBtn.addEventListener('click', closeSetDeadline);
 
 
 function performSearch() {
@@ -43,10 +45,19 @@ function performSearch() {
     const dropzones = document.querySelectorAll(".category");
  
 
-    dropzones.forEach((dropzone) => {
-        dropzone.addEventListener("drop", (e) => {
-            document.querySelector(".save-edit").style.visibility = "visible";
+    // dropzones.forEach((dropzone) => {
+    //     dropzone.addEventListener("drop", (e) => {
+    //         document.querySelector(".save-edit").style.visibility = "visible";
 
+    //     });
+    // });
+
+    draggables.forEach((draggable) => {
+        draggable.addEventListener("dragstart", (e) => {
+            // set deadlines for cutting and sewing
+            if(!draggable.classList.contains("set")){
+                openSetDeadline(draggable);
+            }
         });
     });
 
@@ -95,23 +106,30 @@ function performSearch() {
     }
 
     function drop(e) {
-    e.preventDefault();
-    const data = e.dataTransfer.getData("text/plain");
-    const draggableElement = document.getElementById(data);
+        e.preventDefault();
+        const data = e.dataTransfer.getData("text/plain");
+        const draggableElement = document.getElementById(data);
 
-    if (draggedElement && draggableElement) {
-        const targetCategory = e.target.closest(".category");
-        const sourceCategory = draggedElement.closest(".category");
+        if (draggedElement && draggableElement) {
+            const targetCategory = e.target.closest(".category");
+            const sourceCategory = draggedElement.closest(".category");
 
-        if (targetCategory !== sourceCategory) {
-        targetCategory.appendChild(draggableElement);
+            if (targetCategory !== sourceCategory) {
+            targetCategory.appendChild(draggableElement);
+            }
         }
-    }
 
-    // Reset border color after dropping
-    if (e.target.classList.contains("category")) {
-        e.target.style.borderColor = "";
-    }
+        // Reset border color after dropping
+        if (e.target.classList.contains("category")) {
+            e.target.style.borderColor = "";
+        }
+
+        document.querySelector(".save-edit").style.visibility = "visible";
+
+        // console.log(draggableElement);
+
+
+
     }
  
 
@@ -223,14 +241,50 @@ function closeView(){
 }	
 
 
-function openNew(){
-    popupNew.classList.add("open-popup-new");
-    overlay.classList.add("overlay-active");
+function openSetDeadline(e) {
+    const orderData = e.getAttribute("data-order");
+    const qty = e.getAttribute("qty");
+
+    const order = JSON.parse(orderData);
+
+    // console.log(order);
+    // document.querySelector('.set-deadline-form input[name="order_id"]').value = order.order_id;
+    document.querySelector('.set-deadline-form input[name="quantity"]').value = qty;
+    document.querySelector('.set-deadline-form input[name="garment_order_id"]').value = order.garment_order_id;
+
+    document.querySelector('.set-deadline-form input[name="order_placed_on"]').value = order.order_placed_on;
+    document.querySelector('.set-deadline-form input[name="dispatch_date"]').value = order.dispatch_date;
+
+    //set limits for the date input fields
+    var currentDate = new Date();
+    var orderPlacedOn = new Date(order.order_placed_on);
+    var dispatchDate = new Date(order.dispatch_date);
+
+    let differenceInTime = dispatchDate.getTime() - currentDate.getTime();
+    let differenceInDays = differenceInTime / (1000 * 3600 * 24);
+
+    let maxDate = new Date(currentDate.getTime() + (differenceInDays / 2 * 24 * 60 * 60 * 1000));
+
+    document.querySelector('.set-deadline-form input[name="cut_dispatch_date"]').min = currentDate.toISOString().split('T')[0];
+    document.querySelector('.set-deadline-form input[name="cut_dispatch_date"]').max = maxDate.toISOString().split('T')[0];
+
+    document.querySelector('.set-deadline-form input[name="sew_dispatch_date"]').min = currentDate.toISOString().split('T')[0];
+    document.querySelector('.set-deadline-form input[name="sew_dispatch_date"]').max = dispatchDate.toISOString().split('T')[0];
+
+
+    popupSetDeadline.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
 }
-function closeNew(){
-    popupNew.classList.remove("open-popup-new");
-    overlay.classList.remove("overlay-active");
+
+function closeSetDeadline() {
+    popupSetDeadline.classList.remove("is-visible");
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
 }
+
 
 function addMaterialCardView(material) {
     var newCard = document.createElement("div");
@@ -276,27 +330,27 @@ function addMaterialCardView(material) {
         <div class="sizeChart">
             <div>
                 <span class="size">XS</span>
-                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
+                <input class="st" type="number" id="quantity" name="xs[]" readonly value="${material['xs']}">
             </div>
             <div>
                 <span class="size">S</span>
-                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
+                <input class="st" type="number" id="quantity" name="small[]" readonly value="${material['small']}">
             </div>
             <div>
                 <span class="size">M</span>
-                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
+                <input class="st" type="number" id="quantity" name="medium[]" readonly value="${material['medium']}">
             </div>
             <div>
                 <span class="size">L</span>
-                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
+                <input class="st" type="number" id="quantity" name="large[]" readonly value="${material['large']}">
             </div>
             <div>
                 <span class="size">XL</span>
-                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
+                <input class="st" type="number" id="quantity" name="xl[]" readonly value="${material['xl']}">
             </div>
             <div>
                 <span class="size">2XL</span>
-                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
+                <input class="st" type="number" id="quantity" name="xxl[]" readonly value="${material['xxl']}">
             </div>
         </div>
     </div>

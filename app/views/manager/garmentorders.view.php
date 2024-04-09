@@ -61,7 +61,13 @@
                                                 <?php $totQuantity += $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
-                                        <div class="draggable pending" draggable="true" id="<?php echo $order->garment_order_id ?>"><p><?php echo $order->garment_order_id ?></p><p><?php echo $totQuantity ?></p></div>
+                                        <?php $customer_order; ?>
+                                        <?php foreach($data['customer_orders'] as $cus_order): ?>
+                                            <?php if($cus_order->order_id == $order->order_id): ?>
+                                                <?php $customer_order = $cus_order; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                        <div class="draggable pending" draggable="true" id="<?php echo $order->garment_order_id ?>" data-order='<?php echo json_encode($customer_order) ?>' qty="<?php echo $totQuantity ?>" ><p>Id: <?php echo $order->garment_order_id ?></p><p>Qty: <?php echo $totQuantity ?></p></div>
                                     <?php endif;?>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -86,7 +92,7 @@
                                 <!-- <h3></h3> -->
                                 <div class="items">
                                     <div class="item">
-                                        <p>Orders</p>
+                                        <p>Current Orders</p>
                                         <p>Quantity</p>
                                     </div>
                                     <?php if(!empty($data['garment_orders'])): ?>
@@ -130,7 +136,7 @@
                 $('.garments').each(function() {
                     var id = $(this).attr('id');
                     var orders = [];
-                    $(this).find('.draggable').each(function() {
+                    $(this).find('.draggable.set').each(function() {
                         var order_id = $(this).attr('id');
                         orders.push({id: order_id});
                     });
@@ -323,12 +329,12 @@
 
                     <div class="input-box">
                         <span class="details">Sewing Done On</span>
-                        <input name="sew_dispatch_date" type="text" required onChange="" readonly value="" />
+                        <input name="sew_dispatch_date" type="date" required onChange=""  />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Cutting Done On</span>
-                        <input name="cut_dispatch_date" type="text" required onChange="" readonly value="" />
+                        <input name="cut_dispatch_date" type="date" required onChange="" />
                     </div>
 
                 </div>
@@ -368,6 +374,137 @@
         </div>
     </div>
 
+    <div class="popup-set-deadline" id="popup-set-deadline">
+        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
+        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+        <div class="popup-content">
+            <span class="close" >&times;</span>
+          
+            <h2>Set Cutting and Sewing Deadlines</h2>
+
+        
+            <form class="set-deadline-form" method="POST">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Order Id </span>
+                        <input name="garment_order_id" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Quantity</span>
+                        <input name="quantity" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <!-- <div class="input-box"></div> -->
+                    <div class="input-box">
+                        <span class="details">Cutting Deadline</span>
+                        <input name="cut_dispatch_date" type="date" required onChange="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Sewing Deadline</span>
+                        <input name="sew_dispatch_date" type="date" required onChange="" />
+                    </div>
+
+
+                </div>
+
+                <hr class="second">
+                
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Order Placed On</span>
+                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+                    
+                        <input type="text" name="dispatch_date" required onChange="" readonly value="">
+                    </div>
+                </div>
+
+                <!-- hidden element -->
+                <!-- <div class="input-box">
+                    <input name="order_id" type="hidden" required />
+                </div> -->
+
+
+                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                <input type="submit" class="update-btn pb" name="updateDeadlines" value="Set Deadlines" />
+                <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel</button> -->
+                <!-- </form> -->
+
+
+            </form>
+        </div>
+    </div>
+
+        <!-- set deadlines -->
+    <script>
+        $('.popup-set-deadline .update-btn').click(function(e) {
+            // e.preventDefault();
+            var garment_order_id = $('.popup-set-deadline input[name="garment_order_id"]').val();
+            var cut_dispatch_date = $('.popup-set-deadline input[name="cut_dispatch_date"]').val();
+            var sew_dispatch_date = $('.popup-set-deadline input[name="sew_dispatch_date"]').val();
+
+            // var order_id = $('.popup-set-deadline input[name="order_id"]').val();
+
+
+            $.ajax({
+                url: '<?= ROOT ?>/manager/setDeadlines',
+                type: 'POST',
+                data: {garment_order_id: garment_order_id, cut_dispatch_date: cut_dispatch_date, sew_dispatch_date: sew_dispatch_date},
+                success: function(response) {
+                    console.log(response);
+                    sessionStorage.setItem('successMsg', 'Deadlines set successfully');
+                    sessionStorage.setItem('id', garment_order_id);
+                    location.reload();
+                }
+            });
+
+        });
+
+        $(document).ready(function(){
+            // localStorage.clear();
+            var ids = JSON.parse(localStorage.getItem('setId')) || [];
+            // var ids = JSON.parse(localStorage.getItem('setId'));
+            if (!Array.isArray(ids)) {
+                ids = [ids];
+            }
+            console.log(ids);
+            if (ids) {
+                ids.forEach(function(id) {
+                    $('#' + id).addClass('set');
+                });
+            }
+
+            var successMsg = sessionStorage.getItem('successMsg');
+            var id = sessionStorage.getItem('id');
+
+            if(successMsg){
+                $('.draggable').each(function(){
+                    if($(this).attr('id') == id){
+                        $(this).addClass('set');
+
+                        if(!ids.includes(id)){
+                            // Add the new ID
+                            ids.push(id);
+                        }
+                    }
+                });
+
+                // Store the updated IDs back to localStorage
+                localStorage.setItem('setId', JSON.stringify(ids));
+
+                $('.success-msg').html(successMsg);
+                $('.success-msg').fadeIn(500).delay(2000).fadeOut(500, function() {
+                    $(this).remove();
+                    sessionStorage.removeItem('successMsg');
+                    sessionStorage.removeItem('id');
+                });
+            }
+        });
+    </script>
 
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>

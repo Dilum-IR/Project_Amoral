@@ -19,7 +19,7 @@ class GarmentOrders extends Controller
             
             $data['garment_orders'] = $order->findAll_withLOJ("garment", "garment_id", "garment_id");
             $data['customer_orders'] = $order->findAll_withLOJ("orders", "order_id", "order_id");
-            // show($data['garment_orders']);
+            // show($data['customer_orders']);
             
             $this->view('manager/garmentorders', $data);
               
@@ -34,6 +34,7 @@ class GarmentOrders extends Controller
         $order = new GarmentOrder;
 
         if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
+            // show($_POST);
             foreach($_POST['garments'] as $garment){
                 $data['garment_id'] = $garment['garment_id'];
                 $data['status'] = 'assigned';
@@ -45,4 +46,20 @@ class GarmentOrders extends Controller
             }
         }
     }
+
+    public function setDeadlines(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
+        $order = new GarmentOrder;
+
+        if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
+            if (isset($_POST['garment_order_id'], $_POST['cut_dispatch_date'], $_POST['sew_dispatch_date'])) {
+                $order->update($_POST['garment_order_id'],[
+                    "cut_dispatch_date" => $_POST['cut_dispatch_date'], 
+                    "sew_dispatch_date" => $_POST['sew_dispatch_date']
+                ], 'garment_order_id');
+            } 
+        }
+    }
+
 }

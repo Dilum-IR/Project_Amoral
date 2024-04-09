@@ -62,13 +62,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Order Id  <i class='bx bx-up-arrow-circle'></i></th>
-                            <th>User Id  <i class='bx bx-up-arrow-circle'></i></th>
-                            <th>Placed Date  <i class='bx bx-up-arrow-circle'></i></th>
-                            <th>Material  <i class='bx bx-up-arrow-circle'></i></th>
-                            <th>Quantity  <i class='bx bx-up-arrow-circle'></th>
-                            <th>Dispatch Date  <i class='bx bx-up-arrow-circle'></i></th>
-                            <th>Status  <i class='bx bx-up-arrow-circle'></i></th>
+                            <th>Order Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>User Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Placed Date  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Material  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Quantity  <i class='bx bx-down-arrow-circle'></th>
+                            <th>Dispatch Date  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Status  <i class='bx bx-down-arrow-circle'></i></th>
                             <th class="null"></th>
                         </tr>
                     </thead>

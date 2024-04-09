@@ -510,7 +510,8 @@ tbody tr:hover{
 }
 
 .popup-view, 
-.popup-new {
+.popup-new,
+.popup-set-deadline {
   position: fixed;
   z-index: 2; 
   left: 0;
@@ -912,7 +913,8 @@ select {
 
 }
 
-.popup-view .pb{
+.popup-view .pb,
+.popup-set-deadline .pb{
   position: relative;
   bottom: 4px;
   width: 100%;
@@ -930,18 +932,21 @@ select {
   /* transform: scale(0.9); */
 }
 
-.popup-view .pb:hover{
+.popup-view .pb:hover,
+.popup-set-deadline .pb:hover {
   /* transform: scale(1); */
   font-size: 17px;
   font-weight: 200;
   transition: all 0.3s ease-in-out;
 }
 
-.popup-view .update-btn:hover{
+.popup-view .update-btn:hover,
+.popup-set-deadline .update-btn:hover {
   background: green;
 }
 
-.popup-view .cancel-btn:hover{
+.popup-view .cancel-btn:hover,
+.popup-set-deadline .cancel-btn:hover {
   background: darkred;
 }
 
