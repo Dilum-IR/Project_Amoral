@@ -239,6 +239,18 @@ trait Model
         return $this->quary($quary);
     }
 
+    public function findAll_withLOJ($reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+
+        $quary = "SELECT * FROM $this->table LEFT OUTER JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
+
     // FIND DATA USING INNER JOIN
     public function find_withInner($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id', $allow_columns = ["*"])
     {

@@ -30,6 +30,10 @@ route('customer/chatbox', 'customer/customerOverview@chat_data');
 route('customer/p', 'customer/customerOrders@payment_process');
 route('customer/p_success', 'customer/customerOrders@payment_success');
 
+//manager ajax endpoint
+route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
+route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
