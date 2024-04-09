@@ -7,7 +7,7 @@ class Profile extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User' && $_SESSION['USER']->emp_status === 'delivery') {
+        if ($username != 'Employee' && $_SESSION['USER']->emp_status === 'delivery') {
 
             $employee = new Employee;
 
@@ -78,7 +78,9 @@ class Profile extends Controller
         $empArr['emp_image'] = $row->emp_image;
         $empArr['city'] = $row->city;
         $empArr['address'] = $row->address;
-        // show($empArr);
+
+        // $data =['data' =>$row];
+        // show($data);
         return $empArr;
 
     }
@@ -92,7 +94,7 @@ class Profile extends Controller
 
             $arr['email'] = $data['email'];
             $row = $employee->first($arr);
-            //show($row);
+            // show($row);
             if (
                 $data['emp_name'] == $row->emp_name &&
                 $data['contact_number'] == $row->contact_number &&
@@ -106,17 +108,17 @@ class Profile extends Controller
             }
         }
 
-        if ($employee->changeInfoValidate($data)) {
+        if ($employee-> changeInfoValidate($data)) {
 
-            $user = new User;
+            $employee = new Employee;
 
             $arr['email'] = $data['email'];
 
             $row = $employee->first($arr);
-            $userrow = $user->first($arr);
+            // $userrow = $employee->first($arr);
 
             if ((!empty($row) || !empty($userrow)) && $_SESSION['USER']->email != $data['email']) {
-                //show($row);
+                // show($row);
                 $employee->errors['flag'] = true;
                 $employee->errors['email'] = "This email is alrady in use.";
                 return $employee->errors;
@@ -124,7 +126,7 @@ class Profile extends Controller
 
             // Update userinfo
             $employee->update($id, $data, 'emp_id');
-            $_SESSION['USER']->fullname = $data['fullname'];
+            // $_SESSION['USER']->fullname = $data['emp_name'];
 
             // user email is changed then redirect to the sign in page 
             if ($_SESSION['USER']->email != $data['email']) {
