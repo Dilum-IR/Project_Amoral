@@ -4,6 +4,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     // database configaration 
     define('DBHOST', 'localhost:3306');
+    define('DBUSER', 'root');
     define('DBPASS', '');
     define('DBDRIVER', '');    
     define('DBNAME', 'amoral_db');
