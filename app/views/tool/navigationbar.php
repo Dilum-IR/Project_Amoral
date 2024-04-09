@@ -3,7 +3,9 @@
 <section class="home-section" id="navbar">
         <nav>
             <div class="company-logo">
-                <img  src="<?= ROOT ?>/assets/images/amorallogo.png" alt="#" class="logo">
+            <a href="<?= ROOT ?>/home">
+                <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="logo" class="logo">
+            </a>
             </div>
             <div class="nav-icons">
                 <a href="#" class="nav-link">

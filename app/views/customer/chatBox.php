@@ -23,11 +23,13 @@
 
                 <!-- <span class="close-btn" onclick="toggleChat()">×</span> -->
 
+                <!-- 👋 Hi, message us with any questions. We're happy to help! -->
+
                 <div class="main-content">
 
                     <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
                     <div class="user">
-                        <p id="header-user">Chat With Amoral</p>
+                        <p id="header-user">Chat with us</p>
                         <div class="user-status hide">
                             <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
                             <p id='typing' class="user-online">Offline</p>
@@ -59,7 +61,7 @@
 
         var chatBoxData
 
-        var userID 
+        var userID
         var socket = null;
 
         var chatInput = document.querySelector(".chat-input");
@@ -128,12 +130,14 @@
 
         }
 
+        // first time chat msg one time display
+        oneDisplay = true;
+
         function getUserChat(email) {
 
             data = {
                 email: email
             }
-
             $.ajax({
                 type: "POST",
                 url: "<?= ROOT ?>/customer/chatbox",
@@ -144,11 +148,45 @@
 
                         Jsondata = JSON.parse(res)
 
+                        // Add employee image
+                        var imageUrl = `<?= ROOT ?>/uploads/profile_img/${Jsondata.empImage}`;
+                        userImge.setAttribute("src", imageUrl);
+
+                        // User is first time chat with Company then display msg
+                        if ((Jsondata == null || Jsondata.chatMsgs == false) ) {
+
+                            document.getElementById("chat-body").textContent = ''
+
+                            oneDisplay = false;
+                            var p = document.createElement("p");
+
+                            p.style.padding = "10px";
+                            p.style.marginBottom = "10px";
+                            p.style.borderRadius = "5px";
+                            p.style.display = "inline-block";
+                            p.style.fontSize = "13px";
+                            p.style.lineHeight = "20px";
+                            p.style.maxWidth = "70%";
+                            p.innerHTML = "👋 Hi, message us with any questions. We're happy to help! 😀";
+
+                            p.style.alignSelf = "flex-start";
+                            p.style.flexDirection = "column";
+                            p.style.background = "white";
+                            p.style.color = "black";
+
+                            document.getElementById("chat-body").appendChild(p);
+
+                            console.log("data")
+
+                        } else {
+
+                            document.getElementById("chat-body").textContent = ''
+                        }
+
                         // get that data using local variable when to use futures
                         chatBoxData = Jsondata
                         selectChatId = Jsondata.chat[0].chat_id
 
-                        document.getElementById("chat-body").textContent = ''
 
                         // console.log(Jsondata)
 
@@ -211,14 +249,14 @@
             p.style.fontSize = "13px";
             p.style.lineHeight = "20px";
             p.style.maxWidth = "70%";
-            p.innerHTML = chatMsg.msg + "<br> <small> <em>" + formatTime(dateTime)  + "</em></small>";
+            p.innerHTML = chatMsg.msg + "<br> <small> <em>" + formatTime(dateTime) + "</em></small>";
 
             div.style.color = "white";
             div.style.fontSize = "14px";
 
-            if (loadWithTime != formatDate(dateTime) ) {
+            if (loadWithTime != formatDate(dateTime)) {
 
-                loadWithTime = formatDate(dateTime) ;
+                loadWithTime = formatDate(dateTime);
 
                 div.innerHTML = loadWithTime;
                 div.style.maxWidth = "100%";
@@ -227,7 +265,7 @@
 
             if (reciveTimedisplay && sendTimedisplay) {
 
-                div.innerHTML = formatDate(dateTime) ;
+                div.innerHTML = formatDate(dateTime);
                 div.style.maxWidth = "100%";
                 div.style.textAlign = "center";
 
@@ -239,12 +277,17 @@
                 p.style.background = "black";
                 p.style.color = "white";
                 p.style.alignSelf = "flex-end";
+                // p.style.textAlign = "end";
+                // p.style.marginLeft= "auto";
+                // p.style.float = "right";
 
             } else {
+                p.style.textAlign = "start";
                 p.style.alignSelf = "flex-start";
                 p.style.flexDirection = "column";
                 p.style.background = "white";
                 p.style.color = "black";
+
             }
 
             p.style.transition = "opacity 1s ease-in-out, transform 1s ease-in-out";
@@ -253,12 +296,12 @@
             document.getElementById("chat-body").appendChild(p);
 
             // messages trantion
-            var delay = chatMsg.log_user ? 0 : 30000;
+            // var delay = chatMsg.log_user ? 0 : 30000;
 
-            setTimeout(function() {
-                p.style.opacity = "1";
-                p.style.transform = "translateY(0)";
-            }, delay);
+            // setTimeout(function() {
+            //     p.style.opacity = "1";
+            //     p.style.transform = "translateY(0)";
+            // }, delay);
 
         }
 
@@ -290,10 +333,10 @@
                 'msg': query,
                 'user_id': chatBoxData.log_user,
                 'date': formatDate(currentDate),
-                'time': formatTime(currentDate) 
+                'time': formatTime(currentDate)
             }));
 
-            sendMessage(query, formatDate(currentDate), formatTime(currentDate) );
+            sendMessage(query, formatDate(currentDate), formatTime(currentDate));
         }
 
 
@@ -314,6 +357,7 @@
             p.style.lineHeight = "20px";
             p.innerHTML = query + "<br> <small> <em>" + formattedTime + "</em></small>";
 
+            // p.style.float = "right";
             div.style.color = "white";
             div.style.fontSize = "14px";
 
@@ -344,13 +388,13 @@
                 data: data,
                 cache: false,
                 success: function(res) {
-                    
+                    data = JSON.parse(res)
                 },
                 error: function(xhr, status, error) {
                     // return xhr;
                 }
             });
-            
+
 
         }
 
@@ -375,7 +419,7 @@
 
                 // console.log(data);
 
-                if ( data.chat_id == selectChatId) {
+                if (data.chat_id == selectChatId) {
 
                     // if ( data.typing == null || data.msg == null ) {
                     //     return;
@@ -390,8 +434,11 @@
                         p.style.padding = "10px";
                         p.style.marginBottom = "10px";
                         p.style.borderRadius = "5px";
+                        p.style.fontSize = "13px";
+
                         p.style.display = "inline-block";
                         p.style.maxWidth = "60%";
+                        // p.style.float = "right";
                         p.innerHTML = data.msg + "<br> <small> <em>" + data.time + "</em></small>";
 
 

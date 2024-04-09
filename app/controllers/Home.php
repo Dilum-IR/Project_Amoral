@@ -10,7 +10,9 @@ class Home extends Controller
 
             unset($_SESSION['USER']);
         } 
-
+        // session_destroy();
+        // redirect('signin');
+        
         // require_once 'Model.php';
         // echo "this is a home controller";
 

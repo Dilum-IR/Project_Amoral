@@ -48,7 +48,7 @@
                         </button>
                     </div>
                 </form>
-                <input class="new-btn" type="button" onclick="openNew()" value="Add Employee">
+                <input class="new-btn" type="button" onclick="openNew(this)" value="Add Employee">
             </div>
 
         </form>
@@ -66,6 +66,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>E - mail</th>
                             <th>Contact No.</th>
@@ -83,6 +84,7 @@
                                     if (!$emp->is_quotation) : ?> -->
                             <tr>
                                 <td class="ordId"><?php echo $emp->emp_id ?></td>
+                                <td><?php echo $emp->emp_image ?></td>
                                 <td><?php echo $emp->emp_name ?></td>
                                 <td><?php echo $emp->email ?></td>
                                 <td><?php echo $emp->contact_number ?> </td>
@@ -116,11 +118,14 @@
     <!-- Popup content -->
     <h2>Employee Details</h2>
 
-        <div class="container1">
+        <div class="popup-content">
             <form class="update-form" method="POST">
                 <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
-                <button type="button" class="cancel-btn pb">Cancel</button>
+                <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
                 <div class="user-details">
+
+
+                
                     <div class="input-box">
                         <span class="details">Employee Id </span>
                         <input type="text" id="" readonly name="emp_id" />
@@ -129,11 +134,12 @@
                     <div class="input-box">
                         <span class="details">Employee Name </span>
 
-                        <input type="text" required onChange="" value="Steve Jobs" name="emp_name" />
+                        <input type="text" required onChange="" value="" name="emp_name" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Profession</span>
+                        <input type="text" required onChange="" value="" name="emp_status" />
                         <!-- <select name="emp_status">
                         <option name="employee1" value="Manager"></option>
                         <option name="employee2" value="Merchandiser"></option>
@@ -147,8 +153,8 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Address</span>
-                        <input type="text" required onChange="" value="Padukka" name="address" />
+                        <span class="details">City</span>
+                        <input type="text" required onChange="" value="Padukka" name="city" />
                     </div>
 
                     <div class="input-box">
@@ -158,7 +164,7 @@
                 </div>
             </form>
         </div>
-        <button type="button" class="ok-btn" onclick="closeView()">OK</button>
+        <!-- <button type="button" class="ok-btn" onclick="closeView()">OK</button> -->
 </div>
 <div id="overlay" class="overlay"></div>
 

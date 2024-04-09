@@ -9,37 +9,41 @@ class Orders extends Controller
 
         // if ($username != 'User') {
 
-            $order = new Order;
-            $user = new User;
+        $order = new Order;
+        // find all delivery orders
+        // $result = $order->where(['order_status'=>"delivering"]);
 
-            // find all delivery orders
-            $result = $order->findAll('order_id');
-            $allUsers = $user->findAll('id');
-
-            // show($allUsers);
-            // foreach ($result as $item) {
-
-            //     foreach ($allUsers as $current) {
-
-            //         if ($item->user_id ==  $current->id) {
-
-            //             // $yourObject = new stdClass();
-
-            //             // $yourObject->fullname = $current->fullname;
-            //             // show($item);
-            //             // echo $current->fullname;
-            //             // $item["fullname"] = $yourObject;
-            //             // $current->fullname;
-            //         }
-            //     }
-            //     // $eachUsers = $user->where($dumy);
-            //     // $result = $order->findAll('order_id');
-            // }
+        $column_names = [];
+        $column_names[0] = "users.fullname";
+        $column_names[1] = "users.phone";
+        $column_names[2] = "orders.order_id";
+        $column_names[3] = "orders.city";
+        $column_names[4] = "orders.order_status";
+        $column_names[5] = "orders.dispatch_date";
+        $column_names[6] = "orders.order_placed_on";
+        $column_names[7] = "orders.latitude";
+        $column_names[8] = "orders.longitude";
 
 
-            // show($result);
-            $data = ['data' => $result];
-            $this->view('delivery/orders', $data);
+        $result = $order->find_withInner(['order_status' => "delivering"], "users", "user_id", "id",$column_names);
+
+// show($_POST);
+
+        $data['data1'] = $result;
+        //show($data);
+        if(isset($_POST['confirm']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
+            unset($_POST['confirm']);
+            $_POST['order_status']='delivered';
+
+            $order->update($_POST['order_id'],$_POST,'order_id');
+            redirect('delivery/orders');
+
+        }
+
+// show($_POST);
+
+        
+        $this->view('delivery/orders', $data);
         // } else {
         //     redirect('home');
         // }

@@ -19,7 +19,7 @@ h3 {
 #main {
   position: relative;
   height: 100%;
-  top: 65px;
+  top: 60px;
   left: 76px;
   width: calc(100% - 78px);
   transition: all 0.5s ease;
@@ -66,12 +66,12 @@ h3 {
 
 .wrapper .left img {
   border-radius: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   /* Adjusted photo size */
 
   width: 100%;
-  height: 300px;
+  height: 250px;
   background-size: cover;
 
   box-shadow: -5px 0px 50px -30px rgb(255, 255, 255);
@@ -170,7 +170,7 @@ h3 {
 }
 
 .right .info {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .pro_input {
@@ -183,7 +183,7 @@ h3 {
   border: 1px solid gray;
 }
 .wrapper .right .info h3 {
-  margin-bottom: 15px;
+  /* margin-bottom: 10px; */
   padding-bottom: 5px;
   color: #353c4e;
   /* text-transform: uppercase; */

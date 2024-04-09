@@ -43,7 +43,7 @@ class Profile extends Controller
             $data['imagerror'] = isset($imagerror) ? $imagerror : "";
 
             // echo "<pre>";
-            // print_r($data['error']);
+            // show($data);
             // echo "</pre>";
 
             if (isset($error)) {
@@ -74,6 +74,7 @@ class Profile extends Controller
 
         unset($row->password);
         unset($row->id);
+        // print_r($row);
 
         $userArr['fullname'] = $row->fullname;
         $userArr['email'] = $row->email;
@@ -81,8 +82,13 @@ class Profile extends Controller
         $userArr['user_image'] = $row->user_image;
         $userArr['city'] = $row->city;
         $userArr['address'] = $row->address;
+        // show($userArr);
 
-        return $userArr;
+        $data = ['data' => $row];
+        // show($data);
+        return $data;
+        //show($row);
+
     }
 
     //  user chanage info data
@@ -128,8 +134,20 @@ class Profile extends Controller
             // user email is changed then redirect to the sign in page 
             if ($_SESSION['USER']->email != $data['email']) {
 
-                $data = [];
+                $all_users = new AllUsers;
+
                 $user->update($id, ['email_verified' => 0], 'id');
+                
+                // change the chat for user table include that email
+                $chatRow = $all_users->first(['email'=>$_SESSION['USER']->email]);
+                
+                if(!empty($chatRow )){
+                    
+                    $all_users->update($chatRow->id, ['email' => $data['email']], 'id');
+                }
+
+                $data = [];
+                
                 unset($_SESSION["USER"]);
                 session_destroy();
                 redirect('signin');
