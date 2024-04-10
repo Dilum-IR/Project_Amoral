@@ -48,8 +48,9 @@ route('manager/chatbox', 'manager/ChatBox@chatbox');
 route('manager/saveMsg', 'manager/ChatBox@saveMsg');
 
 route('garment/overview', 'garment/Overview@index');
-route('garment/orders', 'garment/Orders@index');
-route('garment/profile', 'garment/Profile@index');
+route('garment/orders', 'garment/Orders@index'); 
+route('garment/reports', 'garment/Orders@save_reports'); 
+route('garment/profile', 'garment/Profile@index'); 
 
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');

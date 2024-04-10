@@ -1,3 +1,19 @@
+#main {
+  /* margin-left: 100px; */
+  position: relative;
+  top: 78px;
+  left: 78px;
+  height: 100%;
+  transition: all 0.5s ease;
+  z-index: 2;
+  /* margin-left: 5px; */
+  width: calc(100% - 78px);
+}
+#main.open {
+  width: calc(100% - 250px);
+  left: 250px;
+}
+
 .item {
   /* color: blue; */
   background-color: rgb(102, 104, 104);
@@ -24,4 +40,136 @@
 
 .popup-view .size {
   margin-left: 0%;
+}
+
+.btn{
+  top: 35px !important;
+}
+#report-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  /* opacity: 0; */
+}
+
+.gar-popup-report {
+  display: none;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 50px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 12;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.gar-popup-report.show {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+textarea {
+  resize: none;
+}
+
+.gar-popup-report {
+  width: 55%;
+}
+
+.gar-popup-report .close {
+  right: 70px;
+}
+
+.gar-popup-report h4 {
+  text-align: left;
+  /* padding-left: 10%; */
+  padding-bottom: 2%;
+}
+
+.gar-popup-report h2 {
+  text-align: center;
+  padding-bottom: 2%;
+  margin: 4px;
+  font-weight: bold;
+}
+
+.gar-popup-report input,
+textarea {
+  position: relative;
+  left: 2px;
+  width: 96%;
+  border-radius: 10px;
+  border: 1px solid #000;
+  outline-width: 1px;
+  padding: 10px 30px;
+  margin-bottom: 2%;
+  transition: all 0.3s ease;
+  color: var(--dark);
+  outline: none;
+}
+
+.gar-popup-report textarea {
+  height: 100px;
+  margin-left: 10px;
+  resize: none;
+}
+
+.gar-popup-report .error {
+  color: red;
+  font-size: 14px;
+  position: relative;
+  left: 1%;
+  /* visibility: hidden; */
+}
+
+.gar-popup-report .pb {
+  position: relative;
+  bottom: 4px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.gar-popup-report .pb:hover {
+  font-size: 17px;
+  font-weight: 200;
+  transition: all 0.3s ease-in-out;
+}
+
+*::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background: #c7c7c7;
+  border-radius: 5px !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px !important;
+  background: #000000;
+}
+*::-webkit-scrollbar-thumb:hover {
+  /* background: #3289c8; */
 }

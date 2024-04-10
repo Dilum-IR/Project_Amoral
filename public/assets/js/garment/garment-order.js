@@ -7,8 +7,6 @@ function openView(button) {
   // Get the data attribute value from the clicked button
   const orderData = button.getAttribute("data-order");
   
-  console.log(orderData);
-
   if (orderData) {
     // Parse the JSON data
     const order = JSON.parse(orderData);
@@ -47,8 +45,10 @@ function closeView() {
 }
 
 function openReport() {
+  
   popupReport.classList.add("open-popup-report");
   overlay.classList.add("overlay-active");
+  
 }
 function closeReport() {
   popupReport.classList.remove("open-popup-report");

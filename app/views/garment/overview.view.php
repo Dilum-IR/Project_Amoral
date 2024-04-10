@@ -109,7 +109,7 @@
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Orders</h3>
+                                    <h3>Current Orders</h3>
                                     <h1>453</h1>
 
                                 </div>
@@ -126,11 +126,11 @@
                             <small class="text-muted">Last 24 Hours</small>
                         </div>
                         <div class="sales">
-                            <i class='bx bxs-dollar-circle'></i>
+                            <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Sales</h3>
-                                    <h1>$ 2500,00</h1>
+                                    <h3>Completed Orders</h3>
+                                    <h1>2500</h1>
 
                                 </div>
                                 <div class="progress">
@@ -146,10 +146,10 @@
                             <small class="text-muted">Last 24 Hours</small>
                         </div>
                         <div class="sales">
-                            <i class='bx bxs-calendar-check'></i>
+                            <i class=' bx bxs-dollar-circle'></i>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Orders</h3>
+                                    <h3>Total Sales</h3>
                                     <h1>$ 2500,00</h1>
 
                                 </div>
