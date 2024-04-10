@@ -32,19 +32,47 @@ class GarmentOrders extends Controller
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         $order = new GarmentOrder;
+        $order_material = new OrderMaterial;
+        $stock = new MaterialStock;
 
+        // $response = [];
         if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
             // show($_POST);
             foreach($_POST['garments'] as $garment){
                 $data['garment_id'] = $garment['garment_id'];
                 $data['status'] = 'assigned';
+
+                
+
                 if(!empty($garment['orders'])){
                     foreach($garment['orders'] as $customer_order){
+                        $material_orders = $order_material->where(['order_id' => $customer_order['customer_orderId']]);
+                        $materials = [];
+                        foreach($material_orders as $material_order){
+                            $materials[$material_order->material_id] = $material_order->xs + $material_order->small + $material_order->medium + $material_order->large + $material_order->xl + $material_order->xxl;
+                        }
+                        $response['materials'] = $materials;
+                        $keys = array_keys($materials);
+                        if(!is_array($keys)){
+                                $keys = [$keys];
+                        }
+                        foreach($keys as $key){
+                            $current = $stock->where(['stock_id' => $key]);
+                            $updated = floatval($current[0]->quantity) - floatval(intval($materials[$key]) * (1/intval($current[0]->ppm)));
+                            // show($updated);
+                            $updated = number_format($updated, 2);
+                            // $response['updated'][] = $updated;
+                            $stock->update($key, ['quantity' => $updated], 'stock_id');
+                        } 
                         $order->update($customer_order['id'], $data, 'garment_order_id');
                     }
                 }
             }
+
+            
+
         }
+        // echo json_encode($response);
     }
 
     public function setDeadlines(){

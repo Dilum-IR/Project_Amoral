@@ -246,17 +246,20 @@ function openView(button) {
         switch (order.order_status) {
             case 'cutting' :
                 progress2.classList.add("active");
+                progress2.classList.add("set");
                 break;
 
             case 'printing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
+                progress3.classList.add("set");
                 break;
 
             case 'sewing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress4.classList.add("active");
+                progress4.classList.add("set");
                 break;
 
             case 'delivering':
@@ -264,6 +267,7 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress5.classList.add("active");
+                progress5.classList.add("set");
                 break;
 
             case 'completed':
@@ -272,6 +276,7 @@ function openView(button) {
                 progress4.classList.add("active");
                 progress5.classList.add("active");
                 progress6.classList.add("active");
+                progress6.classList.add("set");
                 break;
 
             case 'cancelled':
@@ -299,7 +304,7 @@ function openView(button) {
 
                     }
                     console.log(nextProgress);
-                    if (prevProgress && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
+                    if (prevProgress && !(this.classList.contains("set")) && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
                         this.classList.toggle("active");
                         console.log(this);
                     }
