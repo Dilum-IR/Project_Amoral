@@ -62,51 +62,58 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Order Id</th>
-                            <th>User Id</th>
-                            <th>Placed Date</th>
-                            <th>Material</th>
-                            <th>Quantity</th>
-                            <th>Dispatch Date</th>
-                            <th>Status</th>
-                            <th></th>
+                            <th>Order Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>User Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Placed Date  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Material  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Quantity  <i class='bx bx-down-arrow-circle'></th>
+                            <th>Dispatch Date  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Status  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th class="null"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($data['orders'] as $order): ?>
-                        
-                            <?php $material = array(); ?>
-                        <tr>
-                            <td class="ordId"><?php echo $order->order_id ?></td>
-                            <td><?php echo $order->user_id ?></td>
-                            <td><?php echo $order->order_placed_on ?></td>
-                            <td>
-                            <?php foreach($data['material_sizes'] as $sizes):?>
-                                    <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php $material[] = $sizes?>
-                                    <?php echo $sizes->material_type ?><br>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </td>
-                            <td class="desc">
+                        <?php if(!empty($data['orders'])): ?>
+                            <?php foreach($data['orders'] as $order): ?>
+                            
+                                <?php $material = array(); ?>
+                            <tr>
+                                <td class="ordId"><?php echo $order->order_id ?></td>
+                                <td><?php echo $order->user_id ?></td>
+                                <td><?php echo $order->order_placed_on ?></td>
+                                <td>
                                 <?php foreach($data['material_sizes'] as $sizes):?>
-                                    <?php if($sizes->order_id == $order->order_id) :?>
-                                        <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
-                                    <?php endif;?>
-                                <?php endforeach;?>
-                            </td>
-                            <td><?php echo $order->dispatch_date ?></td>
-                            <td class="st">
-                                <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                <div class="progress-bar"></div>
-                            </td>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php $material[] = $sizes?>
+                                        <?php echo $sizes->material_type ?><br>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </td>
+                                <td class="desc">
+                                    <?php foreach($data['material_sizes'] as $sizes):?>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </td>
+                                <td><?php echo $order->dispatch_date ?></td>
+                                <td class="st">
+                                    <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
+                                    <div class="progress-bar"></div>
+                                </td>
+                            
+                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
+                                <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                            </tr>
+
+                            
                         
-                            <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button>
-                            <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                        </tr>
-                        
-                     
-                        <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="8">No orders to display</td>
+                            </tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
@@ -418,24 +425,30 @@
                     <div class="input-box sizes">
                         <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
                         <div class="sizeChart">
-                            <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
-                            <br>
-                            <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
-                            <br>
-                            <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
-                            <br>
-                            <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
-                            <br>
-                            <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
-                            <br>
-                            <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
-                            <br>
+                            <div>
+                                <span class="size">XS</span>
+                                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">S</span>
+                                <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">M</span>
+                                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">L</span>
+                                <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">XL</span>
+                                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                            </div>
+                            <div>
+                                <span class="size">2XL</span>
+                                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                            </div>
                         </div>
                     </div>
 

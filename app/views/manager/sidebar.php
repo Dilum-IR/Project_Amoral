@@ -40,11 +40,11 @@
                 <span class="tooltip">Employee Details</span>
             </li>
             <li>
-                <a href="#">
-                    <i class="bx bxs-building-house"></i>
-                    <span class="link_name">Garments</span>
+                <a href="<?=ROOT?>/manager/customerdetails">
+                    <i class="bx bxs-user-account"></i>
+                    <span class="link_name">Customer Details</span>
                 </a>
-                <span class="tooltip">Garments</span>
+                <span class="tooltip">Customer <Details></Details></span>
             </li>
             <li>
                 <a href="#">

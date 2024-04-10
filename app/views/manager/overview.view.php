@@ -456,23 +456,34 @@
                 <div class="right">
                   
                     <div class="calendar">
-                    <div class="month">
-                        <i class="fas fa-angle-left prev"></i>
-                        <div class="date">february 2024</div>
-                        <i class="fas fa-angle-right next"></i>
-                    </div>
-                    <div class="weekdays">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
+                        <div class="month">
+                            <i class="fas fa-angle-left prev"></i>
+                            <div class="date">february 2024</div>
+                            <i class="fas fa-angle-right next"></i>
+                        </div>
+                        <div class="weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days"></div>
 
                     </div>
+
+                    <div class="display-orders">
+                        <div class="today-date">
+                            <div class="event-day"></div>
+                            <div class="event-date"></div>
+                        </div>
+                        <div class="events"></div>
+
+                    </div>
+
+     
                 </div>
                 <!-- <div class="right">
                     <div class="today-date">
@@ -509,15 +520,19 @@
                     </div>
                     </div>
                 </div> -->
-                <button class="add-event">
+                <!-- <button class="add-event">
                     <i class="fas fa-plus"></i>
                 </button>
-                </div>
+                </div> -->
               
             </div>
 
         </div>
     </section>
+    <script>
+        var customerOrders = <?php echo json_encode($data['customerOrder']) ?>;
+        console.log(customerOrders);
+    </script>
     <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
     <script>
         // let editMaterial = document.querySelector(".edit-material-btn");
@@ -630,6 +645,8 @@
         <?php endforeach; ?>
 
     </script>
+
+
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>

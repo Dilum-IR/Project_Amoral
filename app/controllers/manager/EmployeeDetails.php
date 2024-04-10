@@ -7,13 +7,13 @@ class EmployeeDetails extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
 
             $employee = new Employee;
 
             $result = $employee->findAll('emp_id');
 
-            $data = ['data' => $result];
+            $data = [' ' => $result];
             // show($result);
 
             // update employee details
@@ -72,6 +72,7 @@ class EmployeeDetails extends Controller
 
     public function employeeAdd($data)
     {
+        // show($data);
         $employee = new Employee;
         $user = new User;
 
