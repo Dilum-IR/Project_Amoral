@@ -63,13 +63,6 @@
             </form>
 
             <div class="table">
-                <!-- <div class="table-header">
-                <p>Order Details</p>
-                <div>
-                    <input placeholder="order"/>
-                    <button class="add_new">+ Add New</button>
-                </div>
-             </div> -->
 
                 <div class="table-section">
                     <table>
@@ -356,7 +349,7 @@
                 half_checker.classList.remove("active");
                 half_checker.classList.add("disable");
 
-            } else if (amount >= 2000) {
+            } else if (amount >= 100000) {
 
                 half_payment.classList.remove("disable");
                 half_payment.classList.add("active");
@@ -513,7 +506,7 @@
             // btn_price.innerHTML = amount;
             selectHalfPay();
 
-            
+
             select_element.innerHTML = order_id_str;
             // payment is grater than 100,000.00 when can pay the half
             if (amount == 0) {
@@ -525,7 +518,7 @@
                 half_checker.classList.remove("active");
                 half_checker.classList.add("disable");
 
-            } else if (amount >= 2000) {
+            } else if (amount >= 100000) {
 
                 half_payment.classList.remove("disable");
                 half_payment.classList.add("active");
@@ -555,8 +548,8 @@
                 // amount_box.disabled = false;
             }
 
-            console.log(amount);
-            console.log(id_list);
+            // console.log(amount);
+            // console.log(id_list);
 
         }
     </script>
@@ -687,9 +680,9 @@
                 <h4>Title : <span class="error title"></span> </h4>
                 <input name="title" type="text" placeholder="Enter your title">
                 <h4>Your email : <span class="error email"></span></h4>
-                <input name="email" type="text" placeholder="Enter your email">
+                <input disabled name="email" type="text" placeholder="Enter your email" value="<?= $_SESSION['USER']->email?>">
                 <h4>Problem : <span class="error description"></span></h4>
-                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+                <textarea name="description" id="problem" cols="30" rows="7" placeholder="Enter your problem"></textarea>
 
                 <button type="submit" class="close-btn pb" name="report" value="Submit">Submit</button>
                 <button type="button" class="cancelR-btn pb" onclick="closeReport()">Cancel</button>

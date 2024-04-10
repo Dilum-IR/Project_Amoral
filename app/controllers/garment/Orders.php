@@ -6,13 +6,12 @@ class Orders extends Controller
     {
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status == "garment") {
 
-            $dumy = ["garment_id" => $_SESSION['USER']->emp_id ?? 1];
+            $dumy = ["garment_id" => $_SESSION['USER']->emp_id];
 
             $id = $_SESSION['USER']->emp_id ?? 1;
 
-            // echo $_SESSION['USER']->email;
             // view the garment order details
             $garment_order = new GarmentOrder;
             $order = new Order;
@@ -22,6 +21,8 @@ class Orders extends Controller
             // $result2 = $garment_order->getOrdersDetails($dumy);
             // show($result2);
             // $orderDetails = $order->first($result);
+
+            $data = [];
 
             if ($result) {
                 $data = ["data" => $result];
@@ -65,18 +66,18 @@ class Orders extends Controller
             // use the how is the garment ? garment_id
             if (isset($_POST['report'])) {
 
-                $report = new GarmentReport;
+                // $report = new GarmentReport;
 
-                unset($_POST['report']);
+                // unset($_POST['report']);
 
-                $_POST['garment_id'] = $id;
+                // $_POST['garment_id'] = $id;
 
-                if (isset($_POST['garment_id'])) {
+                // if (isset($_POST['garment_id'])) {
 
-                    $report->insert($_POST);
-                    unset($_POST['garment_id']);
-                    redirect('garment/orders');
-                }
+                //     $report->insert($_POST);
+                //     unset($_POST['garment_id']);
+                //     redirect('garment/orders');
+                // }
             }
 
             // cancel the order
@@ -111,9 +112,17 @@ class Orders extends Controller
                 redirect('garment/orders');
             }
 
+            // show($data);
+
             $this->view('garment/orders', $data);
         } else {
             redirect('home');
         }
+    }
+
+    public function save_reports()
+    {
+
+        echo $_POST['title'];
     }
 }
