@@ -213,6 +213,21 @@ td button{
   /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 }
 
+td .edit {
+  background-color: rgb(240, 240, 250);
+  font-size: 15px;
+  /* font-weight: bolder; */
+  margin: 2% 1%;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.521);
+  transition: all 0.3s ease-in-out;
+}
+
+td .edit:hover {
+  /* background: #3bec24; */
+  transform: scale(1.1);
+  border-bottom: 1px solid gray;
+}
+
 /* td button:nth-child(1){
     color: #0239cf;
     
@@ -361,11 +376,11 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  width: 105px;
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
-  margin-left: 10%;
+  /* margin-left: 10%; */
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.274);
 }
 
 .text-status.pending{

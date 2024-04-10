@@ -41,6 +41,7 @@ route('manager/garmentorders', 'manager/GarmentOrders@index');
 route('manager/quotation', 'manager/Quotation@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
+route('manager/assigndelivery', 'manager/AssignDelivery@index');
 
 // manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');
