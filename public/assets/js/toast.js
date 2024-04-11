@@ -20,6 +20,7 @@ function toastApply(type, show, flag = 1) {
 
   let remainingDuration = 5;
   // Show the toast
+  toast.style.zIndex = 1000;
   toast.classList.remove("hide");
   toast.classList.add("show");
 
@@ -143,6 +144,8 @@ try {
 } catch (error) {
   console.error(error);
 }
+
+
 // success icon
 // <ion-icon name="checkmark-circle-outline"></ion-icon>
 // toggleIcon.setAttribute("name", "eye-off-outline");

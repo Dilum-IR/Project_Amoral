@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/order.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -21,6 +23,13 @@
 </head>
 
 <body>
+    <!-- loading page  & toast msg content-->
+
+    <?php
+    // include "loading.php";
+    include __DIR__ . '/../utils/toastMsg.php';
+    ?>
+
     <!-- Sidebar -->
     <?php
 
@@ -130,16 +139,15 @@
         </div>
     </section>
 
-    <!-- Dark overlay -->
+    <!-- Dark report_overlay -->
     <div id="report-overlay"></div>
-
 
     <!-- POPUP -->
     <div class="gar-popup-report" id="gar-popup-report">
 
 
         <span class="close" onclick="hide_report()">&times;</span>
-        <h2>Report Your Problem</h2>
+        <h2>Report Your Orders Problem</h2>
         <form>
 
             <input type="hidden" name="garment_id" id="id" value="<?= $_SESSION['USER']->emp_id ?>">
@@ -158,134 +166,6 @@
         </form>
 
     </div>
-
-
-    <script>
-        report_submit = document.getElementById('report-submit');
-
-        function open_report() {
-
-            var popup = document.getElementById('gar-popup-report');
-            var overlay = document.getElementById('report-overlay');
-
-            if (overlay && popup) {
-                popup.style.display = "block";
-                overlay.style.display = "block";
-
-                popup.classList.add("show");
-            }
-        }
-
-        function hide_report() {
-
-            var popup = document.getElementById('gar-popup-report');
-            var overlay = document.getElementById('report-overlay');
-
-            if (overlay && popup) {
-                // Remove show class to trigger the zoom-out animation
-                popup.classList.remove("show");
-
-                popup.style.opacity = "0";
-                overlay.style.opacity = "0";
-
-                setTimeout(function() {
-                    overlay.style.display = "none";
-                    overlay.style.opacity = "1";
-                    popup.style.display = "none";
-                    popup.style.opacity = "1";
-
-                }, 500);
-
-            }
-        }
-
-
-        // check user report input data is valid or not
-        report_submit.addEventListener("click", function() {
-            event.preventDefault();
-
-            var title = document.querySelector('.title');
-            var description = document.getElementById('problem');
-            var email = document.getElementById('email');
-
-            var e_description = document.querySelector('.e-description');
-            var e_title = document.querySelector('.e-title');
-
-            var not_valid = false;
-
-            // can't use < element
-            const regex = /(?<!\b(?:let|var|const|\(|\w+\.)\s*)</g;
-
-            if (title.value.trim() === "") {
-
-                e_title.innerText = "Title is required.";
-                not_valid = true;
-            } else if (title.value.match(regex)) {
-
-                e_title.innerText = "Invalid characters used. Try again";
-                not_valid = true;
-            } else {
-                e_title.innerText = "";
-                not_valid = false;
-
-            }
-            if (description.value.trim() === "") {
-
-                e_description.innerText = "Problem is required.";
-                not_valid = true;
-            } else if (description.value.match(regex)) {
-
-                e_description.innerText = "Invalid characters used. Try again";
-                not_valid = true;
-            } else {
-                e_description.innerText = "";
-                not_valid = false;
-
-            }
-
-            if (not_valid) {
-                return;
-            }
-
-            // not_valid is success with pass to the backend
-            report_send(email.value, title.value, description.value);
-
-        });
-
-        function report_send(email, title, description) {
-
-            var id = document.getElementById('id');
-
-            data = {
-                email: email,
-                title: title,
-                description: description,
-                garment_id: id.value
-            }
-
-
-            $.ajax({
-                type: "POST",
-                url: "<?= ROOT ?>/garment/reports",
-                data: data,
-                cache: false,
-                success: function(res) {
-                    // convet to the json type
-                    try {
-
-                        console.log(res);
-                        Jsondata = JSON.parse(res)
-
-                    } catch (error) {
-
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // return xhr;
-                }
-            })
-        }
-    </script>
 
     <!-- order update & cancel popup -->
 
@@ -399,11 +279,18 @@
 
     <div id="overlay" class="overlay"></div>
 
+    <script>
+        endpoint = "<?= ROOT ?>/garment/reports";
+    </script>
+
+    <!-- Import JQuary Library script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/garment/garment-order.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
 </body>
 
 </html>

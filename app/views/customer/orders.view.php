@@ -85,7 +85,7 @@
                         </thead>
                         <tbody class="table-body">
 
-                            <?php if (isset($data['order'])) : ?>
+                            <?php if (!empty($data['order'])) : ?>
                                 <?php foreach ($data['order'] as $order) :
 
                                     $material = array();
@@ -293,7 +293,6 @@
             if (select_all) {
 
                 selectedRowsFromAllSelect(id, price, remain, pay_type);
-
                 return;
             }
 
@@ -558,6 +557,9 @@
 
     <script>
         function paymentGateway(order_id, user) {
+
+            var paybtn = document.getElementById('pay');
+            paybtn.disabled = true
             // var paymentData = JSON.parse(dataString);
 
             $(document).ready(function() {
@@ -626,9 +628,18 @@
 
 
                             payhere.startPayment(payment);
-                        } catch (error) {}
+
+                            paybtn.disabled = false
+
+                        } catch (error) {
+                            paybtn.disabled = false
+
+                        }
                     },
-                    error: function(xhr, status, error) {},
+                    error: function(xhr, status, error) {
+                        paybtn.disabled = false
+
+                    },
                 });
 
             });
@@ -660,6 +671,9 @@
 
                         alert(res);
 
+                        paybtn.disabled = false
+
+
                         location.reload();
                     } catch (error) {}
                 },
@@ -680,7 +694,7 @@
                 <h4>Title : <span class="error title"></span> </h4>
                 <input name="title" type="text" placeholder="Enter your title">
                 <h4>Your email : <span class="error email"></span></h4>
-                <input disabled name="email" type="text" placeholder="Enter your email" value="<?= $_SESSION['USER']->email?>">
+                <input disabled name="email" type="text" placeholder="Enter your email" value="<?= $_SESSION['USER']->email ?>">
                 <h4>Problem : <span class="error description"></span></h4>
                 <textarea name="description" id="problem" cols="30" rows="7" placeholder="Enter your problem"></textarea>
 
@@ -782,6 +796,35 @@
                     </div>
                 </div>
 
+                <div class="user-details delivery">
+
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+
+                        <input type="date" name="dispatch_date_delivery">
+                    </div>
+                    <div class="input-box">
+                        <span class="details addr">City</span>
+
+                        <input name="city" type="text">
+
+
+                    </div>
+
+                    <div class="input-box location">
+                        <span class="details">Location</span>
+                        <div class="googlemap" id="map" style="height: 400px; width: 100%;"></div>
+                    </div>
+
+                    <!-- hidden element -->
+                    <div class="input-box">
+                        <input name="latitude" type="hidden" required />
+                        <input name="longitude" type="hidden" required />
+                    </div>
+
+
+                </div>
+
                 <script>
                     //toggle delivery options
                     let delivery = document.getElementById("delivery");
@@ -798,41 +841,29 @@
 
                     }
 
+                    // view order delivary map
                     function toggleDelivery() {
                         document.querySelector(".user-details.delivery").classList.add("is-checked");
                         document.querySelector(".user-details.pickup").classList.remove("is-checked");
+
+
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            // Initial center coordinates
+                            center: {
+                                lat: 7.7072567,
+                                lng: 80.6534611
+                            },
+                            // Initial zoom level
+                            zoom: 7,
+                        });
                     }
                 </script>
 
-                <div class="user-details delivery">
-
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-
-                        <input type="date" name="dispatch_date_delivery">
-                    </div>
-                    <div class="input-box">
-                        <span class="details addr">City</span>
-
-                        <input name="city" type="text">
-
-
-                    </div>
-
-
-                    <div class="input-box location">
-                        <span class="details">Location</span>
-                        <div id="map" style="height: 400px; width: 100%;"></div>
-                    </div>
-
-                    <!-- hidden element -->
-                    <div class="input-box">
-                        <input name="latitude" type="hidden" required />
-                        <input name="longitude" type="hidden" required />
-                    </div>
-
-
-                </div>
+                <style>
+                    .googlemap {
+                        /* background-color: red; */
+                    }
+                </style>
 
                 <hr class="second">
 
@@ -1135,7 +1166,7 @@
 
                     <div class="input-box location">
                         <span class="details"> Delivery Location</span>
-                        <div id="map" style="height: 300px; width: 100%;"></div>
+                        <div class="googlemap" id="order-map" style="height: 300px; width: 100%;"></div>
                     </div>
 
                     <div class="input-box city">
@@ -1186,8 +1217,6 @@
 
                 <!-- <p>You will be notified about possible discounts later</p> -->
 
-
-
                 <script>
                     //add price data dynamically in new order popup
                     let material = document.querySelector(".popup-new .user-details select[name='material[]']");
@@ -1217,12 +1246,12 @@
                     });
 
 
-                    console.log(total);
+                    // console.log(total);
 
                     let allMaterials = <?php echo json_encode($data['material_prices']) ?>;
                     let allSleeves = <?php echo json_encode($data['sleeveType']) ?>;
                     let allPrintingTypes = <?php echo json_encode($data['material_printingType']) ?>;
-                    console.log(allMaterials);
+                    // console.log(allMaterials);
 
                     function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice) {
                         let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
@@ -1231,7 +1260,7 @@
 
 
                         doc.querySelector("input[name='unit_price[]']").value = unitPrice;
-                        console.log("efdsf" + doc.querySelector("input[name='unit_price[]']").value);
+                        // console.log("efdsf" + doc.querySelector("input[name='unit_price[]']").value);
                         generateTotalPrice();
                         // document.querySelector(".totalPrice").innerHTML = currentTotal + (unitPrice * total);
                     }
@@ -1244,7 +1273,7 @@
                         document.querySelector(".popup-new .totalPrice").innerHTML = total;
 
                         document.querySelector(".popup-new input[name='total_price']").value = total;
-                        console.log("tot" + document.querySelector(".popup-new input[name='total_price']").value);
+                        //  console.log("tot" + document.querySelector(".popup-new input[name='total_price']").value);
                     }
 
                     material.addEventListener('change', function() {
@@ -1265,9 +1294,9 @@
                         }
 
                         printingType.innerHTML = printingTypeOptions;
-                        console.log(printingType);
+                        //console.log(printingType);
 
-                        console.log(material.value);
+                        // console.log(material.value);
                         allMaterials.forEach(function(item) {
                             if (item.stock_id == material.value) {
                                 data.querySelector(".materialType").innerHTML = item.material_type;
@@ -1279,7 +1308,7 @@
                     });
 
                     sleeve.addEventListener('change', function() {
-                        console.log(sleeve.value);
+                        // console.log(sleeve.value);
                         allSleeves.forEach(function(item) {
                             if (item.type == sleeve.value) {
                                 data.querySelector(".sleeveType").innerHTML = item.type;
@@ -1291,7 +1320,7 @@
                     });
 
                     printingType.addEventListener('change', function() {
-                        console.log(printingType.value);
+                        // console.log(printingType.value);
                         allPrintingTypes.forEach(function(item) {
                             if (item.printing_type == printingType.value) {
                                 data.querySelector(".printingType").innerHTML = item.printing_type;
@@ -1309,47 +1338,7 @@
                 </script>
 
                 <script>
-                    //toggle delivery options of new order
 
-                    let deliveryN = document.getElementById("deliveryN");
-                    let pickUpN = document.getElementById("pickupN");
-
-
-                    pickUpN.addEventListener('click', togglePickUpN);
-                    deliveryN.addEventListener('click', toggleDeliveryN);
-
-
-                    // clear the other option when one is selected
-                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
-                        pickupDate.addEventListener('change', function() {
-                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
-                                deliveryDate.value = "";
-                            });
-
-                        });
-                    });
-
-                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
-                        deliveryDate.addEventListener('change', function() {
-                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
-                                pickupDate.value = "";
-                            });
-
-                        });
-                    });
-
-                    function togglePickUpN() {
-
-                        document.querySelector(".user-details.pickupN").classList.add("is-checked");
-                        document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-
-
-                    }
-
-                    function toggleDeliveryN() {
-                        document.querySelector(".user-details.deliveryN").classList.add("is-checked");
-                        document.querySelector(".user-details.pickupN").classList.remove("is-checked");
-                    }
                 </script>
 
                 <script>
@@ -1485,7 +1474,7 @@
                             }
 
                             printingType1.innerHTML = printingTypeOptions;
-                            console.log(printingType1);
+                            //  console.log(printingType1);
 
 
                             allMaterials.forEach(function(item) {
@@ -1520,9 +1509,6 @@
 
                             updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
                         });
-
-
-
 
 
                         let removeCard = newCard.querySelector("i");
@@ -1563,7 +1549,7 @@
 
                     //restrict the no of additional orders that can be made inside the same order
                     var materialCount = <?php echo count($data['materials']) * count($data['printingType']) * count($data['sleeveType']) - 1 ?>;
-                    console.log(materialCount);
+                    //console.log(materialCount);
                     addMaterial.addEventListener('click', function() {
                         if (count < materialCount - 1) {
                             addMaterialCard();
@@ -1594,14 +1580,15 @@
 
 
 
-
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+
     <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
