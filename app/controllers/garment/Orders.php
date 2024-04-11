@@ -62,24 +62,6 @@ class Orders extends Controller
                 }
             }
 
-            // report problem
-            // use the how is the garment ? garment_id
-            if (isset($_POST['report'])) {
-
-                // $report = new GarmentReport;
-
-                // unset($_POST['report']);
-
-                // $_POST['garment_id'] = $id;
-
-                // if (isset($_POST['garment_id'])) {
-
-                //     $report->insert($_POST);
-                //     unset($_POST['garment_id']);
-                //     redirect('garment/orders');
-                // }
-            }
-
             // cancel the order
             if (isset($_POST['CancelGorder'])) {
 
@@ -120,9 +102,24 @@ class Orders extends Controller
         }
     }
 
+    // report problem
     public function save_reports()
     {
+        if ($_SESSION['USER']->emp_status == "garment" && $_SESSION['USER']->emp_id == $_POST['garment_id']) {
 
-        echo $_POST['title'];
+            // use the how is the garment ? garment_id
+            $report = new GarmentReport;
+
+            if (isset($_POST['garment_id'])) {
+
+                $report->insert($_POST);
+                echo json_encode(true);
+                
+            } else {
+                echo json_encode(false);
+            }
+        } else {
+            redirect('404');
+        }
     }
 }

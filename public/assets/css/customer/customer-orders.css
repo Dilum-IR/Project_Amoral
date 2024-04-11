@@ -1318,3 +1318,7 @@ hr.second {
   display: contents;
 
 }
+
+#pay:disabled {
+  background-color: #00d10075 !important;
+}

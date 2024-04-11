@@ -151,6 +151,11 @@ textarea {
   cursor: pointer;
 }
 
+button:disabled {
+  background-color: rgba(0, 0, 0, 0.767) !important;
+}
+
+
 .gar-popup-report .pb:hover {
   font-size: 17px;
   font-weight: 200;
