@@ -380,7 +380,7 @@
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Customer ID </span>
-                    <select name="id">
+                    <select required name="id">
                         <option value="" selected hidden style="color: grey;">Select</option>
                         <?php foreach($data['customers'] as $customer): ?>
                             <option value="<?php echo $customer->id ?>"><?php echo $customer->id . '-' . $customer->fullname; ?></option>
@@ -557,12 +557,15 @@
 
                 <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4>
 
-                <div class="add card">
-     
-                    <div class="left">
-                        <i class='bx bxs-plus-circle'></i>
-                        <h4>Add a material</h4>
+                <div class="new-card">
+                    <div class="add card">
                     </div>
+                </div>
+     
+                <div class="left">
+                    <i class='bx bxs-plus-circle'></i>
+                    <h4>Add a material</h4>
+                </div>
                     
                 </div>
 
