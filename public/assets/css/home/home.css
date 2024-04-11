@@ -1314,6 +1314,7 @@ nav .icon-cancel {
   justify-content: center;
   text-align: center;
 }
+
 /* 
 .deal-button {
   position: relative;
@@ -1413,6 +1414,8 @@ nav .icon-cancel {
   background-color: black;
   align-items: center;
   text-align: center;
+  border-bottom-left-radius: 125px;
+  border-bottom-right-radius: 125px;
 }
 
 .services {
@@ -1542,187 +1545,6 @@ nav .icon-cancel {
 
 /* footer */
 
-footer {
-  position: static;
-  bottom: 0px;
-  width: 100%;
-  background: #111;
-}
-
-.main-content {
-  display: flex;
-}
-
-.main-content .box {
-  flex-basis: 50%;
-  padding: 10px 20px;
-}
-
-.box h2 {
-  color: white;
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.box .content {
-  margin: 20px 0 0 0;
-  position: relative;
-}
-
-.box .content:after {
-  position: absolute;
-  content: '';
-  width: 15%;
-  height: 2px;
-  background: gray;
-  top: -10px;
-}
-
-.box .content:before {
-  position: absolute;
-  content: '';
-  height: 2px;
-  width: 100%;
-  background: #1a1a1a;
-  top: -10px;
-}
-
-.left .content .social {
-  margin: 20px 0 0 0;
-}
-
-.left .content .social a {
-  padding: 15px 22px;
-}
-
-.left .content .social a span {
-  width: 40px;
-  height: 40px;
-  background: #1a1a1a;
-  text-align: center;
-  line-height: 40px;
-  border-radius: 5px;
-  font-size: 18px;
-  transition: 0.3s;
-}
-
-.left .content .social a span:hover {
-  background: #f12020;
-}
-
-.left .content p {
-  text-align: justify;
-  color: white;
-}
-
-.center .content .fas {
-  font-size: 23px;
-  background: #1a1a1a;
-  width: 45px;
-  height: 45px;
-  line-height: 45px;
-  text-align: center;
-  border-radius: 50%;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.center .content .fas:hover {
-  background: #f12020;
-}
-
-.center .content .text {
-  color: white;
-  font-size: 17px;
-  font-weight: 500;
-  padding-left: 10px;
-}
-
-.center .content .phone {
-  margin: 10px 0;
-}
-
-.center .content .msg {
-  margin-top: 10px;
-}
-
-.right form input,
-.right form textarea {
-  width: 100%;
-  font-size: 17px;
-  background: #151515;
-  padding-left: 10px;
-  border: 1px solid var(--color-gray-one);
-}
-
-.right form input {
-  height: 35px;
-}
-
-.right form input:focus,
-.right form textarea:focus {
-  outline-color: var(--color-gray-one);
-}
-
-.right form .text {
-  font-size: 17px;
-  margin-bottom: 2px;
-  color: #656565;
-}
-
-.right form .btn {
-  margin-top: 10px;
-}
-
-.right form .btn button {
-  height: 40px;
-  width: 100%;
-  background: white;
-  font-size: 17px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.right form .btn button:hover {
-  background: #000;
-}
-
-.social-icons {
-  font-size: 50px;
-  color: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  /* padding: 20px; */
-}
-
-.place,
-.phone,
-.e-mail {
-  display: flex;
-  align-items: center;
-}
-
-#facebook {
-  color: #316FF6;
-}
-
-#instagram {
-  /* background-color: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);; */
-  color: #d6249f;
-}
-
-#twitter {
-  color: #1DA1F2;
-}
-
-#youtube {
-  color: #CD201F
-}
-
-.address-icons {
-  font-size: 20px;
-  color: white;
-}
 
 
 
