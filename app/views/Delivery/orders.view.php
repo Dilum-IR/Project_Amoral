@@ -1,3 +1,9 @@
+<?php
+
+// show($data['data1'][0]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,7 +50,7 @@
                     </div>
                 </form>
                 <!-- <input class="new-btn" type="button" onclick="openNew()" value="+New Order"> -->
-                <input class="btn" type="button" onclick="openReport()" value="Report Problem">
+                <!-- <input class="btn" type="button" onclick="openReport()" value="Report Problem"> -->
             </div>
 
         </form>
@@ -55,20 +61,69 @@
                         <tr>
                             <th class="ordId">OrderId</th>
                             <th class="Name">Customer Name</th>
-                            <th class="Distric">District</th>
+                            <th class="Distric">City</th>
                             <th class="stth">Status</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     <tbody>
+                        <?php
+                        if(!empty($data['data1'])){
+
+                       
+                        foreach ($data['data1'] as $key => $value) {
+
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php echo $value->order_id; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->fullname; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->city; ?>
+                                </td>
+                                <td>
+                                    <?php echo $value->order_status; ?>
+                                </td>
+                                <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
+                                </td> -->
+                                <td>
+                                    <button type="submit" class="view-order-btn" style="background-color: red;"
+                                        id="delivered" onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+
+
+                                    <!-- Button 1 -->
+                                    <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+
+                                </td>
+
+                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                        Order</button>
+                                </td>
+                            </tr>
+                        
+                            <?php
+
+                        }
+                    }else{
+                        ?>
                         <tr>
-                            <td>101</td>
-                            <td>John Doe</td>
-                            <td>New York</td>
-                            <td>Shipped</td>
-                            <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                    Order</button>
-                            </td>
-                        </tr>
+<td></td>
+
+
+                        <td>
+                            No Available Orders
+
+
+                        </td>
+<td></td>
+                    </tr>
+
+                        <?php
+                    }
+                        ?>
 
 
                     </tbody>
@@ -120,28 +175,27 @@
             <h2>Report Your Problem</h2>
             <form class="form" method="POST">
 
-                <h4>Title : <span class="error title"></span>  </h4> 
+                <h4>Title : <span class="error title"></span> </h4>
                 <input name="title" type="text" placeholder="Enter your title">
                 <h4>Your email : <span class="error email"></span></h4>
                 <input name="email" type="text" placeholder="Enter your email">
                 <h4>Problem : <span class="error description"></span></h4>
-                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
-                
-                <button type="submit" class="close-btn pb" name="report" value="Submit" >Submit</button>
-                <button type="button" class="cancelR-btn pb" onclick="closeReport()" >Cancel</button>
-            
+                <textarea name="description" id="problem" cols="30" rows="5"
+                    placeholder="Enter your problem"></textarea>
+
+                <button type="submit" class="close-btn pb" name="report" value="Submit">Submit</button>
+                <button type="button" class="cancelR-btn pb" onclick="closeReport()">Cancel</button>
+
 
             </form>
         </div>
     </div>
 
-
+    <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-
         <h2>Order Details</h2>
         <div class="status">
-
             <ul>
                 <li>
                     <iconify-icon
@@ -179,48 +233,60 @@
                 </li>
 
             </ul>
-
         </div>
 
-        <div class="container1">
-            <form>
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Order Id </span>
-                        <input type="text" required onChange="" readonly value="1" />
+        <div class="detail_content">
+            <div class="container1">
+                <form>
+                    <div class="user-details">
+                        <div class="input-box">
+                            <span class="details">Order Id </span>
+                            <input type="text" required onChange="" readonly value="1" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Customer Name </span>
+                            <input type="text" required onChange="" readonly value="thiran" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Delivery Address</span>
+                            <input type="text" required onChange="" readonly value="matara" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Order Placed On</span>
+                            <input type="text" required onChange="" readonly value="2023/10/19" />
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">Delivery Expected On</span>
+                            <input type="text" required onChange="" readonly value="2023/10/29" />
+                        </div>
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Customer Name </span>
-                        <input type="text" required onChange="" readonly value="thiran" />
-                    </div>
+                </form>
+            </div>
 
-                    <div class="input-box">
-                        <span class="details">Delivery Address</span>
-                        <input type="text" required onChange="" readonly value="matara" />
-                    </div>
+            <!-- VIEW MAP -->
 
-                    <div class="input-box">
-                        <span class="details">Order Placed On</span>
-                        <input type="text" required onChange="" readonly value="2023/10/19" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                        <input type="text" required onChange="" readonly value="2023/10/29" />
-                    </div>
+            <div class="container2">
+                <!-- <h3> Delivery locations</h3> -->
+                <div id="map">
                 </div>
-                <button type="submit" class="update-btn">Update Order</button>
-            </form>
-        </div>
-        <div class="btn-ok">
+            </div>
 
+        </div>
+
+        <div class="btns">
+            <button type="submit" class="update-btn">Update Order</button>
             <button type="button" class="ok-btn" onclick="closeView()">OK</button>
+
         </div>
-
-
-
     </div>
+
+
+
     <div id="overlay" class="overlay"></div>
 
 

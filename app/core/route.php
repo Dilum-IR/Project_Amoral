@@ -30,6 +30,10 @@ route('customer/chatbox', 'customer/customerOverview@chat_data');
 route('customer/p', 'customer/customerOrders@payment_process');
 route('customer/p_success', 'customer/customerOrders@payment_success');
 
+//manager ajax endpoint
+route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
+route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
@@ -57,6 +61,7 @@ route('manager/overview','manager/Overview@index');
 route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
+route('manager/customerdetails', 'manager/CustomerDetails@index');
 
 
 route('signinData', 'SignIn@formData');
@@ -65,6 +70,6 @@ route('guest','guest/Guest@index');
 
 route('tool', 'tool/Tool@index');
 
-route('premade', 'premade/Premade@Index');
+route('collection', 'collection/Collection@Index');
 
 route('404', '_404@index');

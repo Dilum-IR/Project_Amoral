@@ -84,7 +84,11 @@ class Profile extends Controller
         $userArr['address'] = $row->address;
         // show($userArr);
 
-        return $userArr;
+        $data = ['data' => $row];
+        // show($data);
+        return $data;
+        //show($row);
+
     }
 
     //  user chanage info data

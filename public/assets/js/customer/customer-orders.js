@@ -190,7 +190,10 @@ function openView(button) {
       case "cutting" || "printing" || "sewing":
         progress2.classList.add("active");
         break;
-
+      // case "delivering":
+      //   progress2.classList.add("active");
+      //   progress3.classList.add("active");
+      //   break;
       case "delivering":
         progress2.classList.add("active");
         progress3.classList.add("active");
@@ -305,7 +308,10 @@ function openView(button) {
 
     var currentDate = new Date();
     var orderPlacedOn = new Date(order.order_placed_on);
-    if ((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24) > 2) {
+    if (
+      (currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24) > 2 ||
+      order.order_status != "pending"
+    ) {
       orderCancel.style.display = "none";
     } else {
       orderCancel.style.display = "block";
@@ -323,7 +329,120 @@ function openView(button) {
     //     payBtn.style.display = "none";
     // }
   }
+
+  var today = new Date();
+  var formattedDate =
+    today.getFullYear() +
+    "-" +
+    String(today.getMonth()).padStart(2, "0") +
+    "-" +
+    String(today.getDate()).padStart(2, "0");
+  console.log(formattedDate);
+
+  // Populate the "update-form" fields with the order data
+  document.querySelector('.update-form input[name="order_id"]').value =
+    order.order_id;
+
+  let existingCards = document.querySelectorAll(".user-details.new-card");
+  let existingPriceRows = document.querySelectorAll(
+    ".price-details-container .units"
+  );
+
+  // Remove each existing newCard element
+  existingCards.forEach(function (card) {
+    card.remove();
+  });
+
+  // Remove each existing priceRow element
+  existingPriceRows.forEach(function (row) {
+    row.remove();
+  });
+
+  let quantity = 0;
+  let countv = 0;
+
+  for (let i = 0; i < material.length; i++) {
+    console.log(material[i]);
+    quantity =
+      parseInt(material[i].xs) +
+      parseInt(material[i].small) +
+      parseInt(material[i].medium) +
+      parseInt(material[i].large) +
+      parseInt(material[i].xl) +
+      parseInt(material[i].xxl);
+    addMaterialCardView(material[i], quantity, countv);
+  }
+
+  // if the order is processing only delivery details can be updated
+  let inputs = document.querySelectorAll(".update-form .st");
+  if (order.order_status != "pending") {
+    inputs.forEach((input) => {
+      input.setAttribute("readonly", "true");
+    });
+  }
+
+  // document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
+
+  // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
+
+  if (order.is_delivery == 1) {
+    document.querySelector(".delivery").classList.add("is-checked");
+    document.querySelector(
+      '.update-form input[name="dispatch_date_delivery"]'
+    ).value = order.dispatch_date;
+    document.querySelector('.update-form input[name="city"]').value =
+      order.city;
+  } else {
+    document.querySelector(".pickup").classList.add("is-checked");
+    document.querySelector(
+      '.update-form input[name="dispatch_date_pickup"]'
+    ).value = order.dispatch_date;
+  }
+
+  document.querySelector(".update-form .totalPrice").innerHTML =
+    order.total_price;
+  console.log(order.total_price);
+  document.querySelector(".update-form .discountPrice").innerHTML =
+    order.discount;
+  console.log(order.discount);
+
+  // document.querySelector('.update-form input[name="discount"]').value = order.discount;
+  // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
+
+  document.querySelector('.update-form input[name="order_placed_on"]').value =
+    order.order_placed_on;
+  document.querySelector('.update-form input[name="city"]').value = order.city;
+  document.querySelector('.update-form input[name="latitude"]').value =
+    order.latitude;
+  document.querySelector('.update-form input[name="longitude"]').value =
+    order.longitude;
+
+  document.querySelector('.update-form embed[name="design"]').src =
+    "/Project_Amoral/public/uploads/designs/" + order.pdf;
+
+  popupView.classList.add("is-visible");
+  document.body.style.overflow = "hidden";
+  sidebar.style.pointerEvents = "none";
+  nav.style.pointerEvents = "none";
+
+  var currentDate = new Date();
+  var orderPlacedOn = new Date(order.order_placed_on);
+  if ((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24) > 2) {
+    orderCancel.style.display = "none";
+  } else {
+    orderCancel.style.display = "block";
+  }
+
+  if (order.order_status == "completed" || order.order_status == "cancelled") {
+    orderUpdate.style.display = "none";
+    orderCancel.style.display = "none";
+  }
+
+  // if(order.remaining_payment == 0){
+  //     payBtn.style.display = "none";
+  // }
 }
+
 function closeView() {
   popupView.classList.remove("is-visible");
   document.body.style.overflow = "auto";
@@ -647,6 +766,10 @@ function toggleDeliveryN() {
     document.querySelector('input[name="longitude"]').value = longitude;
   });
 }
+
+marker.addListener("click", function () {
+  infoWindow.open(map, marker);
+});
 
 function handleLocationError(browserHasGeolocation, pos) {
   var infoWindow = new google.maps.InfoWindow({
