@@ -102,10 +102,10 @@
                                     <h1>Completed Deliveries</h1>
                                     <h1>5</h1>
                                     <small class="text-muted">Last 24 Hours</small>
-                                    
+
                                 </div>
                                 <i class='bx bxs-check-circle'></i>
-                                    <!-- <div class="progress">
+                                <!-- <div class="progress">
                                     <svg>
                                         <circle cx='38' cy='38' r='36'></circle>
                                     </svg>
@@ -114,18 +114,18 @@
                                         <p>73%</p>
                                     </div>
                                 </div> -->
-                                </div>
-                            
+                            </div>
+
                             <div class="sales">
-                            <div class="orders">
-                                <div class="middle">
-                                    <div class="left">
-                                        <h1> Recent Deliveries</h1>
-                                        <h1>8</h1>
-                                        
-                                    </div>
-                                    <i class='bx bxs-time'></i>
-                                    <!-- <div class="progress">
+                                <div class="orders">
+                                    <div class="middle">
+                                        <div class="left">
+                                            <h1> Recent Deliveries</h1>
+                                            <h1>8</h1>
+
+                                        </div>
+                                        <i class='bx bxs-time'></i>
+                                        <!-- <div class="progress">
                                     <svg>
                                         <circle cx='38' cy='38' r='36'></circle>
                                     </svg>
@@ -134,10 +134,10 @@
                                         <p>61%</p>
                                     </div>
                                 </div> -->
+                                    </div>
+                                    <!-- <small class="text-muted">Last 48 Hours</small> -->
                                 </div>
-                                <!-- <small class="text-muted">Last 48 Hours</small> -->
-                            </div>
-                               
+
                             </div>
                         </div>
                     </div>
@@ -207,33 +207,113 @@
                             </div>
                             <!-- left side container -->
 
+                            <style>
+                                main .re-orders {
+                                    /* width: 250px; */
+                                    background-color: rgb(187, 184, 184) !important;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+                                    transition: 0.5s ease-in-out;
+                                    /* border-right: 10px solid rgb(233, 229, 229); */
+                                    margin-bottom: 15px;
+
+                                }
+
+                                main .re-orders:hover {
+                                    transform: scale(1.025);
+                                }
+
+                                .middle {
+                                    width: 100%;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    display: flex;
+
+                                    .left,
+                                    .count {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+
+                                        .bx {
+                                            font-size: 20px;
+                                            transition: 0.5s ease-in-out;
+
+                                        }
+
+                                        .down:hover {
+                                            color: red;
+                                        }
+
+                                        .up:hover {
+                                            color: #1c7012cc;
+                                        }
+                                    }
+
+                                }
+
+                                .g-info {
+                                    font-size: 20px;
+                                }
+
+                                .input-count {
+                                    width: 100px;
+                                    height: 30px;
+                                    outline: none;
+                                    border: none;
+                                    box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+                                    text-align: center;
+                                    border-radius: 10px;
+                                    font-weight: bold;
+                                    font-size: 20px;
+                                }
+                            </style>
                             <!-- right side container -->
                             <div class="order">
                                 <div class="head">
                                     <h2>Recent Orders</h2>
                                 </div>
-                                <div class="table-container">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Order Id</th>
-                                                <th>Address</th>
-                                                <th>Phone</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>112</td>
-                                                <td>1234 Main Street, City</td>
-                                                <td>0123456789</td>
-                                            </tr>
-                                            <tr>
-                                                <td>113</td>
-                                                <td>5678 Second Street, City</td>
-                                                <td>0987654321</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+                                <div class="re-orders">
+                                    <div class="middle">
+                                        <div class="left">
+                                            <i class='g-info bx bx-group'></i>
+                                            <h3>No. of workers</h3>
+
+                                        </div>
+                                        <div class="count">
+                                            <i class='bx bx-caret-up-circle up'></i>
+                                            <!-- <h2>453</h2> -->
+                                            <input type="number" class="input-count">
+                                            <i class='bx bx-caret-down-circle down'></i>
+
+                                            <!-- <div class="number">
+                                                <p>61%</p>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <!-- <small class="text-muted">Last 24 Hours</small> -->
+                                </div>
+                                <div class="re-orders">
+                                    <div class="middle">
+                                        <div class="left">
+                                            <i class='g-info bx bx-group'></i>
+                                            <h3>No. of workers</h3>
+
+                                        </div>
+                                        <div class="count">
+                                            <i class='bx bx-caret-up-circle up'></i>
+                                            <!-- <h2>453</h2> -->
+                                            <input type="number" class="input-count">
+                                            <i class='bx bx-caret-down-circle down'></i>
+
+                                            <!-- <div class="number">
+                                                <p>61%</p>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <!-- <small class="text-muted">Last 24 Hours</small> -->
                                 </div>
                             </div>
 
@@ -250,50 +330,50 @@
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
-    <script>
-        var options = {
-            series: [{
-                name: 'Total Cost',
-                data: [10, 3, 9, 3, 8, 5, 2],
-            }, ],
-            chart: {
-                height: 350,
-                type: 'area'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            xaxis: {
-                type: 'category',
-                categories: Array.from({
-                    length: 30
-                }, (_, i) => (i + 1).toString()).map(day => {
-                    let currentDate = new Date();
-                    currentDate.setDate(day);
-                    return currentDate.toISOString().slice(0, 10);
-                })
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
+        <script>
+            var options = {
+                series: [{
+                    name: 'Total Cost',
+                    data: [10, 3, 9, 3, 8, 5, 2],
+                },],
+                chart: {
+                    height: 350,
+                    type: 'area'
                 },
-            },
-        };
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    type: 'category',
+                    categories: Array.from({
+                        length: 30
+                    }, (_, i) => (i + 1).toString()).map(day => {
+                        let currentDate = new Date();
+                        currentDate.setDate(day);
+                        return currentDate.toISOString().slice(0, 10);
+                    })
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+            };
 
 
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
-    </script>
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        </script>
 
-    <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+        <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 
 </html>
