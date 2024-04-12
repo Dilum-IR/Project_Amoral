@@ -68,68 +68,68 @@
                         </tr>
                     <tbody>
                         <?php
-                        if(!empty($data['data1'])){
+                        if (!empty($data['data1'])) {
 
-                       
-                        foreach ($data['data1'] as $key => $value) {
 
+                            foreach ($data['data1'] as $key => $value) {
+
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $value->order_id; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->fullname; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->city; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->order_status; ?>
+                                    </td>
+                                    <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
+                                </td> -->
+                                    <td>
+                                        <button type="submit" class="view-order-btn" style="background-color: red;"
+                                            onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+
+
+                                        <!-- Button 1 -->
+                                        <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+
+                                    </td>
+
+                                    <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                            Order</button>
+                                    </td>
+                                </tr>
+
+                                <?php
+
+                            }
+                        } else {
                             ?>
                             <tr>
-                                <td>
-                                    <?php echo $value->order_id; ?>
-                                </td>
-                                <td>
-                                    <?php echo $value->fullname; ?>
-                                </td>
-                                <td>
-                                    <?php echo $value->city; ?>
-                                </td>
-                                <td>
-                                    <?php echo $value->order_status; ?>
-                                </td>
-                                <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
-                                </td> -->
-                                <td>
-                                    <button type="submit" class="view-order-btn" style="background-color: red;"
-                                         onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+                                <td></td>
 
 
-                                    <!-- Button 1 -->
-                                    <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+                                <td>
+                                    No Available Orders
+
 
                                 </td>
-
-                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                        Order</button>
-                                </td>
+                                <td></td>
                             </tr>
-                        
+
                             <?php
-
                         }
-                    }else{
-                        ?>
-                        <tr>
-<td></td>
-
-
-                        <td>
-                            No Available Orders
-
-
-                        </td>
-<td></td>
-                    </tr>
-
-                        <?php
-                    }
                         ?>
 
 
                     </tbody>
                     </thead>
 
-                    
+
 
 
 
@@ -164,26 +164,26 @@
                     ?> -->
 
                 </table>
-                
+
             </div>
-            
+
         </div>
 
-    
+
 
     </section>
-   
- <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
-        <div>
-            <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900' ></i>
 
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
+            <div>
+                <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
+
+            </div>
+            <h2>Are you sure ?</h2>
+            <button class="button" id="confirmDelete">OK</button>
+            <button class="button" id="cancelDelete">Cancel</button>
         </div>
-        <h2>Are you sure ?</h2>
-        <button class="button" id="confirmDelete">OK</button>
-        <button class="button" id="cancelDelete">Cancel</button>
-      </div>
     </div>
 
     <!-- POPUP -->
@@ -290,7 +290,49 @@
 
             <div class="container2">
                 <!-- <h3> Delivery locations</h3> -->
-                <div id="map">
+
+                <!-- <div id="map" style="height:400px; width:100%;"></div> -->
+
+
+                <script>
+                    function initMap() {
+                        var location = { lat: 7.873054, lng: 80.771797 }
+                        var map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 7.7,
+                            center: { lat: 7.8731, lng: 80.7718 }
+                        });
+
+
+                        /*Add marker
+                        var marker = new google.map.Marker({
+                            position:{lat:6.927079,lng:79.861244},
+                            map:map, 
+                            icon:'map-pin-icon.png'
+                        });
+                         /*Add marker function*/
+
+                        addMarker({ lat: 6.927079, lng: 79.861244 });
+                        addMarker({ lat: 7.291418, lng: 80.636696 });
+                        addMarker({ lat: 5.9496, lng: 80.5469 });
+
+
+                        /*Add marker function*/
+
+                        function addMarker(coords) {
+                            var marker = new google.maps.Marker({
+                                position: coords,
+                                map: map,
+                                icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                            });
+
+                        }
+
+
+                    }
+                </script>
+                <script async defer async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOcXiDrg33I05PSyg0fsqqkqbXn0KPJjU&callback=initMap"></script>
+                 <div id="map">
                 </div>
             </div>
 
