@@ -1149,7 +1149,7 @@
                     <span class="error dates"></span>
                 </div>
 
-                <div class="user-details pickupN">
+                <div class="user-details pickupN is-cheecked">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
 
