@@ -2,7 +2,7 @@
     <div class="row">
 
         <div class="col">
-            <img src="./logo.png" class="logo">
+        <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="logo" class="logo">
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam alias architecto tempore, veritatis
                 nihil ullam tempora possimus nobis rem porro, at perspiciatis nesciunt maiores!</p>
         </div>

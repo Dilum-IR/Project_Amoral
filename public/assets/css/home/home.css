@@ -1414,8 +1414,8 @@ nav .icon-cancel {
   background-color: black;
   align-items: center;
   text-align: center;
-  border-bottom-left-radius: 125px;
-  border-bottom-right-radius: 125px;
+  /* border-bottom-left-radius: 125px;
+  border-bottom-right-radius: 125px; */
 }
 
 .services {

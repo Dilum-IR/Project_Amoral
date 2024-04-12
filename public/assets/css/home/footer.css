@@ -4,11 +4,11 @@ footer {
     width: 100%;
     position: relative;
     bottom: 0;
-    background: linear-gradient(to right, #191919, #4C4C4C);
+    background: linear-gradient(to bottom, black, #191919);
     color: #fff;
     padding: 100px 0 30px;
-    border-top-left-radius: 125px;
-    border-top-right-radius: 125px;
+    /* border-top-left-radius: 125px;
+    border-top-right-radius: 125px; */
     font-size: 13px;
     line-height: 20px;
 }
