@@ -1356,6 +1356,46 @@
                 </script>
 
                 <script>
+                            //toggle delivery options of new order
+                    let deliveryN = document.getElementById("deliveryN");
+                    let pickUpN = document.getElementById("pickupN");
+
+
+                    pickUpN.addEventListener('click', togglePickUpN);
+                    deliveryN.addEventListener('click', toggleDeliveryN);
+
+
+                    // clear the other option when one is selected
+                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                        pickupDate.addEventListener('change', function() {
+                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                                deliveryDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                        deliveryDate.addEventListener('change', function() {
+                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                                pickupDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    function togglePickUpN() {
+
+                        document.querySelector(".user-details.pickupN").classList.add("is-checked");
+                        document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
+
+
+                    }
+
+                    function toggleDeliveryN() {
+                        document.querySelector(".user-details.deliveryN").classList.add("is-checked");
+                        document.querySelector(".user-details.pickupN").classList.remove("is-checked");
+                    }
 
                 </script>
 
@@ -1579,12 +1619,9 @@
                 </script>
 
 
-
-
-
+    <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
-    <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 
