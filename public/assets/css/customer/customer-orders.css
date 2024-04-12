@@ -510,20 +510,20 @@ textarea {
   position: relative;
   left: 2px;
   width: 96%;
-  background: #d5dfe7d5;
-  border-radius: 5px;
-  border-style: solid;
-  border: #000;
+  border-radius: 10px;
+  border: 1px solid #000;
   outline-width: 1px;
   padding: 10px 30px;
   margin-bottom: 2%;
   transition: all 0.3s ease;
   color: var(--dark);
+  outline: none;
 }
 
 .popup-report textarea {
   height: 100px;
   margin-left: 10px;
+  resize: none;
 }
 
 .popup-report .error {
@@ -1200,6 +1200,14 @@ hr.second {
   transition: opacity 1.3s ease-in-out, height 0.8s ease;
 }
 
+.amount-container .hint{
+  background-color: #00d10063;
+  padding: 5px;
+  padding-left: 30px;
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.699);
+}
+
 .main .amount-container {
   /* justify-content: space-between; */
   margin: 0 40px 20px 32px;
@@ -1207,7 +1215,7 @@ hr.second {
 
 .main .amount-container .amount-box {
   display: flex;
-  height: 200px;
+  /* height: 200px; */
   background-color: white;
   box-shadow: 0 0 20px 0px rgb(161, 161, 161, 0.5);
   color: #fff;
@@ -1230,13 +1238,23 @@ hr.second {
     align-items: center;
     margin: 10px 0;
   }
+
+  #select-element{
+    width: 200px;
+  }
 }
 
 #amount-center-content {
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+  
+   
+  align-self: center;
 
-  #select-orders-amount {
+  justify-content: center;
+  text-align: center;
+
+  #select-orders-amount,
+  #select-orders-halfamount {
     color: #000;
   }
 
@@ -1246,17 +1264,15 @@ hr.second {
 
   .center-content {
     display: flex;
-    justify-content: space-evenly;
+    height: 100%;
     align-self: center;
     margin-top: 10px;
-
   }
 
-  .dotted{
+  .dotted {
     border: none;
     border-top: 2px dotted rgb(0, 0, 0);
     height: 1px;
-  
   }
 }
 
@@ -1264,12 +1280,12 @@ hr.second {
   display: flex;
   align-items: center;
 
-  .right {
+  #half-checker {
     align-items: center;
     text-align: center;
     justify-content: center;
-    display: ruby-text;
-    margin-right: 30px;
+    
+     margin-right: 30px;
 
     p {
       color: #000;
@@ -1277,3 +1293,32 @@ hr.second {
   }
 }
 
+#amount-center-content .disable,
+#amount-right-content .disable {
+  display: none;
+  .center-content{
+    height: 100%;
+  }
+  
+}
+#amount-center-content .active {
+  display: contents;
+  
+}
+#amount-right-content .active {
+  display: ruby-text !important;
+
+}
+
+#amount-box-content.disable{
+  display: none;
+
+}
+#amount-box-content .active{
+  display: contents;
+
+}
+
+#pay:disabled {
+  background-color: #00d10075 !important;
+}

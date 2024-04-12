@@ -22,11 +22,11 @@ trait Model
         // run the quary stage
         return $this->quary($quary);
     }
-    public function findAll_selectedColumn($order_column = 'id')
+    public function findAll_selectedColumn($order_column = 'id',$allowedCloumns=["*"])
     {
         $quary = "SELECT ";
 
-        foreach ($this->allowedCloumns as $key) {
+        foreach ($allowedCloumns as $key) {
             $quary .= $key . ",";
         }
         $quary = trim($quary, ",");
@@ -34,6 +34,7 @@ trait Model
         $quary .= " FROM $this->table ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
+        // return;  
         // run the quary stage
         return $this->quary($quary);
     }
@@ -232,6 +233,18 @@ trait Model
         $quary = "SELECT * FROM $this->table JOIN $reference_table 
                             ON $this->table.$refe_column1 = $reference_table.$refe_column2
                             ORDER BY $refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
+
+    public function findAll_withLOJ($reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+
+        $quary = "SELECT * FROM $this->table LEFT OUTER JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
         // run the quary stage

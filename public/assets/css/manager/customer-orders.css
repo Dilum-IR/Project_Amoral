@@ -13,11 +13,21 @@
   --red: #fc3b56;
 }
 
-body{
-  min-height: 100vh;
+body {
   background: rgb(240, 240, 250);
   scroll-behavior: smooth;
-  /* background: url('../../images/customer/bg.png') center / cover; */
+}
+
+::-webkit-scrollbar {
+width: 10px;
+}
+::-webkit-scrollbar-track {
+background: #f5f5f5;
+border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(0,0,0);
+border-radius: 5px;
 }
 
 #main {
@@ -229,12 +239,12 @@ input{
 
 .table-section{
     
-    overflow: auto;
+    overflow: hidden;
     /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
     border-radius: 20px;
     background: ghostwhite;
     margin: 19px 32px;
-    overflow-x: auto;
+    /* overflow-x: auto; */
 
 }
 
@@ -242,9 +252,9 @@ table{
     width: 100%;
     position: relative;
     min-width: 1000px;
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     border-spacing: 0;
-    overflow: hidden;
+    /* overflow-x: scroll; */
 }
 
 
@@ -267,6 +277,21 @@ thead th{
   font-size: 15px;
   border-bottom: 1px solid black;
   background: black;
+  cursor: pointer;
+  
+}
+
+thead th i{
+  font-size: 21px;
+  position: relative;
+  top: 4px;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+thead th.active i{
+  transform: scale(1.2);
+  color: blueviolet;
 }
 
 th, td{
@@ -279,6 +304,7 @@ th, td{
 
 td{
   box-sizing: border-box;
+  padding: 17px 0px;
 }
 
 td img{
@@ -289,10 +315,17 @@ td img{
     border: 5px solid #ced0d2;
 }
 
+tr{
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
+}
+
 tr.hide{
   opacity: 0;
   transform: translateX(100%);
   line-height: 0;
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
 }
 
 tr.hide td,
@@ -304,7 +337,8 @@ tr.hide td div{
   margin: 0;
   border-bottom: none;
   font-size: 0;
-
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
 }
 
 tr.hide td *{
@@ -327,7 +361,7 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  
+  width: 105px;
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
@@ -452,13 +486,16 @@ textarea{
 }
 
 .sizeChart{
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(54px, 1fr));
-  grid-gap: 0px;
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  /* grid-gap: 0px; */
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
-.sizeChart span{
-  margin-left: 0;
+
+.sizeChart div{
+  max-width: 110px;
 }
 
 .sizeChart .st{
@@ -766,7 +803,7 @@ button.pay:hover {
 }
 
 .popup-new .input-box.design{
-  margin-top: -125px;
+  margin-top: -95px;
 }
 
 .removeButton {

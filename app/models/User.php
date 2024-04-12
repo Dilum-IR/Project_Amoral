@@ -16,6 +16,17 @@ class User
 		'user_image',
 	];
 
+	public $customerColumns = [
+		"id",
+		'fullname',
+		'email',
+		'user_image',
+		'email_verified',
+		'address',
+		'city',
+		'phone',
+	];
+
 	public function validate($data)
 	{
 		$this->errors = [];

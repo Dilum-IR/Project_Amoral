@@ -63,13 +63,6 @@
             </form>
 
             <div class="table">
-                <!-- <div class="table-header">
-                <p>Order Details</p>
-                <div>
-                    <input placeholder="order"/>
-                    <button class="add_new">+ Add New</button>
-                </div>
-             </div> -->
 
                 <div class="table-section">
                     <table>
@@ -86,28 +79,27 @@
                                 <th>Material</th>
                                 <th>Quantity</th>
                                 <th>Status</th>
-                                <th>Total Price(Rs.)</th>
+                                <th>Amount due (Rs.)</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody class="table-body">
 
-                            <?php if (isset($data['order'])) : ?>
+                            <?php if (!empty($data['order'])) : ?>
                                 <?php foreach ($data['order'] as $order) :
 
                                     $material = array();
                                     $sleeve = array();
                                     $pType = array();
 
-
-
+                                    //show($data['order']);
                                 ?>
                                     <tr>
                                         <td>
-                                            <?php if ($order->total_price != 0 && $order->order_status != "cancelled") { ?>
+                                            <?php if ($order->pay_type != "full" && $order->order_status != "cancelled") { ?>
                                                 <label class="custom-checkbox">
                                                     <!-- <input type="checkbox" /> -->
-                                                    <input type="checkbox" onclick="selectRow(this,<?= $order->order_id ?>,<?= $order->total_price ?>)">
+                                                    <input type="checkbox" onclick="selectRow(this,<?= $order->order_id ?>,<?= $order->total_price ?>,<?= $order->remaining_payment ?>,'<?= $order->pay_type ?>')">
                                                     <span class="checkmark"></span>
 
                                                 </label>
@@ -141,7 +133,24 @@
                                             </div>
                                         </td>
                                         <td class="price">
-                                            <?= ($order->total_price == 0) ? "<h4 style='color:green'>Payed</h4>" : $order->total_price . ".00" ?>
+                                            <?php
+
+                                            if ($order->pay_type == "full") {
+                                            ?>
+                                                <h4 style='color:green'>Payed</h4>
+                                            <?php
+
+                                            } else if ($order->remaining_payment != 0) {
+                                            ?>
+                                                <span style='color:red'>remain</span>
+                                            <?php
+
+                                                echo  number_format($order->remaining_payment, 2, '.', ',');
+                                            } else {
+
+                                                echo  number_format($order->total_price, 2, '.', ',');
+                                            }
+                                            ?>
                                         </td>
 
                                         <td class="btns">
@@ -163,24 +172,22 @@
 
 
             <div class="amount-container">
-                <hr>
 
-                <br>
-                <h4>Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment
+                <h4 class="hint">
+                    You can select the orders after Pay for select orders. <br>
+                    ** Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
 
                 </h4>
-                <br>
-                <hr>
 
-                <div class="amount-box">
+                <div id="amount-box-content" class="amount-box disable">
                     <div id="amount-left-content">
 
                         <p class="title">Your total payment will be</p>
                         <div class="choose-orders">
 
                             <div>
-                                <p>Select orders</p>
-                                <p>Select orders</p>
+                                <p>Select Order ID's</p>
+                                <p id="select-element"></p>
                             </div>
                         </div>
                     </div>
@@ -190,18 +197,21 @@
 
                             <h1 class="amount_last">Rs.&nbsp;</h1><br>
                             <h1 id="select-orders-amount"> </h1>
-                            <h1 class="amount_last">.00</h1>
 
                         </div>
-                        <br>
-                        <hr class="dotted">
-                        <p>Half Payment</p>
-                        <div class="center-content">
+                        <div id="half-payment" class="disable">
 
-                            <h1 class="amount_last">Rs.&nbsp;</h1><br>
-                            <h1 id="select-orders-halfamount"> </h1>
-                            <h1 class="amount_last">.00</h1>
+                            <br>
+                            <hr class="dotted">
 
+                            <p>&nbsp;Half Payment</p>
+                            <div class="center-content">
+
+                                <h1 class="amount_last">Rs.&nbsp;</h1><br>
+                                <h1 id="select-orders-halfamount"> </h1>
+
+
+                            </div>
                         </div>
 
                     </div>
@@ -209,11 +219,11 @@
 
                         <div class="right">
 
-                            <div class="right">
+                            <div id="half-checker" class="right disable">
 
                                 <label class="custom-checkbox">
 
-                                    <input type="checkbox" onclick="selectHalfPay(true)">
+                                    <input type="checkbox" id="checkbox" onclick="selectHalfPay()">
                                     <span class="checkmark"></span>
 
                                 </label>
@@ -221,7 +231,12 @@
 
                             </div>
 
-                            <button type="button" class="pay" onclick="paymentGateway('<?= $order->order_id ?>','<?= $_SESSION['USER']->id ?>')"> Pay now</button>
+                            <button type="button" class="pay" id="pay" onclick="paymentGateway('<?= $order->order_id ?>','<?= $_SESSION['USER']->id ?>')"> Pay now
+                                &nbsp;
+                                <span>Rs.</span>
+                                <span id="btn-price"></span>
+
+                            </button>
 
                         </div>
                         <img src="https://www.payhere.lk/downloads/images/payhere_square_banner.png" width="230px" alt="">
@@ -236,63 +251,304 @@
     </div>
 
     <script>
+        select_orders_amount = document.getElementById("select-orders-amount");
+        select_orders_halfamount = document.getElementById("select-orders-halfamount");
+        select_element = document.getElementById("select-element");
+
+        btn_price = document.getElementById("btn-price");
+        amount_box = document.getElementById("amount-box-content");
+        checkbox = document.getElementById("checkbox");
+
+
+        half_payment = document.getElementById("half-payment");
+        half_checker = document.getElementById("half-checker");
+
         var amount = 0
         var id_list = []
+        var half = false;
+
+
+        if (amount != 0) {
+
+            amount_box.classList.remove("disable");
+            amount_box.classList.add("active");
+
+        } else {
+            amount_box.classList.remove("active");
+            amount_box.classList.add("disable");
+            // amount_box.disabled = false;
+        }
 
 
         var all_orders = <?= json_encode($data['order']); ?>
 
-        console.log(all_orders);
         // Function to handle row selection
-        function selectRow(checkbox, id, price) {
+        function selectRow(checkbox, id, price, remain, pay_type) {
 
-            select_orders_amount = document.getElementById("select-orders-amount");
-            select_orders_halfamount = document.getElementById("select-orders-halfamount");
+
+            // console.log(id, price, remain, pay_type);
+
+            // if select all checkbox is checked when go to the another function
+
+            if (select_all) {
+
+                selectedRowsFromAllSelect(id, price, remain, pay_type);
+                return;
+            }
 
             // get the selected index ids
             let index = id_list.indexOf(id);
 
+            let pay_amount = 0;
+
+
+            if (pay_type == 'no') {
+                pay_amount = price
+            } else if (pay_type == 'half') {
+                pay_amount = remain
+
+            }
+
             if (index !== -1) {
                 id_list.splice(index, 1);
-                amount = amount - price
+                amount = amount - pay_amount
             } else {
 
-                amount = amount + price
+                amount = amount + pay_amount
                 id_list.push(id)
             }
 
-            select_orders_amount.innerHTML = amount;
-            select_orders_halfamount.innerHTML = amount / 2;
+            var order_id_str = "";
+            id_list.forEach(element => {
+                if (order_id_str != "") {
+
+                    order_id_str = order_id_str + ", " + element
+                } else {
+                    order_id_str = element
+
+                }
+            });
+
+            if (order_id_str != "") {
+                order_id_str = "[ " + order_id_str + " ]"
+            }
+            select_orders_amount.innerHTML = amount.toFixed(2);
+
+            // btn_price.innerHTML = amount;
+            selectHalfPay();
+
+            select_element.innerHTML = order_id_str;
+            // payment is grater than 100,000.00 when can pay the half
+            if (amount == 0) {
+
+                // select_orders_amount.innerHTML = "Please Select Yours orders";
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+
+            } else if (amount >= 100000) {
+
+                half_payment.classList.remove("disable");
+                half_payment.classList.add("active");
+
+                half_checker.classList.remove("disable");
+                half_checker.classList.add("active");
+
+
+                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+            } else {
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+            }
+
+
+            if (amount != 0) {
+
+                amount_box.classList.remove("disable");
+                amount_box.classList.add("active");
+
+            } else {
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+                // amount_box.disabled = false;
+            }
+
 
             var row = checkbox.parentNode.parentNode;
             row.classList.toggle("selected");
 
         }
 
+        function selectHalfPay() {
+            if (checkbox.checked) {
+
+                btn_price.innerHTML = (amount / 2).toFixed(2);
+                half = true;
+            } else {
+
+                btn_price.innerHTML = amount.toFixed(2);
+                half = false;
+            }
+
+        }
+
         // Function to select all rows
-        function selectAllRows(all_orders) {
+        function selectAllRows() {
             var checkboxes = document.querySelectorAll("tbody input[type='checkbox']");
             var selectAllCheckbox = document.getElementById("selectAll");
 
             checkboxes.forEach(function(checkbox) {
                 checkbox.checked = selectAllCheckbox.checked;
                 var row = checkbox.parentNode.parentNode;
+
                 if (selectAllCheckbox.checked) {
+
+                    select_all = true;
+
                     row.classList.add("selected");
                 } else {
+                    amount = 0;
+                    id_list = [];
+                    select_all = false;
                     row.classList.remove("selected");
                 }
 
-                getAmount()
+
             });
+
+            if (selectAllCheckbox.checked) {
+
+                amount = 0;
+                selectedRowsFromAllSelect(0, 0, 0, "null");
+            } else {
+                console.log(id_list);
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+            }
 
         }
 
-        function getAmount() {
+        var select_all = false;
+
+        function selectedRowsFromAllSelect(id, price, remain, pay_type) {
 
 
+            if (id == 0) {
+
+                all_orders.forEach(function(element) {
+                    if (element.order_status != "cancelled" && element.pay_type != "full") {
+
+                        id_list.push(element.order_id);
+
+                        if (element.pay_type == "half") {
+
+                            amount += element.remaining_payment
+                        } else {
+
+                            amount += element.total_price
+                        }
+
+                    }
+
+                });
+            }
 
 
+            // get the selected index ids
+            let index = id_list.indexOf(id);
+
+
+            let pay_amount = 0;
+
+            if (pay_type == 'no') {
+                pay_amount = price
+            } else if (pay_type == 'half') {
+                pay_amount = remain
+
+            }
+
+            if (index != -1) {
+
+                id_list.splice(index, 1);
+                amount = amount - pay_amount
+
+            } else if (id != 0) {
+
+                amount = amount + pay_amount
+                id_list.push(id)
+            }
+
+
+            id_list = [...new Set(id_list)];
+
+            var order_id_str = "";
+            id_list.forEach(element => {
+                if (order_id_str != "") {
+
+                    order_id_str = order_id_str + ", " + element
+                } else {
+                    order_id_str = element
+
+                }
+            });
+
+            if (order_id_str != "") {
+                order_id_str = "[ " + order_id_str + " ]"
+            }
+            select_orders_amount.innerHTML = amount.toFixed(2);
+
+            // btn_price.innerHTML = amount;
+            selectHalfPay();
+
+
+            select_element.innerHTML = order_id_str;
+            // payment is grater than 100,000.00 when can pay the half
+            if (amount == 0) {
+
+                // select_orders_amount.innerHTML = "Please Select Yours orders";
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+
+            } else if (amount >= 100000) {
+
+                half_payment.classList.remove("disable");
+                half_payment.classList.add("active");
+
+                half_checker.classList.remove("disable");
+                half_checker.classList.add("active");
+
+
+                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+            } else {
+                half_payment.classList.remove("active");
+                half_payment.classList.add("disable");
+
+                half_checker.classList.remove("active");
+                half_checker.classList.add("disable");
+            }
+
+
+            if (amount != 0) {
+
+                amount_box.classList.remove("disable");
+                amount_box.classList.add("active");
+
+            } else {
+                amount_box.classList.remove("active");
+                amount_box.classList.add("disable");
+                // amount_box.disabled = false;
+            }
+
+            // console.log(amount);
+            // console.log(id_list);
 
         }
     </script>
@@ -301,13 +557,18 @@
 
     <script>
         function paymentGateway(order_id, user) {
+
+            var paybtn = document.getElementById('pay');
+            paybtn.disabled = true
             // var paymentData = JSON.parse(dataString);
 
             $(document).ready(function() {
 
                 data = {
-                    id: order_id,
                     user: user,
+                    id: id_list,
+                    total: amount,
+                    ishalf: half
                 };
 
                 $.ajax({
@@ -317,15 +578,14 @@
                     cache: false,
                     success: function(res) {
                         try {
-                            // alert(res);
+
+
                             var obj = JSON.parse(res);
-                            console.log(obj)
-                            // return;
 
                             // Payment completed. It can be a successful failure.
                             payhere.onCompleted = function onCompleted(orderId) {
-                                console.log("Payment completed. OrderID:" + orderId);
                                 // Note: validate the payment and show success or failure page to the customer
+                                PayedOrdersUpdate(orderId, obj.ishalf, user);
                             };
 
                             // Payment window closed
@@ -366,15 +626,61 @@
                                 custom_2: "",
                             };
 
-                            console.log(payment)
 
                             payhere.startPayment(payment);
-                        } catch (error) {}
+
+                            paybtn.disabled = false
+
+                        } catch (error) {
+                            paybtn.disabled = false
+
+                        }
                     },
-                    error: function(xhr, status, error) {},
+                    error: function(xhr, status, error) {
+                        paybtn.disabled = false
+
+                    },
                 });
 
             });
+        }
+
+        function PayedOrdersUpdate(id, ishalf, user) {
+
+            // Split the string by comma and trim spaces
+            var idsArray = id.split(",").map(function(item) {
+                return parseInt(item.trim(), 10);
+            });
+
+            data = {
+
+                id: idsArray,
+                ishalf: ishalf,
+                user: user
+
+            };
+
+
+            $.ajax({
+                type: "POST",
+                url: "<?= ROOT ?>/customer/p_success",
+                data: data,
+                cache: false,
+                success: function(res) {
+                    try {
+
+                        alert(res);
+
+                        paybtn.disabled = false
+
+
+                        location.reload();
+                    } catch (error) {}
+                },
+                error: function(xhr, status, error) {},
+            });
+
+
         }
     </script>
 
@@ -388,9 +694,9 @@
                 <h4>Title : <span class="error title"></span> </h4>
                 <input name="title" type="text" placeholder="Enter your title">
                 <h4>Your email : <span class="error email"></span></h4>
-                <input name="email" type="text" placeholder="Enter your email">
+                <input disabled name="email" type="text" placeholder="Enter your email" value="<?= $_SESSION['USER']->email ?>">
                 <h4>Problem : <span class="error description"></span></h4>
-                <textarea name="description" id="problem" cols="30" rows="5" placeholder="Enter your problem"></textarea>
+                <textarea name="description" id="problem" cols="30" rows="7" placeholder="Enter your problem"></textarea>
 
                 <button type="submit" class="close-btn pb" name="report" value="Submit">Submit</button>
                 <button type="button" class="cancelR-btn pb" onclick="closeReport()">Cancel</button>
@@ -490,6 +796,35 @@
                     </div>
                 </div>
 
+                <div class="user-details delivery">
+
+                    <div class="input-box">
+                        <span class="details">Delivery Expected On</span>
+
+                        <input type="date" name="dispatch_date_delivery">
+                    </div>
+                    <div class="input-box">
+                        <span class="details addr">City</span>
+
+                        <input name="city" type="text">
+
+
+                    </div>
+
+                    <div class="input-box location">
+                        <span class="details">Location</span>
+                        <div class="googlemap" id="map" style="height: 400px; width: 100%;"></div>
+                    </div>
+
+                    <!-- hidden element -->
+                    <div class="input-box">
+                        <input name="latitude" type="hidden" required />
+                        <input name="longitude" type="hidden" required />
+                    </div>
+
+
+                </div>
+
                 <script>
                     //toggle delivery options
                     let delivery = document.getElementById("delivery");
@@ -506,41 +841,29 @@
 
                     }
 
+                    // view order delivary map
                     function toggleDelivery() {
                         document.querySelector(".user-details.delivery").classList.add("is-checked");
                         document.querySelector(".user-details.pickup").classList.remove("is-checked");
+
+
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            // Initial center coordinates
+                            center: {
+                                lat: 7.7072567,
+                                lng: 80.6534611
+                            },
+                            // Initial zoom level
+                            zoom: 7,
+                        });
                     }
                 </script>
 
-                <div class="user-details delivery">
-
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-
-                        <input type="date" name="dispatch_date_delivery">
-                    </div>
-                    <div class="input-box">
-                        <span class="details addr">City</span>
-
-                        <input name="city" type="text">
-
-
-                    </div>
-
-
-                    <div class="input-box location">
-                        <span class="details">Location</span>
-                        <div id="map" style="height: 400px; width: 100%;"></div>
-                    </div>
-
-                    <!-- hidden element -->
-                    <div class="input-box">
-                        <input name="latitude" type="hidden" required />
-                        <input name="longitude" type="hidden" required />
-                    </div>
-
-
-                </div>
+                <style>
+                    .googlemap {
+                        /* background-color: red; */
+                    }
+                </style>
 
                 <hr class="second">
 
@@ -843,7 +1166,7 @@
 
                     <div class="input-box location">
                         <span class="details"> Delivery Location</span>
-                        <div id="map" style="height: 300px; width: 100%;"></div>
+                        <div class="googlemap" id="order-map" style="height: 300px; width: 100%;"></div>
                     </div>
 
                     <div class="input-box city">
@@ -894,8 +1217,6 @@
 
                 <!-- <p>You will be notified about possible discounts later</p> -->
 
-
-
                 <script>
                     //add price data dynamically in new order popup
                     let material = document.querySelector(".popup-new .user-details select[name='material[]']");
@@ -925,12 +1246,12 @@
                     });
 
 
-                    console.log(total);
+                    // console.log(total);
 
                     let allMaterials = <?php echo json_encode($data['material_prices']) ?>;
                     let allSleeves = <?php echo json_encode($data['sleeveType']) ?>;
                     let allPrintingTypes = <?php echo json_encode($data['material_printingType']) ?>;
-                    console.log(allMaterials);
+                    // console.log(allMaterials);
 
                     function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice) {
                         let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
@@ -939,7 +1260,7 @@
 
 
                         doc.querySelector("input[name='unit_price[]']").value = unitPrice;
-                        console.log("efdsf" + doc.querySelector("input[name='unit_price[]']").value);
+                        // console.log("efdsf" + doc.querySelector("input[name='unit_price[]']").value);
                         generateTotalPrice();
                         // document.querySelector(".totalPrice").innerHTML = currentTotal + (unitPrice * total);
                     }
@@ -952,7 +1273,7 @@
                         document.querySelector(".popup-new .totalPrice").innerHTML = total;
 
                         document.querySelector(".popup-new input[name='total_price']").value = total;
-                        console.log("tot" + document.querySelector(".popup-new input[name='total_price']").value);
+                        //  console.log("tot" + document.querySelector(".popup-new input[name='total_price']").value);
                     }
 
                     material.addEventListener('change', function() {
@@ -973,9 +1294,9 @@
                         }
 
                         printingType.innerHTML = printingTypeOptions;
-                        console.log(printingType);
+                        //console.log(printingType);
 
-                        console.log(material.value);
+                        // console.log(material.value);
                         allMaterials.forEach(function(item) {
                             if (item.stock_id == material.value) {
                                 data.querySelector(".materialType").innerHTML = item.material_type;
@@ -987,7 +1308,7 @@
                     });
 
                     sleeve.addEventListener('change', function() {
-                        console.log(sleeve.value);
+                        // console.log(sleeve.value);
                         allSleeves.forEach(function(item) {
                             if (item.type == sleeve.value) {
                                 data.querySelector(".sleeveType").innerHTML = item.type;
@@ -999,7 +1320,7 @@
                     });
 
                     printingType.addEventListener('change', function() {
-                        console.log(printingType.value);
+                        // console.log(printingType.value);
                         allPrintingTypes.forEach(function(item) {
                             if (item.printing_type == printingType.value) {
                                 data.querySelector(".printingType").innerHTML = item.printing_type;
@@ -1017,47 +1338,7 @@
                 </script>
 
                 <script>
-                    //toggle delivery options of new order
 
-                    let deliveryN = document.getElementById("deliveryN");
-                    let pickUpN = document.getElementById("pickupN");
-
-
-                    pickUpN.addEventListener('click', togglePickUpN);
-                    deliveryN.addEventListener('click', toggleDeliveryN);
-
-
-                    // clear the other option when one is selected
-                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
-                        pickupDate.addEventListener('change', function() {
-                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
-                                deliveryDate.value = "";
-                            });
-
-                        });
-                    });
-
-                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
-                        deliveryDate.addEventListener('change', function() {
-                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
-                                pickupDate.value = "";
-                            });
-
-                        });
-                    });
-
-                    function togglePickUpN() {
-
-                        document.querySelector(".user-details.pickupN").classList.add("is-checked");
-                        document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-
-
-                    }
-
-                    function toggleDeliveryN() {
-                        document.querySelector(".user-details.deliveryN").classList.add("is-checked");
-                        document.querySelector(".user-details.pickupN").classList.remove("is-checked");
-                    }
                 </script>
 
                 <script>
@@ -1193,7 +1474,7 @@
                             }
 
                             printingType1.innerHTML = printingTypeOptions;
-                            console.log(printingType1);
+                            //  console.log(printingType1);
 
 
                             allMaterials.forEach(function(item) {
@@ -1228,9 +1509,6 @@
 
                             updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
                         });
-
-
-
 
 
                         let removeCard = newCard.querySelector("i");
@@ -1271,7 +1549,7 @@
 
                     //restrict the no of additional orders that can be made inside the same order
                     var materialCount = <?php echo count($data['materials']) * count($data['printingType']) * count($data['sleeveType']) - 1 ?>;
-                    console.log(materialCount);
+                    //console.log(materialCount);
                     addMaterial.addEventListener('click', function() {
                         if (count < materialCount - 1) {
                             addMaterialCard();
@@ -1302,14 +1580,15 @@
 
 
 
-
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+
     <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
+
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

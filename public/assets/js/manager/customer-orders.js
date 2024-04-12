@@ -25,7 +25,8 @@ let updateYes = document.querySelector(".cu-popup .yes");
 const viewOrderBtns = document.querySelectorAll('.view-order-btn');
 
 const search = document.querySelector(".form input"),
-    table_rows = document.querySelectorAll("tbody tr");
+    table_rows = document.querySelectorAll(".table-section tbody tr")
+    table_headings = document.querySelectorAll("thead th");
 
 search.addEventListener('input', performSearch);
 
@@ -41,7 +42,54 @@ function performSearch() {
         console.log(row_text);
 
         row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+        row.style.setProperty('--delay', i/40 + 's');
     })
+}
+
+table_headings.forEach((head, i) => {
+    head.onclick = () => {
+        let order = 'asc';
+        table_headings.forEach(head => head.classList.remove("active"));
+        head.classList.add("active");
+        let icon = head.querySelector('i');
+        table_headings.forEach(h => {
+            // console.log(h);
+            if(h!=head && h.className !== "null"){
+                let ic = h.querySelector('i');
+                // console.log(ic);
+                if(ic.className.includes('bx-up-arrow-circle')){
+                    ic.className = "bx bx-down-arrow-circle";
+                }
+            }
+        });
+        if (icon.className.includes('bx-up-arrow-circle')) {
+            // Change to down arrow
+            icon.className = "bx bx-down-arrow-circle";
+            order = 'asc';
+        } else {
+            // Change to up arrow
+            icon.className = "bx bx-up-arrow-circle";
+            order = 'desc';
+        }
+
+
+
+        console.log(i, order);
+        sortTable(i, order);
+
+    }
+});
+
+function sortTable(i, order){
+    [...table_rows].sort((a, b) => {
+        console.log(a.querySelectorAll('.table-section td')[i]);
+        let x = a.querySelectorAll('.table-section tbody td')[i].textContent.trim(),
+            y = b.querySelectorAll('.table-section tbody td')[i].textContent.trim();
+
+
+        return order === 'asc' ? (x < y ? -1 : 1 ) : (x > y ? -1 : 1);
+    }).map(row => document.querySelector('.table-section tbody').appendChild(row));
+
 }
 
 orderCancel.addEventListener('click', function (event) {
@@ -79,6 +127,7 @@ datesNew.forEach(date => {
 datesView.forEach(date => {
     date.setAttribute('min', fiveDaysLater);
 });
+
 
 
 let reportForm = document.querySelector(".popup-report form");
@@ -184,7 +233,7 @@ function openView(button) {
     const customersData = button.getAttribute("data-customers");
 
 
-    console.log(orderData);
+    console.log(materialData);
 
     removeActiveClass();
 
@@ -468,28 +517,34 @@ function addMaterialCardView(material, quantity, countv ) {
         </div>
 
         <div class="input-box sizes">
-            <span class="details">Sizes & Quantity</span>
-            <div class="sizeChart">
+        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
+        <div class="sizeChart">
+            <div>
                 <span class="size">XS</span>
                 <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">S</span>
                 <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">M</span>
                 <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">L</span>
                 <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">XL</span>
                 <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">2XL</span>
                 <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
-                <br>
             </div>
         </div>
+    </div>
     `;
 
     newCard.style.transition = "all 0.5s ease-in-out";
