@@ -10,11 +10,13 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/home/nav.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/home/home.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/button.css">
-
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/home/footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
 
@@ -185,6 +187,8 @@
             </div>
         </div>
 
+        <br><br><br>
+
         <div class="our-services">
             <div class="services-text">Our services</div>
             <div class="services">
@@ -231,61 +235,7 @@
 
     </section>
 
-    <footer>
-        <div class="main-content">
-            <div class="left box">
-                <h2>About Us</h2>
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet iste facilis harum eos vel incidunt distinctio corrupti iure? Rem</p>
-
-                    <div class="social">
-                        <a href="#" class="social-icons" id="facebook"><i class='bx bxl-facebook'></i></a>
-                        <a href="#" class="social-icons" id="instagram"><i class='bx bxl-instagram-alt'></i></a>
-                        <a href="#" class="social-icons" id="twitter"><i class='bx bxl-twitter'></i></a>
-                        <a href="#" class="social-icons" id="youtube"><i class='bx bxl-youtube'></i></a>
-                    </div>
-                </div>
-            </div><!--left box-->
-            <div class="center box">
-                <h2>Address</h2>
-                <div class="content">
-                    <div class="place">
-                        <a href="" class="address-icons"><i class='bx bxs-map icon'></i></a>
-                        <span class="text">Av.Brasil, New Capital</span>
-                    </div>
-
-                    <div class="phone">
-                        <a href="" class="address-icons"><i class='bx bxs-phone icon'></i></a>
-                        <span class="text">+55 61 9999-9999</span>
-                    </div>
-
-                    <div class="e-mail">
-                        <a href="" class="address-icons"><i class='bx bxs-message icon'></i></a>
-                        <span class="text">example@example.com</span>
-                    </div>
-                </div>
-            </div>
-            <div class="right box">
-                <h2>Contact</h2>
-                <div class="content">
-                    <form action="#">
-                        <div class="email">
-                            <div class="text">Email *</div>
-                            <input type="email" required>
-                        </div>
-                        <div class="msg">
-                            <div class="text">Message *</div>
-                            <textarea rows="2" cols="25" required></textarea>
-                        </div>
-                        <div class="btn">
-                            <button type="submit">Send</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!--main-content-->
-    </footer>
+    <?php include 'footer.php' ?>
     <script src="<?= ROOT ?>/assets/js/home/home.js"></script>
 </body>
 

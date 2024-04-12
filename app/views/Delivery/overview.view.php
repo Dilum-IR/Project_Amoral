@@ -16,6 +16,7 @@
     <?php include 'sidebar.php' ?>
     <!-- Sidebar -->
 
+<<<<<<< HEAD
     <?php include 'navigationbar.php' ?>
     <!-- Scripts -->
 
@@ -160,6 +161,43 @@
                                     <!-- <h3> Delivery locations</h3> -->
 
                                     <!-- <div id="map" style="height:400px; width:100%;"></div> -->
+=======
+    <!-- navigation bar -->
+
+    <!-- navigation bar -->
+
+
+    <!-- Scripts -->
+
+    <section class="main">
+        <!-- <button class="quotation" onclick="">Request Quotation</button> -->
+        <h1 class="title">Welcome!</h1>
+        <hr>
+
+        <div class="info-data">
+            <div class="card">
+                <div class="head">
+                    <div>
+                        <h2>10</h2>
+                        <p>Ongoing Delivery</p>
+                    </div>
+
+                </div>
+                <span class="progress" data-value="50%" style="--value: 50%;"></span>
+                <span class="label">50%</span>
+            </div>
+            <div class="card">
+                <div class="head">
+                    <div>
+                        <h2>4</h2>
+                        <p>Successful Delivery</p>
+                    </div>
+
+                </div>
+                <span class="progress" data-value="20%" style="--value: 20%;"></span>
+                <span class="label">20%</span>
+            </div>
+>>>>>>> 2ed97f6f89cb8de457f5adf298e80a72db8afb5c
 
 
                                     <script>
@@ -238,14 +276,126 @@
 
                         </div>
                     </div>
+<<<<<<< HEAD
                 </main>
+=======
+
+                </div>
+                <span class="progress" data-value="30%" style="--value: 30%;"></span>
+                <span class="label">30%</span>
+            </div>
+
+
+>>>>>>> 2ed97f6f89cb8de457f5adf298e80a72db8afb5c
 
 
             </div>
 
         </div>
+<<<<<<< HEAD
     </section>
 
+=======
+        <h3> Delivery locations</h3>
+        <div id="map" class="googlemap"> </div>
+
+        </div>
+        <script>
+            function initMap() {
+
+                var location = {
+                    lat: 7.873054,
+                    lng: 80.771797
+                }
+
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    // Initial center coordinates
+                    center: {
+                        lat: 7.7072567,
+                        lng: 80.6534611
+                    },
+                    // Initial zoom level
+                    zoom: 7.7,
+                });
+                
+                /*Add marker
+                var marker = new google.map.Marker({
+                    position:{lat:6.927079,lng:79.861244},
+                    map:map, 
+                    icon:'map-pin-icon.png'
+                });
+                 /*Add marker function*/
+
+                // addMarker({lat:6.927079,lng:79.861244});
+                // addMarker({lat:7.291418,lng: 80.636696});
+                // addMarker({lat:5.9496 ,lng:80.5469});
+
+
+                /*Add marker function*/
+
+                // function addMarker(coords){
+                //     var marker = new google.maps.Marker({
+                //     position:coords,
+                //     map:map, 
+                //     icon:'<?= ROOT ?>/assets/images/delivery/map3.png'
+                // });
+
+                // }
+
+
+            }
+        </script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
+
+    </section>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <script>
+        var options = {
+            series: [{
+                name: 'Total Cost',
+                data: [10, 3, 9, 3, 8, 5, 2],
+            }, ],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                type: 'category',
+                categories: Array.from({
+                    length: 30
+                }, (_, i) => (i + 1).toString()).map(day => {
+                    let currentDate = new Date();
+                    currentDate.setDate(day);
+                    return currentDate.toISOString().slice(0, 10);
+                })
+            },
+            tooltip: {
+                x: {
+                    format: 'dd/MM/yy HH:mm'
+                },
+            },
+        };
+
+
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+
+
+>>>>>>> 2ed97f6f89cb8de457f5adf298e80a72db8afb5c
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 
