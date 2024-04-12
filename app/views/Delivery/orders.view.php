@@ -91,7 +91,7 @@
                                 </td> -->
                                 <td>
                                     <button type="submit" class="view-order-btn" style="background-color: red;"
-                                        id="delivered" onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+                                         onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
 
 
                                     <!-- Button 1 -->
@@ -129,6 +129,8 @@
                     </tbody>
                     </thead>
 
+                    
+
 
 
 
@@ -162,11 +164,27 @@
                     ?> -->
 
                 </table>
+                
             </div>
+            
         </div>
 
-    </section>
+    
 
+    </section>
+   
+ <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
+        <div>
+            <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900' ></i>
+
+        </div>
+        <h2>Are you sure ?</h2>
+        <button class="button" id="confirmDelete">OK</button>
+        <button class="button" id="cancelDelete">Cancel</button>
+      </div>
+    </div>
 
     <!-- POPUP -->
     <div class="popup-report">

@@ -322,8 +322,8 @@ body {
 nav {
   background: var(--color-default);
   height: 64px;
-  position: sticky;
-  padding: 0 20px;
+  position: fixed;
+  padding: -4px 20px;
   width: 120%;
   align-items: center;
   top: 0;
