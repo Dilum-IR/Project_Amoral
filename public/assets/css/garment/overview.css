@@ -50,11 +50,6 @@ body {
   font-weight: bold;
 }
 
-.sub-nav .nav-link:hover {
-  /* color: black;
-  font-size: 25px; */
-}
-
 .sub-nav form {
   max-width: 400px;
   width: 100%;
