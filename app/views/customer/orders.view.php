@@ -92,7 +92,7 @@
                         </thead>
                         <tbody class="table-body">
 
-                            <?php if (isset($data['order'])) : ?>
+                            <?php if (!empty($data['order'])) : ?>
                                 <?php foreach ($data['order'] as $order) :
 
                                     $material = array();

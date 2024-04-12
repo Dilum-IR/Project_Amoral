@@ -392,7 +392,7 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <select name="material[]">
+                        <select required name="material[]">
                             <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach($data['materials'] as $material):?>
                                 <option value="<?php echo $material->stock_id?>"><?php echo $material->material_type ?></option>
@@ -407,7 +407,7 @@
 
                     <div class="input-box">
                         <span class="details">Sleeves</span>
-                        <select name="sleeve[]">
+                        <select required name="sleeve[]">
                             <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach($data['sleeveType'] as $sleeve):?>
                                 <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
@@ -417,8 +417,8 @@
 
                     <div class="input-box">
                         <span class="details">Printing Type</span>
-                        <select name="printingType[]">
-                            
+                        <select required name="printingType[]">
+                            <option value="" selected hidden style="color: grey;">Select a material first</option>                              
                         </select>
                     </div>
 
@@ -557,15 +557,14 @@
 
                 <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4>
 
-                <div class="new-card">
-                    <div class="add card">
+                <!-- <div class="new-card"> -->
+                <div class="add card">
+
+        
+                    <div class="left">
+                        <i class='bx bxs-plus-circle'></i>
+                        <h4>Add a material</h4>
                     </div>
-                </div>
-     
-                <div class="left">
-                    <i class='bx bxs-plus-circle'></i>
-                    <h4>Add a material</h4>
-                </div>
                     
                 </div>
 
@@ -578,7 +577,7 @@
 
                     <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
                     <label for="delivery">Delivery</label>
-                    <span class="error delivery"></span>
+                    <span class="error dates"></span>
                 </div>
 
                 <div class="user-details pickupN">
@@ -649,376 +648,6 @@
                     
                     <!-- <p>You will be notified about possible discounts later</p> -->
                     
-                
-
-                <script>
-                    //add price data dynamically in new order popup
-                    let material = document.querySelector(".popup-new .user-details select[name='material[]']");
-                    let sleeve = document.querySelector(".popup-new .user-details select[name='sleeve[]']");
-                    let printingType = document.querySelector(".popup-new .user-details select[name='printingType[]']");
-                    let quantity = document.querySelector(".popup-new .sizes");
-                    // let addMaterial = document.querySelector(".add.card");
-                    let data = document.querySelector(".popup-new .price-details-container");
-                    let materialPrice = 0, sleevePrice = 0, printingTypePrice = 0;
-
-                    let sizesArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
-                    let quantityAll = document.querySelector(".quantityAll");
-
-                    let total = 0;
-                    sizesArr.forEach(function(size){
-                        let input = document.querySelector(`input[name='${size}[]']`);
-                        input.addEventListener('change', function(){
-                            total = 0;
-                            sizesArr.forEach(function(size){
-                                total += parseInt(document.querySelector(`input[name='${size}[]']`).value);
-                            });
-                            quantityAll.innerHTML = total;
-                            generateTotalPrice();
-                        });
-                    });
-
-
-                    console.log(total);
-                    
-                    let allMaterials = <?php echo json_encode($data['material_prices']) ?>;
-                    let allSleeves = <?php echo json_encode($data['sleeveType']) ?>;
-                    let allPrintingTypes = <?php echo json_encode($data['material_printingType']) ?>;
-                    console.log(allMaterials);
-
-                    function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice){
-                        let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
-                        doc.querySelector(".unitPrice").innerHTML = unitPrice;                    
-
-                        doc.querySelector("input[name='unit_price[]']").value = unitPrice;
-                        console.log("efdsf"+doc.querySelector("input[name='unit_price[]']").value);
-                        generateTotalPrice();
-                        // document.querySelector(".totalPrice").innerHTML = currentTotal + (unitPrice * total);
-                    }
-
-                    function generateTotalPrice(){
-                        let total = 0;
-                        document.querySelectorAll(".units").forEach(function(unit){
-                            total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
-                        });
-                        document.querySelector(".popup-new .totalPrice").innerHTML = total;
-
-                        document.querySelector(".popup-new input[name='total_price']").value = total;
-                        console.log("tot"+document.querySelector(".popup-new input[name='total_price']").value);
-                    }
-
-                    material.addEventListener('change', function(){
-                        
-                        let materialId = material.value;
-                        let materialType = material.options[material.selectedIndex].text;
-                        let noOptions = true;
-                        let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
-                        let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
-                        materialPrintingType.forEach(function(item){
-                            if(item.stock_id == materialId) {
-                                printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
-                                noOptions = false;
-                            }
-                        });
-                        if(noOptions) {
-                            printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
-                        }
-                        
-                        printingType.innerHTML = printingTypeOptions;
-                        console.log(printingType);
-
-                        console.log(material.value);
-                        allMaterials.forEach(function(item){
-                            if(item.stock_id == material.value) {
-                                data.querySelector(".materialType").innerHTML = item.material_type;
-                                materialPrice = item.unit_price;
-                            }
-                        });
-
-                        updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
-                    });
-
-                    sleeve.addEventListener('change', function(){
-                        console.log(sleeve.value);
-                        allSleeves.forEach(function(item){
-                            if(item.type == sleeve.value) {
-                                data.querySelector(".sleeveType").innerHTML = item.type;
-                                sleevePrice = item.price;
-                            }
-                        });
-
-                        updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
-                    });
-
-                    printingType.addEventListener('change', function(){
-                        console.log(printingType.value);
-                        allPrintingTypes.forEach(function(item){
-                            if(item.printing_type == printingType.value) {
-                                data.querySelector(".printingType").innerHTML = item.printing_type;
-                                printingTypePrice = item.price;
-                            }
-                        });
-
-                        updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
-                    });
-
-
-
-                    //add price data dynamically in new order popup
-                    let qunatityView = document.querySelector(".popup-view .sizes");
-
-                    
-
-
-                        
-
-                </script>
-
-                <script>
- 
-                    //toggle delivery options of new order
-                    let deliveryN = document.getElementById("deliveryN");
-                    let pickUpN = document.getElementById("pickupN");
-
-
-                    pickUpN.addEventListener('click', togglePickUpN);
-                    deliveryN.addEventListener('click', toggleDeliveryN);
-
-                    function togglePickUpN(){
-                        
-                        document.querySelector(".user-details.pickupN").classList.add("is-checked");
-                        document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-                        
-                    }
-
-                    function toggleDeliveryN(){
-                        document.querySelector(".user-details.deliveryN").classList.add("is-checked");
-                        document.querySelector(".user-details.pickupN").classList.remove("is-checked");
-                    }
-                </script>
-
-                <script>
-
-                    //add new order for different parameters(material, sleeve, printing type, quantity) in the same order
-                        let addMaterial = document.querySelector(".popup-new .add.card");
-                        let count = 0;
-                        function addMaterialCard() {
-                            var newCard = document.createElement("div");
-                            newCard.className = "user-details";
-
-                            
-                            newCard.innerHTML = `
-                            <i class="fas fa-minus remove"></i>
-                            
-                                <div class="input-box">
-                                    <span class="details">Material </span>
-                                    <select name="material[]">
-                                        <option value="" selected hidden style="color: grey;">Select</option>
-                                        <?php foreach($data['materials'] as $material):?>
-                                            <option value="<?php echo $material->stock_id?>"><?php echo $material->material_type ?></option>
-                                            <!-- <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>"> -->
-                                        <?php endforeach;?>
-                                        
-                                    </select>
-                                    
-                                </div>
-
-
-
-                                <div class="input-box">
-                                    <span class="details">Sleeves</span>
-                                    <select name="sleeve[]">
-                                        <option value="" selected hidden style="color: grey;">Select</option>
-                                        <?php foreach($data['sleeveType'] as $sleeve):?>
-                                            <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
-                                        <?php endforeach;?>
-                                    </select>
-                                </div>
-
-                                <div class="input-box" style="margin-left: 30px;">
-                                    <span class="details">Printing Type</span>
-                                    <select name="printingType[]">
-                                        
-                                    </select>
-                                </div>
-
-                                <div class="input-box sizes">
-                                    <span class="details">Sizes & Quantity</span>
-                                    <div class="sizeChart">
-                                        <span class="size">XS</span>
-                                        <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
-                                        <br>
-                                        <span class="size">S</span>
-                                        <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
-                                        <br>
-                                        <span class="size">M</span>
-                                        <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
-                                        <br>
-                                        <span class="size">L</span>
-                                        <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
-                                        <br>
-                                        <span class="size">XL</span>
-                                        <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
-                                        <br>
-                                        <span class="size">2XL</span>
-                                        <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
-                                        <br>
-                                    </div>
-                                </div>
-                            `;
-
-                            newCard.style.transition = "all 0.5s ease-in-out";
-                            addMaterial.before(newCard);
-                            
-                            //add new price row for the new material
-                            let newPriceRow = document.createElement("tr");
-                            newPriceRow.className = "units";
-                           
-                            newPriceRow.innerHTML = `
-                                <td class="materialType"></td>
-                                <td class="sleeveType"></td>
-                                <td class="printingType"></td>
-                                <td class="quantityAll">0</td>
-                                <td class="unitPrice">0</td>
-
-                                <input type="hidden" name="unit_price[]">   
-
-                            `;
-
-                            document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
-
-                            let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
-
-                            sizeArr.forEach(function(size){
-                                let input = newCard.querySelector(`input[name='${size}[]']`);
-                                input.addEventListener('change', function(){
-                                    let total = 0;
-                                    sizeArr.forEach(function(size){
-                                        total += parseInt(newCard.querySelector(`input[name='${size}[]']`).value);
-                                    });
-                                    newPriceRow.querySelector(".quantityAll").innerHTML = total;
-                                    generateTotalPrice();
-                                });
-                            });
-
-                            let material1 = newCard.querySelector("select[name='material[]']");
-                            let sleeve1 = newCard.querySelector("select[name='sleeve[]']");
-                            let printingType1 = newCard.querySelector("select[name='printingType[]']");
-                            let quantity1 = newCard.querySelector(".sizes");
-                            let data1 = newPriceRow;
-                            let materialPrice1 = 0, sleevePrice1 = 0, printingTypePrice1 = 0;
-
-                            material1.addEventListener('change', function(){
-                                let materialId = material1.value;
-                                let materialType = material1.options[material1.selectedIndex].text;
-                                let noOptions = true;
-                                let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
-                                let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
-                                materialPrintingType.forEach(function(item){
-                                    if(item.stock_id == materialId) {
-                                        printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
-                                        noOptions = false;
-                                    }
-                                });
-                                if(noOptions) {
-                                    printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
-                                }
-                                
-                                printingType1.innerHTML = printingTypeOptions;
-                                console.log(printingType1);
-
-
-                                allMaterials.forEach(function(item){
-                                    if(item.stock_id == material1.value) {
-                                        data1.querySelector(".materialType").innerHTML = item.material_type;
-                                        materialPrice1 = item.unit_price;
-                                    }
-                                });
-
-                                updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
-                            });
-
-                            sleeve1.addEventListener('change', function(){
-                                allSleeves.forEach(function(item){
-                                    if(item.type == sleeve1.value) {
-                                        data1.querySelector(".sleeveType").innerHTML = item.type;
-                                        sleevePrice1 = item.price;
-                                    }
-                                });
-
-                                updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
-                            });
-
-                            printingType1.addEventListener('change', function(){
-                                allPrintingTypes.forEach(function(item){
-                                    if(item.printing_type == printingType1.value) {
-                                        data1.querySelector(".printingType").innerHTML = item.printing_type;
-                                        printingTypePrice1 = item.price;
-                                    }
-                                });
-
-                                updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
-                            });
-
-                            
-
-                            //remove the card and the price row
-                            let removeCard = newCard.querySelector("i");
-                            removeCard.addEventListener('click', function(){
-                                newCard.remove();
-                                newPriceRow.remove();
-                                count--;
-                            });
-
-                            // let material = newCard.querySelector("select[name='material[]']");
-                            // let printingType = newCard.querySelector("select[name='printingType[]']");
-                            // console.log(material);
-                            // console.log(printingType);
-
-                        
-                            
-                            // material1.addEventListener('change', function(){
-                            //     let materialId = material.value;
-                            //     let materialType = material.options[material.selectedIndex].text;
-                            //     let noOptions = true;
-                            //     let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
-                            //     let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
-                            //     materialPrintingType.forEach(function(item){
-                            //         if(item.stock_id == materialId) {
-                            //             printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
-                            //             noOptions = false;
-                            //         }
-                            //     });
-                            //     if(noOptions) {
-                            //         printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
-                            //     }
-                                
-                            //     printingType.innerHTML = printingTypeOptions;
-                            //     console.log(printingType);
-                            // });
-
-                        }
-
-                        //restrict the no of additional orders that can be made inside the same order
-                        var materialCount = <?php echo count($data['materials'])*count($data['printingType'])*count($data['sleeveType'])-1 ?>;
-                        console.log(materialCount);
-                        addMaterial.addEventListener('click', function(){
-                            if(count < materialCount-1) {
-                                addMaterialCard();
-                                count++;
-                            }
-                            else{
-                                alert("You can only add " + materialCount + " materials");
-                            }
-                        });
-
-
-                      
-
-
-
-                    </script>
-
-
 
                 <input name="latitude" type="hidden" required />
                 <input name="longitude" type="hidden" required />
@@ -1035,6 +664,385 @@
         </div>
     </div> 
 
+    <script>
+        //add price data dynamically in new order popup
+        let material = document.querySelector(".popup-new .user-details select[name='material[]']");
+        let sleeve = document.querySelector(".popup-new .user-details select[name='sleeve[]']");
+        let printingType = document.querySelector(".popup-new .user-details select[name='printingType[]']");
+        let quantity = document.querySelector(".popup-new .sizes");
+        // let addMaterial = document.querySelector(".add.card");
+        let data = document.querySelector(".popup-new .price-details-container");
+        let materialPrice = 0, sleevePrice = 0, printingTypePrice = 0;
+
+        let sizesArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+        let quantityAll = document.querySelector(".quantityAll");
+
+        let total = 0;
+        sizesArr.forEach(function(size){
+            let input = document.querySelector(`input[name='${size}[]']`);
+            input.addEventListener('change', function(){
+                total = 0;
+                sizesArr.forEach(function(size){
+                    total += parseInt(document.querySelector(`input[name='${size}[]']`).value);
+                });
+                quantityAll.innerHTML = total;
+                generateTotalPrice();
+            });
+        });
+
+
+        // console.log(total);
+        
+        let allMaterials = <?php echo json_encode($data['material_prices']) ?>;
+        let allSleeves = <?php echo json_encode($data['sleeveType']) ?>;
+        let allPrintingTypes = <?php echo json_encode($data['material_printingType']) ?>;
+        console.log(allMaterials);
+
+        function updatePrice(doc, materialPrice, sleevePrice, printingTypePrice){
+            let unitPrice = parseInt(materialPrice) + parseInt(sleevePrice) + parseInt(printingTypePrice);
+            doc.querySelector(".unitPrice").innerHTML = unitPrice;                    
+
+            doc.querySelector("input[name='unit_price[]']").value = unitPrice;
+            console.log("efdsf"+doc.querySelector("input[name='unit_price[]']").value);
+            generateTotalPrice();
+            // document.querySelector(".totalPrice").innerHTML = currentTotal + (unitPrice * total);
+        }
+
+        function generateTotalPrice(){
+            let total = 0;
+            document.querySelectorAll(".units").forEach(function(unit){
+                total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
+            });
+            document.querySelector(".popup-new .totalPrice").innerHTML = total;
+
+            document.querySelector(".popup-new input[name='total_price']").value = total;
+            console.log("tot"+document.querySelector(".popup-new input[name='total_price']").value);
+        }
+
+        material.addEventListener('change', function(){
+            
+            let materialId = material.value;
+            let materialType = material.options[material.selectedIndex].text;
+            let noOptions = true;
+            let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
+            let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
+            materialPrintingType.forEach(function(item){
+                if(item.stock_id == materialId) {
+                    printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
+                    noOptions = false;
+                }
+            });
+            if(noOptions) {
+                printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
+            }
+            
+            printingType.innerHTML = printingTypeOptions;
+            console.log(printingType);
+
+            console.log(material.value);
+            allMaterials.forEach(function(item){
+                if(item.stock_id == material.value) {
+                    data.querySelector(".materialType").innerHTML = item.material_type;
+                    materialPrice = item.unit_price;
+                }
+            });
+
+            updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+        });
+
+        sleeve.addEventListener('change', function(){
+            console.log(sleeve.value);
+            allSleeves.forEach(function(item){
+                if(item.type == sleeve.value) {
+                    data.querySelector(".sleeveType").innerHTML = item.type;
+                    sleevePrice = item.price;
+                }
+            });
+
+            updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+        });
+
+        printingType.addEventListener('change', function(){
+            console.log(printingType.value);
+            allPrintingTypes.forEach(function(item){
+                if(item.printing_type == printingType.value) {
+                    data.querySelector(".printingType").innerHTML = item.printing_type;
+                    printingTypePrice = item.price;
+                }
+            });
+
+            updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+        });
+
+
+
+        //add price data dynamically in new order popup
+        let qunatityView = document.querySelector(".popup-view .sizes");
+
+        
+
+
+        //toggle delivery options of new order
+        let deliveryN = document.getElementById("deliveryN");
+        let pickUpN = document.getElementById("pickupN");
+
+
+        pickUpN.addEventListener('click', togglePickUpN);
+        deliveryN.addEventListener('click', toggleDeliveryN);
+
+
+        // clear the other option when one is selected
+        document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+            pickupDate.addEventListener('change', function() {
+                document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                    deliveryDate.value = "";
+                });
+
+            });
+        });
+
+        document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+            deliveryDate.addEventListener('change', function() {
+                document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                    pickupDate.value = "";
+                });
+
+            });
+        });
+
+        function togglePickUpN() {
+
+            document.querySelector(".user-details.pickupN").classList.add("is-checked");
+            document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
+
+
+        }
+
+        function toggleDeliveryN() {
+            document.querySelector(".user-details.deliveryN").classList.add("is-checked");
+            document.querySelector(".user-details.pickupN").classList.remove("is-checked");
+        }
+
+
+        //add new order for different parameters(material, sleeve, printing type, quantity) in the same order
+            let addMaterial = document.querySelector(".popup-new .add.card");
+            let count = 0;
+            function addMaterialCard() {
+                var newCard = document.createElement("div");
+                newCard.className = "user-details";
+                newCard.classList.add("new-card");
+                
+                newCard.innerHTML = `
+                <i class="fas fa-minus remove"></i>
+                
+                    <div class="input-box">
+                        <span class="details">Material </span>
+                        <select name="material[]">
+                            <option value="" selected hidden style="color: grey;">Select</option>
+                            <?php foreach($data['materials'] as $material):?>
+                                <option value="<?php echo $material->stock_id?>"><?php echo $material->material_type ?></option>
+                                <!-- <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id?>"> -->
+                            <?php endforeach;?>
+                            
+                        </select>
+                        
+                    </div>
+
+
+
+                    <div class="input-box">
+                        <span class="details">Sleeves</span>
+                        <select name="sleeve[]">
+                            <option value="" selected hidden style="color: grey;">Select</option>
+                            <?php foreach($data['sleeveType'] as $sleeve):?>
+                                <option value="<?php echo $sleeve->type?>"><?php echo $sleeve->type?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+
+                    <div class="input-box" style="margin-left: 30px;">
+                        <span class="details">Printing Type</span>
+                        <select name="printingType[]">
+                            
+                        </select>
+                    </div>
+
+                    <div class="input-box sizes">
+                        <span class="details">Sizes & Quantity</span>
+                        <div class="sizeChart">
+                            <span class="size">XS</span>
+                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                            <br>
+                            <span class="size">S</span>
+                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                            <br>
+                            <span class="size">M</span>
+                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                            <br>
+                            <span class="size">L</span>
+                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                            <br>
+                            <span class="size">XL</span>
+                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                            <br>
+                            <span class="size">2XL</span>
+                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                            <br>
+                        </div>
+                    </div>
+                `;
+
+                newCard.style.transition = "all 0.5s ease-in-out";
+                addMaterial.before(newCard);
+                
+                //add new price row for the new material
+                let newPriceRow = document.createElement("tr");
+                newPriceRow.className = "units";
+                
+                newPriceRow.innerHTML = `
+                    <td class="materialType"></td>
+                    <td class="sleeveType"></td>
+                    <td class="printingType"></td>
+                    <td class="quantityAll">0</td>
+                    <td class="unitPrice">0</td>
+
+                    <input type="hidden" name="unit_price[]">   
+
+                `;
+
+                document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
+
+                let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+
+                sizeArr.forEach(function(size){
+                    let input = newCard.querySelector(`input[name='${size}[]']`);
+                    input.addEventListener('change', function(){
+                        let total = 0;
+                        sizeArr.forEach(function(size){
+                            total += parseInt(newCard.querySelector(`input[name='${size}[]']`).value);
+                        });
+                        newPriceRow.querySelector(".quantityAll").innerHTML = total;
+                        generateTotalPrice();
+                    });
+                });
+
+                let material1 = newCard.querySelector("select[name='material[]']");
+                let sleeve1 = newCard.querySelector("select[name='sleeve[]']");
+                let printingType1 = newCard.querySelector("select[name='printingType[]']");
+                let quantity1 = newCard.querySelector(".sizes");
+                let data1 = newPriceRow;
+                let materialPrice1 = 0, sleevePrice1 = 0, printingTypePrice1 = 0;
+
+                material1.addEventListener('change', function(){
+                    let materialId = material1.value;
+                    let materialType = material1.options[material1.selectedIndex].text;
+                    let noOptions = true;
+                    let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
+                    let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
+                    materialPrintingType.forEach(function(item){
+                        if(item.stock_id == materialId) {
+                            printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
+                            noOptions = false;
+                        }
+                    });
+                    if(noOptions) {
+                        printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
+                    }
+                    
+                    printingType1.innerHTML = printingTypeOptions;
+                    console.log(printingType1);
+
+
+                    allMaterials.forEach(function(item){
+                        if(item.stock_id == material1.value) {
+                            data1.querySelector(".materialType").innerHTML = item.material_type;
+                            materialPrice1 = item.unit_price;
+                        }
+                    });
+
+                    updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
+                });
+
+                sleeve1.addEventListener('change', function(){
+                    allSleeves.forEach(function(item){
+                        if(item.type == sleeve1.value) {
+                            data1.querySelector(".sleeveType").innerHTML = item.type;
+                            sleevePrice1 = item.price;
+                        }
+                    });
+
+                    updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
+                });
+
+                printingType1.addEventListener('change', function(){
+                    allPrintingTypes.forEach(function(item){
+                        if(item.printing_type == printingType1.value) {
+                            data1.querySelector(".printingType").innerHTML = item.printing_type;
+                            printingTypePrice1 = item.price;
+                        }
+                    });
+
+                    updatePrice(data1, materialPrice1, sleevePrice1, printingTypePrice1);
+                });
+
+                
+
+                //remove the card and the price row
+                let removeCard = newCard.querySelector("i");
+                removeCard.addEventListener('click', function(){
+                    newCard.remove();
+                    newPriceRow.remove();
+                    count--;
+                });
+
+                // let material = newCard.querySelector("select[name='material[]']");
+                // let printingType = newCard.querySelector("select[name='printingType[]']");
+                // console.log(material);
+                // console.log(printingType);
+
+            
+                
+                // material1.addEventListener('change', function(){
+                //     let materialId = material.value;
+                //     let materialType = material.options[material.selectedIndex].text;
+                //     let noOptions = true;
+                //     let printingTypeOptions = '<option value="" selected hidden style="color: grey;">Select</option>';
+                //     let materialPrintingType = <?php echo json_encode($data['material_printingType']) ?>;
+                //     materialPrintingType.forEach(function(item){
+                //         if(item.stock_id == materialId) {
+                //             printingTypeOptions += `<option value="${item.printing_type}">${item.printing_type}</option>`;
+                //             noOptions = false;
+                //         }
+                //     });
+                //     if(noOptions) {
+                //         printingTypeOptions = '<option value="" selected hidden style="color: grey;">No options available</option>';
+                //     }
+                    
+                //     printingType.innerHTML = printingTypeOptions;
+                //     console.log(printingType);
+                // });
+
+            }
+
+            //restrict the no of additional orders that can be made inside the same order
+            var materialCount = <?php echo count($data['materials'])*count($data['printingType'])*count($data['sleeveType'])-1 ?>;
+            console.log(materialCount);
+            addMaterial.addEventListener('click', function(){
+                if(count < materialCount-1) {
+                    addMaterialCard();
+                    count++;
+                }
+                else{
+                    alert("You can only add " + materialCount + " materials");
+                }
+            });
+
+
+            
+
+
+
+        </script>
 
     <script>
             // clear the other option when one is selected in the delivery options

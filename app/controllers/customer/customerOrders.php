@@ -7,16 +7,16 @@ class CustomerOrders extends Controller
 
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-        $order = new Order;
-        $order_material = new OrderMaterial;
-        $materials = new MaterialStock;
-        $sleeveType = new Sleeves;
-        $material_printingType = new MaterialPrintingType;
-        $printingType = new PrintingType;
-
-
-        if ($username != 'User') {
+        
+        if ($username != 'User'  && $_SESSION['USER']->user_status === 'customer') {
+            
+            
+            $order = new Order;
+            $order_material = new OrderMaterial;
+            $materials = new MaterialStock;
+            $sleeveType = new Sleeves;
+            $material_printingType = new MaterialPrintingType;
+            $printingType = new PrintingType;
 
             $id = ['user_id' => $_SESSION['USER']->id];
             // show($id);
