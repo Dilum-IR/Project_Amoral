@@ -16,3 +16,5 @@ cancelled
 processing - (cutting , printing , sewing)
 delivering
 delivered
+
+gaarment status - assign, pending , cancelled , 

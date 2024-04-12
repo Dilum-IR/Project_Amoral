@@ -14,7 +14,7 @@
         <li>
             <a href="<?= ROOT ?>/garment/orders">
                 <i class="bx bxs-cart-alt"></i>
-                <span class="link_name">Customer Orders</span>
+                <span class="link_name">Garment Orders</span>
             </a>
             <span class="tooltip">Orders</span>
         </li>
