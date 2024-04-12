@@ -16,122 +16,237 @@
     <?php include 'sidebar.php' ?>
     <!-- Sidebar -->
 
-    <!-- navigation bar -->
-
-    <!-- navigation bar -->
-
-
+    <?php include 'navigationbar.php' ?>
     <!-- Scripts -->
 
-    <section class="main">
-        <!-- <button class="quotation" onclick="">Request Quotation</button> -->
-        <h1 class="title">Welcome!</h1>
-        <hr>
+    <!-- Content -->
+    <section id="main" class="main">
 
-        <div class="info-data">
-            <div class="card">
-                <div class="head">
-                    <div>
-                        <h2>10</h2>
-                        <p>Ongoing Delivery</p>
+        <div class="content">
+
+            <nav class="sub-nav">
+                <a href="" class="nav-link">Delivery</a>
+                <form action="#">
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+                </form>
+            </nav>
+
+            <div class="left-right">
+
+
+                <main>
+
+                    <div class="head">
+                        <!-- Navigation path -->
+                        <div class="head-title">
+                            <div class="left">
+                                <ul class="breadcrumb">
+                                    <li>
+                                        <a href="#">Home</a>
+                                    </li>
+                                    <i class='bx bx-chevron-right'></i>
+                                    <li>
+                                        <a href="#" class="active">Overview</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Navigation path -->
+
+                        <!-- Anlysis Containers -->
+                        <!-- <ul class="box-info">
+                    <li>
+                        <i class='bx bxs-calendar-check'></i>
+                        <span class="text">
+                            <h3>1020</h3>
+                            <p>New Order</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class='bx bxs-group'></i>
+                        <span class="text">
+                            <span class="data-precentage">
+
+                                <h3>2834</h3>
+                               
+                                <i class='bx bxs-down-arrow'></i>
+                            </span>
+                            <p>Pending</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class='bx bxs-dollar-circle'></i>
+                        <span class="text">
+                            <h3>$2543</h3>
+                            <p>Total Sales</p>
+                        </span>
+                    </li>
+                    <li>
+                        <i class='bx bxs-dollar-circle'></i>
+                        <span class="text">
+                            <h3>$2543</h3>
+                            <p>Total Sales</p>
+                        </span>
+                    </li>
+              </ul> -->
+
+                        <div class="insights">
+                            <div class="middle">
+                                <div class="left">
+                                    <h1>Completed Deliveries</h1>
+                                    <h1>5</h1>
+                                    <small class="text-muted">Last 24 Hours</small>
+                                    
+                                </div>
+                                <i class='bx bxs-check-circle'></i>
+                                    <!-- <div class="progress">
+                                    <svg>
+                                        <circle cx='38' cy='38' r='36'></circle>
+                                    </svg>
+
+                                    <div class="number">
+                                        <p>73%</p>
+                                    </div>
+                                </div> -->
+                                </div>
+                            
+                            <div class="sales">
+                            <div class="orders">
+                                <div class="middle">
+                                    <div class="left">
+                                        <h1> Recent Deliveries</h1>
+                                        <h1>8</h1>
+                                        
+                                    </div>
+                                    <i class='bx bxs-time'></i>
+                                    <!-- <div class="progress">
+                                    <svg>
+                                        <circle cx='38' cy='38' r='36'></circle>
+                                    </svg>
+
+                                    <div class="number">
+                                        <p>61%</p>
+                                    </div>
+                                </div> -->
+                                </div>
+                                <!-- <small class="text-muted">Last 48 Hours</small> -->
+                            </div>
+                               
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-                <span class="progress" data-value="50%" style="--value: 50%;"></span>
-                <span class="label">50%</span>
-            </div>
-            <div class="card">
-                <div class="head">
-                    <div>
-                        <h2>4</h2>
-                        <p>Successful Delivery</p>
+                    <div class="bodyf">
+                        <!-- Anlysis Containers -->
+
+                        <div class="table-data">
+
+                            <!-- left side container -->
+                            <div class="order">
+                                <div class="head">
+                                    <h3>Delivery Locations</h3>
+                                    <i class='bx bx-search'></i>
+                                    <i class='bx bx-filter'></i>
+                                </div>
+                                <!-- VIEW MAP -->
+
+                                <div class="container2">
+                                    <!-- <h3> Delivery locations</h3> -->
+
+                                    <!-- <div id="map" style="height:400px; width:100%;"></div> -->
+
+
+
+                                    <script>
+                                        function initMap() {
+                                            var location = { lat: 7.873054, lng: 80.771797 }
+                                            var map = new google.maps.Map(document.getElementById("map"), {
+                                                zoom: 7.7,
+                                                center: { lat: 7.8731, lng: 80.7718 }
+                                            });
+
+
+                                            /*Add marker
+                                            var marker = new google.map.Marker({
+                                                position:{lat:6.927079,lng:79.861244},
+                                                map:map, 
+                                                icon:'map-pin-icon.png'
+                                            });
+                                             /*Add marker function*/
+
+                                            addMarker({ lat: 6.927079, lng: 79.861244 });
+                                            addMarker({ lat: 7.291418, lng: 80.636696 });
+                                            addMarker({ lat: 5.9496, lng: 80.5469 });
+
+
+                                            /*Add marker function*/
+
+                                            function addMarker(coords) {
+                                                var marker = new google.maps.Marker({
+                                                    position: coords,
+                                                    map: map,
+                                                    icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                                                });
+
+                                            }
+
+
+                                        }
+                                    </script>
+                                    <script async defer async defer
+                                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
+                                    <div id="map">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- left side container -->
+
+                            <!-- right side container -->
+                            <div class="order">
+                                <div class="head">
+                                    <h2>Recent Orders</h2>
+                                </div>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Order Id</th>
+                                                <th>Address</th>
+                                                <th>Phone</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>112</td>
+                                                <td>1234 Main Street, City</td>
+                                                <td>0123456789</td>
+                                            </tr>
+                                            <tr>
+                                                <td>113</td>
+                                                <td>5678 Second Street, City</td>
+                                                <td>0987654321</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
-                </div>
-                <span class="progress" data-value="20%" style="--value: 20%;"></span>
-                <span class="label">20%</span>
-            </div>
-
-
-            <div class="card">
-                <div class="head">
-                    <div>
-                        <h2>6</h2>
-                        <p>Pending Delivery</p>
-                    </div>
-
-                </div>
-                <span class="progress" data-value="30%" style="--value: 30%;"></span>
-                <span class="label">30%</span>
-            </div>
+                </main>
 
 
 
-
-        </div>
-        <div class="data">
-            <div class="content-data">
-                <div class="head">
-                    <h3># Delivery Packages</h3>
-                </div>
-                <div class="chart">
-                    <div id="chart"></div>
-                </div>
             </div>
 
         </div>
-        <h3> Delivery locations</h3>
-        <div id="map" class="googlemap"> </div>
-
-        </div>
-        <script>
-            function initMap() {
-
-                var location = {
-                    lat: 7.873054,
-                    lng: 80.771797
-                }
-
-                const map = new google.maps.Map(document.getElementById("map"), {
-                    // Initial center coordinates
-                    center: {
-                        lat: 7.7072567,
-                        lng: 80.6534611
-                    },
-                    // Initial zoom level
-                    zoom: 7.7,
-                });
-                
-                /*Add marker
-                var marker = new google.map.Marker({
-                    position:{lat:6.927079,lng:79.861244},
-                    map:map, 
-                    icon:'map-pin-icon.png'
-                });
-                 /*Add marker function*/
-
-                // addMarker({lat:6.927079,lng:79.861244});
-                // addMarker({lat:7.291418,lng: 80.636696});
-                // addMarker({lat:5.9496 ,lng:80.5469});
-
-
-                /*Add marker function*/
-
-                // function addMarker(coords){
-                //     var marker = new google.maps.Marker({
-                //     position:coords,
-                //     map:map, 
-                //     icon:'<?= ROOT ?>/assets/images/delivery/map3.png'
-                // });
-
-                // }
-
-
-            }
-        </script>
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
-
-    </section>
 
 
 
@@ -177,7 +292,6 @@
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     </script>
-
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>
