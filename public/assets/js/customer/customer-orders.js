@@ -285,143 +285,17 @@ function openView(button) {
         break;
     }
 
-    var today = new Date();
-    var formattedDate =
-      today.getFullYear() +
-      "-" +
-      String(today.getMonth()).padStart(2, "0") +
-      "-" +
-      String(today.getDate()).padStart(2, "0");
-    console.log(formattedDate);
 
-    // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="order_id"]').value =
-      order.order_id;
-
-    let existingCards = document.querySelectorAll(".user-details.new-card");
-    let existingPriceRows = document.querySelectorAll(
-      ".price-details-container .units"
-    );
-
-    // Remove each existing newCard element
-    existingCards.forEach(function (card) {
-      card.remove();
-    });
-
-    // Remove each existing priceRow element
-    existingPriceRows.forEach(function (row) {
-      row.remove();
-    });
-
-    let quantity = 0;
-    let countv = 0;
-
-    for (let i = 0; i < material.length; i++) {
-      console.log(material[i]);
-      quantity =
-        parseInt(material[i].xs) +
-        parseInt(material[i].small) +
-        parseInt(material[i].medium) +
-        parseInt(material[i].large) +
-        parseInt(material[i].xl) +
-        parseInt(material[i].xxl);
-      addMaterialCardView(material[i], quantity, countv);
-    }
-
-    // if the order is processing only delivery details can be updated
-    let inputs = document.querySelectorAll(".update-form .st");
-    if (order.order_status != "pending") {
-      inputs.forEach((input) => {
-        input.setAttribute("readonly", "true");
-      });
-    }
-
-    // document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
-
-    // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
-
-    if (order.is_delivery == 1) {
-      document.querySelector(".delivery").classList.add("is-checked");
-      document.querySelector(
-        '.update-form input[name="dispatch_date_delivery"]'
-      ).value = order.dispatch_date;
-      document.querySelector('.update-form input[name="city"]').value =
-        order.city;
-    } else {
-      document.querySelector(".pickup").classList.add("is-checked");
-      document.querySelector(
-        '.update-form input[name="dispatch_date_pickup"]'
-      ).value = order.dispatch_date;
-    }
-
-    document.querySelector(".update-form .totalPrice").innerHTML =
-      order.total_price;
-    console.log(order.total_price);
-    document.querySelector(".update-form .discountPrice").innerHTML =
-      order.discount;
-    console.log(order.discount);
-
-    // document.querySelector('.update-form input[name="discount"]').value = order.discount;
-    // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
-
-    document.querySelector('.update-form input[name="order_placed_on"]').value =
-      order.order_placed_on;
-    document.querySelector('.update-form input[name="city"]').value =
-      order.city;
-    document.querySelector('.update-form input[name="latitude"]').value =
-      order.latitude;
-    document.querySelector('.update-form input[name="longitude"]').value =
-      order.longitude;
-
-    document.querySelector('.update-form embed[name="design"]').src =
-      "/Project_Amoral/public/uploads/designs/" + order.pdf;
-
-    popupView.classList.add("is-visible");
-    document.body.style.overflow = "hidden";
-    sidebar.style.pointerEvents = "none";
-    nav.style.pointerEvents = "none";
-
-    var currentDate = new Date();
-    var orderPlacedOn = new Date(order.order_placed_on);
-    if (
-      (currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24) > 2 ||
-      order.order_status != "pending"
-    ) {
-      orderCancel.style.display = "none";
-    } else {
-      orderCancel.style.display = "block";
-    }
-
-    if (
-      order.order_status == "completed" ||
-      order.order_status == "cancelled"
-    ) {
-      orderUpdate.style.display = "none";
-      orderCancel.style.display = "none";
-    }
-
-    // if(order.remaining_payment == 0){
-    //     payBtn.style.display = "none";
-    // }
-  }
 
   var today = new Date();
-  var formattedDate =
-    today.getFullYear() +
-    "-" +
-    String(today.getMonth()).padStart(2, "0") +
-    "-" +
-    String(today.getDate()).padStart(2, "0");
+  var formattedDate = today.getFullYear() + "-" + String(today.getMonth()).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
   console.log(formattedDate);
 
   // Populate the "update-form" fields with the order data
-  document.querySelector('.update-form input[name="order_id"]').value =
-    order.order_id;
+  document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
 
   let existingCards = document.querySelectorAll(".user-details.new-card");
-  let existingPriceRows = document.querySelectorAll(
-    ".price-details-container .units"
-  );
+  let existingPriceRows = document.querySelectorAll(".price-details-container .units");
 
   // Remove each existing newCard element
   existingCards.forEach(function (card) {
@@ -462,38 +336,27 @@ function openView(button) {
 
   if (order.is_delivery == 1) {
     document.querySelector(".delivery").classList.add("is-checked");
-    document.querySelector(
-      '.update-form input[name="dispatch_date_delivery"]'
-    ).value = order.dispatch_date;
-    document.querySelector('.update-form input[name="city"]').value =
-      order.city;
+    document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
+    document.querySelector('.update-form input[name="city"]').value = order.city;
   } else {
     document.querySelector(".pickup").classList.add("is-checked");
-    document.querySelector(
-      '.update-form input[name="dispatch_date_pickup"]'
-    ).value = order.dispatch_date;
+    document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
   }
 
-  document.querySelector(".update-form .totalPrice").innerHTML =
-    order.total_price;
+  document.querySelector(".update-form .totalPrice").innerHTML = order.total_price;
   console.log(order.total_price);
-  document.querySelector(".update-form .discountPrice").innerHTML =
-    order.discount;
+  document.querySelector(".update-form .discountPrice").innerHTML = order.discount;
   console.log(order.discount);
 
   // document.querySelector('.update-form input[name="discount"]').value = order.discount;
   // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
 
-  document.querySelector('.update-form input[name="order_placed_on"]').value =
-    order.order_placed_on;
+  document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
   document.querySelector('.update-form input[name="city"]').value = order.city;
-  document.querySelector('.update-form input[name="latitude"]').value =
-    order.latitude;
-  document.querySelector('.update-form input[name="longitude"]').value =
-    order.longitude;
+  document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
+  document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
 
-  document.querySelector('.update-form embed[name="design"]').src =
-    "/Project_Amoral/public/uploads/designs/" + order.pdf;
+  document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
 
   popupView.classList.add("is-visible");
   document.body.style.overflow = "hidden";
@@ -516,6 +379,7 @@ function openView(button) {
   // if(order.remaining_payment == 0){
   //     payBtn.style.display = "none";
   // }
+}
 }
 
 function closeView() {
@@ -644,9 +508,7 @@ function addMaterialCardView(material, quantity, countv) {
     
     <input type="hidden" name="unit_price[]" value="${material["unit_price"]}"> `;
 
-  document
-    .querySelector(".price-details-container .discount")
-    .before(newPriceRow);
+  document.querySelector(".price-details-container .discount").before(newPriceRow);
 
   let removeCard = newCard.querySelector("i");
 
@@ -664,17 +526,14 @@ function addMaterialCardView(material, quantity, countv) {
     countv--;
 
     //remove cards and reduce the prices from the total
-    let removedPrice =
-      parseInt(newPriceRow.querySelector(".unitPrice").innerText) *
-      parseInt(newPriceRow.querySelector(".quantityAll").innerText);
+    let removedPrice = parseInt(newPriceRow.querySelector(".unitPrice").innerText) * parseInt(newPriceRow.querySelector(".quantityAll").innerText);
     let tot = parseInt(
       document.querySelector(".popup-view .totalPrice").innerText
     );
     // console.log(removedPrice);
     newCard.remove();
     newPriceRow.remove();
-    document.querySelector(".popup-view .totalPrice").innerHTML =
-      tot - removedPrice;
+    document.querySelector(".popup-view .totalPrice").innerHTML = tot - removedPrice;
   });
 
   //update price when quantity is changed
@@ -694,17 +553,15 @@ function addMaterialCardView(material, quantity, countv) {
 function updateTotalPrice() {
   let total = 0;
   document.querySelectorAll(".units").forEach(function (unit) {
-    total +=
-      parseInt(unit.querySelector(".unitPrice").innerHTML) *
-      parseInt(unit.querySelector(".quantityAll").innerHTML);
+    total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
   });
   document.querySelector(".popup-view .totalPrice").innerHTML = total;
 
   document.querySelector(".popup-view input[name='total_price']").value = total;
-  console.log(
-    "tot" +
-      document.querySelector(".popup-view input[name='total_price']").value
-  );
+  // console.log(
+  //   "tot" +
+  //     document.querySelector(".popup-view input[name='total_price']").value
+  // );
 }
 
 // var map;
@@ -719,79 +576,152 @@ function updateTotalPrice() {
 //   });
 // }
 
-  var marker;
-  var map;
+let deliveryN = document.getElementById("deliveryN");
+let pickUpN = document.getElementById("pickupN");
 
-  map = new google.maps.Map(document.getElementById("order-map"), {
-    // Initial center coordinates
-    center: {
-      // Sri lanka middle lat lang
-      lat: 7.7072567,
-      lng: 80.6534611,
-    },
-    zoom: 7,
-  });
 
-  // set the marker initial time user current location
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
+pickUpN.addEventListener('click', togglePickUpN);
+deliveryN.addEventListener('click', toggleDeliveryN);
 
-        // Set the map's center to the user's current location
-        map.setCenter(pos);
 
-        map.setZoom(15);
+function togglePickUpN() {
+  document.querySelector(".user-details.pickupN").classList.add("is-checked");
+  document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
+}
 
-        // Add a marker at the user's current location
-        marker = new google.maps.Marker({
-          position: pos,
-          map: map,
-          title: "Your Location",
-        });
+// new order delivary map
+function toggleDeliveryN() {
+  
+  document.querySelector(".user-details.deliveryN").classList.add("is-checked");
+  document.querySelector(".user-details.pickupN").classList.remove("is-checked");
+  
+}
+
+function initMap(){
+  
+    var marker1;
+    var marker2;
+    var map1;
+    var map2;
+  
+    map1 = new google.maps.Map(document.getElementById("new-order-map"), {
+      // Initial center coordinates
+      center: {
+        // Sri lanka middle lat lang
+        lat: 7.7072567,
+        lng: 80.6534611,
       },
-      function () {
-        handleLocationError(true, map.getCenter());
-      }
-    );
-  } else {
-    handleLocationError(false, map.getCenter());
-  }
-
-  // add the location lat lang for this object
-  var selectedLocation;
-
-  // Add a click event listener to the map
-  map.addListener("click", function (event) {
-    if (marker) {
-      marker.setMap(null);
-    }
-
-    // Get the clicked location's latitude and longitude
-    var latitude = event.latLng.lat();
-    var longitude = event.latLng.lng();
-
-    console.log(latitude);
-
-    marker = new google.maps.Marker({
-      position: {
-        lat: latitude,
-        lng: longitude,
-      },
-      map: map,
+      zoom: 7,
     });
 
-    document.querySelector('input[name="latitude"]').value = latitude;
-    document.querySelector('input[name="longitude"]').value = longitude;
-  });
+    map2 = new google.maps.Map(document.getElementById("view-order-map"), {
+      // Initial center coordinates
+      center: {
+        // Sri lanka middle lat lang
+        lat: 7.7072567,
+        lng: 80.6534611,
+      },
+      zoom: 7,
+    });
+  
+    // set the marker initial time user current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+  
+          // Set the map's center to the user's current location
+          map1.setCenter(pos);
+          map2.setCenter(pos);
+          
+          map1.setZoom(15);
+          map2.setZoom(15);
+  
+          // Add a marker at the user's current location
+          marker1 = new google.maps.Marker({
+            position: pos,
+            map: map1,
+            title: "Your Location",
+          });
 
+          marker2 = new google.maps.Marker({
+            position: pos,
+            map: map2,
+            title: "Your Location",
+          });
+        },
+        function () {
+          handleLocationError(true, map1.getCenter());
+          handleLocationError(true, map2.getCenter());
+        }
+      );
+    } else {
+      handleLocationError(false, map1.getCenter());
+      handleLocationError(false, map2.getCenter());
+    }
+  
+    // add the location lat lang for this object
+    var selectedLocation;
+  
+    // Add a click event listener to the map
+    
+    map1.addListener("click", function (event) {
+      if (marker1) {
+        marker1.setMap(null);
+      }
+  
+      // Get the clicked location's latitude and longitude
+      var latitude = event.latLng.lat();
+      var longitude = event.latLng.lng();
+  
+      console.log(latitude);
+  
+      marker1 = new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+        map: map1,
+      });
+  
+      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
+    });
 
-marker.addListener("click", function () {
-  infoWindow.open(map, marker);
-});
+    map2.addListener("click", function (event) {
+      if (marker2) {
+        marker2.setMap(null);
+      }
+  
+      // Get the clicked location's latitude and longitude
+      var latitude = event.latLng.lat();
+      var longitude = event.latLng.lng();
+  
+      console.log(latitude);
+  
+      marker2 = new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+        map: map2,
+      });
+  
+      document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+      document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+    });
+    
+    marker1.addListener("click", function () {
+      infoWindow.open(map1, marker1);
+    });
+
+    marker2.addListener("click", function () {
+      infoWindow.open(map2, marker2);
+    });
+}
 
 function handleLocationError(browserHasGeolocation, pos) {
   var infoWindow = new google.maps.InfoWindow({
