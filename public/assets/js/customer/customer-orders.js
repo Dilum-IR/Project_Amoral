@@ -90,16 +90,6 @@ let newForm = document.querySelector(".popup-new form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
 let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  if (reportForm) {
-    cancelReportBtn.addEventListener("click", function (event) {
-      clearErrorMsg();
-    });
-    closeReportBtn.addEventListener("click", function () {
-      clearErrorMsg();
-      closeReport();
-    });
-
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -238,8 +228,8 @@ function displayErrorMsg(errors, form) {
             form.querySelector(`.error.${key}`).innerText = error;
         }
     }
-  }
 }
+
 
 
 function clearErrorMsg(form) {
@@ -729,53 +719,6 @@ function updateTotalPrice() {
 //   });
 // }
 
-//toggle delivery options of new order
-
-let deliveryN = document.getElementById("deliveryN");
-let pickUpN = document.getElementById("pickupN");
-
-pickUpN.addEventListener("click", togglePickUpN);
-deliveryN.addEventListener("click", toggleDeliveryN);
-
-// clear the other option when one is selected
-document
-  .querySelectorAll("input[name='dispatch_date_pickup']")
-  .forEach((pickupDate) => {
-    pickupDate.addEventListener("change", function () {
-      document
-        .querySelectorAll("input[name='dispatch_date_delivery']")
-        .forEach((deliveryDate) => {
-          deliveryDate.value = "";
-        });
-    });
-  });
-
-document
-  .querySelectorAll("input[name='dispatch_date_delivery']")
-  .forEach((deliveryDate) => {
-    deliveryDate.addEventListener("change", function () {
-      document
-        .querySelectorAll("input[name='dispatch_date_pickup']")
-        .forEach((pickupDate) => {
-          pickupDate.value = "";
-        });
-    });
-  });
-
-function togglePickUpN() {
-  document.querySelector(".user-details.pickupN").classList.add("is-checked");
-  document
-    .querySelector(".user-details.deliveryN")
-    .classList.remove("is-checked");
-}
-
-// new order delivary map
-function toggleDeliveryN() {
-  document.querySelector(".user-details.deliveryN").classList.add("is-checked");
-  document
-    .querySelector(".user-details.pickupN")
-    .classList.remove("is-checked");
-
   var marker;
   var map;
 
@@ -844,7 +787,7 @@ function toggleDeliveryN() {
     document.querySelector('input[name="latitude"]').value = latitude;
     document.querySelector('input[name="longitude"]').value = longitude;
   });
-}
+
 
 marker.addListener("click", function () {
   infoWindow.open(map, marker);
@@ -866,3 +809,4 @@ function handleLocationError(browserHasGeolocation, pos) {
     infoWindow.open(map, marker);
   });
 }
+
