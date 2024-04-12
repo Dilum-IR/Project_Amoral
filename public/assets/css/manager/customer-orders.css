@@ -213,6 +213,21 @@ td button{
   /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 }
 
+td .edit {
+  background-color: rgb(240, 240, 250);
+  font-size: 15px;
+  /* font-weight: bolder; */
+  margin: 2% 1%;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.521);
+  transition: all 0.3s ease-in-out;
+}
+
+td .edit:hover {
+  /* background: #3bec24; */
+  transform: scale(1.1);
+  border-bottom: 1px solid gray;
+}
+
 /* td button:nth-child(1){
     color: #0239cf;
     
@@ -361,11 +376,11 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  width: 105px;
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
-  margin-left: 10%;
+  /* margin-left: 10%; */
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.274);
 }
 
 .text-status.pending{
@@ -821,9 +836,9 @@ button.pay:hover {
   display: none;
 }
 
-.popup-new .input-box.design .radio-btns{
+/* .popup-new .input-box.design .radio-btns{
   margin-left: 20%;
-}
+} */
 
 .popup-new .input-box.design .radio-btns input{
   height: auto;
@@ -860,27 +875,6 @@ hr.second {
 
   border: dashed 1px #5a4a4a7b;
   margin: 5px;
-}
-
-
-.radio-btns {
-  display: flex;
-  justify-content: space-between;
-  width: 200px;
-  margin: 20px 47% 20px 36%;
-  align-items: center;
-}
-
-.radio-btns input[type="radio"]:checked + label {
-  color: #000; 
-}
-
-.radio-btns input[type="radio"]:not(:checked) + label {
-  color: #999; 
-}
-
-.radio-btns label {
-  cursor: pointer;
 }
 
 .price-details-container {
@@ -963,9 +957,14 @@ hr.second {
 .radio-btns {
   display: flex;
   justify-content: space-between;
-  width: 200px;
-  margin: 20px 47% 20px 36%;
+  width: 350px;
+  margin: 20px 30% 20px 33%;
   align-items: center;
+}
+
+.design .radio-btns{
+  width: 200px;
+  margin-left: 3rem;
 }
 
 .radio-btns input[type="radio"]:checked + label {

@@ -7,16 +7,16 @@ class CustomerOrders extends Controller
 
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-        $order = new Order;
-        $order_material = new OrderMaterial;
-        $materials = new MaterialStock;
-        $sleeveType = new Sleeves;
-        $material_printingType = new MaterialPrintingType;
-        $printingType = new PrintingType;
-
-
-        if ($username != 'User') {
+        
+        if ($username != 'User'  && $_SESSION['USER']->user_status === 'customer') {
+            
+            
+            $order = new Order;
+            $order_material = new OrderMaterial;
+            $materials = new MaterialStock;
+            $sleeveType = new Sleeves;
+            $material_printingType = new MaterialPrintingType;
+            $printingType = new PrintingType;
 
             $id = ['user_id' => $_SESSION['USER']->id];
             // show($id);
@@ -33,7 +33,7 @@ class CustomerOrders extends Controller
             // show($_POST);
 
             if (isset($_POST['newOrder']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-                // show($_POST);
+                // show($_FILES);
                 //need to validate
                 unset($_POST['newOrder']);
 
@@ -54,7 +54,7 @@ class CustomerOrders extends Controller
                 $img1 = '';
                 $img2 = '';
 
-                if (isset($_FILES['pdf'])) {
+                if ($_FILES['pdf']['error'] == 0) {
                     // show($_FILES);
                     $img_name = $_FILES['pdf']['name'];
                     $tmp_name = $_FILES['pdf']['tmp_name'];
@@ -88,8 +88,8 @@ class CustomerOrders extends Controller
                             exit;
                         }
                     }
-                } else if (isset($_FILES['image1']) && isset($_FILES['image2'])) {
-
+                } else if ($_FILES['image1']['error'] == 0 && $_FILES['image2']['error'] == 0) {
+                    // show($_FILES);
                     $img_name1 = $_FILES['image1']['name'];
                     $tmp_name1 = $_FILES['image1']['tmp_name'];
                     $error1 = $_FILES['image1']['error'];
