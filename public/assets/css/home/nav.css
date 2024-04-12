@@ -57,9 +57,10 @@ nav .logo{
 nav .nav-icons{
      /* margin-bottom: 4%; */
      margin-left: auto;
+     margin-bottom: 23px;
      margin-right: 2%;
      width: 70px;
-     height: 50px;
+     height: 45px;
      /* padding-top: 22px; */
      display: flex;
      align-items: center;

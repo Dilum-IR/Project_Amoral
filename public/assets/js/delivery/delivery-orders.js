@@ -51,6 +51,8 @@ function confirmPopup(id){
     order_id.value = id;
 }
 
+
+
 function cancelPopup(){
     
     myModal.classList.remove("active");
@@ -66,5 +68,7 @@ function cancelPopup(){
     console.log("myModal");
     
 }
+
+
 
 
