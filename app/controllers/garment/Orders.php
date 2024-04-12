@@ -10,56 +10,21 @@ class Orders extends Controller
 
             $dumy = ["garment_id" => $_SESSION['USER']->emp_id];
 
-            $id = $_SESSION['USER']->emp_id ?? 1;
+            $id = $_SESSION['USER']->emp_id;
 
             // view the garment order details
             $garment_order = new GarmentOrder;
-            $order = new Order;
 
-            $result = $garment_order->where($dumy);
+            $result = $garment_order->getGarmentOrderData();
 
-            // $result2 = $garment_order->getOrdersDetails($dumy);
-            // show($result2);
-            // $orderDetails = $order->first($result);
+            $data["data"] = $result;
+            // show($data);
 
-            $data = [];
-
-            if ($result) {
-                $data = ["data" => $result];
-            }
 
             // update the order status  
             if (isset($_POST['updateGorder'])) {
 
-                show($_POST);
-
-                $garment_id = $_POST['order_id'];
-
-                $switch = $_POST['status'];
-
-                switch ($switch) {
-                    case 'pending':
-                        $arr['status'] = 'cutting';
-                        break;
-                    case 'cutting':
-                        $arr['status'] = 'cutting done';
-                        break;
-                    case 'cutting done':
-                        $arr['status'] = 'sewing';
-                        break;
-                    case 'sewing':
-                        $arr['status'] = 'sewing done';
-                        break;
-                    case 'sewing done':
-                        $arr['status'] = 'success';
-                        break;
-                    default:
-                        break;
-                }
-                if (isset($arr)) {
-                    $update = $garment_order->update($garment_id, $arr, 'garment_id');
-                    redirect('garment/orders');
-                }
+                $this->update_order($garment_order, $_POST);
             }
 
             // cancel the order
@@ -94,13 +59,47 @@ class Orders extends Controller
                 redirect('garment/orders');
             }
 
-            // show($data);
 
             $this->view('garment/orders', $data);
         } else {
             redirect('home');
         }
     }
+
+
+    private function update_order($garment_order, $data)
+    {
+        show($data);
+
+        $garment_id = $data['order_id'];
+
+        $switch = $data['status'];
+
+        switch ($switch) {
+            case 'pending':
+                $arr['status'] = 'cutting';
+                break;
+            case 'cutting':
+                $arr['status'] = 'cutting done';
+                break;
+            case 'cutting done':
+                $arr['status'] = 'sewing';
+                break;
+            case 'sewing':
+                $arr['status'] = 'sewing done';
+                break;
+            case 'sewing done':
+                $arr['status'] = 'success';
+                break;
+            default:
+                break;
+        }
+        if (isset($arr)) {
+            $update = $garment_order->update($garment_id, $arr, 'garment_id');
+            redirect('garment/orders');
+        }
+    }
+
 
     // report problem
     public function save_reports()
@@ -114,7 +113,6 @@ class Orders extends Controller
 
                 $report->insert($_POST);
                 echo json_encode(true);
-                
             } else {
                 echo json_encode(false);
             }

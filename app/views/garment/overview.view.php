@@ -125,6 +125,8 @@
                             </div>
                             <small class="text-muted">Last 24 Hours</small>
                         </div>
+
+
                         <div class="sales">
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
@@ -232,41 +234,151 @@
                         </div>
                         <!-- left side container -->
 
+
+                        <style>
+
+                            main .todo .orders {
+                                /* width: 250px; */
+                                background: white !important;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+                                transition: 0.5s ease-in-out;
+                                /* border-right: 10px solid rgb(233, 229, 229); */
+                                margin-bottom: 15px;
+
+                            }
+
+                            .todo{
+                                height: max-content;
+                            }
+                            main .todo .orders:hover {
+                                transform: scale(1.025);
+                            }
+
+                            .middle {
+                                width: 100%;
+                                align-items: center;
+                                justify-content: space-between;
+                                display: flex;
+
+                                .left,
+                                .count {
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+
+                                    .bx {
+                                        font-size: 20px;
+                                        transition: 0.5s ease-in-out;
+
+                                    }
+
+                                    .down:hover {
+                                        color: red;
+                                    }
+
+                                    .up:hover {
+                                        color: #1c7012cc;
+                                    }
+                                }
+
+                            }
+
+                            .g-info {
+                                font-size: 20px;
+                            }
+
+                            .input-count {
+                                width: 100px;
+                                height: 30px;
+                                outline: none;
+                                border: none;
+                                box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+                                text-align: center;
+                                border-radius: 10px;
+                                font-weight: bold;
+                                font-size: 20px;
+                            }
+
+                            .info-btn {
+                                background-color: rgba(0, 0, 0, 0.888);
+                                color: white;
+                                border: none;
+                                padding: 5px 15px;
+                                border-radius: 15px;
+                                text-align: center;
+                                text-decoration: none;
+                                display: inline-block;
+                                font-size: 16px;
+                                margin: 4px 2px;
+                                cursor: pointer;
+                                float: right;
+                            }
+
+
+                            input[type=number]::-webkit-inner-spin-button,
+                            input[type=number]::-webkit-outer-spin-button {
+                                -webkit-appearance: none;
+                            }
+                        </style>
                         <!-- right side container -->
                         <div class="todo">
                             <div class="head">
-                                <h3>Todos</h3>
-                                <i class='bx bx-plus'></i>
-                                <i class='bx bx-filter'></i>
+                                <h3>Company information</h3>
+                               <!--  <i class='bx bx-plus'></i>
+                                <i class='bx bx-filter'></i> -->
                             </div>
-                            <ul class="todo-list">
-                                <li class="completed">
-                                    <p>Todo List</p>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li class="completed">
-                                    <p>Todo List</p>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li class="not-completed">
-                                    <p>Todo List</p>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li class="completed">
-                                    <p>Todo List</p>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li class="not-completed">
-                                    <p>Todo List</p>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                            </ul>
+
+                            <div class="orders">
+                                <div class="middle">
+                                    <div class="left">
+                                        <i class='bx bx-objects-vertical-center'></i>
+                                        <h3>Daily capacity</h3>
+
+                                    </div>
+                                    <div class="count">
+                                        <i class='bx bx-caret-up-circle up'></i>
+                                        <!-- <h2>453</h2> -->
+                                        <input type="number" class="input-count">
+                                        <i class='bx bx-caret-down-circle down'></i>
+
+                                        <!-- <div class="number">
+                                                <p>61%</p>
+                                            </div> -->
+                                    </div>
+                                </div>
+                                <!-- <small class="text-muted">Last 24 Hours</small> -->
+                            </div>
+
+                            <div class="orders">
+                                <div class="middle">
+                                    <div class="left">
+                                        <i class='g-info bx bx-group'></i>
+                                        <h3>No. of workers</h3>
+
+                                    </div>
+                                    <div class="count">
+                                        <i class='bx bx-caret-up-circle up'></i>
+                                        <!-- <h2>453</h2> -->
+                                        <input type="number" class="input-count">
+                                        <i class='bx bx-caret-down-circle down'></i>
+
+                                        <!-- <div class="number">
+                                                <p>61%</p>
+                                            </div> -->
+                                    </div>
+                                </div>
+                                <!-- <small class="text-muted">Last 24 Hours</small> -->
+                            </div>
+
+                            <button class="info-btn">Update</button>
+
                         </div>
 
                     </div>
 
                 </main>
-
 
             </div>
 

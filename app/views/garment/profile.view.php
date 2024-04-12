@@ -65,7 +65,7 @@
       <div class="left">
         <div class="left-part">
           <div>
-            <img src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->user_image ?>" alt="user">
+            <img src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->emp_image ?>" alt="user">
             <h2 class="profile-name">
               <?= ucfirst($_SESSION['USER']->emp_name) ?>
             </h2>

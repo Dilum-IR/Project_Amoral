@@ -155,6 +155,91 @@ button:disabled {
   background-color: rgba(0, 0, 0, 0.767) !important;
 }
 
+.view-g-order-btn{
+    background-color: rgba(0, 0, 0, 0.788);
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.popup-view{
+
+  top: calc(100vh/2);
+  width: 60%;
+  height: 85%;
+  transform: translate(-50%,-50%);
+  background-color: white !important;
+  overflow: auto;
+  padding: 10px;
+  border-radius: 15px;
+  padding:  0 30px;
+  padding-bottom: 30px;
+
+}
+.open-popup-view{
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  /* left: 100; */
+}
+.overlay-active{
+  opacity: 1 !important;
+  z-index: 9 !important;
+  visibility: visible !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.pb{
+  left: 0 !important;
+  align-items: center !important;
+
+}
+
+.g-popup-close{
+  width: 50px;
+  height: 50px;
+  margin-right: 25px;
+  align-self: flex-end;
+  float: right !important;
+  cursor: pointer;
+}
+/* 
+.text-status.pending {
+  background-color: #f9c70c;
+}
+
+.text-status.cutting {
+  background-color: #1c7012cc;
+}
+
+.text-status.printing {
+  background-color: #1c7012cc;
+}
+
+.text-status.sewing {
+  background-color: #1c7012cc;
+}
+
+.text-status.delivering {
+  background-color: #0c5fcdc7;
+}
+
+.text-status.cancelled {
+  background-color: #cf0303c7;
+} */
+
 
 .gar-popup-report .pb:hover {
   font-size: 17px;

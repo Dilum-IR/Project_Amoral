@@ -88,26 +88,55 @@
                         </thead>
                         <tbody class="table-body">
 
-                            <?php if (isset($data['order'])) {
+                            <?php
 
-                                foreach ($data['order'] as $order) :
+                            if (isset($data)) {
 
+                                foreach ($data as $item) :
                             ?>
                                     <tr>
-
                                         <td class="ordId"><?= $item->order_id  ?></td>
-                                        <td class="desc">Material : Wetlook <br>
-                                            Sizes & Quantity : <br> S - 2 <br>
-                                            <!-- S - 2 <br> -->
+                                        <td class="desc">
+
+                                            <b>
+
+                                                <?= $item->material_type ?>
+                                            </b>
+                                            <br>
+
+                                            <?=
+                                            $item->xs != 0 ? "XS -" . $item->xs : ''
+                                            ?>
+
+                                            <?=
+                                            $item->small != 0 ? ", S -" . $item->small : ''
+                                            ?>
+                                            <br>
+                                            <?=
+                                            $item->medium != 0 ? " M -" . $item->medium : ''
+                                            ?>
+
+                                            <?=
+                                            $item->large != 0 ? ", L -" . $item->large : ''
+                                            ?>
+                                            <br>
+                                            <?=
+                                            $item->xl != 0 ? " XL -" . $item->xl : ''
+                                            ?>
+
+                                            <?=
+                                            $item->xxl != 0 ? ", XXL -" . $item->xxl : ''
+                                            ?>
+
                                         </td>
                                         <td class="st">
-                                            <div class="text-status"><?= $item->status ?></div>
+                                            <div class="text-status <?= $item->status ?>"><?= $item->status ?></div>
                                         </td>
                                         <td class="cost"><?= $item->sew_dispatch_date  ?></td>
                                         <td class="cost"><?= $item->cut_dispatch_date  ?></td>
 
                                         <td>
-                                            <button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button>
+                                            <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View</button>
                                         </td>
                                     </tr>
                                 <?php endforeach;
@@ -171,7 +200,8 @@
 
     <div class="popup-view" id="popup-view">
 
-        <h2>Order Details</h2>
+
+        <h2>Order Details<span class="g-popup-close" onclick="closeView()">&times;</span></h2>
         <div class="status">
 
             <ul>
@@ -225,12 +255,12 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="0023456" />
+                        <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="Wetlook" />
+                        <input name="material" type="text" required onChange="" readonly value="" />
                     </div>
 
                     <div class="input-box sizes">
@@ -244,7 +274,7 @@
 
 
                         <span class="details">Quantity</span>
-                        <input class="size" type="text" required onChange="" readonly value="2" />
+                        <input class="size" type="text" required onChange="" readonly value="" />
                         <!-- <p>_</p> -->
                     </div>
                     <div class="input-box">
@@ -255,10 +285,11 @@
                         <span class="details">sew dispatch date</span>
                         <input name="sew_dispatch_date" type="text" required onChange="" readonly value="2023/10/02" />
                     </div>
-                    <div class="input-box">
+                    <!-- <div class="input-box">
                         <span class="details">Delivery Expected On</span>
                         <input name="delivery_expected_on" type="text" required onChange="" readonly value="2023/10/01" />
-                    </div>
+                    </div> -->
+
                 </div>
                 <!-- hidden element -->
                 <div class="input-box">
@@ -274,7 +305,6 @@
 
             </form>
         </div>
-        <button type="button" class="ok-btn" onclick="closeView()">OK</button>
     </div>
 
     <div id="overlay" class="overlay"></div>
