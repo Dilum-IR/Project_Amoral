@@ -9,7 +9,7 @@ function openView(button) {
   if (orderData) {
     // Parse the JSON data
     const order = JSON.parse(orderData);
-    console.log(order);
+    //console.log(order);
 
     // Populate the "update-form" fields with the order data
     document.querySelector('.update-form input[name="order_id"]').value =

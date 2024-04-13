@@ -59,14 +59,14 @@
             </ul>
             <form>
                 <div class="form">
-                    <form>
-                        <div class="form-input">
-                            <input type="search" placeholder="Search...">
-                            <button type="submit" class="search-btn">
-                                <i class='bx bx-search'></i>
-                            </button>
-                        </div>
-                    </form>
+
+                    <div class="form-input">
+                        <input type="search" placeholder="Search...">
+                        <button type="submit" class="search-btn">
+                            <i class='bx bx-search'></i>
+                        </button>
+                    </div>
+
                     <input class="btn" type="button" onclick="open_report()" value="Report Problem">
                 </div>
 
