@@ -12,7 +12,8 @@ trait Database
 
             return $con;
         } catch (\Throwable $th) {
-            // redirect('failure');
+
+            redirect('failure');
         }
     }
 
@@ -34,7 +35,8 @@ trait Database
             }
             return false;
         } catch (\Throwable $th) {
-            // redirect('failure');
+
+            redirect('failure');
         }
     }
     public function get_row($quary, $data = [])
