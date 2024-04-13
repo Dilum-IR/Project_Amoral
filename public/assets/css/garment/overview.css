@@ -406,7 +406,7 @@ main .insights small {
 }
 
 .table-data > div {
-  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  box-shadow: 0 0px 20px 0px rgba(161, 161, 161, 0.196);
   border-radius: 20px;
   background: ghostwhite;
   padding: 24px;

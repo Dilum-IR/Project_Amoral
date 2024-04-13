@@ -52,6 +52,7 @@ route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index'); 
 route('garment/reports', 'garment/Orders@save_reports'); 
 route('garment/profile', 'garment/Profile@index'); 
+route('garment/update_info', 'garment/Overview@updateInfo'); 
 
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');
@@ -74,3 +75,4 @@ route('tool', 'tool/Tool@index');
 route('collection', 'collection/Collection@Index');
 
 route('404', '_404@index');
+route('failure', 'ServerError@index');

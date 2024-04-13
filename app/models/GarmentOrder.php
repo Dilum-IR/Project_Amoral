@@ -42,9 +42,27 @@ class GarmentOrder
 
 	// }
 
-	function getMaterialData(){
-    
-        $quary = "SELECT $this->table.order_id, order_material.*, material_stock.material_type, sleeves.type, printing_type.printing_type
+	function getMaterialData()
+	{
+
+		$quary = "SELECT $this->table.order_id, order_material.*, material_stock.material_type, sleeves.type, printing_type.printing_type
+        FROM order_material 
+        INNER JOIN $this->table 
+        ON $this->table.order_id = order_material.order_id 
+        INNER JOIN material_stock
+        ON material_stock.stock_id = order_material.material_id
+        INNER JOIN sleeves
+        ON sleeves.sleeve_id = order_material.sleeve_id
+        INNER JOIN printing_type
+        ON printing_type.ptype_id = order_material.ptype_id ";
+	
+		return $this->quary($quary);
+	}
+
+	function getGarmentOrderData()
+	{
+
+		$quary = "SELECT $this->table.*, order_material.*, material_stock.material_type, sleeves.type, printing_type.printing_type
         FROM order_material 
         INNER JOIN $this->table 
         ON $this->table.order_id = order_material.order_id 
@@ -55,7 +73,7 @@ class GarmentOrder
         INNER JOIN printing_type
         ON printing_type.ptype_id = order_material.ptype_id ";
 
-
-        return $this->quary($quary);
-    }
+	
+		return $this->quary($quary);
+	}
 }
