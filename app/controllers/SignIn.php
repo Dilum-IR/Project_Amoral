@@ -62,10 +62,12 @@ class SignIn extends Controller
     private function userLogin($user, $employee)
     {
         try {
+            
+            
             if ($user->signInData($_POST)) {
-
+                
                 $arr['email'] = $_POST['email'];
-
+                
                 $row = $user->first($arr);
 
                 $emprow = $employee->first($arr);

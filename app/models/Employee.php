@@ -14,7 +14,8 @@ class Employee
 		'email',
 		'contact_number',
 		'emp_status',
-		'emp_image'
+		'emp_image',
+		'is_active'
 	];
 	public $chatForCloumn = [
 

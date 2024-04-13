@@ -25,6 +25,7 @@ class User
 		'address',
 		'city',
 		'phone',
+		'is_active',
 	];
 
 	public function validate($data)

@@ -66,7 +66,7 @@ body {
 
 #main form {
   top: 64px;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
 }
 
 form .form-input {
@@ -693,7 +693,7 @@ form .user-details-title {
   justify-content: center;
 }
 
-.input-box{
+.input-box {
   border-style: none;
   align-items: center;
   justify-content: center;
@@ -817,14 +817,15 @@ select {
   /* font-family: 'Roboto', 'Segoe UI', sans-serif; */
   text-transform: uppercase;
   color: var(--color);
- }
+}
 
- .cancel-btn{
+.cancel-btn {
   border: .3px solid #ff3f3f;
   color: #ff3f3f;
- }
- 
- .pb::after, .pb::before {
+}
+
+.pb::after,
+.pb::before {
   content: '';
   display: block;
   height: 100%;
@@ -836,37 +837,38 @@ select {
   z-index: -1;
   transition: .5s ease-out;
   background-color: var(--color);
- }
+}
 
- .cancel-btn::after, .cancel-btn::before {
+.cancel-btn::after,
+.cancel-btn::before {
   background-color: #ff3f3f;
   /* border: .3px solid #ff3f3f; */
- }
- 
- .pb::before {
+}
+
+.pb::before {
   top: -50%;
   left: -25%;
   transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
- }
- 
- .pb:hover::before {
+}
+
+.pb:hover::before {
   transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
- }
- 
- .pb:hover::after {
+}
+
+.pb:hover::after {
   transform: skew(45deg) translate(-50%, -50%);
- }
- 
- .pb:hover {
+}
+
+.pb:hover {
   color: white;
- }
- 
- .pb:active {
+}
+
+.pb:active {
   filter: brightness(.7);
   transform: scale(.98);
- }
+}
 
- /* add new emp */
+/* add new emp */
 
 
 .new-emp-details {
@@ -923,20 +925,22 @@ select {
   0% {
     border-color: #000;
   }
+
   50% {
     border-color: #ffffff;
   }
+
   100% {
     border-color: #000;
   }
 }
 
-.input-box select{
+.input-box select {
   border-style: none;
   border-color: #000;
 }
 
-.btns{
+.btns {
   display: flex;
   /* align-items: left; */
   justify-content: right;
@@ -946,17 +950,25 @@ select {
 
 .emp-image::file-selector-button {
   height: 35px;
-  background-color: #5d5d5d; /* Green background */
-  color: white; /* White text */
-  padding: 10px 10px; /* Padding around the text */
-  border: none; /* Remove default border */
-  border-radius: 25px; /* Rounded corners */
-  cursor: pointer; /* Change mouse cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  background-color: #5d5d5d;
+  /* Green background */
+  color: white;
+  /* White text */
+  padding: 10px 10px;
+  /* Padding around the text */
+  border: none;
+  /* Remove default border */
+  border-radius: 25px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Change mouse cursor on hover */
+  transition: background-color 0.3s;
+  /* Smooth transition for background color */
 }
 
 .emp-image::file-selector-button:hover {
-  background-color: #c9c9c9; /* Darker green background on hover */
+  background-color: #c9c9c9;
+  /* Darker green background on hover */
   color: black;
 }
 
@@ -1015,3 +1027,13 @@ select {
     
   }
 } */
+
+.view-remove-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* background-color: red; */
+
+
+}

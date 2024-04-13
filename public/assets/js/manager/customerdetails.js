@@ -1,6 +1,6 @@
 
 // function addEmployee() {
-//     var table = document.getElementById("employee-table");
+//     var table = document.getElementById("cstloyee-table");
 //     var row = table.insertRow(1); // Insert at index 1 to appear on top (after heading)
 //     var cell1 = row.insertCell(0);
 //     var cell2 = row.insertCell(1);
@@ -11,36 +11,36 @@
 
 //     cell1.innerHTML = nextID;
 //     nextID++;
-//     cell2.innerHTML = "<input class='employee-input' type='text' placeholder='Name' required>";
-//     cell3.innerHTML = "<input class='employee-input' type='text' placeholder='Position'required>";
-//     cell4.innerHTML = "<input class='employee-input' type='email' placeholder='Address'required>";
-//     cell5.innerHTML = "<input class='employee-input' type='text' placeholder='Contact No'required>";
-//     cell6.innerHTML = "<input class='employee-input' type='text' placeholder='Contact No'required>";
+//     cell2.innerHTML = "<input class='cstloyee-input' type='text' placeholder='Name' required>";
+//     cell3.innerHTML = "<input class='cstloyee-input' type='text' placeholder='Position'required>";
+//     cell4.innerHTML = "<input class='cstloyee-input' type='email' placeholder='Address'required>";
+//     cell5.innerHTML = "<input class='cstloyee-input' type='text' placeholder='Contact No'required>";
+//     cell6.innerHTML = "<input class='cstloyee-input' type='text' placeholder='Contact No'required>";
 
-//     document.getElementById("add-employee-button").style.display = "none";
+//     document.getElementById("add-cstloyee-button").style.display = "none";
 //     document.getElementById("save-button").style.display = "inline";
 //     document.getElementById("cancel-button").style.display = "inline";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 //   }
 
 // function cancelAdd() {
-//     var table = document.getElementById("employee-table");
+//     var table = document.getElementById("cstloyee-table");
 //     table.deleteRow(1); // Delete the first row (added when clicking Add Employee)
 
-//     document.getElementById("add-employee-button").style.display = "inline";
+//     document.getElementById("add-cstloyee-button").style.display = "inline";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 //     nextID--;
 // }
 
 // function saveEmployee(){
-//     document.getElementById("add-employee-button").style.display = "inline";
+//     document.getElementById("add-cstloyee-button").style.display = "inline";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 
 // }
@@ -50,11 +50,11 @@
 
 //     console.log(data)
 //     // var id =  
-//     document.getElementById("add-employee-button").style.display = "none";
+//     document.getElementById("add-cstloyee-button").style.display = "none";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("update-employee-button").style.display = "inline";
-//     document.getElementById("remove-employee-button").style.display = "inline";
+//     document.getElementById("update-cstloyee-button").style.display = "inline";
+//     document.getElementById("remove-cstloyee-button").style.display = "inline";
 //     document.getElementById("remove-cancel-button").style.display = "inline";
 // }
 
@@ -108,25 +108,25 @@
 
 // function removeEmployee(){
 //   console.log("removeEmployee");
-//     document.getElementById("add-employee-button").style.display = "inline";
+//     document.getElementById("add-cstloyee-button").style.display = "inline";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("update-employee-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("update-cstloyee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 // }
 
 // function removeCancel(){
 //   console.log("removeEmployee");
-//     document.getElementById("add-employee-button").style.display = "inline";
+//     document.getElementById("add-cstloyee-button").style.display = "inline";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("update-employee-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("update-cstloyee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 // }
 // document.addEventListener('DOMContentLoaded', function() {
-//     const rows = document.querySelectorAll('#employee-table tbody tr');
+//     const rows = document.querySelectorAll('#cstloyee-table tbody tr');
 //     let selectedRow;
 
 //     rows.forEach(row => {
@@ -137,18 +137,18 @@
 //         selectedRow = row;
 //         selectedRow.classList.add('highlight');
 //         // console.log('fjhfifh');
-//         document.getElementById("update-employee-button").style.display = "block";
+//         document.getElementById("update-cstloyee-button").style.display = "block";
 //         document.getElementById('remove-cancel-button').style.display = 'block';
-//         document.getElementById('remove-employee-button').style.display = 'block';
+//         document.getElementById('remove-cstloyee-button').style.display = 'block';
 //       });
 //     });
 
-//     document.getElementById('remove-employee-button').addEventListener('click', function() {
+//     document.getElementById('remove-cstloyee-button').addEventListener('click', function() {
 //       if (selectedRow) {
 //         // console.log('deleteBTN');
 //         selectedRow.remove();
-//         document.getElementById("update-employee-button").style.display = "none";
-//         document.getElementById('remove-employee-button').style.display = 'none';
+//         document.getElementById("update-cstloyee-button").style.display = "none";
+//         document.getElementById('remove-cstloyee-button').style.display = 'none';
 //         document.getElementById('remove-cancel-button').style.display = 'none';
 //       }
 //     });
@@ -157,22 +157,22 @@
 //       if (selectedRow) {
 //         // console.log('RMVhgth');
 //         selectedRow.classList.remove('highlight');
-//         document.getElementById("update-employee-button").style.display = "none";
-//         document.getElementById('remove-employee-button').style.display = 'none';
+//         document.getElementById("update-cstloyee-button").style.display = "none";
+//         document.getElementById('remove-cstloyee-button').style.display = 'none';
 //         document.getElementById('remove-cancel-button').style.display = 'none';
 //       }
 //     });
 //   });
 
 //   function addEmployee() {
-//     document.getElementById("add-employee-button").style.display = "none";
+//     document.getElementById("add-cstloyee-button").style.display = "none";
 //     document.getElementById("save-button").style.display = "inline";
 //     document.getElementById("cancel-button").style.display = "inline";
-//     document.getElementById("update-employee-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("update-cstloyee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 
-//     var table = document.getElementById('employee-table').getElementsByTagName('tbody')[0];
+//     var table = document.getElementById('cstloyee-table').getElementsByTagName('tbody')[0];
 //     var newRow = table.insertRow(0);
 
 //     var idCell = newRow.insertCell(0);
@@ -197,14 +197,14 @@
 //   }
 
 //   function updateEmployee(){
-//     document.getElementById("add-employee-button").style.display = "none";
+//     document.getElementById("add-cstloyee-button").style.display = "none";
 //     document.getElementById("save-button").style.display = "inline";
 //     document.getElementById("cancel-button").style.display = "inline";
-//     document.getElementById("update-employee-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("update-cstloyee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 
-//     var table = document.getElementById('employee-table').getElementsByTagName('tbody')[0];
+//     var table = document.getElementById('cstloyee-table').getElementsByTagName('tbody')[0];
 //     var newRow = table.insertRow(0);
 
 //     var idCell = newRow.insertCell(0);
@@ -235,18 +235,18 @@
 //     var newContact = document.getElementById('newContact').value;
 
 
-//     document.querySelector('.add-save-cancel input[name="emp_name"]').value = newName;
-//     document.querySelector('.add-save-cancel input[ name="emp_status"]').value = newPosition;
+//     document.querySelector('.add-save-cancel input[name="cst_name"]').value = newName;
+//     document.querySelector('.add-save-cancel input[ name="cst_status"]').value = newPosition;
 //     document.querySelector('.add-save-cancel input[name="email"]').value = newEmail;
 //     document.querySelector('.add-save-cancel input[name="address"]').value = newAddress;
 //     document.querySelector('.add-save-cancel input[name="contact_number"]').value = newContact;
 
-//     var nameCell = document.getElementById('employee-table').rows[document.getElementById('employee-table').rows.length - 1].cells[1];
+//     var nameCell = document.getElementById('cstloyee-table').rows[document.getElementById('cstloyee-table').rows.length - 1].cells[1];
 //     console.log('added');
-//     var positionCell = document.getElementById('employee-table').rows[document.getElementById('employee-table').rows.length -1].cells[2];
-//     var emailCell = document.getElementById('employee-table').rows[document.getElementById('employee-table').rows.length - 1].cells[3];
-//     var addressCell = document.getElementById('employee-table').rows[document.getElementById('employee-table').rows.length - 1].cells[4];
-//     var contactCell = document.getElementById('employee-table').rows[document.getElementById('employee-table').rows.length - 1].cells[5];
+//     var positionCell = document.getElementById('cstloyee-table').rows[document.getElementById('cstloyee-table').rows.length -1].cells[2];
+//     var emailCell = document.getElementById('cstloyee-table').rows[document.getElementById('cstloyee-table').rows.length - 1].cells[3];
+//     var addressCell = document.getElementById('cstloyee-table').rows[document.getElementById('cstloyee-table').rows.length - 1].cells[4];
+//     var contactCell = document.getElementById('cstloyee-table').rows[document.getElementById('cstloyee-table').rows.length - 1].cells[5];
 
 //     nameCell.innerHTML = newName;
 //     positionCell.innerHTML = newPosition;
@@ -254,23 +254,23 @@
 //     addressCell.innerHTML = newAddress;
 //     contactCell.inneHTML = newContact;
 
-//     document.getElementById("add-employee-button").style.display = "inline";
+//     document.getElementById("add-cstloyee-button").style.display = "inline";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("update-employee-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("update-cstloyee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 //   }
 
 //   function cancelAdd() {
-//     var table = document.getElementById('employee-table').getElementsByTagName('tbody')[0];
+//     var table = document.getElementById('cstloyee-table').getElementsByTagName('tbody')[0];
 //     table.deleteRow(0);
 
-//     document.getElementById("add-employee-button").style.display = "inline";
+//     document.getElementById("add-cstloyee-button").style.display = "inline";
 //     document.getElementById("save-button").style.display = "none";
 //     document.getElementById("cancel-button").style.display = "none";
-//     document.getElementById("update-employee-button").style.display = "none";
-//     document.getElementById("remove-employee-button").style.display = "none";
+//     document.getElementById("update-cstloyee-button").style.display = "none";
+//     document.getElementById("remove-cstloyee-button").style.display = "none";
 //     document.getElementById("remove-cancel-button").style.display = "none";
 //     nextID--;
 //   }
@@ -289,30 +289,30 @@ let popupNew = document.querySelector(".popup-new");
 
 function openNew(button) {
 
-  console.log("addnewemployee");
+  console.log("addnewcstloyee");
 
   // Get the data attribute value from the clicked button
-  // const empData = button.getAttribute("data-emp");
+  // const cstData = button.getAttribute("data-cst");
 
  
 
  
     // Parse the JSON data
-    // const emp = JSON.parse(empData);
+    // const cst = JSON.parse(cstData);
     console.log("data fill");
     // Populate the "update-form" fields with the order data
-    // document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
+    // document.querySelector('.update-form input[name="cst_id"]').value = cst.cst_id;
+    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
+    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
 
-    // document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+    // document.querySelector('.update-form input[name="cst_name"]').value = cst.cst_name;
 
-    // document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
-    // document.querySelector('.update-form input[name="email"]').value = emp.email;
-    // document.querySelector('.update-form input[name="city"]').value = emp.city;
-    // document.querySelector('.update-form input[name="address"]').value = emp.address;
-    // document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
-    // document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+    // document.querySelector('.update-form input[name="cst_status"]').value = cst.cst_status;
+    // document.querySelector('.update-form input[name="email"]').value = cst.email;
+    // document.querySelector('.update-form input[name="city"]').value = cst.city;
+    // document.querySelector('.update-form input[name="address"]').value = cst.address;
+    // document.querySelector('.update-form input[name="DOB"]').value = cst.DOB;
+    // document.querySelector('.update-form input[name="contact_number"]').value = cst.contact_number;
 
     // Show the "update-form" popup
     // document.querySelector(".popup-view").classList.add("open-popup-view");
@@ -343,27 +343,27 @@ function openView(button) {
 
 
   // Get the data attribute value from the clicked button
-  const empData = button.getAttribute("data-emp");
+  const cstData = button.getAttribute("data-cst");
 
-  console.log("empData");
+  console.log("cstData");
 
-  if (empData) {
+  if (cstData) {
     // Parse the JSON data
-    const emp = JSON.parse(empData);
+    const cst = JSON.parse(cstData);
     console.log("data fill");
     // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
+    document.querySelector('.update-form input[name="id"]').value = cst.id;
+    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
+    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
 
-    document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+    document.querySelector('.update-form input[name="fullname"]').value = cst.fullname;
 
-    document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
-    document.querySelector('.update-form input[name="email"]').value = emp.email;
-    document.querySelector('.update-form input[name="city"]').value = emp.city;
-    document.querySelector('.update-form input[name="address"]').value = emp.address;
-    document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
-    document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+    // document.querySelector('.update-form input[name="user_status"]').value = cst.cst_status;
+    document.querySelector('.update-form input[name="email"]').value = cst.email;
+    document.querySelector('.update-form input[name="city"]').value = cst.city;
+    document.querySelector('.update-form input[name="address"]').value = cst.address;
+    // document.querySelector('.update-form input[name="DOB"]').value = cst.DOB;
+    document.querySelector('.update-form input[name="phone"]').value = cst.phone;
 
     // Show the "update-form" popup
     document.querySelector(".popup-view").classList.add("open-popup-view");

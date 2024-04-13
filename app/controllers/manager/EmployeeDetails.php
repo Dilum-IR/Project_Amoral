@@ -11,9 +11,10 @@ class EmployeeDetails extends Controller
 
             $employee = new Employee;
 
-            $result = $employee->findAll('emp_id');
 
-            $data = [' ' => $result];
+            $result = $employee->findAllActive('emp_id');
+
+            $data = ['data' => $result];
             // show($result);
 
             // update employee details
@@ -23,6 +24,7 @@ class EmployeeDetails extends Controller
 
                 unset($_POST['empUpdate']);
                 $arr = $_POST;
+                // $arr['is_active'] = 0;
 
                 if (isset($arr)) {
 
@@ -41,7 +43,23 @@ class EmployeeDetails extends Controller
                 $this->employeeAdd($_POST);
             }
 
-            $result = $employee->findAll('emp_id');
+            //remove employee
+            if (isset($_POST["empRemove"])) {
+
+                $emp_id = $_POST['emp_id'];
+
+                unset($_POST['empRemove']);
+                $arr = $_POST;
+                $arr['is_active'] = 0;
+
+                if (isset($arr)) {
+                    // show($arr);
+                    $update = $employee->update($emp_id, $arr, 'emp_id');
+                    redirect('manager/employeedetails');
+                }
+            }
+
+            $result = $employee->findAllActive('emp_id');
 
             $data = ['data' => $result];
 
@@ -50,6 +68,8 @@ class EmployeeDetails extends Controller
             redirect('home');
         }
 
+
+
         // show($_POST);
         // if (isset($_POST["newEmployee"])) {
         //     unset($_POST["newEmployee"]);
@@ -57,16 +77,9 @@ class EmployeeDetails extends Controller
         //     redirect("manager/employeedetails");
         // }
 
-        if (isset($_POST["remove_emp"])) {
+       
 
-            $id = $_POST["emp_id"];
-
-            $employee->delete($id, 'emp_id');
-            // show($_POST);
-            redirect('manager/employeedetails');
-        }
-
-        $result = $employee->findAll('emp_id');
+        $result = $employee->findAllActive('emp_id');
     }
 
 

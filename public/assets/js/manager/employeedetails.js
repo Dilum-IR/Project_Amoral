@@ -340,8 +340,6 @@ function closeView() {
 //data fetching ftom submit button
 
 function openView(button) {
-
-
   // Get the data attribute value from the clicked button
   const empData = button.getAttribute("data-emp");
 
@@ -350,7 +348,7 @@ function openView(button) {
   if (empData) {
     // Parse the JSON data
     const emp = JSON.parse(empData);
-    console.log("data fill");
+    console.log(emp.is_active);
     // Populate the "update-form" fields with the order data
     document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
     // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
