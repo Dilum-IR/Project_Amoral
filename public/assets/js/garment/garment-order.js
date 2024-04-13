@@ -5,41 +5,49 @@ let popupReport = document.querySelector(".popup-report");
 function openView(button) {
   // Get the data attribute value from the clicked button
   const orderData = button.getAttribute("data-order");
-  
+
   if (orderData) {
     // Parse the JSON data
     const order = JSON.parse(orderData);
-    //console.log(order);
+    console.log(order);
 
     // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="order_id"]').value =
-      order.order_id;
+    // document.querySelector('.update-form input[name="order_id"]').value =
+    //   order.order_id;
 
-    document.querySelector('.update-form input[name="material"]').value =
-    order.material_type;
+    // document.querySelector('.update-form input[name="material"]').value =
+    //   order.material_type;
 
-    document.querySelector(
-      '.update-form input[name="cut_dispatch_date"]'
-    ).value = order.cut_dispatch_date;
+    // document.querySelector(
+    //   '.update-form input[name="cut_dispatch_date"]'
+    // ).value = order.cut_dispatch_date;
 
-    document.querySelector(
-      '.update-form input[name="sew_dispatch_date"]'
-    ).value = order.sew_dispatch_date;
+    // document.querySelector(
+    //   '.update-form input[name="sew_dispatch_date"]'
+    // ).value = order.sew_dispatch_date;
 
     // document.querySelector(
     //   '.update-form input[name="delivery_expected_on"]'
     // ).value = "2021-09-18";
 
-    document.querySelector('.update-form input[name="status"]').value =
-      order.status;
-    document.querySelector('.update-form input[name="garment_id"]').value =
-      order.garment_id;
-
+    // document.querySelector('.update-form input[name="status"]').value =
+    //   order.status;
+    // document.querySelector('.update-form input[name="garment_id"]').value =
+    //   order.garment_id;
 
     // Show the "update-form" popup
     // document.querySelector(".popup-view").classList.add("open-popup-view");
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
+
+    
+    for (let index = 0; index < order.length; index++) {
+      
+      // const element = array[index];
+      
+      // addMaterialCardView(order);
+    }
+
   }
 }
 
@@ -186,4 +194,73 @@ function report_send(email, title, description) {
       // return xhr;
     },
   });
+}
+
+function addMaterialCardView(material) {
+  var newCard = document.createElement("div");
+  newCard.className = "user-details new-card";
+
+  newCard.innerHTML = `
+    <i class="fas fa-minus remove"></i>
+        <div class="input-box">
+            <span class="details">Material </span>
+            <input name="material[]" value="${material["material_type"]}" readonly value="">
+                
+                
+                <?php foreach($data['materials'] as $material):?>
+                    <input type="hidden" name="material_id[]" value="${material["material_id"]}">
+                <?php endforeach;?>
+                
+            </input>
+                        
+        </div>
+
+        <div class="input-box">
+            <span class="details">Sleeves</span>
+            <input name="sleeve[]" value="${material["type"]}" readonly value="">
+                
+                <?php foreach($data['sleeveType'] as $sleeve):?>
+                    <input type="hidden" name="sleeve_id[]" value="${material["sleeve_id"]}">
+               <?php endforeach;?>
+            </input>
+        </div>
+
+        <div class="input-box" style="margin-left: 30px;">
+            <span class="details">Printing Type</span>
+            <input name="printingType[]" value="${material["printing_type"]}" readonly value="">
+                
+                <?php foreach($data['printingType'] as $printing):?>
+                    <input type="hidden" name="ptype_id[]" value="${material["ptype_id"]}">
+                <?php endforeach;?>
+            </input>
+        </div>
+
+        <div class="input-box sizes">
+            <span class="details">Sizes & Quantity</span>
+            <div class="sizeChart">
+                <span class="size">XS</span>
+                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material["xs"]}">
+                <br>
+                <span class="size">S</span>
+                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material["small"]}">
+                <br>
+                <span class="size">M</span>
+                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material["medium"]}">
+                <br>
+                <span class="size">L</span>
+                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material["large"]}">
+                <br>
+                <span class="size">XL</span>
+                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material["xl"]}">
+                <br>
+                <span class="size">2XL</span>
+                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material["xxl"]}">
+                <br>
+            </div>
+        </div>
+    `;
+
+  newCard.style.transition = "all 0.5s ease-in-out";
+  document.querySelector(".popup-view .add.card").before(newCard);
+  //countv++;
 }

@@ -1,6 +1,15 @@
 <?php
+
 // show($data);
-// die(); 
+
+for ($i=0; $i <count($data) ; $i++) { 
+
+    unset($data[$i]);
+    foreach ($data as $item_2) {
+
+
+    }
+}
 
 ?>
 
@@ -93,39 +102,24 @@
                             if (isset($data)) {
 
                                 foreach ($data as $item) :
+                                    // foreach ($data as $item_2) 
+                                    //  {
+                                    //     if($item_1->garment_order_id != $item_2->garment_order_id && $item_1->order_id == $item_2->order_id){
+                                    //         // show($item_1);
+                                    //         // show($item_2);
+                                    //         // die();
+                                    //     }
+                                    // }
                             ?>
                                     <tr>
                                         <td class="ordId"><?= $item->order_id  ?></td>
                                         <td class="desc">
 
                                             <b>
-
                                                 <?= $item->material_type ?>
                                             </b>
-                                            <br>
-
                                             <?=
-                                            $item->xs != 0 ? "XS -" . $item->xs : ''
-                                            ?>
-
-                                            <?=
-                                            $item->small != 0 ? ", S -" . $item->small : ''
-                                            ?>
-                                            <br>
-                                            <?=
-                                            $item->medium != 0 ? " M -" . $item->medium : ''
-                                            ?>
-
-                                            <?=
-                                            $item->large != 0 ? ", L -" . $item->large : ''
-                                            ?>
-                                            <br>
-                                            <?=
-                                            $item->xl != 0 ? " XL -" . $item->xl : ''
-                                            ?>
-
-                                            <?=
-                                            $item->xxl != 0 ? ", XXL -" . $item->xxl : ''
+                                            $item->xs != 0 ? "| Qty-" . $item->xs : ''
                                             ?>
 
                                         </td>
@@ -274,16 +268,16 @@
 
 
                         <span class="details">Quantity</span>
-                        <input class="size" type="text" required onChange="" readonly value="" />
+                        <input class="size" type="text" required onChange="" readonly />
                         <!-- <p>_</p> -->
                     </div>
                     <div class="input-box">
                         <span class="details">cut dispatch date</span>
-                        <input name="cut_dispatch_date" type="text" required onChange="" readonly value="2023/10/01" />
+                        <input name="cut_dispatch_date" type="text" required onChange="" readonly />
                     </div>
                     <div class="input-box">
                         <span class="details">sew dispatch date</span>
-                        <input name="sew_dispatch_date" type="text" required onChange="" readonly value="2023/10/02" />
+                        <input name="sew_dispatch_date" type="text" required onChange="" readonly />
                     </div>
                     <!-- <div class="input-box">
                         <span class="details">Delivery Expected On</span>

@@ -465,22 +465,26 @@ main .insights small {
 .table-data .order table tbody tr:hover {
   background: var(--grey);
 }
-.table-data .order table tr td .status {
-  font-size: 10px;
+.table-data .order table tr td .text-status {
+  /* font-size: 10px; */
   padding: 6px 16px;
-  color: var(--light);
+  color: white;
   border-radius: 20px;
-  font-weight: 700;
+  /* font-weight: 700; */
+  text-align: center;
+  align-self: center;
+
 }
-.table-data .order table tr td .status.completed {
+
+/* .table-data .order table tr td .text-status.completed {
   background: var(--blue);
 }
-.table-data .order table tr td .status.process {
+.table-data .order table tr td .text-status.process {
   background: var(--yellow);
 }
-.table-data .order table tr td .status.pending {
+.table-data .order table tr td .text-status.pending {
   background: var(--orange);
-}
+} */
 
 .table-data .todo {
   flex-grow: 1;
@@ -512,6 +516,33 @@ main .insights small {
   margin-bottom: 0;
 }
 /* <!-- left side container --> */
+
+.text-status.pending {
+  background-color: #f9c70c;
+}
+
+.text-status.cutting {
+  background-color: #1c7012cc;
+}
+
+
+.text-status.sewing {
+  background-color: #1c7012cc;
+}
+
+.text-status.completed {
+  background-color: #0c5fcdc7;
+}
+/* 
+.text-status.printing {
+  background-color: #1c7012cc;
+}
+
+.text-status.cancelled {
+  background-color: #cf0303c7;
+} */
+
+
 
 @media screen and (max-width: 768px) {
   .content {

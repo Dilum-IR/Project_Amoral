@@ -3,9 +3,9 @@
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     // database configaration 
-    define('DBHOST', '');
-    define('DBUSER', '');
-    define('DBPASS', '');
+    define('DBHOST', 'database-1.c7o6omamscmf.eu-north-1.rds.amazonaws.com');
+    define('DBUSER', 'admin');
+    define('DBPASS', 'Admin#1234');
     define('DBDRIVER', '');    
     define('DBNAME', 'amoral_db');
 
