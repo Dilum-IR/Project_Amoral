@@ -9,45 +9,32 @@ function openView(button) {
   if (orderData) {
     // Parse the JSON data
     const order = JSON.parse(orderData);
-    console.log(order);
+    console.log(order.mult_order);
 
     // Populate the "update-form" fields with the order data
-    // document.querySelector('.update-form input[name="order_id"]').value =
-    //   order.order_id;
+    document.querySelector('.update-form input[name="order_id"]').value =
+      order.order_id;
 
-    // document.querySelector('.update-form input[name="material"]').value =
-    //   order.material_type;
+    document.querySelector(
+      '.update-form input[name="cut_dispatch_date"]'
+    ).value = order.cut_dispatch_date;
 
-    // document.querySelector(
-    //   '.update-form input[name="cut_dispatch_date"]'
-    // ).value = order.cut_dispatch_date;
+    document.querySelector(
+      '.update-form input[name="sew_dispatch_date"]'
+    ).value = order.sew_dispatch_date;
 
-    // document.querySelector(
-    //   '.update-form input[name="sew_dispatch_date"]'
-    // ).value = order.sew_dispatch_date;
-
-    // document.querySelector(
-    //   '.update-form input[name="delivery_expected_on"]'
-    // ).value = "2021-09-18";
-
-    // document.querySelector('.update-form input[name="status"]').value =
-    //   order.status;
-    // document.querySelector('.update-form input[name="garment_id"]').value =
-    //   order.garment_id;
-
-    // Show the "update-form" popup
-    // document.querySelector(".popup-view").classList.add("open-popup-view");
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 
-    
-    for (let index = 0; index < order.length; index++) {
-      
-      // const element = array[index];
-      
-      // addMaterialCardView(order);
-    }
+    // wrapper currently include all card div removing
+    var cards_wrapper = document.getElementById("cards-wrapper");
+    cards_wrapper.innerHTML="";
 
+    for (let index = 0; index < order.mult_order.length; index++) {
+
+      addMaterialCardView(order.mult_order[index]);
+
+    }
   }
 }
 
@@ -196,71 +183,75 @@ function report_send(email, title, description) {
   });
 }
 
-function addMaterialCardView(material) {
+function addMaterialCardView(order) {
+
+  // console.log(order);
+
+  var cards_wrapper = document.getElementById("cards-wrapper");
+
   var newCard = document.createElement("div");
-  newCard.className = "user-details new-card";
+  newCard.className = "all-cards";
 
   newCard.innerHTML = `
-    <i class="fas fa-minus remove"></i>
-        <div class="input-box">
-            <span class="details">Material </span>
-            <input name="material[]" value="${material["material_type"]}" readonly value="">
-                
-                
-                <?php foreach($data['materials'] as $material):?>
-                    <input type="hidden" name="material_id[]" value="${material["material_id"]}">
-                <?php endforeach;?>
-                
-            </input>
-                        
-        </div>
+  <div class="user-details material">
 
-        <div class="input-box">
-            <span class="details">Sleeves</span>
-            <input name="sleeve[]" value="${material["type"]}" readonly value="">
-                
-                <?php foreach($data['sleeveType'] as $sleeve):?>
-                    <input type="hidden" name="sleeve_id[]" value="${material["sleeve_id"]}">
-               <?php endforeach;?>
-            </input>
-        </div>
+  <div class="input-box">
 
-        <div class="input-box" style="margin-left: 30px;">
-            <span class="details">Printing Type</span>
-            <input name="printingType[]" value="${material["printing_type"]}" readonly value="">
-                
-                <?php foreach($data['printingType'] as $printing):?>
-                    <input type="hidden" name="ptype_id[]" value="${material["ptype_id"]}">
-                <?php endforeach;?>
-            </input>
-        </div>
+      <span class="details">Material </span>
+      <input class="g-type" name="material" type="text" readonly value="${order.material_type}" />
 
-        <div class="input-box sizes">
-            <span class="details">Sizes & Quantity</span>
-            <div class="sizeChart">
-                <span class="size">XS</span>
-                <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material["xs"]}">
-                <br>
-                <span class="size">S</span>
-                <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material["small"]}">
-                <br>
-                <span class="size">M</span>
-                <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material["medium"]}">
-                <br>
-                <span class="size">L</span>
-                <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material["large"]}">
-                <br>
-                <span class="size">XL</span>
-                <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material["xl"]}">
-                <br>
-                <span class="size">2XL</span>
-                <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material["xxl"]}">
-                <br>
-            </div>
-        </div>
+      <span class="details">Sleeves </span>
+      <input class="g-type" name="sleeves" type="text" readonly value="${order.type}" />
+
+      <span class="details">Printing Type </span>
+      <input class="" name="printing-type" type="text" readonly value="${order.printing_type}" />
+  </div>
+  <div>
+
+      <div class="s-q">
+
+          <div class="sizes">
+
+              <span class="details">Sizes</span>
+              <input class="size" type="text" readonly value="X-Small" />
+          </div>
+          <div class="sizes">
+
+              <span class="details">Quantity</span>
+              <input class="size" type="text" readonly value="${order.xs}" />
+
+          </div>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="Small" />
+          <input class="size" type="text" readonly  value="${order.small}"/>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="Medium" />
+          <input class="size" type="text" readonly value="${order.medium}"/>
+      </div>
+
+      <div class="s-q">
+          <input class="size" type="text" readonly value="Large" />
+          <input class="size" type="text" readonly value="${order.large}"/>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="X-Large" />
+          <input class="size" type="text" readonly value="${order.xl}"/>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="XX-Large" />
+          <input class="size" type="text" readonly value="${order.xxl}"/>
+      </div>
+  </div>
+  <div></div>
+  
+</div>
+<hr class="dotted">
     `;
 
-  newCard.style.transition = "all 0.5s ease-in-out";
-  document.querySelector(".popup-view .add.card").before(newCard);
+    newCard.style.transition = "all 0.5s ease-in-out";
+
+  cards_wrapper.appendChild(newCard);
   //countv++;
 }

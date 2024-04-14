@@ -185,12 +185,13 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Orders</h3>
-                                <a id="info-btn-1" class="info-btn" href="<?=ROOT?>/garment/orders">View</a>
+                                <a id="info-btn-1" class="info-btn" href="<?=ROOT?>/garment/orders">View All</a>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Order Id</th>
+                                        <th>Description</th>
                                         <th>Date Order</th>
                                         <th>Status</th>
                                     </tr>
@@ -200,6 +201,7 @@
                                     <?php
                                     if (!empty($data['recent_orders'])) {
 
+                                        // show($data);
                                         foreach ($recent_orders as $key => $item) {
                                     ?>
                                             <tr>
@@ -207,6 +209,7 @@
                                                     <!-- <img src="img/people.png"> -->
                                                     <p><?= $item->order_id?></p>
                                                 </td>
+                                                <td><?= $item->order_id?></td>
                                                 <td>01-10-2021</td>
                                                 <td><span class="text-status <?= $item->status?>"><?= $item->status?></span></td>
                                             </tr>

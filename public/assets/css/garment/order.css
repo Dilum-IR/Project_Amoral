@@ -172,7 +172,7 @@ button:disabled {
 .popup-view{
 
   top: calc(100vh/2);
-  width: 60%;
+  width: max-content;
   height: 85%;
   transform: translate(-50%,-50%);
   background-color: white !important;
@@ -232,19 +232,58 @@ button:disabled {
   background-color: #1c7012cc;
 }
 
-.text-status.delivering {
-  background-color: #0c5fcdc7;
-}
 
 .text-status.cancelled {
   background-color: #cf0303c7;
 } */
 
+.text-status.completed {
+  background-color: #0c5fcdc7;
+}
 
 .gar-popup-report .pb:hover {
   font-size: 17px;
   font-weight: 200;
   transition: all 0.3s ease-in-out;
+}
+
+.dotted {
+  border: none;
+  border-top: 3px dotted rgba(0, 0, 0, 0.597);
+  height: 1px;
+  /* padding-bottom: 20px; */
+}
+
+form .more{
+  flex-wrap: unset !important;
+}
+form .material{
+  /* justify-content: space-around !important; */
+  align-items: center;
+}
+
+form .g-poup-btn{
+ margin-top: 40px; 
+}
+.s-q{
+
+  display: flex;
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-bottom: 15px !important;
+
+  .sizes .details{
+    margin-bottom: 5px;
+  }
+}
+.popup-view .size {
+
+  width: 110px !important;
+  font-size: 15px;
+}
+
+.input-box .g-type {
+  margin-bottom: 15px !important;
 }
 
 *::-webkit-scrollbar {

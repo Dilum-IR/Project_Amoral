@@ -1,15 +1,8 @@
 <?php
 
+
 // show($data);
 
-for ($i=0; $i <count($data) ; $i++) { 
-
-    unset($data[$i]);
-    foreach ($data as $item_2) {
-
-
-    }
-}
 
 ?>
 
@@ -100,26 +93,24 @@ for ($i=0; $i <count($data) ; $i++) {
                             <?php
 
                             if (isset($data)) {
-
+                            
+                                rsort($data);
                                 foreach ($data as $item) :
-                                    // foreach ($data as $item_2) 
-                                    //  {
-                                    //     if($item_1->garment_order_id != $item_2->garment_order_id && $item_1->order_id == $item_2->order_id){
-                                    //         // show($item_1);
-                                    //         // show($item_2);
-                                    //         // die();
-                                    //     }
-                                    // }
                             ?>
                                     <tr>
                                         <td class="ordId"><?= $item->order_id  ?></td>
                                         <td class="desc">
 
-                                            <b>
-                                                <?= $item->material_type ?>
-                                            </b>
-                                            <?=
-                                            $item->xs != 0 ? "| Qty-" . $item->xs : ''
+                                            <?php
+                                            foreach ($item->mult_order as $key => $value) {
+                                            ?>
+                                                <b>
+                                                    <?= $value['material_type'] ?>
+                                                </b>
+                                            <?php
+                                                echo "| Qty - " . $value['qty'];
+                                                echo "</br>";
+                                            }
                                             ?>
 
                                         </td>
@@ -131,6 +122,7 @@ for ($i=0; $i <count($data) ; $i++) {
 
                                         <td>
                                             <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View</button>
+                                            <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="updateStatus(this)">Update Status</button>
                                         </td>
                                     </tr>
                                 <?php endforeach;
@@ -216,7 +208,7 @@ for ($i=0; $i <count($data) ; $i++) {
                     <p class="text">Cutting</p>
                 </li>
                 <li>
-                    <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
+                    <iconify-icon icon="tabler:cut"></iconify-icon>
                     <div class="progress three">
 
                         <i class="uil uil-check"></i>
@@ -224,20 +216,28 @@ for ($i=0; $i <count($data) ; $i++) {
                     <p class="text">Cutting done</p>
                 </li>
                 <li>
-                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                     <div class="progress four">
 
-                        <!-- <i class="uil uil-check"></i> -->
+                        <i class="uil uil-check"></i>
                     </div>
                     <p class="text">Sewing</p>
                 </li>
                 <li>
-                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                    <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
                     <div class="progress four">
 
-                        <!-- <i class="uil uil-check"></i> -->
+                        <i class="uil uil-check"></i>
                     </div>
                     <p class="text">Sewing done</p>
+                </li>
+                <li>
+                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                    <div class="progress five">
+
+                        <i class="uil uil-check"></i>
+                    </div>
+                    <p class="text">Completed</p>
                 </li>
 
             </ul>
@@ -246,54 +246,102 @@ for ($i=0; $i <count($data) ; $i++) {
 
         <div class="container1">
             <form class="update-form" method="POST">
-                <div class="user-details">
+
+                <div class="user-details more">
                     <div class="input-box">
                         <span class="details">Order Id </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="" />
+                        <input name="order_id" type="text" readonly />
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <input name="material" type="text" required onChange="" readonly value="" />
-                    </div>
-
-                    <div class="input-box sizes">
-
-                        <span class="details">Sizes</span>
-
-                        <input class="size" type="text" required onChange="" readonly value="S" />
-                        <!-- <p>_</p> -->
-                    </div>
-                    <div class="input-box sizes">
-
-
-                        <span class="details">Quantity</span>
-                        <input class="size" type="text" required onChange="" readonly />
-                        <!-- <p>_</p> -->
-                    </div>
                     <div class="input-box">
                         <span class="details">cut dispatch date</span>
-                        <input name="cut_dispatch_date" type="text" required onChange="" readonly />
+                        <input name="cut_dispatch_date" type="text" readonly />
                     </div>
                     <div class="input-box">
                         <span class="details">sew dispatch date</span>
-                        <input name="sew_dispatch_date" type="text" required onChange="" readonly />
+                        <input name="sew_dispatch_date" type="text" readonly />
                     </div>
-                    <!-- <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                        <input name="delivery_expected_on" type="text" required onChange="" readonly value="2023/10/01" />
-                    </div> -->
+                </div>
+
+                <hr class="dotted">
+
+                <div id="cards-wrapper">
+                    <div class="all-cards">
+
+
+                        <div class="user-details material">
+
+                            <div class="input-box">
+
+                                <span class="details">Material </span>
+                                <input class="g-type" name="material" type="text" readonly />
+
+                                <span class="details">Sleeves </span>
+                                <input class="g-type" name="sleeves" type="text" readonly />
+
+                                <span class="details">Printing Type </span>
+                                <input class="" name="printing-type" type="text" readonly />
+                            </div>
+                            <div>
+
+                                <div class="s-q">
+
+                                    <div class="sizes">
+
+                                        <span class="details">Sizes</span>
+                                        <input class="size" type="text" readonly value="X-Small" />
+                                    </div>
+                                    <div class="sizes">
+
+                                        <span class="details">Quantity</span>
+                                        <input class="size" type="text" readonly />
+
+                                    </div>
+                                </div>
+                                <div class="s-q">
+                                    <input class="size" type="text" readonly value="Small" />
+                                    <input class="size" type="text" readonly />
+                                </div>
+                                <div class="s-q">
+                                    <input class="size" type="text" readonly value="Medium" />
+                                    <input class="size" type="text" readonly />
+                                </div>
+
+                                <div class="s-q">
+                                    <input class="size" type="text" readonly value="Large" />
+                                    <input class="size" type="text" readonly />
+                                </div>
+                                <div class="s-q">
+                                    <input class="size" type="text" readonly value="X-Large" />
+                                    <input class="size" type="text" readonly />
+                                </div>
+                                <div class="s-q">
+                                    <input class="size" type="text" readonly value="XX-Large" />
+                                    <input class="size" type="text" readonly />
+                                </div>
+                            </div>
+
+                            <div></div>
+
+                        </div>
+
+                        <hr class="dotted">
+                    </div>
 
                 </div>
+
                 <!-- hidden element -->
                 <div class="input-box">
                     <!-- <span class="details">Order Id </span> -->
-                    <input name="status" type="hidden" required onChange="" readonly value="cutting" />
-                    <input name="garment_id" type="hidden" required onChange="" readonly value="0023456" />
+                    <input name="status" type="hidden" readonly value="cutting" />
+                    <input name="garment_id" type="hidden" readonly value="0023456" />
                 </div>
 
-                <button type="submit" onclick="" class="cancel-btn pb" name="CancelGorder">Cancel Order</button>
-                <input type="submit" class="update-btn pb" name="updateGorder" value="Update Order" />
+                <div class="g-poup-btn">
+                    <input type="submit" class="update-btn pb" name="updateGorder" value="Update Status" />
+                    <button type="submit" onclick="" class="cancel-btn pb" name="CancelGorder">Cancel Order</button>
+                </div>
+
 
 
 
