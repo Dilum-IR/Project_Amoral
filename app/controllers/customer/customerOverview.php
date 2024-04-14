@@ -5,9 +5,10 @@ class CustomerOverview extends Controller
     {
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        $order = new Order;
-
-        if ($username != 'User') {
+        
+        if ($username != 'User'  && $_SESSION['USER']->user_status === 'customer') {
+            $order = new Order;
+            
             $id = ['user_id' => $_SESSION['USER']->id];
             $data['order'] = $order->where($id);
             $data['material_sizes'] = $order->getFullData($id);
