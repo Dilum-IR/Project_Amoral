@@ -26,7 +26,7 @@
                 <span class="tooltip">Garment Orders</span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/assigndelivery">
                     <i class="bx bxs-package"></i>
                     <span class="link_name">Deliver Packages</span>
                 </a>

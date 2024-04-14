@@ -71,11 +71,13 @@
                                 <div class="left">
                                     <h3>Total Customer Orders</h3>
                                     <?php $totalCustomerOrders = 0; ?>
-                                    <?php foreach($data['customerOrder'] as $order): 
-                                        
-                                            $totalCustomerOrders++;
-                                        
-                                    endforeach; ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
+                                        <?php foreach($data['customerOrder'] as $order): 
+                                            
+                                                $totalCustomerOrders++;
+                                            
+                                        endforeach; ?>
+                                    <?php endif; ?>
                                     <h1><?php echo $totalCustomerOrders ?></h1>
                                 </div>
                             </div>
@@ -87,15 +89,19 @@
                                 <div class="left">
                                     <h3>Total Sales</h3>
                                     <?php $totalSales = 0; ?>
-                                    <?php foreach ($data['customerOrder'] as $order): ?>
-                                        <?php if($order->order_status == 'Delivered' || $order->order_status == 'Completed'): ?>
-                                            <?php foreach ($data['material_sizes'] as $sizes): ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
+
+                                        <?php foreach ($data['customerOrder'] as $order): ?>
+                                            <?php if($order->order_status == 'Delivered' || $order->order_status == 'Completed'): ?>
+                                                <?php foreach ($data['material_sizes'] as $sizes): ?>
+                                                
+                                                        <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
                                             
-                                                    <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
-                                        
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+
                                     <h1><?php echo "Rs. " , $totalSales ?></h1>
 
                                 </div>
@@ -109,11 +115,15 @@
                                 <div class="left">
                                     <h3>Total Requests</h3>
                                     <?php $totalCustomerQuotations = 0; ?>
-                                    <?php foreach($data['customerOrder'] as $order): 
-                                        
-                                            $totalCustomerQuotations++;
-                                        
-                                    endforeach; ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
+
+                                        <?php foreach($data['customerOrder'] as $order): 
+                                            
+                                                $totalCustomerQuotations++;
+                                            
+                                        endforeach; ?>
+                                    <?php endif; ?>
+
                                     <h1><?php echo $totalCustomerQuotations ?></h1>
 
                                 </div>
@@ -127,11 +137,15 @@
                                 <div class="left">
                                     <h3>Total Garment Orders</h3>
                                     <?php $totalGarmentOrders = 0; ?>
-                                    <?php foreach($data['garmentOrder'] as $order): 
-                                     
-                                            $totalGarmentOrders++;
-                                   
-                                    endforeach; ?>
+                                    <?php if(!empty($data['garmentOrder'])): ?>
+
+                                        <?php foreach($data['garmentOrder'] as $order): 
+                                        
+                                                $totalGarmentOrders++;
+                                    
+                                        endforeach; ?>
+                                    <?php endif; ?>
+
                                     <h1><?php echo $totalGarmentOrders ?></h1>
                                 </div>
                             </div>
