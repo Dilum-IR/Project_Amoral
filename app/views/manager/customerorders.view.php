@@ -1,3 +1,8 @@
+<?php
+
+// show($data);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

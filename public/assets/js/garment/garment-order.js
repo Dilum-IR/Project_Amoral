@@ -5,18 +5,15 @@ let popupReport = document.querySelector(".popup-report");
 function openView(button) {
   // Get the data attribute value from the clicked button
   const orderData = button.getAttribute("data-order");
-  
+
   if (orderData) {
     // Parse the JSON data
     const order = JSON.parse(orderData);
-    //console.log(order);
+    console.log(order.mult_order);
 
     // Populate the "update-form" fields with the order data
     document.querySelector('.update-form input[name="order_id"]').value =
       order.order_id;
-
-    document.querySelector('.update-form input[name="material"]').value =
-    order.material_type;
 
     document.querySelector(
       '.update-form input[name="cut_dispatch_date"]'
@@ -26,20 +23,18 @@ function openView(button) {
       '.update-form input[name="sew_dispatch_date"]'
     ).value = order.sew_dispatch_date;
 
-    // document.querySelector(
-    //   '.update-form input[name="delivery_expected_on"]'
-    // ).value = "2021-09-18";
-
-    document.querySelector('.update-form input[name="status"]').value =
-      order.status;
-    document.querySelector('.update-form input[name="garment_id"]').value =
-      order.garment_id;
-
-
-    // Show the "update-form" popup
-    // document.querySelector(".popup-view").classList.add("open-popup-view");
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
+
+    // wrapper currently include all card div removing
+    var cards_wrapper = document.getElementById("cards-wrapper");
+    cards_wrapper.innerHTML="";
+
+    for (let index = 0; index < order.mult_order.length; index++) {
+
+      addMaterialCardView(order.mult_order[index]);
+
+    }
   }
 }
 
@@ -186,4 +181,77 @@ function report_send(email, title, description) {
       // return xhr;
     },
   });
+}
+
+function addMaterialCardView(order) {
+
+  // console.log(order);
+
+  var cards_wrapper = document.getElementById("cards-wrapper");
+
+  var newCard = document.createElement("div");
+  newCard.className = "all-cards";
+
+  newCard.innerHTML = `
+  <div class="user-details material">
+
+  <div class="input-box">
+
+      <span class="details">Material </span>
+      <input class="g-type" name="material" type="text" readonly value="${order.material_type}" />
+
+      <span class="details">Sleeves </span>
+      <input class="g-type" name="sleeves" type="text" readonly value="${order.type}" />
+
+      <span class="details">Printing Type </span>
+      <input class="" name="printing-type" type="text" readonly value="${order.printing_type}" />
+  </div>
+  <div>
+
+      <div class="s-q">
+
+          <div class="sizes">
+
+              <span class="details">Sizes</span>
+              <input class="size" type="text" readonly value="X-Small" />
+          </div>
+          <div class="sizes">
+
+              <span class="details">Quantity</span>
+              <input class="size" type="text" readonly value="${order.xs}" />
+
+          </div>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="Small" />
+          <input class="size" type="text" readonly  value="${order.small}"/>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="Medium" />
+          <input class="size" type="text" readonly value="${order.medium}"/>
+      </div>
+
+      <div class="s-q">
+          <input class="size" type="text" readonly value="Large" />
+          <input class="size" type="text" readonly value="${order.large}"/>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="X-Large" />
+          <input class="size" type="text" readonly value="${order.xl}"/>
+      </div>
+      <div class="s-q">
+          <input class="size" type="text" readonly value="XX-Large" />
+          <input class="size" type="text" readonly value="${order.xxl}"/>
+      </div>
+  </div>
+  <div></div>
+  
+</div>
+<hr class="dotted">
+    `;
+
+    newCard.style.transition = "all 0.5s ease-in-out";
+
+  cards_wrapper.appendChild(newCard);
+  //countv++;
 }

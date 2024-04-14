@@ -12,6 +12,11 @@ function toastApply(type, show, flag = 1) {
     icon.classList.remove("bx-error-circle");
     icon.classList.add("bx-check-circle");
     toast.style.backgroundColor = "#24b304";
+  } else if (flag === 2) {
+    icon.classList.remove("bx-error-circle");
+    icon.classList.remove("bx-check-circle");
+    icon.classList.add("bx-error");
+    toast.style.backgroundColor = "#fac500";
   } else {
     icon.classList.remove("bx-check-circle");
     icon.classList.add("bx-error-circle");
@@ -144,7 +149,6 @@ try {
 } catch (error) {
   console.error(error);
 }
-
 
 // success icon
 // <ion-icon name="checkmark-circle-outline"></ion-icon>

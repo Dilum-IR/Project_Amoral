@@ -40,14 +40,14 @@
 
             <nav class="sub-nav">
                 <a href="" class="nav-link">Garment</a>
-                <form action="#">
+                <!-- <form action="#">
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
                         <button type="submit" class="search-btn">
                             <i class='bx bx-search'></i>
                         </button>
                     </div>
-                </form>
+                </form> -->
             </nav>
 
             <div class="left-right">
@@ -118,7 +118,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Current Orders</h3>
-                                    <h1>453</h1>
+                                    <h1><?= $overview['current'] ?></h1>
 
                                 </div>
                                 <div class="progress">
@@ -140,7 +140,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Completed Orders</h3>
-                                    <h1>2500</h1>
+                                    <h1><?= $overview['completed'] ?></h1>
 
                                 </div>
                                 <div class="progress">
@@ -185,58 +185,38 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Orders</h3>
-                                <i class='bx bx-search'></i>
-                                <i class='bx bx-filter'></i>
+                                <a id="info-btn-1" class="info-btn" href="<?=ROOT?>/garment/orders">View All</a>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>User</th>
+                                        <th>Order Id</th>
+                                        <th>Description</th>
                                         <th>Date Order</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status completed">Completed</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status process">Process</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status pending">Pending</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="img/people.png">
-                                            <p>John Doe</p>
-                                        </td>
-                                        <td>01-10-2021</td>
-                                        <td><span class="status completed">Completed</span></td>
-                                    </tr>
+
+                                    <?php
+                                    if (!empty($data['recent_orders'])) {
+
+                                        // show($data);
+                                        foreach ($recent_orders as $key => $item) {
+                                    ?>
+                                            <tr>
+                                                <td>
+                                                    <!-- <img src="img/people.png"> -->
+                                                    <p><?= $item->order_id?></p>
+                                                </td>
+                                                <td><?= $item->order_id?></td>
+                                                <td>01-10-2021</td>
+                                                <td><span class="text-status <?= $item->status?>"><?= $item->status?></span></td>
+                                            </tr>
+                                    <?php
+                                        }
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -382,7 +362,7 @@
                                     </div>
                                     <div class="count">
                                         <i id="n-work-up" class='bx bx-caret-up-circle up'></i>
-                                       
+
                                         <input id="g-workers" type="number" class="input-count" value="<?= $info->no_workers ?>">
                                         <i id="n-work-down" class='bx bx-caret-down-circle down'></i>
                                     </div>
@@ -502,17 +482,17 @@
                                         try {
                                             // convet to the json type
                                             Jsondata = JSON.parse(res);
-                                           // console.log(Jsondata.u);
+                                            // console.log(Jsondata.u);
 
                                             if (Jsondata.u == "no") {
 
-                                                toastApply("Update Warning", "This information already updated...", 0);
+                                                toastApply("Update Warning", "This information already updated...", 2);
 
                                             } else if (Jsondata.u == "yes") {
                                                 toastApply("Update Success", "Company information updated...", 0);
 
                                             } else {
-                                                toastApply("Send Failed ", "Try again later...", 1);
+                                                toastApply("Update Failed", "Try again later...", 1);
 
                                             }
                                             setTimeout(() => {
@@ -521,12 +501,12 @@
                                             }, 4000);
 
                                         } catch (error) {
-                                            toastApply("Send Failed", "Try again later...", 1);
+                                            toastApply("Update Failed", "Try again later...", 1);
                                             info_btn.disabled = false;
                                         }
                                     },
                                     error: function(xhr, status, error) {
-                                        toastApply("Send Failed", "Try again later...", 1);
+                                        toastApply("Update Failed", "Try again later...", 1);
                                         info_btn.disabled = false;
                                     },
                                 });

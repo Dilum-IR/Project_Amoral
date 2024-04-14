@@ -11,7 +11,14 @@ class Overview extends Controller
 
 
             $info = $this->getInfo();
+            $overview = $this->overview();
+            $recent_orders = $this->recent_orders();
+
             $data['info'] = $info;
+            $data['overview'] = $overview;
+            $data['recent_orders'] = $recent_orders;
+
+            // show($data);
 
             $this->view('garment/overview', $data);
         } else {
@@ -43,6 +50,37 @@ class Overview extends Controller
         $garment->update($_SESSION['USER']->emp_id, $_POST, 'garment_id');
 
         echo json_encode(['u' => "yes"]);
+    }
 
+    private function recent_orders()
+    {
+        $garment = new GarmentOrder;
+
+        $rec_orders =  $garment->where(['garment_id' => $_SESSION['USER']->emp_id]);
+
+        // sort orders in descending order 
+        rsort($rec_orders);
+
+        // Extract the first 10 elements
+        $first_10_elements = array_slice($rec_orders, 0, 10);
+
+        return $first_10_elements;
+    }
+    private function overview()
+    {
+
+        $garment = new GarmentOrder;
+
+        $data['status'] = "completed";
+        $data['garment_id'] = $_SESSION['USER']->emp_id;
+
+        $completed = $garment->where($data);
+        $overview['completed'] = count($completed);
+
+        unset($data['garment_id']);
+        $current = $garment->where(['garment_id' => $_SESSION['USER']->emp_id], $data);
+        $overview['current'] = count($current);
+
+        return $overview;
     }
 }

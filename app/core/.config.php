@@ -6,7 +6,6 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('DBHOST', '');
     define('DBUSER', '');
     define('DBPASS', '');
-
     define('DBDRIVER', '');    
     define('DBNAME', 'amoral_db');
 
