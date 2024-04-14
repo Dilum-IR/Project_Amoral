@@ -10,6 +10,7 @@ function toastApply(type, show, flag = 1) {
   // change the icon type with the success time
   if (flag === 0) {
     icon.classList.remove("bx-error-circle");
+    icon.classList.remove("bx-error");
     icon.classList.add("bx-check-circle");
     toast.style.backgroundColor = "#24b304";
   } else if (flag === 2) {
@@ -19,6 +20,7 @@ function toastApply(type, show, flag = 1) {
     toast.style.backgroundColor = "#fac500";
   } else {
     icon.classList.remove("bx-check-circle");
+    icon.classList.remove("bx-error");
     icon.classList.add("bx-error-circle");
     toast.style.backgroundColor = "#a30404";
   }
@@ -144,8 +146,8 @@ try {
     }
   }
   // remove header history
-  // let currentUrl = window.location.origin + window.location.pathname;
-  // history.pushState({}, "", currentUrl);
+  let currentUrl = window.location.origin + window.location.pathname;
+  history.pushState({}, "", currentUrl);
 } catch (error) {
   console.error(error);
 }

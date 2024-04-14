@@ -42,7 +42,7 @@
   margin-left: 0%;
 }
 
-.btn{
+.btn {
   top: 35px !important;
 }
 #report-overlay {
@@ -155,41 +155,45 @@ button:disabled {
   background-color: rgba(0, 0, 0, 0.767) !important;
 }
 
-.view-g-order-btn{
-    background-color: rgba(0, 0, 0, 0.788);
-    color: white;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+.view-g-order-btn {
+  background-color: rgba(0, 0, 0, 0.788);
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: 0.5s ease-in-out;
 }
 
-.popup-view{
+.view-g-order-btn:hover {
+  transform: scale(1.05);
+}
 
-  top: calc(100vh/2);
+.popup-view {
+  top: calc(100vh / 2);
   width: max-content;
   height: 85%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: white !important;
   overflow: auto;
   padding: 10px;
   border-radius: 15px;
-  padding:  0 30px;
+  padding: 0 30px;
   padding-bottom: 30px;
-
 }
-.open-popup-view{
+.open-popup-view {
   visibility: visible !important;
   opacity: 1 !important;
   z-index: 10 !important;
   /* left: 100; */
 }
-.overlay-active{
+.overlay-active {
   opacity: 1 !important;
   z-index: 9 !important;
   visibility: visible !important;
@@ -201,19 +205,64 @@ button:disabled {
   left: 0;
 }
 
-.pb{
+.pb {
   left: 0 !important;
   align-items: center !important;
 
 }
 
-.g-popup-close{
+.g-popup-close {
   width: 50px;
   height: 50px;
   margin-right: 25px;
   align-self: flex-end;
   float: right !important;
   cursor: pointer;
+}
+
+.update-btn {
+  /* background-color: rgba(0, 0, 0, 0.788); */
+  color: rgb(0, 0, 0) !important;
+  border: black solid 1px !important;
+  padding: 5px 15px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: rgb(250, 250, 250) !important;
+  transition: 0.5s ease-in-out;
+}
+
+.update-btn:hover {
+  border: rgb(28, 167, 0) solid 1px!important;
+
+  color: rgb(255, 255, 255)!important;
+  background-color: rgb(28, 167, 0) !important;
+}
+
+.status ul li .active {
+  background-color: green !important;
+}
+
+.status ul li .change-status {
+  background-color: green !important;
+}
+
+.change-status::after {
+  background-color: green;
+}
+.g-poup-btn.hide{
+  display: none !important;
+}
+
+.update-btn:disabled {
+  color: rgb(255, 255, 255) !important;
+  border: green solid 1px!important;
+  background-color: green !important;
+  cursor: not-allowed;
 }
 /* 
 .text-status.pending {
@@ -254,30 +303,28 @@ button:disabled {
   /* padding-bottom: 20px; */
 }
 
-form .more{
+form .more {
   flex-wrap: unset !important;
 }
-form .material{
+form .material {
   /* justify-content: space-around !important; */
   align-items: center;
 }
 
-form .g-poup-btn{
- margin-top: 40px; 
+form .g-poup-btn {
+  margin-top: 40px;
 }
-.s-q{
-
+.s-q {
   display: flex;
   padding: 0 !important;
   margin: 0 !important;
   margin-bottom: 15px !important;
 
-  .sizes .details{
+  .sizes .details {
     margin-bottom: 5px;
   }
 }
 .popup-view .size {
-
   width: 110px !important;
   font-size: 15px;
 }

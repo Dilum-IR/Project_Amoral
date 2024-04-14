@@ -2,14 +2,16 @@ let popupView = document.getElementById("popup-view");
 let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 
+var order;
+
 function openView(button) {
   // Get the data attribute value from the clicked button
   const orderData = button.getAttribute("data-order");
 
   if (orderData) {
     // Parse the JSON data
-    const order = JSON.parse(orderData);
-    console.log(order.mult_order);
+    order = JSON.parse(orderData);
+    //  console.log(order.mult_order);
 
     // Populate the "update-form" fields with the order data
     document.querySelector('.update-form input[name="order_id"]').value =
@@ -26,14 +28,21 @@ function openView(button) {
     popupView.classList.add("open-popup-view");
     overlay.classList.add("overlay-active");
 
+    document.querySelector(".g-poup-btn").classList.remove("hide");
+
+    // remove button when order is compleated
+    if (order.status == "completed") {
+      document.querySelector(".g-poup-btn").classList.add("hide");
+    }
+
+    color_order_status(order.status);
+
     // wrapper currently include all card div removing
     var cards_wrapper = document.getElementById("cards-wrapper");
-    cards_wrapper.innerHTML="";
+    cards_wrapper.innerHTML = "";
 
     for (let index = 0; index < order.mult_order.length; index++) {
-
       addMaterialCardView(order.mult_order[index]);
-
     }
   }
 }
@@ -183,8 +192,237 @@ function report_send(email, title, description) {
   });
 }
 
-function addMaterialCardView(order) {
+var status_one = document.querySelector(".one");
+var status_two = document.querySelector(".two");
+var status_three = document.querySelector(".three");
+var status_four = document.querySelector(".four");
+var status_five = document.querySelector(".five");
+var status_six = document.querySelector(".six");
+var popup_status_btn = document.getElementById("popup-status-btn");
 
+function color_order_status(status) {
+  // console.log(status);
+
+  status_one.classList.remove("active");
+  status_two.classList.remove("active");
+  status_three.classList.remove("active");
+  status_four.classList.remove("active");
+  status_five.classList.remove("active");
+  status_six.classList.remove("active");
+  status_one.classList.remove("change-status");
+  status_two.classList.remove("change-status");
+  status_three.classList.remove("change-status");
+  status_four.classList.remove("change-status");
+  status_five.classList.remove("change-status");
+  status_six.classList.remove("change-status");
+
+  switch (status) {
+    case "pending":
+      status_one.classList.add("active");
+      break;
+    case "cutting":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      break;
+    case "cut":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      status_three.classList.add("active");
+      break;
+    case "sewing":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      status_three.classList.add("active");
+      status_four.classList.add("active");
+      break;
+    case "sewed":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      status_three.classList.add("active");
+      status_four.classList.add("active");
+      status_five.classList.add("active");
+      break;
+    case "completed":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      status_three.classList.add("active");
+      status_four.classList.add("active");
+      status_five.classList.add("active");
+      status_six.classList.add("active");
+      break;
+    default:
+      break;
+  }
+}
+
+var order_status = "";
+
+document.getElementById("pending").addEventListener("click", function () {
+  order_status = "pending";
+
+  if (
+    !status_one.classList.contains("change-status") &&
+    popup_status_btn.innerHTML == "Update Status"
+  ) {
+    change_color_order_status(order_status);
+    popup_status_btn.disabled = false;
+  } else if (popup_status_btn.innerHTML == "Update Status") {
+    popup_status_btn.disabled = true;
+    remove_color_order_status(order_status);
+    order_status = "";
+  }
+});
+
+document.getElementById("cutting").addEventListener("click", function () {
+  order_status = "cutting";
+
+  if (
+    !status_two.classList.contains("change-status") &&
+    popup_status_btn.innerHTML == "Update Status"
+  ) {
+    change_color_order_status(order_status);
+    popup_status_btn.disabled = false;
+  } else if (popup_status_btn.innerHTML == "Update Status") {
+    popup_status_btn.disabled = true;
+    remove_color_order_status(order_status);
+    order_status = "";
+  }
+});
+
+document.getElementById("cut").addEventListener("click", function () {
+  order_status = "cut";
+
+  if (
+    !status_three.classList.contains("change-status") &&
+    popup_status_btn.innerHTML == "Update Status"
+  ) {
+    change_color_order_status(order_status);
+    popup_status_btn.disabled = false;
+  } else if (popup_status_btn.innerHTML == "Update Status") {
+    popup_status_btn.disabled = true;
+    remove_color_order_status(order_status);
+    order_status = "";
+  }
+});
+
+document.getElementById("sewing").addEventListener("click", function () {
+  order_status = "sewing";
+
+  if (
+    !status_four.classList.contains("change-status") &&
+    popup_status_btn.innerHTML == "Update Status"
+  ) {
+    change_color_order_status(order_status);
+    popup_status_btn.disabled = false;
+  } else if (popup_status_btn.innerHTML == "Update Status") {
+    popup_status_btn.disabled = true;
+    remove_color_order_status(order_status);
+    order_status = "";
+  }
+});
+
+document.getElementById("sewed").addEventListener("click", function () {
+  order_status = "sewed";
+
+  if (
+    !status_five.classList.contains("change-status") &&
+    popup_status_btn.innerHTML == "Update Status"
+  ) {
+    change_color_order_status(order_status);
+
+    popup_status_btn.disabled = false;
+  } else if (popup_status_btn.innerHTML == "Update Status") {
+    popup_status_btn.disabled = true;
+    remove_color_order_status(order_status);
+    order_status = "";
+  }
+});
+
+document.getElementById("completed").addEventListener("click", function () {
+  order_status = "completed";
+
+  if (
+    !status_six.classList.contains("change-status") &&
+    popup_status_btn.innerHTML == "Update Status"
+  ) {
+    change_color_order_status(order_status);
+    popup_status_btn.disabled = false;
+  } else if (popup_status_btn.innerHTML == "Update Status") {
+    popup_status_btn.disabled = true;
+    remove_color_order_status(order_status);
+    order_status = "";
+  }
+});
+
+function change_order_status() {
+  console.log(order);
+
+  popup_status_btn.innerHTML =
+    "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
+
+  document.getElementById("table-status-btn").innerHTML =
+    "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
+  document.getElementById("table-status-btn").disabled = true;
+
+  popup_status_btn.disabled = true;
+  document.getElementById("popup-status-cancel-btn").disabled = true;
+
+  
+  data = {
+    garment_order_id: order.garment_order_id,
+    status: order_status,
+    garment_id: order.garment_id
+  };
+  
+  return;
+
+
+
+  $.ajax({
+    type: "POST",
+    url: endpoint,
+    data: data,
+    cache: false,
+    success: function (res) {
+      try {
+        // convet to the json type
+        Jsondata = JSON.parse(res);
+
+        if (Jsondata) {
+          toastApply("Update Success", "Order Status Updated...", 0);
+
+
+            setTimeout(function () {
+              report_overlay.style.display = "none";
+              report_overlay.style.opacity = "1";
+              popup.style.display = "none";
+              popup.style.opacity = "1";
+            }, 1000);
+
+          setTimeout(() => {
+            location.reload();
+          }, 4000);
+
+          return;
+        } else {
+          toastApply("Update Failed", "Try again later...", 1);
+          report_submit.disabled = false;
+
+          // setTimeout(() => {
+          //     location.reload();
+          // }, 4000);
+
+          return;
+        }
+      } catch (error) {}
+    },
+    error: function (xhr, status, error) {
+      // return xhr;
+    },
+  });
+}
+
+function addMaterialCardView(order) {
   // console.log(order);
 
   var cards_wrapper = document.getElementById("cards-wrapper");
@@ -250,8 +488,95 @@ function addMaterialCardView(order) {
 <hr class="dotted">
     `;
 
-    newCard.style.transition = "all 0.5s ease-in-out";
+  newCard.style.transition = "all 0.5s ease-in-out";
 
   cards_wrapper.appendChild(newCard);
   //countv++;
+}
+
+function change_color_order_status(status) {
+  // console.log(status);
+
+  status_one.classList.remove("change-status");
+  status_two.classList.remove("change-status");
+  status_three.classList.remove("change-status");
+  status_four.classList.remove("change-status");
+  status_five.classList.remove("change-status");
+  status_six.classList.remove("change-status");
+
+  switch (status) {
+    case "pending":
+      status_one.classList.add("change-status");
+      break;
+    case "cutting":
+      status_one.classList.add("change-status");
+      status_two.classList.add("change-status");
+      break;
+    case "cut":
+      status_one.classList.add("change-status");
+      status_two.classList.add("change-status");
+      status_three.classList.add("change-status");
+      break;
+    case "sewing":
+      status_one.classList.add("change-status");
+      status_two.classList.add("change-status");
+      status_three.classList.add("change-status");
+      status_four.classList.add("change-status");
+      break;
+    case "sewed":
+      status_one.classList.add("change-status");
+      status_two.classList.add("change-status");
+      status_three.classList.add("change-status");
+      status_four.classList.add("change-status");
+      status_five.classList.add("change-status");
+      break;
+    case "completed":
+      status_one.classList.add("change-status");
+      status_two.classList.add("change-status");
+      status_three.classList.add("change-status");
+      status_four.classList.add("change-status");
+      status_five.classList.add("change-status");
+      status_six.classList.add("change-status");
+      break;
+    default:
+      break;
+  }
+}
+function remove_color_order_status(status) {
+  switch (status) {
+    case "pending":
+      status_two.classList.remove("change-status");
+      status_three.classList.remove("change-status");
+      status_four.classList.remove("change-status");
+      status_five.classList.remove("change-status");
+      status_six.classList.remove("change-status");
+      break;
+    case "cutting":
+      status_two.classList.remove("change-status");
+      status_three.classList.remove("change-status");
+      status_four.classList.remove("change-status");
+      status_five.classList.remove("change-status");
+      status_six.classList.remove("change-status");
+      break;
+    case "cut":
+      status_three.classList.remove("change-status");
+      status_four.classList.remove("change-status");
+      status_five.classList.remove("change-status");
+      status_six.classList.remove("change-status");
+      break;
+    case "sewing":
+      status_four.classList.remove("change-status");
+      status_five.classList.remove("change-status");
+      status_six.classList.remove("change-status");
+      break;
+    case "sewed":
+      status_five.classList.remove("change-status");
+      status_six.classList.remove("change-status");
+      break;
+    case "completed":
+      status_six.classList.remove("change-status");
+      break;
+    default:
+      break;
+  }
 }

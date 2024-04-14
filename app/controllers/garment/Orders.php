@@ -149,9 +149,7 @@ class Orders extends Controller
             unset($result[$i]->ptype_id);
             unset($result[$i]->sleeve_id);
             unset($result[$i]->placed_date);
-            unset($result[$i]->garment_id);
             unset($result[$i]->emp_id);
-            unset($result[$i]->garment_order_id);
         }
 
         // $resultArray = array_merge($result, $new_result);
