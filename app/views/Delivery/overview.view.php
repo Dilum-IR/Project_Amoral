@@ -99,10 +99,21 @@
                         <div class="insights">
                             <div class="middle">
                                 <div class="left">
-                                    <h1>Completed Deliveries</h1>
-                                    <h1>5</h1>
-                                    <small class="text-muted">Last 24 Hours</small>
+                                    <div class="leftl">
+                                        <h1>Completed Deliveries</h1>
+                                        <?php
+                                        $count = 0;
+                                        if (!empty($data['delivered'])) {
+                                            foreach ($data['delivered'] as $order):
+                                                $count++;
 
+                                            endforeach;
+                                        }
+                                        ?>
+                                        <h1><?php echo $count ?></h1>
+                                        <small class="text-muted">Last 24 Hours</small>
+
+                                    </div>
                                 </div>
                                 <i class='bx bxs-check-circle'></i>
                                 <!-- <div class="progress">
@@ -121,7 +132,17 @@
                                     <div class="middle">
                                         <div class="left">
                                             <h1> Recent Deliveries</h1>
-                                            <h1>8</h1>
+                                            <?php
+                                            $count = 0;
+                                            if (!empty($data['delivering'])) {
+                                                foreach ($data['delivering'] as $order):
+                                                    $count++;
+
+                                                endforeach;
+                                            }
+                                            ?>
+                                            <h1><?php echo $count ?></h1>
+
 
                                         </div>
                                         <i class='bx bxs-time'></i>
@@ -205,70 +226,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- left side container -->
 
-                            <style>
-                                main .re-orders {
-                                    /* width: 250px; */
-                                    background-color: rgb(187, 184, 184) !important;
-                                    padding: 20px;
-                                    border-radius: 10px;
-                                    box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
-                                    transition: 0.5s ease-in-out;
-                                    /* border-right: 10px solid rgb(233, 229, 229); */
-                                    margin-bottom: 15px;
-
-                                }
-
-                                main .re-orders:hover {
-                                    transform: scale(1.025);
-                                }
-
-                                .middle {
-                                    width: 100%;
-                                    align-items: center;
-                                    justify-content: space-between;
-                                    display: flex;
-
-                                    .left,
-                                    .count {
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 10px;
-
-                                        .bx {
-                                            font-size: 20px;
-                                            transition: 0.5s ease-in-out;
-
-                                        }
-
-                                        .down:hover {
-                                            color: red;
-                                        }
-
-                                        .up:hover {
-                                            color: #1c7012cc;
-                                        }
-                                    }
-
-                                }
-
-                                .g-info {
-                                    font-size: 20px;
-                                }
-
-                                .input-count {
-                                    width: 100px;
-                                    height: 30px;
-                                    outline: none;
-                                    border: none;
-                                    box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
-                                    text-align: center;
-                                    border-radius: 10px;
-                                    font-weight: bold;
-                                    font-size: 20px;
-                                }
-                            </style>
                             <!-- right side container -->
                             <div class="order">
                                 <div class="head">
@@ -278,19 +236,18 @@
                                 <div class="re-orders">
                                     <div class="middle">
                                         <div class="left">
-                                            <i class='g-info bx bx-group'></i>
-                                            <h3>No. of workers</h3>
+                                            <?php foreach ($data['delivering'] as $order): ?>
+                                                <h3><i class="fa fa-user" aria-hidden="true"></i> Employee Name:</h3>
+                                                <p><?php echo htmlspecialchars($order->fullname); ?></p>
 
-                                        </div>
-                                        <div class="count">
-                                            <i class='bx bx-caret-up-circle up'></i>
-                                            <!-- <h2>453</h2> -->
-                                            <input type="number" class="input-count">
-                                            <i class='bx bx-caret-down-circle down'></i>
+                                                <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address:</h3>
+                                                <p><?php echo htmlspecialchars($order->address); ?></p>
 
-                                            <!-- <div class="number">
-                                                <p>61%</p>
-                                            </div> -->
+                                                <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone:</h3>
+                                                <p><?php echo htmlspecialchars($order->phone); ?></p>
+                                            <?php endforeach; ?>
+
+
                                         </div>
                                     </div>
                                     <!-- <small class="text-muted">Last 24 Hours</small> -->
@@ -325,6 +282,8 @@
 
 
             </div>
+
+
 
         </div>
 
@@ -377,3 +336,15 @@
 </body>
 
 </html>
+
+
+
+<!-- <div class="count">
+                    <i class='bx bx-caret-up-circle up'></i>
+                    <h2>453</h2> 
+                    <input type="number" class="input-count">
+                    <i class='bx bx-caret-down-circle down'></i> -->
+
+<!-- <div class="number">
+                        <p>61%</p>
+                    </div> -->
