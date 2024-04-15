@@ -362,6 +362,7 @@
 
     <script>
         endpoint = "<?= ROOT ?>/garment/reports";
+        change_status_endpoint = "<?= ROOT ?>/garment/update/status";
     </script>
 
     <!-- Import JQuary Library script -->

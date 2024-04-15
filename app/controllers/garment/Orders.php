@@ -20,12 +20,6 @@ class Orders extends Controller
             // show($data);
 
 
-            // update the order status  
-            if (isset($_POST['updateGorder'])) {
-
-                $this->update_order($garment_order, $_POST);
-            }
-
             // cancel the order
             if (isset($_POST['CancelGorder'])) {
 
@@ -79,8 +73,8 @@ class Orders extends Controller
             $item->id = $i;
 
             // initially included data pass to the array
-            $item->mult_order =[
-               [
+            $item->mult_order = [
+                [
                     "material_type" => $item->material_type,
                     "type" => $item->type,
                     "printing_type" => $item->printing_type,
@@ -121,18 +115,16 @@ class Orders extends Controller
                     ];
 
                     $item->mult_order = array_merge($item->mult_order, [$new_mult]);
-                    
+
                     // remove the merge data value part included object 
                     unset($result[$j]);
-
                 }
                 $j++;
             }
-            
         }
-        
+
         // remove order elements
-        for ($i=0; $i < count($result) ; $i++) { 
+        for ($i = 0; $i < count($result); $i++) {
 
             unset($result[$i]->material_type);
             unset($result[$i]->printing_type);
@@ -158,36 +150,58 @@ class Orders extends Controller
         return $result;
     }
 
-    private function update_order($garment_order, $data)
+    public function update_status()
     {
-        show($data);
+        try {
 
-        $garment_id = $data['order_id'];
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
 
-        $switch = $data['status'];
+                echo json_encode($arr);
+                exit;
+            }
 
-        switch ($switch) {
-            case 'pending':
-                $arr['status'] = 'cutting';
-                break;
-            case 'cutting':
-                $arr['status'] = 'cutting done';
-                break;
-            case 'cutting done':
-                $arr['status'] = 'sewing';
-                break;
-            case 'sewing':
-                $arr['status'] = 'sewing done';
-                break;
-            case 'sewing done':
-                $arr['status'] = 'success';
-                break;
-            default:
-                break;
-        }
-        if (isset($arr)) {
-            $update = $garment_order->update($garment_id, $arr, 'garment_id');
-            redirect('garment/orders');
+            $garment_order = new GarmentOrder;
+
+            // show($_POST);
+
+            $garment_id = $_POST['garment_order_id'];
+
+            $switch = $_POST['status'];
+
+            switch ($switch) {
+                case 'pending':
+                    $_POST['status'] = 'cutting';
+                    break;
+                case 'cutting':
+                    $_POST['status'] = 'cutting done';
+                    break;
+                case 'cutting done':
+                    $_POST['status'] = 'sewing';
+                    break;
+                case 'sewing':
+                    $_POST['status'] = 'sewing done';
+                    break;
+                case 'sewing done':
+                    $_POST['status'] = 'success';
+                    break;
+                default:
+                    break;
+            }
+
+            echo json_encode($_POST);
+
+            // if (isset($arr)) {
+            //     $update = $garment_order->update($garment_id, $arr, 'garment_id');
+            //     redirect('garment/orders');
+            // }
+
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
         }
     }
 

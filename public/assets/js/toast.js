@@ -148,6 +148,7 @@ try {
   // remove header history
   let currentUrl = window.location.origin + window.location.pathname;
   history.pushState({}, "", currentUrl);
+  
 } catch (error) {
   console.error(error);
 }

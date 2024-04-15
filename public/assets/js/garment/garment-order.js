@@ -374,17 +374,18 @@ function change_order_status() {
     garment_id: order.garment_id
   };
   
-  return;
-
-
 
   $.ajax({
     type: "POST",
-    url: endpoint,
+    url: change_status_endpoint,
     data: data,
     cache: false,
     success: function (res) {
       try {
+        
+        alert(res)
+        return;
+
         // convet to the json type
         Jsondata = JSON.parse(res);
 
