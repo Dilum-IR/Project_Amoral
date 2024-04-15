@@ -83,8 +83,8 @@
                                 <th class="ordId">Order Id</th>
                                 <th class="desc">Description</th>
                                 <th class="stth">Status</th>
-                                <th class="cost">sew dispatch date</th>
-                                <th class="cost">cut dispatch date</th>
+                                <th class="cost">Sew dispatch date</th>
+                                <th class="cost">Cut dispatch date</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -93,7 +93,7 @@
                             <?php
 
                             if (isset($data)) {
-                            
+
                                 rsort($data);
                                 foreach ($data as $item) :
                             ?>
@@ -115,14 +115,26 @@
 
                                         </td>
                                         <td class="st">
-                                            <div class="text-status <?= $item->status ?>"><?= $item->status ?></div>
+                                            <div class="text-status <?= $item->status ?>"><?= ucfirst($item->status) ?></div>
                                         </td>
                                         <td class="cost"><?= $item->sew_dispatch_date  ?></td>
                                         <td class="cost"><?= $item->cut_dispatch_date  ?></td>
 
                                         <td>
                                             <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View</button>
-                                            <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="updateStatus(this)">Update Status</button>
+
+                                            <?php
+                                            if ($item->status != "completed") {
+                                            ?>
+                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn" data-order='<?= json_encode($item); ?>' onclick="change_order_status()">Update Status</button>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <button disabled type="submit" name="selectItem" class="update-btn" data-order='<?= json_encode($item); ?>' onclick="updateStatus(this)">completed</button>
+
+                                                <?php
+                                            }
+                                            ?>
                                         </td>
                                     </tr>
                                 <?php endforeach;
@@ -191,51 +203,51 @@
         <div class="status">
 
             <ul>
-                <li>
+                <li id="pending">
                     <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
-                        <i class="uil uil-check"></i>
+                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Pending</p>
                 </li>
-                <li>
+                <li id="cutting">
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                     <div class="progress two">
 
-                        <i class="uil uil-check"></i>
+                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Cutting</p>
                 </li>
-                <li>
+                <li id="cut">
                     <iconify-icon icon="tabler:cut"></iconify-icon>
                     <div class="progress three">
 
-                        <i class="uil uil-check"></i>
+                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Cutting done</p>
                 </li>
-                <li>
+                <li id="sewing">
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                     <div class="progress four">
 
-                        <i class="uil uil-check"></i>
+                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Sewing</p>
                 </li>
-                <li>
+                <li id="sewed">
                     <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
-                    <div class="progress four">
+                    <div class="progress five">
 
-                        <i class="uil uil-check"></i>
+                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Sewing done</p>
                 </li>
-                <li>
+                <li id="completed">
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
-                    <div class="progress five">
+                    <div class="progress six">
 
-                        <i class="uil uil-check"></i>
+                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Completed</p>
                 </li>
@@ -338,12 +350,9 @@
                 </div>
 
                 <div class="g-poup-btn">
-                    <input type="submit" class="update-btn pb" name="updateGorder" value="Update Status" />
-                    <button type="submit" onclick="" class="cancel-btn pb" name="CancelGorder">Cancel Order</button>
+                    <button type="button" disabled class="update-btn pb" id="popup-status-btn" name="updateGorder" onclick="change_order_status()">Update Status</button>
+                    <button type="button" onclick="" class="cancel-btn pb" id="popup-status-cancel-btn" name="CancelGorder">Cancel Order</button>
                 </div>
-
-
-
 
             </form>
         </div>
@@ -353,6 +362,7 @@
 
     <script>
         endpoint = "<?= ROOT ?>/garment/reports";
+        change_status_endpoint = "<?= ROOT ?>/garment/update/status";
     </script>
 
     <!-- Import JQuary Library script -->

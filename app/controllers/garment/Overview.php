@@ -74,12 +74,24 @@ class Overview extends Controller
         $data['status'] = "completed";
         $data['garment_id'] = $_SESSION['USER']->emp_id;
 
+        $completed = array();
         $completed = $garment->where($data);
-        $overview['completed'] = count($completed);
+
+        if ($completed != false)
+
+            $overview['completed'] = count($completed);
+        else
+            $overview['completed'] = 0;
+
 
         unset($data['garment_id']);
         $current = $garment->where(['garment_id' => $_SESSION['USER']->emp_id], $data);
-        $overview['current'] = count($current);
+
+        if ($current != false)
+
+            $overview['current'] = count($current);
+        else
+            $overview['current'] = 0;
 
         return $overview;
     }
