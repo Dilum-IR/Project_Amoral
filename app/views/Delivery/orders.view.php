@@ -129,40 +129,6 @@
                     </tbody>
                     </thead>
 
-
-
-
-
-
-
-                    <!-- <?php
-                    if (isset($data)) {
-                        // show($data);
-                        $sn = 1;
-                        foreach ($data as $item) {
-                            if ($item->order_status == 'Package_OnWay') {
-                                // echo $item->order_status;
-                    
-                                ?>
-                    <tr>
-                        <td><?php echo $sn++ ?></td>
-                        <td class="ordId"><?php echo $item->order_id ?></td>
-                        <td class="Name">thiran</td>
-                        <td class="Distric"><?php echo $item->district ?></td>
-                        <td class="stth"><?php echo $item->order_status ?></td>
-                        <!-- <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td> -->
-                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                        Order</button></td>
-                                </tr>
-
-
-                                <?php
-                            }
-                        }
-                    }
-
-                    ?> -->
-
                 </table>
 
             </div>
@@ -187,7 +153,7 @@
     </div>
 
     <!-- POPUP -->
-    <div class="popup-report">
+    <!-- <div class="popup-report">
         <div class="popup-content">
             <span class="close">&times;</span>
             <h2>Report Your Problem</h2>
@@ -207,13 +173,13 @@
 
             </form>
         </div>
-    </div>
+    </div> -->
 
     <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-        <h2>Order Details</h2>
-        <div class="status">
+        <h1>Order Details</h1>
+        <!-- <div class="status">
             <ul>
                 <li>
                     <iconify-icon
@@ -245,13 +211,13 @@
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
                     <div class="progress four">
 
-                        <!-- <i class="uil uil-check"></i> -->
+                         <i class="uil uil-check"></i> 
                     </div>
                     <p class="text">Package Delivered</p>
                 </li>
 
             </ul>
-        </div>
+        </div> -->
 
         <div class="detail_content">
             <div class="container1">
@@ -331,18 +297,17 @@
                     }
                 </script>
                 <script async defer async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOcXiDrg33I05PSyg0fsqqkqbXn0KPJjU&callback=initMap"></script>
-                 <div id="map">
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
+                <div id="map">
                 </div>
             </div>
-
         </div>
+    
+    <div class="btns">
+        <button type="button" class="ok-btn">OK</button>
+        <button type="button" class="update-btn">Update Order</button>
+    </div>
 
-        <div class="btns">
-            <button type="submit" class="update-btn">Update Order</button>
-            <button type="button" class="ok-btn" onclick="closeView()">OK</button>
-
-        </div>
     </div>
 
 
