@@ -18,12 +18,12 @@ body {
 #main {
   /* margin-left: 100px; */
   position: absolute;
-  top: 78px;
+  top: 64px;
   left: 78px;
   height: 100%;
   transition: all 0.5s ease;
   z-index: 1;
-  /* margin-left: 5px; */
+  margin-top: 10px;
   width: calc(100% - 78px);
   scroll-behavior: smooth;
   /* overflow-x: hidden; */
@@ -31,6 +31,18 @@ body {
 #main.open {
     width: calc(100% - 250px);
     left: 250px;
+  }
+
+  .success-msg {
+    width: 100%;
+    display: none;
+    background: rgb(42, 193, 42);
+    padding: 7px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 3;
+    position: fixed;
+    transition: all 0.5s ease-in-out;
   }
   
   .content {

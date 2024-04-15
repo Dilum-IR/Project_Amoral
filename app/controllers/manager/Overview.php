@@ -37,13 +37,7 @@ class Overview extends Controller
             // show($data['materialPrintingType']);
             $this->view('manager/overview', $data);
             
-            if(isset($_POST['addMaterial'])){
-                // show($_POST);
-                unset($_POST['addMaterial']);
-                $materialStock->insert($_POST);
-                unset($_POST);
-                redirect('manager/overview');
-            }
+
 
             if(isset($_POST['updateMaterial'])){
                 // show($_POST);
@@ -144,5 +138,26 @@ class Overview extends Controller
         }else{
             redirect('home');
         }
+    }
+
+    public function addMaterial(){
+        $materialStock = new MaterialStock;
+
+        $response = []; 
+        if(isset($_POST)){
+            // show($_POST);
+            // unset($_POST['addMaterial']);
+            $same_material = $materialStock->where(['material_type' => $_POST['material_type']]);
+            if(!empty($same_material)){
+                $response = 'Material already exists';
+            }else{ 
+                $materialStock->insert($_POST);
+                unset($_POST);
+                // redirect('manager/overview');
+            }
+            unset($_POST);
+            // redirect('manager/overview');
+        }
+        echo json_encode($response);
     }
 }
