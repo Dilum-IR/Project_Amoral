@@ -117,15 +117,16 @@ let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
 let datesView = document.querySelectorAll('.popup-view input[type="date"]');
 
 let today = new Date();
-let todayStr = today.toISOString().split('T')[0];
-let fiveDaysLater = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6).toISOString().split('T')[0];
+// let todayStr = today.toISOString().split('T')[0];
+let threeDaysLater = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 4).toISOString().split('T')[0];
+// let fiveDaysLater = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6).toISOString().split('T')[0];
 
 datesNew.forEach(date => {
-    date.setAttribute('min', todayStr);
+    date.setAttribute('min', threeDaysLater);
 });
 
 datesView.forEach(date => {
-    date.setAttribute('min', fiveDaysLater);
+    date.setAttribute('min', threeDaysLater);
 });
 
 
