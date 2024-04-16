@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Sidebar -->
@@ -182,9 +183,85 @@
 
                                     <!-- <div id="map" style="height:400px; width:100%;"></div> -->
 
-
-
                                     <script>
+                                        let map, userMarker, directionsService, directionsRenderer;
+
+                                        function initMap() {
+                                            directionsService = new google.maps.DirectionsService();
+                                            directionsRenderer = new google.maps.DirectionsRenderer();
+                                            map = new google.maps.Map(document.getElementById("map"), {
+                                                zoom: 7.7,
+                                                center: { lat: 7.8731, lng: 80.7718 }
+                                            });
+                                            directionsRenderer.setMap(map);
+
+                                            // Predefined locations
+                                            addMarker({ lat: 6.927079, lng: 79.861244 });
+                                            addMarker({ lat: 7.291418, lng: 80.636696 });
+                                            addMarker({ lat: 5.9496, lng: 80.5469 });
+
+                                            // Track user's live location
+                                            if (navigator.geolocation) {
+                                                navigator.geolocation.watchPosition(position => {
+                                                    const pos = {
+                                                        lat: position.coords.latitude,
+                                                        lng: position.coords.longitude
+                                                    };
+                                                    if (userMarker) {
+                                                        userMarker.setPosition(pos);
+                                                    } else {
+                                                        userMarker = new google.maps.Marker({
+                                                            position: pos,
+                                                            map: map,
+                                                            icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                                                        });
+                                                    }
+                                                    map.setCenter(pos);
+                                                }, () => {
+                                                    handleLocationError(true, map.getCenter());
+                                                });
+                                            } else {
+                                                // Browser doesn't support Geolocation
+                                                handleLocationError(false, map.getCenter());
+                                            }
+                                        }
+
+                                        function addMarker(coords) {
+                                            const marker = new google.maps.Marker({
+                                                position: coords,
+                                                map: map,
+                                                icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                                            });
+                                            marker.addListener('click', () => {
+                                                calculateAndDisplayRoute(directionsService, directionsRenderer, marker.getPosition());
+                                            });
+                                        }
+
+                                        function calculateAndDisplayRoute(directionsService, directionsRenderer, destination) {
+                                            if (userMarker) {
+                                                directionsService.route({
+                                                    origin: userMarker.getPosition(),
+                                                    destination: destination,
+                                                    travelMode: google.maps.TravelMode.DRIVING
+                                                }, (response, status) => {
+                                                    if (status === google.maps.DirectionsStatus.OK) {
+                                                        directionsRenderer.setDirections(response);
+                                                    } else {
+                                                        window.alert('Directions request failed due to ' + status);
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                        function handleLocationError(browserHasGeolocation, pos) {
+                                            alert(browserHasGeolocation ?
+                                                'Error: The Geolocation service failed.' :
+                                                'Error: Your browser doesn\'t support geolocation.');
+                                            map.setCenter(pos);
+                                        }
+                                    </script>
+
+                                    <!-- <script>
                                         function initMap() {
                                             var location = { lat: 7.873054, lng: 80.771797 }
                                             var map = new google.maps.Map(document.getElementById("map"), {
@@ -219,7 +296,7 @@
 
 
                                         }
-                                    </script>
+                                    </script> -->
                                     <script async defer async defer
                                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
                                     <div id="map">
@@ -227,51 +304,35 @@
                                 </div>
                             </div>
 
+
                             <!-- right side container -->
-                            <div class="order">
+                            <div class="right">
                                 <div class="head">
                                     <h2>Recent Orders</h2>
                                 </div>
 
-                                <div class="re-orders">
-                                    <div class="middle">
-                                        <div class="left">
-                                            <?php foreach ($data['delivering'] as $order): ?>
-                                                <h3><i class="fa fa-user" aria-hidden="true"></i> Employee Name:</h3>
-                                                <p><?php echo htmlspecialchars($order->fullname); ?></p>
+                                <?php foreach ($data['delivering'] as $order): ?>
+                                    <div class="order">
+                                        <div class="re-orders">
+                                            <div class="middle">
+                                                <div class="left">
+                                                    <h3><i class="fa fa-user" aria-hidden="true"></i> Employee Name:</h3>
+                                                    <p><?php echo htmlspecialchars($order->fullname); ?></p>
 
-                                                <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address:</h3>
-                                                <p><?php echo htmlspecialchars($order->address); ?></p>
+                                                    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address:</h3>
+                                                    <p><?php echo htmlspecialchars($order->address); ?></p>
 
-                                                <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone:</h3>
-                                                <p><?php echo htmlspecialchars($order->phone); ?></p>
-                                            <?php endforeach; ?>
+                                                    <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone:</h3>
+                                                    <p><?php echo htmlspecialchars($order->phone); ?></p>
 
 
+                                                </div>
+                                            </div>
+                                            <!-- <small class="text-muted">Last 24 Hours</small> -->
                                         </div>
-                                    </div>
-                                    <!-- <small class="text-muted">Last 24 Hours</small> -->
+                                    <?php endforeach; ?>
                                 </div>
-                                <div class="re-orders">
-                                    <div class="middle">
-                                        <div class="left">
-                                            <i class='g-info bx bx-group'></i>
-                                            <h3>No. of workers</h3>
 
-                                        </div>
-                                        <div class="count">
-                                            <i class='bx bx-caret-up-circle up'></i>
-                                            <!-- <h2>453</h2> -->
-                                            <input type="number" class="input-count">
-                                            <i class='bx bx-caret-down-circle down'></i>
-
-                                            <!-- <div class="number">
-                                                <p>61%</p>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                    <!-- <small class="text-muted">Last 24 Hours</small> -->
-                                </div>
                             </div>
 
                         </div>
