@@ -51,11 +51,11 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="<?=ROOT?>/garment/overview">Home</a>
                 </li>
                 <i class='bx bx-chevron-right'></i>
                 <li>
-                    <a href="#" class="active">Garment Orders</a>
+                    <a href="<?=ROOT?>/garment/orders" class="active">Garment Orders</a>
                 </li>
 
             </ul>
@@ -126,13 +126,13 @@
                                             <?php
                                             if ($item->status != "completed") {
                                             ?>
-                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn" data-order='<?= json_encode($item); ?>' onclick="change_order_status()">Update Status</button>
-                                                <?php
-                                            }else{
-                                                ?>
+                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn" data-order='<?= json_encode($item); ?>' onclick="change_order_status(this,'table btn')">Update Status</button>
+                                            <?php
+                                            } else {
+                                            ?>
                                                 <button disabled type="submit" name="selectItem" class="update-btn" data-order='<?= json_encode($item); ?>' onclick="updateStatus(this)">completed</button>
 
-                                                <?php
+                                            <?php
                                             }
                                             ?>
                                         </td>
@@ -199,7 +199,14 @@
     <div class="popup-view" id="popup-view">
 
 
-        <h2>Order Details<span class="g-popup-close" onclick="closeView()">&times;</span></h2>
+        <div class="popup-header">
+            <h2>Order Details</h2>
+            <button onclick="closeView()">
+
+                <i class='g-popup-close bx bx-x bx-flashing-hover bx-md' ></i>
+            </button>
+        </div>
+
         <div class="status">
 
             <ul>
@@ -226,6 +233,14 @@
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Cutting done</p>
+                </li>
+                <li id="company-process">
+                    <iconify-icon icon="mdi:company"></iconify-icon>
+                    <div class="progress middle">
+
+                        <!-- <i class="uil uil-check"></i> -->
+                    </div>
+                    <p class="text middle-text">Company process</p>
                 </li>
                 <li id="sewing">
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>

@@ -195,6 +195,9 @@ function report_send(email, title, description) {
 var status_one = document.querySelector(".one");
 var status_two = document.querySelector(".two");
 var status_three = document.querySelector(".three");
+
+var status_middle = document.querySelector(".middle");
+
 var status_four = document.querySelector(".four");
 var status_five = document.querySelector(".five");
 var status_six = document.querySelector(".six");
@@ -206,6 +209,9 @@ function color_order_status(status) {
   status_one.classList.remove("active");
   status_two.classList.remove("active");
   status_three.classList.remove("active");
+
+  status_middle.classList.remove("active");
+
   status_four.classList.remove("active");
   status_five.classList.remove("active");
   status_six.classList.remove("active");
@@ -220,20 +226,42 @@ function color_order_status(status) {
     case "pending":
       status_one.classList.add("active");
       break;
+
     case "cutting":
       status_one.classList.add("active");
       status_two.classList.add("active");
       break;
+
     case "cut":
       status_one.classList.add("active");
       status_two.classList.add("active");
       status_three.classList.add("active");
       break;
+
+    // middle process
+    case "company-process":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      status_three.classList.add("active");
+      status_middle.classList.add("active");
+      // document.querySelector('.middle-text').innerHTML = "Company process end";
+      break;
+    case "company-process-end":
+      status_one.classList.add("active");
+      status_two.classList.add("active");
+      status_three.classList.add("active");
+      status_middle.classList.add("active");
+      // document.querySelector('.middle-text').innerHTML = "Company process end";
+      break;
+
     case "sewing":
       status_one.classList.add("active");
       status_two.classList.add("active");
       status_three.classList.add("active");
       status_four.classList.add("active");
+      status_middle.classList.add("active");
+      document.querySelector('.middle-text').innerHTML = "Company process end";
+
       break;
     case "sewed":
       status_one.classList.add("active");
@@ -241,6 +269,9 @@ function color_order_status(status) {
       status_three.classList.add("active");
       status_four.classList.add("active");
       status_five.classList.add("active");
+      status_middle.classList.add("active");
+      document.querySelector('.middle-text').innerHTML = "Company process end";
+
       break;
     case "completed":
       status_one.classList.add("active");
@@ -249,6 +280,9 @@ function color_order_status(status) {
       status_four.classList.add("active");
       status_five.classList.add("active");
       status_six.classList.add("active");
+      status_middle.classList.add("active");
+      document.querySelector('.middle-text').innerHTML = "Company process end";
+
       break;
     default:
       break;
@@ -310,7 +344,8 @@ document.getElementById("sewing").addEventListener("click", function () {
 
   if (
     !status_four.classList.contains("change-status") &&
-    popup_status_btn.innerHTML == "Update Status"
+    popup_status_btn.innerHTML == "Update Status" && 
+    (order.status == "company-process-end" )
   ) {
     change_color_order_status(order_status);
     popup_status_btn.disabled = false;
@@ -326,7 +361,8 @@ document.getElementById("sewed").addEventListener("click", function () {
 
   if (
     !status_five.classList.contains("change-status") &&
-    popup_status_btn.innerHTML == "Update Status"
+    popup_status_btn.innerHTML == "Update Status" &&
+   ( order.status == "company-process-end" || order.status == "sewing")
   ) {
     change_color_order_status(order_status);
 
@@ -343,7 +379,8 @@ document.getElementById("completed").addEventListener("click", function () {
 
   if (
     !status_six.classList.contains("change-status") &&
-    popup_status_btn.innerHTML == "Update Status"
+    popup_status_btn.innerHTML == "Update Status" &&
+    ( order.status == "company-process-end" || order.status == "sewing" || order.status == "sewed" )
   ) {
     change_color_order_status(order_status);
     popup_status_btn.disabled = false;
@@ -354,8 +391,43 @@ document.getElementById("completed").addEventListener("click", function () {
   }
 });
 
-function change_order_status() {
-  console.log(order);
+function change_order_status(button = "", tap = "popup") {
+  // console.log(order);
+
+  if (tap == "table btn") {
+    order_status = "";
+
+    // Get the data attribute value from the clicked button
+    const orderData = button.getAttribute("data-order");
+
+    if (orderData) {
+      // Parse the JSON data
+      order = JSON.parse(orderData);
+
+      switch (order.status) {
+        case "pending":
+          order_status = "cutting";
+          break;
+        case "cutting":
+          order_status = "cut";
+          break;
+        // case "cut":
+        //   order_status = "sewing";
+        //   break;
+        case "company-process-end":
+          order_status = "sewing";
+          break;
+        case "sewing":
+          order_status = "sewed";
+          break;
+        case "sewed":
+          order_status = "success";
+          break;
+        default:
+          break;
+      }
+    }
+  }
 
   popup_status_btn.innerHTML =
     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
@@ -367,13 +439,12 @@ function change_order_status() {
   popup_status_btn.disabled = true;
   document.getElementById("popup-status-cancel-btn").disabled = true;
 
-  
   data = {
     garment_order_id: order.garment_order_id,
     status: order_status,
-    garment_id: order.garment_id
+    garment_id: order.garment_id,
+    order_id: order.order_id,
   };
-  
 
   $.ajax({
     type: "POST",
@@ -382,43 +453,46 @@ function change_order_status() {
     cache: false,
     success: function (res) {
       try {
-        
-        alert(res)
-        return;
-
         // convet to the json type
         Jsondata = JSON.parse(res);
 
-        if (Jsondata) {
-          toastApply("Update Success", "Order Status Updated...", 0);
-
-
-            setTimeout(function () {
-              report_overlay.style.display = "none";
-              report_overlay.style.opacity = "1";
-              popup.style.display = "none";
-              popup.style.opacity = "1";
-            }, 1000);
+        if (Jsondata.user) {
+          toastApply(
+            "Update Success",
+            `${order.order_id} Order Status Updated...`,
+            0
+          );
 
           setTimeout(() => {
+            document.getElementById("table-status-btn").innerHTML =
+              "Update Status";
             location.reload();
           }, 4000);
+          popup_status_btn.innerHTML = "Update Status";
 
           return;
         } else {
+          popup_status_btn.innerHTML = "Update Status";
+          document.getElementById("table-status-btn").innerHTML =
+            "Update Status";
+
           toastApply("Update Failed", "Try again later...", 1);
-          report_submit.disabled = false;
-
-          // setTimeout(() => {
-          //     location.reload();
-          // }, 4000);
-
           return;
         }
-      } catch (error) {}
+      } catch (error) {
+        popup_status_btn.innerHTML = "Update Status";
+        document.getElementById("table-status-btn").innerHTML = "Update Status";
+
+        toastApply("Update Failed", "Try again later...", 1);
+        return;
+      }
     },
     error: function (xhr, status, error) {
-      // return xhr;
+      popup_status_btn.innerHTML = "Update Status";
+      document.getElementById("table-status-btn").innerHTML = "Update Status";
+
+      toastApply("Update Failed", "Try again later...", 1);
+      return;
     },
   });
 }
@@ -481,6 +555,10 @@ function addMaterialCardView(order) {
       <div class="s-q">
           <input class="size" type="text" readonly value="XX-Large" />
           <input class="size" type="text" readonly value="${order.xxl}"/>
+      </div>
+      <div class="s-q">
+          <input class="size qty-total" type="text" readonly value="Total : " />
+          <input class="size qty-total" type="text" readonly value="${order.qty}"/>
       </div>
   </div>
   <div></div>
