@@ -116,38 +116,52 @@ class Orders extends Controller
 
                     $item->mult_order = array_merge($item->mult_order, [$new_mult]);
 
-                    // remove the merge data value part included object 
-                    unset($result[$j]);
                 }
                 $j++;
             }
         }
 
+        $new_result = [];
+        $id_array = [];
+
+        foreach($result as $item) {
+
+            if (!in_array( $item->order_id,$id_array)) {
+
+                array_push($id_array, $item->order_id);
+                array_push($new_result, $item);
+            }
+        }
+
+        // show($id_array);
+
+
         // remove order elements
         for ($i = 0; $i < count($result); $i++) {
 
-            unset($result[$i]->material_type);
-            unset($result[$i]->printing_type);
-            unset($result[$i]->type);
-            unset($result[$i]->xs);
-            unset($result[$i]->small);
-            unset($result[$i]->medium);
-            unset($result[$i]->large);
-            unset($result[$i]->xl);
-            unset($result[$i]->xxl);
-            unset($result[$i]->qty);
-            unset($result[$i]->unit_price);
-            unset($result[$i]->material_id);
-            unset($result[$i]->ptype_id);
-            unset($result[$i]->sleeve_id);
-            unset($result[$i]->placed_date);
-            unset($result[$i]->emp_id);
+            unset($new_result[$i]->material_type);
+            unset($new_result[$i]->printing_type);
+            unset($new_result[$i]->type);
+            unset($new_result[$i]->xs);
+            unset($new_result[$i]->small);
+            unset($new_result[$i]->medium);
+            unset($new_result[$i]->large);
+            unset($new_result[$i]->xl);
+            unset($new_result[$i]->xxl);
+            unset($new_result[$i]->qty);
+            unset($new_result[$i]->unit_price);
+            unset($new_result[$i]->material_id);
+            unset($new_result[$i]->ptype_id);
+            unset($new_result[$i]->sleeve_id);
+            unset($new_result[$i]->placed_date);
+            unset($new_result[$i]->emp_id);
         }
 
         // $resultArray = array_merge($result, $new_result);
 
-        // show($result);
-        return $result;
+        // show($new_result);
+
+        return $new_result;
     }
 
     public function update_status()
@@ -163,40 +177,45 @@ class Orders extends Controller
             }
 
             $garment_order = new GarmentOrder;
+            $order = new Order;
 
             // show($_POST);
 
             $garment_id = $_POST['garment_order_id'];
+            $order_id = $_POST['order_id'];
+
+            unset($_POST['garment_id']);
+            unset($_POST['garment_order_id']);
+            unset($_POST['order_id']);
 
             $switch = $_POST['status'];
+            $arr['order_status'] = $_POST['status'];
 
             switch ($switch) {
                 case 'pending':
-                    $_POST['status'] = 'cutting';
                     break;
                 case 'cutting':
-                    $_POST['status'] = 'cutting done';
                     break;
-                case 'cutting done':
-                    $_POST['status'] = 'sewing';
+                case 'cut':
+                    $order->update($order_id, $arr, 'order_id');
+                    $_POST['status'] = "";
                     break;
                 case 'sewing':
-                    $_POST['status'] = 'sewing done';
+                    $order->update($order_id, $arr, 'order_id');
                     break;
-                case 'sewing done':
-                    $_POST['status'] = 'success';
+                case 'sewed':
+                    $order->update($order_id, $arr, 'order_id');
                     break;
                 default:
                     break;
             }
 
-            echo json_encode($_POST);
 
-            // if (isset($arr)) {
-            //     $update = $garment_order->update($garment_id, $arr, 'garment_id');
-            //     redirect('garment/orders');
-            // }
+            // status update
+            $garment_order->update($garment_id, $_POST, 'garment_order_id');
 
+            $arr['user'] = true;
+            echo json_encode($arr);
         } catch (\Throwable $th) {
             $arr['user'] = false;
 
