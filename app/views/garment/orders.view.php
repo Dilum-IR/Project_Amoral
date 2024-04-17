@@ -51,11 +51,11 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="<?=ROOT?>/garment/overview">Home</a>
+                    <a href="<?= ROOT ?>/garment/overview">Home</a>
                 </li>
                 <i class='bx bx-chevron-right'></i>
                 <li>
-                    <a href="<?=ROOT?>/garment/orders" class="active">Garment Orders</a>
+                    <a href="<?= ROOT ?>/garment/orders" class="active">Garment Orders</a>
                 </li>
 
             </ul>
@@ -124,9 +124,14 @@
                                             <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View</button>
 
                                             <?php
-                                            if ($item->status != "completed") {
+                                            if ($item->status != "completed" &&  $item->status != "sent to company" &&  $item->status != "company process") {
                                             ?>
                                                 <button type="submit" name="selectItem" class="update-btn" id="table-status-btn" data-order='<?= json_encode($item); ?>' onclick="change_order_status(this,'table btn')">Update Status</button>
+                                            <?php
+                                            } else if ($item->status != "sent to company" ||  $item->status != "company process") {
+                                            ?>
+                                                <button disabled type="submit" name="selectItem" class="update-btn" id="table-status-btn">Company Process</button>
+
                                             <?php
                                             } else {
                                             ?>
@@ -203,7 +208,7 @@
             <h2>Order Details</h2>
             <button onclick="closeView()">
 
-                <i class='g-popup-close bx bx-x bx-flashing-hover bx-md' ></i>
+                <i class='g-popup-close bx bx-x bx-flashing-hover bx-md'></i>
             </button>
         </div>
 
@@ -240,7 +245,7 @@
 
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
-                    <p class="text middle-text">Company process</p>
+                    <p class="text middle-text">Sent to company</p>
                 </li>
                 <li id="sewing">
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>

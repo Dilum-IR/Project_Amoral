@@ -198,13 +198,32 @@ class Orders extends Controller
                     break;
                 case 'cut':
                     $order->update($order_id, $arr, 'order_id');
-                    $_POST['status'] = "";
+                    // $_POST['status'] = "";
+                    break;
+                case 'sent to company':
+                    // $order->update($order_id, $arr, 'order_id');
+                    // $_POST['status'] = "";
+                    break;
+                case 'company process':
+                    // $order->update($order_id, $arr, 'order_id');
+                    // $_POST['status'] = "";
+                    break;
+                case 'sent to garment':
+                    // $order->update($order_id, $arr, 'order_id');
+                    // $_POST['status'] = "";
+                    break;
+                case 'returned':
+                    // $order->update($order_id, $arr, 'order_id');
+                    // $_POST['status'] = "";
                     break;
                 case 'sewing':
                     $order->update($order_id, $arr, 'order_id');
                     break;
                 case 'sewed':
                     $order->update($order_id, $arr, 'order_id');
+                    break;
+                case 'completed':
+                    // $order->update($order_id, $arr, 'order_id');
                     break;
                 default:
                     break;
