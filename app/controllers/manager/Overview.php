@@ -37,104 +37,6 @@ class Overview extends Controller
             // show($data['materialPrintingType']);
             $this->view('manager/overview', $data);
             
-
-
-            if(isset($_POST['updateMaterial'])){
-                // show($_POST);
-                unset($_POST['updateMaterial']);
-                $materialStock->update($_POST['stock_id'], $_POST, 'stock_id');
-                unset($_POST);
-                redirect('manager/overview');
-            }
-
-            if(isset($_POST['deleteMaterial'])){
-                // show($_POST);
-                unset($_POST['deleteMaterial']);
-                $materialStock->delete($_POST['stock_id'], 'stock_id');
-                unset($_POST);
-                $data['deleteMaterial'] = 'true';
-                redirect('manager/overview', $data);
-            }
-
-            if(isset($_POST['addPrintingType'])){
-                // show($_POST);
-                unset($_POST['addPrintingType']);
-                $printingType->insert(['printing_type' => $_POST['printing_type'], 'price' => $_POST['price']]);
-                $pType_data = $printingType->where(['printing_type' => $_POST['printing_type']]);
-                $checkedMaterials = $_POST['PtypeMaterials'];
-
-                $materialTypes = [];
-                $stockIds = [];
-
-                foreach($checkedMaterials as $material){
-                    list($materialType, $stockId) = explode(',', $material);
-                    $materialTypes[] = $materialType;
-                    $stockIds[] = $stockId;
-                }
-
-                var_dump($pType_data[0]->ptype_id); // print the ptype_id
-
-                foreach($stockIds as $stockId){
-                    $result = $materialPrintingType->insert(['ptype_id' => $pType_data[0]->ptype_id, 'stock_id' => $stockId]);
-                    var_dump($result); // print the result of the insert method
-                }
-                unset($_POST);
-                redirect('manager/overview');
-            }
-
-            if(isset($_POST['updatePrintingType'])){
-                // show($_POST);
-                unset($_POST['updatePrintingType']);
-                $printingType->update($_POST['ptype_id'], ['printing_type' => $_POST['printing_type'], 'price' => $_POST['price']], 'ptype_id');
-                // $pType_data = $printingType->where(['printing_type' => $_POST['printing_type']]);
-                $checkedMaterials = $_POST['PtypeMaterials'];
-
-                $materialTypes = [];
-                $stockIds = [];
-
-                foreach($checkedMaterials as $material){
-                    list($materialType, $stockId) = explode(',', $material);
-                    $materialTypes[] = $materialType;
-                    $stockIds[] = $stockId;
-                }
-                // Get all current associations for the printing type
-                $currentAssociations = $materialPrintingType->where(['ptype_id' => $_POST['ptype_id']]);
-
-                foreach($stockIds as $stockId){
-                    // Check if an association for the checked material already exists
-                    $existingAssociation = array_filter($currentAssociations, function($association) use ($stockId) {
-                        return $association->stock_id == $stockId;
-                    });
-
-                    // If an association already exists, skip to the next iteration
-                    if(!empty($existingAssociation)){
-                        continue;
-                    }
-
-                    // Add the new association
-                    $materialPrintingType->insert(['ptype_id' => $_POST['ptype_id'], 'stock_id' => $stockId]);
-                }
-
-                // Remove any associations that are no longer checked
-                foreach($currentAssociations as $association){
-                    if(!in_array($association->stock_id, $stockIds)){
-                        // This association was unchecked, so remove it
-                        $materialPrintingType->delete($association->mp_id, 'mp_id');
-                    }
-                }
-
-                unset($_POST);
-                redirect('manager/overview');
-            }
-
-            if(isset($_POST['deletePType'])){
-                unset($_POST['deletePType']);
-                $printingType->delete($_POST['ptype_id'], 'ptype_id');
-                unset($_POST);
-                $data['deletePType'] = 'true';
-                redirect('manager/overview', $data);
-            }
-            
         }else{
             redirect('home');
         }
@@ -151,13 +53,155 @@ class Overview extends Controller
             if(!empty($same_material)){
                 $response = 'Material already exists';
             }else{ 
-                $materialStock->insert($_POST);
-                unset($_POST);
+                $response = $materialStock->insert($_POST);
+
+                // unset($_POST);
                 // redirect('manager/overview');
             }
             unset($_POST);
             // redirect('manager/overview');
         }
+        echo json_encode($response);
+    }
+
+    public function deleteMaterial(){
+        $materialStock = new MaterialStock;
+
+        $response = [];
+        if(isset($_POST)){
+            // show($_POST);
+            // unset($_POST['deleteMaterial']);
+            $response = $materialStock->delete($_POST['stock_id'], 'stock_id');
+            unset($_POST);
+            // redirect('manager/overview');
+        }
+        echo json_encode($response);
+    }
+
+    public function updateMaterial(){
+        $materialStock = new MaterialStock;
+
+        $response = [];
+        if(isset($_POST)){
+            // show($_POST);
+            // unset($_POST['updateMaterial']);
+            $response = $materialStock->update($_POST['stock_id'], $_POST, 'stock_id');
+            unset($_POST);
+            // redirect('manager/overview');
+        }
+        echo json_encode($response);	
+    }
+
+    public function addPrintingType(){
+        $printingType = new PrintingType;
+        $materialPrintingType = new MaterialPrintingType;
+
+        $response = [];
+
+        if(isset($_POST)){
+            // show($_POST);
+            // unset($_POST['addPrintingType']);
+            $same_pType = $printingType->where(['printing_type' => $_POST['printing_type']]);
+            if(!empty($same_pType)){
+                $response = 'Printing type already exists';
+            }else{
+
+                $result = $printingType->insert(['printing_type' => $_POST['printing_type'], 'price' => $_POST['price']]);
+                $pType_data = $printingType->where(['printing_type' => $_POST['printing_type']]);
+                $checkedMaterials = $_POST['PtypeMaterials'];
+
+                $materialTypes = [];
+                $stockIds = [];
+
+                foreach($checkedMaterials as $material){
+                    list($materialType, $stockId) = explode(',', $material);
+                    $materialTypes[] = $materialType;
+                    $stockIds[] = $stockId;
+                }
+
+                // var_dump($pType_data[0]->ptype_id); // print the ptype_id
+
+                if($result == false){
+                    foreach($stockIds as $stockId){
+                    $response = $materialPrintingType->insert(['ptype_id' => $pType_data[0]->ptype_id, 'stock_id' => $stockId]);
+                    // var_dump($result); // print the result of the insert method
+                    }
+                }
+            }
+            unset($_POST);
+
+            echo json_encode($response);
+
+            // redirect('manager/overview');
+        }
+
+    }
+
+    public function deletePrintingType(){
+        $printingType = new PrintingType;
+
+        $response = [];
+        if(isset($_POST)){
+            // unset($_POST['deletePType']);
+            $response = $printingType->delete($_POST['ptype_id'], 'ptype_id');
+            unset($_POST);
+
+        }
+
+        echo json_encode($response);
+    }
+
+    public function updatePrintingType(){
+        $printingType = new PrintingType;
+        $materialPrintingType = new MaterialPrintingType;
+
+        $response = [];
+
+        if(isset($_POST)){
+            // show($_POST);
+            // unset($_POST['updatePrintingType']);
+            $result = $printingType->update($_POST['ptype_id'], ['printing_type' => $_POST['printing_type'], 'price' => $_POST['price']], 'ptype_id');
+            // $pType_data = $printingType->where(['printing_type' => $_POST['printing_type']]);
+            $checkedMaterials = $_POST['PtypeMaterials'];
+
+            $materialTypes = [];
+            $stockIds = [];
+
+            foreach($checkedMaterials as $material){
+                list($materialType, $stockId) = explode(',', $material);
+                $materialTypes[] = $materialType;
+                $stockIds[] = $stockId;
+            }
+            // Get all current associations for the printing type
+            $currentAssociations = $materialPrintingType->where(['ptype_id' => $_POST['ptype_id']]);
+
+            foreach($stockIds as $stockId){
+                // Check if an association for the checked material already exists
+                $existingAssociation = array_filter($currentAssociations, function($association) use ($stockId) {
+                    return $association->stock_id == $stockId;
+                });
+
+                // If an association already exists, skip to the next iteration
+                if(!empty($existingAssociation)){
+                    continue;
+                }
+
+                // Add the new association
+                $response = $materialPrintingType->insert(['ptype_id' => $_POST['ptype_id'], 'stock_id' => $stockId]);
+            }
+
+            // Remove any associations that are no longer checked
+            foreach($currentAssociations as $association){
+                if(!in_array($association->stock_id, $stockIds)){
+                    // This association was unchecked, so remove it
+                    $materialPrintingType->delete($association->mp_id, 'mp_id');
+                }
+            }
+
+            unset($_POST);
+            // redirect('manager/overview');
+        }
+
         echo json_encode($response);
     }
 }

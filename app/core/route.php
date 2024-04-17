@@ -33,7 +33,14 @@ route('customer/p_success', 'customer/customerOrders@payment_success');
 //manager ajax endpoint
 route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
 route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
+
 route('manager/addMaterial', 'manager/Overview@addMaterial');
+route('manager/deleteMaterial', 'manager/Overview@deleteMaterial');
+route('manager/updateMaterial', 'manager/Overview@updateMaterial');
+
+route('manager/addPrintingType', 'manager/Overview@addPrintingType');
+route('manager/deletePrintingType', 'manager/Overview@deletePrintingType');
+route('manager/updatePrintingType', 'manager/Overview@updatePrintingType');
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');

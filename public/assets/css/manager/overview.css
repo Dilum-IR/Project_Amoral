@@ -23,7 +23,6 @@ body {
   height: 100%;
   transition: all 0.5s ease;
   z-index: 1;
-  margin-top: 10px;
   width: calc(100% - 78px);
   scroll-behavior: smooth;
   /* overflow-x: hidden; */
@@ -49,6 +48,8 @@ body {
     /* background-color: rgb(167, 167, 167); */
     height: 100vh;
     width: 100%;
+    margin-top: 10px;
+
   }
   .content .left-right {
     display: flex;
@@ -434,6 +435,7 @@ body {
   opacity: 0;
   transition: opacity 0.2s ease-in-out, height 2s ease;
   height: 0;
+  pointer-events: none;
  }
 
  .material .open-add,
@@ -441,6 +443,7 @@ body {
     opacity: 1;
     height: auto;
     transition: opacity 1.3s ease-in-out, height 0.8s ease;
+    pointer-events: all;
   }
 
   .material .add i,

@@ -241,44 +241,47 @@
                         document.getElementById("addMaterialForm").addEventListener("submit", function (e) {
                             e.preventDefault();
                             var form = document.getElementById("addMaterialForm");
+                            var noerrors = validateMaterial(form);
                             var formData = new FormData(form);
                             console.log(formData);
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "<?= ROOT ?>/manager/addMaterial", true);
-                            xhr.onload = function () {
-                                if (this.status == 200) {
-                                    // console.log(this.responseText);
-                                    var response = JSON.parse(this.responseText);
-                                    console.log('response'+response);
-                                    if (response == null) {
-                                        location.reload();
-                                        var successMsgElement = document.querySelector('.success-msg');
-                                        successMsgElement.innerHTML = "Material added successfully";
-                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
-                                        successMsgElement.style.display = 'block';
-                                        setTimeout(function() {
-                                            successMsgElement.style.display = 'none';
-                                        }, 2000);
-                                    }else{
-                                        // location.reload();
-                                        var successMsgElement = document.querySelector('.success-msg');
-                                        if(response == 'Material already exists'){
-                                            successMsgElement.innerHTML = "Material already exists";
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/addMaterial", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        // console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        console.log('response'+response);
+                                        if (response == false) {
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Material added successfully";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
                                         }else{
-                                            successMsgElement.innerHTML = "There was an error adding the material";
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            if(response == 'Material already exists'){
+                                                successMsgElement.innerHTML = "Material already exists";
+                                            }else{
+                                                successMsgElement.innerHTML = "There was an error adding the material";
+                                            }
+                                            
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
                                         }
-                                        
-                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
-        
-                                        successMsgElement.style.display = 'block';
-                                        successMsgElement.style.backgroundColor = 'red';
-                                        setTimeout(function() {
-                                            successMsgElement.style.display = 'none';
-                                        }, 2000);
                                     }
                                 }
+                                xhr.send(formData);
                             }
-                            xhr.send(formData);
                         });
                     </script>
 
@@ -294,6 +297,47 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                        // ajax for deleting materials
+                        document.getElementById("deleteMaterialForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("deleteMaterialForm");
+                            var formData = new FormData(form);
+                            console.log(formData);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "<?= ROOT ?>/manager/deleteMaterial", true);
+                            xhr.onload = function () {
+                                if (this.status == 200) {
+                                    console.log(this.responseText);
+                                    var response = JSON.parse(this.responseText);
+                                    console.log('response'+response);
+                                    if (response == false) {
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "Material deleted successfully";
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        successMsgElement.style.display = 'block';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }else{
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "There was an error deleting the material";
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        
+                                        successMsgElement.style.display = 'block';
+                                        successMsgElement.style.backgroundColor = 'red';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                }
+                            }
+                            xhr.send(formData);
+                        });
+                    </script>
 
                     <!--popup to update materials-->
 
@@ -318,6 +362,50 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                        // ajax for updating materials
+                        document.getElementById("updateMaterialForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("updateMaterialForm");
+                            var noerrors = validateMaterial(form);
+                            var formData = new FormData(form);
+                            console.log(formData);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/updateMaterial", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        console.log('response'+response);
+                                        if (response == false) {
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Material updated successfully";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "There was an error updating the material";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                    </script>
 
                 
                     
@@ -351,6 +439,59 @@
 
                     </div>
 
+                    <script>
+                        // ajax for adding printing types
+                        document.getElementById("addPrintingTypeForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("addPrintingTypeForm");
+                            var noerrors = validatePrintingType(form);
+                            var formData = new FormData(form);
+                            // console.log(formData);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/addPrintingType", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        // console.log('response'+response);
+                                        if (response == false) {
+                                            // delay(100);
+                                            
+                                            
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Printing type added successfully";
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                            
+                                                
+
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            if(response == 'Printing type already exists'){
+                                                successMsgElement.innerHTML = "Printing type already exists";
+                                            }else{
+                                                successMsgElement.innerHTML = "There was an error adding the printing type";
+                                            }
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                    </script>
+
                         <!-- Delete confirmation popup -->
                     <div id="deleteConfirmation-ptype" class="popup-delete">
                         <!-- Modal content -->
@@ -363,6 +504,48 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                            // ajax for deleting printing types
+                            document.getElementById("deletePrintingTypeForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("deletePrintingTypeForm");
+                            var formData = new FormData(form);
+                            // console.log(formData);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "<?= ROOT ?>/manager/deletePrintingType", true);
+                            xhr.onload = function () {
+                                if (this.status == 200) {
+                                    console.log(this.responseText);
+                                    var response = JSON.parse(this.responseText);
+                                    // console.log('response'+response);
+                                    if (response == false) {
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "Printing type deleted successfully";
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        successMsgElement.style.display = 'block';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }else{
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "There was an error deleting the printing type";
+                                        
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        
+                                        successMsgElement.style.display = 'block';
+                                        successMsgElement.style.backgroundColor = 'red';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                }
+                            }
+                            xhr.send(formData);
+                        });
+                    </script>
 
                 <!--popup to update printing types-->
 
@@ -395,7 +578,51 @@
                     </div>
                 </div>
 
-           
+                <script>
+                            // ajax for updating printing types
+                        document.getElementById("updatePrintingTypeForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("updatePrintingTypeForm");
+                            var noerrors = validatePrintingType(form);
+                            var formData = new FormData(form);
+                            console.log(noerrors);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/updatePrintingType", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        // console.log('response'+response);
+                                        if (response == false) {
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Printing type updated successfully";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            
+                                            successMsgElement.innerHTML = "There was an error adding the printing type";
+                                            
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                </script>
 
 
 
@@ -645,11 +872,11 @@
 
             // }
             
-            var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
-            console.log(deleteMaterialSuccess);
-            if(deleteMaterialSuccess){
-                newCard.remove();
-            }
+            // var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
+            // console.log(deleteMaterialSuccess);
+            // if(deleteMaterialSuccess){
+            //     newCard.remove();
+            // }
 
         }
 

@@ -11,6 +11,7 @@ editMaterial.addEventListener("click", function () {
 
     MaterialaddCard.classList.toggle("open-add");
 
+
 });
 
 editPrintingType.addEventListener("click", function () {
@@ -18,6 +19,7 @@ editPrintingType.addEventListener("click", function () {
     PrintingTypeaddCard.classList.toggle("open-add");
 
 });
+
 
 
 // material stock js 
@@ -65,10 +67,14 @@ function openDeleteMaterial(button) {
 }
 
 function closeDelete() {
-    document.getElementById('deleteConfirmation-materila').style.display = "none";
+    document.getElementById('deleteConfirmation-material').style.display = "none";
     document.body.style.overflow = "auto";
 }
 
+var addPrintingType = document.getElementById("add-printingType");
+// printing type js 
+console.log(addPrintingType);
+var updatePrintingType = document.getElementById("update-printingType");
 
 // When the user clicks on <spanMaterial> (x), close the modal
 spanMaterial.forEach(function (btn) {
@@ -76,15 +82,13 @@ spanMaterial.forEach(function (btn) {
 
         updateMaterial.style.display = "none";
         updatePrintingType.style.display = "none";
+        addMaterial.style.display = "none";
+        addPrintingType.style.display = "none";
 
         document.body.style.overflow = "auto";
     }
 });
 
-// printing type js 
-var addPrintingType = document.getElementById("add-printingType");
-console.log(addPrintingType);
-var updatePrintingType = document.getElementById("update-printingType");
 
 
 var btnPrintingType = document.querySelector(".printingType .add.card");
@@ -154,54 +158,6 @@ function closeDelete() {
 
 
 
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    var addForm = document.querySelector(".popup-add");
-    var updateForm = document.querySelector(".popup-update");
-
-    if (addForm) {
-        setupForm(addForm);
-    } else {
-        console.error('Add form not found');
-    }
-
-    if (updateForm) {
-        setupForm(updateForm);
-    } else {
-        console.error('Update form not found');
-    }
-});
-
-function setupForm(form) {
-    var close = form.querySelector(".close");
-
-    close.addEventListener('click', function () {
-        clearErrorMsg(form);
-        form.style.display = "none";
-        document.body.style.overflow = "auto";
-    });
-
-    form.addEventListener("submit", function (event) {
-        clearErrorMsg(form);
-        
-        let errors = validateMaterial(form);
-        if (Object.keys(errors).length > 0) {
-            event.preventDefault();    
-            displayErrorMsg(errors, form);
-        } else {
-            let name = form.querySelector('input[name="material_type"]').value;
-            let quantity = form.querySelector('input[name="quantity"]').value;
-            let price = form.querySelector('input[name="unit_price"]').value;
-            let ppm = form.querySelector('input[name="ppm"]').value;
-
-            // submitAction(name, quantity, price, ppm);
-
-            form.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-    });
-}
-
 function validateMaterial(form) {
     let errors = {};
 
@@ -225,7 +181,57 @@ function validateMaterial(form) {
         errors['ppm'] = 'Products per unit is required';
     }
 
-    return errors;
+   
+      clearErrorMsg(form);
+      
+      // let errors = validateMaterial(form);
+      if (Object.keys(errors).length > 0) {
+          // event.preventDefault();    
+          displayErrorMsg(errors, form);
+          return false;
+      } else {
+
+          // form.style.display = "none";
+          // document.body.style.overflow = "auto";
+          return true;
+      }
+ 
+}
+
+function validatePrintingType(form) {
+    let errors = {};
+
+    let title = form.querySelector('input[name="printing_type"]').value;
+    if (title.trim() === '') {
+        errors['ptype'] = 'Printing Type is required';
+    }
+
+    let checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+    if (checkboxes.length === 0) {
+        errors['materials'] = 'At least one material is required';
+    }
+
+    let price = form.querySelector('input[name="price"]').value;
+    if (price.trim() === '') {
+        errors['price'] = 'Price is required';
+    }
+
+    // form.addEventListener("submit", function (event) {
+      clearErrorMsg(form);
+      
+      // let errors = validateMaterial(form);
+      if (Object.keys(errors).length > 0) {
+          // event.preventDefault();    
+          displayErrorMsg(errors, form);
+          return false;
+      } else {
+
+          // form.style.display = "none";
+          // document.body.style.overflow = "auto";
+          return true;
+      }
+  // });
+
 }
 
 function displayErrorMsg(errors, form) {
