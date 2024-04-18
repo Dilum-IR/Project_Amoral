@@ -87,11 +87,11 @@ class Orders extends Controller
                     "qty" => $item->qty,
                 ]
             ];
+
             $i++;
         }
 
-        $j = 0;
-
+        // show($result);
 
         // find the same order id orders and merge that orders 
         // include : material ,sizes with more data
@@ -115,18 +115,17 @@ class Orders extends Controller
                     ];
 
                     $item->mult_order = array_merge($item->mult_order, [$new_mult]);
-
                 }
-                $j++;
+               
             }
         }
 
         $new_result = [];
         $id_array = [];
 
-        foreach($result as $item) {
+        foreach ($result as $item) {
 
-            if (!in_array( $item->order_id,$id_array)) {
+            if (!in_array($item->order_id, $id_array)) {
 
                 array_push($id_array, $item->order_id);
                 array_push($new_result, $item);
@@ -134,6 +133,23 @@ class Orders extends Controller
         }
 
         // show($id_array);
+
+        $material_array = [];
+        $total_qty=0;
+        // create a new array for toal qty and meterial type array
+        foreach ($new_result as $item) {
+
+            foreach ( $item->mult_order as $value) {
+                
+                if (!in_array($value['material_type'],$material_array)) {
+                    array_push($material_array,$value['material_type']);
+                } 
+                $total_qty += $value['qty'];
+            }
+
+            $item->total_qty =$total_qty;
+            $item->material_array = $material_array;
+        }
 
 
         // remove order elements
@@ -198,13 +214,22 @@ class Orders extends Controller
                     break;
                 case 'cut':
                     $order->update($order_id, $arr, 'order_id');
-                    $_POST['status'] = "";
+                    break;
+                case 'sent to company':
+                    break;
+                case 'company process':
+                    break;
+                case 'sent to garment':
+                    break;
+                case 'returned':
                     break;
                 case 'sewing':
                     $order->update($order_id, $arr, 'order_id');
                     break;
                 case 'sewed':
                     $order->update($order_id, $arr, 'order_id');
+                    break;
+                case 'completed':
                     break;
                 default:
                     break;

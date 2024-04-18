@@ -51,11 +51,11 @@
 
             <ul class="breadcrumb">
                 <li>
-                    <a href="<?=ROOT?>/garment/overview">Home</a>
+                    <a href="<?= ROOT ?>/garment/overview">Home</a>
                 </li>
                 <i class='bx bx-chevron-right'></i>
                 <li>
-                    <a href="<?=ROOT?>/garment/orders" class="active">Garment Orders</a>
+                    <a href="<?= ROOT ?>/garment/orders" class="active">Garment Orders</a>
                 </li>
 
             </ul>
@@ -64,12 +64,13 @@
 
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
-                        <button type="submit" class="search-btn">
+                        <button type="button" class="search-btn">
                             <i class='bx bx-search'></i>
                         </button>
-                    </div>
 
+                    </div>
                     <input class="btn" type="button" onclick="open_report()" value="Report Problem">
+
                 </div>
 
             </form>
@@ -81,7 +82,8 @@
                         <thead>
                             <tr>
                                 <th class="ordId">Order Id</th>
-                                <th class="desc">Description</th>
+                                <th class="desc">Material types</th>
+                                <th class="qty">Total Qty</th>
                                 <th class="stth">Status</th>
                                 <th class="cost">Sew dispatch date</th>
                                 <th class="cost">Cut dispatch date</th>
@@ -92,7 +94,7 @@
 
                             <?php
 
-                            if (isset($data)) {
+                            if (!empty($data)) {
 
                                 rsort($data);
                                 foreach ($data as $item) :
@@ -102,20 +104,45 @@
                                         <td class="desc">
 
                                             <?php
-                                            foreach ($item->mult_order as $key => $value) {
+                                            foreach ($item->material_array as $key => $value) {
                                             ?>
                                                 <b>
-                                                    <?= $value['material_type'] ?>
+                                                    <?= $value ?>
                                                 </b>
                                             <?php
-                                                echo "| Qty - " . $value['qty'];
+                                                // echo "| Qty - " . $value['qty'];
                                                 echo "</br>";
                                             }
                                             ?>
 
                                         </td>
+                                        <td class="desc">
+
+                                            <?=
+                                            $item->total_qty
+                                            ?>
+
+                                        </td>
                                         <td class="st">
-                                            <div class="text-status <?= $item->status ?>"><?= ucfirst($item->status) ?></div>
+                                            <div class="text-status <?= $item->status ?>">
+
+                                                <?php if ($item->status == "pending") { ?>
+                                                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                                                <?php } else if ($item->status == "cutting") { ?>
+                                                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                                                <?php } else if ($item->status == "cut") { ?>
+                                                    <iconify-icon class="status-icon" icon="tabler:cut"></iconify-icon>
+                                                <?php } else if ($item->status == "sent to company" || $item->status == "company process" || $item->status == "sent to garment" || $item->status == "returned") { ?>
+                                                    <iconify-icon icon="mdi:company"></iconify-icon>
+                                                <?php } else if ($item->status == "sewing") { ?>
+                                                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                                                <?php } else if ($item->status == "sewed") { ?>
+                                                    <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
+                                                <?php } else if ($item->status == "completed") { ?>
+                                                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                                                <?php } ?>
+                                                <?= ucfirst($item->status) ?>
+                                            </div>
                                         </td>
                                         <td class="cost"><?= $item->sew_dispatch_date  ?></td>
                                         <td class="cost"><?= $item->cut_dispatch_date  ?></td>
@@ -124,9 +151,14 @@
                                             <button type="submit" name="selectItem" class="view-g-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View</button>
 
                                             <?php
-                                            if ($item->status != "completed") {
+                                            if ($item->status != "completed" &&  $item->status != "sent to company" &&  $item->status != "company process") {
                                             ?>
-                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn" data-order='<?= json_encode($item); ?>' onclick="change_order_status(this,'table btn')">Update Status</button>
+                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn<?= $item->order_id ?>" data-order='<?= json_encode($item); ?>' onclick="change_order_status(this,'table btn')">Update Status</button>
+                                            <?php
+                                            } else if ($item->status != "sent to company" ||  $item->status != "company process") {
+                                            ?>
+                                                <button disabled type="submit" name="selectItem" class="update-btn" id="table-status-btn">Company Process</button>
+
                                             <?php
                                             } else {
                                             ?>
@@ -137,6 +169,7 @@
                                             ?>
                                         </td>
                                     </tr>
+
                                 <?php endforeach;
                             } else {
                                 ?>
@@ -158,7 +191,14 @@
                             <?php
                             }
                             ?>
+                            <tr class="hide" id="no-data-search">
 
+                                <td><i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>&nbsp; This Search order is not available ...</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -166,6 +206,11 @@
         </div>
     </section>
 
+    <style>
+        #no-data-search .hide {
+            display: none;
+        }
+    </style>
     <!-- Dark report_overlay -->
     <div id="report-overlay"></div>
 
@@ -203,7 +248,7 @@
             <h2>Order Details</h2>
             <button onclick="closeView()">
 
-                <i class='g-popup-close bx bx-x bx-flashing-hover bx-md' ></i>
+                <i class='g-popup-close bx bx-x bx-flashing-hover bx-md'></i>
             </button>
         </div>
 
@@ -240,7 +285,7 @@
 
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
-                    <p class="text middle-text">Company process</p>
+                    <p class="text middle-text">Sent to company</p>
                 </li>
                 <li id="sewing">
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
@@ -356,6 +401,20 @@
                     </div>
 
                 </div>
+                <!-- <div class="user-details material">
+                    <div></div>
+                    <div>
+                        
+                        </div>
+                        <div>
+                        <p>Total Quantity &nbsp;<span>258</span></p>
+                        
+
+                    </div>
+                    <div></div>
+                    <hr class="dotted">
+                </div> -->
+
 
                 <!-- hidden element -->
                 <div class="input-box">
