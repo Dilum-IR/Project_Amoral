@@ -271,10 +271,10 @@ button:disabled {
 }
 
 .status ul li .mid-active-2 {
-  background-color: rgb(0, 0, 180) !important;
+  background-color: #e28000d3 !important;
 }
 .mid-active-2::after {
-  background-color: rgb(0, 0, 180);
+  background-color: #f08f11d0;
 }
 
 .status ul li .active {
@@ -311,14 +311,27 @@ button:disabled {
 
 
 
-.text-status.sewing {
-  background-color: #1c7012cc;
-}
 
 .text-status.cancelled {
   background-color: #cf0303c7;
 } */
 
+
+.st{
+  
+  /* display: flex; */
+  /* align-items: center; */
+  justify-content: center;
+  text-align: -webkit-center;
+}
+.text-status{
+  
+  gap: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: max-content;
+}
 .text-status.cut {
   background-color: #0d8300cc;
 }

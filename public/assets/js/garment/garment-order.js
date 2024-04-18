@@ -537,9 +537,9 @@ function change_order_status(button = "", tap = "popup") {
   popup_status_btn.innerHTML =
     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
 
-  document.getElementById("table-status-btn").innerHTML =
+  document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
-  document.getElementById("table-status-btn").disabled = true;
+  document.getElementById(`table-status-btn${order.order_id}`).disabled = true;
 
   popup_status_btn.disabled = true;
   document.getElementById("popup-status-cancel-btn").disabled = true;
@@ -562,15 +562,24 @@ function change_order_status(button = "", tap = "popup") {
         Jsondata = JSON.parse(res);
 
         if (Jsondata.user) {
-          toastApply(
-            "Update Success",
-            `${order.order_id} Order Status Updated...`,
-            0
-          );
+          if (order_status == "completed") {
+            toastApply(
+              "Update Success",
+              `${order.order_id} Order is Completed...`,
+              0
+            );
+          } else {
+            toastApply(
+              "Update Success",
+              `${order.order_id} Order Status Updated...`,
+              0
+            );
+          }
 
           setTimeout(() => {
-            document.getElementById("table-status-btn").innerHTML =
-              "Update Status";
+            document.getElementById(
+              `table-status-btn${order.order_id}`
+            ).innerHTML = "Update Status";
             location.reload();
           }, 4000);
           popup_status_btn.innerHTML = "Update Status";
@@ -578,15 +587,17 @@ function change_order_status(button = "", tap = "popup") {
           return;
         } else {
           popup_status_btn.innerHTML = "Update Status";
-          document.getElementById("table-status-btn").innerHTML =
-            "Update Status";
+          document.getElementById(
+            `table-status-btn${order.order_id}`
+          ).innerHTML = "Update Status";
 
           toastApply("Update Failed", "Try again later...", 1);
           return;
         }
       } catch (error) {
         popup_status_btn.innerHTML = "Update Status";
-        document.getElementById("table-status-btn").innerHTML = "Update Status";
+        document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+          "Update Status";
 
         toastApply("Update Failed", "Try again later...", 1);
         return;
@@ -594,7 +605,8 @@ function change_order_status(button = "", tap = "popup") {
     },
     error: function (xhr, status, error) {
       popup_status_btn.innerHTML = "Update Status";
-      document.getElementById("table-status-btn").innerHTML = "Update Status";
+      document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+        "Update Status";
 
       toastApply("Update Failed", "Try again later...", 1);
       return;
@@ -787,4 +799,49 @@ function remove_color_order_status(status) {
   }
 }
 
-// search bar part
+// search option part
+const search = document.querySelector(".form-input input"),
+  table_row = document.querySelectorAll("tbody tr");
+
+search.addEventListener("input", function () {
+  let match_found = false;
+  table_row.forEach((row, index) => {
+    // get the table data varible for each table row include all data
+    let table_data = row.textContent.toLowerCase(),
+      search_data = search.value.toLowerCase(); // get search value for another varible
+
+    // check search input value and table include data available or not
+
+    // Check if the row contains the search value
+    if (table_data.includes(search_data)) {
+      row.classList.remove("hide");
+      match_found = true;
+    } else {
+      row.classList.add("hide");
+    }
+  });
+
+  // Display or hide the "no-data-search" row based on whether a match is found
+  let no_data_row = document.getElementById("no-data-search");
+  if (match_found) {
+    no_data_row.classList.add("hide");
+  } else {
+    no_data_row.classList.remove("hide");
+  }
+});
+
+
+// function formatDate(dateString) {
+//   // Split the date string into components
+//   var dateComponents = dateString.split('/');
+
+//   // Rearrange the components in "YYYY-MM-DD" format
+//   var formattedDate = dateComponents[2] + '-' + dateComponents[0].padStart(2, '0') + '-' + dateComponents[1].padStart(2, '0');
+
+//   return formattedDate;
+// }
+
+// // Example usage:
+// var originalDate = "04/18/2022";
+// var convertedDate = formatDate(originalDate);
+// console.log(convertedDate); 

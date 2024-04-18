@@ -380,21 +380,6 @@ main .insights small {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* <!-- left side container --> */
 .table-data {
   display: flex;
@@ -519,14 +504,33 @@ main .insights small {
   background-color: #1c7012cc;
 }
 
+.text-status.cut {
+  background-color: #0d8300cc;
+}
+.text-status.sent.to.company,
+.text-status.company.process {
+  background-color: rgba(122, 1, 192, 0.959);
+}
 
+.text-status.sent.to.garment {
+  background-color: #e28000d3;
+}
+.text-status.returned {
+  background-color: #028fecd3;
+}
 .text-status.sewing {
-  background-color: #1c7012cc;
+  background-color: #cf0079d3;
+}
+.text-status.sewed {
+  background-color: #00b33cd3;
 }
 
 .text-status.completed {
   background-color: #0c5fcdc7;
 }
+
+
+
 /* 
 .text-status.printing {
   background-color: #1c7012cc;
