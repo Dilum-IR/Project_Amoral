@@ -632,7 +632,7 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Customer Orders</h3>
-                                <button class="view-all-btn">View All</button>
+                                <a class="view-all-btn" href="<?= ROOT ?> /manager/customerorders">View All</a>
                             </div>
                             <table>
                                 <thead>
@@ -695,7 +695,7 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Garment Orders</h3>
-                                <button class="view-all-btn">View All</button>
+                                <a class="view-all-btn" href="<?= ROOT ?> /manager/garmentorders">View All</a>
                             </div>
                             <table>
                                 <thead>

@@ -37,10 +37,12 @@ route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
 route('manager/addMaterial', 'manager/Overview@addMaterial');
 route('manager/deleteMaterial', 'manager/Overview@deleteMaterial');
 route('manager/updateMaterial', 'manager/Overview@updateMaterial');
-
 route('manager/addPrintingType', 'manager/Overview@addPrintingType');
 route('manager/deletePrintingType', 'manager/Overview@deletePrintingType');
 route('manager/updatePrintingType', 'manager/Overview@updatePrintingType');
+
+route('manager/newOrder', 'manager/CustomerOrders@newOrder');
+route('manager/updateOrder', 'manager/CustomerOrders@updateOrder');
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');

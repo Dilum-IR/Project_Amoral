@@ -43,10 +43,12 @@ class Overview extends Controller
     }
 
     public function addMaterial(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
         $materialStock = new MaterialStock;
 
         $response = []; 
-        if(isset($_POST)){
+        if(isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
             // show($_POST);
             // unset($_POST['addMaterial']);
             $same_material = $materialStock->where(['material_type' => $_POST['material_type']]);
@@ -65,10 +67,12 @@ class Overview extends Controller
     }
 
     public function deleteMaterial(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
         $materialStock = new MaterialStock;
 
         $response = [];
-        if(isset($_POST)){
+        if(isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
             // show($_POST);
             // unset($_POST['deleteMaterial']);
             $response = $materialStock->delete($_POST['stock_id'], 'stock_id');
@@ -79,10 +83,12 @@ class Overview extends Controller
     }
 
     public function updateMaterial(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
         $materialStock = new MaterialStock;
 
         $response = [];
-        if(isset($_POST)){
+        if(isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
             // show($_POST);
             // unset($_POST['updateMaterial']);
             $response = $materialStock->update($_POST['stock_id'], $_POST, 'stock_id');
@@ -93,12 +99,14 @@ class Overview extends Controller
     }
 
     public function addPrintingType(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
         $printingType = new PrintingType;
         $materialPrintingType = new MaterialPrintingType;
 
         $response = [];
 
-        if(isset($_POST)){
+        if(isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
             // show($_POST);
             // unset($_POST['addPrintingType']);
             $same_pType = $printingType->where(['printing_type' => $_POST['printing_type']]);
@@ -138,10 +146,12 @@ class Overview extends Controller
     }
 
     public function deletePrintingType(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
         $printingType = new PrintingType;
 
         $response = [];
-        if(isset($_POST)){
+        if(isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
             // unset($_POST['deletePType']);
             $response = $printingType->delete($_POST['ptype_id'], 'ptype_id');
             unset($_POST);
@@ -152,12 +162,14 @@ class Overview extends Controller
     }
 
     public function updatePrintingType(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
         $printingType = new PrintingType;
         $materialPrintingType = new MaterialPrintingType;
 
         $response = [];
 
-        if(isset($_POST)){
+        if(isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
             // show($_POST);
             // unset($_POST['updatePrintingType']);
             $result = $printingType->update($_POST['ptype_id'], ['printing_type' => $_POST['printing_type'], 'price' => $_POST['price']], 'ptype_id');
