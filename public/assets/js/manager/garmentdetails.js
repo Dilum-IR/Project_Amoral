@@ -336,34 +336,33 @@ function closeView() {
   sidebar.style.pointerEvents = "auto";
   nav.style.pointerEvents = "auto";
 }
-
 //data fetching ftom submit button
 
 function openView(button) {
-
-
   // Get the data attribute value from the clicked button
-  const cstData = button.getAttribute("data-cst");
+  const gmntData = button.getAttribute("data-gmnt");
 
-  console.log("cstData");
+  console.log("gmntData");
 
-  if (cstData) {
+  if (gmntData) {
     // Parse the JSON data
-    const cst = JSON.parse(cstData);
-    console.log("data fill");
+    const gmnt = JSON.parse(gmntData);
+    console.log(gmnt);
     // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="id"]').value = cst.id;
-    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
-    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
+    document.querySelector('.update-form input[name="garment_id"]').value = gmnt.garment_id;
+    // document.querySelector('.update-form img[name="gmnt_image"]').src = gmnt.gmnt_image;
+    // document.querySelector('.update-form img[name="gmnt_image"]').src = gmnt.gmnt_image;
 
-    document.querySelector('.update-form input[name="fullname"]').value = cst.fullname;
+    document.querySelector('.update-form input[name="emp_name"]').value = gmnt.emp_name;
 
-    // document.querySelector('.update-form input[name="user_status"]').value = cst.cst_status;
-    document.querySelector('.update-form input[name="email"]').value = cst.email;
-    document.querySelector('.update-form input[name="city"]').value = cst.city;
-    document.querySelector('.update-form input[name="address"]').value = cst.address;
-    // document.querySelector('.update-form input[name="DOB"]').value = cst.DOB;
-    document.querySelector('.update-form input[name="phone"]').value = cst.phone;
+    // document.querySelector('.update-form input[name="emp_status"]').value = gmnt.emp_status;
+    document.querySelector('.update-form input[name="email"]').value = gmnt.email;
+    document.querySelector('.update-form input[name="location"]').value = gmnt.location;
+    document.querySelector('.update-form input[name="address"]').value = gmnt.address;
+    document.querySelector('.update-form input[name="DOB"]').value = gmnt.DOB;
+    document.querySelector('.update-form input[name="contact_number"]').value = gmnt.contact_number;
+    document.querySelector('.update-form input[name="day_capacity"]').value = gmnt.day_capacity;
+    document.querySelector('.update-form input[name="no_workers"]').value = gmnt.no_workers;
 
     // Show the "update-form" popup
     document.querySelector(".popup-view").classList.add("open-popup-view");

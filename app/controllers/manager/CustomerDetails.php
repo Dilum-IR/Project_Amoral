@@ -69,15 +69,16 @@ class CustomerDetails extends Controller
 
 
     public function customerAdd($data){
-        // show($data);
+        show($data);
         $customer = new User;
+        $employee = new Employee;
 
-        $arr['id'] = $_POST['id'];
+        $arr['email'] = $_POST['email'];
         $cstRow = $customer->first($arr);
-        $userRow = $customer->first($arr);
-        $customer->insert($arr);
+        $empRow = $employee->first($arr);
+        // $customer->insert($arr);
 
-        if (!$cstRow && !$userRow) {
+        if (!$cstRow && !$empRow) {
             // password hashing 
             // $password = $data['contact_number'];            
             $randomPassword = $this->generateRandomPassword(7);
@@ -94,7 +95,8 @@ class CustomerDetails extends Controller
             $all_users->insert($arr);
 
             $sendmail = new SendMail;
-            $res = $sendmail->sendVerificationEmail($_POST['email'], $randomPassword, $_POST['emp_name'], "pass");
+            // emp_name or fullname
+            $res = $sendmail->sendVerificationEmail($_POST['email'], $randomPassword, $_POST['fullname'], "pass");
         }
 
         redirect('manager/customerdetails');

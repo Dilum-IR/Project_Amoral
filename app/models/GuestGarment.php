@@ -15,4 +15,6 @@ class GuestGarment
         'manager_email',
         'manager_contact',
     ];
+
+
 }

@@ -8,13 +8,18 @@ class Garment
 	protected $table = 'garment';
 
 	protected $allowedCloumns = [
+	
 		'garment_id',
-		'name',
-		'email',
-		'password',
+		// 'name',
+	
+		// 'password',
         'location',
-		'contact_number',
-		'garment_image'
+		// 'contact_number',
+		// 'garment_image',
+		'day_capacity',
+		'no_workers',
+		'cut_price',
+		'sewed_price',
 	];
 }
 
