@@ -31,7 +31,7 @@ trait Model
         }
         $quary = trim($quary, ",");
 
-        $quary .= " FROM $this->table ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        $quary .= " FROM $this->table WHERE is_active = 1 ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
         // return;  
@@ -335,4 +335,16 @@ trait Model
         // echo $quary;
         return $this->quary($quary);
     }
+
+    public function findAllActive($order_column = 'id')
+    {
+
+        $quary = "SELECT * FROM $this->table WHERE is_active = 1  ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
 }
+
+

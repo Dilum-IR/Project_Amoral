@@ -95,8 +95,14 @@
                                 <div class="progress-bar"></div>
                                 </td> -->
 
-                                <td><button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button> <button style="color: #ff0000de;">Remove</button>
-                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                                <td style="word-break:normal;">
+                                <div class="view-remove-buttons" >
+                                    <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View Details</button>
+                                    <form method="POST">
+                                        
+                                    </form>
+                                </div>
+                                </td>
                             </tr>
 
                         <?php endforeach; ?>
@@ -179,6 +185,7 @@
                 <div class="user-details-button">
                     <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
                     <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
+                    <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
                 </div>
             </form>
         </div>
@@ -236,7 +243,7 @@
                         <span class="details">Upload an Image</span><br>
                         <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image" placeholder="Enter Address" required>
                     </div>
-                    
+
                 </div>
                 <div class="btns">
                     <button type="submit" class="update-btn pb" value="newEmployee" name="newEmployee">Submit</button>

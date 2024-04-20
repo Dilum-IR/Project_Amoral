@@ -67,14 +67,14 @@
                 <table>
                     <thead>
                         <tr>
-                            <th >Id</th>
-                            <th >Name</th>
-                            <th >City</th>
-                            <th >Address</th>
-                            <th >Contact No.</th>
-                            <th >E-mail</th>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>Contact No.</th>
+                            <th>E-mail</th>
                             <!-- <th>Position</th> -->
-                            <th ></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,16 +89,19 @@
                                 <td><?php echo $cst->address ?></td>
                                 <td><?php echo $cst->phone ?> </td>
                                 <td><?php echo $cst->email ?> </td>
-                                <!-- <td class="st">
-                                <div class="text-status <?php echo $cst->status ?>"><?php echo $cst->status ?></div>
-                                <div class="progress-bar"></div>
-                                </td> -->
 
-                                <td><button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-cst='<?= json_encode($cst); ?>' onclick="openView(this)">View</button> <button style="color: #ff0000de;">Remove</button>
-                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+
+                                <td style="word-break:normal;">
+                                    <div class="view-remove-buttons">
+                                        <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button>
+                                        <form method="POST">
+                                            <button name="cstRemove" style="color: #ff0000de;">Remove</button>
+                                        </form>
+                                    </div>
+                                </td>
                             </tr>
 
-                    
+
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -131,23 +134,13 @@
 
                     <div class="input-box">
                         <span class="details">Customer Id </span>
-                        <input type="text" id="" readonly name="emp_id" />
+                        <input type="text" id="" readonly name="id" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">Customer Name </span>
 
-                        <input type="text" required onChange="" value="" name="emp_name" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Profession</span>
-                        <input type="text" required onChange="" value="" name="emp_status" />
-                        <!-- <select name="emp_status">
-                        <option name="employee1" value="Manager"></option>
-                        <option name="employee2" value="Merchandiser"></option>
-                        <option name="employee3" value="Deliveryman"></option>
-                </select> -->
+                        <input type="text" required onChange="" value="" name="fullname" />
                     </div>
 
                     <div class="input-box">
@@ -166,18 +159,13 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Date of Birth</span>
-                        <input type="date" required onChange="" value="" name="DOB" />
-                    </div>
-
-                    <div class="input-box">
                         <span class="details">Contact Number</span>
-                        <input type="text" required onChange="" value="0766464639" name="contact_number" />
+                        <input type="text" required onChange="" value="0766464639" name="phone" />
                     </div>
                 </div>
 
                 <div class="user-details-button">
-                    <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
+                    <button type="submit" name="cstUpdate" class="update-btn pb">Update Details</button>
                     <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
                 </div>
             </form>
@@ -195,18 +183,16 @@
                 <div class="form">
                     <div class="input-box">
                         <span class="details">Customer Name</span>
-                        <input class="new-emp-details" type="text" name="emp_name" placeholder="Enter name" required>
+                        <input class="new-emp-details" type="text" name="fullname" placeholder="Enter full name" required>
                         <!-- <label class="placeholder" for="input">Enter text here...</label> -->
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Profession</span><br>
-                        <select class="new-emp-details" name="emp_status">
-                            <option value="manager">Manager</option>
-                            <option value="merchandiser">Merchandiser</option>
-                            <option value="delivery">Delivery</option>
+                    <!-- <div class="input-box">
+                        <span class="details">User Status</span><br>
+                        <select class="new-emp-details" name="user_status">
+                            <option value="customer">Customer</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="input-box">
                         <span class="details">E-mail</span><br>
@@ -224,22 +210,12 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Contact Number</span>
-                        <input class="new-emp-details" type="text" name="contact_number" placeholder="Enter contact number" required>
+                        <input class="new-emp-details" type="text" name="phone" placeholder="Enter contact number" required>
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Date of Birth</span><br>
-                        <input class="new-emp-details" type="date" name="DOB" placeholder="Enter Address" required>
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Upload an Image</span><br>
-                        <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image" placeholder="Enter Address" required>
-                    </div>
-                    
                 </div>
                 <div class="btns">
-                    <button type="submit" class="update-btn pb" value="newEmployee" name="newEmployee">Submit</button>
+                    <button type="submit" class="update-btn pb" value="newCustomer" name="newCustomer">Submit</button>
                     <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
                 </div>
             </form>
