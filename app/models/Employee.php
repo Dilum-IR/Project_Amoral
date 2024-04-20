@@ -131,8 +131,9 @@ class Employee
 		}
 		// name validation - this part include more words validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['emp_name'])) {
+			
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Name is invalid ";
+			$this->errors['emp_name'] = "Name is invalid ";
 			// $this->errors['error_no'] = 2;
 
 		}
@@ -144,8 +145,9 @@ class Employee
 		}
 		//city validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['city'])) {
+			// show($data);
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "City is invalid ";
+			$this->errors['city'] = "City is invalid ";
 
 		}
 
@@ -157,7 +159,7 @@ class Employee
 		//Address validation
 		else if (!preg_match("/^[a-zA-Z0-9\s\.,#-]+$/", $data['address'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Address is invalid ";
+			$this->errors['address'] = "Address is invalid ";
 
 		}
 
@@ -191,7 +193,7 @@ class Employee
 		}
 		else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Email is invalid ";
+			$this->errors['email'] = "Email is invalid ";
 		}
 
 		// is empty Contact Number
@@ -201,7 +203,7 @@ class Employee
 		}
 		else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/",$data['contact_number'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Contact Number is invalid ";
+			$this->errors['contact_number'] = "Contact Number is invalid ";
 		}
 		 //show($this->errors);
 

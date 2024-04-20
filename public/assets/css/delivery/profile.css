@@ -19,7 +19,7 @@ h3 {
 #main {
   position: relative;
   height: 100%;
-  top: 76px;
+  top: 79px;
   left: 76px;
   width: calc(100% - 78px);
   transition: all 0.5s ease;
@@ -35,19 +35,18 @@ h3 {
 
 .wrapper {
   margin-left: 5px;
-  /* height: 88vh; */
   width: 98%;
   display: flex;
-  box-shadow: 0 0px 10px -5px rgba(197, 197, 197, 0.288);
   border-radius: 30px;
+  box-shadow: 0 0px 10px -5px rgb(0, 0, 0);
 
   /* Prevents scroll bars */
   /* overflow: hidden;  */
 }
 
 .wrapper .left {
+  height: 85vh;
   /* background-image: url('https://i.imgur.com/cMy8V5j.png'); */
-  /* background-size: cover; */
 
   width: 30%; /* Adjusted left section width */
   background-color: #000000;
@@ -67,8 +66,14 @@ h3 {
 
 .wrapper .left img {
   border-radius: 20px;
-  margin-bottom: 20px;
-  width: 65%; /* Adjusted photo size */
+  margin-bottom: 10px;
+
+  /* Adjusted photo size */
+
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+
   box-shadow: -5px 0px 50px -30px rgb(255, 255, 255);
   border: 2px solid white;
 }
@@ -77,21 +82,72 @@ h3 {
   font-size: 27px;
   letter-spacing: 1.5px;
 }
-.edit-icon a {
+
+.edit-icon {
+  position: relative;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+
+.edit-icon input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.edit {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit-icon label {
+  display: inline-block;
+  padding: 7px 15px;
+  padding-top: 9px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  border-radius: 20%;
+}
+
+.edit-icon input[type="file"]:hover + label {
+  background-color: white;
+}
+.edit .link_name {
   align-items: center;
   justify-content: center;
   text-decoration: none;
   font-size: 15px;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  .bxs-edit {
-    margin-right: 5px;
-    font-size: 18px;
-  }
+  /* font-weight: bold; */
+}
+.edit-icon .edit-icon .bxs-edit {
+  padding-top: 5px;
+  font-size: 25px;
 }
 .edit-icon a .link_name:hover {
   text-decoration: underline;
+}
+.change_image {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border-color: white;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+
+  transition: 0.3s ease-in-out;
+}
+.change_image:hover {
+  border-color: black;
+  background-color: white;
+  color: black;
 }
 .wrapper .left h4 {
   margin-bottom: 10px;
@@ -99,15 +155,22 @@ h3 {
 }
 
 .wrapper .right {
-  height: fit-content;
+  height: 85vh;
   width: 70%; /* Adjusted right section width */
   background: #fff;
   padding: 1% 5%;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   font-size: 0.8em;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
   /* overflow-y: auto;  */
   /* Enable scroll if needed */
+}
+
+.right .info {
+  margin-top: 20px;
 }
 
 .pro_input {
@@ -120,7 +183,7 @@ h3 {
   border: 1px solid gray;
 }
 .wrapper .right .info h3 {
-  margin-bottom: 15px;
+  /* margin-bottom: 10px; */
   padding-bottom: 5px;
   color: #353c4e;
   /* text-transform: uppercase; */
@@ -228,9 +291,10 @@ ion-icon {
 .wrapper .right .pro_button .discard_btn:hover {
   background-color: #f10800;
 }
-.wrapper .right .pro_button .save_btn:hover {
+/* .wrapper .right .pro_button .save_btn:hover {
   background-color: #00af35;
-}
+} 
+*/
 
 .wrapper .right .pro_button .discard_btn {
   background-color: #bb0701;
@@ -240,6 +304,29 @@ ion-icon {
 .wrapper .right .pro_button .save_btn {
   background-color: #000000;
   color: #fff;
+}
+
+.ltor-button:hover {
+  border: 2.5px solid #bb0701 !important;
+  span {
+    color: #bb0701 !important;
+  }
+}
+
+.info .data-error {
+  color: #bb0701;
+  font-weight: bold;
+}
+.left-part .image-error {
+  margin-top: 10px;
+  color: #bb0701;
+  font-weight: bold;
+}
+.info .no-change {
+  font-size: 15px;
+  margin-bottom: 50px;
+  color: rgb(33, 163, 33);
+  font-weight: bold;
 }
 
 /* Responsive design */
@@ -257,13 +344,39 @@ ion-icon {
     width: 30% 70%;
     height: 88vh;
   }
-  .wrapper .right .info_data .data label{
+  .wrapper .right .info_data .data label {
     font-size: 1.5em;
     margin-bottom: 50px;
   }
-  
-  .wrapper .right .info .h3{
+
+  .wrapper .right .info .h3 {
     margin-top: 50px;
   }
- 
+}
+
+
+
+.wrapper .right .pro_button .discard_btn:hover {
+  background-color: #f10800;
+}
+/* .wrapper .right .pro_button .save_btn:hover {
+  background-color: #00af35;
+} 
+*/
+
+.wrapper .right .pro_button .discard_btn {
+  background-color: #bb0701;
+  color: #fff;
+}
+
+.wrapper .right .pro_button .save_btn {
+  background-color: #000000;
+  color: #fff;
+}
+
+.ltor-button:hover {
+  border: 2.5px solid #bb0701 !important;
+  span {
+    color: #bb0701 !important;
+  }
 }

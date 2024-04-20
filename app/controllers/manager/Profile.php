@@ -57,7 +57,6 @@ class Profile extends Controller
                 $data['pass'] = $_POST;
             }
 
-
             // show($data);
 
             $this->view('manager/profile', $data);
@@ -115,14 +114,14 @@ class Profile extends Controller
 
         if ($employee->changeInfoValidate($data)) {
 
-            // $employee = new Employee;
+            $user = new User;
 
             $arr['email'] = $data['email'];
 
             $row = $employee->first($arr);
-            // $emprow = $employee->first($arr);
+            $userrow = $user->first($arr);
 
-            if ((!empty($row)) && $_SESSION['USER']->email != $data['email']) {
+            if ((!empty($row)|| !empty($userrow)) && $_SESSION['USER']->email != $data['email']) {
                 // show($row);
                 $employee->errors['flag'] = true;
                 $employee->errors['email'] = "This email is alrady in use.";

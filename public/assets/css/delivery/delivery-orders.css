@@ -859,6 +859,9 @@ select {
   /* margin-bottom: 12px; */
   border: none;
 }
+.popup-view .btn{
+  display: flex;
+}
 
 .popup-view .update-btn {
   /* right: 20%; */
@@ -989,7 +992,7 @@ select {
   width: 100px;
   height: 37px;
   font-size: 16px;
-  display: inline-block;
+  display: flex;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -1040,3 +1043,78 @@ select {
   display: block;
 }
 
+
+/* Media queries for tablets and below */
+@media (max-width: 768px) {
+  .container1, .container2 {
+      width: 100%; /* Makes each container full width */
+      margin: 0; /* Removes margin to utilize full width */
+      padding: 5%; /* Adds padding to prevent content from touching the edges */
+  }
+
+  .container1 form .user-details, .popup-view .detail_content {
+      flex-direction: column; /* Stacks form elements vertically */
+  }
+
+  .form .form-input input {
+      width: 100%; /* Expands the search input to full width */
+  }
+
+  .btns {
+      flex-direction: column; /* Stacks buttons vertically */
+  }
+
+  .popup-view, .popup-report {
+      width: 90%; /* Makes the popup almost full-width */
+  }
+
+  .popup-content, .popup-report .popup-content {
+      padding: 20px; /* Increases padding for better readability */
+  }
+
+  .popup-view .btns button, .popup-report .pb {
+      width: auto; /* Auto width to accommodate text properly */
+      margin: 10px 0; /* Adds vertical margin for stacked buttons */
+  }
+
+  .status ul {
+      flex-direction: column; /* Stacks status icons vertically */
+  }
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 480px) {
+  .breadcrumb {
+      flex-direction: column; /* Stacks breadcrumb links vertically */
+      margin: 10px; /* Adds margin for better spacing */
+  }
+
+  .table-section {
+      overflow-x: auto; /* Allows horizontal scrolling for tables */
+  }
+
+  .btn, .view-order-btn, .ok-btn, .new-btn {
+      padding: 8px; /* Reduces padding to fit smaller screens */
+      font-size: 14px; /* Reduces font size for better fit */
+  }
+
+  .modal-content, .popup-report .popup-content, .popup-view .popup-content {
+      width: 95%; /* Makes modal content nearly full width */
+  }
+}
+
+/* High-resolution and landscape orientation */
+@media (min-width: 769px) and (orientation: landscape) {
+  .container1, .container2 {
+      flex-direction: row; /* Aligns containers in a row for wide screens */
+  }
+
+  .popup-view, .popup-report {
+      width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
+      padding: 1%; /* Reduces padding */
+  }
+
+  .status ul {
+      flex-direction: row; /* Aligns status indicators horizontally */
+  }
+}
