@@ -819,6 +819,8 @@ search.addEventListener("input", function () {
     } else {
       row.classList.add("hide");
     }
+
+    row.style.setProperty("--delay", index / 12 + "s"); //given each row for delay seconds 0s , 0.04s,0.008s , ...  (0/12 , 1/12, 2/12)
   });
 
   // Display or hide the "no-data-search" row based on whether a match is found
@@ -830,6 +832,49 @@ search.addEventListener("input", function () {
   }
 });
 
+// sorting method
+
+const table_heading = document.querySelectorAll("thead th");
+
+table_heading.forEach((head, index) => {
+  let sort_asc = true;
+  head.onclick = () => {
+    table_heading.forEach((head) => head.classList.remove("head-active"));
+
+    head.classList.add("head-active");
+    head.classList.toggle("asc", sort_asc);
+
+    sort_asc = head.classList.contains("asc") ? false : true;
+    sortTable(index, sort_asc);
+  };
+});
+
+function sortTable(index, sort_asc) {
+  // slice technique use beacuse my last table row element is no seracvh data with display.
+  // it is no nedd to use for soritng to use. then it slice
+  [...table_row]
+    .slice(0, -1)
+    .sort((a, b) => {
+      // get the two rows and sorting after check vise vasa
+      let first_row = a.querySelectorAll("td")[index].textContent.toLowerCase();
+      let second_row = b
+        .querySelectorAll("td")
+        [index].textContent.toLowerCase();
+
+      // firstly check sort arc value. its mean sorted acending or decending checker.
+      return sort_asc
+        ? first_row < second_row
+          ? 1
+          : -1
+        : first_row < second_row
+        ? -1
+        : 1;
+    })
+    .map((sorted_row) => {
+      // lastly appended each sorted elements in to the table body.
+      document.querySelector("tbody").appendChild(sorted_row);
+    });
+}
 
 // function formatDate(dateString) {
 //   // Split the date string into components
@@ -844,4 +889,4 @@ search.addEventListener("input", function () {
 // // Example usage:
 // var originalDate = "04/18/2022";
 // var convertedDate = formatDate(originalDate);
-// console.log(convertedDate); 
+// console.log(convertedDate);

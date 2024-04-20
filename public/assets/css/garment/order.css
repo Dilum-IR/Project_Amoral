@@ -325,7 +325,8 @@ button:disabled {
   text-align: -webkit-center;
 }
 .text-status{
-  
+  padding: 6px 16px !important;
+  border-radius: 30px;
   gap: 3px;
   display: flex;
   align-items: center;

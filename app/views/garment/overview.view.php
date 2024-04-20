@@ -68,10 +68,10 @@
 
                             </ul>
                         </div>
-                        <a href="" class="btn-download">
+                        <!-- <a href="" class="btn-download">
                             <i class='bx bxs-cloud-download'></i>
                             <span class="text">Download PDF</span>
-                        </a>
+                        </a> -->
                     </div>
                     <!-- Navigation path -->
 
@@ -115,65 +115,90 @@
                     <div class="insights">
                         <div class="orders">
                             <i class='bx bxs-calendar-check'></i>
-                            <div class="middle">
-                                <div class="left">
-                                    <h3>Current Orders</h3>
-                                    <h1><?= $overview['current'] ?></h1>
 
-                                </div>
-                                <div class="progress">
-                                    <svg>
-                                        <circle cx='38' cy='38' r='36'></circle>
-                                    </svg>
+                            <div class="firstmiddle middle">
+                                <div>
+                                    <div class="left">
 
-                                    <div class="number">
-                                        <p>61%</p>
+                                        <h3 class="text-muted"> Pending Orders </h3> &nbsp;
+                                        <h1><?= (!empty($overview['sales']['current_pending'])) ? $overview['sales']['current_pending'] : "0" ?>
+                                        </h1>
+                                    </div>
+                                    <div class="left">
+                                        <h3>Current Orders </h3> &nbsp;&nbsp;&nbsp;
+                                        <h1><?= (!empty($overview['current'])) ? $overview['current'] : "0" ?></h1>
                                     </div>
                                 </div>
+                                <div class="order-stat">
+                                    <small class="text-muted"><b>
+                                            Cutting Orders :&nbsp;&nbsp; <?= (!empty($overview['sales']['current_cutting'])) ? $overview['sales']['current_cutting'] : "0" ?>
+                                        </b></small>
+                                    <small class="text-muted"><b>
+                                            Sewing Orders :&nbsp;&nbsp;&nbsp;<?= (!empty($overview['sales']['current_sewed'])) ? $overview['sales']['current_sewed'] : "0" ?>
+                                        </b></small>
+
+                                </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+
                         </div>
 
 
                         <div class="sales">
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
-                                <div class="left">
-                                    <h3>Completed Orders</h3>
-                                    <h1><?= $overview['completed'] ?></h1>
+                                <div>
 
+                                    <div class="left">
+                                        <h3>Completed Orders</h3> &nbsp;&nbsp;
+                                        <h1><?= (!empty($overview['sales']['compleated_orders'])) ? $overview['sales']['compleated_orders'] : "0" ?></h1>
+
+                                    </div>
+                                    <small class="text-muted"><b>
+                                            Cancel Orders :&nbsp;&nbsp;&nbsp;<?= (!empty($overview['sales']['current_sewed'])) ? $overview['sales']['current_sewed'] : "0" ?>
+                                        </b></small>
                                 </div>
-                                <div class="progress">
-                                    <svg>
-                                        <circle cx='38' cy='38' r='36'></circle>
-                                    </svg>
-
-                                    <div class="number">
-                                        <p>73%</p>
+                                <div class="container">
+                                    <div class="circular-progress" id="completed-orders">
+                                        <span class="progress-value" id="completed-orders-num">0%</span>
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+                            <small class="text-muted">From last month</small>
                         </div>
                         <div class="sales">
                             <i class=' bx bxs-dollar-circle'></i>
                             <div class="middle">
-                                <div class="left">
-                                    <h3>Total Sales</h3>
-                                    <h1>$ 2500,00</h1>
+                                <div>
+                                    <div class="left">
+                                        <h3>Total Sales</h3> &nbsp;&nbsp;
+                                        <h1>LKR <?= number_format((!empty($overview['sales']['total_sales'])) ? $overview['sales']['total_sales'] : "0", 2, '.', ',') ?></h1>
+                                    </div>
+                                    <small class="text-muted"><b>
+                                            Cutting Sales : &nbsp;&nbsp; LKR <?= number_format((!empty($overview['sales']['total_cutting'])) ? $overview['sales']['total_cutting'] : "0", 2, '.', ',') ?>
+                                        </b></small>
+                                    <small class="text-muted"><b>
+                                            Sewing Sales : &nbsp;&nbsp;&nbsp;LKR <?= number_format((!empty($overview['sales']['total_sewed'])) ? $overview['sales']['total_sewed'] : "0", 2, '.', ',') ?>
+                                        </b></small>
 
                                 </div>
-                                <div class="progress">
+
+                                <div class="container">
+                                    <div class="circular-progress" id="total-sales">
+                                        <span class="progress-value" id="total-sales-num">0%</span>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="progress">
                                     <svg>
                                         <circle cx='38' cy='38' r='36'></circle>
                                     </svg>
 
                                     <div class="number">
-                                        <p>68%</p>
+                                        <p>%</p>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+                            <small class="text-muted">From last month</small>
                         </div>
                     </div>
 
@@ -185,14 +210,16 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Orders</h3>
-                                <a id="info-btn-1" class="info-btn" href="<?=ROOT?>/garment/orders">View All</a>
+                                <a id="info-btn-1" class="info-btn" href="<?= ROOT ?>/garment/orders">View All</a>
                             </div>
                             <table>
                                 <thead>
                                     <tr>
                                         <th>Order Id</th>
-                                        <th>Description</th>
-                                        <th>Date Order</th>
+                                        <th>Total Qty</th>
+                                        <th><small>Cut Date / </br>
+                                                Sewed Date
+                                            </small> </th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -205,132 +232,87 @@
                                         foreach ($recent_orders as $key => $item) {
                                     ?>
                                             <tr>
-                                                <td>
-                                                    <!-- <img src="img/people.png"> -->
-                                                    <p><?= $item->order_id?></p>
-                                                </td>
-                                                <td><?= $item->order_id?></td>
-                                                <td>01-10-2021</td>
-                                                <td><span class="text-status <?= $item->status?>"><?= $item->status?></span></td>
+
+                                                <td><?= $item->order_id ?></td>
+                                                <td><?= $item->total_qty ?></td>
+                                                <td><?= $item->cut_dispatch_date ?> <br> <small><?= $item->sew_dispatch_date ?> </small></td>
+
+                                                <td class="st"><span class="text-status <?= $item->status ?>">
+                                                        <?php if ($item->status == "pending") { ?>
+                                                            <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                                                        <?php } else if ($item->status == "cutting") { ?>
+                                                            <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                                                        <?php } else if ($item->status == "cut") { ?>
+                                                            <iconify-icon class="status-icon" icon="tabler:cut"></iconify-icon>
+                                                        <?php } else if ($item->status == "sent to company" || $item->status == "company process" || $item->status == "sent to garment" || $item->status == "returned") { ?>
+                                                            <iconify-icon icon="mdi:company"></iconify-icon>
+                                                        <?php } else if ($item->status == "sewing") { ?>
+                                                            <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                                                        <?php } else if ($item->status == "sewed") { ?>
+                                                            <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
+                                                        <?php } else if ($item->status == "completed") { ?>
+                                                            <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                                                        <?php } ?>
+                                                        <?php echo ucfirst($item->status) ?></span></td>
                                             </tr>
                                     <?php
                                         }
                                     }
                                     ?>
+
                                 </tbody>
                             </table>
                         </div>
                         <!-- left side container -->
 
-
-                        <style>
-                            main .todo .orders {
-                                /* width: 250px; */
-                                background: white !important;
-                                padding: 20px;
-                                border-radius: 10px;
-                                box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
-                                transition: 0.5s ease-in-out;
-                                /* border-right: 10px solid rgb(233, 229, 229); */
-                                margin-bottom: 15px;
-
-                            }
-
-                            .todo {
-                                height: max-content;
-                            }
-
-                            main .todo .orders:hover {
-                                transform: scale(1.025);
-                            }
-
-                            .middle {
-                                width: 100%;
-                                align-items: center;
-                                justify-content: space-between;
-                                display: flex;
-
-                                .left,
-                                .count {
-                                    display: flex;
-                                    align-items: center;
-                                    gap: 10px;
-
-                                    .bx {
-                                        font-size: 20px;
-                                        transition: 0.5s ease-in-out;
-
-                                    }
-
-                                    .down:hover {
-                                        color: red;
-                                    }
-
-                                    .up:hover {
-                                        color: #1c7012cc;
-                                    }
-                                }
-
-                            }
-
-                            .g-info {
-                                font-size: 20px;
-                            }
-
-                            .input-count {
-                                width: 100px;
-                                height: 30px;
-                                outline: none;
-                                border: none;
-                                box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
-                                text-align: center;
-                                border-radius: 10px;
-                                font-weight: bold;
-                                font-size: 20px;
-
-                            }
-
-                            .info-btn {
-                                background-color: rgba(0, 0, 0, 0.888);
-                                color: white;
-                                border: none;
-                                padding: 5px 15px;
-                                border-radius: 15px;
-                                text-align: center;
-                                text-decoration: none;
-                                display: inline-block;
-                                font-size: 16px;
-                                margin: 4px 2px;
-                                cursor: pointer;
-                                float: right;
-                                transition: 0.5s ease-in-out;
-
-                            }
-
-                            .info-btn:hover {
-
-                                background-color: rgba(0, 0, 0, 1);
-                                box-shadow: 0px 0px 10px 0px rgb(187, 184, 184);
-
-                            }
-
-                            button:disabled {
-                                background-color: rgba(0, 0, 0, 0.6) !important;
-                            }
-
-                            input[type=number]::-webkit-inner-spin-button,
-                            input[type=number]::-webkit-outer-spin-button {
-                                -webkit-appearance: none;
-                            }
-                        </style>
-
                         <!-- right side container -->
                         <div class="todo">
                             <div class="head">
                                 <h3>Garment information</h3>
-                                <!--  <i class='bx bx-plus'></i>
-                                <i class='bx bx-filter'></i> -->
                             </div>
+
+                            <div class="orders">
+                                <div class="middle">
+                                    <div class="left">
+                                        <i class='bx bx-wallet-alt'></i>
+                                        <h3>Current Cuting Price</h3>
+                                    </div>
+                                    <div class="count">
+
+                                        <h4>LKR </h4>
+                                        <input disabled type="text" class="input-count" value="<?= number_format($info->cut_price, 2, '.', ',')  ?>">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="orders">
+                                <div class="middle">
+                                    <div class="left">
+                                        <i class='bx bx-credit-card'></i>
+                                        <h3>Current Sewed Price</h3>
+                                    </div>
+                                    <div class="count">
+
+                                        <h4>LKR </h4>
+                                        <input disabled type="text" class="input-count" value="<?= number_format($info->sewed_price, 2, '.', ',') ?>">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr class="dotted">
+
+                            <style>
+                                .dotted {
+
+                                    border: none;
+                                    border-top: 3px dotted rgba(0, 0, 0, 0.597);
+                                    height: 1px;
+                                    margin-bottom: 15px;
+
+                                }
+                            </style>
 
                             <div class="orders">
                                 <div class="middle">
@@ -344,13 +326,9 @@
 
                                         <input id="g-capacity" type="number" class="input-count" value="<?= $info->day_capacity ?>">
                                         <i id="d-cap-down" class='bx bx-caret-down-circle down'></i>
-
-                                        <!-- <div class="number">
-                                                <p>61%</p>
-                                            </div> -->
                                     </div>
                                 </div>
-                                <!-- <small class="text-muted">Last 24 Hours</small> -->
+
                             </div>
 
                             <div class="orders">
@@ -367,151 +345,14 @@
                                         <i id="n-work-down" class='bx bx-caret-down-circle down'></i>
                                     </div>
                                 </div>
-                                <!-- <small class="text-muted">Last 24 Hours</small> -->
+
                             </div>
 
                             <button id="info-btn" class="info-btn">Update</button>
 
                         </div>
 
-                        <script>
-                            endpoint = "<?= ROOT ?>/garment/update_info";
 
-                            var capacity = 0;
-                            var workers = 0;
-
-                            g_capacity = document.getElementById('g-capacity');
-                            g_workers = document.getElementById('g-workers');
-                            info_btn = document.getElementById('info-btn');
-
-                            capacity = parseInt(g_capacity.value);
-                            workers = parseInt(g_workers.value);
-
-                            // when use the input tag type with changes 
-                            g_capacity.addEventListener('input', function(event) {
-
-                                capacity = parseInt(event.target.value);
-                                capacity = check_capacity(capacity)
-                                g_capacity.value = capacity;
-                            });
-
-                            g_workers.addEventListener('input', function(event) {
-
-                                workers = parseInt(event.target.value);
-                                workers = check_workers(workers)
-                                g_workers.value = workers;
-                            });
-
-
-                            // capacity up and down arrow
-                            document.getElementById('d-cap-up').addEventListener('click', function() {
-
-                                capacity += 1
-                                capacity = check_capacity(capacity)
-                                g_capacity.value = capacity;
-                            });
-                            document.getElementById('d-cap-down').addEventListener('click', function() {
-
-                                capacity -= 1
-                                capacity = check_capacity(capacity)
-                                g_capacity.value = capacity;
-
-
-                            });
-
-                            // workers up and down arrow
-                            document.getElementById('n-work-up').addEventListener('click', function() {
-
-                                workers += 1
-                                workers = check_workers(workers)
-                                g_workers.value = workers;
-                            });
-                            document.getElementById('n-work-down').addEventListener('click', function() {
-
-                                workers -= 1
-                                workers = check_workers(workers)
-                                g_workers.value = workers;
-                            });
-
-
-                            function check_capacity(cap) {
-
-                                if (cap <= 10 || isNaN(cap)) {
-                                    cap = 10;
-
-                                } else if (cap > 100000) {
-                                    cap = 100000;
-
-                                }
-                                return cap;
-                            }
-
-                            function check_workers(work) {
-
-                                if (work <= 1 || isNaN(work)) {
-                                    work = 1;
-
-                                } else if (work > 20000) {
-                                    work = 20000;
-
-                                }
-                                return work;
-                            }
-
-                            info_btn.addEventListener('click', function() {
-
-                                if (capacity == 0 || isNaN(capacity))
-                                    return;
-
-                                if (workers == 0 || isNaN(workers))
-                                    return;
-
-                                info_btn.disabled = true;
-
-                                data = {
-                                    day_capacity: capacity,
-                                    no_workers: workers
-                                };
-
-                                $.ajax({
-                                    type: "POST",
-                                    url: endpoint,
-                                    data: data,
-                                    cache: false,
-                                    success: function(res) {
-                                        try {
-                                            // convet to the json type
-                                            Jsondata = JSON.parse(res);
-                                            // console.log(Jsondata.u);
-
-                                            if (Jsondata.u == "no") {
-
-                                                toastApply("Update Warning", "This information already updated...", 2);
-
-                                            } else if (Jsondata.u == "yes") {
-                                                toastApply("Update Success", "Company information updated...", 0);
-
-                                            } else {
-                                                toastApply("Update Failed", "Try again later...", 1);
-
-                                            }
-                                            setTimeout(() => {
-                                                info_btn.disabled = false;
-                                                // location.reload();
-                                            }, 4000);
-
-                                        } catch (error) {
-                                            toastApply("Update Failed", "Try again later...", 1);
-                                            info_btn.disabled = false;
-                                        }
-                                    },
-                                    error: function(xhr, status, error) {
-                                        toastApply("Update Failed", "Try again later...", 1);
-                                        info_btn.disabled = false;
-                                    },
-                                });
-                            });
-                        </script>
 
                     </div>
 
@@ -521,11 +362,22 @@
 
         </div>
     </section>
+
+    <script>
+        endpoint = "<?= ROOT ?>/garment/update_info";
+
+        let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
+            completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
+    </script>
+
+    <script src="<?= ROOT ?>/assets/js/garment/garment-overview.js"> </script>
+
     <!-- Import JQuary Library script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
 
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 </body>
 
 </html>
