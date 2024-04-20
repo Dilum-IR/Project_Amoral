@@ -68,10 +68,10 @@
 
                             </ul>
                         </div>
-                        <a href="" class="btn-download">
+                        <!-- <a href="" class="btn-download">
                             <i class='bx bxs-cloud-download'></i>
                             <span class="text">Download PDF</span>
-                        </a>
+                        </a> -->
                     </div>
                     <!-- Navigation path -->
 
@@ -118,7 +118,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Current Orders</h3>
-                                    <h1><?= $overview['current'] ?></h1>
+                                    <h1><?= (!empty($overview['current'])) ? $overview['current'] : "0" ?></h1>
 
                                 </div>
                                 <div class="progress">
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+                            <small class="text-muted">From last month</small>
                         </div>
 
 
@@ -140,7 +140,7 @@
                             <div class="middle">
                                 <div class="left">
                                     <h3>Completed Orders</h3>
-                                    <h1><?= $overview['completed'] ?></h1>
+                                    <h1><?= (!empty($overview['current'])) ? $overview['completed'] : "0" ?></h1>
 
                                 </div>
                                 <div class="progress">
@@ -153,7 +153,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+                            <small class="text-muted">From last month</small>
                         </div>
                         <div class="sales">
                             <i class=' bx bxs-dollar-circle'></i>
@@ -173,7 +173,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">Last 24 Hours</small>
+                            <small class="text-muted">From last month</small>
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Orders</h3>
-                                <a id="info-btn-1" class="info-btn" href="<?=ROOT?>/garment/orders">View All</a>
+                                <a id="info-btn-1" class="info-btn" href="<?= ROOT ?>/garment/orders">View All</a>
                             </div>
                             <table>
                                 <thead>
@@ -207,11 +207,11 @@
                                             <tr>
                                                 <td>
                                                     <!-- <img src="img/people.png"> -->
-                                                    <p><?= $item->order_id?></p>
+                                                    <p><?= $item->order_id ?></p>
                                                 </td>
-                                                <td><?= $item->order_id?></td>
+                                                <td><?= $item->order_id ?></td>
                                                 <td>01-10-2021</td>
-                                                <td><span class="text-status <?= $item->status?>"><?= $item->status?></span></td>
+                                                <td><span class="text-status <?= $item->status ?>"><?= $item->status ?></span></td>
                                             </tr>
                                     <?php
                                         }

@@ -81,12 +81,12 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="ordId">Order Id</th>
-                                <th class="desc">Material types</th>
-                                <th class="qty">Total Qty</th>
-                                <th class="stth">Status</th>
-                                <th class="cost">Sew dispatch date</th>
-                                <th class="cost">Cut dispatch date</th>
+                                <th class="ordId">Order Id <span class="icon-arrow"><i class='bx bxs-sort-alt'></i></span></th>
+                                <th class="desc">Materials<span class="icon-arrow"><i class='bx bxs-sort-alt'></i></span></th>
+                                <th class="qty">Total Qty <span class="icon-arrow"><i class='bx bxs-sort-alt'></i></span></th>
+                                <th class="stth">Status <span class="icon-arrow"><i class='bx bxs-sort-alt'></i></span></th>
+                                <th class="cost">Sew finish date <span class="icon-arrow"><i class='bx bxs-sort-alt'></i></span></th>
+                                <th class="cost">Cut finish date <span class="icon-arrow"><i class='bx bxs-sort-alt'></i></span></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -198,6 +198,8 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -209,6 +211,43 @@
     <style>
         #no-data-search .hide {
             display: none;
+        }
+
+        tbody tr {
+            --delay: 0.1s;
+            transition: .5s ease-in-out var(--delay);
+        }
+
+        tbody {
+            overflow: auto;
+            overflow: overlay;
+        }
+
+        thead th span.icon-arrow {
+            align-items: center;
+            margin-left: 3px;
+            text-align: center;
+            font-size: 1rem;
+            cursor: pointer;
+           
+        }
+
+        thead th {
+            transition: 0.3s ease-in-out;
+
+        }
+        thead th:hover {
+            color: #6c00bd;
+
+        }
+
+        thead th.head-active {
+            color: #6c00bd;
+        }
+
+        thead th.asc span.icon-arrow {
+
+            transform: rotate(180deg);
         }
     </style>
     <!-- Dark report_overlay -->
