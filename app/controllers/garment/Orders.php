@@ -62,7 +62,10 @@ class Orders extends Controller
 
     private function get_order_data($garment_order)
     {
-        $result = $garment_order->getGarmentOrderData();
+
+        $data['garment_id'] = $_SESSION['USER']->emp_id;
+
+        $result = $garment_order->getGarmentOrderData($data);
         $i = 0;
 
         foreach ($result as $item) {
@@ -116,7 +119,6 @@ class Orders extends Controller
 
                     $item->mult_order = array_merge($item->mult_order, [$new_mult]);
                 }
-               
             }
         }
 
@@ -135,19 +137,19 @@ class Orders extends Controller
         // show($id_array);
 
         $material_array = [];
-        $total_qty=0;
+        $total_qty = 0;
         // create a new array for toal qty and meterial type array
         foreach ($new_result as $item) {
 
-            foreach ( $item->mult_order as $value) {
-                
-                if (!in_array($value['material_type'],$material_array)) {
-                    array_push($material_array,$value['material_type']);
-                } 
+            foreach ($item->mult_order as $value) {
+
+                if (!in_array($value['material_type'], $material_array)) {
+                    array_push($material_array, $value['material_type']);
+                }
                 $total_qty += $value['qty'];
             }
 
-            $item->total_qty =$total_qty;
+            $item->total_qty = $total_qty;
             $item->material_array = $material_array;
         }
 

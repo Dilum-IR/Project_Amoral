@@ -55,13 +55,13 @@ class GarmentOrder
         ON sleeves.sleeve_id = order_material.sleeve_id
         INNER JOIN printing_type
         ON printing_type.ptype_id = order_material.ptype_id ";
-	
+
 		return $this->quary($quary);
 	}
 
-	function getGarmentOrderData()
+	function getGarmentOrderData($data)
 	{
-
+		// select only session user orders only
 		$quary = "SELECT $this->table.*, order_material.*, material_stock.material_type, sleeves.type, printing_type.printing_type
         FROM order_material 
         INNER JOIN $this->table 
@@ -71,9 +71,10 @@ class GarmentOrder
         INNER JOIN sleeves
         ON sleeves.sleeve_id = order_material.sleeve_id
         INNER JOIN printing_type
-        ON printing_type.ptype_id = order_material.ptype_id ";
+        ON printing_type.ptype_id = order_material.ptype_id WHERE garment_id = :garment_id";
 
-	
-		return $this->quary($quary);
+		$data = array_merge($data);
+
+		return $this->quary($quary,$data);
 	}
 }

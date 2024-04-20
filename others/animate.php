@@ -1,138 +1,111 @@
 <!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Circular Progress Bar </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
-      <script src="animi.js"></script>
-    <div class="app">
-      <div class="cardList">
-        <button class="cardList__btn btn btn--left">
-          <div class="icon">
-            <svg>
-              <use xlink:href="#arrow-left"></use>
-            </svg>
-          </div>
-        </button>
-
-        <div class="cards__wrapper">
-          <div class="card current--card">
-            <div class="card__image">
-              <img src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
-            </div>
-          </div>
-
-          <div class="card next--card">
-            <div class="card__image">
-              <img src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
-            </div>
-          </div>
-
-          <div class="card previous--card">
-            <div class="card__image">
-              <img src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
-            </div>
-          </div>
-        </div>
-
-        <button class="cardList__btn btn btn--right">
-          <div class="icon">
-            <svg>
-              <use xlink:href="#arrow-right"></use>
-            </svg>
-          </div>
-        </button>
+  <div class="container">
+      <div class="circular-progress">
+        <span class="progress-value">0%</span>
       </div>
 
-      <div class="infoList">
-        <div class="info__wrapper">
-          <div class="info current--info">
-            <h1 class="text name">Highlands</h1>
-            <h4 class="text location">Scotland</h4>
-            <p class="text description">The mountains are calling</p>
-          </div>
+    <!-- <span class="text">HTML & CSS</span> -->
+  </div>
 
-          <div class="info next--info">
-            <h1 class="text name">Machu Pichu</h1>
-            <h4 class="text location">Peru</h4>
-            <p class="text description">Adventure is never far away</p>
-          </div>
+  <!-- JavaScript -->
+  <script>
+    let circularProgress = document.querySelector(".circular-progress"),
+      progressValue = document.querySelector(".progress-value");
 
-          <div class="info previous--info">
-            <h1 class="text name">Chamonix</h1>
-            <h4 class="text location">France</h4>
-            <p class="text description">Let your dreams come true</p>
-          </div>
-        </div>
-      </div>
+    let progressStartValue = 0,
+      progressEndValue = 70,
+      speed = 15;
 
-      <div class="app__bg">
-        <div class="app__bg__image current--image">
-          <img src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
-        </div>
-        <div class="app__bg__image next--image">
-          <img src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
-        </div>
-        <div class="app__bg__image previous--image">
-          <img src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
-        </div>
-      </div>
-    </div>
+    let progress = setInterval(() => {
+      progressStartValue++;
 
-    <div class="loading__wrapper">
-      <div class="loader--text">Loading...</div>
-      <div class="loader">
-        <span></span>
-      </div>
-    </div>
+      progressValue.textContent = `${progressStartValue}%`
+      circularProgress.style.background = `conic-gradient(#7d2ae8 ${progressStartValue * 3.6}deg, #ededed 0deg)`
 
-    <svg class="icons" style="display: none">
-      <symbol
-        id="arrow-left"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
-        <polyline
-          points="328 112 184 256 328 400"
-          style="
-            fill: none;
-            stroke: #fff;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 48px;
-          "
-        />
-      </symbol>
-      <symbol
-        id="arrow-right"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
-        <polyline
-          points="184 112 328 256 184 400"
-          style="
-            fill: none;
-            stroke: #fff;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 48px;
-          "
-        />
-      </symbol>
-    </svg>
+      if (progressStartValue == progressEndValue) {
+        clearInterval(progress);
+      }
+    }, speed);
+  </script>
+  <style>
+    /* Google Fonts - Poppins */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-    <div class="support">
-      <a href="https://twitter.com/DevLoop01" target="_blank"
-        ><i class="fab fa-twitter-square"></i
-      ></a>
-      <a href="https://dribbble.com/devloop01" target="_blank"
-        ><i class="fab fa-dribbble"></i
-      ></a>
-    </div>
-  </body>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* background: #7d2ae8; */
+    }
+
+    .container {
+      display: flex;
+      width: 40px;
+      padding: 50px 0;
+      border-radius: 8px;
+      background: #fff;
+      row-gap: 30px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .circular-progress {
+      position: relative;
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circular-progress::before {
+      content: "";
+      position: absolute;
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      background-color: #fff;
+    }
+
+    .progress-value {
+      position: relative;
+      font-size: 30px;
+      font-weight: 600;
+      color: #7d2ae8;
+    }
+
+    .text {
+      font-size: 10px;
+      font-weight: 500;
+      color: #606060;
+    }
+  </style>
+</body>
+
+
 </html>
