@@ -585,7 +585,7 @@
                     <span class="error dates"></span>
                 </div>
 
-                <div class="user-details pickupN">
+                <div class="user-details pickupN is-checked">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
                     
@@ -1049,26 +1049,6 @@
 
         </script>
 
-    <script>
-            // clear the other option when one is selected in the delivery options
-            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
-                pickupDate.addEventListener('change', function(){
-                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate =>{
-                        deliveryDate.value = "";
-                    });
-
-                });
-            });
-
-            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
-                deliveryDate.addEventListener('change', function(){
-                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate =>{
-                        pickupDate.value = "";
-                    });
-
-                });
-            });
-    </script>
 
 
 
