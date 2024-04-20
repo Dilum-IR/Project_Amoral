@@ -15,7 +15,7 @@ class CustomerOrders extends Controller
         $printingType = new PrintingType;
         $garment_order = new GarmentOrder;
 
-        if ($username != 'User') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
 
             // show($_SESSION['USER']->emp_id);
 

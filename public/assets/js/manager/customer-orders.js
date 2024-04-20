@@ -131,44 +131,109 @@ datesView.forEach(date => {
 
 
 let reportForm = document.querySelector(".popup-report form");
+let newForm = document.querySelector(".popup-new form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
+let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
 
     if (reportForm) {
-        cancelReportBtn.addEventListener("click", function (event) {
-            clearErrorMsg();
+        cancelReportBtn.addEventListener("click", function () {
+            clearErrorMsg(reportForm);
         });
         closeReportBtn.addEventListener('click', function () {
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
             closeReport();
         });
 
         reportForm.addEventListener("submit", function (event) {
             // event.preventDefault();    
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
             console.log('submit');
 
             let errors = validateReport();
             console.log(Object.values(errors));
             if (Object.keys(errors).length > 0) {
-                displayErrorMsg(errors);
+                displayErrorMsg(errors, reportForm);
                 event.preventDefault();
-            } else {
-
             }
         });
 
-    } else {
-        console.error('Form not found');
+    }
+
+    if(newForm){
+        cancelNewBtn.addEventListener("click", function(){
+            clearErrorMsg(newForm);
+        });
+        closeNewBtn.addEventListener("click", function(){
+            clearErrorMsg(newForm);
+            closeNew();
+        
+        });
+
+        newForm.addEventListener("submit", function(event){
+            event.preventDefault();
+            clearErrorMsg(newForm);
+            
+            let errors = validateNewOrder();
+            console.log(Object.values(errors));
+            if (Object.keys(errors).length > 0) {
+                displayErrorMsg(errors, newForm);
+                event.preventDefault();
+            }
+        });
     }
 });
+
 
 // close buttons
 closeViewBtn.addEventListener('click', closeView);
 closeNewBtn.addEventListener('click', closeNew);
 
+function validateNewOrder() {
+    let errors = {};
+    // pdf and images
+    var pdf = document.querySelector('#pdfFileToUpload');
+    var image1 = document.querySelector('#imageFileToUpload1');
+    var image2 = document.querySelector('#imageFileToUpload2');
+
+    if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+        // alert('Please upload a PDF or an image');
+        // event.preventDefault();
+        errors['files'] = ' *Please upload a PDF or images';
+    }
+
+    // sizes
+    let sizes = document.querySelectorAll('.popup-new input[type="number"]');
+    let total = 0;
+    sizes.forEach(size => {
+        total += parseInt(size.value);
+    });
+
+    if (total === 0) {
+        // event.preventDefault();
+        errors['sizes0'] = ' *Please select a size';
+    }
+
+    // dispatch date
+    let dates = document.querySelectorAll('.popup-new input[type="date"]');
+    let dateSelected = false;
+
+    dates.forEach(date => {
+        if (date.value !== '') {
+            dateSelected = true;
+        }
+    });
+
+    if (!dateSelected) {
+        // event.preventDefault();
+        errors['dates'] = ' *Please select a date';
+    }
+
+    return errors;
+
+}
 
 function validateReport() {
     let errors = {};
@@ -198,20 +263,20 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-function displayErrorMsg(errors) {
+function displayErrorMsg(errors, form) {
 
     for (const key in errors) {
         if (Object.hasOwnProperty.call(errors, key)) {
             const error = errors[key];
-            reportForm.querySelector(`.error.${key}`).innerText = error;
+            form.querySelector(`.error.${key}`).innerText = error;
         }
     }
 }
 
 
-function clearErrorMsg() {
-    console.log('clear');
-    let errorElements = reportForm.querySelectorAll('.error');
+function clearErrorMsg(form) {
+    // console.log('clear');
+    let errorElements = form.querySelectorAll('.error');
 
     errorElements.forEach(errorElement => {
         errorElement.innerText = '';
@@ -246,17 +311,20 @@ function openView(button) {
         switch (order.order_status) {
             case 'cutting' :
                 progress2.classList.add("active");
+                progress2.classList.add("set");
                 break;
 
             case 'printing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
+                progress3.classList.add("set");
                 break;
 
             case 'sewing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress4.classList.add("active");
+                progress4.classList.add("set");
                 break;
 
             case 'delivering':
@@ -264,6 +332,7 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress5.classList.add("active");
+                progress5.classList.add("set");
                 break;
 
             case 'completed':
@@ -272,6 +341,7 @@ function openView(button) {
                 progress4.classList.add("active");
                 progress5.classList.add("active");
                 progress6.classList.add("active");
+                progress6.classList.add("set");
                 break;
 
             case 'cancelled':
@@ -299,7 +369,7 @@ function openView(button) {
 
                     }
                     console.log(nextProgress);
-                    if (prevProgress && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
+                    if (prevProgress && !(this.classList.contains("set")) && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
                         this.classList.toggle("active");
                         console.log(this);
                     }
@@ -455,21 +525,14 @@ function closeNew(){
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
 
-    document.querySelector(".price-details-container").innerHTML = `
-            <tr>
-                <th>Material</th>
-                <th>Sleeve Type</th>
-                <th>Printing Type</th>
-                <th>Quantity</th>
-                <th>Unit Price(Rs.)</th>
-            </tr>
-            <tr>
-                <td class="materialType"></td>
-                <td class="sleeveType"></td>
-                <td class="printingType"></td>
-                <td class="quantityAll">0</td>
-                <td class="unitPrice">0</td>
-            </tr>`;
+    let cards = document.querySelectorAll(".new-card");
+    cards.forEach(card => {
+        card.remove();
+    });
+    let priceRows = document.querySelectorAll(".price-details-container .units");
+    priceRows.forEach(row => {
+        row.remove();
+    });
     document.querySelector(".new-form").reset();
 }
 

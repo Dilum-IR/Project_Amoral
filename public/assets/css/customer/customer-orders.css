@@ -526,7 +526,8 @@ textarea {
   resize: none;
 }
 
-.popup-report .error {
+.popup-report .error,
+.popup-new .error{
   color: red;
   font-size: 14px;
   position: relative;
@@ -915,9 +916,9 @@ button.pay:hover {
   display: none;
 }
 
-.popup-new .input-box.design .radio-btns {
+/* .popup-new .input-box.design .radio-btns {
   margin-left: 20%;
-}
+} */
 
 .popup-new .input-box.design .radio-btns input {
   height: auto;
@@ -958,9 +959,14 @@ hr.second {
 .radio-btns {
   display: flex;
   justify-content: space-between;
-  width: 200px;
-  margin: 20px 47% 20px 36%;
+  width: 350px;
+  margin: 20px 30% 20px 33%;
   align-items: center;
+}
+
+.design .radio-btns{
+  width: 200px;
+  margin-left: 3rem;
 }
 
 .radio-btns input[type="radio"]:checked + label {
@@ -1049,25 +1055,6 @@ hr.second {
   margin: 5px;
 }
 
-.radio-btns {
-  display: flex;
-  justify-content: space-between;
-  width: 200px;
-  margin: 20px 47% 20px 36%;
-  align-items: center;
-}
-
-.radio-btns input[type="radio"]:checked + label {
-  color: #000;
-}
-
-.radio-btns input[type="radio"]:not(:checked) + label {
-  color: #999;
-}
-
-.radio-btns label {
-  cursor: pointer;
-}
 
 /* @media screen and (max-width: 950px) {
   .btn,

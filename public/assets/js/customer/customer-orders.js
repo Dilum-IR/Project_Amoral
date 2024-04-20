@@ -42,9 +42,11 @@ function performSearch() {
   });
 }
 
-orderCancel.addEventListener("click", function (event) {
-  console.log("cancel");
-  deleteConfirm.classList.add("is-visible");
+
+
+orderCancel.addEventListener('click', function (event) {
+    // console.log('cancel');
+    deleteConfirm.classList.add('is-visible');
 });
 
 orderUpdate.addEventListener("click", function (event) {
@@ -86,37 +88,106 @@ datesView.forEach((date) => {
 let reportForm = document.querySelector(".popup-report form");
 let newForm = document.querySelector(".popup-new form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
+let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  if (reportForm) {
-    cancelReportBtn.addEventListener("click", function (event) {
-      clearErrorMsg();
-    });
-    closeReportBtn.addEventListener("click", function () {
-      clearErrorMsg();
-      closeReport();
-    });
 
-    reportForm.addEventListener("submit", function (event) {
-      // event.preventDefault();
-      clearErrorMsg();
-      console.log("submit");
+document.addEventListener('DOMContentLoaded', () => {
 
-      let errors = validateReport();
-      console.log(Object.values(errors));
-      if (Object.keys(errors).length > 0) {
-        displayErrorMsg(errors);
-        event.preventDefault();
-      } else {
-      }
-    });
-  } else {
-    console.error("Form not found");
-  }
+    if (reportForm) {
+        cancelReportBtn.addEventListener("click", function () {
+            clearErrorMsg(reportForm);
+        });
+        closeReportBtn.addEventListener('click', function () {
+            clearErrorMsg(reportForm);
+            closeReport();
+        });
+
+        reportForm.addEventListener("submit", function (event) {
+            // event.preventDefault();    
+            clearErrorMsg(reportForm);
+            console.log('submit');
+
+            let errors = validateReport();
+            console.log(Object.values(errors));
+            if (Object.keys(errors).length > 0) {
+                displayErrorMsg(errors, reportForm);
+                event.preventDefault();
+            }
+        });
+
+    }
+
+    if(newForm){
+        cancelNewBtn.addEventListener("click", function(){
+            clearErrorMsg(newForm);
+        });
+        closeNewBtn.addEventListener("click", function(){
+            clearErrorMsg(newForm);
+            closeNew();
+        
+        });
+
+        newForm.addEventListener("submit", function(event){
+            // event.preventDefault();
+            clearErrorMsg(newForm);
+            
+            let errors = validateNewOrder();
+            console.log(Object.values(errors));
+            if (Object.keys(errors).length > 0) {
+                displayErrorMsg(errors, newForm);
+                event.preventDefault();
+            }
+        });
+    }
 });
 
 closeViewBtn.addEventListener("click", closeView);
 closeNewBtn.addEventListener("click", closeNew);
+
+function validateNewOrder() {
+    let errors = {};
+    // pdf and images
+    var pdf = document.querySelector('#pdfFileToUpload');
+    var image1 = document.querySelector('#imageFileToUpload1');
+    var image2 = document.querySelector('#imageFileToUpload2');
+
+    if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+        // alert('Please upload a PDF or an image');
+        // event.preventDefault();
+        errors['files'] = ' *Please upload a PDF or images';
+    }
+
+    // sizes
+    let sizes = document.querySelectorAll('.popup-new input[type="number"]');
+    let total = 0;
+    sizes.forEach(size => {
+        total += parseInt(size.value);
+    });
+
+    if (total === 0) {
+        // event.preventDefault();
+        errors['sizes0'] = ' *Please select a size';
+    }
+
+    // dispatch date
+    let dates = document.querySelectorAll('.popup-new input[type="date"]');
+    let dateSelected = false;
+
+    dates.forEach(date => {
+        if (date.value !== '') {
+            dateSelected = true;
+        }
+    });
+
+    if (!dateSelected) {
+        // event.preventDefault();
+        errors['dates'] = ' *Please select a date';
+    }
+
+    return errors;
+
+}
+
 
 function validateReport() {
   let errors = {};
@@ -148,18 +219,22 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-function displayErrorMsg(errors) {
-  for (const key in errors) {
-    if (Object.hasOwnProperty.call(errors, key)) {
-      const error = errors[key];
-      reportForm.querySelector(`.error.${key}`).innerText = error;
+
+function displayErrorMsg(errors, form) {
+
+    for (const key in errors) {
+        if (Object.hasOwnProperty.call(errors, key)) {
+            const error = errors[key];
+            form.querySelector(`.error.${key}`).innerText = error;
+        }
     }
-  }
 }
 
-function clearErrorMsg() {
-  console.log("clear");
-  let errorElements = reportForm.querySelectorAll(".error");
+
+
+function clearErrorMsg(form) {
+    // console.log('clear');
+    let errorElements = form.querySelectorAll('.error');
 
   errorElements.forEach((errorElement) => {
     errorElement.innerText = "";
@@ -477,22 +552,16 @@ function closeNew() {
   sidebar.style.pointerEvents = "auto";
   nav.style.pointerEvents = "auto";
 
-  document.querySelector(".price-details-container").innerHTML = `
-            <tr>
-                <th>Material</th>
-                <th>Sleeve Type</th>
-                <th>Printing Type</th>
-                <th>Quantity</th>
-                <th>Unit Price(Rs.)</th>
-            </tr>
-            <tr>
-                <td class="materialType"></td>
-                <td class="sleeveType"></td>
-                <td class="printingType"></td>
-                <td class="quantityAll">0</td>
-                <td class="unitPrice">0</td>
-            </tr>`;
-  document.querySelector(".new-form").reset();
+
+    let cards = document.querySelectorAll(".new-card");
+    cards.forEach(card => {
+        card.remove();
+    });
+    let priceRows = document.querySelectorAll(".price-details-container .units");
+    priceRows.forEach(row => {
+        row.remove();
+    });
+    document.querySelector(".new-form").reset();
 }
 
 function addMaterialCardView(material, quantity, countv) {
@@ -650,53 +719,6 @@ function updateTotalPrice() {
 //   });
 // }
 
-//toggle delivery options of new order
-
-let deliveryN = document.getElementById("deliveryN");
-let pickUpN = document.getElementById("pickupN");
-
-pickUpN.addEventListener("click", togglePickUpN);
-deliveryN.addEventListener("click", toggleDeliveryN);
-
-// clear the other option when one is selected
-document
-  .querySelectorAll("input[name='dispatch_date_pickup']")
-  .forEach((pickupDate) => {
-    pickupDate.addEventListener("change", function () {
-      document
-        .querySelectorAll("input[name='dispatch_date_delivery']")
-        .forEach((deliveryDate) => {
-          deliveryDate.value = "";
-        });
-    });
-  });
-
-document
-  .querySelectorAll("input[name='dispatch_date_delivery']")
-  .forEach((deliveryDate) => {
-    deliveryDate.addEventListener("change", function () {
-      document
-        .querySelectorAll("input[name='dispatch_date_pickup']")
-        .forEach((pickupDate) => {
-          pickupDate.value = "";
-        });
-    });
-  });
-
-function togglePickUpN() {
-  document.querySelector(".user-details.pickupN").classList.add("is-checked");
-  document
-    .querySelector(".user-details.deliveryN")
-    .classList.remove("is-checked");
-}
-
-// new order delivary map
-function toggleDeliveryN() {
-  document.querySelector(".user-details.deliveryN").classList.add("is-checked");
-  document
-    .querySelector(".user-details.pickupN")
-    .classList.remove("is-checked");
-
   var marker;
   var map;
 
@@ -765,7 +787,7 @@ function toggleDeliveryN() {
     document.querySelector('input[name="latitude"]').value = latitude;
     document.querySelector('input[name="longitude"]').value = longitude;
   });
-}
+
 
 marker.addListener("click", function () {
   infoWindow.open(map, marker);
@@ -787,3 +809,4 @@ function handleLocationError(browserHasGeolocation, pos) {
     infoWindow.open(map, marker);
   });
 }
+

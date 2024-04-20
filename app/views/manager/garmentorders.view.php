@@ -51,6 +51,8 @@
                                 <p>Quantity</p>
                             </div>
                             <?php $pendingOrders = false; ?>
+                            <!-- <?php $materials = array(); ?>
+                            <?php $qtys = array(); ?> -->
                             <?php if(!empty($data['garment_orders'])): ?>
                                 <?php foreach($data['garment_orders'] as $order): ?>
                                     <?php if($order->status == 'pending' && $order->garment_id == null): ?>
@@ -58,7 +60,10 @@
                                         <?php $pendingOrders = true; ?>
                                         <?php foreach($data['order_material'] as $order_material): ?>
                                             <?php if($order_material->order_id == $order->order_id): ?>
-                                                <?php $totQuantity += $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
+                                                <!-- <?php $materials[] = intval($order_material->material_id); ?> -->
+                                                <?php $qty = $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
+                                                <!-- <?php $qtys[] = $qty ?> -->
+                                                <?php $totQuantity += $qty ?>                                            
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                         <?php $customer_order; ?>
@@ -76,6 +81,7 @@
                                 <script>
                                     // document.querySelector('.item').style.display = 'none';
                                     document.querySelector('.item').innerHTML = 'No orders to display';
+
                                 </script>
                             <?php endif; ?>
                         </div>
@@ -98,20 +104,27 @@
                                     <?php if(!empty($data['garment_orders'])): ?>
                                         <?php $count = 0; ?>
                                         <?php $totQuantity = 0; ?>
+
                                         <?php foreach($data['garment_orders'] as $order): ?>
                                             <?php if($order->garment_id == $garment->garment_id && $order->status != 'pending'): ?>
                                                 <p><?php $count++; ?></p>
                                                 <?php foreach($data['order_material'] as $order_material): ?>
                                                     <?php if($order_material->order_id == $order->order_id): ?>
-                                                        <?php $totQuantity += $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
+                                                        <!-- <?php $materials[] = $order_material; ?> -->
+                                                        <?php $qty = $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
+                                                        <!-- <?php $qtys[] = $qty ?> -->
+                                                        <?php $totQuantity += $qty ?>
                                                     <?php endif; ?>
                                                 <?php endforeach; ?>
                                             <?php endif;?>
                                         <?php endforeach; ?>
+
                                         <div class="item">
                                             <p><?php echo $count ?></p>
                                             <p><?php echo $totQuantity ?></p>
+
                                         </div>
+
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -136,21 +149,26 @@
                 $('.garments').each(function() {
                     var id = $(this).attr('id');
                     var orders = [];
+          
                     $(this).find('.draggable.set').each(function() {
                         var order_id = $(this).attr('id');
-                        orders.push({id: order_id});
+                        var order_details = JSON.parse($(this).attr('data-order'));
+                        // console.log(order_details);
+                        var customer_orderId = order_details.order_id;
+
+                        orders.push({id: order_id, customer_orderId: customer_orderId});
                     });
                     garment.push({garment_id: id, orders: orders});
                 });
 
-                console.log(garment);
+                // console.log(garment);
 
                 $.ajax({
                     url: '<?= ROOT ?>/manager/assignGarment',
                     type: 'POST',
                     data: {garments: garment},
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         sessionStorage.setItem('successMsg', 'Orders assigned successfully');
                         location.reload();
 

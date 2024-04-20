@@ -969,7 +969,7 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Material </span>
-                        <select name="material[]">
+                        <select required name="material[]">
                             <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach ($data['materials'] as $material) : ?>
                                 <option value="<?php echo $material->stock_id ?>"><?php echo $material->material_type ?></option>
@@ -984,7 +984,7 @@
 
                     <div class="input-box">
                         <span class="details">Sleeves</span>
-                        <select name="sleeve[]">
+                        <select required name="sleeve[]">
                             <option value="" selected hidden style="color: grey;">Select</option>
                             <?php foreach ($data['sleeveType'] as $sleeve) : ?>
                                 <option value="<?php echo $sleeve->type ?>"><?php echo $sleeve->type ?></option>
@@ -994,8 +994,8 @@
 
                     <div class="input-box">
                         <span class="details">Printing Type</span>
-                        <select name="printingType[]">
-
+                        <select required name="printingType[]">
+                            <option value="" selected hidden style="color: grey;">Select a material first</option>                           
                         </select>
                     </div>
 
@@ -1146,7 +1146,7 @@
 
                     <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
                     <label for="delivery">Delivery</label>
-                    <span class="error delivery"></span>
+                    <span class="error dates"></span>
                 </div>
 
                 <div class="user-details pickupN">
@@ -1216,6 +1216,24 @@
 
 
                 <!-- <p>You will be notified about possible discounts later</p> -->
+
+
+
+                <input name="latitude" type="hidden" required />
+                <input name="longitude" type="hidden" required />
+
+
+                <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
+                <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+
 
                 <script>
                     //add price data dynamically in new order popup
@@ -1338,6 +1356,46 @@
                 </script>
 
                 <script>
+                            //toggle delivery options of new order
+                    let deliveryN = document.getElementById("deliveryN");
+                    let pickUpN = document.getElementById("pickupN");
+
+
+                    pickUpN.addEventListener('click', togglePickUpN);
+                    deliveryN.addEventListener('click', toggleDeliveryN);
+
+
+                    // clear the other option when one is selected
+                    document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                        pickupDate.addEventListener('change', function() {
+                            document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                                deliveryDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                        deliveryDate.addEventListener('change', function() {
+                            document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                                pickupDate.value = "";
+                            });
+
+                        });
+                    });
+
+                    function togglePickUpN() {
+
+                        document.querySelector(".user-details.pickupN").classList.add("is-checked");
+                        document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
+
+
+                    }
+
+                    function toggleDeliveryN() {
+                        document.querySelector(".user-details.deliveryN").classList.add("is-checked");
+                        document.querySelector(".user-details.pickupN").classList.remove("is-checked");
+                    }
 
                 </script>
 
@@ -1349,7 +1407,7 @@
                     function addMaterialCard() {
                         var newCard = document.createElement("div");
                         newCard.className = "user-details";
-
+                        newCard.classList.add("new-card");
 
                         newCard.innerHTML = `
                             <i class="fas fa-minus remove"></i>
@@ -1561,28 +1619,9 @@
                 </script>
 
 
-
-                <input name="latitude" type="hidden" required />
-                <input name="longitude" type="hidden" required />
-
-
-                <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
-                <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
-
-
-
-
-
-            </form>
-        </div>
-    </div>
-
-
-
-
+    <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
-    <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 

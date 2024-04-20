@@ -12,7 +12,9 @@ class Overview extends Controller
         $printingType = new PrintingType;
         $materialPrintingType = new MaterialPrintingType;
 
-        if ($username != 'User') {
+        // show($_SESSION);
+
+        if ($username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
             $data['deleteMaterial'] = 'false';
             $data['deletePType'] = 'false';
             $data['customerOrder'] = $customerOrder->findAll('order_id');

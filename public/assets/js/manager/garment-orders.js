@@ -225,8 +225,6 @@ function openView(button) {
       for(let i=0; i<material.length; i++){
         addMaterialCardView(material[i]);
       }
-
-
       
   }
   
