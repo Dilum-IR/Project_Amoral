@@ -30,6 +30,10 @@ route('customer/chatbox', 'customer/customerOverview@chat_data');
 route('customer/p', 'customer/customerOrders@payment_process');
 route('customer/p_success', 'customer/customerOrders@payment_success');
 
+//manager ajax endpoint
+route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
+route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
@@ -37,6 +41,7 @@ route('manager/garmentorders', 'manager/GarmentOrders@index');
 route('manager/quotation', 'manager/Quotation@index');
 route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
+route('manager/assigndelivery', 'manager/AssignDelivery@index');
 
 // manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');
@@ -44,8 +49,13 @@ route('manager/chatbox', 'manager/ChatBox@chatbox');
 route('manager/saveMsg', 'manager/ChatBox@saveMsg');
 
 route('garment/overview', 'garment/Overview@index');
-route('garment/orders', 'garment/Orders@index');
-route('garment/profile', 'garment/Profile@index');
+route('garment/orders', 'garment/Orders@index'); 
+route('garment/profile', 'garment/Profile@index'); 
+
+route('garment/update_info', 'garment/Overview@updateInfo'); 
+route('garment/reports', 'garment/Orders@save_reports'); 
+route('garment/update/status', 'garment/Orders@update_status'); 
+
 
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');
@@ -68,3 +78,4 @@ route('tool', 'tool/Tool@index');
 route('collection', 'collection/Collection@Index');
 
 route('404', '_404@index');
+route('failure', 'ServerError@index');

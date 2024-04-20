@@ -7,7 +7,7 @@ class Profile extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'User' && $_SESSION['USER']->emp_status === 'delivery') {
+        if ($username != 'Employee' && $_SESSION['USER']->emp_status === 'delivery') {
 
             $employee = new Employee;
 
@@ -24,6 +24,14 @@ class Profile extends Controller
                 unset($_POST['saveP']);
                 $result = $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
                 //show($_POST);
+            }
+
+             // image changed method
+             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_Image']) && isset($_FILES['p_p'])) {
+
+                unset($_POST['change_Image']);
+                $imagerror = $this->changeImage($_POST, $_SESSION['USER']->emp_id, $employee);
+                // show($_POST);
             }
 
             if (!isset($error)) {
@@ -78,7 +86,9 @@ class Profile extends Controller
         $empArr['emp_image'] = $row->emp_image;
         $empArr['city'] = $row->city;
         $empArr['address'] = $row->address;
-        // show($empArr);
+
+        // $data =['data' =>$row];
+        // show($data);
         return $empArr;
 
     }
@@ -92,7 +102,7 @@ class Profile extends Controller
 
             $arr['email'] = $data['email'];
             $row = $employee->first($arr);
-            //show($row);
+            // show($row);
             if (
                 $data['emp_name'] == $row->emp_name &&
                 $data['contact_number'] == $row->contact_number &&
@@ -106,7 +116,7 @@ class Profile extends Controller
             }
         }
 
-        if ($employee->changeInfoValidate($data)) {
+        if ($employee-> changeInfoValidate($data)) {
 
             $user = new User;
 
@@ -116,7 +126,7 @@ class Profile extends Controller
             $userrow = $user->first($arr);
 
             if ((!empty($row) || !empty($userrow)) && $_SESSION['USER']->email != $data['email']) {
-                //show($row);
+                // show($row);
                 $employee->errors['flag'] = true;
                 $employee->errors['email'] = "This email is alrady in use.";
                 return $employee->errors;
@@ -124,7 +134,7 @@ class Profile extends Controller
 
             // Update userinfo
             $employee->update($id, $data, 'emp_id');
-            $_SESSION['USER']->fullname = $data['fullname'];
+            $_SESSION['USER']->emp_name = $data['emp_name'];
 
             // user email is changed then redirect to the sign in page 
             if ($_SESSION['USER']->email != $data['email']) {
@@ -184,63 +194,61 @@ class Profile extends Controller
 
 
 
-    // profile picture uploading
-    private function changeImage($data, $id, $user)
-    {
+   // profile picture uploading
+   private function changeImage($data, $id, $employee)
+   {
 
-        if ($_SESSION['USER']->user_image != "default-img.png") {
+       if ($_SESSION['USER']->emp_image != "default-img.png") {
 
-            $currentImgPath = ROOT . "/uploads/profile_img/" . explode(' ', $_SESSION['USER']->fullname)[0];
+           $currentImgPath = ROOT . "/uploads/profile_img/" . explode(' ', $_SESSION['USER']->emp_name)[0];
 
-            // Check if the file exists before attempting to delete it
-            if (file_exists($currentImgPath)) {
+           // Check if the file exists before attempting to delete it
+           if (file_exists($currentImgPath)) {
 
-                // Remove the current image
-                unlink($currentImgPath);
-            }
-        }
+               // Remove the current image
+               unlink($currentImgPath);
+           }
+       }
 
-        $img_name = $_FILES['p_p']['name'];
-        $tmp_name = $_FILES['p_p']['tmp_name'];
-        $error = $_FILES['p_p']['error'];
+       $img_name = $_FILES['p_p']['name'];
+       $tmp_name = $_FILES['p_p']['tmp_name'];
+       $error = $_FILES['p_p']['error'];
 
-        if ($error === 0) {
-            // get image extention store it in variable
-            $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+       if ($error === 0) {
+           // get image extention store it in variable
+           $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
 
-            // convet to image extetion into lowercase and store it in variable
-            $img_ex_lc = strtolower($img_ex);
+           // convet to image extetion into lowercase and store it in variable
+           $img_ex_lc = strtolower($img_ex);
 
-            // allowed image extetions
-            $allowed_exs = array("jpg", "jpeg", "png");
+           // allowed image extetions
+           $allowed_exs = array("jpg", "jpeg", "png");
 
-            // check the allowed extention is present user upload image
-            if (in_array($img_ex_lc, $allowed_exs)) {
+           // check the allowed extention is present user upload image
+           if (in_array($img_ex_lc, $allowed_exs)) {
 
-                // image name username with image name
-                $new_img_name = explode(' ', $_SESSION['USER']->fullname)[0] . "." . $img_ex_lc;
+               // image name username with image name
+               $new_img_name = explode(' ', $_SESSION['USER']->emp_name)[0] . "." . $img_ex_lc;
 
-                // bind the change user image for session variable
-                $_SESSION['USER']->user_image = $new_img_name;
+               // bind the change user image for session variable
+               $_SESSION['USER']->emp_image = $new_img_name;
 
-                // creating upload path on root directory
-                $img_upload_path = "../../project_Amoral/public/uploads/profile_img/" . $new_img_name;
+               // creating upload path on root directory
+               $img_upload_path = "../../project_Amoral/public/uploads/profile_img/" . $new_img_name;
 
-                // move upload image for that folder
-                move_uploaded_file($tmp_name, $img_upload_path);
+               // move upload image for that folder
+               move_uploaded_file($tmp_name, $img_upload_path);
 
-                //update the databse image name
-                $user->update($id, ['emp_image' => $new_img_name], 'emp_id');
-                redirect('delivery/profile');
-            } else {
-                $fileError['flag'] = true;
-                $fileError['error'] = "You can't upload files of '" . $img_ex_lc . " ' type !";
-                // header("Location:../../signup.php?error=$em&$data");
-                return $fileError;
-            }
-        }
-    }
-
-
-
+               //update the databse image name
+               $employee->update($id, ['emp_image' => $new_img_name], 'emp_id');
+               redirect('delivery/profile');
+           } else {
+               $fileError['flag'] = true;
+               $fileError['error'] = "You can't upload files of '" . $img_ex_lc . " ' type !";
+               // header("Location:../../signup.php?error=$em&$data");
+               return $fileError;
+           }
+       }
+   }
 }
+

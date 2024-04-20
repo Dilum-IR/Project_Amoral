@@ -16,6 +16,7 @@ class Profile extends Controller
                 unset($_POST['save']);
                 // show($_POST);
                 $error = $this->changeInfo($_POST, $_SESSION['USER']->id, $user);
+                
             }
 
             // password change method
@@ -84,9 +85,9 @@ class Profile extends Controller
         $userArr['address'] = $row->address;
         // show($userArr);
 
-        $data = ['data' => $row];
+        // $data = ['data' => $row];
         // show($data);
-        return $data;
+        return $userArr;
         //show($row);
 
     }
