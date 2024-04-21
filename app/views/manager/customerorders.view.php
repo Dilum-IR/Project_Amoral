@@ -758,7 +758,7 @@
                         var successMsgElement = document.querySelector('.success-msg');
                         successMsgElement.innerHTML = "Order placed successfully";
                         successMsgElement.style.display = 'block';
-                        delay(2000);
+                        // delay(2000);
                         setTimeout(function() {
                             successMsgElement.style.display = 'none';
                             location.reload();
