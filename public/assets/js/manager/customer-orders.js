@@ -173,17 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         });
 
-        newForm.addEventListener("submit", function(event){
-            event.preventDefault();
-            clearErrorMsg(newForm);
-            
-            let errors = validateNewOrder();
-            console.log(Object.values(errors));
-            if (Object.keys(errors).length > 0) {
-                displayErrorMsg(errors, newForm);
-                event.preventDefault();
-            }
-        });
     }
 });
 
@@ -232,7 +221,14 @@ function validateNewOrder() {
         errors['dates'] = ' *Please select a date';
     }
 
-    return errors;
+    clearErrorMsg(newForm);
+            
+    // let errors = validateNewOrder();
+    // console.log(Object.values(errors));
+    if (Object.keys(errors).length > 0) {
+        displayErrorMsg(errors, newForm);
+        // event.preventDefault();
+    }
 
 }
 
@@ -291,6 +287,8 @@ function removeActiveClass() {
     });
 }
 
+var lat;
+var lng;
 function openView(button) {
 
     // Get the data attribute value from the clicked button
@@ -451,7 +449,61 @@ function openView(button) {
         if(order.is_delivery == 1){
             document.querySelector(".delivery").classList.add("is-checked");
             document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
-            document.querySelector('.update-form input[name="district"]').value =order.city;
+            document.querySelector('.update-form input[name="city"]').value =order.city;
+            document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
+            document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
+            lat = parseFloat(order.latitude);
+            lng = parseFloat(order.longitude);
+            // console.log(typeof(lat));
+
+            
+            var map = new google.maps.Map(document.getElementById("view-order-map"), {
+                // Initial center coordinates
+                center: {
+                    
+                    lat: lat,
+                    lng: lng,
+                },
+                zoom: 15,
+            });
+
+            // map.setZoom(15);
+            marker = new google.maps.Marker({
+                position: {
+                    lat: lat,
+                    lng: lng,
+                },
+                map: map,
+                title: "Your Location",
+            });
+
+            map.addListener("click", function (event) {
+                if (marker) {
+                marker.setMap(null);
+                }
+        
+                // Get the clicked location's latitude and longitude
+                var latitude = event.latLng.lat();
+                var longitude = event.latLng.lng();
+        
+                console.log(latitude);
+        
+                marker = new google.maps.Marker({
+                position: {
+                    lat: latitude,
+                    lng: longitude,
+                },
+                map: map,
+                });
+        
+                document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+                document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+            });
+            
+
+            marker.addListener("click", function () {
+                infoWindow.open(map, marker);
+            });
         }else{
             document.querySelector(".pickup").classList.add("is-checked");
             document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
@@ -466,9 +518,7 @@ function openView(button) {
 
 
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
-        document.querySelector('.update-form input[name="city"]').value = order.city;
-        document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
-        document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
+        // document.querySelector('.update-form input[name="city"]').value = order.city;
 
         document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
 
@@ -496,9 +546,6 @@ function openView(button) {
             orderCancel.style.display = "block";
         }
 
-        if(order.remaining_payment == 0){
-            payBtn.style.display = "none";
-        }
 
     }
 
@@ -685,84 +732,153 @@ function updateTotalPrice(){
 
 
 
-var map;
-var marker;
-var infowindow;
-var flag = true;
-async function initMap() {
-    map = document.getElementById('map');
-
-    map.addEventListener('mouseover', function () {
-        // var lat = document.querySelector('input[name="latitude"]').value;
-        // var lng = document.querySelector('input[name="longitude"]').value;
-
-
-        // if (lat && lng && flag) {
-        //     var position = { lat: parseFloat(lat), lng: parseFloat(lng) };
-        //     map = new google.maps.Map(document.getElementById('map'), {
-        //         center: position,
-        //         zoom: 8
-        //     });
-        //     marker = new google.maps.Marker({
-        //         position: position,
-        //         map: map
-        //     });
-
-        // } else {
-
-        //     navigator.geolocation.getCurrentPosition(function (pos, error) {
-
-        //         if (error) {
-        //             console.log(error);
-        //         } else {
-        //             map = new google.maps.Map(document.getElementById('map'), {
-        //                 center: { lat: pos.coords.latitude, lng: pos.coords.longitude },
-        //                 zoom: 8
-        //             });
-        //         }
-        //     });
-        // }
-        // flag = false;
+function initMap(){
+  
+    var marker1;
+    var marker2;
+    var map1;
+    var map2;
+  
+    map1 = new google.maps.Map(document.getElementById("new-order-map"), {
+      // Initial center coordinates
+      center: {
+        // Sri lanka middle lat lang
+        lat: 7.7072567,
+        lng: 80.6534611,
+      },
+      zoom: 7,
     });
 
-    map.addEventListener('click', function (event) {
 
+    // console.log(lat);
 
-        if (marker) {
-            marker.setMap(null);
+    // map2 = new google.maps.Map(document.getElementById("view-order-map"), {
+    // // Initial center coordinates
+    // center: {
+        
+    //     lat: lat,
+    //     lng: lng,
+    // },
+    // zoom: 7,
+    // });
+  
+    // set the marker initial time user current location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+        //   var pos_view = {
+        //     lat: lat,
+        //     lng: lng,
+        //     };
+  
+          // Set the map's center to the user's current location
+          map1.setCenter(pos);
+        //   map2.setCenter(pos);
+          
+          map1.setZoom(15);
+        //   map2.setZoom(15);
+  
+          // Add a marker at the user's current location
+          marker1 = new google.maps.Marker({
+            position: pos,
+            map: map1,
+            title: "Your Location",
+          });
+
+        //   marker2 = new google.maps.Marker({
+        //     position: pos_view,
+        //     map: map2,
+        //     title: "Your Location",
+        //   });
+        },
+        function () {
+          handleLocationError(true, map1.getCenter());
+          handleLocationError(true, map2.getCenter());
         }
-
-        marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map
-        });
-
-
-
-        // infowindow = new google.maps.InfoWindow({
-        //     content: lat+','+ lng
-        // });
-
-        // infowindow.open(map, marker);
-
-        google.maps.event.addEventListener(marker, 'rightclick', function () {
-            marker.setMap(null);
-        });
-
-        lat = event.latLng.lat();
-        lng = event.latLng.lng();
-
-        document.querySelector('input[name="latitude"]').value = lat;
-        document.querySelector('input[name="longitude"]').value = lng;
-
+      );
+    } else {
+      handleLocationError(false, map1.getCenter());
+      handleLocationError(false, map2.getCenter());
+    }
+  
+    // add the location lat lang for this object
+    var selectedLocation;
+  
+    // Add a click event listener to the map
+    
+    map1.addListener("click", function (event) {
+      if (marker1) {
+        marker1.setMap(null);
+      }
+  
+      // Get the clicked location's latitude and longitude
+      var latitude = event.latLng.lat();
+      var longitude = event.latLng.lng();
+  
+      console.log(latitude);
+  
+      marker1 = new google.maps.Marker({
+        position: {
+          lat: latitude,
+          lng: longitude,
+        },
+        map: map1,
+      });
+  
+      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
     });
 
-    closeViewBtn.addEventListener('click', function () {
-        if(marker){
-            marker.setMap(null);
-        }
-    });
+    // map2.addListener("click", function (event) {
+    //   if (marker2) {
+    //     marker2.setMap(null);
+    //   }
+  
+    //   // Get the clicked location's latitude and longitude
+    //   var latitude = event.latLng.lat();
+    //   var longitude = event.latLng.lng();
+  
+    //   console.log(latitude);
+  
+    //   marker2 = new google.maps.Marker({
+    //     position: {
+    //       lat: latitude,
+    //       lng: longitude,
+    //     },
+    //     map: map2,
+    //   });
+  
+    //   document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+    //   document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+    // });
+    
+    // marker1.addListener("click", function () {
+    //   infoWindow.open(map1, marker1);
+    // });
 
+    // marker2.addListener("click", function () {
+    //   infoWindow.open(map2, marker2);
+    // });
 }
 
-initMap();
+function handleLocationError(browserHasGeolocation, pos) {
+  var infoWindow = new google.maps.InfoWindow({
+    content: browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation.",
+  });
+
+  var marker = new google.maps.Marker({
+    position: pos,
+    map: map,
+  });
+
+  marker.addListener("click", function () {
+    infoWindow.open(map, marker);
+  });
+}
