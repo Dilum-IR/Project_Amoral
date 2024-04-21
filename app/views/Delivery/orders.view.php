@@ -90,12 +90,15 @@
                                     <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
                                 </td> -->
                                     <td>
+                                    <?php if ($value->order_status != 'delivered'): ?>
                                         <button type="submit" class="view-order-btn" style="background-color: red;"
+                                            id="status-<?= $value->order_id; ?>"
                                             onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
 
 
                                         <!-- Button 1 -->
                                         <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+                                        <?php endif; ?>
 
                                     </td>
 
@@ -139,18 +142,62 @@
 
     </section>
 
+    
+
+    
+    
+    <!-- delivered confirm pop-up -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
-            <div>
+            <div class="bxbx">
                 <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
-
+                
             </div>
-            <h2>Are you sure ?</h2>
-            <button class="button" id="confirmDelete">OK</button>
-            <button class="button" id="cancelDelete">Cancel</button>
+            <div class="H2">
+                <h2>Are you sure ?</h2>
+            </div>
+            <div class="modalbtn">
+                <button type="submit" class="button" id="cancel" onclick="closeReport()">No</button>
+                <!-- <button class="button" id="confirm">Yes</button> -->
+                <button class="button" type="button" id="confirm"
+                    onclick="updateOrderStatus(<?= $value->order_id; ?>, 'delivered')">Yes</button>
+            </div>
         </div>
     </div>
+
+
+    <!--   Deliverd confirm pop up js with ajax -->
+
+    <script>
+function confirmPopup(orderId) {
+    // Show the modal, might involve more code here to display the modal
+    var confirmButton = document.getElementById('confirm');
+    confirmButton.onclick = function() {
+        updateOrderStatus(orderId, 'delivered');
+    };
+}
+
+        function updateOrderStatus(orderId, status) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "<?= ROOT ?>/delivery/orders/updateStatus", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        alert(response.message);
+                        document.getElementById('status-' + orderId).textContent = status;  // Update the UI to show the new status
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            };
+            xhr.send("order_id=" + orderId + "&status=" + encodeURIComponent(status));
+        }
+
+    </script>
+
 
     <!-- POPUP -->
     <!-- <div class="popup-report">
@@ -302,11 +349,11 @@
                 </div>
             </div>
         </div>
-    
-    <div class="btns">
-        <button type="button" class="ok-btn">OK</button>
-        <button type="button" class="update-btn">Update Order</button>
-    </div>
+
+        <div class="btns">
+            <button type="button" class="ok-btn">Back to orders</button>
+            <button type="button" class="update-btn">Update Order</button>
+        </div>
 
     </div>
 

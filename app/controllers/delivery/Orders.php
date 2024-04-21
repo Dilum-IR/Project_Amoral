@@ -6,6 +6,7 @@ class Orders extends Controller
     {
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+        $emp_id=$_SESSION['USER']->emp_id;
 
         // if ($username != 'User') {
 
@@ -23,9 +24,10 @@ class Orders extends Controller
         $column_names[6] = "orders.order_placed_on";
         $column_names[7] = "orders.latitude";
         $column_names[8] = "orders.longitude";
+        $column_names[9] = "orders.deliver_id";
 
 
-        $result = $order->find_withInner(['order_status' => "delivering"], "users", "user_id", "id", $column_names);
+        $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
 
         // show($result);
 
@@ -48,4 +50,23 @@ class Orders extends Controller
         //     redirect('home');
         // }
     }
+
+    public function updateStatus()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['order_id'], $_POST['order_status'])) {
+            $order_id = $_POST['order_id'];
+            $status = $_POST['order_status'];  // 'delivered' status can be set here or from AJAX
+// show($order_id);
+            $order = new Order;
+            $update = $order->update($order_id, ['order_status' => $status], 'order_id');
+
+            if ($update) {
+                echo json_encode(['status' => 'success', 'message' => 'Order status updated successfully']);
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'Failed to update order status']);
+            }
+            exit; // Prevent further processing
+        }
+    }
+    
 }
