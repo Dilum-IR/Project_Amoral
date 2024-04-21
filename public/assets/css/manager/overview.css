@@ -18,12 +18,11 @@ body {
 #main {
   /* margin-left: 100px; */
   position: absolute;
-  top: 78px;
+  top: 64px;
   left: 78px;
   height: 100%;
   transition: all 0.5s ease;
   z-index: 1;
-  /* margin-left: 5px; */
   width: calc(100% - 78px);
   scroll-behavior: smooth;
   /* overflow-x: hidden; */
@@ -32,11 +31,25 @@ body {
     width: calc(100% - 250px);
     left: 250px;
   }
+
+  .success-msg {
+    width: 100%;
+    display: none;
+    background: rgb(42, 193, 42);
+    padding: 7px;
+    text-align: center;
+    font-weight: bold;
+    z-index: 3;
+    position: fixed;
+    transition: all 0.5s ease-in-out;
+  }
   
   .content {
     /* background-color: rgb(167, 167, 167); */
     height: 100vh;
     width: 100%;
+    margin-top: 10px;
+
   }
   .content .left-right {
     display: flex;
@@ -422,6 +435,7 @@ body {
   opacity: 0;
   transition: opacity 0.2s ease-in-out, height 2s ease;
   height: 0;
+  pointer-events: none;
  }
 
  .material .open-add,
@@ -429,6 +443,7 @@ body {
     opacity: 1;
     height: auto;
     transition: opacity 1.3s ease-in-out, height 0.8s ease;
+    pointer-events: all;
   }
 
   .material .add i,
