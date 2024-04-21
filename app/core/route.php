@@ -57,6 +57,8 @@ route('manager/chat', 'manager/ChatBox@index');
 route('manager/chatbox', 'manager/ChatBox@chatbox');
 route('manager/saveMsg', 'manager/ChatBox@saveMsg');
 
+
+
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index'); 
 route('garment/profile', 'garment/Profile@index'); 
@@ -64,6 +66,7 @@ route('garment/profile', 'garment/Profile@index');
 route('garment/update_info', 'garment/Overview@updateInfo'); 
 route('garment/reports', 'garment/Orders@save_reports'); 
 route('garment/update/status', 'garment/Orders@update_status'); 
+route('garment/cancel', 'garment/Orders@cancel_order'); 
 
 
 route('delivery/orders', 'delivery/Orders@index');

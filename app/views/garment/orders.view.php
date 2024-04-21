@@ -110,7 +110,6 @@
                                                     <?= $value ?>
                                                 </b>
                                             <?php
-                                                // echo "| Qty - " . $value['qty'];
                                                 echo "</br>";
                                             }
                                             ?>
@@ -209,6 +208,11 @@
     </section>
 
     <style>
+        .g-poup-btn .cancel-btn.hide {
+            display: none;
+
+        }
+
         #no-data-search .hide {
             display: none;
         }
@@ -229,13 +233,14 @@
             text-align: center;
             font-size: 1rem;
             cursor: pointer;
-           
+
         }
 
         thead th {
             transition: 0.3s ease-in-out;
 
         }
+
         thead th:hover {
             color: #6c00bd;
 
@@ -298,7 +303,6 @@
                     <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
                     <div class="progress one">
 
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Pending</p>
                 </li>
@@ -306,7 +310,6 @@
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                     <div class="progress two">
 
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Cutting</p>
                 </li>
@@ -314,7 +317,6 @@
                     <iconify-icon icon="tabler:cut"></iconify-icon>
                     <div class="progress three">
 
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Cutting done</p>
                 </li>
@@ -322,7 +324,6 @@
                     <iconify-icon icon="mdi:company"></iconify-icon>
                     <div class="progress middle">
 
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text middle-text">Sent to company</p>
                 </li>
@@ -330,7 +331,6 @@
                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                     <div class="progress four">
 
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Sewing</p>
                 </li>
@@ -338,15 +338,12 @@
                     <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
                     <div class="progress five">
 
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Sewing done</p>
                 </li>
                 <li id="completed">
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
                     <div class="progress six">
-
-                        <!-- <i class="uil uil-check"></i> -->
                     </div>
                     <p class="text">Completed</p>
                 </li>
@@ -476,6 +473,7 @@
     <script>
         endpoint = "<?= ROOT ?>/garment/reports";
         change_status_endpoint = "<?= ROOT ?>/garment/update/status";
+        cancel_endpoint = "<?= ROOT ?>/garment/cancel";
     </script>
 
     <!-- Import JQuary Library script -->

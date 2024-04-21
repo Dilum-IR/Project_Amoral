@@ -75,6 +75,33 @@ class GarmentOrder
 
 		$data = array_merge($data);
 
+		return $this->quary($quary, $data);
+	}
+
+
+	public function whereAndOR($data, $data_not = [])
+	{
+		$keys = array_keys($data);
+
+		$quary = "SELECT COUNT(*) AS current_orders FROM $this->table WHERE ";
+
+		$quary .= " status NOT IN (";
+
+		foreach ($data_not as $value) {
+			$quary .= "'" . $value . "'" . " ,";
+		}
+
+		$quary = trim($quary, ",");
+		$quary .= " ) AND ";
+		
+		foreach ($keys as $key) {
+			$quary .= $key . " = :" . $key . " AND";
+		}
+		
+		$quary = trim($quary, " AND");
+
+		$data = array_merge($data);
+
 		return $this->quary($quary,$data);
 	}
 }
