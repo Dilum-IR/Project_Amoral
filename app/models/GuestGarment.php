@@ -119,34 +119,33 @@ class GuestGarment
         // *******************************Capacity and Cost Metrics Info Validation******************************************************//
 
 
-        // // Validation for numWorkers (Positive integers)
-        // if (empty($data['numWorkers'])) {
+        // Validation for numWorkers (Positive integers)
+        // if (empty($data['no_workers'])) {
         //     $this->errors['flag'] = true;
-        //     $this->errors['numWorkers'] = "Number of Workers is required";
-
-        // } elseif (!preg_match("/^[1-9]\d*$/", $data['numWorkers'])) {
+        //     $this->errors['no_workers'] = "Number of Workers is required";
+        // } elseif (!preg_match("/^[1-9]\d*$/", $data['no_workers']) || (int)$data['no_workers'] < 1) {
         //     $this->errors['flag'] = true;
-        //     $this->errors['numWorkers'] = "Number of Workers must be a positive integer";
+        //     $this->errors['no_workers'] = "Number of Workers must be a positive integer and at least 1";
         // }
 
         // // Validation for cuttingPrice (Non-negative decimals)
-        // if (empty($data['cuttingPrice'])) {
+        // if (empty($data['cut_price'])) {
         //     $this->errors['flag'] = true;
-        //     $this->errors['cuttingPrice'] = "Cutting Price is required";
-        // } elseif (!preg_match("/^\d+(\.\d+)?$/", $data['cuttingPrice'])) {
+        //     $this->errors['cut_price'] = "Cutting Price is required";
+        // } elseif (!preg_match("/^\d+(\.\d+)?$/", $data['cut_price'])) {
         //     $this->errors['flag'] = true;
-        //     $this->errors['cuttingPrice'] = "Cutting Price must be a non-negative number";
+        //     $this->errors['cut_price'] = "Cutting Price must be a non-negative number";
         // }
 
         // // Validation for dailyCapacity (Positive integers)
-        // if (empty($data['dailyCapacity'])) {
+        // if (empty($data['day_capacity'])) {
         //     $this->errors['flag'] = true;
-        //     $this->errors['dailyCapacity'] = "Daily Capacity is required";
-        // } elseif (!preg_match("/^[1-9]\d*$/", $data['dailyCapacity'])) {
+        //     $this->errors['day_capacity'] = "Daily Capacity is required";
+        // } elseif (!preg_match("/^[1-9]\d*$/", $data['day_capacity']) || (int)$data['day_capacity'] < 10) {
         //     $this->errors['flag'] = true;
-        //     $this->errors['dailyCapacity'] = "Daily Capacity must be a positive integer";
+        //     $this->errors['day_capacity'] = "Daily Capacity must be a positive integer and at least 10";
         // }
-
+        
         // // Validation for productCapacity (Positive integers)
         // if (empty($data['productCapacity'])) {
         //     $this->errors['flag'] = true;

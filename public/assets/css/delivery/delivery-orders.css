@@ -200,7 +200,7 @@ form .form-input button:hover {
 }
 
 .ok-btn {
-  position: absolute;
+  /* position: absolute; */
   top: 51px;
   background-color: black;
   color: white;
@@ -864,12 +864,12 @@ select {
 }
 
 .popup-view .update-btn {
-  /* right: 20%; */
+  
   background: var(--blue);
 }
 
-.popup-view .update-btn:hover {
-  background: darkblue;
+.popup-view .update-btn ,.ok-btn :hover {
+  background:black;
 }
 
 .popup-view .cancel-btn {
@@ -927,6 +927,8 @@ select {
   margin: 5px;
   font-size: 16px;
   width: 100%;
+  border-radius: 20px;
+  color: white;
 }
 
 #alert-overlay {
@@ -940,17 +942,17 @@ select {
   z-index: 999; /* Ensure the overlay is on top of popups */
 }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1001; /* Sit on top */
+/* .modal {
+  display: none;
+  position: fixed; 
+  z-index: 1001; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4); 
   padding: 20% 40%
 }
 
@@ -1042,6 +1044,143 @@ select {
 .active{
   display: block;
 }
+.modalbtn{
+  display: flex;
+  gap: 25px;
+
+}
+.bxbx{
+  padding: 10% 7% 0% 3%;
+}
+.h2{
+  padding:10%;
+} */
+
+
+
+/* Base styles for the modal backdrop */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* High z-index to ensure it sits on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Allows scrolling for smaller screens */
+  background-color: rgba(0, 0, 0, 0.75); /* Darker semi-transparent background */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  padding: 20px; /* Padding to avoid touching the viewport edge */
+}
+
+/* Styles for the modal content box */
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px; /* Rounded corners for a softer look */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow for depth */
+  width: auto; /* Auto width based on content size */
+  max-width: 500px; /* Maximum width of the modal */
+  text-align: center; /* Center text for better readability */
+  position: relative; /* Necessary for absolute positioning of the close button */
+}
+
+/* Close button styling */
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1.5rem;
+  color: #bbb;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.close:hover,
+.close:focus {
+  color: #333; /* Darker shade for hover state for better accessibility */
+  outline: none;
+}
+
+/* Modal open animation */
+.modal.active {
+  display: flex; /* Makes the modal flex when active */
+}
+
+/* Responsive settings for smaller screens */
+@media screen and (max-width: 600px) {
+  .modal-content {
+      width: 100%; /* Full width on smaller screens */
+      padding: 20px; /* Adjust padding for smaller screens */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow on small devices */
+  }
+}
+
+/* Adding animations for modal transitions */
+@keyframes modalFadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes modalContentFadeIn {
+  from {
+      transform: translateY(-20px); /* Start slightly above to create a subtle sliding effect */
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+/* Applying animations */
+.modal {
+  animation: modalFadeIn 0.3s ease-out;
+  display: none;
+}
+
+.modal-content {
+  animation: modalContentFadeIn 0.3s ease-out;
+}
+
+/* Button styles within the modal */
+.modal-content .button {
+  padding: 12px 34px;
+  margin-top: 20px;
+  border: none;
+  background-color:black; /* Bootstrap primary blue */
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 16px; /* Larger font size for better readability */
+}
+
+.modal-content .button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Layout for buttons within the modal */
+.modalbtn {
+  display: flex;
+  gap: 20px; /* Space between buttons */
+  justify-content: center; /* Centering buttons */
+}
+
+.bxs-error-circle {
+  font-size: 65px; /* Increases the icon size */
+  color: #ffd900; /* Sets the icon color to a bright yellow */
+}
+
+
 
 
 /* Media queries for tablets and below */
@@ -1080,6 +1219,9 @@ select {
   .status ul {
       flex-direction: column; /* Stacks status icons vertically */
   }
+}
+.H2{
+  font-size: 100%;
 }
 
 /* Media queries for mobile devices */

@@ -71,4 +71,22 @@ function cancelPopup(){
 
 
 
+// JavaScript to close the modal
+function closeReport() {
+    var modal = document.getElementById('myModal');
+    modal.style.display = 'none';
+    location.reload();
+}
+
+// Add event listener for the confirmation button
+window.onload = function() {
+    document.getElementById('confirm').addEventListener('click', function() {
+        // alert('Confirmed!');
+        closeReport();
+    });
+}
+
+
+
+
 
