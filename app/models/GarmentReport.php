@@ -14,6 +14,7 @@ class GarmentReport
         'description',
         'report_date',
         'email',
+        'is_active',
 
 	];
 }

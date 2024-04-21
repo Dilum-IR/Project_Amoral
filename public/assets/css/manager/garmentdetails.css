@@ -19,7 +19,6 @@ body {
   scroll-behavior: smooth;
   /* background: url('../../images/customer/bg.png') center / cover; */
 }
-
 #main {
   position: absolute;
   top: 78px;
@@ -38,6 +37,7 @@ body {
   left: 250px;
   width: calc(100% - 250px);
 }
+
 
 .breadcrumb {
   list-style-type: none;
@@ -135,6 +135,10 @@ form .form-input button:hover {
   width: 20%;
 }
 
+.form .icon {
+  font-size: 1.2rem;
+}
+
 .icon-button {
   position: relative;
   right: 0.8rem;
@@ -144,9 +148,6 @@ form .form-input button:hover {
   cursor: pointer;
 }
 
-.form .icon {
-  font-size: 1.2rem;
-}
 
 
 .ok-btn {
@@ -204,7 +205,7 @@ td button {
   font-size: 15px;
   font-weight: bolder;
   margin: 2% 1%;
-  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
+  box-shadow: 0px 4px 6px -4px var(--color-default);
 }
 
 td button:hover {

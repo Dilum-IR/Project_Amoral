@@ -114,8 +114,8 @@ class GarmentDetails extends Controller
         $empRow = $employee->first($arr);
         // $garment->insert($arr);
 
-     
-      
+
+
 
 
         if (!$userRow && !$empRow) {
