@@ -91,16 +91,30 @@ class Employee
 
 		$this->errors = [];
 
+	
 		// is empty password 
-		if (empty($data['password']) || empty($data['new_password']) || empty($data['confirm_password'])) {
+		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is Required";
+			$this->errors['current_password'] = "Password is Required";
+			
+			
+		}
+		else if (empty($data['new_password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['new_password'] =  "New password is Required";
+			
+			
+		}
+		else if (empty($data['confirm_password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['confirm_password'] =  "Confirm password is Required";
+			
 		}
 
 		// password validation
 		if (!($data['new_password'] === $data['confirm_password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is not same";
+			$this->errors['password'] = " New & confirm password is not same";
 
 		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
 			$this->errors['flag'] = true;
@@ -122,13 +136,14 @@ class Employee
 	{
 
 		$this->errors = [];
-
+		
 		// is empty Full Name
 		if (empty($data['emp_name'])) {
 			$this->errors['flag'] = true;
 			$this->errors['emp_name'] = "Employee name is required";
 			// $this->errors['error_no'] = 1;
 			// return;
+			// show($data);
 		}
 		// name validation - this part include more words validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['emp_name'])) {
