@@ -375,11 +375,9 @@
                         <div class="cu-buttons">
                             <input type="submit" class="yes"  value="Yes" name="updateOrder"/>
                             <input type="button" class="no" value="No"/>
-                        </div>
-                        
+                        </div>                        
                     </div> 
-                </div> 
-                
+                </div>  
             </div>
         </form>
     </div>
@@ -395,6 +393,7 @@
             xhr.onload = function() {
                 if(this.status == 200) {
                     let response = JSON.parse(this.responseText);
+                    console.log(response);
                     if (response == false) {
                         // delay(100);
                         
@@ -411,7 +410,7 @@
 
                     }else{
                         var successMsgElement = document.querySelector('.success-msg');
-               
+            
                         successMsgElement.innerHTML = "There was an error updating the order";
                         
                         // successMsgElement.style.transition = 'all 1s ease-in-out';
@@ -427,7 +426,7 @@
             }
 
             xhr.send(formData);
-            
+              
         });
 
     </script>
@@ -742,49 +741,51 @@
         let newOrderForm = document.querySelector(".popup-new .new-form");
         newOrderForm.addEventListener('submit', function(event){
             event.preventDefault();
-            validateNewOrder();
-            let formData = new FormData(newOrderForm);
-            let xhr = new XMLHttpRequest();
-            console.log(formData);
-            xhr.open("POST", "<?php echo ROOT ?>/manager/newOrder", true);
-            xhr.onload = function() {
-                if(this.status == 200) {
-                    console.log('response'+this.responseText);
-                    let response = JSON.parse(this.responseText);
-                    if (response == false) {
-                        // delay(10000);
-                        
-                        
-                        var successMsgElement = document.querySelector('.success-msg');
-                        successMsgElement.innerHTML = "Order placed successfully";
-                        successMsgElement.style.display = 'block';
-                        // delay(2000);
-                        setTimeout(function() {
-                            successMsgElement.style.display = 'none';
-                            location.reload();
-                        }, 2000);
-                        
+            let noerrors = validateNewOrder();
+            console.log(noerrors);
+            if(noerrors){
+                let formData = new FormData(newOrderForm);
+                let xhr = new XMLHttpRequest();
+                console.log(formData);
+                xhr.open("POST", "<?php echo ROOT ?>/manager/newOrder", true);
+                xhr.onload = function() {
+                    if(this.status == 200) {
+                        console.log('response'+this.responseText);
+                        let response = JSON.parse(this.responseText);
+                        if (response == false) {
+                            // delay(10000);
                             
+                            
+                            var successMsgElement = document.querySelector('.success-msg');
+                            successMsgElement.innerHTML = "Order placed successfully";
+                            successMsgElement.style.display = 'block';
+                            // delay(2000);
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                            
+                                
 
-                    }else{
-                        var successMsgElement = document.querySelector('.success-msg');
-               
-                        successMsgElement.innerHTML = "There was an error placing the order";
-                        
-                        // successMsgElement.style.transition = 'all 1s ease-in-out';
-                        
-                        successMsgElement.style.display = 'block';
-                        successMsgElement.style.backgroundColor = 'red';
-                        setTimeout(function() {
-                            successMsgElement.style.display = 'none';
-                            location.reload();
-                        }, 2000);
+                        }else{
+                            var successMsgElement = document.querySelector('.success-msg');
+                
+                            successMsgElement.innerHTML = "There was an error placing the order";
+                            
+                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                            
+                            successMsgElement.style.display = 'block';
+                            successMsgElement.style.backgroundColor = 'red';
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                        }
                     }
                 }
-            }
 
-            xhr.send(formData);
-            
+                xhr.send(formData);
+            }   
         });
 
     </script>

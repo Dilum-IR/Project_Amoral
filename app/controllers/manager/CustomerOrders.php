@@ -73,7 +73,9 @@ class CustomerOrders extends Controller
             $img1 = '';
             $img2 = '';
 
-            if (isset($_FILES['pdf'])) {
+            // var_dump($_FILES);
+
+            if ($_FILES['pdf']['error'] === 0) {
                 // show($_FILES);
                 $img_name = $_FILES['pdf']['name'];
                 $tmp_name = $_FILES['pdf']['tmp_name'];
@@ -104,13 +106,9 @@ class CustomerOrders extends Controller
                         
 
 
-                    } else {
-                        $em = "You can't upload files of this type!";
-                        header("Location:../../signup.php?error=$em&$data");
-                        exit;
-                    }
+                    } 
                 }
-            }else if(isset($_FILES['image1']) && isset($_FILES['image2'])){
+            }else if($_FILES['image1']['error'] === 0 && $_FILES['image2']['error'] === 0){
 
                     $img_name1 = $_FILES['image1']['name'];
                     $tmp_name1 = $_FILES['image1']['tmp_name'];
@@ -120,6 +118,7 @@ class CustomerOrders extends Controller
                     $tmp_name2 = $_FILES['image2']['tmp_name'];
                     $error2 = $_FILES['image2']['error'];
 
+                    // var_dump($error1);
 
                     if ($error1 === 0 && $error2 === 0) {
                         // get image extention store it in variable
@@ -134,7 +133,7 @@ class CustomerOrders extends Controller
                         $allowed_exs = array("jpg", "jpeg", "png", "pdf");
 
                         // check the allowed extention is present user upload image
-                        if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
+                        // if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
 
                             // image name username with image name
                             $new_img_name1 = $username . "-" . uniqid() . "-01." . $img_ex_lc1;
@@ -146,7 +145,7 @@ class CustomerOrders extends Controller
 
 
                             // move upload image for that folder
-                            
+                            // var_dump($img_upload_path1);
                             move_uploaded_file($tmp_name1, $img_upload_path1);
                             move_uploaded_file($tmp_name2, $img_upload_path2);
 
@@ -154,7 +153,7 @@ class CustomerOrders extends Controller
                             $img2 = $new_img_name2;
 
 
-                        }
+                        // }
                     }
                 
 
@@ -263,7 +262,7 @@ class CustomerOrders extends Controller
             
             $tot = count($_POST['material']);
             // show($tot);
-            if(!$update1){
+            
                 for ($i = 0; $i < $tot; $i++) {
                     $material = $_POST['material'][$i];
                     $sleeve = $_POST['sleeve'][$i];
@@ -295,16 +294,16 @@ class CustomerOrders extends Controller
                     ]);
                     // show($insert2);
                 }
-            }
+            
 
             // insert a garment order if the order status is cutting
             // show($_SESSION['USER']->id);
             $current_orders = $garment_order->where(['order_id' => $order_id]);
             // show($current_orders);
 
-            if(!$insert2 && $_POST['order_status'] == 'cutting' && empty($current_orders)){
-                $garment_order = new GarmentOrder;
-                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending', 'placed_date' => $current_date]);
+            if($_POST['order_status'] == 'cutting' && empty($current_orders)){
+                // $garment_order = new GarmentOrder;
+                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending']);
             }
 
             unset($_POST);

@@ -99,18 +99,22 @@ orderCancel.addEventListener('click', function (event) {
 
 orderUpdate.addEventListener('click', function (event) {
     event.preventDefault();
-    updateConfirm.classList.add('is-visible');
+    let noerrors = validateViewOrder();
+    if(noerrors){
+        updateConfirm.classList.add('is-visible');
+    }
 });
 
 updateNo.addEventListener('click', function(){
     updateConfirm.classList.remove('is-visible');
 });
 
+/*
 updateYes.addEventListener('click', function(){
-    
     document.querySelector(".update-form").submit();
     updateConfirm.classList.remove('is-visible');
 });
+*/
 
 //validate the delivery dates
 let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
@@ -133,6 +137,7 @@ datesView.forEach(date => {
 
 let reportForm = document.querySelector(".popup-report form");
 let newForm = document.querySelector(".popup-new form");
+let viewForm = document.querySelector(".popup-view form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
 let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
@@ -159,18 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayErrorMsg(errors, reportForm);
                 event.preventDefault();
             }
-        });
-
-    }
-
-    if(newForm){
-        cancelNewBtn.addEventListener("click", function(){
-            clearErrorMsg(newForm);
-        });
-        closeNewBtn.addEventListener("click", function(){
-            clearErrorMsg(newForm);
-            closeNew();
-        
         });
 
     }
@@ -224,10 +217,76 @@ function validateNewOrder() {
     clearErrorMsg(newForm);
             
     // let errors = validateNewOrder();
-    // console.log(Object.values(errors));
+    console.log(Object.values(errors));
     if (Object.keys(errors).length > 0) {
         displayErrorMsg(errors, newForm);
         // event.preventDefault();
+    }
+
+    // console.log(errors);
+
+    if(Object.keys(errors).length === 0){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+
+function validateViewOrder() {
+    let errors = {};
+    // pdf and images
+   // var pdf = document.querySelector('#pdfFileToUpload');
+// var image1 = document.querySelector('#imageFileToUpload1');
+// var image2 = document.querySelector('#imageFileToUpload2');
+
+// if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+    // alert('Please upload a PDF or an image');
+    // event.preventDefault();
+    // errors['files'] = ' *Please upload a PDF or images';
+// }
+
+    // sizes
+    let sizes = document.querySelectorAll('.popup-view input[type="number"]');
+    let total = 0;
+    sizes.forEach(size => {
+        total += parseInt(size.value);
+    });
+
+    if (total === 0) {
+        // event.preventDefault();
+        errors['sizes0'] = ' *Please select a size';
+    }
+
+    // dispatch date
+    let dates = document.querySelectorAll('.popup-view input[type="date"]');
+    let dateSelected = false;
+
+    dates.forEach(date => {
+        if (date.value !== '') {
+            dateSelected = true;
+        }
+    });
+
+    if (!dateSelected) {
+        // event.preventDefault();
+        errors['dates'] = ' *Please select a date';
+    }
+
+    clearErrorMsg(viewForm);
+            
+    // let errors = validateNewOrder();
+    // console.log(Object.values(errors));
+    if (Object.keys(errors).length > 0) {
+        displayErrorMsg(errors, viewForm);
+        // event.preventDefault();
+    }
+
+    if(Object.keys(errors).length === 0){
+        return true;
+    }else{
+        return false;
     }
 
 }
