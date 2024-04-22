@@ -32,7 +32,7 @@ border-radius: 5px;
 
 #main {
   position: absolute;
-  top: 78px;
+  top: 64px;
   width: calc(100% - 78px);
   height: max-content;
   left: 78px;
@@ -150,6 +150,14 @@ border-radius: 5px;
   border: 1px solid #000;
 }
 
+.order input{
+  border: none;
+}
+
+.order input:focus{
+  outline: none;
+}
+
 .orders button{
     outline: none;
     /* border: none; */
@@ -248,4 +256,13 @@ border-radius: 5px;
   background-color: white;
   box-shadow: 0 0 20px 0px rgb(161, 161, 161, 0.5);
   color: #000000;
+}
+
+.error{
+  color: red;
+  font-size: 14px;
+  position: relative;
+  left: 1%;
+  /* visibility: hidden; */
+  
 }

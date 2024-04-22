@@ -44,6 +44,8 @@ route('manager/updatePrintingType', 'manager/Overview@updatePrintingType');
 route('manager/newOrder', 'manager/CustomerOrders@newOrder');
 route('manager/updateOrder', 'manager/CustomerOrders@updateOrder');
 
+route('manager/assignDeliverymen','manager/AssignDelivery@assignDeliverymen');
+
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
 route('manager/garmentorders', 'manager/GarmentOrders@index');
@@ -51,6 +53,7 @@ route('manager/profile', 'manager/Profile@index');
 route('manager/employeedetails', 'manager/EmployeeDetails@index');
 route('manager/assigndelivery', 'manager/AssignDelivery@index');
 route('manager/printingprocess', 'manager/PrintingProcess@index');
+
 
 // manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');

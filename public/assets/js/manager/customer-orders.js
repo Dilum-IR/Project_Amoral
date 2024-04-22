@@ -516,6 +516,13 @@ function openView(button) {
             // console.log(typeof(lat));
 
             
+        }else{
+            document.querySelector(".pickup").classList.add("is-checked");
+            document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
+        }
+
+        if(order.is_delivery == 1){
+
             var map = new google.maps.Map(document.getElementById("view-order-map"), {
                 // Initial center coordinates
                 center: {
@@ -525,48 +532,55 @@ function openView(button) {
                 },
                 zoom: 15,
             });
-
-            // map.setZoom(15);
-            marker = new google.maps.Marker({
-                position: {
-                    lat: lat,
-                    lng: lng,
-                },
-                map: map,
-                title: "Your Location",
-            });
-
-            map.addListener("click", function (event) {
-                if (marker) {
-                marker.setMap(null);
-                }
-        
-                // Get the clicked location's latitude and longitude
-                var latitude = event.latLng.lat();
-                var longitude = event.latLng.lng();
-        
-                console.log(latitude);
-        
-                marker = new google.maps.Marker({
-                position: {
-                    lat: latitude,
-                    lng: longitude,
-                },
-                map: map,
-                });
-        
-                document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-                document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-            });
-            
-
-            marker.addListener("click", function () {
-                infoWindow.open(map, marker);
-            });
         }else{
-            document.querySelector(".pickup").classList.add("is-checked");
-            document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
+            var map = new google.maps.Map(document.getElementById("view-order-map"), {
+                // Initial center coordinates
+                center: {
+                    // Sri lanka middle lat lang
+                    lat: 7.7072567,
+                    lng: 80.6534611,
+                },
+                zoom: 7,
+            });
         }
+
+        // map.setZoom(15);
+        marker = new google.maps.Marker({
+            position: {
+                lat: lat,
+                lng: lng,
+            },
+            map: map,
+            title: "Your Location",
+        });
+
+        map.addListener("click", function (event) {
+            if (marker) {
+            marker.setMap(null);
+            }
+    
+            // Get the clicked location's latitude and longitude
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+    
+            console.log(latitude);
+    
+            marker = new google.maps.Marker({
+            position: {
+                lat: latitude,
+                lng: longitude,
+            },
+            map: map,
+            });
+    
+            document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+            document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+        });
+        
+
+        marker.addListener("click", function () {
+            infoWindow.open(map, marker);
+        });
 
 
         document.querySelector('.update-form input[name="total_price"]').value = order.total_price;

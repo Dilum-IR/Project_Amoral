@@ -26,7 +26,8 @@ class Order
         'image2',
         'is_delivery',
         'latitude',
-        'longitude'
+        'longitude',
+        'deliver_id'
     ];
 
     function findLast(){
