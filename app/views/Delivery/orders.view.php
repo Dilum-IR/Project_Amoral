@@ -68,108 +68,92 @@
                         </tr>
                     <tbody>
                         <?php
-                        if(!empty($data['data1'])){
+                        if (!empty($data['data1'])) {
 
-                       
-                        foreach ($data['data1'] as $key => $value) {
 
+                            foreach ($data['data1'] as $key => $value) {
+
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?php echo $value->order_id; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->fullname; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->city; ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $value->order_status; ?>
+                                    </td>
+                                    <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
+                                </td> -->
+                                    <td>
+                                        <button type="submit" class="view-order-btn" style="background-color: red;"
+                                            onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+
+
+                                        <!-- Button 1 -->
+                                        <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+
+                                    </td>
+
+                                    <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                            Order</button>
+                                    </td>
+                                </tr>
+
+                                <?php
+
+                            }
+                        } else {
                             ?>
                             <tr>
-                                <td>
-                                    <?php echo $value->order_id; ?>
-                                </td>
-                                <td>
-                                    <?php echo $value->fullname; ?>
-                                </td>
-                                <td>
-                                    <?php echo $value->city; ?>
-                                </td>
-                                <td>
-                                    <?php echo $value->order_status; ?>
-                                </td>
-                                <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
-                                </td> -->
-                                <td>
-                                    <button type="submit" class="view-order-btn" style="background-color: red;"
-                                        id="delivered" onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+                                <td></td>
 
 
-                                    <!-- Button 1 -->
-                                    <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+                                <td>
+                                    No Available Orders
+
 
                                 </td>
-
-                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                        Order</button>
-                                </td>
+                                <td></td>
                             </tr>
-                        
+
                             <?php
-
                         }
-                    }else{
-                        ?>
-                        <tr>
-<td></td>
-
-
-                        <td>
-                            No Available Orders
-
-
-                        </td>
-<td></td>
-                    </tr>
-
-                        <?php
-                    }
                         ?>
 
 
                     </tbody>
                     </thead>
 
-
-
-
-
-                    <!-- <?php
-                    if (isset($data)) {
-                        // show($data);
-                        $sn = 1;
-                        foreach ($data as $item) {
-                            if ($item->order_status == 'Package_OnWay') {
-                                // echo $item->order_status;
-                    
-                                ?>
-                    <tr>
-                        <td><?php echo $sn++ ?></td>
-                        <td class="ordId"><?php echo $item->order_id ?></td>
-                        <td class="Name">thiran</td>
-                        <td class="Distric"><?php echo $item->district ?></td>
-                        <td class="stth"><?php echo $item->order_status ?></td>
-                        <!-- <td><button type="submit" name="selectItem"  class="view-order-btn" data-order='<?= json_encode($item); ?>' onclick="openView(this)">View Order</button></td> -->
-                                <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
-                                        Order</button></td>
-                                </tr>
-
-
-                                <?php
-                            }
-                        }
-                    }
-
-                    ?> -->
-
                 </table>
+
             </div>
+
         </div>
+
+
 
     </section>
 
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
+            <div>
+                <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
+
+            </div>
+            <h2>Are you sure ?</h2>
+            <button class="button" id="confirmDelete">OK</button>
+            <button class="button" id="cancelDelete">Cancel</button>
+        </div>
+    </div>
 
     <!-- POPUP -->
-    <div class="popup-report">
+    <!-- <div class="popup-report">
         <div class="popup-content">
             <span class="close">&times;</span>
             <h2>Report Your Problem</h2>
@@ -189,13 +173,13 @@
 
             </form>
         </div>
-    </div>
+    </div> -->
 
     <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-        <h2>Order Details</h2>
-        <div class="status">
+        <h1>Order Details</h1>
+        <!-- <div class="status">
             <ul>
                 <li>
                     <iconify-icon
@@ -227,13 +211,13 @@
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
                     <div class="progress four">
 
-                        <!-- <i class="uil uil-check"></i> -->
+                         <i class="uil uil-check"></i> 
                     </div>
                     <p class="text">Package Delivered</p>
                 </li>
 
             </ul>
-        </div>
+        </div> -->
 
         <div class="detail_content">
             <div class="container1">
@@ -272,17 +256,58 @@
 
             <div class="container2">
                 <!-- <h3> Delivery locations</h3> -->
+
+                <!-- <div id="map" style="height:400px; width:100%;"></div> -->
+
+
+                <script>
+                    function initMap() {
+                        var location = { lat: 7.873054, lng: 80.771797 }
+                        var map = new google.maps.Map(document.getElementById("map"), {
+                            zoom: 7.7,
+                            center: { lat: 7.8731, lng: 80.7718 }
+                        });
+
+
+                        /*Add marker
+                        var marker = new google.map.Marker({
+                            position:{lat:6.927079,lng:79.861244},
+                            map:map, 
+                            icon:'map-pin-icon.png'
+                        });
+                         /*Add marker function*/
+
+                        addMarker({ lat: 6.927079, lng: 79.861244 });
+                        addMarker({ lat: 7.291418, lng: 80.636696 });
+                        addMarker({ lat: 5.9496, lng: 80.5469 });
+
+
+                        /*Add marker function*/
+
+                        function addMarker(coords) {
+                            var marker = new google.maps.Marker({
+                                position: coords,
+                                map: map,
+                                icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                            });
+
+                        }
+
+
+                    }
+                </script>
+                <script async defer async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
                 <div id="map">
                 </div>
             </div>
-
         </div>
+    
+    <div class="btns">
+        <button type="button" class="ok-btn">OK</button>
+        <button type="button" class="update-btn">Update Order</button>
+    </div>
 
-        <div class="btns">
-            <button type="submit" class="update-btn">Update Order</button>
-            <button type="button" class="ok-btn" onclick="closeView()">OK</button>
-
-        </div>
     </div>
 
 

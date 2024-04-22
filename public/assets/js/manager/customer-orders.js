@@ -25,7 +25,8 @@ let updateYes = document.querySelector(".cu-popup .yes");
 const viewOrderBtns = document.querySelectorAll('.view-order-btn');
 
 const search = document.querySelector(".form input"),
-    table_rows = document.querySelectorAll("tbody tr");
+    table_rows = document.querySelectorAll(".table-section tbody tr")
+    table_headings = document.querySelectorAll("thead th");
 
 search.addEventListener('input', performSearch);
 
@@ -41,7 +42,54 @@ function performSearch() {
         console.log(row_text);
 
         row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+        row.style.setProperty('--delay', i/40 + 's');
     })
+}
+
+table_headings.forEach((head, i) => {
+    head.onclick = () => {
+        let order = 'asc';
+        table_headings.forEach(head => head.classList.remove("active"));
+        head.classList.add("active");
+        let icon = head.querySelector('i');
+        table_headings.forEach(h => {
+            // console.log(h);
+            if(h!=head && h.className !== "null"){
+                let ic = h.querySelector('i');
+                // console.log(ic);
+                if(ic.className.includes('bx-up-arrow-circle')){
+                    ic.className = "bx bx-down-arrow-circle";
+                }
+            }
+        });
+        if (icon.className.includes('bx-up-arrow-circle')) {
+            // Change to down arrow
+            icon.className = "bx bx-down-arrow-circle";
+            order = 'asc';
+        } else {
+            // Change to up arrow
+            icon.className = "bx bx-up-arrow-circle";
+            order = 'desc';
+        }
+
+
+
+        console.log(i, order);
+        sortTable(i, order);
+
+    }
+});
+
+function sortTable(i, order){
+    [...table_rows].sort((a, b) => {
+        console.log(a.querySelectorAll('.table-section td')[i]);
+        let x = a.querySelectorAll('.table-section tbody td')[i].textContent.trim(),
+            y = b.querySelectorAll('.table-section tbody td')[i].textContent.trim();
+
+
+        return order === 'asc' ? (x < y ? -1 : 1 ) : (x > y ? -1 : 1);
+    }).map(row => document.querySelector('.table-section tbody').appendChild(row));
+
 }
 
 orderCancel.addEventListener('click', function (event) {
@@ -81,45 +129,111 @@ datesView.forEach(date => {
 });
 
 
+
 let reportForm = document.querySelector(".popup-report form");
+let newForm = document.querySelector(".popup-new form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
+let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
 
     if (reportForm) {
-        cancelReportBtn.addEventListener("click", function (event) {
-            clearErrorMsg();
+        cancelReportBtn.addEventListener("click", function () {
+            clearErrorMsg(reportForm);
         });
         closeReportBtn.addEventListener('click', function () {
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
             closeReport();
         });
 
         reportForm.addEventListener("submit", function (event) {
             // event.preventDefault();    
-            clearErrorMsg();
+            clearErrorMsg(reportForm);
             console.log('submit');
 
             let errors = validateReport();
             console.log(Object.values(errors));
             if (Object.keys(errors).length > 0) {
-                displayErrorMsg(errors);
+                displayErrorMsg(errors, reportForm);
                 event.preventDefault();
-            } else {
-
             }
         });
 
-    } else {
-        console.error('Form not found');
+    }
+
+    if(newForm){
+        cancelNewBtn.addEventListener("click", function(){
+            clearErrorMsg(newForm);
+        });
+        closeNewBtn.addEventListener("click", function(){
+            clearErrorMsg(newForm);
+            closeNew();
+        
+        });
+
+        newForm.addEventListener("submit", function(event){
+            event.preventDefault();
+            clearErrorMsg(newForm);
+            
+            let errors = validateNewOrder();
+            console.log(Object.values(errors));
+            if (Object.keys(errors).length > 0) {
+                displayErrorMsg(errors, newForm);
+                event.preventDefault();
+            }
+        });
     }
 });
+
 
 // close buttons
 closeViewBtn.addEventListener('click', closeView);
 closeNewBtn.addEventListener('click', closeNew);
 
+function validateNewOrder() {
+    let errors = {};
+    // pdf and images
+    var pdf = document.querySelector('#pdfFileToUpload');
+    var image1 = document.querySelector('#imageFileToUpload1');
+    var image2 = document.querySelector('#imageFileToUpload2');
+
+    if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+        // alert('Please upload a PDF or an image');
+        // event.preventDefault();
+        errors['files'] = ' *Please upload a PDF or images';
+    }
+
+    // sizes
+    let sizes = document.querySelectorAll('.popup-new input[type="number"]');
+    let total = 0;
+    sizes.forEach(size => {
+        total += parseInt(size.value);
+    });
+
+    if (total === 0) {
+        // event.preventDefault();
+        errors['sizes0'] = ' *Please select a size';
+    }
+
+    // dispatch date
+    let dates = document.querySelectorAll('.popup-new input[type="date"]');
+    let dateSelected = false;
+
+    dates.forEach(date => {
+        if (date.value !== '') {
+            dateSelected = true;
+        }
+    });
+
+    if (!dateSelected) {
+        // event.preventDefault();
+        errors['dates'] = ' *Please select a date';
+    }
+
+    return errors;
+
+}
 
 function validateReport() {
     let errors = {};
@@ -149,20 +263,20 @@ function validateEmail(email) {
     return re.test(email);
 }
 
-function displayErrorMsg(errors) {
+function displayErrorMsg(errors, form) {
 
     for (const key in errors) {
         if (Object.hasOwnProperty.call(errors, key)) {
             const error = errors[key];
-            reportForm.querySelector(`.error.${key}`).innerText = error;
+            form.querySelector(`.error.${key}`).innerText = error;
         }
     }
 }
 
 
-function clearErrorMsg() {
-    console.log('clear');
-    let errorElements = reportForm.querySelectorAll('.error');
+function clearErrorMsg(form) {
+    // console.log('clear');
+    let errorElements = form.querySelectorAll('.error');
 
     errorElements.forEach(errorElement => {
         errorElement.innerText = '';
@@ -184,7 +298,7 @@ function openView(button) {
     const customersData = button.getAttribute("data-customers");
 
 
-    console.log(orderData);
+    console.log(materialData);
 
     removeActiveClass();
 
@@ -197,17 +311,20 @@ function openView(button) {
         switch (order.order_status) {
             case 'cutting' :
                 progress2.classList.add("active");
+                progress2.classList.add("set");
                 break;
 
             case 'printing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
+                progress3.classList.add("set");
                 break;
 
             case 'sewing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress4.classList.add("active");
+                progress4.classList.add("set");
                 break;
 
             case 'delivering':
@@ -215,6 +332,7 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress5.classList.add("active");
+                progress5.classList.add("set");
                 break;
 
             case 'completed':
@@ -223,6 +341,7 @@ function openView(button) {
                 progress4.classList.add("active");
                 progress5.classList.add("active");
                 progress6.classList.add("active");
+                progress6.classList.add("set");
                 break;
 
             case 'cancelled':
@@ -250,7 +369,7 @@ function openView(button) {
 
                     }
                     console.log(nextProgress);
-                    if (prevProgress && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
+                    if (prevProgress && !(this.classList.contains("set")) && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
                         this.classList.toggle("active");
                         console.log(this);
                     }
@@ -406,21 +525,14 @@ function closeNew(){
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
 
-    document.querySelector(".price-details-container").innerHTML = `
-            <tr>
-                <th>Material</th>
-                <th>Sleeve Type</th>
-                <th>Printing Type</th>
-                <th>Quantity</th>
-                <th>Unit Price(Rs.)</th>
-            </tr>
-            <tr>
-                <td class="materialType"></td>
-                <td class="sleeveType"></td>
-                <td class="printingType"></td>
-                <td class="quantityAll">0</td>
-                <td class="unitPrice">0</td>
-            </tr>`;
+    let cards = document.querySelectorAll(".new-card");
+    cards.forEach(card => {
+        card.remove();
+    });
+    let priceRows = document.querySelectorAll(".price-details-container .units");
+    priceRows.forEach(row => {
+        row.remove();
+    });
     document.querySelector(".new-form").reset();
 }
 
@@ -468,28 +580,34 @@ function addMaterialCardView(material, quantity, countv ) {
         </div>
 
         <div class="input-box sizes">
-            <span class="details">Sizes & Quantity</span>
-            <div class="sizeChart">
+        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
+        <div class="sizeChart">
+            <div>
                 <span class="size">XS</span>
                 <input class="st" type="number" id="quantity" name="xs[]" min="0" value="${material['xs']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">S</span>
                 <input class="st" type="number" id="quantity" name="small[]" min="0" value="${material['small']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">M</span>
                 <input class="st" type="number" id="quantity" name="medium[]" min="0" value="${material['medium']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">L</span>
                 <input class="st" type="number" id="quantity" name="large[]" min="0" value="${material['large']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">XL</span>
                 <input class="st" type="number" id="quantity" name="xl[]" min="0" value="${material['xl']}">
-                <br>
+            </div>
+            <div>
                 <span class="size">2XL</span>
                 <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="${material['xxl']}">
-                <br>
             </div>
         </div>
+    </div>
     `;
 
     newCard.style.transition = "all 0.5s ease-in-out";

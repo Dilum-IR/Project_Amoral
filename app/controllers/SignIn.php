@@ -72,7 +72,7 @@ class SignIn extends Controller
 
                 $emprow = $employee->first($arr);
 
-
+                
                 if ($row) {
 
                     $checkpassword = password_verify($_POST['password'], $row->password);

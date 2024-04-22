@@ -13,8 +13,9 @@ class CustomerOrders extends Controller
         $sleeveType = new Sleeves;
         $material_printingType = new MaterialPrintingType;
         $printingType = new PrintingType;
+        $garment_order = new GarmentOrder;
 
-        if ($username != 'User') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
 
             // show($_SESSION['USER']->emp_id);
 
@@ -258,7 +259,10 @@ class CustomerOrders extends Controller
 
                 // insert a garment order if the order status is cutting
                 // show($_SESSION['USER']->id);
-                if($_POST['order_status'] == 'cutting'){
+                $current_orders = $garment_order->where(['order_id' => $order_id]);
+                // show($current_orders);
+
+                if($_POST['order_status'] == 'cutting' && empty($current_orders)){
                     $garment_order = new GarmentOrder;
                     $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending', 'placed_date' => $current_date]);
                 }

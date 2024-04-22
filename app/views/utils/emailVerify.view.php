@@ -127,7 +127,7 @@ if (
                                 success: function(res) {
                                     try {
 
-                                        console.log(res)
+                                      //  console.log(res)
                                         // convet to the json type
                                         Jsondata = JSON.parse(res)
 

@@ -10,6 +10,7 @@ class Garment
 	protected $allowedCloumns = [
 	
 		'garment_id',
+
 		// 'name',
 	
 		// 'password',
@@ -20,6 +21,7 @@ class Garment
 		'no_workers',
 		'cut_price',
 		'sewed_price',
+
 	];
 }
 

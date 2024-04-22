@@ -71,11 +71,13 @@
                                 <div class="left">
                                     <h3>Total Customer Orders</h3>
                                     <?php $totalCustomerOrders = 0; ?>
-                                    <?php foreach($data['customerOrder'] as $order): 
-                                        
-                                            $totalCustomerOrders++;
-                                        
-                                    endforeach; ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
+                                        <?php foreach($data['customerOrder'] as $order): 
+                                            
+                                                $totalCustomerOrders++;
+                                            
+                                        endforeach; ?>
+                                    <?php endif; ?>
                                     <h1><?php echo $totalCustomerOrders ?></h1>
                                 </div>
                             </div>
@@ -87,15 +89,19 @@
                                 <div class="left">
                                     <h3>Total Sales</h3>
                                     <?php $totalSales = 0; ?>
-                                    <?php foreach ($data['customerOrder'] as $order): ?>
-                                        <?php if($order->order_status == 'Delivered' || $order->order_status == 'Completed'): ?>
-                                            <?php foreach ($data['material_sizes'] as $sizes): ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
+
+                                        <?php foreach ($data['customerOrder'] as $order): ?>
+                                            <?php if($order->order_status == 'Delivered' || $order->order_status == 'Completed'): ?>
+                                                <?php foreach ($data['material_sizes'] as $sizes): ?>
+                                                
+                                                        <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
                                             
-                                                    <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
-                                        
-                                            <?php endforeach; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                                <?php endforeach; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+
                                     <h1><?php echo "Rs. " , $totalSales ?></h1>
 
                                 </div>
@@ -109,11 +115,15 @@
                                 <div class="left">
                                     <h3>Total Requests</h3>
                                     <?php $totalCustomerQuotations = 0; ?>
-                                    <?php foreach($data['customerOrder'] as $order): 
-                                        
-                                            $totalCustomerQuotations++;
-                                        
-                                    endforeach; ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
+
+                                        <?php foreach($data['customerOrder'] as $order): 
+                                            
+                                                $totalCustomerQuotations++;
+                                            
+                                        endforeach; ?>
+                                    <?php endif; ?>
+
                                     <h1><?php echo $totalCustomerQuotations ?></h1>
 
                                 </div>
@@ -127,11 +137,15 @@
                                 <div class="left">
                                     <h3>Total Garment Orders</h3>
                                     <?php $totalGarmentOrders = 0; ?>
-                                    <?php foreach($data['garmentOrder'] as $order): 
-                                     
-                                            $totalGarmentOrders++;
-                                   
-                                    endforeach; ?>
+                                    <?php if(!empty($data['garmentOrder'])): ?>
+
+                                        <?php foreach($data['garmentOrder'] as $order): 
+                                        
+                                                $totalGarmentOrders++;
+                                    
+                                        endforeach; ?>
+                                    <?php endif; ?>
+
                                     <h1><?php echo $totalGarmentOrders ?></h1>
                                 </div>
                             </div>
@@ -456,23 +470,34 @@
                 <div class="right">
                   
                     <div class="calendar">
-                    <div class="month">
-                        <i class="fas fa-angle-left prev"></i>
-                        <div class="date">february 2024</div>
-                        <i class="fas fa-angle-right next"></i>
-                    </div>
-                    <div class="weekdays">
-                        <div>Sun</div>
-                        <div>Mon</div>
-                        <div>Tue</div>
-                        <div>Wed</div>
-                        <div>Thu</div>
-                        <div>Fri</div>
-                        <div>Sat</div>
-                    </div>
-                    <div class="days"></div>
+                        <div class="month">
+                            <i class="fas fa-angle-left prev"></i>
+                            <div class="date">february 2024</div>
+                            <i class="fas fa-angle-right next"></i>
+                        </div>
+                        <div class="weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div class="days"></div>
 
                     </div>
+
+                    <div class="display-orders">
+                        <div class="today-date">
+                            <div class="event-day"></div>
+                            <div class="event-date"></div>
+                        </div>
+                        <div class="events"></div>
+
+                    </div>
+
+     
                 </div>
                 <!-- <div class="right">
                     <div class="today-date">
@@ -509,15 +534,19 @@
                     </div>
                     </div>
                 </div> -->
-                <button class="add-event">
+                <!-- <button class="add-event">
                     <i class="fas fa-plus"></i>
                 </button>
-                </div>
+                </div> -->
               
             </div>
 
         </div>
     </section>
+    <script>
+        var customerOrders = <?php echo json_encode($data['customerOrder']) ?>;
+        console.log(customerOrders);
+    </script>
     <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
     <script>
         // let editMaterial = document.querySelector(".edit-material-btn");
@@ -630,6 +659,8 @@
         <?php endforeach; ?>
 
     </script>
+
+
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>

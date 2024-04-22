@@ -13,20 +13,30 @@
   --red: #fc3b56;
 }
 
-body{
-  min-height: 100vh;
+body {
   background: rgb(240, 240, 250);
   scroll-behavior: smooth;
-  /* background: url('../../images/customer/bg.png') center / cover; */
+}
+
+::-webkit-scrollbar {
+width: 10px;
+}
+::-webkit-scrollbar-track {
+background: #f5f5f5;
+border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(0,0,0);
+border-radius: 5px;
 }
 
 #main {
   position: absolute;
-  top: 78px;
-  width: calc(100% - 90px);
+  top: 64px;
+  width: calc(100% - 78px);
   height: max-content;
-  left: 64px;
-  margin-left: 20px;
+  left: 78px;
+  /* margin-left: 20px; */
   transition: all 0.5s ease;
   z-index: 2;
   border-radius: 50px;
@@ -37,6 +47,17 @@ body{
 #main.open {
   left: 250px;
   width: calc(100% - 250px);
+}
+
+.success-msg {
+  width: 100%;
+  display: none;
+  background: rgb(42, 193, 42);
+  padding: 7px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 3;
+  position: fixed;
 }
 
 .breadcrumb {
@@ -148,17 +169,23 @@ form .form-input button:hover {
 }
 
 /* draggable items */
-.garments{
+.garmentsCard{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 60px;
 
-  margin: 19px 32px;
+  margin: 19px 32px 10px 32px;
 
   box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
   border-radius: 20px;
   background: ghostwhite;
   padding: 24px;
+}
+
+.garmentsCard span {
+  grid-column: 1 / -1;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .save-edit{
@@ -180,32 +207,50 @@ form .form-input button:hover {
   visibility: hidden;
 }
 
-.categories {
+.garmentsCard .right {
   display: flex;
+  grid-column: 2 / -1;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .category {
 
   background-color: #f1f0f6;
   border: 1px solid #f1f0f6;
-  padding: 10px;
+  padding: 16px 20px;
   margin: 10px;
-  min-width: 220px;
+  min-width: 300px;
   border-radius: 10px;
   box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
 
 }
 
 .category.orders{
-  min-width: 500px;
+  min-width: 330px;
 }
 
 .category.orders .items{
   display: grid;
-  grid-template-columns: repeat(2, minmax(auto, 1fr));
+
   gap: 10px;
 }
 
+.category.garmentsCard .items{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.category .item,
+.draggable{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-evenly;
+  padding: 10px;
+}
 
 .draggable {
   border: 1px solid #000000;
@@ -219,15 +264,6 @@ form .form-input button:hover {
   background-color: #f1c40f94;
 }
 
-.draggable.sewing{
-  border: 1px solid #0c5fcdc7;
-  background-color: #0c5fcdc7;
-}
-
-.draggable.cutting{
-  border: 1px solid #1c7012cc;
-  background-color: #1c7012cc;
-} 
 
 .dropzone {
   border: 2px dashed #ccc;
@@ -384,6 +420,8 @@ th, td{
 
 td{
   box-sizing: border-box;
+  padding: 13px 0px;
+
 }
 
 td img{
@@ -430,7 +468,8 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  
+  width: 105px;
+
   border-radius: 12px;
   padding: 2px 12px;
   font-size: 1em;
@@ -441,17 +480,38 @@ tbody tr:hover{
   background-color: #f1c40f;
 }
 
+.text-status.assigned{
+  background-color: #f1870f;
+
+}
+
 .text-status.sewing{
   background-color: #0c5fcdc7;
+}
+
+.text-status.sewed{
+  background-color: #0ccd70;
 }
 
 .text-status.cutting{
   background-color: #1c7012cc;
 }
 
+.text-status.cut{
+  background-color: #12706b;
+}
+
+.text-status.completed{
+  background-color: #6c0c9f;
+}
+
+.text-status.cancelled{
+  background-color: #fc3b56;
+}
+
 .popup-view, 
-.popup-new {
-  display: none; 
+.popup-new,
+.popup-set-deadline {
   position: fixed;
   z-index: 2; 
   left: 0;
@@ -460,7 +520,20 @@ tbody tr:hover{
   height: 100%; 
   overflow: auto; 
   background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.7);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+
+.is-visible {
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
 .popup-content {
@@ -527,9 +600,14 @@ textarea {
 
 .popup-view .sizeChart{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  left: 0;
+  grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
+  /* grid-gap: 0px; */
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.sizeChart div {
+  max-width: 110px;
 }
 
 .popup-view .sizeChart span{
@@ -807,16 +885,21 @@ button.pay:hover {
   transform: scale(1.1);
 }
 
+hr.second {
+
+  border: dashed 1px #5a4a4a7b;
+  margin: 5px;
+}
+
 .user-details .input-box input,
 select {
   width: 80%;
-  height: 38px;
+  height: 45px;
   outline: none;
-  background-color: #ffffffd5;
-  border-radius: 4px;
-  border: 1px solid black;
-  /* padding-left: 15px; */
-  font-size: 13px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
 }
@@ -830,7 +913,8 @@ select {
 
 }
 
-.popup-view .pb{
+.popup-view .pb,
+.popup-set-deadline .pb{
   position: relative;
   bottom: 4px;
   width: 100%;
@@ -848,21 +932,22 @@ select {
   /* transform: scale(0.9); */
 }
 
-.popup-view .update-btn {
-  /* right: 20%; */
-  color: var(--blue);
-}
-
-.popup-view .update-btn:hover,
-.popup-view .cancel-btn:hover {
+.popup-view .pb:hover,
+.popup-set-deadline .pb:hover {
+  /* transform: scale(1); */
   font-size: 17px;
   font-weight: 200;
   transition: all 0.3s ease-in-out;
 }
 
-.popup-view .cancel-btn {
-  
-  color: var(--red);
+.popup-view .update-btn:hover,
+.popup-set-deadline .update-btn:hover {
+  background: green;
+}
+
+.popup-view .cancel-btn:hover,
+.popup-set-deadline .cancel-btn:hover {
+  background: darkred;
 }
 
 /* @media screen and (max-width: 950px) {
