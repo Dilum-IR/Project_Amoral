@@ -52,6 +52,7 @@ route('manager/employeedetails', 'manager/EmployeeDetails@index');
 route('manager/assigndelivery', 'manager/AssignDelivery@index');
 route('manager/printingprocess', 'manager/PrintingProcess@index');
 
+
 // manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');
 route('manager/chatbox', 'manager/ChatBox@chatbox');
@@ -79,7 +80,7 @@ route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
-
+route('manager/reports', 'manager/Reports@index');
 
 route('signinData', 'SignIn@formData');
 

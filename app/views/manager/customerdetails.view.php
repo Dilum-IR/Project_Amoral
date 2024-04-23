@@ -79,30 +79,47 @@
                     </thead>
                     <tbody>
                         <?php
-                        // show($data);
-                        foreach ($data as $cst) : ?>
+                        if (!empty($data)) {
+                            // show($data);
+                            foreach ($data as $cst) :
 
+                            ?>
+                                <tr>
+                                    <td class="ordId"><?php echo $cst->id ?></td>
+                                    <td><?php echo $cst->fullname ?></td>
+                                    <td><?php echo $cst->city ?></td>
+                                    <td><?php echo $cst->address ?></td>
+                                    <td><?php echo $cst->phone ?> </td>
+                                    <td><?php echo $cst->email ?> </td>
+
+
+                                    <td style="word-break:normal;">
+                                        <div class="view-remove-buttons">
+                                            <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-cst='<?= json_encode($cst); ?>' onclick="openView(this)">View</button>
+                                            <form method="POST">
+                                                <button name="cstRemove" style="color: #ff0000de;">Remove</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php
+
+                            endforeach;
+                        } else {
+                            ?>
                             <tr>
-                                <td class="ordId"><?php echo $cst->id ?></td>
-                                <td><?php echo $cst->fullname ?></td>
-                                <td><?php echo $cst->city ?></td>
-                                <td><?php echo $cst->address ?></td>
-                                <td><?php echo $cst->phone ?> </td>
-                                <td><?php echo $cst->email ?> </td>
-
-
-                                <td style="word-break:normal;">
-                                    <div class="view-remove-buttons">
-                                        <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button>
-                                        <form method="POST">
-                                            <button name="cstRemove" style="color: #ff0000de;">Remove</button>
-                                        </form>
-                                    </div>
-                                </td>
+                                <td>No Availble Data</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-
-
-                        <?php endforeach; ?>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -145,12 +162,12 @@
 
                     <div class="input-box">
                         <span class="details">E-mail</span>
-                        <input type="email" required onChange="" value="steve@jobs.apple" name="email" />
+                        <input type="email" required onChange="" value="" name="email" />
                     </div>
 
                     <div class="input-box">
                         <span class="details">City</span>
-                        <input type="text" required onChange="" value="Padukka" name="city" />
+                        <input type="text" required onChange="" value="" name="city" />
                     </div>
 
                     <div class="input-box">
@@ -160,7 +177,7 @@
 
                     <div class="input-box">
                         <span class="details">Contact Number</span>
-                        <input type="text" required onChange="" value="0766464639" name="phone" />
+                        <input type="text" required onChange="" value="" name="phone" />
                     </div>
                 </div>
 
