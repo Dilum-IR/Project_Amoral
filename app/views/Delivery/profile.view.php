@@ -340,7 +340,7 @@
                 </div>
                 <div class="pro_button">
                   <button type="submit" class="small_btn discard_btn ltor-button" name="discardP" value="discardP"
-                    href="<?= ROOT ?>/customer/profile">
+                    href="<?= ROOT ?>/delivery/profile">
                     <span>
                       Discard
                     </span>

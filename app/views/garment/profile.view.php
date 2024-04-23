@@ -327,7 +327,7 @@
               </div>
               <div class="pro_button">
                 <button type="button" class="small_btn discard_btn" name="discardP" value="discardP"
-                  href="<?= ROOT ?>/customer/profile"><span>
+                  href="<?= ROOT ?>/garment/profile"><span>
                     Discard
                   </span></button>
                 <button type="submit" class="small_btn save_btn" name="saveP" value="saveP"><span>

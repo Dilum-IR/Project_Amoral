@@ -267,8 +267,7 @@ ion-icon {
   display: flex;
   justify-content: flex-start; /* Adjusted to left-align buttons */
   margin-top: 5px;
-  margin-bottom: -16px;
-  margin-left: 60%;
+  margin-bottom: -16px;margin-left: 60%;
   gap: 16px;
 }
 
@@ -355,6 +354,8 @@ ion-icon {
     margin-top: 50px;
   }
 }
+
+
 
 .wrapper .right .pro_button .discard_btn:hover {
   background-color: #f10800;
