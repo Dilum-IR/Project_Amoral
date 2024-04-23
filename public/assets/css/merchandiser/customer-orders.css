@@ -466,6 +466,10 @@ tbody tr:hover{
   width: 60%; /* Could be more or less, depending on screen size */
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 85%;
+
 }
 
 

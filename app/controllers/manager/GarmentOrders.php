@@ -40,7 +40,6 @@ class GarmentOrders extends Controller
             // show($_POST);
             foreach($_POST['garments'] as $garment){
                 $data['garment_id'] = $garment['garment_id'];
-                $data['status'] = 'assigned';
 
                 
 

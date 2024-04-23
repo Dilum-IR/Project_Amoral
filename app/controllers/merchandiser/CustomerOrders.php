@@ -15,12 +15,13 @@ class CustomerOrders extends Controller
         $printingType = new PrintingType;
         $garment_order = new GarmentOrder;
 
-        if ($username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status === 'merchandiser') {
 
             // show($_SESSION['USER']->emp_id);
 
 
-            $data['orders'] = $order->findAll('order_id');
+            $data['orders'] = $order->findAll_withLOJ('garment_order', 'order_id', 'order_id');
+            $data['pendingOrders'] = $order->where(['order_status' => 'pending']);
             $data['customers'] = $customer->findAll();
             $data['material_sizes'] = $order->getFullData();
             $data['materials'] = $materials->getMaterialNames();
@@ -28,8 +29,8 @@ class CustomerOrders extends Controller
             $data['sleeveType'] = $sleeveType->findAll('sleeve_id');
             $data['material_printingType'] = $material_printingType->getFullData();	
             $data['printingType'] = $printingType->findAll('ptype_id');
-            
-            $this->view('manager/customerorders', $data);
+            // show($data);
+            $this->view('merchandiser/customerorders', $data);
 
             
               
@@ -55,7 +56,7 @@ class CustomerOrders extends Controller
         date_default_timezone_set('Asia/Kolkata');
         $current_date = date("Y-m-d");
 
-        if ( isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager'){
+        if ( isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'merchandiser'){
             // show($_POST);
             //need to validate
             // unset($_POST['newOrder']);
@@ -235,7 +236,7 @@ class CustomerOrders extends Controller
 
         $response = [];
 
-        if (isset($_POST) && $username !== 'User' && $_SESSION['USER']->emp_status === 'manager'){
+        if (isset($_POST) && $username !== 'User' && $_SESSION['USER']->emp_status === 'merchandiser'){
             $order_id = $_POST['order_id'];
             // show($_POST);
             // unset($_POST['updateOrder']);
@@ -303,7 +304,7 @@ class CustomerOrders extends Controller
 
             if($_POST['order_status'] == 'cutting' && empty($current_orders)){
                 // $garment_order = new GarmentOrder;
-                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending' ]);
+                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending']);
             }
 
             unset($_POST);

@@ -48,6 +48,8 @@ route('manager/assignDeliverymen','manager/AssignDelivery@assignDeliverymen');
 
 //merchandiser ajax calling endpoints
 route('merchandiser/updateMaterial', 'merchandiser/Overview@updateMaterial');
+route('merchandiser/newOrder', 'merchandiser/CustomerOrders@newOrder');
+route('merchandiser/updateOrder', 'merchandiser/CustomerOrders@updateOrder');
 
 
 route('manager/overview', 'manager/Overview@index');
