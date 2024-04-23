@@ -32,59 +32,45 @@ function closeReport(){
     overlay.classList.remove("overlay-active");
 }
 
-myModal = document.getElementById("myModal");
-modal_content = document.getElementById("modal-content");
-alert_overlay = document.getElementById("alert-overlay");
-function confirmPopup(id){
+// myModal = document.getElementById("myModal");
+// modal_content = document.getElementById("modal-content");
+// alert_overlay = document.getElementById("alert-overlay");
+// function confirmPopup(id){
     
-    myModal.classList.remove("disable");
-    myModal.classList.add("active");
+//     myModal.classList.remove("disable");
+//     myModal.classList.add("active");
     
-    modal_content.classList.remove("disable");
-    modal_content.classList.add("active");
+//     modal_content.classList.remove("disable");
+//     modal_content.classList.add("active");
     
-    alert_overlay.style.display = "block";
+//     alert_overlay.style.display = "block";
     
     
-    order_id = document.getElementById("order_id");
+//     order_id = document.getElementById("order_id");
 
-    order_id.value = id;
-}
-
-
-
-function cancelPopup(){
-    
-    myModal.classList.remove("active");
-    myModal.classList.add("disable");
-    
-    
-    modal_content.classList.remove("active");
-    modal_content.classList.add("disable");
-    
-    alert_overlay.style.display = "none";
-
-
-    console.log("myModal");
-    
-}
+//     order_id.value = id;
+// }
 
 
 
-// JavaScript to close the modal
-function closeReport() {
-    var modal = document.getElementById('myModal');
-    modal.style.display = 'none';
-    location.reload();
-}
+// function cancelPopup(){
+    
+//     myModal.classList.remove("active");
+//     myModal.classList.add("disable");
+    
+    
+//     modal_content.classList.remove("active");
+//     modal_content.classList.add("disable");
+    
+//     alert_overlay.style.display = "none";
 
-// Add event listener for the confirmation button
-window.onload = function() {
-    document.getElementById('confirm').addEventListener('click', function() {
-        // alert('Confirmed!');
-        closeReport();
-    });
-}
+
+//     console.log("myModal");
+    
+// }
+
+
+
 
 
 
