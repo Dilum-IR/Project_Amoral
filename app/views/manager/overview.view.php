@@ -23,6 +23,9 @@
     <!-- Content -->
     <section id="main" class="main">
 
+        <div class="success-msg"> </div>
+
+
         <div class="content">
 
             <!-- <nav class="sub-nav">
@@ -233,6 +236,55 @@
 
                     </div>
 
+                    <script>
+                        // ajax for adding materials
+                        document.getElementById("addMaterialForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("addMaterialForm");
+                            var noerrors = validateMaterial(form);
+                            var formData = new FormData(form);
+                            console.log(formData);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/addMaterial", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        // console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        console.log('response'+response);
+                                        if (response == false) {
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Material added successfully";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            if(response == 'Material already exists'){
+                                                successMsgElement.innerHTML = "Material already exists";
+                                            }else{
+                                                successMsgElement.innerHTML = "There was an error adding the material";
+                                            }
+                                            
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                    </script>
+
                     <!-- Delete confirmation popup -->
                     <div id="deleteConfirmation-material" class="popup-delete">
                         <!-- Modal content -->
@@ -245,6 +297,47 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                        // ajax for deleting materials
+                        document.getElementById("deleteMaterialForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("deleteMaterialForm");
+                            var formData = new FormData(form);
+                            console.log(formData);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "<?= ROOT ?>/manager/deleteMaterial", true);
+                            xhr.onload = function () {
+                                if (this.status == 200) {
+                                    console.log(this.responseText);
+                                    var response = JSON.parse(this.responseText);
+                                    console.log('response'+response);
+                                    if (response == false) {
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "Material deleted successfully";
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        successMsgElement.style.display = 'block';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }else{
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "There was an error deleting the material";
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        
+                                        successMsgElement.style.display = 'block';
+                                        successMsgElement.style.backgroundColor = 'red';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                }
+                            }
+                            xhr.send(formData);
+                        });
+                    </script>
 
                     <!--popup to update materials-->
 
@@ -269,6 +362,50 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                        // ajax for updating materials
+                        document.getElementById("updateMaterialForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("updateMaterialForm");
+                            var noerrors = validateMaterial(form);
+                            var formData = new FormData(form);
+                            console.log(formData);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/updateMaterial", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        console.log('response'+response);
+                                        if (response == false) {
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Material updated successfully";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "There was an error updating the material";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                    </script>
 
                 
                     
@@ -302,6 +439,59 @@
 
                     </div>
 
+                    <script>
+                        // ajax for adding printing types
+                        document.getElementById("addPrintingTypeForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("addPrintingTypeForm");
+                            var noerrors = validatePrintingType(form);
+                            var formData = new FormData(form);
+                            // console.log(formData);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/addPrintingType", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        // console.log('response'+response);
+                                        if (response == false) {
+                                            // delay(100);
+                                            
+                                            
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Printing type added successfully";
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                            
+                                                
+
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            if(response == 'Printing type already exists'){
+                                                successMsgElement.innerHTML = "Printing type already exists";
+                                            }else{
+                                                successMsgElement.innerHTML = "There was an error adding the printing type";
+                                            }
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                    </script>
+
                         <!-- Delete confirmation popup -->
                     <div id="deleteConfirmation-ptype" class="popup-delete">
                         <!-- Modal content -->
@@ -314,6 +504,48 @@
                             </form>
                         </div>
                     </div>
+
+                    <script>
+                            // ajax for deleting printing types
+                            document.getElementById("deletePrintingTypeForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("deletePrintingTypeForm");
+                            var formData = new FormData(form);
+                            // console.log(formData);
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "<?= ROOT ?>/manager/deletePrintingType", true);
+                            xhr.onload = function () {
+                                if (this.status == 200) {
+                                    console.log(this.responseText);
+                                    var response = JSON.parse(this.responseText);
+                                    // console.log('response'+response);
+                                    if (response == false) {
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "Printing type deleted successfully";
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        successMsgElement.style.display = 'block';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }else{
+                                        var successMsgElement = document.querySelector('.success-msg');
+                                        successMsgElement.innerHTML = "There was an error deleting the printing type";
+                                        
+                                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                        
+                                        successMsgElement.style.display = 'block';
+                                        successMsgElement.style.backgroundColor = 'red';
+                                        setTimeout(function() {
+                                            successMsgElement.style.display = 'none';
+                                            location.reload();
+                                        }, 2000);
+                                    }
+                                }
+                            }
+                            xhr.send(formData);
+                        });
+                    </script>
 
                 <!--popup to update printing types-->
 
@@ -346,7 +578,51 @@
                     </div>
                 </div>
 
-           
+                <script>
+                            // ajax for updating printing types
+                        document.getElementById("updatePrintingTypeForm").addEventListener("submit", function (e) {
+                            e.preventDefault();
+                            var form = document.getElementById("updatePrintingTypeForm");
+                            var noerrors = validatePrintingType(form);
+                            var formData = new FormData(form);
+                            console.log(noerrors);
+                            if(noerrors){
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "<?= ROOT ?>/manager/updatePrintingType", true);
+                                xhr.onload = function () {
+                                    if (this.status == 200) {
+                                        console.log(this.responseText);
+                                        var response = JSON.parse(this.responseText);
+                                        // console.log('response'+response);
+                                        if (response == false) {
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            successMsgElement.innerHTML = "Printing type updated successfully";
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            successMsgElement.style.display = 'block';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }else{
+                                            var successMsgElement = document.querySelector('.success-msg');
+                                            
+                                            successMsgElement.innerHTML = "There was an error adding the printing type";
+                                            
+                                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                                            
+                                            successMsgElement.style.display = 'block';
+                                            successMsgElement.style.backgroundColor = 'red';
+                                            setTimeout(function() {
+                                                successMsgElement.style.display = 'none';
+                                                location.reload();
+                                            }, 2000);
+                                        }
+                                    }
+                                }
+                                xhr.send(formData);
+                            }
+                        });
+                </script>
 
 
 
@@ -356,7 +632,7 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Customer Orders</h3>
-                                <button class="view-all-btn">View All</button>
+                                <a class="view-all-btn" href="<?= ROOT ?> /manager/customerorders">View All</a>
                             </div>
                             <table>
                                 <thead>
@@ -368,7 +644,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(isset($data['customerOrder'])): ?>
+                                    <?php if(!empty($data['customerOrder'])): ?>
                                         <?php $i = 0; ?>
                                 
                                             <?php foreach ($data['customerOrder'] as $order): ?>
@@ -379,12 +655,15 @@
                                                         </td>
                                                         <td><?php echo $order->order_placed_on ?></td>   
                                                         <td>
-                                                        <?php foreach($data['material_sizes'] as $sizes):?>
-                                                            <?php if($sizes->order_id == $order->order_id) :?>
-                                                                
-                                                                <?php echo $sizes->material_type ?><br>
-                                                            <?php endif;?>
-                                                        <?php endforeach;?>    
+                                                        <?php if(!empty($data['material_sizes'])): ?>
+
+                                                            <?php foreach($data['material_sizes'] as $sizes):?>
+                                                                <?php if($sizes->order_id == $order->order_id) :?>
+                                                                    
+                                                                    <?php echo $sizes->material_type ?><br>
+                                                                <?php endif;?>
+                                                            <?php endforeach;?> 
+                                                        <?php endif; ?>   
                                                         </td>
                                                         <td class="status">
                                                             <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
@@ -416,7 +695,7 @@
                         <div class="order">
                             <div class="head">
                                 <h3>Recent Garment Orders</h3>
-                                <button class="view-all-btn">View All</button>
+                                <a class="view-all-btn" href="<?= ROOT ?> /manager/garmentorders">View All</a>
                             </div>
                             <table>
                                 <thead>
@@ -593,11 +872,11 @@
 
             // }
             
-            var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
-            console.log(deleteMaterialSuccess);
-            if(deleteMaterialSuccess){
-                newCard.remove();
-            }
+            // var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
+            // console.log(deleteMaterialSuccess);
+            // if(deleteMaterialSuccess){
+            //     newCard.remove();
+            // }
 
         }
 

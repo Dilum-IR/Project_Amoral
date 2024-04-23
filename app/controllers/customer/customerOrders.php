@@ -130,10 +130,6 @@ class CustomerOrders extends Controller
 
                             $img1 = $new_img_name1;
                             $img2 = $new_img_name2;
-                        } else {
-                            $em = "You can't upload files of this type!";
-                            header("Location:../../signup.php?error=$em&$data");
-                            exit;
                         }
                     }
                 }

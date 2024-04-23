@@ -1,3 +1,4 @@
+
 <?php
 
 // show($data);
@@ -28,6 +29,8 @@
 
     <!-- content  -->
     <section id="main" class="main">
+
+        <div class="success-msg"> </div>
 
         <ul class="breadcrumb">
             <li>
@@ -70,7 +73,7 @@
                             <th>Order Id  <i class='bx bx-down-arrow-circle'></i></th>
                             <th>User Id  <i class='bx bx-down-arrow-circle'></i></th>
                             <th>Placed Date  <i class='bx bx-down-arrow-circle'></i></th>
-                            <th>Material  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Material(s) <i class='bx bx-down-arrow-circle'></i></th>
                             <th>Quantity  <i class='bx bx-down-arrow-circle'></th>
                             <th>Dispatch Date  <i class='bx bx-down-arrow-circle'></i></th>
                             <th>Status  <i class='bx bx-down-arrow-circle'></i></th>
@@ -83,23 +86,30 @@
                             
                                 <?php $material = array(); ?>
                             <tr>
-                                <td class="ordId"><?php echo $order->order_id ?></td>
-                                <td><?php echo $order->user_id ?></td>
-                                <td><?php echo $order->order_placed_on ?></td>
+                                <td class="ordId"><?php echo $order->order_id; ?></td>
+                                <td><?php echo $order->user_id; ?></td>
+                                <td><?php echo $order->order_placed_on; ?></td>
                                 <td>
-                                <?php foreach($data['material_sizes'] as $sizes):?>
-                                        <?php if($sizes->order_id == $order->order_id) :?>
-                                            <?php $material[] = $sizes?>
-                                        <?php echo $sizes->material_type ?><br>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
-                                </td>
-                                <td class="desc">
+                                    <?php $material_types = array(); ?>
                                     <?php foreach($data['material_sizes'] as $sizes):?>
                                         <?php if($sizes->order_id == $order->order_id) :?>
-                                            <?php echo $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?> <br>
+                                            <?php $material[] = $sizes;?>
+                                            <?php $material_types[] = $sizes->material_type; ?>
                                         <?php endif;?>
                                     <?php endforeach;?>
+                                    <?php $distinct_types = array_unique($material_types); ?>
+                                    <?php foreach($distinct_types as $type): ?>
+                                        <?php echo $type; ?><br>
+                                    <?php endforeach; ?>
+                                </td>
+                                <td class="desc">
+                                    <?php $total = 0; ?>
+                                    <?php foreach($data['material_sizes'] as $sizes):?>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                    <?php echo $total; ?>
                                 </td>
                                 <td><?php echo $order->dispatch_date ?></td>
                                 <td class="st">
@@ -124,7 +134,6 @@
             </div>
         </div>
 
-    </section>
 
 
     <!-- POPUP -->
@@ -280,7 +289,7 @@
 
                     <div class="input-box location">
                         <span class="details">Location</span>
-                        <div id="map" style="height: 400px; width: 100%;"></div>
+                        <div id="view-order-map" style="height: 400px; width: 100%;"></div>
                     </div>
 
                     <!-- hidden element -->
@@ -375,8 +384,56 @@
         </form>
     </div>
 
+    <script>
+        //ajax for updating order
+        let updateOrderForm = document.querySelector(".popup-view .update-form");
+        updateOrderForm.addEventListener('submit', function(event){
+            event.preventDefault();
+            let formData = new FormData(updateOrderForm);
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "<?php echo ROOT ?>/manager/updateOrder", true);
+            xhr.onload = function() {
+                if(this.status == 200) {
+                    let response = JSON.parse(this.responseText);
+                    if (response == false) {
+                        // delay(100);
+                        
+                        
+                        var successMsgElement = document.querySelector('.success-msg');
+                        successMsgElement.innerHTML = "Order updated successfully";
+                        successMsgElement.style.display = 'block';
+                        setTimeout(function() {
+                            successMsgElement.style.display = 'none';
+                            location.reload();
+                        }, 2000);
+                        
+                            
+
+                    }else{
+                        var successMsgElement = document.querySelector('.success-msg');
+               
+                        successMsgElement.innerHTML = "There was an error updating the order";
+                        
+                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                        
+                        successMsgElement.style.display = 'block';
+                        successMsgElement.style.backgroundColor = 'red';
+                        setTimeout(function() {
+                            successMsgElement.style.display = 'none';
+                            location.reload();
+                        }, 2000);
+                    }
+                }
+            }
+
+            xhr.send(formData);
+            
+        });
+
+    </script>
+
         <!-- Pop up new -->
-        <div class="popup-new">
+    <div class="popup-new">
         <div class="popup-content">
         <span class="close">&times;</span>
         <h2>New Order</h2>
@@ -602,7 +659,7 @@
 
                     <div class="input-box location">
                         <span class="details"> Delivery Location</span>
-                        <div id="map" style="height: 300px; width: 100%;"></div>
+                        <div id="new-order-map" style="height: 300px; width: 100%;"></div>
                     </div>
 
                     <div class="input-box city">
@@ -639,6 +696,15 @@
                             <input type="hidden" name="unit_price[]">   
                             
                         </tr>
+
+                        <tr class="discount">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Discount(%)</td>
+                            <td><input type="number" name="discount" style="border: none;" class="discountPercentage" value=0 min="0" max="50"></td>
+                        </tr>
+
                         <tr class="total">
                             <td></td>
                             <td></td>
@@ -658,7 +724,7 @@
                 <input name="longitude" type="hidden" required />
 
               
-                <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
+                <input type="submit" class="close-btn pb" name="newOrder" />
                 <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
              
 
@@ -668,6 +734,60 @@
             </form>
         </div>
     </div> 
+    </section>
+
+
+    <script>
+        //ajax for new order
+        let newOrderForm = document.querySelector(".popup-new .new-form");
+        newOrderForm.addEventListener('submit', function(event){
+            event.preventDefault();
+            validateNewOrder();
+            let formData = new FormData(newOrderForm);
+            let xhr = new XMLHttpRequest();
+            console.log(formData);
+            xhr.open("POST", "<?php echo ROOT ?>/manager/newOrder", true);
+            xhr.onload = function() {
+                if(this.status == 200) {
+                    console.log('response'+this.responseText);
+                    let response = JSON.parse(this.responseText);
+                    if (response == false) {
+                        // delay(10000);
+                        
+                        
+                        var successMsgElement = document.querySelector('.success-msg');
+                        successMsgElement.innerHTML = "Order placed successfully";
+                        successMsgElement.style.display = 'block';
+                        // delay(2000);
+                        setTimeout(function() {
+                            successMsgElement.style.display = 'none';
+                            location.reload();
+                        }, 2000);
+                        
+                            
+
+                    }else{
+                        var successMsgElement = document.querySelector('.success-msg');
+               
+                        successMsgElement.innerHTML = "There was an error placing the order";
+                        
+                        // successMsgElement.style.transition = 'all 1s ease-in-out';
+                        
+                        successMsgElement.style.display = 'block';
+                        successMsgElement.style.backgroundColor = 'red';
+                        setTimeout(function() {
+                            successMsgElement.style.display = 'none';
+                            location.reload();
+                        }, 2000);
+                    }
+                }
+            }
+
+            xhr.send(formData);
+            
+        });
+
+    </script>
 
     <script>
         //add price data dynamically in new order popup
@@ -718,6 +838,9 @@
             document.querySelectorAll(".units").forEach(function(unit){
                 total += parseInt(unit.querySelector(".unitPrice").innerHTML) * parseInt(unit.querySelector(".quantityAll").innerHTML);
             });
+            let discount = parseInt(document.querySelector(".popup-new input[name='discount']").value);
+            console.log(discount);
+            total *= (100 - discount) / 100;
             document.querySelector(".popup-new .totalPrice").innerHTML = total;
 
             document.querySelector(".popup-new input[name='total_price']").value = total;
@@ -777,6 +900,11 @@
             });
 
             updatePrice(document, materialPrice, sleevePrice, printingTypePrice);
+        });
+
+        let discountInput = document.querySelector('.popup-new input[name="discount"]');
+        discountInput.addEventListener('change', function(){
+            generateTotalPrice();
         });
 
 
@@ -1052,7 +1180,8 @@
 
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
+
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
