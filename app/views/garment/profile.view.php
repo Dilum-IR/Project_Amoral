@@ -119,7 +119,7 @@
                   <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Garment Name &nbsp;<span
                       class="data-error">
                       <?=
-                        (!empty($error) && isset($error['name']) && $error['flag'] == 1) ? "* " . $error['name'] : '';
+                        (!empty($error) && isset($error['emp_name']) && $error['flag'] == 1) ? "* " . $error['emp_name'] : '';
                       ?>
 
                     </span></label>
