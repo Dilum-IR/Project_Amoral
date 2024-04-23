@@ -91,24 +91,22 @@ class Employee
 
 		$this->errors = [];
 
-	
+
 		// is empty password 
 		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['current_password'] = "Password is Required";
-			
-			
-		}
-		else if (empty($data['new_password'])) {
+
+
+		} else if (empty($data['new_password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['new_password'] =  "New password is Required";
-			
-			
-		}
-		else if (empty($data['confirm_password'])) {
+			$this->errors['new_password'] = "New password is Required";
+
+
+		} else if (empty($data['confirm_password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['confirm_password'] =  "Confirm password is Required";
-			
+			$this->errors['confirm_password'] = "Confirm password is Required";
+
 		}
 
 		// password validation
@@ -136,7 +134,7 @@ class Employee
 	{
 
 		$this->errors = [];
-		
+
 		// is empty Full Name
 		if (empty($data['emp_name'])) {
 			$this->errors['flag'] = true;
@@ -147,7 +145,7 @@ class Employee
 		}
 		// name validation - this part include more words validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['emp_name'])) {
-			
+
 			$this->errors['flag'] = true;
 			$this->errors['emp_name'] = "Name is invalid ";
 			// $this->errors['error_no'] = 2;
@@ -183,31 +181,38 @@ class Employee
 		if (empty($data['DOB'])) {
 			$this->errors['flag'] = true;
 			$this->errors['DOB'] = "Date of Birth is required";
-		} else
+		} else {
+			// Validate the format of the date
 			if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $data['DOB'])) {
 				$this->errors['flag'] = true;
-				$this->errors['DOB'] = "Date of Birth is invalid";
+				$this->errors['DOB'] = "Date of Birth is invalid format";
 			} else {
-				
 				// Convert the date string to a DateTime object for further validation
 				$dateTime = DateTime::createFromFormat('Y-m-d', $data['DOB']);
 				$dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
-				
+
 				// Check if the date is not in the future
 				$currentDate = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-				// show($currentDate);
 				if ($dateTime > $currentDate) {
 					$this->errors['flag'] = true;
-					$this->errors['DOB'] = "Date of Birth is invalid";
+					$this->errors['DOB'] = "Date of Birth cannot be in the future";
+				} else {
+					// Check if the user is at least 18 years old
+					$age = $currentDate->diff($dateTime)->y;
+					if ($age < 18) {
+						$this->errors['flag'] = true;
+						$this->errors['DOB'] = "Must be at least 18 years old";
+					}
 				}
 			}
+		}
+
 
 		// is empty Email
 		if (empty($data['email'])) {
 			$this->errors['flag'] = true;
 			$this->errors['email'] = "Employee email is required";
-		}
-		else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+		} else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['flag'] = true;
 			$this->errors['email'] = "Email is invalid ";
 		}
@@ -216,14 +221,13 @@ class Employee
 		if (empty($data['contact_number'])) {
 			$this->errors['flag'] = true;
 			$this->errors['contact_number'] = "Contact Number is required";
-		}
-		else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/",$data['contact_number'])) {
+		} else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/", $data['contact_number'])) {
 			$this->errors['flag'] = true;
 			$this->errors['contact_number'] = "Contact Number is invalid ";
 		}
-		 //show($this->errors);
+		//show($this->errors);
 
-		
+
 
 		if (empty($this->errors)) {
 
