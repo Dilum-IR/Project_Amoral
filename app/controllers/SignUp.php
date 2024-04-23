@@ -23,7 +23,7 @@ class SignUp extends Controller
                 } else  if ($curr_row->emp_status == 'garment') {
                     redirect('garment/overview');
                 } else  if ($curr_row->emp_status == 'merchandiser') {
-                    redirect('garment/overview');
+                    redirect('merchandiser/overview');
                 }
             } catch (Throwable $th) {
                 throw $th;
@@ -127,7 +127,7 @@ class SignUp extends Controller
                         } else  if ($emprow->emp_status == 'garment') {
                             redirect('garment/overview');
                         } else  if ($emprow->emp_status == 'merchandiser') {
-                            redirect('garment/overview');
+                            redirect('merchandiser/overview');
                         }
                     } else {
 

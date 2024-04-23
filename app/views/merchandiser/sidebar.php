@@ -5,49 +5,35 @@
         </div>
         <ul class="nav-list">
             <li>
-                <a href="<?=ROOT?>/manager/overview">
+                <a href="<?=ROOT?>/merchandiser/overview">
                     <i class="bx bxs-grid-alt"></i>
                     <span class="link_name">Overview</span>
                 </a>
                 <span class="tooltip">Overview</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/manager/customerorders">
+                <a href="<?=ROOT?>/merchandiser/customerorders">
                     <i class="bx bxs-cart-alt"></i>
                     <span class="link_name">Customer Orders</span>
                 </a>
                 <span class="tooltip">Customer Orders</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/manager/garmentorders">
+                <a href="<?=ROOT?>/merchandiser/garmentorders">
                     <i class="bx bxs-t-shirt"></i>
                     <span class="link_name">Garment Orders</span>
                 </a>
                 <span class="tooltip">Garment Orders</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/manager/printingprocess">
+                <a href="<?=ROOT?>/merchandiser/printingprocess">
                     <i class="bx bxs-printer"></i>
                     <span class="link_name">Printing Process</span>
                 </a>
                 <span class="tooltip">Printing Process</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/manager/assigndelivery">
-                    <i class="bx bxs-package"></i>
-                    <span class="link_name">Deliver Packages</span>
-                </a>
-                <span class="tooltip">Deliver Packages</span>
-            </li>
-            <li>
-                <a href="<?=ROOT?>/manager/employeedetails">
-                    <i class="bx bxs-user-detail"></i>
-                    <span class="link_name">Employee Details</span>
-                </a>
-                <span class="tooltip">Employee Details</span>
-            </li>
-            <li>
-                <a href="<?=ROOT?>/manager/customerdetails">
+                <a href="<?=ROOT?>/merchandiser/customerdetails">
                     <i class="bx bxs-user-account"></i>
                     <span class="link_name">Customer Details</span>
                 </a>
@@ -61,7 +47,7 @@
                 <span class="tooltip">Reports</span>
             </li>
             <li>
-                <a href="<?=ROOT?>/manager/profile">
+                <a href="<?=ROOT?>/merchandiser/profile">
                     <i class="bx bxs-user-circle"></i>
                     <span class="link_name">Profile</span>
                 </a>

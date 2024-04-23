@@ -30,7 +30,7 @@ route('customer/chatbox', 'customer/customerOverview@chat_data');
 route('customer/p', 'customer/customerOrders@payment_process');
 route('customer/p_success', 'customer/customerOrders@payment_success');
 
-//manager ajax endpoint
+//manager ajax calling endpoint
 route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
 route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
 
@@ -45,6 +45,10 @@ route('manager/newOrder', 'manager/CustomerOrders@newOrder');
 route('manager/updateOrder', 'manager/CustomerOrders@updateOrder');
 
 route('manager/assignDeliverymen','manager/AssignDelivery@assignDeliverymen');
+
+//merchandiser ajax calling endpoints
+route('merchandiser/updateMaterial', 'merchandiser/Overview@updateMaterial');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
@@ -76,6 +80,16 @@ route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
+
+
+//merchandiser
+route('merchandiser/overview', 'merchandiser/Overview@index');
+route('merchandiser/customerorders', 'merchandiser/CustomerOrders@index');
+route('merchandiser/garmentorders', 'merchandiser/GarmentOrders@index');
+route('merchandiser/profile', 'merchandiser/Profile@index');
+route('merchandiser/printingprocess', 'merchandiser/PrintingProcess@index');
+route('merchandiser/garmentdetails', 'merchandiser/GarmentDetails@index');
+route('merchandiser/customerdetails', 'merchandiser/CustomerDetails@index');
 
 
 route('signinData', 'SignIn@formData');

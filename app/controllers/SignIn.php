@@ -22,9 +22,9 @@ class SignIn extends Controller
                 } else if ($curr_row->emp_status == 'delivery') {
                     redirect('delivery/overview');
                 } else  if ($curr_row->emp_status == 'garment') {
-                    redirect('garment/overview');
+                    redirect('merchandiser/overview');
                 } else  if ($curr_row->emp_status == 'merchandiser') {
-                    redirect('garment/overview');
+                     redirect('garment/overview');
                 }
             } catch (Throwable $th) {
                 throw $th;
@@ -164,7 +164,7 @@ class SignIn extends Controller
                                 redirect("garment/overview?$success");
                                 exit;
                             } else  if ($emprow->emp_status == 'merchandiser') {
-                                redirect("garment/overview?$success");
+                                 redirect("merchandiser/overview?$success");
                                 exit;
                             } else if ($emprow->emp_status == 'manager') {
                                 redirect("manager/overview?$success");
