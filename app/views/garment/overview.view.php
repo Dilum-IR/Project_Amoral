@@ -163,7 +163,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">From last month</small>
+                            <small class="small-last-2 text-muted">From last month</small>
                         </div>
                         <div class="sales">
                             <i class=' bx bxs-dollar-circle'></i>
@@ -198,11 +198,15 @@
                                     </div>
                                 </div> -->
                             </div>
-                            <small class="text-muted">From last month</small>
+                            <small class="small-last-2 text-muted">From last month</small>
                         </div>
                     </div>
 
                     <style>
+                        .small-last-2{
+                            margin-top: 2px;
+                            float: right;
+                        }
                         .chart-more-btn {
                             background-color: white !important;
                             color: #000 !important;
@@ -581,17 +585,17 @@
                 series: [{
                         name: 'Monthly Revenue',
                         data: revenueValuesArray,
-                        color: '#008FFB',
+                        color: '#7d2ae8',
                     },
                     {
                         name: 'Monthly Total Qty',
                         data: qtyValuesArray,
-                        color: '#00E396',
+                        color: '#000000',
                     }
                 ],
                 chart: {
                     height: 350,
-                    type: 'line'
+                    type: 'area'
                 },
                 dataLabels: {
                     enabled: false

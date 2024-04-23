@@ -42,7 +42,9 @@
 
     <?php include 'navigationbar.php' ?>
     <!-- Scripts -->
+    <script>
 
+    </script>
 
     <!-- content  -->
     <section id="main" class="main">
@@ -100,7 +102,7 @@
                                 foreach ($data as $item) :
                             ?>
                                     <tr>
-                                        <td class="ordId"><?= $item->order_id  ?></td>
+                                        <td class="ordId">ODR-<?= $item->order_id  ?></td>
                                         <td class="desc">
 
                                             <?php
@@ -152,7 +154,7 @@
                                             <?php
                                             if ($item->status != "completed" &&  $item->status != "sent to company" &&  $item->status != "company process") {
                                             ?>
-                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn<?= $item->order_id ?>" data-order='<?= json_encode($item); ?>' onclick="change_order_status(this,'table btn')">Update Status</button>
+                                                <button type="submit" name="selectItem" class="update-btn" id="table-status-btn<?= $item->order_id ?>" data-order='<?= json_encode($item); ?>' onclick="status_update_method(this)">Update Status</button>
                                             <?php
                                             } else if ($item->status != "sent to company" ||  $item->status != "company process") {
                                             ?>
@@ -468,6 +470,8 @@
         </div>
     </div>
 
+
+
     <div id="overlay" class="overlay"></div>
 
     <script>
@@ -484,6 +488,9 @@
     <script src="<?= ROOT ?>/assets/js/garment/garment-order.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
+    <?php
+    include 'status_confirm_popup.php'
+    ?>
 </body>
 
 </html>
