@@ -154,7 +154,7 @@
 
                                     </div>
                                     <small class="text-muted"><b>
-                                            Cancel Orders :&nbsp;&nbsp;&nbsp;<?= (!empty($overview['sales']['current_sewed'])) ? $overview['sales']['current_sewed'] : "0" ?>
+                                            Cancel Orders :&nbsp;&nbsp;&nbsp;<?= (!empty($overview['cancel_orders'])) ? $overview['cancel_orders'] : "0" ?>
                                         </b></small>
                                 </div>
                                 <div class="container">
@@ -202,6 +202,22 @@
                         </div>
                     </div>
 
+                    <style>
+                        .chart-more-btn {
+                            background-color: white !important;
+                            color: #000 !important;
+                            border: #000 solid 2px;
+                            padding: 2px 10px;
+                            font-size: 13px;
+                            font-weight: 500;
+                            transition: 0.5s ease-in-out;
+                        }
+
+                        .chart-more-btn:hover {
+                            background-color: #000 !important;
+                            color: white !important;
+                        }
+                    </style>
                     <!-- Anlysis Containers -->
 
                     <div class="table-data">
@@ -209,8 +225,16 @@
                         <!-- left side container -->
                         <div class="order">
                             <div class="head">
+                                <h3>Sales</h3>
+                                <button class="chart-more-btn info-btn" onclick="changeToDaily()">Daily</button>
+                                <button class="chart-more-btn info-btn" onclick="changeToMonthly()">Monthly</button>
+                            </div>
+                            <div class="chart">
+
+                            </div>
+                            <div class="head">
                                 <h3>Recent Orders</h3>
-                                <a id="info-btn-1" class="info-btn" href="<?= ROOT ?>/garment/orders">View All</a>
+                                <a id="info-btn-1" class="info-btn" href="<?= ROOT ?>/garment/orders">All Orders</a>
                             </div>
                             <table>
                                 <thead>
@@ -255,8 +279,20 @@
                                                         <?php } ?>
                                                         <?php echo ucfirst($item->status) ?></span></td>
                                             </tr>
-                                    <?php
+                                        <?php
                                         }
+                                    } else {
+                                        ?>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+
+                                                No Available recent orders
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php
                                     }
                                     ?>
 
@@ -317,7 +353,7 @@
                             <div class="orders">
                                 <div class="middle">
                                     <div class="left">
-                                        <i class='bx bx-objects-vertical-center'></i>
+                                        <i class='bx bx-objectects-vertical-center'></i>
                                         <h3>Daily capacity</h3>
 
                                     </div>
@@ -378,6 +414,248 @@
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
 
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        // daily revenue proccess
+        let revenue_data = <?= (!empty($chart_analysis_data['total_sales'])) ? json_encode($chart_analysis_data['total_sales']) : "0" ?>;
+        let cutting_data = <?= (!empty($chart_analysis_data['cut_sales'])) ? json_encode($chart_analysis_data['cut_sales']) : "0" ?>;
+        let sewed_data = <?= (!empty($chart_analysis_data['sewed_sales'])) ? json_encode($chart_analysis_data['sewed_sales']) : "0" ?>;
+
+        // monthly revenue proccess
+        let monthly_revenue_data = <?= (!empty($chart_analysis_data['monthly_revenue'])) ? json_encode($chart_analysis_data['monthly_revenue']) : "0" ?>;
+        let monthly_qty_data = <?= (!empty($chart_analysis_data['monthly_qty'])) ? json_encode($chart_analysis_data['monthly_qty']) : "0" ?>;
+
+
+        var chart;
+
+        var dates = {};
+        var cutting_dates = {};
+        var sewed_dates = {};
+
+        var monthly_qty_dates = {};
+        var monthly_revenue_dates = {};
+
+        var today = new Date();
+        //avoid time
+        today.setHours(0, 0, 0, 0);
+
+        for (var i = 0; i < 20; i++) {
+
+            var date = new Date();
+            date.setDate(today.getDate() - i);
+
+            // format the date in 'YYYY-MM-DD' 
+            var key = date.toISOString().slice(0, 10);
+
+            // initial value is 0
+            dates[key] = 0;
+            cutting_dates[key] = 0;
+            sewed_dates[key] = 0;
+
+            // month object creation only added with 12 months
+            if (i < 12) {
+
+                let month = date.getMonth() - i;
+                let year = date.getFullYear();
+
+                if (month < 0) {
+                    month += 12;
+                    year -= 1;
+                }
+
+                let monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
+
+                monthly_qty_dates[monthKey] = 0;
+                monthly_revenue_dates[monthKey] = 0;
+            }
+        }
+
+        Object.keys(revenue_data).forEach(element => {
+
+            if (dates[element] != undefined)
+                dates[element] = revenue_data[element]
+
+            if (cutting_dates[element] != undefined)
+                cutting_dates[element] = cutting_data[element]
+
+            if (sewed_dates[element] != undefined)
+                sewed_dates[element] = sewed_data[element]
+
+        });
+
+        Object.keys(monthly_qty_data).forEach(element => {
+
+            if (monthly_qty_dates[element] != undefined)
+                monthly_qty_dates[element] = monthly_qty_data[element]
+
+            if (monthly_revenue_dates[element] != undefined)
+                monthly_revenue_dates[element] = monthly_revenue_data[element]
+        });
+
+
+        var salesValuesArray = Object.values(dates).reverse();
+        var cuttingValuesArray = Object.values(cutting_dates).reverse();
+        var sewedValuesArray = Object.values(sewed_dates).reverse();
+
+        var revenueValuesArray = Object.values(monthly_revenue_dates).reverse();
+        var qtyValuesArray = Object.values(monthly_qty_dates).reverse();
+
+        console.log(revenueValuesArray);
+        console.log(qtyValuesArray);
+
+        // check chart data all are zeros or not when zeros then display hide
+        if (areAllValuesZero(salesValuesArray)) {
+
+        }
+
+
+        function changeToDaily() {
+            var options = {
+                series: [{
+                        name: 'Total Revenue',
+                        data: salesValuesArray,
+                        color: '#008FFB',
+                    },
+                    {
+                        name: 'Cutting Revenue',
+                        data: cuttingValuesArray,
+                        color: '#7d2ae8',
+                    },
+                    {
+                        name: 'Sewing Revenue',
+                        data: sewedValuesArray,
+                        color: '#12d300',
+                    }
+                ],
+                chart: {
+                    height: 350,
+                    type: 'bar'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2,
+                },
+                xaxis: {
+                    type: 'category',
+                    categories: Array.from({
+                        length: 20
+                    }, (_, i) => {
+                        let currentDate = new Date();
+
+                        // alert(currentDate);
+                        currentDate.setDate(currentDate.getDate() - (20 - i));
+                        return currentDate.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: '2-digit'
+                        });
+                    }),
+
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+                grid: {
+                    show: true,
+                }
+            };
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new ApexCharts(document.querySelector(".chart"), options);
+            chart.render();
+        }
+
+        function changeToMonthly() {
+            var options = {
+                series: [{
+                        name: 'Monthly Revenue',
+                        data: revenueValuesArray,
+                        color: '#008FFB',
+                    },
+                    {
+                        name: 'Monthly Total Qty',
+                        data: qtyValuesArray,
+                        color: '#00E396',
+                    }
+                ],
+                chart: {
+                    height: 350,
+                    type: 'line'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2,
+                },
+                xaxis: {
+                    type: 'category',
+                    categories: getPast12Months(),
+
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+                grid: {
+                    show: false,
+                }
+            };
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new ApexCharts(document.querySelector(".chart"), options);
+            chart.render();
+        }
+
+        changeToMonthly();
+
+        function areAllValuesZero(object) {
+            for (let key in object) {
+                if (object.hasOwnProperty(key) && object[key] !== 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function getPast12Months() {
+            let months = [];
+            let currentDate = new Date();
+
+            for (let i = 0; i < 12; i++) {
+                let month = currentDate.getMonth() - i;
+                let year = currentDate.getFullYear();
+
+                if (month < 0) {
+                    month += 12;
+                    year -= 1;
+                }
+
+                let monthName = new Date(year, month, 1).toLocaleString('default', {
+                    month: 'short'
+                });
+                months.unshift(monthName);
+            }
+
+            return months;
+        }
+    </script>
 </body>
 
 </html>

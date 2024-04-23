@@ -105,6 +105,12 @@
                 <span class="tooltip">Garment Orders</span>
             </li>
             <li>
+                <a href="<?=ROOT?>/manager/printingprocess">
+                    <i class="bx bxs-printer"></i>
+                    <span class="link_name">Printing Process</span>
+                </a>
+                <span class="tooltip">Printing Process</span>
+            <li>
                 <a href="<?=ROOT?>/manager/assigndelivery">
                     <i class="bx bxs-package"></i>
                     <span class="link_name">Deliver Packages</span>

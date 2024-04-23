@@ -226,6 +226,11 @@ form .form-input button:hover {
 
 }
 
+.category h4{
+  color: #585858;
+  /* font-size: 20px; */
+}
+
 .category.orders{
   min-width: 330px;
 }

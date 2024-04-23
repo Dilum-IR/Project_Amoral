@@ -3,7 +3,11 @@
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     // database configaration 
- 
+    define('DBHOST', 'localhost');
+    define('DBUSER', 'root');
+    define('DBPASS', '');
+    define('DBDRIVER', '');    
+    define('DBNAME', 'amoral_db');
 
     define('ROOT', 'http://localhost/project_Amoral/public');
 } else {
