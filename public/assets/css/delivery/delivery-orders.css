@@ -838,7 +838,7 @@ select {
   /* margin-bottom: 12px; */
   border: none;
 }
-.popup-view .btn {
+.popup-view .btn{
   display: flex;
 }
 
@@ -1069,8 +1069,8 @@ select {
   max-width: 500px; /* Maximum width of the modal */
   text-align: center; /* Center text for better readability */
   position: relative; /* Necessary for absolute positioning of the close button */
-  top: 6%;
-  left: 3%;
+  top: 35%;
+  left: 35%;
 }
 
 /* Close button styling */
@@ -1247,10 +1247,9 @@ select {
     flex-direction: row; /* Aligns containers in a row for wide screens */
   }
 
-  .popup-view,
-  .popup-report {
-    /* width: 60%; Adjusts popup width to be less overwhelming on larger screens */
-    padding: 2%; /* Reduces padding */
+  .popup-view, .popup-report {
+      width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
+      padding: 1%; /* Reduces padding */
   }
 
   .status ul {
