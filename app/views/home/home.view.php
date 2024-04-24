@@ -1,5 +1,3 @@
-<!-- <img src="<?= ROOT ?>/assets/images/logo.JPG"> -->
-
 <!DOCTYPE html>
 <html lang="en">
 

@@ -9,7 +9,7 @@
     />
 
     <style>
-      .modal {
+      .logout-modal {
         display: none;
         position: fixed;
         z-index: 1;
@@ -89,8 +89,9 @@
   </head>
   <body>
     
-    <button id="deleteButton">Delete Data</button>
-    <div id="myModal" class="modal">
+    <!-- <button id="deleteButton">Delete Data</button> -->
+    <a href="#" class="nav-link logout" id="logout-btn">dfgf</a>
+    <div id="logout-popup" class="logout-modal">
       <div class="modal-content">
         <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
         <div>
@@ -105,10 +106,10 @@
 
     <script>
       // Get the modal
-      const modal = document.getElementById("myModal");
+      const modal = document.getElementById("logout-popup");
 
       // Get the button that opens the modal
-      const btn = document.getElementById("deleteButton");
+      const btn = document.getElementById("logout-btn");
 
       // Get the <closeButton> element that closes the modal
       const closeButton = document.getElementsByClassName("close")[0];
@@ -118,6 +119,7 @@
       const cancelBtn = document.getElementById("cancelDelete");
 
       // When the user clicks on the button, open the modal
+
       btn.onclick = function () {
         modal.style.display = "block";
       };

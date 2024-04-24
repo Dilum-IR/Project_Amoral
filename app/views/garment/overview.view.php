@@ -22,6 +22,12 @@
 <body>
     <?php
 
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+    $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
+    $success = htmlspecialchars($_GET['success'] ?? 0);
+
+    $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
+
     // include "loading.php";
     include __DIR__ . '/../utils/toastMsg.php';
     ?>
@@ -163,7 +169,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <small class="text-muted">From last month</small>
+                            <small class="small-last-2 text-muted">From last month</small>
                         </div>
                         <div class="sales">
                             <i class=' bx bxs-dollar-circle'></i>
@@ -198,11 +204,17 @@
                                     </div>
                                 </div> -->
                             </div>
-                            <small class="text-muted">From last month</small>
+                            <small class="small-last-2 text-muted">From last month</small>
                         </div>
                     </div>
 
                     <style>
+                        .small-last-2 {
+                            margin-top: 2px;
+                            float: right;
+                        }
+
+
                         .chart-more-btn {
                             background-color: white !important;
                             color: #000 !important;
@@ -257,7 +269,7 @@
                                     ?>
                                             <tr>
 
-                                                <td><?= $item->order_id ?></td>
+                                                <td>ORD-<?= $item->order_id ?></td>
                                                 <td><?= $item->total_qty ?></td>
                                                 <td><?= $item->cut_dispatch_date ?> <br> <small><?= $item->sew_dispatch_date ?> </small></td>
 
@@ -277,7 +289,8 @@
                                                         <?php } else if ($item->status == "completed") { ?>
                                                             <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
                                                         <?php } ?>
-                                                        <?php echo ucfirst($item->status) ?></span></td>
+                                                        <?php echo ucfirst($item->status) ?></span>
+                                                </td>
                                             </tr>
                                         <?php
                                         }
@@ -398,6 +411,18 @@
 
         </div>
     </section>
+
+    <script>
+        let successData = {
+            "success_no": <?= $success_no ?>,
+            "flag": <?= $flag ?>,
+            "success": "<?= $success ?>",
+        }
+        let dataValidate = {
+            "flag": <?= $flag ?>,
+            "error_no": <?= $error_no ?>
+        }
+    </script>
 
     <script>
         endpoint = "<?= ROOT ?>/garment/update_info";
@@ -581,17 +606,17 @@
                 series: [{
                         name: 'Monthly Revenue',
                         data: revenueValuesArray,
-                        color: '#008FFB',
+                        color: '#7d2ae8',
                     },
                     {
                         name: 'Monthly Total Qty',
                         data: qtyValuesArray,
-                        color: '#00E396',
+                        color: '#000000',
                     }
                 ],
                 chart: {
                     height: 350,
-                    type: 'line'
+                    type: 'area'
                 },
                 dataLabels: {
                     enabled: false

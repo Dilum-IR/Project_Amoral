@@ -1,4 +1,4 @@
-    <div class="sidebar">
+<div class="sidebar">
     <div class="logo_details">
         <img src="<?= ROOT ?>/assets/images/manager/amoral80.png" class="logo_icon">
         <i class="bx bx-menu" id="btn"></i>
@@ -26,7 +26,7 @@
             <span class="tooltip">Profile</span>
         </li>
         <li class="logout">
-            <a href="<?= ROOT ?>/logout" class="nav-link logout">
+            <a href="#" class="nav-link logout" id="logout-btn">
                 <span class="link_name">Log Out</span>
                 <i class="bx bx-log-out" id="log_out"></i>
             </a>
@@ -34,3 +34,8 @@
         </li>
     </ul>
 </div>
+
+<?php
+// include "loading.php";
+include __DIR__ . '/../utils/logoutPopup.php';
+?>
