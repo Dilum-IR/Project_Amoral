@@ -121,36 +121,40 @@ let salesCircularProgress = document.getElementById("total-sales"),
   completedProgressValue = document.getElementById("completed-orders-num");
 
 let progressStartValue = 0,
-  speed = 45;
+  speed = 15;
 
 // alert(completedProgressEndValue);
 
-// sales for circular animater
-let salesprogress = setInterval(() => {
-  progressStartValue++;
+if (parseInt(salesProgressEndValue) != 0) {
+  // sales for circular animater
+  let salesprogress = setInterval(() => {
+    progressStartValue++;
 
-  salesProgressValue.textContent = `${progressStartValue}%`;
-  salesCircularProgress.style.background = `conic-gradient(#7d2ae8 ${
-    progressStartValue * 3.6
-  }deg, #ededed 0deg)`;
+    salesProgressValue.textContent = `${progressStartValue}%`;
+    salesCircularProgress.style.background = `conic-gradient(#7d2ae8 ${
+      progressStartValue * 3.6
+    }deg, #ededed 0deg)`;
 
-  if (progressStartValue == parseInt(salesProgressEndValue)) {
-    clearInterval(salesprogress);
-  }
-}, speed);
+    if (progressStartValue == parseInt(salesProgressEndValue)) {
+      clearInterval(salesprogress);
+    }
+  }, speed);
+}
 
-// sales for circular animater
-let completedProgressStartValue = 0;
+if (parseInt(completedProgressEndValue) != 0) {
+  // sales for circular animater
+  let completedProgressStartValue = 0;
 
-let completedprogress = setInterval(() => {
-  completedProgressStartValue++;
+  let completedprogress = setInterval(() => {
+    completedProgressStartValue++;
 
-  completedProgressValue.textContent = `${completedProgressStartValue}%`;
-  completedCircularProgress.style.background = `conic-gradient(#7d2ae8 ${
-    completedProgressStartValue * 3.6
-  }deg, #ededed 0deg)`;
+    completedProgressValue.textContent = `${completedProgressStartValue}%`;
+    completedCircularProgress.style.background = `conic-gradient(#7d2ae8 ${
+      completedProgressStartValue * 3.6
+    }deg, #ededed 0deg)`;
 
-  if (completedProgressStartValue == parseInt(completedProgressEndValue)) {
-    clearInterval(completedprogress);
-  }
-}, speed);
+    if (completedProgressStartValue == parseInt(completedProgressEndValue)) {
+      clearInterval(completedprogress);
+    }
+  }, speed);
+}

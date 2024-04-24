@@ -63,123 +63,134 @@ class Orders extends Controller
     private function get_order_data($garment_order)
     {
 
-        $data['garment_id'] = $_SESSION['USER']->emp_id;
+        try {
 
-        $result = $garment_order->getGarmentOrderData($data);
-        $i = 0;
+            $data['garment_id'] = $_SESSION['USER']->emp_id;
+            // $data['garment_order.status'] = 'canceled';
 
-        foreach ($result as $item) {
+            $result = $garment_order->getGarmentOrderData($data);
+            $i = 0;
 
-            $qty = 0;
-            $qty += $item->xs + $item->small + $item->medium + $item->large + $item->xl + $item->xxl;
-            $item->qty = $qty;
-            $item->id = $i;
+            foreach ($result as $item) {
 
-            // initially included data pass to the array
-            $item->mult_order = [
-                [
-                    "material_type" => $item->material_type,
-                    "type" => $item->type,
-                    "printing_type" => $item->printing_type,
-                    "xs" => $item->xs,
-                    "small" => $item->small,
-                    "medium" => $item->medium,
-                    "large" => $item->large,
-                    "xl" => $item->xl,
-                    "xxl" => $item->xxl,
-                    "qty" => $item->qty,
-                ]
-            ];
-
-            $i++;
-        }
-
-        // show($result);
-
-        // find the same order id orders and merge that orders 
-        // include : material ,sizes with more data
-        foreach ($result as $item) {
-
-            foreach ($result as $key => $value) {
-
-                if ($item->id != $value->id && $item->order_id == $value->order_id) {
-
-                    $new_mult = [
-                        "material_type" => $value->material_type,
-                        "type" => $value->type,
-                        "printing_type" => $value->printing_type,
-                        "xs" => $value->xs,
-                        "small" => $value->small,
-                        "medium" => $value->medium,
-                        "large" => $value->large,
-                        "xl" => $value->xl,
-                        "xxl" => $value->xxl,
-                        "qty" => $value->qty,
+                // removed canceled orders
+                if ($item->status =='canceled') {
+                    unset($result[$i]);
+                }else{
+                    
+                    $qty = 0;
+                    $qty += $item->xs + $item->small + $item->medium + $item->large + $item->xl + $item->xxl;
+                    $item->qty = $qty;
+                    $item->id = $i;
+                    
+                    // initially included data pass to the array
+                    $item->mult_order = [
+                        [
+                            "material_type" => $item->material_type,
+                            "type" => $item->type,
+                            "printing_type" => $item->printing_type,
+                            "xs" => $item->xs,
+                            "small" => $item->small,
+                            "medium" => $item->medium,
+                            "large" => $item->large,
+                            "xl" => $item->xl,
+                            "xxl" => $item->xxl,
+                            "qty" => $item->qty,
+                        ]
                     ];
+                }
 
-                    $item->mult_order = array_merge($item->mult_order, [$new_mult]);
+                $i++;
+            }
+
+            // show($result);
+
+            // find the same order id orders and merge that orders 
+            // include : material ,sizes with more data
+            foreach ($result as $item) {
+
+                foreach ($result as $key => $value) {
+
+                    if ($item->id != $value->id && $item->order_id == $value->order_id) {
+
+                        $new_mult = [
+                            "material_type" => $value->material_type,
+                            "type" => $value->type,
+                            "printing_type" => $value->printing_type,
+                            "xs" => $value->xs,
+                            "small" => $value->small,
+                            "medium" => $value->medium,
+                            "large" => $value->large,
+                            "xl" => $value->xl,
+                            "xxl" => $value->xxl,
+                            "qty" => $value->qty,
+                        ];
+
+                        $item->mult_order = array_merge($item->mult_order, [$new_mult]);
+                    }
                 }
             }
-        }
 
-        $new_result = [];
-        $id_array = [];
+            $new_result = [];
+            $id_array = [];
 
-        foreach ($result as $item) {
+            foreach ($result as $item) {
 
-            if (!in_array($item->order_id, $id_array)) {
+                if (!in_array($item->order_id, $id_array)) {
 
-                array_push($id_array, $item->order_id);
-                array_push($new_result, $item);
-            }
-        }
-
-        // show($id_array);
-
-        $material_array = [];
-        $total_qty = 0;
-        // create a new array for toal qty and meterial type array
-        foreach ($new_result as $item) {
-
-            foreach ($item->mult_order as $value) {
-
-                if (!in_array($value['material_type'], $material_array)) {
-                    array_push($material_array, $value['material_type']);
+                    array_push($id_array, $item->order_id);
+                    array_push($new_result, $item);
                 }
-                $total_qty += $value['qty'];
             }
 
-            $item->total_qty = $total_qty;
-            $item->material_array = $material_array;
+            // show($id_array);
+
+            $material_array = [];
+            $total_qty = 0;
+            // create a new array for toal qty and meterial type array
+            foreach ($new_result as $item) {
+
+                foreach ($item->mult_order as $value) {
+
+                    if (!in_array($value['material_type'], $material_array)) {
+                        array_push($material_array, $value['material_type']);
+                    }
+                    $total_qty += $value['qty'];
+                }
+
+                $item->total_qty = $total_qty;
+                $item->material_array = $material_array;
+            }
+
+
+            // remove order elements
+            for ($i = 0; $i < count($result); $i++) {
+
+                unset($new_result[$i]->material_type);
+                unset($new_result[$i]->printing_type);
+                unset($new_result[$i]->type);
+                unset($new_result[$i]->xs);
+                unset($new_result[$i]->small);
+                unset($new_result[$i]->medium);
+                unset($new_result[$i]->large);
+                unset($new_result[$i]->xl);
+                unset($new_result[$i]->xxl);
+                unset($new_result[$i]->qty);
+                unset($new_result[$i]->unit_price);
+                unset($new_result[$i]->material_id);
+                unset($new_result[$i]->ptype_id);
+                unset($new_result[$i]->sleeve_id);
+                unset($new_result[$i]->emp_id);
+            }
+
+            // $resultArray = array_merge($result, $new_result);
+
+            // show($new_result);
+
+            return $new_result;
+        } catch (\Throwable $th) {
+            redirect('404');
         }
-
-
-        // remove order elements
-        for ($i = 0; $i < count($result); $i++) {
-
-            unset($new_result[$i]->material_type);
-            unset($new_result[$i]->printing_type);
-            unset($new_result[$i]->type);
-            unset($new_result[$i]->xs);
-            unset($new_result[$i]->small);
-            unset($new_result[$i]->medium);
-            unset($new_result[$i]->large);
-            unset($new_result[$i]->xl);
-            unset($new_result[$i]->xxl);
-            unset($new_result[$i]->qty);
-            unset($new_result[$i]->unit_price);
-            unset($new_result[$i]->material_id);
-            unset($new_result[$i]->ptype_id);
-            unset($new_result[$i]->sleeve_id);
-            unset($new_result[$i]->placed_date);
-            unset($new_result[$i]->emp_id);
-        }
-
-        // $resultArray = array_merge($result, $new_result);
-
-        // show($new_result);
-
-        return $new_result;
     }
 
     public function update_status()
@@ -243,6 +254,39 @@ class Orders extends Controller
 
             $arr['user'] = true;
             echo json_encode($arr);
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
+        }
+    }
+    public function cancel_order()
+    {
+        try {
+
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
+
+                echo json_encode($arr);
+                exit;
+            }
+
+            $garment_order = new GarmentOrder;
+            // show($_POST);
+
+            $garment_order_id = $_POST['garment_order_id'];
+       
+            unset($_POST['garment_id']);
+            unset($_POST['garment_order_id']);
+
+            // status update
+            $garment_order->update($garment_order_id, $_POST, 'garment_order_id');
+
+            $arr['user'] = true;
+            echo json_encode($arr);
+
         } catch (\Throwable $th) {
             $arr['user'] = false;
 

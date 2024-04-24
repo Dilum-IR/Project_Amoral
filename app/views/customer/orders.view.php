@@ -813,7 +813,7 @@
 
                     <div class="input-box location">
                         <span class="details">Location</span>
-                        <div class="googlemap" id="map" style="height: 400px; width: 100%;"></div>
+                        <div class="googlemap" id="view-order-map" style="height: 400px; width: 100%;"></div>
                     </div>
 
                     <!-- hidden element -->
@@ -845,17 +845,6 @@
                     function toggleDelivery() {
                         document.querySelector(".user-details.delivery").classList.add("is-checked");
                         document.querySelector(".user-details.pickup").classList.remove("is-checked");
-
-
-                        const map = new google.maps.Map(document.getElementById("map"), {
-                            // Initial center coordinates
-                            center: {
-                                lat: 7.7072567,
-                                lng: 80.6534611
-                            },
-                            // Initial zoom level
-                            zoom: 7,
-                        });
                     }
                 </script>
 
@@ -1149,7 +1138,7 @@
                     <span class="error dates"></span>
                 </div>
 
-                <div class="user-details pickupN">
+                <div class="user-details pickupN is-checked">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
 
@@ -1166,7 +1155,7 @@
 
                     <div class="input-box location">
                         <span class="details"> Delivery Location</span>
-                        <div class="googlemap" id="order-map" style="height: 300px; width: 100%;"></div>
+                        <div class="googlemap" id="new-order-map" style="height: 300px; width: 100%;"></div>
                     </div>
 
                     <div class="input-box city">
@@ -1356,13 +1345,6 @@
                 </script>
 
                 <script>
-                            //toggle delivery options of new order
-                    let deliveryN = document.getElementById("deliveryN");
-                    let pickUpN = document.getElementById("pickupN");
-
-
-                    pickUpN.addEventListener('click', togglePickUpN);
-                    deliveryN.addEventListener('click', toggleDeliveryN);
 
 
                     // clear the other option when one is selected
@@ -1383,19 +1365,6 @@
 
                         });
                     });
-
-                    function togglePickUpN() {
-
-                        document.querySelector(".user-details.pickupN").classList.add("is-checked");
-                        document.querySelector(".user-details.deliveryN").classList.remove("is-checked");
-
-
-                    }
-
-                    function toggleDeliveryN() {
-                        document.querySelector(".user-details.deliveryN").classList.add("is-checked");
-                        document.querySelector(".user-details.pickupN").classList.remove("is-checked");
-                    }
 
                 </script>
 

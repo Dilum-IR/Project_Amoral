@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+:root {
+  --grey: #f1f0f6;
+  --dark-grey: #8d8d8d;
+  --light: #fff;
+  --dark: #000;
+  --green: #81d43a;
+  --light-green: #e3ffcb;
+  --blue: #1775f1;
+  --light-blue: #d0e4ff;
+  --dark-blue: #0c5fcd;
+  --red: #fc3b56;
+}
+
+body {
+  background: rgb(240, 240, 250);
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+width: 10px;
+}
+::-webkit-scrollbar-track {
+background: #f5f5f5;
+border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+background: rgba(0,0,0);
+border-radius: 5px;
+}
+
+#main {
+  position: absolute;
+  top: 78px;
+  width: calc(100% - 78px);
+  height: max-content;
+  left: 78px;
+  padding-left: 20px;
+  transition: all 0.5s ease;
+  z-index: 2;
+  border-radius: 50px;
+  scroll-behavior: smooth;
+}
+
+
+#main.open {
+  left: 250px;
+  width: calc(100% - 250px);
+}
+
+.success-msg {
+  width: 100%;
+  display: none;
+  background: rgb(42, 193, 42);
+  padding: 7px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 3;
+  position: fixed;
+  transition: all 0.5s ease-in-out;
+}
+
+.breadcrumb {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  grid-gap: 8px;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 16px 35px;
+}
+.breadcrumb li a {
+  text-decoration: none;
+  color: grey;
+}
+
+.breadcrumb li a.active {
+  color: black;
+  /* font-weight: bold; */
+  font-size: 17px;
+}
+
+.breadcrumb .bx-chevron-right {
+  font-size: 25px;
+}

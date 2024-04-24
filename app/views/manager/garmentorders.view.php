@@ -92,9 +92,20 @@
                     <?php if(!empty($data['garments'])): ?>
                         <?php foreach($data['garments'] as $garment): ?>
                             <div class="category garments" id="<?php echo $garment->garment_id ?>">
-                                <h3><?php echo $garment->emp_name ?> - <?php echo $garment->location ?></h3>
-                                <h4>Day Capacity: <?php echo $garment->day_capacity ?></h4>
-                                <h4>Workers: <?php echo $garment->no_workers ?></h4>
+                                <h3 style="text-align: center;"><?php echo $garment->emp_name ?> - <?php echo $garment->location ?></h3><br>
+                                <div style="display: flex; gap: 30px;">
+                                    <div>
+                                        <h4>Day Capacity: <?php echo $garment->day_capacity ?></h4>
+                                        <h4>Workers: <?php echo $garment->no_workers ?></h4>
+
+                                    </div>
+                                    <div>
+                                        <h4>Cutting Price: <?= $garment->cut_price; ?></h4>
+                                        <h4>Sewing Price: <?= $garment->sewed_price; ?></h4>
+
+                                    </div>
+
+                                </div>
                                 <!-- <h3></h3> -->
                                 <div class="items">
                                     <div class="item">

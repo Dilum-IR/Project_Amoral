@@ -1,111 +1,201 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Circular Progress Bar </title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
+  <title>Sidebar</title>
+  <!-- Link Styles -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
-  <div class="container">
-      <div class="circular-progress">
-        <span class="progress-value">0%</span>
-      </div>
 
-    <!-- <span class="text">HTML & CSS</span> -->
-  </div>
+  <!-- Content -->
+  <section id="main" class="main">
 
-  <!-- JavaScript -->
-  <script>
-    let circularProgress = document.querySelector(".circular-progress"),
-      progressValue = document.querySelector(".progress-value");
+    <div class="chart"></div>
 
-    let progressStartValue = 0,
-      progressEndValue = 70,
-      speed = 15;
-
-    let progress = setInterval(() => {
-      progressStartValue++;
-
-      progressValue.textContent = `${progressStartValue}%`
-      circularProgress.style.background = `conic-gradient(#7d2ae8 ${progressStartValue * 3.6}deg, #ededed 0deg)`
-
-      if (progressStartValue == progressEndValue) {
-        clearInterval(progress);
+    <button onclick="changeToDaily()">Daily</button>
+    <button onclick="changeToMonthly()">Monthly</button>
+    <style>
+      .chart {
+        width: 50%;
       }
-    }, speed);
-  </script>
-  <style>
-    /* Google Fonts - Poppins */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    </style>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
 
-    body {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      /* background: #7d2ae8; */
-    }
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    .container {
-      display: flex;
-      width: 40px;
-      padding: 50px 0;
-      border-radius: 8px;
-      background: #fff;
-      row-gap: 30px;
-      flex-direction: column;
-      align-items: center;
-    }
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
-    .circular-progress {
-      position: relative;
-      height: 120px;
-      width: 120px;
-      border-radius: 50%;
-      background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    <script>
+      var chart;
 
-    .circular-progress::before {
-      content: "";
-      position: absolute;
-      height: 100px;
-      width: 100px;
-      border-radius: 50%;
-      background-color: #fff;
-    }
+      function changeToDaily() {
+        var options = {
+          series: [{
+              name: 'Total Cost',
+              data: [0, 0, 0, 3, 8, 5, 2],
+              color: '#008FFB', // Adjust color for Total Cost
+              fill: {
+                type: 'solid',
+                opacity: 1,
+              }
+            },
+            {
+              name: 'Total Revenue',
+              data: [0, 2, 1, 5, 6, 3, 5],
+              color: '#00E396', // Adjust color for Total Revenue
+              fill: {
+                type: 'solid',
+                opacity: 1,
+              }
+            }
+          ],
+          chart: {
+            height: 350,
+            type: 'area'
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth',
+            width: 2,
+          },
+          xaxis: {
+            type: 'category',
+            categories: Array.from({
+              length: 30
+            }, (_, i) => {
+              let currentDate = new Date();
 
-    .progress-value {
-      position: relative;
-      font-size: 30px;
-      font-weight: 600;
-      color: #7d2ae8;
-    }
+              // alert(currentDate);
+              currentDate.setDate(currentDate.getDate() - (30 - i));
+              return currentDate.toLocaleDateString('en-US', {
+                month: 'short',
+                day: '2-digit'
+              });
+            }),
+            axisTicks: {
+              show: true,
+              borderType: 'solid',
+              color: '#E0E0E0',
+              height: 6,
+              offsetX: 0,
+              offsetY: 0
+            },
+            axisBorder: {
+              show: true,
+              color: '#E0E0E0',
+              height: 1,
+              width: '100%',
+              offsetX: 0,
+              offsetY: 0
+            }
+          },
+          tooltip: {
+            x: {
+              format: 'dd/MM/yy HH:mm'
+            },
+          },
+          grid: {
+            show: false,
+          }
+        };
 
-    .text {
-      font-size: 10px;
-      font-weight: 500;
-      color: #606060;
-    }
-  </style>
+        if (chart) {
+          chart.destroy();
+        }
+
+        chart = new ApexCharts(document.querySelector(".chart"), options);
+        chart.render();
+      }
+
+      function changeToMonthly() {
+        var options = {
+          series: [{
+              name: 'Total Cost',
+              data: [0, 0, 0, 3, 8, 5, 2],
+              color: '#008FFB', // Adjust color for Total Cost
+              fill: {
+                type: 'solid',
+                opacity: 1,
+              }
+            },
+            {
+              name: 'Total Revenue',
+              data: [0, 2, 1, 5, 6, 3, 5],
+              color: '#00E396', // Adjust color for Total Revenue
+              fill: {
+                type: 'solid',
+                opacity: 1,
+              }
+            }
+          ],
+          chart: {
+            height: 350,
+            type: 'area'
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth',
+            width: 2,
+          },
+          xaxis: {
+            type: 'category',
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'], // Month names
+            axisTicks: {
+              show: true,
+              borderType: 'solid',
+              color: '#E0E0E0',
+              height: 6,
+              offsetX: 0,
+              offsetY: 0
+            },
+            axisBorder: {
+              show: true,
+              color: '#E0E0E0',
+              height: 1,
+              width: '100%',
+              offsetX: 0,
+              offsetY: 0
+            }
+          },
+          tooltip: {
+            x: {
+              format: 'dd/MM/yy HH:mm'
+            },
+          },
+          grid: {
+            show: false,
+          }
+        };
+
+        if (chart) {
+          chart.destroy();
+        }
+
+        chart = new ApexCharts(document.querySelector(".chart"), options);
+        chart.render();
+      }
+
+      changeToDaily(); // By default, set it to daily
+    </script>
+  </section>
 </body>
 
-
 </html>
+
+
+<!-- Array.from({
+      length: 30
+    }, (_, i) => (i + 1).toString()).map(day => {
+      let currentDate = new Date();
+      currentDate.setDate(day);
+      return currentDate.toISOString().slice(0, 10);
+    })
+     -->
