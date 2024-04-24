@@ -106,7 +106,8 @@
 
                                     </td>
 
-                                    <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+                                    <td><button type="submit" name="selectItem" data-order='<?= json_encode($value); ?>'
+                                            class="view-order-btn" onclick="openView(this)">View
                                             Order</button>
                                     </td>
                                 </tr>
@@ -148,7 +149,9 @@
 
 
 
+    <script>
 
+    </script>
 
     <!-- delivered confirm pop-up -->
     <div id="myModal" class="modal">
@@ -175,63 +178,44 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    var modal = document.getElementById('myModal');
-    var confirmButton = document.getElementById('confirm');
-    var cancelButton = document.getElementById('cancel');
-    var closeButton = document.querySelector('.modal .close');
+            var modal = document.getElementById('myModal');
+            var confirmButton = document.getElementById('confirm');
+            var cancelButton = document.getElementById('cancel');
+            var closeButton = document.querySelector('.modal .close');
 
-    closeButton.onclick = cancelButton.onclick = function() {
-        modal.style.display = 'none';
-    };
+            closeButton.onclick = cancelButton.onclick = function () {
+                modal.style.display = 'none';
+            };
 
-    // Make sure this function is declared globally
-    window.confirmPopup = function (orderId) {
-        modal.style.display = 'block'; // Check if this line executes correctly
-        confirmButton.onclick = function() {
-            $.ajax({
-                url: "<?= ROOT ?>/delivery/updateOrderStatus", 
-                type: 'POST',
-                data: {order_id: orderId, status: 'delivered'},
-                success: function(response) {
-                    $('#status-' + orderId).text('Delivered');
+            // Make sure this function is declared globally
+            window.confirmPopup = function (orderId) {
+                modal.style.display = 'block'; // Check if this line executes correctly
+                confirmButton.onclick = function () {
+                    updateStatus(orderId);
                     modal.style.display = 'none';
+
+                };
+            };
+        });
+
+
+        function updateStatus(orderId) {
+            $.ajax({
+                url: "<?= ROOT ?>/delivery/updateOrderStatus",
+                type: 'POST',
+                data: { order_id: orderId, status: 'delivered' },
+                success: function (response) {
+                    $('#status-' + orderId).text('Delivered');
+                    location.reload();
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     //  handle errors
                     console.error("Error: " + error);
                     console.error("Status: " + status);
                     console.dir(xhr);
                 }
             });
-        };
-    };
-});
-
-    
-
-        // window.confirmPopup = confirmPopup; 
-        //     };
-
-        //     function updateOrderStatus(orderId, status) {
-        //         var xhr = new XMLHttpRequest();
-        //         xhr.open("POST", "<?= ROOT ?>/delivery/orders/updateStatus", true);
-        //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        //         xhr.onreadystatechange = function () {
-        //             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        //                 var response = JSON.parse(xhr.responseText);
-        //                 if (response.success) {
-        //                     alert('Status updated successfully.');
-        //                     document.getElementById('status-' + orderId).textContent = status;
-        //                     document.getElementById('myModal').style.display = 'none'; // Ensure the modal is closed
-        //                 } else {
-        //                     alert('Failed to update status: ' + response.message);
-        //                 }
-        //             }
-        //         };
-        //         xhr.send("order_id=" + orderId + "&status=" + encodeURIComponent(status));
-        //     }
-
-        // });
+        }
     </script>
 
 
@@ -261,7 +245,9 @@
     <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-        <h1>Order Details</h1>
+        <div class="h1">
+            <h1>Order Details</h1>
+        </div>
         <!-- <div class="status">
             <ul>
                 <li>
@@ -308,27 +294,27 @@
                     <div class="user-details">
                         <div class="input-box">
                             <span class="details">Order Id </span>
-                            <input type="text" required onChange="" readonly value="1" />
+                            <input id="order-id" type="text" required onChange="" readonly value=" " />
                         </div>
 
                         <div class="input-box">
                             <span class="details">Customer Name </span>
-                            <input type="text" required onChange="" readonly value="thiran" />
+                            <input id="customer-name" type="text" required onChange="" readonly value=" " />
                         </div>
 
                         <div class="input-box">
                             <span class="details">Delivery Address</span>
-                            <input type="text" required onChange="" readonly value="matara" />
+                            <input id="delivery-address" type="text" required onChange="" readonly value=" " />
                         </div>
 
                         <div class="input-box">
                             <span class="details">Order Placed On</span>
-                            <input type="text" required onChange="" readonly value="2023/10/19" />
+                            <input id="placed-on" type="text" required onChange="" readonly value=" " />
                         </div>
 
                         <div class="input-box">
                             <span class="details">Delivery Expected On</span>
-                            <input type="text" required onChange="" readonly value="2023/10/29" />
+                            <input id="expected-on"type="text" required onChange="" readonly value=" " />
                         </div>
                     </div>
 
@@ -344,11 +330,12 @@
 
 
                 <script>
-                    function initMap() {
-                        var location = { lat: 7.873054, lng: 80.771797 }
+                    function initMap(orderid,lat,lng) {
+                        var location = { lat: parseFloat(lat), lng: parseFloat(lng) };
+
                         var map = new google.maps.Map(document.getElementById("map"), {
                             zoom: 7.7,
-                            center: { lat: 7.8731, lng: 80.7718 }
+                            center:location
                         });
 
 
@@ -360,9 +347,7 @@
                         });
                          /*Add marker function*/
 
-                        addMarker({ lat: 6.927079, lng: 79.861244 });
-                        addMarker({ lat: 7.291418, lng: 80.636696 });
-                        addMarker({ lat: 5.9496, lng: 80.5469 });
+                         addMarker(location);
 
 
                         /*Add marker function*/
@@ -387,8 +372,8 @@
         </div>
 
         <div class="btns">
-            <button type="button" class="ok-btn">Back to orders</button>
-            <button type="button" class="update-btn">Update Order</button>
+            <button type="button" class="ok-btn" onclick="closeView()">Back to orders</button>
+            <button type="button" class="update-btn" onclick="confirmWithPopup()">Update Order</button>
         </div>
 
     </div>
