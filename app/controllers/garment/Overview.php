@@ -403,4 +403,45 @@ class Overview extends Controller
             "monthly_qty" => $monthly_qty,
         ];
     }
+
+
+    // genarate report function call from js 
+    public function genarate_report()
+    {
+
+        try {
+
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
+
+                echo json_encode($arr);
+                exit;
+            }
+
+            // $garment_order = new GarmentOrder;
+
+            // $data['garment_id'] = $_SESSION['USER']->emp_id;
+
+            // $result = $garment_order->getGarmentOrderData($data);
+
+            $result = $this->get_order_data();
+
+            $newresult = [];
+            foreach ($result as $key => $value) {
+                if ($value->status == "completed") {
+                    array_push($newresult,$value);
+                }
+            }
+            // $i = 0;
+
+            echo json_encode($newresult);
+
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
+        }
+    }
 }

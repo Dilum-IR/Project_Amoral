@@ -67,8 +67,8 @@ route('garment/profile', 'garment/Profile@index');
 route('garment/update_info', 'garment/Overview@updateInfo'); 
 route('garment/reports', 'garment/Orders@save_reports'); 
 route('garment/update/status', 'garment/Orders@update_status'); 
+route('garment/genarate/report', 'garment/Overview@genarate_report'); 
  
-
 
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');

@@ -74,49 +74,8 @@
 
                             </ul>
                         </div>
-                        <!-- <a href="" class="btn-download">
-                            <i class='bx bxs-cloud-download'></i>
-                            <span class="text">Download PDF</span>
-                        </a> -->
                     </div>
                     <!-- Navigation path -->
-
-                    <!-- Anlysis Containers -->
-                    <!-- <ul class="box-info">
-                    <li>
-                        <i class='bx bxs-calendar-check'></i>
-                        <span class="text">
-                            <h3>1020</h3>
-                            <p>New Order</p>
-                        </span>
-                    </li>
-                    <li>
-                        <i class='bx bxs-group'></i>
-                        <span class="text">
-                            <span class="data-precentage">
-
-                                <h3>2834</h3>
-                               
-                                <i class='bx bxs-down-arrow'></i>
-                            </span>
-                            <p>Pending</p>
-                        </span>
-                    </li>
-                    <li>
-                        <i class='bx bxs-dollar-circle'></i>
-                        <span class="text">
-                            <h3>$2543</h3>
-                            <p>Total Sales</p>
-                        </span>
-                    </li>
-                    <li>
-                        <i class='bx bxs-dollar-circle'></i>
-                        <span class="text">
-                            <h3>$2543</h3>
-                            <p>Total Sales</p>
-                        </span>
-                    </li>
-              </ul> -->
 
                     <div class="insights">
                         <div class="orders">
@@ -209,6 +168,10 @@
                     </div>
 
                     <style>
+                        .order {
+                            background-color: white !important;
+                        }
+
                         .small-last-2 {
                             margin-top: 2px;
                             float: right;
@@ -229,7 +192,122 @@
                             background-color: #000 !important;
                             color: white !important;
                         }
+
+                        .btn-download {
+
+                            display: flex;
+                            text-decoration: none;
+                            padding: 10px 15px;
+                            background-color: black;
+                            color: white;
+                            border-radius: 36px;
+                            align-items: center;
+                            justify-content: center;
+                            /* grid-gap: 8px; */
+                            transition: 0.5s ease-in-out;
+                            transform: scale(1.0);
+                            cursor: pointer;
+                            gap: 8px;
+                        }
+
+                        .btn-download:hover {
+                            transform: scale(1.06);
+                        }
+
+                        .btn-download .text {
+                            font-size: 15px !important;
+                            color: white;
+
+                        }
+
+                        .rep-gen-date {
+                            background-color: white;
+                            outline: none;
+                            border: black solid 1.6px;
+                            padding: 10px 10px;
+                            border-radius: 10px;
+                            width: 200px;
+                        }
+
+                        .report-gen-container {
+                            height: 170px;
+                            display: flex;
+                            gap: 90px;
+                            /* margin-bottom: 20px; */
+                            align-items: center;
+                            /* justify-content: space-around; */
+
+                        }
+
+                        .lable-and-date {
+                            /* width: 100%; */
+                            /* height: 100px; */
+                            margin-left: 20px;
+                            display: block !important;
+                        }
+
+                        .label {
+                            display: block !important;
+
+                        }
+
+                        .re-head {
+                            margin-bottom: -5px !important;
+                        }
+
+                        .to-date {
+                            margin-top: 5px;
+                        }
+
+                        .after-gen-btn {
+                            padding: 7px 15px;
+
+                        }
+
+                        .download-btn {
+                            background-color: white !important;
+                            color: #000;
+                            border: black 1px solid;
+                            transition: 0.5s ease-in-out 0.5s;
+                        }
+
+                        .text-warning {
+                            color: green;
+                            font-weight: 700;
+                            font-size: 18px;
+                            margin-bottom: 10px;
+                        }
+
+                        #view:disabled,
+                        #down:disabled {
+                            transition: 0.5s ease-in-out 0.5;
+                        }
+
+                        #view:disabled,
+                        #down:disabled {
+                            color: white !important;
+                            border: none !important;
+                            background-color: #0c5fcdc7 !important;
+                            cursor: not-allowed;
+                            text-align: center;
+                            display: flex;
+                        }
+
+                        .warn-with-btns {
+                            margin-left: 50px;
+                            align-items: center;
+                            justify-content: center;
+                        }
+
+                        #gen {
+                            margin-left: 10px;
+                        }
+                        .bx-x{
+                            font-size: 25px;
+                            cursor: pointer;
+                        }
                     </style>
+
                     <!-- Anlysis Containers -->
 
                     <div class="table-data">
@@ -244,6 +322,35 @@
                             <div class="chart">
 
                             </div>
+
+                            <hr>
+                            <div class="head re-head">
+                                <h3>Genarate Your Reports</h3>
+
+                            </div>
+                            <div class="report-gen-container">
+                                <div class="lable-and-date">
+                                    <label class="label" for="">From Date</label>
+                                    <input id="start_date" class="rep-gen-date" type="date" value="" min="<?php $regi_date = new DateTime($info->register_date);
+                                                                                                            echo $regi_date->format('Y-m-d'); ?>" max="<?php echo date('Y-m-d'); ?>">
+                                    <label for="" class="label to-date">To Date</label>
+                                    <input id="end_date" class="rep-gen-date" type="date" min="<?php $regi_date = new DateTime($info->register_date);
+                                                                                                echo $regi_date->format('Y-m-d'); ?>" max="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>">
+                                </div>
+                                <div class="warn-with-btns">
+                                    <p class="text-warning" id="message"></p>
+
+                                    <button disabled class="btn-download" id="gen" onclick="generatePDF()">
+                                        <i class='bx bxs-cloud-download'></i>
+                                        <span class="text">Genarate Report</span>
+                                    </button>
+
+                                    <button class="view-btn btn-download after-gen-btn" id="view" onclick="viewPDF()" style="display: none;">View</button>
+                                    <button class="download-btn btn-download after-gen-btn" id="down" onclick="downloadBlob()" style="display: none;">Download</button>
+                                </div>
+
+                            </div>
+                            <hr>
                             <div class="head">
                                 <h3>Recent Orders</h3>
                                 <a id="info-btn-1" class="info-btn" href="<?= ROOT ?>/garment/orders">All Orders</a>
@@ -425,13 +532,17 @@
     </script>
 
     <script>
-        endpoint = "<?= ROOT ?>/garment/update_info";
+        const endpoint = "<?= ROOT ?>/garment/update_info";
+        const report_endpoint = "<?= ROOT ?>/garment/genarate/report";
+
+        const garment_id = <?= $_SESSION['USER']->emp_id ?>;
 
         let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
             completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
     </script>
 
     <script src="<?= ROOT ?>/assets/js/garment/garment-overview.js"> </script>
+    <script src="<?= ROOT ?>/assets/js/garment/report_genaration.js"> </script>
 
     <!-- Import JQuary Library script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -681,6 +792,9 @@
             return months;
         }
     </script>
+
+    <script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js" type="text/javascript"></script>
+
 </body>
 
 </html>
