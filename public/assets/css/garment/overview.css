@@ -151,7 +151,6 @@ main .head-title .btn-download {
 }
 /* <!-- Navigation path --> */
 
-
 /* <!-- Insights Containers  --> */
 
 main .insights {
@@ -193,42 +192,6 @@ main .insights > div .middle {
   align-items: center;
   justify-content: space-between;
 }
-main .insights .progress svg {
-  width: 88px;
-  height: 88px;
-  /* background-color: red; */
-}
-
-main .insights .progress {
-  position: relative;
-  width: 92px;
-  height: 92px;
-  border-radius: 50%;
-}
-main .insights .progress svg circle {
-  fill: none;
-  stroke: blueviolet;
-  stroke-width: 14;
-  stroke-linecap: round;
-  transform: translate(5px, 5px);
-  stroke-dasharray: 300;
-  stroke-dashoffset: 150;
-}
-main .insights .orders .progress svg circle {
-  stroke-dasharray: 150;
-  stroke-dashoffset: 250;
-}
-main .insights .progress .number {
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  font-size: 18px;
-  justify-content: center;
-  align-items: center;
-}
 
 main .insights small {
   display: block;
@@ -254,7 +217,6 @@ main .insights small {
   /* padding: 20px; */
   margin-right: 10px;
   box-shadow: 0 0px 10px 2px rgb(161, 161, 161);
-
 }
 
 .chat-container {
@@ -292,9 +254,186 @@ main .insights small {
   background-color: #0056b3;
 }
 
+/****************************************************************************/
+
+.container {
+  margin-right: 10px;
+}
+
+.circular-progress {
+  position: relative;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-progress::before {
+  content: "";
+  position: absolute;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.progress-value {
+  position: relative;
+  font-size: 20px;
+  /* font-weight: 600; */
+  color: black;
+}
+
+.text {
+  font-size: 10px;
+  font-weight: 500;
+  color: #606060;
+}
+
+.firstmiddle {
+  margin-top: 10px;
+}
+
+.order-stat {
+  margin-right: 15px;
+}
+
+.st {
+  /* display: flex; */
+  /* align-items: center; */
+  justify-content: center;
+  text-align: -webkit-center;
+}
+
+.text-status {
+  gap: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: max-content;
+}
+
+.order {
+  max-height: 507px;
+  overflow-y: hidden;
+  transition: 1s ease-in-out;
+}
+
+.order:hover {
+  overflow-y: auto;
+}
+
+tbody tr {
+  align-items: center;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
+  transform: scale(1);
+}
+
+tbody tr:hover {
+  transform: scale(1.02);
+  background-color: #f3f3f3 !important;
+  cursor: pointer;
+}
+
+main .todo .orders {
+  /* width: 250px; */
+  background: white !important;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+  transition: 0.5s ease-in-out;
+  /* border-right: 10px solid rgb(233, 229, 229); */
+  margin-bottom: 15px;
+}
+
+.todo {
+  height: max-content;
+}
+
+main .todo .orders:hover {
+  transform: scale(1.025);
+}
+
+.middle {
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+
+  .left,
+  .count {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .bx {
+      font-size: 20px;
+      transition: 0.5s ease-in-out;
+    }
+
+    .down:hover {
+      color: red;
+    }
+
+    .up:hover {
+      color: #1c7012cc;
+    }
+  }
+}
+
+.g-info {
+  font-size: 20px;
+}
+
+.input-count {
+  width: 100px;
+  height: 30px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.info-btn {
+  background-color: rgba(0, 0, 0, 0.888);
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  float: right;
+  transition: 0.5s ease-in-out;
+}
+
+.info-btn:hover {
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 10px 0px rgb(187, 184, 184);
+}
+
+button:disabled {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+/****************************************************************************/
+
 /* chat container */
-
-
 
 /* <!-- Anlysis Containers --> */
 /* 
@@ -375,25 +514,7 @@ main .insights small {
   }
 } */
 
-
 /* <!-- Anlysis Containers --> */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* <!-- left side container --> */
 .table-data {
@@ -436,20 +557,23 @@ main .insights small {
   border-collapse: collapse;
 }
 .table-data .order table th {
-  padding-bottom: 12px;
-  font-size: 13px;
-  text-align: left;
+  padding-bottom: 5px;
+  font-size: 15px;
+  /* text-align: left; */
   border-bottom: 1px solid var(--grey);
 }
 .table-data .order table td {
-  padding: 16px 0;
+  padding: 10px 0;
+  /* border: #007bff solid 1px; */
 }
-.table-data .order table tr td:first-child {
+
+/* .table-data .order table tr td:first-child {
   display: flex;
   align-items: center;
   grid-gap: 12px;
   padding-left: 6px;
-}
+} */
+
 .table-data .order table td img {
   width: 36px;
   height: 36px;
@@ -467,7 +591,6 @@ main .insights small {
   /* font-weight: 700; */
   text-align: center;
   align-self: center;
-
 }
 
 /* .table-data .order table tr td .text-status.completed {
@@ -519,14 +642,31 @@ main .insights small {
   background-color: #1c7012cc;
 }
 
+.text-status.cut {
+  background-color: #0d8300cc;
+}
+.text-status.sent.to.company,
+.text-status.company.process {
+  background-color: rgba(122, 1, 192, 0.959);
+}
 
+.text-status.sent.to.garment {
+  background-color: #e28000d3;
+}
+.text-status.returned {
+  background-color: #028fecd3;
+}
 .text-status.sewing {
-  background-color: #1c7012cc;
+  background-color: #cf0079d3;
+}
+.text-status.sewed {
+  background-color: #00b33cd3;
 }
 
 .text-status.completed {
   background-color: #0c5fcdc7;
 }
+
 /* 
 .text-status.printing {
   background-color: #1c7012cc;
@@ -536,7 +676,19 @@ main .insights small {
   background-color: #cf0303c7;
 } */
 
+*::-webkit-scrollbar {
+  width: 5px !important;
+}
 
+*::-webkit-scrollbar-track {
+  background: #c7c7c7;
+  border-radius: 5px !important;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px !important;
+  background: #000000;
+}
 
 @media screen and (max-width: 768px) {
   .content {

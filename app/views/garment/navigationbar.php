@@ -6,7 +6,7 @@
                 <span class="bell-notification">5</span>
             </div>
             <div>
-                <a href="<?= ROOT ?>/customer/profile" class="nav-link" id="user_image">
+                <a href="<?= ROOT ?>/garment/profile" class="nav-link" id="user_image">
                     <img src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->emp_image  ?>" alt="user">
                     <!-- <i class='bx bxs-chat icon'></i> -->
                     <!-- <span class="chat-notification">8</span> -->
@@ -27,4 +27,11 @@
             </div>
         </div>
     </nav>
+
+    <style>
+        nav .nav-icons {
+
+            padding-top: 12px !important;
+        }
+    </style>
 </section>

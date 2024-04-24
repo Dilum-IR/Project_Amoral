@@ -79,27 +79,53 @@
                     </thead>
                     <tbody>
                         <?php
-                        // show($data);
-                        foreach ($data as $emp) : ?>
+                        if (!empty($data)) {
+                            // show($data);
+                            foreach ($data as $emp) :
+                                if ($emp->emp_status != 'garment') {
+                        ?>
 
-                            <tr>
-                                <td class="ordId"><?php echo $emp->emp_id ?></td>
-                                <td><?php echo $emp->emp_image ?></td>
-                                <td><?php echo $emp->emp_name ?></td>
-                                <td><?php echo $emp->email ?></td>
-                                <td><?php echo $emp->contact_number ?> </td>
-                                <td><?php echo $emp->city ?> </td>
-                                <td><?php echo $emp->emp_status ?> </td>
-                                <!-- <td class="st">
+                                    <tr>
+                                        <td class="ordId"><?php echo $emp->emp_id ?></td>
+                                        <td><?php echo $emp->emp_image ?></td>
+                                        <td><?php echo $emp->emp_name ?></td>
+                                        <td><?php echo $emp->email ?></td>
+                                        <td><?php echo $emp->contact_number ?> </td>
+                                        <td><?php echo $emp->city ?> </td>
+                                        <td><?php echo $emp->emp_status ?> </td>
+                                        <!-- <td class="st">
                                 <div class="text-status <?php echo $emp->status ?>"><?php echo $emp->status ?></div>
                                 <div class="progress-bar"></div>
                                 </td> -->
 
-                                <td><button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button> <button style="color: #ff0000de;">Remove</button>
-                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                            </tr>
+                                        <td style="word-break:normal;">
+                                            <div class="view-remove-buttons">
+                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View Details</button>
+                                                <form method="POST">
 
-                        <?php endforeach; ?>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                            <?php
+                                }
+                            endforeach;
+                        } else {
+                            ?>
+                            <tr>
+                                <td>No Availble Data</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -142,12 +168,12 @@
 
                     <div class="input-box">
                         <span class="details">Profession</span>
-                        <input type="text" required onChange="" value="" name="emp_status" />
-                        <!-- <select name="emp_status">
-                        <option name="employee1" value="Manager"></option>
-                        <option name="employee2" value="Merchandiser"></option>
-                        <option name="employee3" value="Deliveryman"></option>
-                </select> -->
+                        <input type="text" required onChange="" value="" name="emp_status" readonly>
+                        <select class="upt-emp-details" name="emp_status">
+                            <option value="manager">Manager</option>
+                            <option value="merchandiser">Merchandiser</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
                     </div>
 
                     <div class="input-box">
@@ -179,6 +205,7 @@
                 <div class="user-details-button">
                     <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
                     <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
+                    <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
                 </div>
             </form>
         </div>
@@ -236,7 +263,7 @@
                         <span class="details">Upload an Image</span><br>
                         <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image" placeholder="Enter Address" required>
                     </div>
-                    
+
                 </div>
                 <div class="btns">
                     <button type="submit" class="update-btn pb" value="newEmployee" name="newEmployee">Submit</button>

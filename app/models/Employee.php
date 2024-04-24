@@ -14,7 +14,8 @@ class Employee
 		'email',
 		'contact_number',
 		'emp_status',
-		'emp_image'
+		'emp_image',
+		'is_active'
 	];
 	public $chatForCloumn = [
 
@@ -90,16 +91,28 @@ class Employee
 
 		$this->errors = [];
 
+
 		// is empty password 
-		if (empty($data['password']) || empty($data['new_password']) || empty($data['confirm_password'])) {
+		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is Required";
+			$this->errors['current_password'] = "Password is Required";
+
+
+		} else if (empty($data['new_password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['new_password'] = "New password is Required";
+
+
+		} else if (empty($data['confirm_password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['confirm_password'] = "Confirm password is Required";
+
 		}
 
 		// password validation
 		if (!($data['new_password'] === $data['confirm_password'])) {
 			$this->errors['flag'] = true;
-			$this->errors['password'] = "password is not same";
+			$this->errors['password'] = " New & confirm password is not same";
 
 		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
 			$this->errors['flag'] = true;
@@ -128,11 +141,13 @@ class Employee
 			$this->errors['emp_name'] = "Employee name is required";
 			// $this->errors['error_no'] = 1;
 			// return;
+			// show($data);
 		}
 		// name validation - this part include more words validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['emp_name'])) {
+
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Name is invalid ";
+			$this->errors['emp_name'] = "Name is invalid ";
 			// $this->errors['error_no'] = 2;
 
 		}
@@ -144,8 +159,9 @@ class Employee
 		}
 		//city validation
 		else if (!preg_match("/^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/", $data['city'])) {
+			// show($data);
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "City is invalid ";
+			$this->errors['city'] = "City is invalid ";
 
 		}
 
@@ -157,7 +173,7 @@ class Employee
 		//Address validation
 		else if (!preg_match("/^[a-zA-Z0-9\s\.,#-]+$/", $data['address'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Address is invalid ";
+			$this->errors['address'] = "Address is invalid ";
 
 		}
 
@@ -165,47 +181,53 @@ class Employee
 		if (empty($data['DOB'])) {
 			$this->errors['flag'] = true;
 			$this->errors['DOB'] = "Date of Birth is required";
-		} else
+		} else {
+			// Validate the format of the date
 			if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $data['DOB'])) {
 				$this->errors['flag'] = true;
-				$this->errors['DOB'] = "Date of Birth is invalid";
+				$this->errors['DOB'] = "Date of Birth is invalid format";
 			} else {
-				
 				// Convert the date string to a DateTime object for further validation
 				$dateTime = DateTime::createFromFormat('Y-m-d', $data['DOB']);
 				$dateTime->setTimezone(new DateTimeZone('Asia/Kolkata'));
-				
+
 				// Check if the date is not in the future
 				$currentDate = new DateTime('now', new DateTimeZone('Asia/Kolkata'));
-				// show($currentDate);
 				if ($dateTime > $currentDate) {
 					$this->errors['flag'] = true;
-					$this->errors['DOB'] = "Date of Birth is invalid";
+					$this->errors['DOB'] = "Date of Birth cannot be in the future";
+				} else {
+					// Check if the user is at least 18 years old
+					$age = $currentDate->diff($dateTime)->y;
+					if ($age < 18) {
+						$this->errors['flag'] = true;
+						$this->errors['DOB'] = "Must be at least 18 years old";
+					}
 				}
 			}
+		}
+
 
 		// is empty Email
 		if (empty($data['email'])) {
 			$this->errors['flag'] = true;
 			$this->errors['email'] = "Employee email is required";
-		}
-		else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+		} else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Email is invalid ";
+			$this->errors['email'] = "Email is invalid ";
 		}
 
 		// is empty Contact Number
 		if (empty($data['contact_number'])) {
 			$this->errors['flag'] = true;
 			$this->errors['contact_number'] = "Contact Number is required";
-		}
-		else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/",$data['contact_number'])) {
+		} else if (!preg_match("/^\+?\d{1,4}[-.\s]?\d{1,15}$/", $data['contact_number'])) {
 			$this->errors['flag'] = true;
-			$this->errors['error'] = "Contact Number is invalid ";
+			$this->errors['contact_number'] = "Contact Number is invalid ";
 		}
-		 //show($this->errors);
+		//show($this->errors);
 
-		
+
 
 		if (empty($this->errors)) {
 

@@ -161,7 +161,9 @@ body {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	gap: 15px;
+	
   }
+  
   main .insights > div {
 	/* width: 250px; */
 	margin-top: 20px;
@@ -180,20 +182,31 @@ body {
   main .insights .bx {
 	/* width: 100px; */
 	/* height: 100px; */
-	font-size: 37px;
+	font-size: 67px;
 	align-items: center;
 	justify-content: center;
 	color: white;
+	
   }
 
   main .insights .middle{
-	display: flex;
-	gap: 40%;
+	/* display: flex; */
+	gap: 148px;
+	/* height: 100%; */
+	padding: 2.5%;
   }
   main .insights .sales{
-	display: flex;
-	gap: 80%;
+	/* display: flex; */
+	gap: 10px;
+	/* height: 100%; */
+	padding: 2.5%;
+	
   }
+
+  main .insights .middle .left{
+	display: block;
+  }
+  
 
   main .insights i::before {
 	background: rgb(18, 211, 0);
@@ -261,7 +274,7 @@ body {
   
   .left-right .right {
 	width: 35%;
-	height: 500px;
+	height: 725px;
 	/* background-color: blue; */
 	border-radius: 15px;
 	/* padding: 20px; */
@@ -529,6 +542,130 @@ body {
   @media screen and (max-width: 130px) {
 	.sub-nav {
 	  grid-gap: 10px;
+	}
+  }
+
+
+
+
+/* h3{
+	display: flex;
+} */
+
+
+
+  main .re-orders {
+	/* width: 250px; */
+	background-color: rgb(187, 184, 184) !important;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+	transition: 0.5s ease-in-out;
+	/* border-right: 10px solid rgb(233, 229, 229); */
+	margin-bottom: 15px;
+
+}
+
+main .re-orders:hover {
+	transform: scale(1.025);
+	/* display: block; */
+}
+
+.middle {
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+
+	.left,
+	.count {
+		display:block;
+		align-items: center;
+		gap: 10px;
+
+		.bx {
+			font-size: 20px;
+			transition: 0.5s ease-in-out;
+
+		}
+
+		.down:hover {
+			color: red;
+		}
+
+		.up:hover {
+			color: #1c7012cc;
+		}
+	}
+
+}
+
+.g-info {
+	font-size: 20px;
+}
+
+.input-count {
+	width: 100px;
+	height: 30px;
+	outline: none;
+	border: none;
+	box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
+	text-align: center;
+	border-radius: 10px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+	#main {
+	  padding: 20px; /* Add padding for tablet screens */
+	  width: calc(100% - 96px); /* Adjust width taking into account the padding */
+	}
+  
+	.sub-nav {
+	  padding: 0 20px; /* Adjust sub-navigation padding */
+	}
+  
+	.content {
+	  margin-top: 10px; /* Add top margin for better spacing */
+	}
+  
+	main .insights > div {
+	  /* Increase the size of insight boxes to use available space more effectively */
+	  padding: 25px;
+	  font-size: 1.1rem; /* Increase font size for better readability */
+	}
+  }
+  
+  @media screen and (min-resolution: 2dppx) {
+	/* Styles for high-resolution displays */
+	body {
+	  background: rgb(230, 230, 240); /* Lighter background for higher contrast */
+	}
+  
+	#main, .sub-nav, .content {
+	  /* Enhance visual elements for clarity */
+	  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sharper shadows for depth perception */
+	}
+  
+	.sub-nav a, .content main .head-title a {
+	  /* Increase font weight for better readability */
+	  font-weight: bold;
+	}
+  
+	.table-data th, .table-data td {
+	  /* Larger padding to accommodate denser pixels */
+	  padding: 20px;
 	}
   }
   

@@ -66,11 +66,19 @@ route('manager/chat', 'manager/ChatBox@index');
 route('manager/chatbox', 'manager/ChatBox@chatbox');
 route('manager/saveMsg', 'manager/ChatBox@saveMsg');
 
+
+
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index'); 
-route('garment/reports', 'garment/Orders@save_reports'); 
 route('garment/profile', 'garment/Profile@index'); 
+
 route('garment/update_info', 'garment/Overview@updateInfo'); 
+route('garment/reports', 'garment/Orders@save_reports'); 
+route('garment/update/status', 'garment/Orders@update_status'); 
+ 
+
+
+route('delivery/updateOrderStatus', 'delivery/Orders@updateOrderStatus');
 
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');
@@ -82,7 +90,7 @@ route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
-
+route('manager/reports', 'manager/Reports@index');
 
 //merchandiser
 route('merchandiser/overview', 'merchandiser/Overview@index');
@@ -97,6 +105,7 @@ route('merchandiser/customerdetails', 'merchandiser/CustomerDetails@index');
 route('signinData', 'SignIn@formData');
 
 route('guest','guest/Guest@index');
+route('guest/new','guest/Guest_update@index');
 
 route('tool', 'tool/Tool@index');
 

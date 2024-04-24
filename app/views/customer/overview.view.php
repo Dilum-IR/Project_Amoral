@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- <meta http-equiv="refresh" content="2; url=<?= ROOT ?>/garment/overview"> -->
 
     <title>Amoral</title>
     <!-- Link Styles -->
@@ -127,8 +126,6 @@
                     </li>
               </ul> -->
 
-
-
                         <div class="insights">
                             <div class="orders card">
                                 <i class='bx bxs-calendar-check'></i>
@@ -146,7 +143,7 @@
                                             endforeach;
                                         }
                                         ?>
-                                        <h1><?php echo $count ?></h1>
+                                        <h2><?php echo $count ?></h2>
 
                                     </div>
                                 </div>
@@ -173,7 +170,7 @@
                                             endforeach;
                                         }
                                         ?>
-                                        <h1>Rs. <?php echo $total ?></h1>
+                                        <h2>Rs. <?= number_format($total, 2, '.', ',')  ?></h2>
                                     </div>
 
                                 </div>
@@ -192,7 +189,7 @@
                                                 $rem += $order->remaining_payment;
                                             endforeach;
                                         } ?>
-                                        <h1>Rs. <?php echo $rem ?></h1>
+                                        <h2>Rs. <?= number_format($rem, 2, '.', ',')  ?></h2>
                                     </div>
 
                                 </div>
@@ -242,7 +239,7 @@
 
                                                     <tr>
                                                         <td>
-                                                            <?php echo $order->order_id ?>
+                                                            ORD-<?php echo $order->order_id ?>
                                                         </td>
                                                         <td><?php echo $order->order_placed_on ?></td>
                                                         <td>
@@ -253,11 +250,39 @@
                                                                 <?php endif; ?>
                                                             <?php endforeach; ?>
                                                         </td>
-                                                        <td class="status">
-                                                            <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
-                                                            <div>
-                                                                <?php echo $order->order_status ?>
-                                                            </div>
+
+                                                        <td class="st"><span class="text-status <?= $order->order_status ?>">
+                                                                <?php if ($order->order_status == "pending") { ?>
+                                                                    <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                                                                <?php } else if (
+                                                                    $order->order_status == "cutting" ||
+                                                                    $order->order_status == "sewing" ||
+                                                                    $order->order_status == "cut" ||
+                                                                    $order->order_status == "sewed"
+                                                                ) { ?>
+                                                                    <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                                                                <?php } else if ($order->order_status == "delivering") { ?>
+                                                                    <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
+                                                                <?php } else if ($order->order_status == "delivered") { ?>
+                                                                    <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                                                                <?php } ?>
+
+
+                                                                <?php
+
+                                                                // echo ucfirst($order->order_status) 
+                                                                if (
+                                                                    $order->order_status == "sewing" ||
+                                                                    $order->order_status == "cutting" ||
+                                                                    $order->order_status == "sewed" ||
+                                                                    $order->order_status == "cut"
+                                                                ) {
+                                                                    echo "Processing";
+                                                                } else {
+                                                                    echo ucfirst($order->order_status);
+                                                                }
+
+                                                                ?></span>
                                                         </td>
                                                         <td><?php echo $order->dispatch_date ?></td>
                                                     </tr>
@@ -272,6 +297,44 @@
                                     ?>
                                 </table>
                             </div>
+
+                            <style>
+                                .order tbody tr{
+                                    /* background-color: gainsboro; */
+                                    transition: 0.5s ease-in-out;
+                                    transform: scale(1.0);
+                                    
+                                }
+                                .order tbody tr:hover{
+                                    background-color: #f3f3f3 !important;
+                                    transform: scale(1.01);
+                                }
+
+                                .text-status {
+                                    gap: 3px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-around;
+                                    width: max-content;
+                                }
+
+                                .table-data .order table tr td .text-status {
+                                    font-size: 15px;
+                                    padding: 6px 16px;
+                                    color: white;
+                                    border-radius: 20px;
+                                    font-weight: 500;
+
+                                }
+
+                                .st {
+                                    text-align: -webkit-center !important;
+                                }
+
+                                .table-data .order table td {
+                                    padding: 12px 0;
+                                }
+                            </style>
                             <!-- left side container -->
 
                             <!-- right side container -->
@@ -300,6 +363,7 @@
     </script>
 
 
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>

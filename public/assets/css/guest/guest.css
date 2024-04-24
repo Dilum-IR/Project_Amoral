@@ -1,63 +1,196 @@
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@300;400;500;600;700&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap"); 
+/* @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@300;400;500;600;700&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap"); */
 
 * {
   margin: 0;
-  padding: 0;
+  /* padding: 0; */
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
-
 body {
+  background-color: rgba(209, 209, 209, 0.514);
+}
+h3,
+h4 {
+  margin: 0;
+}
+.inner1 .home {
+  /* margin-left: -27px; */
+  margin-top: 71px;
+  font-size: 26px;
+}
+
+img {
+  max-width: 50%;
+  margin-left: 80px;
+  margin-top: 50px;
+}
+:focus {
+  outline: none;
+}
+.wrapper {
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
-  height: 100vh;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
-  /* background: linear-gradient(135deg, #71b7e6, #9b59b6); */
+  justify-content: center;
+}
+.inner1 {
+  display: flex;
+  display: flex;
+  gap: -20px;
+  padding: 0px 0px;
+  margin: -44px;
+  margin-left: 40px;
+}
+.inner {
+  padding: 20px;
+  background: #fff;
+  max-width: 1150px;
+  margin: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 8px solid transparent;
+}
+.inner1 .image-holder {
+  width: 19%;
+  /* background-color: black; */
+}
+.inner .diff {
+  /* width: 66%; */
+  padding: 66px;
+  font-size: 20px;
+  margin-top: 9px;
 }
 
-.containerStu {
-  max-width: 700px;
-  width: 100%;
-  background: #ececec;
-  padding: 25px 30px;
-  border-radius: 15px;
+.inner form {
+  /* width: 80%; */
+  padding-top: 10px;
+  padding-left: 41px;
+  padding-right: 45px;
+  margin-bottom: 22px;
 }
-
-.containerStu .title {
+.inner h3 {
+  text-transform: uppercase;
   font-size: 25px;
-  font-weight: 500;
-  margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+.form-group {
+  display: flex;
+  gap: 7px;
+}
+.form-group input {
+  width: 50%;
+}
+.form-group input:first-child {
+  margin-right: 25px;
+}
+.form-wrapper {
   position: relative;
-  /* float: left; */
+}
+.form-control {
+  border: 1px solid #333;
+  /* border: none; */
+  border-bottom: 1px solid #333;
+  display: block;
+  width: 100%;
+  height: 30px;
+  padding-right: 0;
+  margin-bottom: 25px;
 }
 
-.containerStu .back{
-
-  float: right;
-  text-decoration: none;
-
-}
-.containerStu .back a{
-
-  text-decoration: none;
-
-}
-
-
-.containerStu .title::before {
-  content: "";
-  position: absolute;
-  left: 374px;
-  bottom: 11px;
-  height: 4px;
-  width: 50px;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #71b7e6, #9b59b6);
+.button {
+  border: none;
+  width: 164px;
+  height: 51px;
+  margin: auto;
+  margin-top: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0%;
+  background: #333;
+  font-size: 15px;
+  color: #fff;
 }
 
+.button:hover {
+  background: purple;
+}
+@media (max-width: 767px) {
+  .inner {
+    display: flex;
+  }
+  .inner .image-holder {
+    width: 100%;
+  }
+  .inner form {
+    width: 100%;
+    padding: 40px 0 30px;
+  }
+  .button {
+    margin-top: 60px;
+  }
+}
 
-/* student form details  */
+/* Styling the outermost container of the form */
+.form-wrapper {
+  display: flex;
+  justify-content: center; /* Centers the form in the middle of the page */
+  align-items: center;
+  min-height: 100vh; /* Full viewport height */
+  padding: 20px;
+}
+
+/* Inner container styling */
+.inner {
+  background: white;
+  padding: -1px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1150px;
+}
+
+/* Styling each form group */
+.form-group {
+  margin-bottom: -2px; /* Space between form groups */
+}
+
+/* Labels and details within the form */
+.details {
+  display: block; /* Ensure the label is above the input field */
+  font-weight: 500; /* Slightly bolder font for readability */
+  margin-bottom: 5px; /* Small space between label and input */
+}
+
+/* General styling for all input fields */
+.form-control {
+  width: 100%; /* Full width */
+  padding: 8px 10px; /* Padding for comfortable typing */
+  border: 1px solid #ccc; /* Subtle border */
+  border-radius: 4px; /* Matching rounded corners */
+  box-sizing: border-box; /* Border-box for proper padding handling */
+}
+
+/* Button styling */
+.button input[type="submit"] {
+  width: 100%; /* Full width for mobile responsiveness */
+  padding: 10px;
+  background-color: #007bff; /* Bootstrap blue */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Larger font for visibility */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.button input[type="submit"]:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
 
 .containerStu form .user-details,
 .containerStu form .parent-details {
@@ -78,7 +211,8 @@ form .parent-details .input-box {
   font-weight: 500;
   margin-bottom: 5px;
 }
-.user-details .input-box input,select,
+.user-details .input-box input,
+select,
 .parent-details .input-box input {
   width: 100%;
   height: 45px;
@@ -93,7 +227,8 @@ form .parent-details .input-box {
 .user-details .input-box input:focus,
 .user-details .input-box input:valid,
 .parent-details .input-box input:focus,
-.parent-details .input-box input:valid, .user-details .input-box select:focus{
+.parent-details .input-box input:valid,
+.user-details .input-box select:focus {
   border-color: #373538;
 }
 
@@ -156,7 +291,7 @@ form .button input {
   height: 100%;
   width: 100%;
   background: linear-gradient(135deg, #c0c0c0, #353435);
-  outline:none;
+  outline: none;
   color: white;
   font-size: 16px;
   font-weight: 500;
@@ -167,44 +302,32 @@ form .button input {
 }
 form .button input:hover {
   /* background: linear-gradient(-135deg, #71b7e6, #9b59b6); */
-background: #000000;
+  background: #000000;
   transition: all 0.3s ease-in;
 }
 
-form .response{
-  color: rgb(9, 167, 9);
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-  /* margin-left: 10px; */
-
-}
-form .error{
-
-  color: red;
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-  /* margin-left: 10px; */
-
+.error {
+  color: red; /* Set the text color to red to indicate error */
+  font-size: 0.9em; /* Slightly smaller font size for error text */
+  margin-top: 5px; /* Spacing above the error message for separation */
+  padding: 3px 6px; /* Padding around the text for better readability */
+  border: 1px solid red; /* Optional: adds a red border around the error message */
+  border-radius: 4px; /* Rounds the corners of the border for a smoother look */
+  background-color: #ffecec; /* Very light red/pink background */
+  display: inline-block; /* Ensures the error message does not break into a new block */
+  margin-bottom: 11px;
 }
 
-@media (max-width: 584px) {
-  .containerStu {
-    max-width: 100%;
+/* Optional: Add animations to draw attention to the error messages */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  form .user-details .input-box,
-  form .parent-details .input-box {
-    margin-bottom: 10px;
-    width: 100%;
+  to {
+    opacity: 1;
   }
-  .containerStu form .user-details,
-  .containerStu form .parent-details {
-    max-height: 220px;
-    overflow-y: scroll;
-    /* border: 2px solid #9b59b6; */
-    /* padding: 10px; */
-    /* margin: 5px; */
-    /* border-radius:10px ; */
-  }
+}
+
+.error {
+  animation: fadeIn 0.3s ease-in-out;
 }
