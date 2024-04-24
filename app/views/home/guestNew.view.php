@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/boxicons.min.css">
 
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/home/nav.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
 
     <link rel="stylesheet" href="boxicons.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -24,7 +25,7 @@
     <style>
         nav .nav-icons {
 
-            padding-top: 25px !important;
+            padding-top: 15px !important;
         }
 
         .main {
@@ -37,7 +38,7 @@
 
         .wrapper {
             background-color: white;
-            margin-top: 10px;
+            /* margin-top: 10px; */
         }
 
         .wrapper .right {
@@ -63,7 +64,7 @@
         .h1 {
             font-size: 28px;
             text-align: center;
-            margin-bottom: 20px;
+            /* margin-bottom: 20px; */
         }
 
         .h3_2nd {
@@ -72,18 +73,32 @@
         }
 
         .pro_label {
-            font-size: 15px;
+            /* font-size: 15px; */
+            display: flex;
         }
 
-        .wrapper .right .manager_info{
+        .wrapper .right .manager_info {
             flex-wrap: nowrap !important;
             column-gap: 10px !important;
         }
 
+        .wrapper .right .pro_button {
+            margin-left: 0% !important;
+            width: 100% !important;
+            align-self: center !important;
+            justify-content: center !important;
+        }
+
+        .wrapper .right .pro_button .save_btn {
+            width: 230PX !important;
+            font-size: 18px !important;
+        }
     </style>
     <!-- Navigation bar -->
     <?php
-    include 'navigationbar.php'
+    include 'navigationbar.php';
+    include __DIR__ . '/../utils/toastMsg.php';
+
     ?>
     <!-- Navigation Bar -->
 
@@ -106,7 +121,7 @@
                         <span class="no-change">
                             <?php
                             //  (!empty($error) && isset($error['notchange']) && $error['flag'] == 1) ? $error['notchange'] : '';
-
+                            
                             ?>
                             &nbsp;
 
@@ -114,84 +129,117 @@
 
                         <div class="info_data">
                             <div class="data">
-                                <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Garment Name &nbsp;<span class="data-error">
-                                        <?php
-                                        //                        (!empty($error) && isset($error['name']) && $error['flag'] == 1) ? "* " . $error['name'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Garment Name
+                                    &nbsp;<span class="data-error">
+
+                                        <?php if (isset($errors['name'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['name']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_username" name="emp_name" value="">
+                                <input class="pro_input" type="text" id="pro_username" name="name"
+                                    value="<?= !empty($current_data) ? $current_data['name'] : "" ?>"
+                                    placeholder="Enter company name">
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span class="data-error">
-                                        <?php
-                                        //          (!empty($error) && isset($error['city']) && $error['flag'] == 1) ? "* " . $error['city'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp;
+                                    <span class="data-error">
+                                        <?php if (isset($errors['city'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['city']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_city" name="city" value="">
+                                <input class="pro_input" type="text" id="pro_city" name="city"
+                                    value="<?= !empty($current_data) ? $current_data['city'] : "" ?>"
+                                    placeholder="Enter the city">
+
                             </div>
                         </div>
 
                         <div class="info_data">
                             <div class="data">
                                 <label class="pro_label" for="pro_address">Address &nbsp; <span class="data-error">
-                                        <?php
-                                        // (!empty($error) && isset($error['address']) && $error['flag'] == 1) ? "* " . $error['address'] : '';
-                                        ?>
+                                        <?php if (isset($errors['address'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['address']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_address" name="address" value="">
+                                <input class="pro_input" type="text" id="pro_address" name="address"
+                                    value="<?= !empty($current_data) ? $current_data['address'] : "" ?>"
+                                    placeholder="Enter company address">
+
                             </div>
 
                             <div class="data">
 
                                 <label class="pro_label" for="pro_email">Email &nbsp; <span class="data-error">
-                                        <?php
-                                        // (!empty($error) && isset($error['email']) && $error['flag'] == 1) ? "* " . $error['email'] : '';
-                                        ?>
+                                        <?php if (isset($errors['email'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['email']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_email" name="email" value="">
+                                <input class="pro_input" type="text" id="pro_email" name="email"
+                                    value="<?= !empty($current_data) ? $current_data['email'] : "" ?>"
+                                    placeholder="Enter company email">
+
                             </div>
-                            
+
                         </div>
-                        <div class="info_data manager_info">
+                        <div class="info_data">
                             <div class="data">
-                                <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Garment Name &nbsp;<span class="data-error">
-                                        <?php
-                                        //                        (!empty($error) && isset($error['name']) && $error['flag'] == 1) ? "* " . $error['name'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Number of Workers
+                                    &nbsp;<span class="data-error">
+                                        <?php if (isset($errors['no_workers'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['no_workers']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_username" name="emp_name" value="">
+                                <input class="pro_input" type="text" id="pro_no_workers" name="no_workers"
+                                    value="<?= !empty($current_data) ? $current_data['no_workers'] : "" ?>"
+                                    placeholder="Enter number of workers">
+
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span class="data-error">
-                                        <?php
-                                        //          (!empty($error) && isset($error['city']) && $error['flag'] == 1) ? "* " . $error['city'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> Cutting
+                                    Price(Rs) &nbsp;
+                                    <span class="data-error">
+                                        <?php if (isset($errors['cut_price'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['cut_price']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_city" name="city" value="">
+                                <input class="pro_input" type="text" id="pro_cut_price" name="cut_price"
+                                    value="<?= !empty($current_data) ? $current_data['cut_price'] : "" ?>"
+                                    placeholder="Enter the cutting price">
+
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span class="data-error">
-                                        <?php
-                                        //          (!empty($error) && isset($error['city']) && $error['flag'] == 1) ? "* " . $error['city'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> Daily Capacity
+                                    &nbsp;
+                                    <span class="data-error">
+                                        <?php if (isset($errors['day_capacity'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['day_capacity']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_city" name="city" value="">
+                                <input class="pro_input" type="text" id="pro_day_capacity" name="day_capacity"
+                                    value="<?= !empty($current_data) ? $current_data['day_capacity'] : "" ?>"
+                                    placeholder="Enter the daily capacity">
+
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span class="data-error">
-                                        <?php
-                                        //          (!empty($error) && isset($error['city']) && $error['flag'] == 1) ? "* " . $error['city'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> Sewed Price(Rs)
+                                    &nbsp;
+                                    <span class="data-error">
+                                        <?php if (isset($errors['sewed_price'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['sewed_price']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_city" name="city" value="">
+                                <input class="pro_input" type="text" id="pro_sewed_price" name="sewed_price"
+                                    value="<?= !empty($current_data) ? $current_data['sewed_price'] : "" ?>"
+                                    placeholder="Enter the sewed price">
+
                             </div>
                         </div>
 
@@ -201,32 +249,43 @@
                         <div class="info_data manager_info">
 
                             <div class="data">
-                                <label class="pro_label" for="pro_number">Full Name &nbsp; <span class="data-error">
-                                        <?php
-                                        // (!empty($error) && isset($error['contact_number']) && $error['flag'] == 1) ? "* " . $error['contact_number'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_number">Manager Name &nbsp; <span class="data-error">
+                                        <?php if (isset($errors['manager_name'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['manager_name']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_number" name="contact_number" value="">
+                                <input class="pro_input" type="text" id="pro_manager_name" name="manager_name"
+                                    value="<?= !empty($current_data) ? $current_data['manager_name'] : "" ?>"
+                                    placeholder="Enter manager name">
+
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_number">Contact Number &nbsp; <span class="data-error">
-                                        <?php
-                                        // (!empty($error) && isset($error['contact_number']) && $error['flag'] == 1) ? "* " . $error['contact_number'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_number">Contact Number &nbsp; <span
+                                        class="data-error">
+                                        <?php if (isset($errors['manager_contact'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['manager_contact']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_number" name="contact_number" value="">
+                                <input class="pro_input" type="text" id="pro_manager_contact" name="manager_contact"
+                                    value="<?= !empty($current_data) ? $current_data['manager_contact'] : "" ?>"
+                                    placeholder="Enter contact number">
+
                             </div>
 
                             <div class="data">
-                                <label class="pro_label" for="pro_profession">Email &nbsp; <span class="data-error">
-                                        <?php
-                                        // (!e`mpty($error) && isset($error['emp_status']) && $error['flag'] == 1) ? "* " . $error['emp_status'] : '';
-                                        ?>
+                                <label class="pro_label" for="pro_profession">Email Address &nbsp; <span
+                                        class="data-error">
+                                        <?php if (isset($errors['manager_email'])): ?>
+                                            <div class="error"><?= htmlspecialchars($errors['manager_email']); ?></div>
+                                        <?php endif; ?>
 
                                     </span></label>
-                                <input class="pro_input" type="text" id="pro_profession" name="emp_status" value="">
+                                <input class="pro_input" type="text" id="pro_manager_email" name="manager_email"
+                                    value="<?= !empty($current_data) ? $current_data['manager_email'] : "" ?>"
+                                    placeholder="Enter email address">
+
                             </div>
 
 
@@ -236,7 +295,8 @@
 
                             <div class="pro_button">
 
-                                <button type="submit" class="small_btn save_btn" name="save" value="save"><span>
+                                <button type="submit" class="small_btn save_btn" name="guest_register"
+                                    value="save"><span>
 
                                         Register
                                     </span></button>
@@ -247,8 +307,26 @@
             </div>
         </div>
 
+
+
+
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
+            let successData = {
+                'success_no': 4,
+                'flag': 0,
+                'success': "<?= $data['success_message'] ?>"
+            }
+            let dataValidate = {
+                'success_no': 4,
+                'flag': 0,
+                'error_no': "<?= $data['success_message'] ?>"
+            }
+
+        </script>
+
+        <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
                 const form = document.querySelector('form');
                 const saveButton = form.querySelector('.save_btn');
                 const initialData = <?= json_encode($data) ?>;
@@ -284,6 +362,7 @@
         <!-- Scripts -->
         <script src="<?= ROOT ?>/assets/js/profile.js"></script>
         <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+
 </body>
 
 </html>
