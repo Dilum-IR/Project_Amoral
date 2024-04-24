@@ -70,6 +70,8 @@ route('garment/update/status', 'garment/Orders@update_status');
  
 
 
+route('delivery/updateOrderStatus', 'delivery/Orders@updateOrderStatus');
+
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');
 route('delivery/overview', 'delivery/Overview@index');

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    
+
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Sidebar -->
@@ -311,26 +311,49 @@
                                     <h2>Recent Orders</h2>
                                 </div>
 
-                                <?php foreach ($data['delivering'] as $order): ?>
-                                    <div class="order">
-                                        <div class="re-orders">
-                                            <div class="middle">
-                                                <div class="left">
-                                                    <h3><i class="fa fa-user" aria-hidden="true"></i> Employee Name:</h3>
-                                                    <p><?php echo htmlspecialchars($order->fullname); ?></p>
+                                <?php
 
-                                                    <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address:</h3>
-                                                    <p><?php echo htmlspecialchars($order->address); ?></p>
+                                if (!empty($data['delivering'] )) {
 
-                                                    <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone:</h3>
-                                                    <p><?php echo htmlspecialchars($order->phone); ?></p>
+                                    foreach ($data['delivering'] as $order) { ?>
+                                        <div class="order">
+                                            <div class="re-orders">
+                                                <div class="middle">
+                                                    <div class="left">
+                                                        <h3><i class="fa fa-user" aria-hidden="true"></i> Employee Name:</h3>
+                                                        <p><?php echo htmlspecialchars($order->fullname); ?></p>
+
+                                                        <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address:</h3>
+                                                        <p><?php echo htmlspecialchars($order->address); ?></p>
+
+                                                        <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone:</h3>
+                                                        <p><?php echo htmlspecialchars($order->phone); ?></p>
 
 
+                                                    </div>
                                                 </div>
+                                                <!-- <small class="text-muted">Last 24 Hours</small> -->
                                             </div>
-                                            <!-- <small class="text-muted">Last 24 Hours</small> -->
-                                        </div>
-                                    <?php endforeach; ?>
+
+                                            <?php
+                                    }
+                                } else {
+                                    ?>
+                                        <tr>
+                                            <td></td>
+
+
+                                            <td>
+                                                No Available Orders
+
+
+                                            </td>
+                                            <td></td>
+                                        </tr>
+
+                                        <?php
+                                }
+                                ?>
                                 </div>
 
                             </div>

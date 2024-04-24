@@ -116,7 +116,7 @@
 
             </div>
 
-            <!-- <span>
+            <span>
               <h2>Capacity and Cost Metrics</h2>
             </span>
 
@@ -127,7 +127,7 @@
               <div class="error"><?= htmlspecialchars($errors['no_workers']); ?></div>
             <?php endif; ?>
 
-              <span class="details">Cutting Price</span>
+              <span class="details">Cutting Price(Rs)</span>
               <input type="number" id="cut_price" name="cut_price" class="form-control">
               <?php if (isset($errors['cut_price'])) : ?>
               <div class="error"><?= htmlspecialchars($errors['cut_price']); ?></div>
@@ -141,12 +141,12 @@
               <div class="error"><?= htmlspecialchars($errors['day_capacity']); ?></div>
             <?php endif; ?>
 
-              <span class="details">Product Capacity</span>
-              <input type="number" id="productCapacity" name="productCapacity" class="form-control">
-              <?php if (isset($errors['productCapacity'])) : ?>
-              <div class="error"><?= htmlspecialchars($errors['productCapacity']); ?></div>
+              <span class="details">Sewed Price(Rs)</span>
+              <input type="number" id="sewed_price" name="sewed_price" class="form-control">
+              <?php if (isset($errors['sewed_price'])): ?>
+              <div class="error"><?= htmlspecialchars($errors['sewed_price']); ?></div>
             <?php endif; ?>
-            </div> -->
+            </div>
 
             <div class="button">
               <input type="submit" value="Register" name="guest_register" />

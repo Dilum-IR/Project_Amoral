@@ -18,6 +18,8 @@
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
@@ -84,18 +86,21 @@
                                     <td>
                                         <?php echo $value->city; ?>
                                     </td>
-                                    <td>
-                                        <?php echo $value->order_status; ?>
+                                    <td id="status-<?= htmlspecialchars($value->order_id); ?>">
+                                        <?php echo htmlspecialchars($value->order_status); ?>
                                     </td>
                                     <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
                                 </td> -->
                                     <td>
-                                        <button type="submit" class="view-order-btn" style="background-color: red;"
-                                            onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+                                        <?php if ($value->order_status != 'delivered'): ?>
+                                            <button type="submit" class="view-order-btn" style="background-color: red;"
+                                                id="status-<?= $value->order_id; ?>"
+                                                onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
 
 
-                                        <!-- Button 1 -->
-                                        <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+                                            <!-- Button 1 -->
+                                            <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
+                                        <?php endif; ?>
 
                                     </td>
 
@@ -139,18 +144,94 @@
 
     </section>
 
+
+
+
+
+    <!-- delivered confirm pop-up -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span><i class="bx bx-x close" style="color: #ff0000"></i></span>
-            <div>
+            <div class="bxbx">
                 <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
-
             </div>
-            <h2>Are you sure ?</h2>
-            <button class="button" id="confirmDelete">OK</button>
-            <button class="button" id="cancelDelete">Cancel</button>
+            <div class="H2">
+                <h2>Are you sure ?</h2>
+            </div>
+
+            <div class="modalbtn">
+                <button type="submit" class="button" id="cancel" onclick="closeReport()">No</button>
+                <!-- <button class="button" id="confirm">Yes</button> -->
+                <button class="button" type="button" id="confirm">Yes</button>
+            </div>
+
         </div>
     </div>
+
+
+    <!--   Deliverd confirm pop up js with ajax -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('myModal');
+    var confirmButton = document.getElementById('confirm');
+    var cancelButton = document.getElementById('cancel');
+    var closeButton = document.querySelector('.modal .close');
+
+    closeButton.onclick = cancelButton.onclick = function() {
+        modal.style.display = 'none';
+    };
+
+    // Make sure this function is declared globally
+    window.confirmPopup = function (orderId) {
+        modal.style.display = 'block'; // Check if this line executes correctly
+        confirmButton.onclick = function() {
+            $.ajax({
+                url: "<?= ROOT ?>/delivery/updateOrderStatus", 
+                type: 'POST',
+                data: {order_id: orderId, status: 'delivered'},
+                success: function(response) {
+                    $('#status-' + orderId).text('Delivered');
+                    modal.style.display = 'none';
+                },
+                error: function(xhr, status, error) {
+                    //  handle errors
+                    console.error("Error: " + error);
+                    console.error("Status: " + status);
+                    console.dir(xhr);
+                }
+            });
+        };
+    };
+});
+
+    
+
+        // window.confirmPopup = confirmPopup; 
+        //     };
+
+        //     function updateOrderStatus(orderId, status) {
+        //         var xhr = new XMLHttpRequest();
+        //         xhr.open("POST", "<?= ROOT ?>/delivery/orders/updateStatus", true);
+        //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        //         xhr.onreadystatechange = function () {
+        //             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        //                 var response = JSON.parse(xhr.responseText);
+        //                 if (response.success) {
+        //                     alert('Status updated successfully.');
+        //                     document.getElementById('status-' + orderId).textContent = status;
+        //                     document.getElementById('myModal').style.display = 'none'; // Ensure the modal is closed
+        //                 } else {
+        //                     alert('Failed to update status: ' + response.message);
+        //                 }
+        //             }
+        //         };
+        //         xhr.send("order_id=" + orderId + "&status=" + encodeURIComponent(status));
+        //     }
+
+        // });
+    </script>
+
 
     <!-- POPUP -->
     <!-- <div class="popup-report">
@@ -302,11 +383,11 @@
                 </div>
             </div>
         </div>
-    
-    <div class="btns">
-        <button type="button" class="ok-btn">OK</button>
-        <button type="button" class="update-btn">Update Order</button>
-    </div>
+
+        <div class="btns">
+            <button type="button" class="ok-btn">Back to orders</button>
+            <button type="button" class="update-btn">Update Order</button>
+        </div>
 
     </div>
 
