@@ -86,8 +86,8 @@
                             
                                 <?php $material = array(); ?>
                             <tr>
-                                <td class="ordId"><?php echo $order->order_id; ?></td>
-                                <td><?php echo $order->user_id; ?></td>
+                                <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
+                                <td>USR-<?php echo $order->user_id; ?></td>
                                 <td><?php echo $order->order_placed_on; ?></td>
                                 <td>
                                     <?php $material_types = array(); ?>
@@ -387,11 +387,13 @@
         let updateOrderForm = document.querySelector(".popup-view .update-form");
         updateOrderForm.addEventListener('submit', function(event){
             event.preventDefault();
+            
             let formData = new FormData(updateOrderForm);
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "<?php echo ROOT ?>/manager/updateOrder", true);
             xhr.onload = function() {
                 if(this.status == 200) {
+                    console.log('response'+this.responseText);
                     let response = JSON.parse(this.responseText);
                     console.log(response);
                     if (response == false) {

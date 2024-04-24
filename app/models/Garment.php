@@ -11,7 +11,9 @@ class Garment
 		'garment_id',
         'location',
 		'day_capacity',
-		'no_workers'
+		'no_workers',
+		'cut_price',
+		'sewed_price'
 
 	];
 }

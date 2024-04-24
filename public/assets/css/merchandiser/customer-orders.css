@@ -271,7 +271,8 @@ input{
     border-radius: 20px;
     background: ghostwhite;
     margin: 19px 32px;
-    /* overflow-x: auto; */
+    overflow-y: scroll;
+    max-height: 70vh;
 
 }
 
@@ -427,6 +428,10 @@ tbody tr:hover{
   background-color: #0c5fcdc7;
 }
 
+.text-status.delivered{
+  background-color: #93cd0c;
+}
+
 .text-status.cancelled{
   background-color: #cf0303c7;
 }
@@ -460,14 +465,14 @@ tbody tr:hover{
 
 .popup-content {
   background-color: #fefefe;
-  margin: 5% auto; /* 15% from the top and centered */
+  margin: 5% auto; 
   padding: 20px 35px 40px 56px;
   border: 1px solid #888;
-  width: 60%; /* Could be more or less, depending on screen size */
+  width: 62%; 
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   max-height: 85%;
 
 }
