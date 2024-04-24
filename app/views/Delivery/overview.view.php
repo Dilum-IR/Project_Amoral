@@ -132,7 +132,7 @@
                                 <div class="orders">
                                     <div class="middle">
                                         <div class="left">
-                                            <h1> Recent Deliveries</h1>
+                                            <h1> Upcoming Delivery Orders</h1>
                                             <?php
                                             $count = 0;
                                             if (!empty($data['delivering'])) {
@@ -308,7 +308,7 @@
                             <!-- right side container -->
                             <div class="right">
                                 <div class="head">
-                                    <h2>Recent Orders</h2>
+                                    <h2>Upcoming Delivery Orders</h2>
                                 </div>
 
                                 <?php
@@ -320,13 +320,13 @@
                                             <div class="re-orders">
                                                 <div class="middle">
                                                     <div class="left">
-                                                        <h3><i class="fa fa-user" aria-hidden="true"></i> Employee Name:</h3>
+                                                        <h3><i class='bx bx-user'></i> Employee Name:</h3>
                                                         <p><?php echo htmlspecialchars($order->fullname); ?></p>
 
-                                                        <h3><i class="fa fa-map-marker" aria-hidden="true"></i> Address:</h3>
+                                                        <h3><i class='bx bx-map'></i> Address:</h3>
                                                         <p><?php echo htmlspecialchars($order->address); ?></p>
 
-                                                        <h3><i class="fa fa-phone" aria-hidden="true"></i> Phone:</h3>
+                                                        <h3><i class='bx bx-phone'></i></i> Phone:</h3>
                                                         <p><?php echo htmlspecialchars($order->phone); ?></p>
 
 
