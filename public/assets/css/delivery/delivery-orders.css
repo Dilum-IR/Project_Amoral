@@ -1214,6 +1214,7 @@ select {
   font-size: 100%;
 }
 
+
 /* Media queries for mobile devices */
 @media (max-width: 480px) {
   .breadcrumb {
@@ -1249,8 +1250,8 @@ select {
 
   .popup-view,
   .popup-report {
-    width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
-    padding: 1%; /* Reduces padding */
+    width: 60%; /* Adjusts popup width to be less overwhelming on larger screens */
+    padding: 2%; /* Reduces padding */
   }
 
   .status ul {
