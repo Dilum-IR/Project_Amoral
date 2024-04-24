@@ -69,6 +69,7 @@ route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
 route('manager/reports', 'manager/Reports@index');
+route('manager/reportstatus', 'manager/Reports@report_status');
 
 route('signinData', 'SignIn@formData');
 

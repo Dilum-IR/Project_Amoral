@@ -22,7 +22,7 @@
             <div class="t-shirt-icons" id="t-shirt-icons">
                 <p>Type</p>
                 <div onclick="updateTshirtType('crew_neck_front.png')" class="t-shirt-icon" id="crew-neck-image"><img src="<?= ROOT ?>/assets/images/tool/crew_neck_icon.png" alt=""></div>
-                <div onclick="updateTshirtType('polo_collar_front.png')" class="t-shirt-icon" id="polo-collar-image"><img src="<?= ROOT ?>/assets/images/tool/crew_neck_icon.png" alt=""></div>
+                <div onclick="updateTshirtType('polo_collar_front.png')" class="t-shirt-icon" id="polo-collar-image"><img src="<?= ROOT ?>/assets/images/tool/polo_collar_icon.png" alt=""></div>
                 <div onclick="updateTshirtType('long_sleeve_front.png')" class="t-shirt-icon" id="long-sleeve-image"><img src="<?= ROOT ?>/assets/images/tool/long_sleeve_icon.png" alt=""></div>
             </div>
             <!-- <select name="" id="t-shirt-type" onchange="updateTshirtType()">

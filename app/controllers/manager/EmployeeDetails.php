@@ -76,7 +76,7 @@ class EmployeeDetails extends Controller
         //     redirect("manager/employeedetails");
         // }
 
-       
+
 
         $result = $employee->findAllActive('emp_id');
     }
@@ -101,9 +101,44 @@ class EmployeeDetails extends Controller
             $hash = password_hash($randomPassword, PASSWORD_BCRYPT);
 
             $data['password'] = $hash;
-            // show($data);
 
+            // show($data);
+            // $allowedKeys = ['emp_status', 'DOB', 'emp_name', 'email', 'city', 'address', 'contact_number', 'emp_image'];
+            // $filteredData = array_intersect_key($data, array_flip($allowedKeys));
+            // show($filteredData);
+            // $employee->insert($filteredData);
+
+            $removingKeys = ['cut_price', 'sewed_price', 'no_workers', 'day_capacity'];
+
+            foreach ($removingKeys as $key) {
+                $columnGarment[$key] = $data[$key];
+
+                unset($data[$key]);
+            }
+            // show($columnGarment);
+            // show($data);
             $employee->insert($data);
+
+            // show($data['emp_status']);
+            if ($data['emp_status'] == 'garment') {
+                //    show($data);
+                $employee = new Employee;
+
+
+                $result = $employee->findAllActive('emp_id');
+                // show($result);
+                $garment = new Garment;
+                $newEmp['email'] = $data['email'];
+                $empResult = $employee->first($newEmp);
+                // show($empResult->emp_id);
+                // show($data['city']);
+
+                $columnGarment['garment_id'] = $empResult->emp_id;
+                $columnGarment['location'] = $data['city'];
+
+                // show($columnGarment);
+                $garment->insert($columnGarment);
+            }
 
             // save user email in another table for chat with users
             $all_users = new AllUsers();
