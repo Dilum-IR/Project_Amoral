@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar</title>
+    <title>Amoral Distributor Overview</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/map.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/overview.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
 </head>
 
 <body>
