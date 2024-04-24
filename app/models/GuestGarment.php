@@ -16,6 +16,9 @@ class GuestGarment
         'manager_contact',
     ];
 
+
+
+
     public function validateInfo($data)
     {
 
@@ -177,4 +180,5 @@ class GuestGarment
 
     }
 }
+
 

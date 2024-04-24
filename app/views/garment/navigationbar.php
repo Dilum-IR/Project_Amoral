@@ -27,4 +27,11 @@
             </div>
         </div>
     </nav>
+
+    <style>
+        nav .nav-icons {
+
+            padding-top: 12px !important;
+        }
+    </style>
 </section>

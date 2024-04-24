@@ -8,15 +8,10 @@
             <div>
                 <a href="<?= ROOT ?>/customer/profile" class="nav-link" id="user_image">
                     <img src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->user_image?>" alt="user">
-                    <!-- <i class='bx bxs-chat icon'></i> -->
-                    <!-- <span class="chat-notification">8</span> -->
                 </a>
 
             </div>
 
-            <!-- <a href="#" class="nav-link-profile">
-          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
-        </a> -->
         </div>
 
         <div class="notifi-box">
@@ -27,4 +22,11 @@
             </div>
         </div>
     </nav>
+
+    <style>
+        nav .nav-icons {
+
+            padding-top: 12px !important;
+        }
+    </style>
 </section>

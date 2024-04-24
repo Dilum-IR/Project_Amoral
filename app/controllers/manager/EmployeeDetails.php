@@ -36,7 +36,6 @@ class EmployeeDetails extends Controller
 
             // Employee registration
             if (isset($_POST["newEmployee"])) {
-
                 // show($_POST);
                 unset($_POST["newEmployee"]);
 
@@ -92,6 +91,7 @@ class EmployeeDetails extends Controller
         $arr['email'] = $_POST['email'];
         $empRow = $employee->first($arr);
         $userRow = $user->first($arr);
+        // show($userRow);
 
         if (!$empRow && !$userRow) {
             // password hashing 
@@ -101,6 +101,7 @@ class EmployeeDetails extends Controller
             $hash = password_hash($randomPassword, PASSWORD_BCRYPT);
 
             $data['password'] = $hash;
+            // show($data);
 
             $employee->insert($data);
 
@@ -113,7 +114,7 @@ class EmployeeDetails extends Controller
             $res = $sendmail->sendVerificationEmail($_POST['email'], $randomPassword, $_POST['emp_name'], "pass");
         }
 
-        redirect("manager/employeedetails");
+        // redirect("manager/employeedetails");
     }
 
     function generateRandomPassword($length = 8)

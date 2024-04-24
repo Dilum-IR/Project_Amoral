@@ -8,10 +8,14 @@ class GarmentReport
 	protected $table = 'report';
 
 	protected $allowedCloumns = [
+		'report_id',
         'garment_id',
-		'title',
-		'description',
-		'report_date',
+        'title',
+        'description',
+        'report_date',
+        'email',
+        'is_active',
+
 	];
 }
 

@@ -335,7 +335,7 @@ tbody tr {
 
 tbody tr:hover {
   transform: scale(1.02);
-  background-color: gainsboro !important;
+  background-color: #f3f3f3 !important;
   cursor: pointer;
 }
 

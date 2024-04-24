@@ -334,28 +334,32 @@ button:disabled {
   width: max-content;
 }
 .text-status.cut {
-  background-color: #0d8300cc;
+  background-color: #0d8300cc !important;
+}
+
+.text-status.cutting {
+  background-color: #1c7012cc !important;
 }
 .text-status.sent.to.company,
 .text-status.company.process {
-  background-color: rgba(122, 1, 192, 0.959);
+  background-color: rgba(122, 1, 192, 0.959) !important;
 }
 
 .text-status.sent.to.garment {
-  background-color: #e28000d3;
+  background-color: #e28000d3 !important;
 }
 .text-status.returned {
-  background-color: #028fecd3;
+  background-color: #028fecd3 !important;
 }
 .text-status.sewing {
-  background-color: #cf0079d3;
+  background-color: #cf0079d3 !important;
 }
 .text-status.sewed {
-  background-color: #00b33cd3;
+  background-color: #00b33cd3 !important;
 }
 
 .text-status.completed {
-  background-color: #0c5fcdc7;
+  background-color: #0c5fcdc7  !important;
 }
 
 .gar-popup-report .pb:hover {

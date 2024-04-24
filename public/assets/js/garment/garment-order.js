@@ -35,6 +35,17 @@ function openView(button) {
       document.querySelector(".g-poup-btn").classList.add("hide");
     }
 
+    // use for cancel btton hide or not check
+    if (dateChecker(order.placed_date)) {
+      document.querySelector(".g-poup-btn .cancel-btn").classList.add("hide");
+    } else if (order.status != "pending") {
+      document.querySelector(".g-poup-btn .cancel-btn").classList.add("hide");
+    } else {
+      document
+        .querySelector(".g-poup-btn .cancel-btn")
+        .classList.remove("hide");
+    }
+
     color_order_status(order.status);
 
     // wrapper currently include all card div removing
@@ -45,6 +56,20 @@ function openView(button) {
       addMaterialCardView(order.mult_order[index]);
     }
   }
+}
+
+function dateChecker(placedDate) {
+  // placed date for increment a one day and after compare with today date
+  const date = new Date(placedDate);
+  date.setDate(date.getDate() + 1);
+  const OrderPlacedDate = date.toISOString();
+
+  const today = new Date();
+  const formattedToday = today.toISOString();
+
+  // check if order palced date + 1 date
+  // when grater than today date. return true.
+  return formattedToday > OrderPlacedDate;
 }
 
 function closeView() {
@@ -425,7 +450,7 @@ document
       }
     }
 
-    console.log(order_status);
+    // console.log(order_status);
   });
 
 document.getElementById("sewing").addEventListener("click", function () {
@@ -493,19 +518,33 @@ document.getElementById("completed").addEventListener("click", function () {
   }
 });
 
-function change_order_status(button = "", tap = "popup") {
-  // console.log(order);
+// ************************* update status orders *************************
+var each_order = {};
 
+// popup time get the fir]st update status data order data
+function status_update_method(button) {
+  status_confirm_popup.style.display = "block";
+
+  const orderData = button.getAttribute("data-order");
+  each_order = orderData;
+
+  console.log(each_order);
+
+}
+
+function change_order_status(tap = "popup") {
+  
+  // always this part for come when user is popup click with the ok button 
   if (tap == "table btn") {
     order_status = "";
-
+    
     // Get the data attribute value from the clicked button
-    const orderData = button.getAttribute("data-order");
-
-    if (orderData) {
+    // const orderData = button.getAttribute("data-order");
+    
+    if (each_order) {
       // Parse the JSON data
-      order = JSON.parse(orderData);
-
+      order = JSON.parse(each_order);
+      
       switch (order.status) {
         case "pending":
           order_status = "cutting";
@@ -531,6 +570,8 @@ function change_order_status(button = "", tap = "popup") {
         default:
           break;
       }
+    } else {
+      return;
     }
   }
 
@@ -614,6 +655,93 @@ function change_order_status(button = "", tap = "popup") {
   });
 }
 
+// *************************End update status orders *************************
+
+// ************************* cancel orders *************************
+
+document
+  .getElementById("popup-status-cancel-btn")
+  .addEventListener("click", order_cancel);
+
+function order_cancel() {
+  document.getElementById(`table-status-btn${order.order_id}`).disabled = true;
+  popup_status_btn.disabled = true;
+
+  document.getElementById("popup-status-cancel-btn").innerHTML =
+    "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
+  document.getElementById("popup-status-cancel-btn").disabled = true;
+
+  order_status = "canceled";
+
+  // return;
+
+  data = {
+    garment_order_id: order.garment_order_id,
+    status: order_status,
+    garment_id: order.garment_id,
+  };
+
+  $.ajax({
+    type: "POST",
+    url: cancel_endpoint,
+    data: data,
+    cache: false,
+    success: function (res) {
+      try {
+        // convet to the json type
+        Jsondata = JSON.parse(res);
+
+        if (Jsondata.user) {
+          toastApply(
+            "Cancel Success",
+            `${order.order_id} Order is canceled...`,
+            0
+          );
+
+          setTimeout(() => {
+            location.reload();
+          }, 4000);
+          return;
+        } else {
+          document.getElementById(
+            `table-status-btn${order.order_id}`
+          ).innerHTML = "Update Status";
+
+          toastApply("Order Cancel Failed", "Try again later...", 1);
+          return;
+        }
+      } catch (error) {
+        popup_status_btn.disabled = false;
+        document.getElementById(
+          `table-status-btn${order.order_id}`
+        ).disabled = false;
+        document.getElementById("popup-status-cancel-btn").innerHTML =
+          "Cancel Order";
+        document.getElementById("popup-status-cancel-btn").disabled = false;
+
+        toastApply("Order Cancel Failed", "Try again later...", 1);
+        return;
+      }
+    },
+    error: function (xhr, status, error) {
+      popup_status_btn.disabled = false;
+      document.getElementById(
+        `table-status-btn${order.order_id}`
+      ).disabled = false;
+      document.getElementById("popup-status-cancel-btn").innerHTML =
+        "Cancel Order";
+      document.getElementById("popup-status-cancel-btn").disabled = false;
+
+      toastApply("Update Failed", "Try again later...", 1);
+      return;
+    },
+  });
+}
+
+// *************************End cancel orders *************************
+
+// ************************* genarate popup meterial components for orders *************************
+
 function addMaterialCardView(order) {
   // console.log(order);
 
@@ -689,6 +817,8 @@ function addMaterialCardView(order) {
   cards_wrapper.appendChild(newCard);
   //countv++;
 }
+
+// *************************End genarate popup meterial components for orders *************************
 
 function change_color_order_status(status) {
   // console.log(status);

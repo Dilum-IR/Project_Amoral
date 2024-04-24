@@ -52,10 +52,13 @@ route('manager/employeedetails', 'manager/EmployeeDetails@index');
 route('manager/assigndelivery', 'manager/AssignDelivery@index');
 route('manager/printingprocess', 'manager/PrintingProcess@index');
 
+
 // manager ajax chat endpoint
 route('manager/chat', 'manager/ChatBox@index');
 route('manager/chatbox', 'manager/ChatBox@chatbox');
 route('manager/saveMsg', 'manager/ChatBox@saveMsg');
+
+
 
 route('garment/overview', 'garment/Overview@index');
 route('garment/orders', 'garment/Orders@index'); 
@@ -64,6 +67,7 @@ route('garment/profile', 'garment/Profile@index');
 route('garment/update_info', 'garment/Overview@updateInfo'); 
 route('garment/reports', 'garment/Orders@save_reports'); 
 route('garment/update/status', 'garment/Orders@update_status'); 
+ 
 
 
 route('delivery/updateOrderStatus', 'delivery/Orders@updateOrderStatus');
@@ -78,11 +82,12 @@ route('manager/profile','manager/Profile@index');
 route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
-
+route('manager/reports', 'manager/Reports@index');
 
 route('signinData', 'SignIn@formData');
 
 route('guest','guest/Guest@index');
+route('guest/new','guest/Guest_update@index');
 
 route('tool', 'tool/Tool@index');
 
