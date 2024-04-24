@@ -715,21 +715,24 @@ ul li .active .uil{
 }
 
 .container2 {
-  margin: 0 5px;
-  margin-right: 80px;
+  /* margin: 0 5px; */
+  margin-right: 30px;
   padding: 0 5px;
   border-radius: 50px;
   max-width: 100%;
   width: 60%;
+}
+.h1{
+  text-align: center;
 }
 
 .container1 {
   max-width: 100%;
   width: 40%;
   background: #ffffff;
-  padding: 10% 15%;
-  border-radius: 10px; /* Adjust border radius as needed */
-  margin-left: 0%;
+  padding: 8% 15%;
+  border-radius: 10px;
+  margin-left: -4%;
   overflow: hidden;
   font-size: small;
 }
@@ -917,7 +920,8 @@ select {
 .btns {
   display: flex;
   position: relative;
-  width: 100%;
+  justify-content: center; /* Centers the child elements horizontally */
+  align-items: center;
 }
 
 .update-btn,
@@ -1233,6 +1237,7 @@ select {
   font-size: 100%;
 }
 
+
 /* Media queries for mobile devices */
 @media (max-width: 480px) {
   .breadcrumb {
@@ -1268,8 +1273,8 @@ select {
 
   .popup-view,
   .popup-report {
-    width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
-    padding: 1%; /* Reduces padding */
+    width: 60%; /* Adjusts popup width to be less overwhelming on larger screens */
+    padding: 2%; /* Reduces padding */
   }
 
   .status ul {
