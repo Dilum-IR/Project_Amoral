@@ -838,7 +838,7 @@ select {
   /* margin-bottom: 12px; */
   border: none;
 }
-.popup-view .btn{
+.popup-view .btn {
   display: flex;
 }
 
@@ -1247,9 +1247,10 @@ select {
     flex-direction: row; /* Aligns containers in a row for wide screens */
   }
 
-  .popup-view, .popup-report {
-      width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
-      padding: 1%; /* Reduces padding */
+  .popup-view,
+  .popup-report {
+    width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
+    padding: 1%; /* Reduces padding */
   }
 
   .status ul {
