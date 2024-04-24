@@ -190,12 +190,12 @@
               <div class="info_data" id="last-element">
                 
                 <div class="pro_button">
-                  <button type="button" class="small_btn discard_btn" name="discard" value="discard"
+                  <button type="button" class="small_btn discard_btn rtol-button" name="discard" value="discard"
                     href="<?= ROOT ?>/garment/profile">
                     <span>
                       Discard
                     </span></button>
-                  <button type="submit" class="small_btn save_btn" name="save" value="save"><span>
+                  <button type="submit" class="small_btn save_btn rtol-button" name="save" value="save"><span>
 
                       Save Changes
                     </span></button>
@@ -326,11 +326,11 @@
                 </span>
               </div>
               <div class="pro_button">
-                <button type="button" class="small_btn discard_btn" name="discardP" value="discardP"
+                <button type="button" class="small_btn discard_btn rtol-button" name="discardP" value="discardP"
                   href="<?= ROOT ?>/garment/profile"><span>
                     Discard
                   </span></button>
-                <button type="submit" class="small_btn save_btn" name="saveP" value="saveP"><span>
+                <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP"><span>
                     Save Changes
                   </span></button>
               </div>
