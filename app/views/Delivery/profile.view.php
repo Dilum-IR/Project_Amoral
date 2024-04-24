@@ -198,12 +198,12 @@
                     value="<?= $_SESSION['USER']->emp_status ?>" disabled>
                 </div>
                 <div class="pro_button">
-                  <button type="button" class="small_btn discard_btn" name="discard" value="discard"
+                  <button type="button" class="small_btn discard_btn rtol-button" name="discard" value="discard"
                     href="<?= ROOT ?>/delivery/profile">
                     <span>
                       Discard
                     </span></button>
-                  <button type="submit" class="small_btn save_btn" name="save" value="save"><span>
+                  <button type="submit" class="small_btn save_btn rtol-button" name="save" value="save"><span>
 
                       Save Changes
                     </span></button>
