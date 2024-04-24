@@ -556,7 +556,7 @@ body {
 
   main .re-orders {
 	/* width: 250px; */
-	background-color: rgb(187, 184, 184) !important;
+	background-color: rgb(187 184 184 / 61%) !important;
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 5px 0px rgb(187, 184, 184);
