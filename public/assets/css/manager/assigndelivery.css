@@ -177,16 +177,14 @@ border-radius: 5px;
     /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 
     /* background-color: rgb(240, 240, 250); */
-    font-size: 15px;
+    font-size: 14px;
     /* font-weight: bolder; */
     margin: 2% 1%;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.521);
     transition: all 0.3s ease-in-out;
 }
 
-.orders button:hover{
-    font-size: 17px;
-}
+
 
 .orders select{
   padding: 6px;

@@ -34,6 +34,7 @@
                 <button id="all" class="active" onclick="filterTable('all')">All Orders</button>
                 <button id="pending" onclick="filterTable('cut')">Pending Orders</button>
                 <button id="printing" onclick="filterTable('printing')">Printing Orders</button>
+                <button id="printed" onclick="filterTable('printed')">Printed Orders</button>
             </div>
             <div class="table-section">
                 <table>

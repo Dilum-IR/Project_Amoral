@@ -118,7 +118,7 @@ var drivers = document.querySelectorAll('select[name="deliveryman"]');
 drivers.forEach(driver => {
     driver.addEventListener('change', function() {
         var empId = driver.value;
-        addCurrentOrders(empId);
+        // addCurrentOrders(empId);
         console.log(empId);
         var driverDetails = deliveryman.find(d => d.emp_id === empId);
         console.log(driverDetails);

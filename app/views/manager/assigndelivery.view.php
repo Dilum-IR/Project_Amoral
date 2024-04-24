@@ -60,6 +60,7 @@
                             <h5>Driver's Name:  <span class='name'></span></h5>
                             <h5>Vehicle Type:  <span class="vehicle"></span></h5>
                             <h5>Maximum Capacity:  <span class="capacity"></span></h5>
+                            <button type="button">View Current Orders</button>
                         </div>
                         <div class="icon">
                             <i></i>
@@ -70,20 +71,18 @@
                 </div>
             </form>
 
-            <div class="current-orders">
+            <!-- <div class="current-orders">
                 <div class="header">
                     <h4>Current No. of Orders: <span class="currentOrders"></span></h4>
                     <h4>Remaining Capacity: <span class="remainCapacity"></span></h4>
                 </div>
                 
                 <div class="orders-container">
-                    <!-- <div class="order">
-
-                    </div> -->
+        
                 </div>
 
 
-            </div>
+            </div> -->
         </div>
 
 
@@ -149,7 +148,7 @@
 
     </script>
 
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
+    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script> -->
 
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
