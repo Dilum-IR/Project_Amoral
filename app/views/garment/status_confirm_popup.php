@@ -3,6 +3,7 @@
         <span><i class="bx bx-x status-close-icon" style="color: #ff0000"></i></span>
         <div>
             <i class='bx bxs-error-circle bx-tada icon-warn1' style='color:#7d2ae8'></i>
+
         </div>
         <h3>Do you want to Update Order Status ?</h3>
         <div class="logout-btn-component">
@@ -28,7 +29,7 @@
 
     confirmBtn_1.onclick = function() {
         //console.log("Data deleted successfully.");
-        
+
         // call the garment order js file include this order status update function
         change_order_status("table btn");
         status_confirm_popup.style.display = "none";
@@ -41,13 +42,14 @@
         each_order = {};
         status_confirm_popup.style.display = "none";
     };
-    
+
     closeButton_0.addEventListener("mouseenter", function() {
         closeButton_0.classList.add("bx-flashing");
     });
 
     closeButton_0.addEventListener("mouseleave", function() {
         closeButton_0.classList.remove("bx-flashing");
+
     });
 </script>
 
@@ -97,6 +99,7 @@
         justify-content: center;
         align-items: center;
         margin-bottom: 20px;
+
     }
 
     .button {

@@ -214,6 +214,7 @@
                             float: right;
                         }
 
+
                         .chart-more-btn {
                             background-color: white !important;
                             color: #000 !important;
