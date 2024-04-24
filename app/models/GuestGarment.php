@@ -66,11 +66,10 @@ class GuestGarment
             $this->errors['address'] = "Garment address is required";
         }
         //Address validation
-        else if (!preg_match("/^[a-zA-Z0-9\s\.,#-]+$/", $data['address'])) {
-            $this->errors['flag'] = true;
-            $this->errors['address'] = "Address is invalid ";
-
-        }
+        else if (!preg_match("/^[a-zA-Z0-9\s\.,:#\/-]+$/", $data['address'])) {
+			$this->errors['flag'] = true;
+			$this->errors['address'] = "Address is invalid ";
+		}
 
         // is empty Email
         if (empty($data['email'])) {
@@ -125,10 +124,10 @@ class GuestGarment
         // Validation for numWorkers (Positive integers)
         if (empty($data['no_workers'])) {
             $this->errors['flag'] = true;
-            $this->errors['no_workers'] = "Number of Workers is required";
+            $this->errors['no_workers'] = "No. of Workers is required";
         } elseif (!preg_match("/^[1-9]\d*$/", $data['no_workers']) || (int)$data['no_workers'] < 1) {
             $this->errors['flag'] = true;
-            $this->errors['no_workers'] = "Number of Workers must be a positive integer and at least 1";
+            $this->errors['no_workers'] = "Number of Workers at least 1";
         }
 
         // // Validation for cuttingPrice (Non-negative decimals)
@@ -146,7 +145,7 @@ class GuestGarment
             $this->errors['day_capacity'] = "Daily Capacity is required";
         } elseif (!preg_match("/^[1-9]\d*$/", $data['day_capacity']) || (int)$data['day_capacity'] < 10) {
             $this->errors['flag'] = true;
-            $this->errors['day_capacity'] = "Daily Capacity must be a positive integer and at least 10";
+            $this->errors['day_capacity'] = "Daily Capacity must be at least 10";
         }
         
         // Validation for productCapacity (Positive integers)
