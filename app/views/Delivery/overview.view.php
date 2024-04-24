@@ -29,14 +29,14 @@
 
             <nav class="sub-nav">
                 <a href="" class="nav-link">Delivery</a>
-                <form action="#">
+                <!-- <form action="#">
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
                         <button type="submit" class="search-btn">
                             <i class='bx bx-search'></i>
                         </button>
                     </div>
-                </form>
+                </form> -->
             </nav>
 
             <div class="left-right">
@@ -175,8 +175,8 @@
                             <div class="order">
                                 <div class="head">
                                     <h3>Delivery Locations</h3>
-                                    <i class='bx bx-search'></i>
-                                    <i class='bx bx-filter'></i>
+                                    <!-- <i class='bx bx-search'></i>
+                                    <i class='bx bx-filter'></i> -->
                                 </div>
                                 <!-- VIEW MAP -->
 
@@ -187,6 +187,7 @@
 
                                     <script>
                                         let map, userMarker, directionsService, directionsRenderer;
+                                        var deliveries = <?= json_encode($data['delivering']) ?>;
 
                                         function initMap() {
                                             directionsService = new google.maps.DirectionsService();
@@ -197,11 +198,10 @@
                                             });
                                             directionsRenderer.setMap(map);
 
-                                            // Predefined locations
-                                            addMarker({ lat: 6.927079, lng: 79.861244 });
-                                            addMarker({ lat: 7.291418, lng: 80.636696 });
-                                            addMarker({ lat: 5.9496, lng: 80.5469 });
-
+                                            // Iterate over the deliveries array to add markers
+                                            deliveries.forEach(delivery => {
+                                                addMarker({ lat: parseFloat(delivery.latitude), lng: parseFloat(delivery.longitude) }, map);
+                                            });
                                             // Track user's live location
                                             if (navigator.geolocation) {
                                                 navigator.geolocation.watchPosition(position => {
@@ -315,7 +315,7 @@
 
                                 <?php
 
-                                if (!empty($data['delivering'] )) {
+                                if (!empty($data['delivering'])) {
 
                                     foreach ($data['delivering'] as $order) { ?>
                                         <div class="order">
