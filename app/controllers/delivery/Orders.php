@@ -28,28 +28,29 @@ class Orders extends Controller
             $column_names[7] = "orders.latitude";
             $column_names[8] = "orders.longitude";
             $column_names[9] = "orders.deliver_id";
+            $column_names[10]="users.address";
 
 
             $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
 
-            // show($result);
-
+            
             $data['data1'] = $result;
             // show($data);
             // if (isset($_POST['confirm']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            //     unset($_POST['confirm']);
-            //     $_POST['order_status'] = 'delivered';
+                //     unset($_POST['confirm']);
+                //     $_POST['order_status'] = 'delivered';
 
-            //     $order->update($_POST['order_id'], $_POST, 'order_id');
-            //     redirect('delivery/orders');
-
-            // }
-
-            // show($_POST);
-            
-
-
-
+                //     $order->update($_POST['order_id'], $_POST, 'order_id');
+                //     redirect('delivery/orders');
+                
+                // }
+                
+                // show($_POST);
+                
+                
+                
+                
+                // show($data);
 
 
             $this->view('delivery/orders', $data);
