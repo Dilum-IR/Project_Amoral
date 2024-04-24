@@ -11,6 +11,7 @@ let progress1 = document.querySelector(".status ul li .one");
 let progress2 = document.querySelector(".status ul li .two");
 let progress3 = document.querySelector(".status ul li .three");
 let progress4 = document.querySelector(".status ul li .four");
+let progress5 = document.querySelector(".status ul li .five");
 let orderCancel = document.querySelector("form .cancel-btn");
 let orderUpdate = document.querySelector("form .update-btn");
 
@@ -150,6 +151,7 @@ function removeActiveClass() {
     progress2.classList.remove("active");
     progress3.classList.remove("active");
     progress4.classList.remove("active");
+    progress5.classList.remove("active");
 }
 
 function openView(button) {
@@ -170,20 +172,49 @@ function openView(button) {
       const material = JSON.parse(materialData);
       const customerOrder = JSON.parse(customerOrderData);
 
-      switch(order.order_status){
-        case 'processing':
+      switch(order.status){
+        case 'cutting':
             progress2.classList.add("active");
             break;
 
-        case 'delivering':
+        case 'cut':
             progress2.classList.add("active");
             progress3.classList.add("active");
             break;
 
-        case 'delivered':
+        case 'sent to company':
+            progress2.classList.add("active");
+            progress3.classList.add("active");
+            break;
+
+        case 'company process':
+            progress2.classList.add("active");
+            progress3.classList.add("active");
+            break;
+
+        case 'returned':
+            progress2.classList.add("active");
+            progress3.classList.add("active");
+            break;
+
+        case 'sewing':
             progress2.classList.add("active");
             progress3.classList.add("active");
             progress4.classList.add("active");
+            break;
+
+        case 'sewed':
+            progress2.classList.add("active");
+            progress3.classList.add("active");
+            progress4.classList.add("active");
+            progress5.classList.add("active");
+            break;
+
+        case 'completed':
+            progress2.classList.add("active");
+            progress3.classList.add("active");
+            progress4.classList.add("active");
+            progress5.classList.add("active");
             break;
 
       }

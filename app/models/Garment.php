@@ -20,8 +20,8 @@ class Garment
 		'day_capacity',
 		'no_workers',
 		'cut_price',
-		'sewed_price',
 
+		'sewed_price'
 	];
 }
 

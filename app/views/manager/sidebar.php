@@ -110,6 +110,7 @@
                     <span class="link_name">Printing Process</span>
                 </a>
                 <span class="tooltip">Printing Process</span>
+            </li>
             <li>
                 <a href="<?=ROOT?>/manager/assigndelivery">
                     <i class="bx bxs-package"></i>

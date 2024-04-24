@@ -8,10 +8,10 @@
 <html lang="en">
 
 <head>
-    <title>Manager</title>
+    <title>Merchandiser</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/customer-orders.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/merchandiser/customer-orders.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -81,49 +81,99 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if(!empty($data['orders'])): ?>
-                            <?php foreach($data['orders'] as $order): ?>
-                            
-                                <?php $material = array(); ?>
-                            <tr>
-                                <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
-                                <td>USR-<?php echo $order->user_id; ?></td>
-                                <td><?php echo $order->order_placed_on; ?></td>
-                                <td>
-                                    <?php $material_types = array(); ?>
-                                    <?php foreach($data['material_sizes'] as $sizes):?>
-                                        <?php if($sizes->order_id == $order->order_id) :?>
-                                            <?php $material[] = $sizes;?>
-                                            <?php $material_types[] = $sizes->material_type; ?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
-                                    <?php $distinct_types = array_unique($material_types); ?>
-                                    <?php foreach($distinct_types as $type): ?>
-                                        <?php echo $type; ?><br>
-                                    <?php endforeach; ?>
-                                </td>
-                                <td class="desc">
-                                    <?php $total = 0; ?>
-                                    <?php foreach($data['material_sizes'] as $sizes):?>
-                                        <?php if($sizes->order_id == $order->order_id) :?>
-                                            <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
-                                    <?php echo $total; ?>
-                                </td>
-                                <td><?php echo $order->dispatch_date ?></td>
-                                <td class="st">
-                                    <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                    <div class="progress-bar"></div>
-                                </td>
-                            
-                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
-                                <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                            </tr>
+                     
+                        <?php if(!empty($data['orders']) || !empty($data['pendingOrders'])): ?>
+                            <?php if(!empty($data['orders'])): ?>
+                                <?php foreach($data['orders'] as $order): ?>
+                                    <?php if($order->order_id !== null): ?>
 
+                                    <?php $material = array(); ?>
+                                <tr>
+                                    <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
+                                    <td>USR-<?php echo $order->user_id; ?></td>
+                                    <td><?php echo $order->order_placed_on; ?></td>
+                                    <td>
+                                        <?php $material_types = array(); ?>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                                <?php $material[] = $sizes;?>
+                                                <?php $material_types[] = $sizes->material_type; ?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                        <?php $distinct_types = array_unique($material_types); ?>
+                                        <?php foreach($distinct_types as $type): ?>
+                                            <?php echo $type; ?><br>
+                                        <?php endforeach; ?>
+                                    </td>
+                                    <td class="desc">
+                                        <?php $total = 0; ?>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                                <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                        <?php echo $total; ?>
+                                    </td>
+                                    <td><?php echo $order->dispatch_date ?></td>
+                                    <td class="st">
+                                        <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
+                                        <div class="progress-bar"></div>
+                                    </td>
+                                
+                                    <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
+                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                                </tr>
+
+                                
+                                <?php endif; ?>
                             
-                        
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                            <?php if(!empty($data['pendingOrders'])): ?>
+                                <?php foreach($data['pendingOrders'] as $order): ?>
+                                    
+                                    <?php $material = array(); ?>
+                                <tr>
+                                    <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
+                                    <td>USR-<?php echo $order->user_id; ?></td>
+                                    <td><?php echo $order->order_placed_on; ?></td>
+                                    <td>
+                                        <?php $material_types = array(); ?>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                                <?php $material[] = $sizes;?>
+                                                <?php $material_types[] = $sizes->material_type; ?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                        <?php $distinct_types = array_unique($material_types); ?>
+                                        <?php foreach($distinct_types as $type): ?>
+                                            <?php echo $type; ?><br>
+                                        <?php endforeach; ?>
+                                    </td>
+                                    <td class="desc">
+                                        <?php $total = 0; ?>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                                <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                        <?php echo $total; ?>
+                                    </td>
+                                    <td><?php echo $order->dispatch_date ?></td>
+                                    <td class="st">
+                                        <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
+                                        <div class="progress-bar"></div>
+                                    </td>
+                                
+                                    <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
+                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                                </tr>
+
+                                
+                                <?php endforeach; ?>
+                                
+                            <?php endif; ?>
                         <?php else: ?>
                             <tr>
                                 <td colspan="8">No orders to display</td>
@@ -387,13 +437,11 @@
         let updateOrderForm = document.querySelector(".popup-view .update-form");
         updateOrderForm.addEventListener('submit', function(event){
             event.preventDefault();
-            
             let formData = new FormData(updateOrderForm);
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "<?php echo ROOT ?>/manager/updateOrder", true);
+            xhr.open("POST", "<?php echo ROOT ?>/merchandiser/updateOrder", true);
             xhr.onload = function() {
                 if(this.status == 200) {
-                    console.log('response'+this.responseText);
                     let response = JSON.parse(this.responseText);
                     console.log(response);
                     if (response == false) {
@@ -712,6 +760,7 @@
                             <td></td>
                             <td>Total</td>
                             <td class="totalPrice">0</td>
+                        </tr>
                     </table>
                 </div>
 
@@ -749,7 +798,7 @@
                 let formData = new FormData(newOrderForm);
                 let xhr = new XMLHttpRequest();
                 console.log(formData);
-                xhr.open("POST", "<?php echo ROOT ?>/manager/newOrder", true);
+                xhr.open("POST", "<?php echo ROOT ?>/merchandiser/newOrder", true);
                 xhr.onload = function() {
                     if(this.status == 200) {
                         console.log('response'+this.responseText);
@@ -1046,7 +1095,7 @@
 
                 `;
 
-                document.querySelector(".popup-new .price-details-container .total").before(newPriceRow);
+                document.querySelector(".popup-new .price-details-container .discount").before(newPriceRow);
 
                 let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
 
@@ -1190,7 +1239,7 @@
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="<?= ROOT ?>/assets/js/manager/customer-orders.js"></script>
+    <script src="<?= ROOT ?>/assets/js/merchandiser/customer-orders.js"></script>
 </body>
 
 </html>

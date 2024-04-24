@@ -370,28 +370,12 @@ function openView(button) {
             case 'cutting' :
                 progress2.classList.add("active");
                 progress2.classList.add("set");
-                progress2.nextElementSibling.innerText = 'Cutting';
-
-                break;
-
-            case 'cut':
-                progress2.classList.add("active");
-                progress2.classList.add("set");
-                progress2.nextElementSibling.innerText = 'Cut';
                 break;
 
             case 'printing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress3.classList.add("set");
-                progress3.nextElementSibling.innerText = 'Printing';
-                break;
-
-            case 'printed':
-                progress2.classList.add("active");
-                progress3.classList.add("active");
-                progress3.classList.add("set");
-                progress3.nextElementSibling.innerText = 'Printed';
                 break;
 
             case 'sewing':
@@ -399,15 +383,6 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress4.classList.add("set");
-                progress4.nextElementSibling.innerText = 'Sewing';
-                break;
-
-            case 'sewed':
-                progress2.classList.add("active");
-                progress3.classList.add("active");
-                progress4.classList.add("active");
-                progress4.classList.add("set");
-                progress4.nextElementSibling.innerText = 'Sewed';
                 break;
 
             case 'delivering':
@@ -416,16 +391,6 @@ function openView(button) {
                 progress4.classList.add("active");
                 progress5.classList.add("active");
                 progress5.classList.add("set");
-                progress5.nextElementSibling.innerText = 'Delivering';
-                break;
-
-            case 'delivered':
-                progress2.classList.add("active");
-                progress3.classList.add("active");
-                progress4.classList.add("active");
-                progress5.classList.add("active");
-                progress5.classList.add("set");
-                progress5.nextElementSibling.innerText = 'Delivered';
                 break;
 
             case 'completed':
@@ -442,9 +407,6 @@ function openView(button) {
                 break;
 
         }
-
-
-
 
         // update the status bar when clicked the next status
         let statuses = ['pending', 'cutting', 'printing', 'sewing', 'delivering', 'completed']
@@ -530,13 +492,6 @@ function openView(button) {
             console.log(material[i]);
             quantity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
             addMaterialCardView(material[i], quantity, countv);
-        }
-
-        // after updating to cutting, disable updating quantity
-        if (order.order_status != 'pending') {
-            document.querySelectorAll(".popup-view .st").forEach(input => {
-                input.setAttribute("disabled", "disabled");
-            });
         }
         
 
@@ -656,17 +611,12 @@ function openView(button) {
         sidebar.style.pointerEvents = "none";
         nav.style.pointerEvents = "none";
 
-
-        if (order.order_status == 'delivering' || order.order_status == 'delivered' || order.order_status == 'completed') {
+        var currentDate = new Date();
+        var orderPlacedOn = new Date(order.order_placed_on);
+        if (((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24)) > 2) {
             orderCancel.style.display = "none";
         } else {
             orderCancel.style.display = "block";
-        }
-
-        if(order.order_status == ' delivering' || order.order_status == 'delivered' || order.order_status == 'completed'){
-            orderUpdate.style.display = "none";
-        }else{
-            orderUpdate.style.display = "block";
         }
 
 

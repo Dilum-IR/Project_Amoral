@@ -222,7 +222,7 @@ td button{
   font-size: 15px;
   font-weight: bolder;
   margin: 2% 1%;
-  box-shadow: 0px 4px 6px -4px var(--color-default);
+  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
 }
 
 td .edit {
@@ -273,6 +273,7 @@ input{
     margin: 19px 32px;
     overflow-y: scroll;
     max-height: 70vh;
+
 }
 
 table{
@@ -305,7 +306,7 @@ thead th{
   border-bottom: 1px solid black;
   background: black;
   cursor: pointer;
-  /* position: fixed; */
+  
 }
 
 thead th i{
@@ -320,7 +321,6 @@ thead th.active i{
   transform: scale(1.2);
   color: blueviolet;
 }
-
 
 th, td{
     border-bottom: 1px solid #dddddd;
@@ -373,6 +373,7 @@ tr.hide td *{
   visibility: hidden;
 }
 
+
 tbody tr:hover{
   cursor: pointer;
   background-color: #0298cf0d;
@@ -424,7 +425,7 @@ tbody tr:hover{
 }
 
 .text-status.delivering{
-  background-color: #500ccdc7;
+  background-color: #0c5fcdc7;
 }
 
 .text-status.delivered{
@@ -467,11 +468,13 @@ tbody tr:hover{
   margin: 5% auto; 
   padding: 20px 35px 40px 56px;
   border: 1px solid #888;
-  width: 65%; 
+  width: 62%; 
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
   overflow-y: scroll;
+  /* overflow-x: hidden; */
   max-height: 85%;
+
 }
 
 
