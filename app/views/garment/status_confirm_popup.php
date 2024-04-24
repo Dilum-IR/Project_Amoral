@@ -2,7 +2,7 @@
     <div class="modal-content">
         <span><i class="bx bx-x status-close-icon" style="color: #ff0000"></i></span>
         <div>
-            <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#7d2ae8'></i>
+            <i class='bx bxs-error-circle bx-tada icon-warn1' style='color:#7d2ae8'></i>
         </div>
         <h3>Do you want to Update Order Status ?</h3>
         <div class="logout-btn-component">
@@ -43,11 +43,11 @@
     };
     
     closeButton_0.addEventListener("mouseenter", function() {
-        closeButton.classList.add("bx-flashing");
+        closeButton_0.classList.add("bx-flashing");
     });
 
     closeButton_0.addEventListener("mouseleave", function() {
-        closeButton.classList.remove("bx-flashing");
+        closeButton_0.classList.remove("bx-flashing");
     });
 </script>
 
@@ -71,7 +71,7 @@
         margin: 15% auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 25%;
+        width: 30%;
         text-align: center;
     }
 
@@ -90,12 +90,13 @@
         cursor: pointer;
     }
 
-    .icon-warn {
+    .icon-warn1 {
         margin-left: 27px;
-        font-size: 7rem;
+        font-size: 5rem;
         /* display: flexbox; */
         justify-content: center;
         align-items: center;
+        margin-bottom: 20px;
     }
 
     .button {
@@ -135,7 +136,7 @@
     }
 
     .logout-btn-component {
-        margin-top: 10px;
+        margin-top: 20px;
         margin-bottom: 10px;
     }
 </style>

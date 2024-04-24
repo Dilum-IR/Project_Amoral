@@ -1,26 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@300;400;500;600;700&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Imperial+Script&family=Poppins:wght@300;400;500;600;700&family=Roboto:ital,wght@0,400;1,100&family=Ubuntu:wght@300;400;500;700&display=swap"); */
 
 * {
+  margin: 0;
+  /* padding: 0; */
   box-sizing: border-box;
 }
 body {
-  /* background:url('1.jpg') ; */
-  background-size: cover;
-  color: #333;
-  font-size: 16px;
+  background-color: rgba(209, 209, 209, 0.514);
 }
 h3,
 h4 {
   margin: 0;
 }
 .inner1 .home {
-  margin-left: -27px;
+  /* margin-left: -27px; */
   margin-top: 71px;
   font-size: 26px;
 }
 
 img {
-  max-width: 100%;
+  max-width: 50%;
   margin-left: 80px;
   margin-top: 50px;
 }
@@ -52,22 +51,15 @@ img {
   margin: 0;
   padding: 0;
   border: 8px solid transparent;
-  border-image: linear-gradient(
-      45deg,
-      rgba(0, 0, 0, 0.8),
-      rgba(90, 89, 89, 0.8),
-      rgba(130, 130, 132, 0.8)
-    )
-    1;
 }
 .inner1 .image-holder {
   width: 19%;
   /* background-color: black; */
 }
 .inner .diff {
-  width: 66%;
+  /* width: 66%; */
   padding: 66px;
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 9px;
 }
 
@@ -314,7 +306,6 @@ form .button input:hover {
   transition: all 0.3s ease-in;
 }
 
-
 .error {
   color: red; /* Set the text color to red to indicate error */
   font-size: 0.9em; /* Slightly smaller font size for error text */
@@ -340,4 +331,3 @@ form .button input:hover {
 .error {
   animation: fadeIn 0.3s ease-in-out;
 }
-

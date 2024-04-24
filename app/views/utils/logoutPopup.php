@@ -26,21 +26,22 @@
 
     closeButton.onclick = function() {
         modal.style.display = "none";
+        // btn.classList.remove("active");
     };
-
+    
     cancelBtn.onclick = function() {
+        // btn.classList.remove("active");
         modal.style.display = "none";
     };
-
+    
     confirmBtn.onclick = function() {
-        // console.log("Data deleted successfully.");
         modal.style.display = "none";
     };
-
+    
     closeButton.addEventListener("mouseenter", function() {
         closeButton.classList.add("bx-flashing");
     });
-
+    
     closeButton.addEventListener("mouseleave", function() {
         closeButton.classList.remove("bx-flashing");
     });

@@ -85,6 +85,7 @@ route('manager/reports', 'manager/Reports@index');
 route('signinData', 'SignIn@formData');
 
 route('guest','guest/Guest@index');
+route('guest/new','guest/Guest_update@index');
 
 route('tool', 'tool/Tool@index');
 

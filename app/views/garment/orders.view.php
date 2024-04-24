@@ -102,7 +102,7 @@
                                 foreach ($data as $item) :
                             ?>
                                     <tr>
-                                        <td class="ordId">ODR-<?= $item->order_id  ?></td>
+                                        <td class="ordId">ORD-<?= $item->order_id  ?></td>
                                         <td class="desc">
 
                                             <?php

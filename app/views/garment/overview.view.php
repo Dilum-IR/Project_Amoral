@@ -22,6 +22,12 @@
 <body>
     <?php
 
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+    $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
+    $success = htmlspecialchars($_GET['success'] ?? 0);
+
+    $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
+
     // include "loading.php";
     include __DIR__ . '/../utils/toastMsg.php';
     ?>
@@ -203,10 +209,11 @@
                     </div>
 
                     <style>
-                        .small-last-2{
+                        .small-last-2 {
                             margin-top: 2px;
                             float: right;
                         }
+
                         .chart-more-btn {
                             background-color: white !important;
                             color: #000 !important;
@@ -261,7 +268,7 @@
                                     ?>
                                             <tr>
 
-                                                <td><?= $item->order_id ?></td>
+                                                <td>ORD-<?= $item->order_id ?></td>
                                                 <td><?= $item->total_qty ?></td>
                                                 <td><?= $item->cut_dispatch_date ?> <br> <small><?= $item->sew_dispatch_date ?> </small></td>
 
@@ -281,7 +288,8 @@
                                                         <?php } else if ($item->status == "completed") { ?>
                                                             <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
                                                         <?php } ?>
-                                                        <?php echo ucfirst($item->status) ?></span></td>
+                                                        <?php echo ucfirst($item->status) ?></span>
+                                                </td>
                                             </tr>
                                         <?php
                                         }
@@ -402,6 +410,18 @@
 
         </div>
     </section>
+
+    <script>
+        let successData = {
+            "success_no": <?= $success_no ?>,
+            "flag": <?= $flag ?>,
+            "success": "<?= $success ?>",
+        }
+        let dataValidate = {
+            "flag": <?= $flag ?>,
+            "error_no": <?= $error_no ?>
+        }
+    </script>
 
     <script>
         endpoint = "<?= ROOT ?>/garment/update_info";
