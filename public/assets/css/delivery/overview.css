@@ -48,6 +48,10 @@ body {
 	transition: 0.3s ease;
 	text-decoration: none;
 	font-weight: bold;
+	margin-left: auto;
+  }
+  #map{
+	margin: 0% !important;
   }
   
  
@@ -148,6 +152,7 @@ body {
   .content main .head-title {
 	align-items: center;
 	/* justify-content: center; */
+	margin-top: -47px;
   }
   .content main .head-title .bxs-cloud-download {
 	font-size: 18px;
