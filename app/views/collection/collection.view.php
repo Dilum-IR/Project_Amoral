@@ -1,8 +1,5 @@
-<?php
 
-// show($data);
 
-?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -22,15 +19,15 @@
     <div class="slides-container">
         <?php
 
-        // "amoral_1.jpg", "amoral_2.jpg", "amoral_3.jpg", "amoral_4.jpg", "amoral_5.jpg",
-        // "amoral_6.jpg", "amoral_7.jpg", "amoral_8.jpg", "amoral_9.jpg", "amoral_10.jpg",
-        // "amoral_11.jpg", "amoral_12.jpg", "amoral_13.jpg"
-
         $imageFileNames = array();
-        foreach ($data as $item) {
-            $imageFileNames[] = $item->image_name;
-        }
-        show($imageFileNames);
+        $imageFileNames = ["amoral_1.jpg", "amoral_2.jpg", "amoral_3.jpg", "amoral_4.jpg", "amoral_5.jpg",
+        "amoral_6.jpg", "amoral_7.jpg", "amoral_8.jpg", "amoral_9.jpg", "amoral_10.jpg",
+        "amoral_11.jpg", "amoral_12.jpg", "amoral_13.jpg"];
+
+        // foreach ($data as $item) {
+        //     $imageFileNames[] = $item->image_name;
+        // }
+        // show($imageFileNames);
 
         $slideCount = 0;
         $imageIndex = 0;

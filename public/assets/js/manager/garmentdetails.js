@@ -363,6 +363,8 @@ function openView(button) {
     document.querySelector('.update-form input[name="contact_number"]').value = gmnt.contact_number;
     document.querySelector('.update-form input[name="day_capacity"]').value = gmnt.day_capacity;
     document.querySelector('.update-form input[name="no_workers"]').value = gmnt.no_workers;
+    document.querySelector('.update-form input[name="cut_price"]').value = gmnt.cut_price;
+    document.querySelector('.update-form input[name="sewed_price"]').value = gmnt.sewed_price;
 
     // Show the "update-form" popup
     document.querySelector(".popup-view").classList.add("open-popup-view");

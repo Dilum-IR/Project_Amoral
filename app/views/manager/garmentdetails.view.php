@@ -97,6 +97,10 @@
                                     <td>
                                         <div class="view-remove-buttons">
                                             <button type="submit" name="selectItem" class="edit" data-gmnt='<?= json_encode($gmnt); ?>' onclick="openView(this)">View Details</button>
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="garment_id" value="<?php echo $gmnt->garment_id ?>">
+                                                <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
@@ -202,12 +206,22 @@
                         <input type="text" required onChange="" value="" name="day_capacity" />
                     </div>
 
+                    <div class="input-box">
+                        <span class="details">Cutting Price</span>
+                        <input type="text" required onChange="" value="" name="cut_price" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Sewing Price</span>
+                        <input type="text" required onChange="" value="" name="sewed_price" />
+                    </div>
+
                 </div>
 
                 <div class="user-details-button">
                     <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
                     <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
-                    <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
+
                 </div>
             </form>
         </div>
