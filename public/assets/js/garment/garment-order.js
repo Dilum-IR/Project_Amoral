@@ -931,42 +931,48 @@ function remove_color_order_status(status) {
 
 // search option part
 const search = document.querySelector(".form-input input"),
-  table_row = document.querySelectorAll("tbody tr");
-
+  table_row = document.querySelectorAll("tbody  tr");
 search.addEventListener("input", function () {
   let match_found = false;
   table_row.forEach((row, index) => {
     // get the table data varible for each table row include all data
+    
     let table_data = row.textContent.toLowerCase(),
-      search_data = search.value.toLowerCase(); // get search value for another varible
-
+    search_data = search.value.toLowerCase(); // get search value for another varible
+    
     // check search input value and table include data available or not
-
-    // Check if the row contains the search value
-    if (table_data.includes(search_data)) {
-      row.classList.remove("hide");
-      match_found = true;
+      
+      // Check if the row contains the search value
+      if (table_data.includes(search_data)) {
+        console.log(table_data);
+        row.classList.remove("hide");
+        match_found = true;
+      } else {
+        row.classList.add("hide");
+      }
+      
+      row.style.setProperty("--delay", index / 12 + "s"); //given each row for delay seconds 0s , 0.04s,0.008s , ...  (0/12 , 1/12, 2/12)
+    });
+    
+    // Display or hide the "no-data-search" row based on whether a match is found
+    let no_data_row = document.getElementById("no-data-search");
+    if (match_found) {
+      no_data_row.classList.add("hide");
     } else {
-      row.classList.add("hide");
+      no_data_row.classList.remove("hide");
     }
-
-    row.style.setProperty("--delay", index / 12 + "s"); //given each row for delay seconds 0s , 0.04s,0.008s , ...  (0/12 , 1/12, 2/12)
   });
-
-  // Display or hide the "no-data-search" row based on whether a match is found
-  let no_data_row = document.getElementById("no-data-search");
-  if (match_found) {
-    no_data_row.classList.add("hide");
-  } else {
-    no_data_row.classList.remove("hide");
-  }
-});
-
-// sorting method
-
-const table_heading = document.querySelectorAll("thead th");
-
-table_heading.forEach((head, index) => {
+  
+  // let table_data = row.querySelector(".sew-date").textContent.toLowerCase(),
+  
+  
+  
+  
+  // sorting method
+  
+  const table_heading = document.querySelectorAll("thead th");
+  
+  table_heading.forEach((head, index) => {
   let sort_asc = true;
   head.onclick = () => {
     table_heading.forEach((head) => head.classList.remove("head-active"));
