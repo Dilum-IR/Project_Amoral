@@ -39,8 +39,8 @@ function closegenarate() {
   document.getElementById("gen").disabled = true;
   startDate.disabled = false;
   endDate.disabled = false;
-  startDate.value = "";
-  endDate.value = new Date().toLocaleDateString().toString();
+  startDate.value="";
+  endDate.value = new Date().toLocaleDateString().toString().replace(',','/');
 }
 //Generate pdf
 var pdfObject;
@@ -77,22 +77,32 @@ function generatePDF() {
     cache: false,
     success: function (res) {
       try {
+        // console.log(res);
         // convet to the json type
         Jsondata = JSON.parse(res);
-        console.log(Jsondata);
+        // console.log(Jsondata);
 
+        // return;
         // check data is empty or not
-        if (Jsondata) {
+        if (Jsondata.length == 0) {
+          toastApply(
+            "No Completed Order",
+            "Selected Date Between No Completed Orders",
+            2
+          );
+
+          closegenarate();
+        } else if (Jsondata) {
           document.getElementById("view").disabled = false;
           document.getElementById("down").disabled = false;
           document.getElementById("view").innerHTML = "View";
           document.getElementById("down").innerHTML = "Download";
           generateContent(Jsondata);
         } else {
-          document.getElementById("view").disabled = false;
-          document.getElementById("down").disabled = false;
-          document.getElementById("view").innerHTML = "View";
-          document.getElementById("down").innerHTML = "Download";
+          document.getElementById("message_2").innerHTML =
+            "No Compleated Orders";
+          document.getElementById("message_2").style.display = "inline-block";
+
           toastApply(
             "No Compleated Order",
             "Please Completed Your Available Orders...",
@@ -121,7 +131,7 @@ function generateContent(genarateData) {
       element["total_qty"] * (element["cut_price"] + element["sewed_price"]);
   });
 
-  console.log(net_total);
+  // console.log(net_total);
 
   var props = {
     outputType: jsPDFInvoiceTemplate.OutputType.Blob,
@@ -159,17 +169,17 @@ function generateContent(genarateData) {
     },
     contact: {
       label: "",
-      name: "Monthly Revenue Report",
-      address: "Employee ID : 5432",
-      phone: "071258634 ",
+      name: garment_name + " Garment Revenue Report",
+      address: "ID : EMP-" + garment_id,
+      phone: contact_number,
       email: "Genarated Date : " + new Date().toLocaleDateString().toString(),
       otherInfo: "\n\n",
     },
     invoice: {
       label: "",
       num: 19,
-      invDate: "From Date : 6532",
-      invGenDate: "To Date : 523\n\n",
+      invDate: "From Date : " + startDate.value,
+      invGenDate: "To Date : " + endDate.value + "\n\n",
       headerBorder: false,
       tableBodyBorder: false,
       style: {
@@ -179,48 +189,43 @@ function generateContent(genarateData) {
       },
       header: [
         {
-          title: "#",
-          style: {
-            width: 10,
-          },
-        },
-
-        {
           title: "Order ID",
           style: {
-            width: 25,
-          },
-        },
-        {
-          title: "Customer ID",
-          style: {
-            width: 25,
+            width: 20,
           },
         },
         {
           title: "Placed Date",
           style: {
-            width: 30,
+            width: 25,
           },
         },
         {
-          title: "Delivered Date",
+          title: "Description",
           style: {
-            width: 30,
+            width: 50,
           },
         },
         {
-          title: "Quantity",
+          title: "Cut Price(Rs.)",
           style: {
             width: 25,
           },
         },
-        // {
-        //   title: "Cost(Rs.)",
-        //   style: {
-        //     width: 30,
-        //   },
-        // },
+
+        {
+          title: "Sewed Price(Rs.)",
+          style: {
+            width: 32,
+          },
+        },
+
+        {
+          title: "Quantity",
+          style: {
+            width: 20,
+          },
+        },
         {
           title: "Total(Rs.)",
           style: {
@@ -229,13 +234,12 @@ function generateContent(genarateData) {
         },
       ],
       table: Array.from(Array(genarateData.length), (item, index) => [
-        "\n" + index + 1,
         "\nORD-" + genarateData[index]["order_id"] + "\n",
-        "\nUSR-" + 387,
         "\n" + genarateData[index]["placed_date"].split(" ")[0],
-        "\n2024-12-30",
+        "\n" + genarateData[index]["material_array"].join(", "),
+        "\n" + formatNumber(genarateData[index]["cut_price"]) + "\n",
+        "\n" + formatNumber(genarateData[index]["sewed_price"]) + "\n",
         "\n" + genarateData[index]["total_qty"] + "\n",
-        // "\n5082.00 \n",
         "\n" +
           formatNumber(
             genarateData[index]["total_qty"] *
@@ -266,11 +270,11 @@ function generateContent(genarateData) {
         //   },
         // },
         {
-          col1: "\tNet Profit :",
+          col1: "\tNet Total :",
           col2: "\t\t\t",
-          col3: "52535.00",
+          col3: formatNumber(net_total).toString(),
           style: {
-            fontSize: 14,
+            fontSize: 13,
           },
         },
       ],

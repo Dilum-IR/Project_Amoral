@@ -339,14 +339,15 @@
                                 </div>
                                 <div class="warn-with-btns">
                                     <p class="text-warning" id="message"></p>
-
+                                    
                                     <button disabled class="btn-download" id="gen" onclick="generatePDF()">
                                         <i class='bx bxs-cloud-download'></i>
                                         <span class="text">Genarate Report</span>
                                     </button>
-
+                                    
                                     <button class="view-btn btn-download after-gen-btn" id="view" onclick="viewPDF()" style="display: none;">View</button>
                                     <button class="download-btn btn-download after-gen-btn" id="down" onclick="downloadBlob()" style="display: none;">Download</button>
+
                                 </div>
 
                             </div>
@@ -536,6 +537,8 @@
         const report_endpoint = "<?= ROOT ?>/garment/genarate/report";
 
         const garment_id = <?= $_SESSION['USER']->emp_id ?>;
+        const garment_name = "<?= $_SESSION['USER']->emp_name ?>";
+        const contact_number = "<?= $_SESSION['USER']->contact_number ?>";
 
         let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
             completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
