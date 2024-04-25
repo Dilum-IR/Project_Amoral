@@ -59,6 +59,7 @@ border-radius: 5px;
   z-index: 3;
   position: fixed;
   transition: all 0.5s ease-in-out;
+  
 }
 
 .breadcrumb {
@@ -437,7 +438,6 @@ tbody tr:hover{
 
 .popup-view, 
 .popup-new{
-  
   position: fixed;
   z-index: 2; 
   left: 0;

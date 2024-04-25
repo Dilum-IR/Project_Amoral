@@ -1,4 +1,76 @@
 // console.log(sizes);
+let sidebar = document.querySelector('.sidebar');
+let nav = document.querySelector('nav');
+
+
+function openView(button){
+    const driverId = button.getAttribute('data-id');
+    console.log(driverId);
+    document.querySelector(".popup-view input[name='deliver_id']").value = driverId;
+    let existingCards = document.querySelectorAll('.orders-container .order');
+    existingCards.forEach(card => {
+        card.remove();
+    });
+
+    if(assignedOrders!=false){	
+
+        var orders = assignedOrders.filter(order => order.deliver_id === driverId);
+        console.log(orders);
+    }else{
+        document.querySelector('.popup-view .update-btn').style.cursor = 'not-allowed';
+        document.querySelector('.popup-view .update-btn').addEventListener('click', function(event){
+            event.preventDefault();
+        });
+    }
+
+    addCurrentOrders(driverId);
+    var map1;
+    
+  
+    map1 = new google.maps.Map(document.querySelector(".current-orders .map"), {
+      // Initial center coordinates
+      center: {
+        // Sri lanka middle lat lang
+        lat: 7.7072567,
+        lng: 80.6534611,
+      },
+      zoom: 9,
+    });
+
+   if (Array.isArray(orders) && orders.length !== 0) {
+        orders.forEach(order => {
+            var marker = new google.maps.Marker({
+                position: {
+                lat: parseFloat(order.latitude),
+                lng: parseFloat(order.longitude),
+                },
+                map: map1,
+                orderId: order.order_id,
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: `<h3>Order ID: ${order.order_id}</h3>`
+            });
+
+            infoWindow.open(map1, marker);
+        });
+    }else{
+        console.log('No orders');
+    }
+    document.querySelector('.popup-view').classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
+}
+
+function closeView(){
+    document.querySelector('.popup-view').classList.remove("is-visible");
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
+}
+
+document.querySelector('.popup-view .close').addEventListener('click', closeView);
 
 // when a location is clicked on the map, display order details
 function addOrderCards(orderId){
@@ -40,23 +112,51 @@ function addOrderCards(orderId){
     document.querySelector(".orders h4").before(orderCard);
 }
 
-function addCurrentOrders(deliverId){
-    
-    document.querySelector('.currentOrders').innerHTML += assignedOrders.length;
-    console.log(assignedOrders);
-    assignedOrders.forEach(order => {
-        if(order.deliver_id === deliverId){
-            let currentOrder = document.createElement('div');
-            currentOrder.classList.add('order');
-            console.log(order);
-            currentOrder.innerHTML = `
-                <h5>Order ID: ${order.order_id}</h5>
-                <p>City: ${order.city}</p>
 
-            `;
-            document.querySelector('.orders-container').appendChild(currentOrder);
-        }
-    });
+// display orders of the selected driver in the popup
+function addCurrentOrders(deliverId){
+    if(assignedOrders==false){
+        document.querySelector('.orders-container').innerText = 'No orders assigned';
+    }else{
+        assignedOrders = assignedOrders.filter(order => order.deliver_id === deliverId);
+        document.querySelector('.currentOrders').innerHTML += assignedOrders.length;
+        console.log(assignedOrders);
+        assignedOrders.forEach(order => {
+            if(order.deliver_id === deliverId){
+                var sizeArr = sizes.filter(size => size.order_id === order.order_id);
+
+                let currentOrder = document.createElement('div');
+                currentOrder.classList.add('order');
+                currentOrder.classList.add(`order-${deliverId}`);
+                console.log(order);
+                var tot =  0;
+                for (var i in sizeArr) {
+                    // console.log(size);
+                    tot += parseInt(sizeArr[i].xs) + parseInt(sizeArr[i].small) + parseInt(sizeArr[i].medium) + parseInt(sizeArr[i].large) + parseInt(sizeArr[i].xl) + parseInt(sizeArr[i].xxl);  
+                }
+                currentOrder.innerHTML = `
+                    <div>        
+                        <h5>Order ID: <input name="order_id[]" readonly value="${order.order_id}"></h5>
+
+                        <p>City: ${order.city}</p>
+                        <p>Quantity: ${tot}</p>
+
+                    </div>
+
+                    <i class="fas fa-minus close"></i>
+    
+                `;
+                document.querySelector('.orders-container').appendChild(currentOrder);
+
+                let removeCard = currentOrder.querySelector("i");
+                removeCard.addEventListener("click", function () {
+                    currentOrder.remove();
+                });
+
+            }
+        });
+    }
+ 
 }
 
 function validateAssign(){
@@ -119,6 +219,7 @@ drivers.forEach(driver => {
     driver.addEventListener('change', function() {
         var empId = driver.value;
         // addCurrentOrders(empId);
+        document.querySelector('.emp-details .view-btn').setAttribute('data-id', empId);
         console.log(empId);
         var driverDetails = deliveryman.find(d => d.emp_id === empId);
         console.log(driverDetails);
@@ -152,10 +253,9 @@ drivers.forEach(driver => {
 
 function initMap(){
   
-    var marker1;
-    var marker2;
+  
     var map1;
-    var map2;
+    
   
     map1 = new google.maps.Map(document.querySelector(".map"), {
       // Initial center coordinates
@@ -178,7 +278,14 @@ function initMap(){
                 orderId: order.order_id,
             });
 
+            var infoWindow = new google.maps.InfoWindow({
+                content: `<h3>Order ID: ${order.order_id}</h3>`
+            });
+
+            infoWindow.open(map1, marker);
+
             marker.addListener("click", function () {
+                
                 var existingCard = document.querySelector(`.order-${this.orderId}`);
                 console.log(existingCard);
                 if (existingCard) {

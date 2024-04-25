@@ -15,7 +15,7 @@
     <?php include_once 'navigationbar.php' ?>
 
     <section id="main" class="main">
-        <div class="success-msg"></div>
+        <div class="success-msg"> </div>
 
         <ul class="breadcrumb">
                 <li>
@@ -60,7 +60,7 @@
                             <h5>Driver's Name:  <span class='name'></span></h5>
                             <h5>Vehicle Type:  <span class="vehicle"></span></h5>
                             <h5>Maximum Capacity:  <span class="capacity"></span></h5>
-                            <button type="button">View Current Orders</button>
+                            <button class="view-btn" type="button" onclick="openView(this)">View Current Orders</button>
                         </div>
                         <div class="icon">
                             <i></i>
@@ -71,22 +71,93 @@
                 </div>
             </form>
 
-            <!-- <div class="current-orders">
-                <div class="header">
-                    <h4>Current No. of Orders: <span class="currentOrders"></span></h4>
-                    <h4>Remaining Capacity: <span class="remainCapacity"></span></h4>
-                </div>
-                
-                <div class="orders-container">
-        
-                </div>
 
-
-            </div> -->
         </div>
 
 
+        
+        <div class="popup-view" id="popup-view">
+        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
+        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+        <div class="popup-content">
+            <span class="close" >&times;</span>
+          
+            <h2>Current Orders</h2>
+
+        
+            <form class="update-form" method="POST">
+                <div class="current-orders">
+                    <div class="header">
+                        <h4>Current No. of Orders: <span class="currentOrders"></span></h4>
+                        <h4>Remaining Capacity: <span class="remainCapacity"></span></h4>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 60% 1fr; gap: 15px;">
+                        <div class="map">
+                            
+                        </div>
+                        <div class="orders-container">
+                        </div>
+            
+                    </div>
+
+                    <input type="hidden" name="deliver_id" readonly />
+
+                    
+                </div>
+                <!-- hidden element -->
+                <!-- <div class="input-box">
+                    <input name="order_id" type="hidden" required />
+                </div> -->
+
+
+                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
+                    <input type="submit" class="update-btn pb" name="updateOrdersUpdate" value="Update" />
+                    <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel</button> -->
+                <!-- </form> -->
+
+
+            </form>
+        </div>
+        </div>
     </section>
+
+    <script>
+        // ajax for updating assigned orders for deliveryman
+        let updateForm = document.querySelector('.popup-view .update-form');
+        updateForm.addEventListener('submit', function(e){
+            e.preventDefault();
+            let formData = new FormData(updateForm);
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '<?= ROOT ?>/manager/updateAssignedOrders', true);
+            xhr.onload = function(){
+                if(this.status == 200){
+                    console.log('response'+this.responseText);
+                    let response = JSON.parse(this.responseText);
+                    if(response == false){
+                        var successMsgElement = document.querySelector('.success-msg');
+                        successMsgElement.innerHTML = "Orders updated successfully";
+                        successMsgElement.style.display = 'block';
+                        setTimeout(function() {
+                            successMsgElement.style.display = 'none';
+                            location.reload();
+                        }, 2000);
+                    }else{
+                        var successMsgElement = document.querySelector('.success-msg');
+                        successMsgElement.innerHTML = "There was an error updating the orders";
+                        successMsgElement.style.display = 'block';
+                        successMsgElement.style.backgroundColor = 'red';
+                        setTimeout(function() {
+                            successMsgElement.style.display = 'none';
+                            location.reload();
+                        }, 2000);
+                    }
+                }
+            }
+            xhr.send(formData);
+        });
+    </script>
+
 
     <script>
         //ajax for assigning orders
@@ -141,14 +212,14 @@
 
     <script>
         var orders = <?= json_encode($data['pending_orders']) ?>;
-        var assignedOrders = <?= json_encode($data['assigned_orders']) ?>;
+        var assignedOrders = <?= json_encode($data['assigned_orders']) ?>; // this is all orders. these are filtered in js file
         console.log(assignedOrders);
         var sizes = <?= json_encode($data['sizes']); ?>;
         var deliveryman = <?= json_encode($data['deliveryman']); ?>;
 
     </script>
 
-    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script> -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
 
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
