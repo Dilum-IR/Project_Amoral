@@ -100,9 +100,10 @@
 
                                         <td style="word-break:normal;">
                                             <div class="view-remove-buttons">
-                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View Details</button>
+                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button>
                                                 <form method="POST">
-
+                                                    <input type="hidden" name="emp_id" value="<?php echo $emp->emp_id ?>">
+                                                    <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
                                                 </form>
                                             </div>
                                         </td>
@@ -192,7 +193,7 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Date of Birth</span>
+                        <span class="details" >Date of Birth</span>
                         <input type="date" required onChange="" value="" name="DOB" />
                     </div>
 
@@ -200,12 +201,14 @@
                         <span class="details">Contact Number</span>
                         <input type="text" required onChange="" value="0766464639" name="contact_number" />
                     </div>
+
+
                 </div>
 
                 <div class="user-details-button">
                     <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
                     <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
-                    <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
+
                 </div>
             </form>
         </div>
@@ -228,10 +231,11 @@
 
                     <div class="input-box">
                         <span class="details">Profession</span><br>
-                        <select class="new-emp-details" name="emp_status">
+                        <select class="new-emp-details" name="emp_status" onchange="showAdditionalFields(this)">
                             <option value="manager">Manager</option>
                             <option value="merchandiser">Merchandiser</option>
                             <option value="delivery">Delivery</option>
+                            <option value="garment">Garment</option>
                         </select>
                     </div>
 
@@ -242,7 +246,7 @@
 
                     <div class="input-box">
                         <span class="details">City</span><br>
-                        <input class="new-emp-details" type="text" name="city" placeholder="Enter Address" required>
+                        <input class="new-emp-details" type="text" name="city" placeholder="Enter City" required>
                     </div>
 
                     <div class="input-box">
@@ -255,8 +259,28 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Date of Birth</span><br>
-                        <input class="new-emp-details" type="date" name="DOB" placeholder="Enter Address" required>
+                        <span class="details" id="date">Date of Birth</span><br>
+                        <input class="new-emp-details" type="date" name="DOB" placeholder="Enter Birthday" required>
+                    </div>
+
+                    <div class="input-box" id="cutting" style="display: none;">
+                        <span class="details">Cutting Price</span><br>
+                        <input disabled class="new-emp-details" type="text" name="cut_price" placeholder="Enter Cutting Price" required>
+                    </div>
+
+                    <div class="input-box" id="sewing" style="display: none;">
+                        <span class="details">Sewing Price</span><br>
+                        <input disabled class="new-emp-details" type="text" name="sewed_price" placeholder="Enter Sewing Price" required>
+                    </div>
+
+                    <div class="input-box" id="workers" style="display: none;">
+                        <span class="details">Number of Workers</span><br>
+                        <input disabled class="new-emp-details" type="text" name="no_workers" placeholder="Enter Sewing Price" required>
+                    </div>
+
+                    <div class="input-box" id="capacity" style="display: none;">
+                        <span class="details">Day Capacity</span><br>
+                        <input disabled class="new-emp-details" type="text" name="day_capacity" placeholder="Enter Day Capacity" required>
                     </div>
 
                     <div class="input-box">

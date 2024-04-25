@@ -407,4 +407,14 @@ trait Model
         // run the query stage
         return $this->quary($quary, $data);
     }
+    public function findAllInActive($order_column = 'id')
+    {
+
+        $quary = "SELECT * FROM $this->table WHERE is_active = 0  ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
 }
+

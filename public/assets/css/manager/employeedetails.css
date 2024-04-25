@@ -271,6 +271,7 @@ table {
 }
 
 thead th {
+  word-break: normal;
   padding-top: 17px;
   color: #ffffff;
   font-size: 15px;
@@ -282,7 +283,7 @@ th,
 td {
   border-bottom: 1px solid #dddddd;
   padding: 10px 20px;
-  word-break: break-all;
+  /* word-break: break-all; */
   text-align: center;
   align-items: center;
 }

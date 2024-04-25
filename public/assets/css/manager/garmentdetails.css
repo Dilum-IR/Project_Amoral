@@ -283,7 +283,7 @@ th,
 td {
   border-bottom: 1px solid #dddddd;
   padding: 10px 20px;
-  word-break: break-all;
+  /* word-break: break-all; */
   text-align: center;
   align-items: center;
 }

@@ -5,12 +5,13 @@ class Overview extends Controller
     public function index()
     {
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-
+        $emp_id=$_SESSION['USER']->emp_id;
+        // show($row);
 
         // if ($username != 'User') {
 
         $order = new Order;
+        
         // find all delivery orders
         // $result = $order->where(['order_status'=>"delivering"]);
 
@@ -31,10 +32,14 @@ class Overview extends Controller
         $column_names[7] = "orders.latitude";
         $column_names[8] = "orders.longitude";
         $column_names[9] = "orders.order_id";
+        $column_names[10] = "orders.deliver_id";
 
 
-        $result = $order->find_withInner(['order_status' => "delivering"], "users", "user_id", "id", $column_names);
-        $result2 = $order->find_withInner(['order_status' => "delivered"], "users", "user_id", "id", $column_names);
+        
+
+        $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
+        $result2 = $order->find_withInner(['order_status' => "delivered",'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
+
         $data['delivering'] = $result;
         $data['delivered'] = $result2;
 

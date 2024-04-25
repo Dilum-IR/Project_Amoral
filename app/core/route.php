@@ -30,7 +30,7 @@ route('customer/chatbox', 'customer/customerOverview@chat_data');
 route('customer/p', 'customer/customerOrders@payment_process');
 route('customer/p_success', 'customer/customerOrders@payment_success');
 
-//manager ajax endpoint
+//manager ajax calling endpoint
 route('manager/assignGarment', 'manager/GarmentOrders@assignGarment');
 route('manager/setDeadlines', 'manager/GarmentOrders@setDeadlines');
 
@@ -43,6 +43,14 @@ route('manager/updatePrintingType', 'manager/Overview@updatePrintingType');
 
 route('manager/newOrder', 'manager/CustomerOrders@newOrder');
 route('manager/updateOrder', 'manager/CustomerOrders@updateOrder');
+
+route('manager/assignDeliverymen','manager/AssignDelivery@assignDeliverymen');
+
+//merchandiser ajax calling endpoints
+route('merchandiser/updateMaterial', 'merchandiser/Overview@updateMaterial');
+route('merchandiser/newOrder', 'merchandiser/CustomerOrders@newOrder');
+route('merchandiser/updateOrder', 'merchandiser/CustomerOrders@updateOrder');
+
 
 route('manager/overview', 'manager/Overview@index');
 route('manager/customerorders', 'manager/CustomerOrders@index');
@@ -69,6 +77,7 @@ route('garment/reports', 'garment/Orders@save_reports');
 route('garment/update/status', 'garment/Orders@update_status'); 
 route('garment/genarate/report', 'garment/Overview@genarate_report'); 
  
+route('delivery/updateOrderStatus', 'delivery/Orders@updateOrderStatus');
 
 route('delivery/orders', 'delivery/Orders@index');
 route('delivery/profile', 'delivery/Profile@index');
@@ -81,6 +90,17 @@ route('manager/employeedetails','manager/EmployeeDetails@index');
 route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
 route('manager/reports', 'manager/Reports@index');
+route('manager/reportstatus', 'manager/Reports@report_status');
+
+//merchandiser
+route('merchandiser/overview', 'merchandiser/Overview@index');
+route('merchandiser/customerorders', 'merchandiser/CustomerOrders@index');
+route('merchandiser/garmentorders', 'merchandiser/GarmentOrders@index');
+route('merchandiser/profile', 'merchandiser/Profile@index');
+route('merchandiser/printingprocess', 'merchandiser/PrintingProcess@index');
+route('merchandiser/garmentdetails', 'merchandiser/GarmentDetails@index');
+route('merchandiser/customerdetails', 'merchandiser/CustomerDetails@index');
+
 
 route('signinData', 'SignIn@formData');
 

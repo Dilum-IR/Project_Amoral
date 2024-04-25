@@ -113,20 +113,20 @@
                 &nbsp;
 
               </span>
+              <?php
 
-            <?php if (isset($data)) {
+              if (isset($data)) {
               ?>
-              <div class="info_data">
-                <div class="data">
-                  <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name &nbsp;<span
-                      class="data-error">
-                      <?=
-                        (!empty($error) && isset($error['name']) && $error['flag'] == 1) ? "* " . $error['name'] : '';
-                      ?>
+                <div class="info_data">
+                  <div class="data">
+                    <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name &nbsp; <span class="data-error">
+                        <?=
+                        (!empty($error) &&  isset($error['emp_name']) && $error['flag'] == 1) ?  "* " . $error['emp_name'] :  '';
+                        ?>
 
-                    </span></label>
-                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value="<?= $data['emp_name'] ?>">
-                </div>
+                      </span> </label>
+                    <input class="pro_input" type="text" id="pro_username" name="emp_name" value="<?= $data['emp_name'] ?>">
+                  </div>
                 <div class="data">
                   <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span
                       class="data-error">
@@ -264,86 +264,97 @@
 
         <!-- Change Password Section -->
         <div class="info">
-          <h3 class="h3">Security Update
-            <hr>
-          </h3>
-          <form method="POST">
-
-          <span class="data-error">
+            <h3 class="h3">Change Password
+              <hr>
+            </h3>
+            <form method="POST">
+              <span class="data-error">
                 <?=
-                (!empty($passerror) &&  isset($passerror['password']) && $passerror['flag'] == 1) ? "* " . $passerror['password'] . "." :  ''; ?>
+                  (!empty($passerror) && isset($passerror['password']) && $passerror['flag'] == 1) ? "* " . $passerror['password'] . "." : ''; ?>
                 &nbsp;
                 <?=
-                (!empty($passerror) &&  isset($passerror['passwordError']) && $passerror['flag'] == 1) ? $passerror['passwordError'] :  '';
+                  (!empty($passerror) && isset($passerror['passwordError']) && $passerror['flag'] == 1) ? $passerror['passwordError'] : '';
                 ?>
               </span>
+              <div class="info_data">
 
-            <div class="info_data">
-              <div class="data">
-                <label class="pro_label" for="pro_email">Current Password &nbsp;
+                <div class="data">
+                  <label class="pro_label" for="pro_email">Current Password
+
+                    &nbsp;
                     <span class="data-error">
                       <?=
-                      (!empty($passerror) &&  isset($passerror['current_password']) && $passerror['flag'] == 1) ? "* " . $passerror['current_password'] . "." :  ''; ?>
+                        (!empty($passerror) && isset($passerror['current_password']) && $passerror['flag'] == 1) ? "* " . $passerror['current_password'] . "." : ''; ?>
 
                     </span>
                   </label>
-                <span class="hide-icon">
-                  <input class="pro_input" type="password" id="c-password" name="password"
-                    placeholder="Enter current password" value="<?= isset($pass) ?  $pass['password'] : "" ?>">
+                  <span class="hide-icon">
+                    <input class="pro_input" type="password" id="c-password" name="password"
+                      placeholder="Enter current password" value="<?= isset($pass) ? $pass['password'] : "" ?>">
+                    <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','c-toggleIcon')">
+                      <ion-icon name="eye-off-outline" id="c-toggleIcon"></ion-icon>
+                    </a>
+                  </span>
+                </div>
+                <div class="data">
+                  <label class="pro_label" for="pro_date">New Password
 
-                  <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','s-toggleIcon')">
-                    <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
-                  </a>
-                </span>
-              </div>
-              <div class="data">
-                <label class="pro_label" for="pro_date">New Password &nbsp;
+                    &nbsp;
                     <span class="data-error">
                       <?=
-                      (!empty($passerror) &&  isset($passerror['new_password']) && $passerror['flag'] == 1) ? "* " . $passerror['new_password'] . "." :  ''; ?>
+                        (!empty($passerror) && isset($passerror['new_password']) && $passerror['flag'] == 1) ? "* " . $passerror['new_password'] . "." : ''; ?>
 
                     </span>
                   </label>
-                <span class="hide-icon">
+                  <span class="hide-icon">
 
-                  <input class="pro_input" type="password" id="n-password" name="new_password"
-                    placeholder="Enter New password" value="<?= isset($pass) ?  $pass['new_password'] : "" ?>">
-                  <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','s-toggleIcon')">
-                    <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
-                  </a>
-                </span>
+                    <input class="pro_input" type="password" id="n-password" name="new_password"
+                      placeholder="Enter New password" value="<?= isset($pass) ? $pass['new_password'] : "" ?>">
+                    <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','n-toggleIcon')">
+                      <ion-icon name="eye-off-outline" id="n-toggleIcon"></ion-icon>
+                    </a>
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div class="info_data" id="last-element">
-              <div class="data">
-                <label class="pro_label" for="pro_profession">Confirm Password  &nbsp;
+              <div class="info_data" id="last-element">
+                <div class="data">
+                  <label class="pro_label" for="pro_profession">Confirm Password
+
+                    &nbsp;
                     <span class="data-error">
                       <?=
-                      (!empty($passerror) &&  isset($passerror['confirm_password']) && $passerror['flag'] == 1) ? "* " . $passerror['confirm_password'] . "." :  ''; ?>
+                        (!empty($passerror) && isset($passerror['confirm_password']) && $passerror['flag'] == 1) ? "* " . $passerror['confirm_password'] . "." : ''; ?>
 
                     </span>
                   </label>
-                <span class="hide-icon">
+                  <span class="hide-icon">
 
-                  <input class="pro_input" type="text" id="re-password" name="confirm_password"
-                    placeholder="Enter Confirm password" value="<?= isset($pass) ?  $pass['confirm_password'] : "" ?>">
-                  <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
-                    <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
-                  </a>
-                </span>
-              </div>
-              <div class="pro_button">
-                <button type="button" class="small_btn discard_btn" name="discardP" value="discardP" href="<?= ROOT ?>/customer/profile"><span>
+                    <input class="pro_input" type="password" id="re-password" name="confirm_password"
+                      placeholder="Enter Confirm password"
+                      value="<?= isset($pass) ? $pass['confirm_password'] : "" ?>">
+                    <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
+                      <ion-icon name="eye-off-outline" id="re-toggleIcon"></ion-icon>
+                    </a>
+                  </span>
+                </div>
+                <div class="pro_button">
+                  <button type="submit" class="small_btn discard_btn ltor-button" name="discardP" value="discardP"
+                    href="<?= ROOT ?>/delivery/profile">
+                    <span>
                       Discard
-                    </span></button>
-                <button type="submit" class="small_btn save_btn" name="saveP" value="saveP"><span>
+                    </span>
+
+                  </button>
+                  <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP">
+                    <span>
                       Save Changes
-                    </span></button>
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
+            </form>
+          </div>
       </div>
     </div>
 

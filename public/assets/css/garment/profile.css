@@ -267,7 +267,8 @@ ion-icon {
   display: flex;
   justify-content: flex-start; /* Adjusted to left-align buttons */
   margin-top: 5px;
-  margin-bottom: 7px;
+  margin-bottom: -16px;margin-left: 60%;
+  gap: 16px;
 }
 
 #last-element {
