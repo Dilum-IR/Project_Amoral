@@ -32,26 +32,29 @@ class GarmentOrders extends Controller
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         $order = new GarmentOrder;
+        $garment = new Garment;
         $order_material = new OrderMaterial;
         $stock = new MaterialStock;
 
         // $response = [];
         if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
             // show($_POST);
-            foreach($_POST['garments'] as $garment){
-                $data['garment_id'] = $garment['garment_id'];
-                $data['status'] = 'assigned';
+            foreach($_POST['garments'] as $each_garment){
+                $data['garment_id'] = $each_garment['garment_id'];
 
-                
+                $garment_detail = $garment->where(['garment_id' => $each_garment['garment_id']]);
+                // show($garment_detail);
+                $data['cut_price'] = $garment_detail[0]->cut_price;
+                $data['sewed_price'] = $garment_detail[0]->sewed_price;
 
-                if(!empty($garment['orders'])){
-                    foreach($garment['orders'] as $customer_order){
+                if(!empty($each_garment['orders'])){
+                    foreach($each_garment['orders'] as $customer_order){
                         $material_orders = $order_material->where(['order_id' => $customer_order['customer_orderId']]);
                         $materials = [];
                         foreach($material_orders as $material_order){
                             $materials[$material_order->material_id] = $material_order->xs + $material_order->small + $material_order->medium + $material_order->large + $material_order->xl + $material_order->xxl;
                         }
-                        $response['materials'] = $materials;
+                        // $response['materials'] = $materials;
                         $keys = array_keys($materials);
                         if(!is_array($keys)){
                                 $keys = [$keys];

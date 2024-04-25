@@ -36,12 +36,12 @@
             <form id="assign-delivery" method="POST">
 
                 <div class="orders">
-                    <h3>Selected Orders <i class='bx bx-chevron-right'></i></h3>
+                    <h3>Selected Orders <i class='bx bx-chevron-right'></i></h3> <span class="error selected"></span>
 
                     <!-- <div class="order">
                         <p>This is an order </p>
                     </div> -->
-                    <h4>Select a deliveryman</h4>
+                    <h4>Select a deliveryman</h4> <span class="error driver"></span>
                     <select name="deliveryman" id="deliveryman">
                     
                         <option value="" selected hidden style="color: grey;">Select</option>
@@ -60,6 +60,7 @@
                             <h5>Driver's Name:  <span class='name'></span></h5>
                             <h5>Vehicle Type:  <span class="vehicle"></span></h5>
                             <h5>Maximum Capacity:  <span class="capacity"></span></h5>
+                            <button type="button">View Current Orders</button>
                         </div>
                         <div class="icon">
                             <i></i>
@@ -70,23 +71,18 @@
                 </div>
             </form>
 
-            <div class="current-orders">
+            <!-- <div class="current-orders">
                 <div class="header">
-                    <h4>Current No. of Orders: </h4>
-                    <h4>Remaining Capacity: </h4>
+                    <h4>Current No. of Orders: <span class="currentOrders"></span></h4>
+                    <h4>Remaining Capacity: <span class="remainCapacity"></span></h4>
                 </div>
                 
                 <div class="orders-container">
-                    <div class="order">
-
-                    </div>
-                    <!-- <div class="order">
-
-                    </div> -->
+        
                 </div>
 
 
-            </div>
+            </div> -->
         </div>
 
 
@@ -97,57 +93,62 @@
         let form = document.getElementById('assign-delivery');
         form.addEventListener('submit', function(e){
             e.preventDefault();
-            let formData = new FormData(form);
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', '<?= ROOT ?>manager/assignDelivery', true);
-            xhr.onload = function(){
-                if(this.status == 200) {
-                    console.log('response'+this.responseText);
-                    let response = JSON.parse(this.responseText);
-                    if (response == false) {
-                        // delay(10000);
-                        
-                        
-                        var successMsgElement = document.querySelector('.success-msg');
-                        successMsgElement.innerHTML = "Order placed successfully";
-                        successMsgElement.style.display = 'block';
-                        // delay(2000);
-                        setTimeout(function() {
-                            successMsgElement.style.display = 'none';
-                            location.reload();
-                        }, 2000);
-                        
-                            
+            var noerror = validateAssign();
+            if(noerror){
 
-                    }else{
-                        var successMsgElement = document.querySelector('.success-msg');
-               
-                        successMsgElement.innerHTML = "There was an error placing the order";
-                        
-                        // successMsgElement.style.transition = 'all 1s ease-in-out';
-                        
-                        successMsgElement.style.display = 'block';
-                        successMsgElement.style.backgroundColor = 'red';
-                        setTimeout(function() {
-                            successMsgElement.style.display = 'none';
-                            location.reload();
-                        }, 2000);
+                let formData = new FormData(form);
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '<?= ROOT ?>/manager/assignDeliverymen', true);
+                xhr.onload = function(){
+                    if(this.status == 200) {
+                        console.log('response'+this.responseText);
+                        let response = JSON.parse(this.responseText);
+                        if (response == false) {
+                            // delay(10000);
+                            
+                            
+                            var successMsgElement = document.querySelector('.success-msg');
+                            successMsgElement.innerHTML = "Delivery assigned successfully";
+                            successMsgElement.style.display = 'block';
+                            // delay(2000);
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                            
+                                
+    
+                        }else{
+                            var successMsgElement = document.querySelector('.success-msg');
+                   
+                            successMsgElement.innerHTML = "There was an error placing the order";
+                            
+                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                            
+                            successMsgElement.style.display = 'block';
+                            successMsgElement.style.backgroundColor = 'red';
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                        }
                     }
                 }
+                xhr.send(formData);
             }
-            xhr.send(formData);
         });
     </script>
 
     <script>
-        var orders = <?= json_encode($data['orders']) ?>;
-        console.log(orders);
+        var orders = <?= json_encode($data['pending_orders']) ?>;
+        var assignedOrders = <?= json_encode($data['assigned_orders']) ?>;
+        console.log(assignedOrders);
         var sizes = <?= json_encode($data['sizes']); ?>;
         var deliveryman = <?= json_encode($data['deliveryman']); ?>;
 
     </script>
 
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
+    <!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script> -->
 
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>

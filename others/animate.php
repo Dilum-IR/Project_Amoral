@@ -16,7 +16,6 @@
     <div class="chart"></div>
 
     <button onclick="changeToDaily()">Daily</button>
-    <button onclick="changeToMonthly()">Monthly</button>
     <style>
       .chart {
         width: 50%;
@@ -113,77 +112,7 @@
         chart.render();
       }
 
-      function changeToMonthly() {
-        var options = {
-          series: [{
-              name: 'Total Cost',
-              data: [0, 0, 0, 3, 8, 5, 2],
-              color: '#008FFB', // Adjust color for Total Cost
-              fill: {
-                type: 'solid',
-                opacity: 1,
-              }
-            },
-            {
-              name: 'Total Revenue',
-              data: [0, 2, 1, 5, 6, 3, 5],
-              color: '#00E396', // Adjust color for Total Revenue
-              fill: {
-                type: 'solid',
-                opacity: 1,
-              }
-            }
-          ],
-          chart: {
-            height: 350,
-            type: 'area'
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth',
-            width: 2,
-          },
-          xaxis: {
-            type: 'category',
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'], // Month names
-            axisTicks: {
-              show: true,
-              borderType: 'solid',
-              color: '#E0E0E0',
-              height: 6,
-              offsetX: 0,
-              offsetY: 0
-            },
-            axisBorder: {
-              show: true,
-              color: '#E0E0E0',
-              height: 1,
-              width: '100%',
-              offsetX: 0,
-              offsetY: 0
-            }
-          },
-          tooltip: {
-            x: {
-              format: 'dd/MM/yy HH:mm'
-            },
-          },
-          grid: {
-            show: false,
-          }
-        };
-
-        if (chart) {
-          chart.destroy();
-        }
-
-        chart = new ApexCharts(document.querySelector(".chart"), options);
-        chart.render();
-      }
-
-      changeToDaily(); // By default, set it to daily
+      changeToDaily();
     </script>
   </section>
 </body>

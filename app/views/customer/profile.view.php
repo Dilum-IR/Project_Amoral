@@ -22,10 +22,28 @@
 </head>
 
 <body>
+
+  <style>
+    .wrapper{
+      margin-top: 25px;
+    }
+    .save_btn{
+      transform: scale(1.0);
+      transition: 0.5s ease-in-out;
+    }
+    .save_btn:hover{
+      transform: scale(1.05);
+
+    }
+    .wrapper .left img {
+      width: max-content;
+    }
+  </style>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
   <?php
-  if (empty($error) && empty($imagerror) && empty($passerror) ) {
+  if (empty($error) && empty($imagerror) && empty($passerror)) {
 
     include __DIR__ . '/../utils/loading.php';
   } else {
@@ -283,8 +301,6 @@
         </div>
       </div>
   </div>
-
-
 
   <!-- Scripts -->
   <script src="<?= ROOT ?>/assets/js/customer/profile.js"></script>

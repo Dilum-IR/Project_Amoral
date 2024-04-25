@@ -117,7 +117,7 @@
                                         <?php $totQuantity = 0; ?>
 
                                         <?php foreach($data['garment_orders'] as $order): ?>
-                                            <?php if($order->garment_id == $garment->garment_id && $order->status != 'pending'): ?>
+                                            <?php if($order->garment_id == $garment->garment_id): ?>
                                                 <p><?php $count++; ?></p>
                                                 <?php foreach($data['order_material'] as $order_material): ?>
                                                     <?php if($order_material->order_id == $order->order_id): ?>
@@ -266,7 +266,23 @@
                                 <td><?php echo $order->sew_dispatch_date ?></td>
                                 <td><?php echo $order->order_id ?> </td>
                                 <td class="st">
-                                    <div class="text-status <?php echo $order->status?>"><?php echo $order->status ?></div>
+                                    <?php
+                                        switch ($order->status) {
+                                            case 'sent to company':
+                                                $status = 'cut';
+                                                break;
+                                            case 'company process':
+                                                $status = 'printing';
+                                                break;
+                                            case 'returned':
+                                                $status = 'sewing';
+                                                break;
+                                            default:
+                                                $status = $order->status;
+                                        }
+                                    ?>
+                                
+                                    <div class="text-status <?php echo $status?>"><?php echo $status ?></div>
                                     <div class="progress-bar"></div>
                                 </td>
                             
@@ -536,7 +552,7 @@
     </script>
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfuuowb7aC4EO89QtfL2NQU0YO5q17b5Y&callback=initMap"></script> -->
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>

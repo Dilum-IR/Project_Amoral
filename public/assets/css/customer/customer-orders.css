@@ -407,29 +407,47 @@ tbody tr:hover {
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.274);
 }
 
+/******************************* order status ****************************** */
+
 .text-status.pending {
   background-color: #f9c70c;
 }
 
-.text-status.cutting {
-  background-color: #1c7012cc;
-}
+/* .text-status.cut {
+  background-color: #0d8300cc;
+} */
 
-.text-status.printing {
-  background-color: #1c7012cc;
-}
-
-.text-status.sewing {
-  background-color: #1c7012cc;
+.text-status.sewing,
+.text-status.cutting,
+.text-status.cut,
+.text-status.printing,
+.text-status.sewed {
+  /* background-color: rgba(122, 1, 192, 0.959); */
+  background-color: #00b33cd3;
 }
 
 .text-status.delivering {
+  background-color: #e28000d3;
+}
+
+/*
+.text-status.sewed {
+  background-color: #00b33cd3;
+} */
+
+/* .text-status.completed {
+  background-color: #0c5fcdc7;
+} */
+
+.text-status.delivered {
   background-color: #0c5fcdc7;
 }
 
 .text-status.cancelled {
   background-color: #cf0303c7;
 }
+
+/******************************* order status ****************************** */
 
 .popup-view,
 .popup-new,

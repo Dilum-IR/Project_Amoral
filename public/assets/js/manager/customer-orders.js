@@ -99,18 +99,22 @@ orderCancel.addEventListener('click', function (event) {
 
 orderUpdate.addEventListener('click', function (event) {
     event.preventDefault();
-    updateConfirm.classList.add('is-visible');
+    let noerrors = validateViewOrder();
+    if(noerrors){
+        updateConfirm.classList.add('is-visible');
+    }
 });
 
 updateNo.addEventListener('click', function(){
     updateConfirm.classList.remove('is-visible');
 });
 
+/*
 updateYes.addEventListener('click', function(){
-    
     document.querySelector(".update-form").submit();
     updateConfirm.classList.remove('is-visible');
 });
+*/
 
 //validate the delivery dates
 let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
@@ -133,6 +137,7 @@ datesView.forEach(date => {
 
 let reportForm = document.querySelector(".popup-report form");
 let newForm = document.querySelector(".popup-new form");
+let viewForm = document.querySelector(".popup-view form");
 let cancelReportBtn = document.querySelector(".cancelR-btn");
 let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
@@ -159,18 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 displayErrorMsg(errors, reportForm);
                 event.preventDefault();
             }
-        });
-
-    }
-
-    if(newForm){
-        cancelNewBtn.addEventListener("click", function(){
-            clearErrorMsg(newForm);
-        });
-        closeNewBtn.addEventListener("click", function(){
-            clearErrorMsg(newForm);
-            closeNew();
-        
         });
 
     }
@@ -224,10 +217,76 @@ function validateNewOrder() {
     clearErrorMsg(newForm);
             
     // let errors = validateNewOrder();
-    // console.log(Object.values(errors));
+    console.log(Object.values(errors));
     if (Object.keys(errors).length > 0) {
         displayErrorMsg(errors, newForm);
         // event.preventDefault();
+    }
+
+    // console.log(errors);
+
+    if(Object.keys(errors).length === 0){
+        return true;
+    }else{
+        return false;
+    }
+
+}
+
+
+function validateViewOrder() {
+    let errors = {};
+    // pdf and images
+   // var pdf = document.querySelector('#pdfFileToUpload');
+// var image1 = document.querySelector('#imageFileToUpload1');
+// var image2 = document.querySelector('#imageFileToUpload2');
+
+// if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+    // alert('Please upload a PDF or an image');
+    // event.preventDefault();
+    // errors['files'] = ' *Please upload a PDF or images';
+// }
+
+    // sizes
+    let sizes = document.querySelectorAll('.popup-view input[type="number"]');
+    let total = 0;
+    sizes.forEach(size => {
+        total += parseInt(size.value);
+    });
+
+    if (total === 0) {
+        // event.preventDefault();
+        errors['sizes0'] = ' *Please select a size';
+    }
+
+    // dispatch date
+    let dates = document.querySelectorAll('.popup-view input[type="date"]');
+    let dateSelected = false;
+
+    dates.forEach(date => {
+        if (date.value !== '') {
+            dateSelected = true;
+        }
+    });
+
+    if (!dateSelected) {
+        // event.preventDefault();
+        errors['dates'] = ' *Please select a date';
+    }
+
+    clearErrorMsg(viewForm);
+            
+    // let errors = validateNewOrder();
+    // console.log(Object.values(errors));
+    if (Object.keys(errors).length > 0) {
+        displayErrorMsg(errors, viewForm);
+        // event.preventDefault();
+    }
+
+    if(Object.keys(errors).length === 0){
+        return true;
+    }else{
+        return false;
     }
 
 }
@@ -311,12 +370,28 @@ function openView(button) {
             case 'cutting' :
                 progress2.classList.add("active");
                 progress2.classList.add("set");
+                progress2.nextElementSibling.innerText = 'Cutting';
+
+                break;
+
+            case 'cut':
+                progress2.classList.add("active");
+                progress2.classList.add("set");
+                progress2.nextElementSibling.innerText = 'Cut';
                 break;
 
             case 'printing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress3.classList.add("set");
+                progress3.nextElementSibling.innerText = 'Printing';
+                break;
+
+            case 'printed':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress3.classList.add("set");
+                progress3.nextElementSibling.innerText = 'Printed';
                 break;
 
             case 'sewing':
@@ -324,6 +399,15 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress4.classList.add("set");
+                progress4.nextElementSibling.innerText = 'Sewing';
+                break;
+
+            case 'sewed':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress4.classList.add("active");
+                progress4.classList.add("set");
+                progress4.nextElementSibling.innerText = 'Sewed';
                 break;
 
             case 'delivering':
@@ -332,6 +416,16 @@ function openView(button) {
                 progress4.classList.add("active");
                 progress5.classList.add("active");
                 progress5.classList.add("set");
+                progress5.nextElementSibling.innerText = 'Delivering';
+                break;
+
+            case 'delivered':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress4.classList.add("active");
+                progress5.classList.add("active");
+                progress5.classList.add("set");
+                progress5.nextElementSibling.innerText = 'Delivered';
                 break;
 
             case 'completed':
@@ -348,6 +442,9 @@ function openView(button) {
                 break;
 
         }
+
+
+
 
         // update the status bar when clicked the next status
         let statuses = ['pending', 'cutting', 'printing', 'sewing', 'delivering', 'completed']
@@ -434,6 +531,13 @@ function openView(button) {
             quantity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
             addMaterialCardView(material[i], quantity, countv);
         }
+
+        // after updating to cutting, disable updating quantity
+        if (order.order_status != 'pending') {
+            document.querySelectorAll(".popup-view .st").forEach(input => {
+                input.setAttribute("disabled", "disabled");
+            });
+        }
         
 
         // update the total price when discount is updated
@@ -457,6 +561,13 @@ function openView(button) {
             // console.log(typeof(lat));
 
             
+        }else{
+            document.querySelector(".pickup").classList.add("is-checked");
+            document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
+        }
+
+        if(order.is_delivery == 1){
+
             var map = new google.maps.Map(document.getElementById("view-order-map"), {
                 // Initial center coordinates
                 center: {
@@ -466,48 +577,55 @@ function openView(button) {
                 },
                 zoom: 15,
             });
-
-            // map.setZoom(15);
-            marker = new google.maps.Marker({
-                position: {
-                    lat: lat,
-                    lng: lng,
-                },
-                map: map,
-                title: "Your Location",
-            });
-
-            map.addListener("click", function (event) {
-                if (marker) {
-                marker.setMap(null);
-                }
-        
-                // Get the clicked location's latitude and longitude
-                var latitude = event.latLng.lat();
-                var longitude = event.latLng.lng();
-        
-                console.log(latitude);
-        
-                marker = new google.maps.Marker({
-                position: {
-                    lat: latitude,
-                    lng: longitude,
-                },
-                map: map,
-                });
-        
-                document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-                document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-            });
-            
-
-            marker.addListener("click", function () {
-                infoWindow.open(map, marker);
-            });
         }else{
-            document.querySelector(".pickup").classList.add("is-checked");
-            document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
+            var map = new google.maps.Map(document.getElementById("view-order-map"), {
+                // Initial center coordinates
+                center: {
+                    // Sri lanka middle lat lang
+                    lat: 7.7072567,
+                    lng: 80.6534611,
+                },
+                zoom: 7,
+            });
         }
+
+        // map.setZoom(15);
+        marker = new google.maps.Marker({
+            position: {
+                lat: lat,
+                lng: lng,
+            },
+            map: map,
+            title: "Your Location",
+        });
+
+        map.addListener("click", function (event) {
+            if (marker) {
+            marker.setMap(null);
+            }
+    
+            // Get the clicked location's latitude and longitude
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+    
+            console.log(latitude);
+    
+            marker = new google.maps.Marker({
+            position: {
+                lat: latitude,
+                lng: longitude,
+            },
+            map: map,
+            });
+    
+            document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+            document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+        });
+        
+
+        marker.addListener("click", function () {
+            infoWindow.open(map, marker);
+        });
 
 
         document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
@@ -538,12 +656,17 @@ function openView(button) {
         sidebar.style.pointerEvents = "none";
         nav.style.pointerEvents = "none";
 
-        var currentDate = new Date();
-        var orderPlacedOn = new Date(order.order_placed_on);
-        if (((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24)) > 2) {
+
+        if (order.order_status == 'delivering' || order.order_status == 'delivered' || order.order_status == 'completed') {
             orderCancel.style.display = "none";
         } else {
             orderCancel.style.display = "block";
+        }
+
+        if(order.order_status == ' delivering' || order.order_status == 'delivered' || order.order_status == 'completed'){
+            orderUpdate.style.display = "none";
+        }else{
+            orderUpdate.style.display = "block";
         }
 
 

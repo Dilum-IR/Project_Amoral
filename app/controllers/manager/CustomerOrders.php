@@ -73,7 +73,9 @@ class CustomerOrders extends Controller
             $img1 = '';
             $img2 = '';
 
-            if (isset($_FILES['pdf'])) {
+            // var_dump($_FILES);
+
+            if ($_FILES['pdf']['error'] === 0) {
                 // show($_FILES);
                 $img_name = $_FILES['pdf']['name'];
                 $tmp_name = $_FILES['pdf']['tmp_name'];
@@ -104,13 +106,9 @@ class CustomerOrders extends Controller
                         
 
 
-                    } else {
-                        $em = "You can't upload files of this type!";
-                        header("Location:../../signup.php?error=$em&$data");
-                        exit;
-                    }
+                    } 
                 }
-            }else if(isset($_FILES['image1']) && isset($_FILES['image2'])){
+            }else if($_FILES['image1']['error'] === 0 && $_FILES['image2']['error'] === 0){
 
                     $img_name1 = $_FILES['image1']['name'];
                     $tmp_name1 = $_FILES['image1']['tmp_name'];
@@ -120,6 +118,7 @@ class CustomerOrders extends Controller
                     $tmp_name2 = $_FILES['image2']['tmp_name'];
                     $error2 = $_FILES['image2']['error'];
 
+                    // var_dump($error1);
 
                     if ($error1 === 0 && $error2 === 0) {
                         // get image extention store it in variable
@@ -134,7 +133,7 @@ class CustomerOrders extends Controller
                         $allowed_exs = array("jpg", "jpeg", "png", "pdf");
 
                         // check the allowed extention is present user upload image
-                        if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
+                        // if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
 
                             // image name username with image name
                             $new_img_name1 = $username . "-" . uniqid() . "-01." . $img_ex_lc1;
@@ -146,7 +145,7 @@ class CustomerOrders extends Controller
 
 
                             // move upload image for that folder
-                            
+                            // var_dump($img_upload_path1);
                             move_uploaded_file($tmp_name1, $img_upload_path1);
                             move_uploaded_file($tmp_name2, $img_upload_path2);
 
@@ -154,7 +153,7 @@ class CustomerOrders extends Controller
                             $img2 = $new_img_name2;
 
 
-                        }
+                        // }
                     }
                 
 
@@ -249,62 +248,71 @@ class CustomerOrders extends Controller
             
             $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
         
+            if($_POST['order_status'] == 'pending'){
 
-            $arrOrder = ['order_status' => $_POST['order_status'], 'discount' => $_POST['discount'], 'total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
+                $arrOrder = ['order_status' => $_POST['order_status'], 'discount' => $_POST['discount'], 'total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
+                    'city' => $_POST['city'],
+                    'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
+                    
+                $update1 = $order->update($order_id, $arrOrder, 'order_id');
+                // show($update1);
+                // show($_POST['material']);
+    
+                $order_material->delete($order_id, 'order_id');
+    
+                
+                $tot = count($_POST['material']);
+                // show($tot);
+                
+                    for ($i = 0; $i < $tot; $i++) {
+                        $material = $_POST['material'][$i];
+                        $sleeve = $_POST['sleeve'][$i];
+                        $pType = $_POST['printingType'][$i];
+                        $unit_price = $_POST['unit_price'][$i];
+                        $xs = $_POST['xs'][$i];
+                        $small = $_POST['small'][$i];
+                        $medium = $_POST['medium'][$i];
+                        $large = $_POST['large'][$i];
+                        $xl = $_POST['xl'][$i];
+                        $xxl = $_POST['xxl'][$i];
+                        
+                        $material_data = $materials->where(['material_type' => $material]);
+                        $sleeve_data = $sleeveType->where(['type' => $sleeve]);
+                        $printingType_data = $printingType->where(['printing_type' => $pType]);
+                        // show($material_data);
+                        $insert2 = $order_material->insert([
+                            'order_id' => $order_id,
+                            'material_id' => $material_data[0]->stock_id,
+                            'sleeve_id' => $sleeve_data[0]->sleeve_id,	
+                            'ptype_id' => $printingType_data[0]->ptype_id,
+                            'unit_price' => $unit_price,
+                            'xs' => $xs,
+                            'small' => $small,
+                            'medium' => $medium,
+                            'large' => $large,
+                            'xl' => $xl,
+                            'xxl' => $xxl
+                        ]);
+                        // show($insert2);
+                    }
+            }else{
+                $arrOrder = ['order_status' => $_POST['order_status'], 'discount' => $_POST['discount'], 'total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
                 'city' => $_POST['city'],
                 'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
                 
-            $update1 = $order->update($order_id, $arrOrder, 'order_id');
-            // show($update1);
-            // show($_POST['material']);
-
-            $order_material->delete($order_id, 'order_id');
+                $update1 = $order->update($order_id, $arrOrder, 'order_id');
+            }
 
             
-            $tot = count($_POST['material']);
-            // show($tot);
-            if(!$update1){
-                for ($i = 0; $i < $tot; $i++) {
-                    $material = $_POST['material'][$i];
-                    $sleeve = $_POST['sleeve'][$i];
-                    $pType = $_POST['printingType'][$i];
-                    $unit_price = $_POST['unit_price'][$i];
-                    $xs = $_POST['xs'][$i];
-                    $small = $_POST['small'][$i];
-                    $medium = $_POST['medium'][$i];
-                    $large = $_POST['large'][$i];
-                    $xl = $_POST['xl'][$i];
-                    $xxl = $_POST['xxl'][$i];
-                    
-                    $material_data = $materials->where(['material_type' => $material]);
-                    $sleeve_data = $sleeveType->where(['type' => $sleeve]);
-                    $printingType_data = $printingType->where(['printing_type' => $pType]);
-                    // show($material_data);
-                    $insert2 = $order_material->insert([
-                        'order_id' => $order_id,
-                        'material_id' => $material_data[0]->stock_id,
-                        'sleeve_id' => $sleeve_data[0]->sleeve_id,	
-                        'ptype_id' => $printingType_data[0]->ptype_id,
-                        'unit_price' => $unit_price,
-                        'xs' => $xs,
-                        'small' => $small,
-                        'medium' => $medium,
-                        'large' => $large,
-                        'xl' => $xl,
-                        'xxl' => $xxl
-                    ]);
-                    // show($insert2);
-                }
-            }
 
             // insert a garment order if the order status is cutting
             // show($_SESSION['USER']->id);
             $current_orders = $garment_order->where(['order_id' => $order_id]);
             // show($current_orders);
 
-            if(!$insert2 && $_POST['order_status'] == 'cutting' && empty($current_orders)){
-                $garment_order = new GarmentOrder;
-                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending', 'placed_date' => $current_date]);
+            if($_POST['order_status'] == 'cutting' && empty($current_orders)){
+                // $garment_order = new GarmentOrder;
+                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending' ]);
             }
 
             unset($_POST);

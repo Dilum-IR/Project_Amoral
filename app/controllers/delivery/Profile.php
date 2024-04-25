@@ -7,7 +7,7 @@ class Profile extends Controller
 
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
-        if ($username != 'Employee' && $_SESSION['USER']->emp_status === 'delivery') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status === 'delivery') {
 
             $employee = new Employee;
 
@@ -22,7 +22,7 @@ class Profile extends Controller
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
 
                 unset($_POST['saveP']);
-                $result = $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
+                $passerror = $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
                 //show($_POST);
             }
 

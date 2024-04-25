@@ -473,7 +473,7 @@ tbody tr:hover{
 .text-status {
   display: inline-block;
   color: #fff;
-  width: 105px;
+  width: max-content;
 
   border-radius: 12px;
   padding: 2px 12px;
@@ -543,12 +543,14 @@ tbody tr:hover{
 
 .popup-content {
   background-color: #fefefe;
-  margin: 5% auto; /* 15% from the top and centered */
+  margin: 5% auto; 
   padding: 20px 35px 40px 56px;
   border: 1px solid #888;
-  width: 60%; /* Could be more or less, depending on screen size */
+  width: 60%; 
   border-radius: 3px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  max-height: 85%;
 }
 
 .close {
@@ -664,7 +666,7 @@ textarea {
   font-size: 35px;
   color: #fff;
   margin: -60px 60px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .status ul li .text {
@@ -713,10 +715,10 @@ textarea {
 .progress::after {
   content: " ";
   position: absolute;
-  width: 170px;
+  width: 160px;
   height: 5px;
   background-color: #191919;
-  right: 30px;
+  right: 19px;
 }
 
 .active::after{

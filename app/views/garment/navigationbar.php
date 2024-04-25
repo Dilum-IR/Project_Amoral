@@ -31,7 +31,7 @@
     <style>
         nav .nav-icons {
 
-            padding-top: 10px;
+            padding-top: 12px !important;
         }
     </style>
 </section>

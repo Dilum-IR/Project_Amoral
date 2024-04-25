@@ -32,42 +32,46 @@ function closeReport(){
     overlay.classList.remove("overlay-active");
 }
 
-myModal = document.getElementById("myModal");
-modal_content = document.getElementById("modal-content");
-alert_overlay = document.getElementById("alert-overlay");
-function confirmPopup(id){
+// myModal = document.getElementById("myModal");
+// modal_content = document.getElementById("modal-content");
+// alert_overlay = document.getElementById("alert-overlay");
+// function confirmPopup(id){
     
-    myModal.classList.remove("disable");
-    myModal.classList.add("active");
+//     myModal.classList.remove("disable");
+//     myModal.classList.add("active");
     
-    modal_content.classList.remove("disable");
-    modal_content.classList.add("active");
+//     modal_content.classList.remove("disable");
+//     modal_content.classList.add("active");
     
-    alert_overlay.style.display = "block";
+//     alert_overlay.style.display = "block";
     
     
-    order_id = document.getElementById("order_id");
+//     order_id = document.getElementById("order_id");
 
-    order_id.value = id;
-}
-
-
-
-function cancelPopup(){
-    
-    myModal.classList.remove("active");
-    myModal.classList.add("disable");
-    
-    
-    modal_content.classList.remove("active");
-    modal_content.classList.add("disable");
-    
-    alert_overlay.style.display = "none";
+//     order_id.value = id;
+// }
 
 
-    console.log("myModal");
+
+// function cancelPopup(){
     
-}
+//     myModal.classList.remove("active");
+//     myModal.classList.add("disable");
+    
+    
+//     modal_content.classList.remove("active");
+//     modal_content.classList.add("disable");
+    
+//     alert_overlay.style.display = "none";
+
+
+//     console.log("myModal");
+    
+// }
+
+
+
+
 
 
 

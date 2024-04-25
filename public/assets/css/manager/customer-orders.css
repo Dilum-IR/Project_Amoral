@@ -271,8 +271,8 @@ input{
     border-radius: 20px;
     background: ghostwhite;
     margin: 19px 32px;
-    /* overflow-x: auto; */
-
+    overflow-y: scroll;
+    max-height: 70vh;
 }
 
 table{
@@ -305,7 +305,7 @@ thead th{
   border-bottom: 1px solid black;
   background: black;
   cursor: pointer;
-  
+  /* position: fixed; */
 }
 
 thead th i{
@@ -320,6 +320,7 @@ thead th.active i{
   transform: scale(1.2);
   color: blueviolet;
 }
+
 
 th, td{
     border-bottom: 1px solid #dddddd;
@@ -372,7 +373,6 @@ tr.hide td *{
   visibility: hidden;
 }
 
-
 tbody tr:hover{
   cursor: pointer;
   background-color: #0298cf0d;
@@ -420,11 +420,15 @@ tbody tr:hover{
 }
 
 .text-status.sewed{
-  background-color: bisque;
+  background-color: #d75858;
 }
 
 .text-status.delivering{
-  background-color: #0c5fcdc7;
+  background-color: #500ccdc7;
+}
+
+.text-status.delivered{
+  background-color: #93cd0c;
 }
 
 .text-status.cancelled{
@@ -460,12 +464,14 @@ tbody tr:hover{
 
 .popup-content {
   background-color: #fefefe;
-  margin: 5% auto; /* 15% from the top and centered */
+  margin: 5% auto; 
   padding: 20px 35px 40px 56px;
   border: 1px solid #888;
-  width: 60%; /* Could be more or less, depending on screen size */
+  width: 65%; 
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  max-height: 85%;
 }
 
 
