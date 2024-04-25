@@ -99,15 +99,12 @@ function generatePDF() {
           document.getElementById("down").innerHTML = "Download";
           generateContent(Jsondata);
         } else {
-          document.getElementById("message_2").innerHTML =
-            "No Compleated Orders";
-          document.getElementById("message_2").style.display = "inline-block";
-
+          
           toastApply(
-            "No Compleated Order",
-            "Please Completed Your Available Orders...",
+            "No Completed Order",
+            "Selected Date Between No Completed Orders",
             2
-          );
+          );    
         }
       } catch (error) {
         // toastApply("Update Failed", "Try again later...", 1);
