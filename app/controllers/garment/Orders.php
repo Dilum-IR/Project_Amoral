@@ -20,12 +20,6 @@ class Orders extends Controller
             // show($data);
 
 
-            // update the order status  
-            if (isset($_POST['updateGorder'])) {
-
-                $this->update_order($garment_order, $_POST);
-            }
-
             // cancel the order
             if (isset($_POST['CancelGorder'])) {
 
@@ -68,128 +62,236 @@ class Orders extends Controller
 
     private function get_order_data($garment_order)
     {
-        $result = $garment_order->getGarmentOrderData();
-        $i = 0;
 
-        foreach ($result as $item) {
+        try {
 
-            $qty = 0;
-            $qty += $item->xs + $item->small + $item->medium + $item->large + $item->xl + $item->xxl;
-            $item->qty = $qty;
-            $item->id = $i;
+            $data['garment_id'] = $_SESSION['USER']->emp_id;
+            // $data['garment_order.status'] = 'canceled';
 
-            // initially included data pass to the array
-            $item->mult_order =[
-               [
-                    "material_type" => $item->material_type,
-                    "type" => $item->type,
-                    "printing_type" => $item->printing_type,
-                    "xs" => $item->xs,
-                    "small" => $item->small,
-                    "medium" => $item->medium,
-                    "large" => $item->large,
-                    "xl" => $item->xl,
-                    "xxl" => $item->xxl,
-                    "qty" => $item->qty,
-                ]
-            ];
-            $i++;
-        }
+            $result = $garment_order->getGarmentOrderData($data);
+            $i = 0;
 
-        $j = 0;
+            foreach ($result as $item) {
 
-
-        // find the same order id orders and merge that orders 
-        // include : material ,sizes with more data
-        foreach ($result as $item) {
-
-            foreach ($result as $key => $value) {
-
-                if ($item->id != $value->id && $item->order_id == $value->order_id) {
-
-                    $new_mult = [
-                        "material_type" => $value->material_type,
-                        "type" => $value->type,
-                        "printing_type" => $value->printing_type,
-                        "xs" => $value->xs,
-                        "small" => $value->small,
-                        "medium" => $value->medium,
-                        "large" => $value->large,
-                        "xl" => $value->xl,
-                        "xxl" => $value->xxl,
-                        "qty" => $value->qty,
-                    ];
-
-                    $item->mult_order = array_merge($item->mult_order, [$new_mult]);
+                // removed canceled orders
+                if ($item->status =='canceled') {
+                    unset($result[$i]);
+                }else{
                     
-                    // remove the merge data value part included object 
-                    unset($result[$j]);
-
+                    $qty = 0;
+                    $qty += $item->xs + $item->small + $item->medium + $item->large + $item->xl + $item->xxl;
+                    $item->qty = $qty;
+                    $item->id = $i;
+                    
+                    // initially included data pass to the array
+                    $item->mult_order = [
+                        [
+                            "material_type" => $item->material_type,
+                            "type" => $item->type,
+                            "printing_type" => $item->printing_type,
+                            "xs" => $item->xs,
+                            "small" => $item->small,
+                            "medium" => $item->medium,
+                            "large" => $item->large,
+                            "xl" => $item->xl,
+                            "xxl" => $item->xxl,
+                            "qty" => $item->qty,
+                        ]
+                    ];
                 }
-                $j++;
+
+                $i++;
             }
-            
+
+            // show($result);
+
+            // find the same order id orders and merge that orders 
+            // include : material ,sizes with more data
+            foreach ($result as $item) {
+
+                foreach ($result as $key => $value) {
+
+                    if ($item->id != $value->id && $item->order_id == $value->order_id) {
+
+                        $new_mult = [
+                            "material_type" => $value->material_type,
+                            "type" => $value->type,
+                            "printing_type" => $value->printing_type,
+                            "xs" => $value->xs,
+                            "small" => $value->small,
+                            "medium" => $value->medium,
+                            "large" => $value->large,
+                            "xl" => $value->xl,
+                            "xxl" => $value->xxl,
+                            "qty" => $value->qty,
+                        ];
+
+                        $item->mult_order = array_merge($item->mult_order, [$new_mult]);
+                    }
+                }
+            }
+
+            $new_result = [];
+            $id_array = [];
+
+            foreach ($result as $item) {
+
+                if (!in_array($item->order_id, $id_array)) {
+
+                    array_push($id_array, $item->order_id);
+                    array_push($new_result, $item);
+                }
+            }
+
+            // show($id_array);
+
+            $material_array = [];
+            $total_qty = 0;
+            // create a new array for toal qty and meterial type array
+            foreach ($new_result as $item) {
+
+                foreach ($item->mult_order as $value) {
+
+                    if (!in_array($value['material_type'], $material_array)) {
+                        array_push($material_array, $value['material_type']);
+                    }
+                    $total_qty += $value['qty'];
+                }
+
+                $item->total_qty = $total_qty;
+                $item->material_array = $material_array;
+            }
+
+
+            // remove order elements
+            for ($i = 0; $i < count($result); $i++) {
+
+                unset($new_result[$i]->material_type);
+                unset($new_result[$i]->printing_type);
+                unset($new_result[$i]->type);
+                unset($new_result[$i]->xs);
+                unset($new_result[$i]->small);
+                unset($new_result[$i]->medium);
+                unset($new_result[$i]->large);
+                unset($new_result[$i]->xl);
+                unset($new_result[$i]->xxl);
+                unset($new_result[$i]->qty);
+                unset($new_result[$i]->unit_price);
+                unset($new_result[$i]->material_id);
+                unset($new_result[$i]->ptype_id);
+                unset($new_result[$i]->sleeve_id);
+                unset($new_result[$i]->emp_id);
+            }
+
+            // $resultArray = array_merge($result, $new_result);
+
+            // show($new_result);
+
+            return $new_result;
+        } catch (\Throwable $th) {
+            redirect('404');
         }
-        
-        // remove order elements
-        for ($i=0; $i < count($result) ; $i++) { 
-
-            unset($result[$i]->material_type);
-            unset($result[$i]->printing_type);
-            unset($result[$i]->type);
-            unset($result[$i]->xs);
-            unset($result[$i]->small);
-            unset($result[$i]->medium);
-            unset($result[$i]->large);
-            unset($result[$i]->xl);
-            unset($result[$i]->xxl);
-            unset($result[$i]->qty);
-            unset($result[$i]->unit_price);
-            unset($result[$i]->material_id);
-            unset($result[$i]->ptype_id);
-            unset($result[$i]->sleeve_id);
-            unset($result[$i]->placed_date);
-            unset($result[$i]->garment_id);
-            unset($result[$i]->emp_id);
-            unset($result[$i]->garment_order_id);
-        }
-
-        // $resultArray = array_merge($result, $new_result);
-
-        // show($result);
-        return $result;
     }
 
-    private function update_order($garment_order, $data)
+    public function update_status()
     {
-        show($data);
+        try {
 
-        $garment_id = $data['order_id'];
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
 
-        $switch = $data['status'];
+                echo json_encode($arr);
+                exit;
+            }
 
-        switch ($switch) {
-            case 'pending':
-                $arr['status'] = 'cutting';
-                break;
-            case 'cutting':
-                $arr['status'] = 'cutting done';
-                break;
-            case 'cutting done':
-                $arr['status'] = 'sewing';
-                break;
-            case 'sewing':
-                $arr['status'] = 'sewing done';
-                break;
-            case 'sewing done':
-                $arr['status'] = 'success';
-                break;
-            default:
-                break;
+            $garment_order = new GarmentOrder;
+            $order = new Order;
+
+            // show($_POST);
+
+            $garment_id = $_POST['garment_order_id'];
+            $order_id = $_POST['order_id'];
+
+            unset($_POST['garment_id']);
+            unset($_POST['garment_order_id']);
+            unset($_POST['order_id']);
+
+            $switch = $_POST['status'];
+            $arr['order_status'] = $_POST['status'];
+
+            switch ($switch) {
+                case 'pending':
+                    break;
+                case 'cutting':
+                    break;
+                case 'cut':
+                    $order->update($order_id, $arr, 'order_id');
+                    break;
+                case 'sent to company':
+                    break;
+                case 'company process':
+                    break;
+                case 'sent to garment':
+                    break;
+                case 'returned':
+                    break;
+                case 'sewing':
+                    $order->update($order_id, $arr, 'order_id');
+                    break;
+                case 'sewed':
+                    $order->update($order_id, $arr, 'order_id');
+                    break;
+                case 'completed':
+                    break;
+                default:
+                    break;
+            }
+
+
+            // status update
+            $garment_order->update($garment_id, $_POST, 'garment_order_id');
+
+            $arr['user'] = true;
+            echo json_encode($arr);
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
         }
-        if (isset($arr)) {
-            $update = $garment_order->update($garment_id, $arr, 'garment_id');
-            redirect('garment/orders');
+    }
+    public function cancel_order()
+    {
+        try {
+
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
+
+                echo json_encode($arr);
+                exit;
+            }
+
+            $garment_order = new GarmentOrder;
+            // show($_POST);
+
+            $garment_order_id = $_POST['garment_order_id'];
+       
+            unset($_POST['garment_id']);
+            unset($_POST['garment_order_id']);
+
+            // status update
+            $garment_order->update($garment_order_id, $_POST, 'garment_order_id');
+
+            $arr['user'] = true;
+            echo json_encode($arr);
+
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
         }
     }
 

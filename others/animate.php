@@ -1,138 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+<head>
+  <title>Sidebar</title>
+  <!-- Link Styles -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
-      <script src="animi.js"></script>
-    <div class="app">
-      <div class="cardList">
-        <button class="cardList__btn btn btn--left">
-          <div class="icon">
-            <svg>
-              <use xlink:href="#arrow-left"></use>
-            </svg>
-          </div>
-        </button>
 
-        <div class="cards__wrapper">
-          <div class="card current--card">
-            <div class="card__image">
-              <img src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
-            </div>
-          </div>
+  <!-- Content -->
+  <section id="main" class="main">
 
-          <div class="card next--card">
-            <div class="card__image">
-              <img src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
-            </div>
-          </div>
+    <div class="chart"></div>
 
-          <div class="card previous--card">
-            <div class="card__image">
-              <img src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
-            </div>
-          </div>
-        </div>
+    <button onclick="changeToDaily()">Daily</button>
+    <style>
+      .chart {
+        width: 50%;
+      }
+    </style>
 
-        <button class="cardList__btn btn btn--right">
-          <div class="icon">
-            <svg>
-              <use xlink:href="#arrow-right"></use>
-            </svg>
-          </div>
-        </button>
-      </div>
 
-      <div class="infoList">
-        <div class="info__wrapper">
-          <div class="info current--info">
-            <h1 class="text name">Highlands</h1>
-            <h4 class="text location">Scotland</h4>
-            <p class="text description">The mountains are calling</p>
-          </div>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-          <div class="info next--info">
-            <h1 class="text name">Machu Pichu</h1>
-            <h4 class="text location">Peru</h4>
-            <p class="text description">Adventure is never far away</p>
-          </div>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
-          <div class="info previous--info">
-            <h1 class="text name">Chamonix</h1>
-            <h4 class="text location">France</h4>
-            <p class="text description">Let your dreams come true</p>
-          </div>
-        </div>
-      </div>
+    <script>
+      var chart;
 
-      <div class="app__bg">
-        <div class="app__bg__image current--image">
-          <img src="https://source.unsplash.com/Z8dtTatMVMw" alt="" />
-        </div>
-        <div class="app__bg__image next--image">
-          <img src="https://source.unsplash.com/9dmycbFE7mQ" alt="" />
-        </div>
-        <div class="app__bg__image previous--image">
-          <img src="https://source.unsplash.com/m7K4KzL5aQ8" alt="" />
-        </div>
-      </div>
-    </div>
+      function changeToDaily() {
+        var options = {
+          series: [{
+              name: 'Total Cost',
+              data: [0, 0, 0, 3, 8, 5, 2],
+              color: '#008FFB', // Adjust color for Total Cost
+              fill: {
+                type: 'solid',
+                opacity: 1,
+              }
+            },
+            {
+              name: 'Total Revenue',
+              data: [0, 2, 1, 5, 6, 3, 5],
+              color: '#00E396', // Adjust color for Total Revenue
+              fill: {
+                type: 'solid',
+                opacity: 1,
+              }
+            }
+          ],
+          chart: {
+            height: 350,
+            type: 'area'
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth',
+            width: 2,
+          },
+          xaxis: {
+            type: 'category',
+            categories: Array.from({
+              length: 30
+            }, (_, i) => {
+              let currentDate = new Date();
 
-    <div class="loading__wrapper">
-      <div class="loader--text">Loading...</div>
-      <div class="loader">
-        <span></span>
-      </div>
-    </div>
+              // alert(currentDate);
+              currentDate.setDate(currentDate.getDate() - (30 - i));
+              return currentDate.toLocaleDateString('en-US', {
+                month: 'short',
+                day: '2-digit'
+              });
+            }),
+            axisTicks: {
+              show: true,
+              borderType: 'solid',
+              color: '#E0E0E0',
+              height: 6,
+              offsetX: 0,
+              offsetY: 0
+            },
+            axisBorder: {
+              show: true,
+              color: '#E0E0E0',
+              height: 1,
+              width: '100%',
+              offsetX: 0,
+              offsetY: 0
+            }
+          },
+          tooltip: {
+            x: {
+              format: 'dd/MM/yy HH:mm'
+            },
+          },
+          grid: {
+            show: false,
+          }
+        };
 
-    <svg class="icons" style="display: none">
-      <symbol
-        id="arrow-left"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
-        <polyline
-          points="328 112 184 256 328 400"
-          style="
-            fill: none;
-            stroke: #fff;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 48px;
-          "
-        />
-      </symbol>
-      <symbol
-        id="arrow-right"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
-        <polyline
-          points="184 112 328 256 184 400"
-          style="
-            fill: none;
-            stroke: #fff;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 48px;
-          "
-        />
-      </symbol>
-    </svg>
+        if (chart) {
+          chart.destroy();
+        }
 
-    <div class="support">
-      <a href="https://twitter.com/DevLoop01" target="_blank"
-        ><i class="fab fa-twitter-square"></i
-      ></a>
-      <a href="https://dribbble.com/devloop01" target="_blank"
-        ><i class="fab fa-dribbble"></i
-      ></a>
-    </div>
-  </body>
+        chart = new ApexCharts(document.querySelector(".chart"), options);
+        chart.render();
+      }
+
+      changeToDaily();
+    </script>
+  </section>
+</body>
+
 </html>
+
+
+<!-- Array.from({
+      length: 30
+    }, (_, i) => (i + 1).toString()).map(day => {
+      let currentDate = new Date();
+      currentDate.setDate(day);
+      return currentDate.toISOString().slice(0, 10);
+    })
+     -->

@@ -27,7 +27,7 @@
 
                 <div class="main-content">
 
-                    <img class="userImg" src="<?= ROOT ?>/assets/images/manager/elon_musk.jpg" alt="">
+                    <img class="userImg" src="<?= ROOT ?>/uploads/profile_img/<?= $_SESSION['USER']->user_image?>" alt="">
                     <div class="user">
                         <p id="header-user">Chat with us</p>
                         <div class="user-status hide">
@@ -148,9 +148,11 @@
 
                         Jsondata = JSON.parse(res)
 
+                        // console.log(Jsondata);
+
                         // Add employee image
-                        var imageUrl = `<?= ROOT ?>/uploads/profile_img/${Jsondata.empImage}`;
-                        userImge.setAttribute("src", imageUrl);
+                        // var imageUrl = `<?php  //ROOT ?>/uploads/profile_img/${Jsondata.empImage}`;
+                        // userImge.setAttribute("src", imageUrl);
 
                         // User is first time chat with Company then display msg
                         if ((Jsondata == null || Jsondata.chatMsgs == false) ) {

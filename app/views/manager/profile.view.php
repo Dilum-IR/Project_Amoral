@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/style-bar.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/button.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/boxicons.min.css">
+  <!-- loading css -->
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
 
   <link rel="stylesheet" href="boxicons.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

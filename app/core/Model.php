@@ -22,7 +22,7 @@ trait Model
         // run the quary stage
         return $this->quary($quary);
     }
-    public function findAll_selectedColumn($order_column = 'id',$allowedCloumns=["*"])
+    public function findAll_selectedColumn($order_column = 'id', $allowedCloumns = ["*"])
     {
         $quary = "SELECT ";
 
@@ -31,7 +31,7 @@ trait Model
         }
         $quary = trim($quary, ",");
 
-        $quary .= " FROM $this->table ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+        $quary .= " FROM $this->table WHERE is_active = 1 ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
         // return;  
@@ -146,6 +146,32 @@ trait Model
         return false;
     }
 
+    public function insertAllowed($data, $columns = [])
+    {
+        // If $columns is empty, use all keys from $data
+        if (empty($columns)) {
+            $columns = array_keys($data);
+        }
+
+        // Filter $data to only include keys present in $columns
+        $data = array_intersect_key($data, array_flip($columns));
+
+        // If $data is empty after filtering, return false
+        if (empty($data)) {
+            return false;
+        }
+
+        $keys = array_keys($data);
+        $quary = "INSERT INTO $this->table (" . implode(",", $keys) . ") VALUES (:" . implode(",:", $keys) . ") ";
+
+        // echo $quary;
+
+        // Run the quary
+        $this->quary($quary, $data);
+        return false;
+    }
+
+
     public function update($id, $data, $id_column = 'id')
     {
         $keys = array_keys($data);
@@ -255,7 +281,7 @@ trait Model
     public function find_withInner($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id', $allow_columns = ["*"])
     {
         $keys = array_keys($data);
-        
+
         $quary = "SELECT ";
 
         $l = "";
@@ -263,7 +289,7 @@ trait Model
             $l .= $allow_column . " , ";
         }
         $l = trim($l, " , ");
-        
+
         $quary .= $l;
 
         $quary .= " FROM $this->table JOIN $reference_table 
@@ -334,5 +360,51 @@ trait Model
         $quary = "SELECT $this->table.*, $table.* FROM $this->table INNER JOIN $table ON $this->table.$id_column = $table.$id_column";
         // echo $quary;
         return $this->quary($quary);
+    }
+
+    public function findAllActive($order_column = 'id')
+    {
+
+        $quary = "SELECT * FROM $this->table WHERE is_active = 1  ORDER BY $order_column $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
+
+    public function find_ActivewithInner($data, $reference_table, $refe_column1 = 'id', $refe_column2 = 'id', $allow_columns = ["*"])
+    {
+        $keys = array_keys($data);
+
+        $quary = "SELECT ";
+
+        $l = "";
+        foreach ($allow_columns as $allow_column) {
+            $l .= $allow_column . " , ";
+        }
+        $l = trim($l, " , ");
+
+        $quary .= $l;
+
+        $quary .= " FROM $this->table  JOIN $reference_table 
+                        ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                        AND  $this->table.is_active = 1
+                        WHERE ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " AND ";
+        }
+
+        // Add condition for is_active column
+        // $quary .= "$reference_table.is_active = 1 AND ";
+
+        $quary = trim($quary, " AND ");
+
+        $quary .= " ORDER BY $this->table.$refe_column1 $this->order_type LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+
+        // run the query stage
+        return $this->quary($quary, $data);
     }
 }

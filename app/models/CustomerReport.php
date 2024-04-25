@@ -12,6 +12,7 @@ class CustomerReport{
         'title',
         'description',
         'report_date',
+        'is_active'
     ];
 
     public function validate($data){

@@ -1,55 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Image within Div as Clickable Button</title>
-    <style>
-        .button {
-            display: inline-block;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .button img {
-            width: 100px; /* Set width and height as needed */
-            height: 100px; /* Set width and height as needed */
-        }
-        .button.clicked {
-            border: 2px solid #3498db; /* Change border style as desired */
-        }
-        .button:hover {
-            background-color: lightgray;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer</title>
+<style>
+  #countdown {
+    font-size: 24px;
+  }
+</style>
 </head>
 <body>
-    <div class="button" id="button1">
-        <img src="../public/assets/images/home/1.jpg" alt="Button 1">
-    </div>
-    <div class="button" id="button2">
-        <img src="../public/assets/images/home/2.jpg" alt="Button 2">
-    </div>
-    <!-- Add more buttons with images as needed -->
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const buttons = document.querySelectorAll('.button');
+<div id="countdown"></div>
 
-            buttons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove 'clicked' class from all buttons
-                    buttons.forEach(btn => {
-                        btn.classList.remove('clicked');
-                    });
+<script>
+// Update the count down every 1 second
+const countdown = setInterval(function() {
+  // Get today's date and time
+  const today = new Date().getTime();
+  
+  // Set the date for tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowTime = tomorrow.getTime();
 
-                    // Add 'clicked' class to the clicked button
-                    button.classList.add('clicked');
+  // Calculate the time difference between today and tomorrow
+  const timeDifference = tomorrowTime - today;
 
-                    // Perform the desired action for each button here
-                    console.log(`Clicked ${button.querySelector('img').alt}`);
-                    // Add your logic based on the image button clicked
-                });
-            });
-        });
-    </script>
+  // Calculate hours, minutes and seconds
+  const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+  // Output the result in an element with id="countdown"
+  const countdownElement = document.getElementById("countdown");
+  countdownElement.innerHTML = "Countdown: " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is over, write some text 
+  if (timeDifference < 0) {
+    clearInterval(countdown);
+    countdownElement.innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
 </body>
 </html>

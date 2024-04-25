@@ -115,14 +115,14 @@ class Profile extends Controller
 
         if ($employee->changeInfoValidate($data)) {
 
-            // $employee = new Employee;
+            $user = new User;
 
             $arr['email'] = $data['email'];
 
             $row = $employee->first($arr);
-            // $emprow = $employee->first($arr);
+            $userrow = $user->first($arr);
 
-            if ((!empty($row) || !empty($emprow)) && $_SESSION['USER']->email != $data['email']) {
+            if ((!empty($row)|| !empty($userrow)) && $_SESSION['USER']->email != $data['email']) {
                 // show($row);
                 $employee->errors['flag'] = true;
                 $employee->errors['email'] = "This email is alrady in use.";
@@ -228,7 +228,7 @@ class Profile extends Controller
                 $new_img_name = explode(' ', $_SESSION['USER']->emp_name)[0] . "." . $img_ex_lc;
 
                 // bind the change user image for session variable
-                $_SESSION['USER']->user_image = $new_img_name;
+                $_SESSION['USER']->emp_image = $new_img_name;
 
                 // creating upload path on root directory
                 $img_upload_path = "../../project_Amoral/public/uploads/profile_img/" . $new_img_name;
@@ -237,7 +237,7 @@ class Profile extends Controller
                 move_uploaded_file($tmp_name, $img_upload_path);
 
                 //update the databse image name
-                $employee->update($id, ['user_image' => $new_img_name], 'emp_id');
+                $employee->update($id, ['emp_image' => $new_img_name], 'emp_id');
                 redirect('garment/profile');
             } else {
                 $fileError['flag'] = true;

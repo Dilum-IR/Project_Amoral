@@ -343,27 +343,27 @@ function openView(button) {
 
 
   // Get the data attribute value from the clicked button
-  const empData = button.getAttribute("data-emp");
+  const cstData = button.getAttribute("data-cst");
 
-  console.log("empData");
+  console.log("cstData");
 
-  if (empData) {
+  if (cstData) {
     // Parse the JSON data
-    const emp = JSON.parse(empData);
+    const cst = JSON.parse(cstData);
     console.log("data fill");
     // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
+    document.querySelector('.update-form input[name="id"]').value = cst.id;
+    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
+    // document.querySelector('.update-form img[name="cst_image"]').src = cst.cst_image;
 
-    document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+    document.querySelector('.update-form input[name="fullname"]').value = cst.fullname;
 
-    document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
-    document.querySelector('.update-form input[name="email"]').value = emp.email;
-    document.querySelector('.update-form input[name="city"]').value = emp.city;
-    document.querySelector('.update-form input[name="address"]').value = emp.address;
-    document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
-    document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+    // document.querySelector('.update-form input[name="user_status"]').value = cst.cst_status;
+    document.querySelector('.update-form input[name="email"]').value = cst.email;
+    document.querySelector('.update-form input[name="city"]').value = cst.city;
+    document.querySelector('.update-form input[name="address"]').value = cst.address;
+    // document.querySelector('.update-form input[name="DOB"]').value = cst.DOB;
+    document.querySelector('.update-form input[name="phone"]').value = cst.phone;
 
     // Show the "update-form" popup
     document.querySelector(".popup-view").classList.add("open-popup-view");

@@ -17,4 +17,4 @@ processing - (cutting , printing , sewing)
 delivering
 delivered
 
-gaarment status - assign, pending , cancelled , 
+gaarment status - assign, pending, cancelled, cutting, cut, sent to company, company process, sent to garment, returned, sewing, sewed, completed

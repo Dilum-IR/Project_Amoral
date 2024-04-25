@@ -200,7 +200,7 @@ form .form-input button:hover {
 }
 
 .ok-btn {
-  position: absolute;
+  /* position: absolute; */
   top: 51px;
   background-color: black;
   color: white;
@@ -859,14 +859,17 @@ select {
   /* margin-bottom: 12px; */
   border: none;
 }
+.popup-view .btn{
+  display: flex;
+}
 
 .popup-view .update-btn {
-  /* right: 20%; */
+  
   background: var(--blue);
 }
 
-.popup-view .update-btn:hover {
-  background: darkblue;
+.popup-view .update-btn ,.ok-btn :hover {
+  background:black;
 }
 
 .popup-view .cancel-btn {
@@ -924,6 +927,8 @@ select {
   margin: 5px;
   font-size: 16px;
   width: 100%;
+  border-radius: 20px;
+  color: white;
 }
 
 #alert-overlay {
@@ -937,17 +942,17 @@ select {
   z-index: 999; /* Ensure the overlay is on top of popups */
 }
 
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1001; /* Sit on top */
+/* .modal {
+  display: none;
+  position: fixed; 
+  z-index: 1001; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4); 
   padding: 20% 40%
 }
 
@@ -989,7 +994,7 @@ select {
   width: 100px;
   height: 37px;
   font-size: 16px;
-  display: inline-block;
+  display: flex;
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -1039,4 +1044,219 @@ select {
 .active{
   display: block;
 }
+.modalbtn{
+  display: flex;
+  gap: 25px;
 
+}
+.bxbx{
+  padding: 10% 7% 0% 3%;
+}
+.h2{
+  padding:10%;
+} */
+
+
+
+/* Base styles for the modal backdrop */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000; /* High z-index to ensure it sits on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* Allows scrolling for smaller screens */
+  background-color: rgba(0, 0, 0, 0.75); /* Darker semi-transparent background */
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  padding: 20px; /* Padding to avoid touching the viewport edge */
+}
+
+/* Styles for the modal content box */
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px; /* Rounded corners for a softer look */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow for depth */
+  width: auto; /* Auto width based on content size */
+  max-width: 500px; /* Maximum width of the modal */
+  text-align: center; /* Center text for better readability */
+  position: relative; /* Necessary for absolute positioning of the close button */
+}
+
+/* Close button styling */
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1.5rem;
+  color: #bbb;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.close:hover,
+.close:focus {
+  color: #333; /* Darker shade for hover state for better accessibility */
+  outline: none;
+}
+
+/* Modal open animation */
+.modal.active {
+  display: flex; /* Makes the modal flex when active */
+}
+
+/* Responsive settings for smaller screens */
+@media screen and (max-width: 600px) {
+  .modal-content {
+      width: 100%; /* Full width on smaller screens */
+      padding: 20px; /* Adjust padding for smaller screens */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow on small devices */
+  }
+}
+
+/* Adding animations for modal transitions */
+@keyframes modalFadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes modalContentFadeIn {
+  from {
+      transform: translateY(-20px); /* Start slightly above to create a subtle sliding effect */
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+/* Applying animations */
+.modal {
+  animation: modalFadeIn 0.3s ease-out;
+  display: none;
+}
+
+.modal-content {
+  animation: modalContentFadeIn 0.3s ease-out;
+}
+
+/* Button styles within the modal */
+.modal-content .button {
+  padding: 12px 34px;
+  margin-top: 20px;
+  border: none;
+  background-color:black; /* Bootstrap primary blue */
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 16px; /* Larger font size for better readability */
+}
+
+.modal-content .button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Layout for buttons within the modal */
+.modalbtn {
+  display: flex;
+  gap: 20px; /* Space between buttons */
+  justify-content: center; /* Centering buttons */
+}
+
+.bxs-error-circle {
+  font-size: 65px; /* Increases the icon size */
+  color: #ffd900; /* Sets the icon color to a bright yellow */
+}
+
+
+
+
+/* Media queries for tablets and below */
+@media (max-width: 768px) {
+  .container1, .container2 {
+      width: 100%; /* Makes each container full width */
+      margin: 0; /* Removes margin to utilize full width */
+      padding: 5%; /* Adds padding to prevent content from touching the edges */
+  }
+
+  .container1 form .user-details, .popup-view .detail_content {
+      flex-direction: column; /* Stacks form elements vertically */
+  }
+
+  .form .form-input input {
+      width: 100%; /* Expands the search input to full width */
+  }
+
+  .btns {
+      flex-direction: column; /* Stacks buttons vertically */
+  }
+
+  .popup-view, .popup-report {
+      width: 90%; /* Makes the popup almost full-width */
+  }
+
+  .popup-content, .popup-report .popup-content {
+      padding: 20px; /* Increases padding for better readability */
+  }
+
+  .popup-view .btns button, .popup-report .pb {
+      width: auto; /* Auto width to accommodate text properly */
+      margin: 10px 0; /* Adds vertical margin for stacked buttons */
+  }
+
+  .status ul {
+      flex-direction: column; /* Stacks status icons vertically */
+  }
+}
+.H2{
+  font-size: 100%;
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 480px) {
+  .breadcrumb {
+      flex-direction: column; /* Stacks breadcrumb links vertically */
+      margin: 10px; /* Adds margin for better spacing */
+  }
+
+  .table-section {
+      overflow-x: auto; /* Allows horizontal scrolling for tables */
+  }
+
+  .btn, .view-order-btn, .ok-btn, .new-btn {
+      padding: 8px; /* Reduces padding to fit smaller screens */
+      font-size: 14px; /* Reduces font size for better fit */
+  }
+
+  .modal-content, .popup-report .popup-content, .popup-view .popup-content {
+      width: 95%; /* Makes modal content nearly full width */
+  }
+}
+
+/* High-resolution and landscape orientation */
+@media (min-width: 769px) and (orientation: landscape) {
+  .container1, .container2 {
+      flex-direction: row; /* Aligns containers in a row for wide screens */
+  }
+
+  .popup-view, .popup-report {
+      width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
+      padding: 1%; /* Reduces padding */
+  }
+
+  .status ul {
+      flex-direction: row; /* Aligns status indicators horizontally */
+  }
+}
