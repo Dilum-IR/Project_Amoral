@@ -475,8 +475,37 @@
 
                     </div>
 
+                    <div class="collection-image">
+                        <div class="collection-image-content">
+                            <span class="add-to-collection">Add to Collection</span>
+                            <img src="<?= ROOT ?>/assets/images/merchandiser/collection.jpg" class="collection-front-image">
+                        </div>
+                        <div class="image-uploader">
+                            <form action="" method="POST">
+                                <span class="new-item-collection">Upload a new Item to the collection</span>
+                                <div class="upload-buttons">
+                                    <input class="col-image" name="image_name" type="file" accept=".jpg">
+                                    <div class="all-input-box" >
+                                        <div class="input-box">
+                                            <span class="details"> Material </span>
+                                            <input type="text" name="material" id="" placeholder="Material">
+                                        </div>
+                                        <div class="input-box">
+                                            <span class="details">Unit Price</span>
+                                            <input type="text" name="price" id="" placeholder="Unit Price" >
+                                        </div>
+
+                                    </div>
+                                    <button type="submit" name="newCollection" class="upload-button" >Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
      
                 </div>
+
+                
                 <!-- <div class="right">
                     <div class="today-date">
                     <div class="event-day">wed</div>

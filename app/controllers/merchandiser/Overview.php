@@ -38,6 +38,59 @@ class Overview extends Controller
             // show($data['materialPrintingType']);
             // show($data);
             $this->view('merchandiser/overview', $data);
+
+            if(isset($_POST["newCollection"])){
+                unset($_POST["newCollection"]);
+
+                if ($_FILES['image_name']['error'] == 0) {
+                    // show($_FILES);
+                    $img_name = $_FILES['image_name']['name'];
+                    $tmp_name = $_FILES['image_name']['tmp_name'];
+             
+
+
+                
+                        // get image extention store it in variable
+                        $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
+                      
+
+                        // convet to image extetion into lowercase and store it in variable
+                        $img_ex_lc = strtolower($img_ex);
+
+                        // allowed image extetions
+                        $allowed_exs = array("jpg", "jpeg");
+
+                        // check the allowed extention is present user upload image
+                        if (in_array($img_ex_lc, $allowed_exs)) {
+
+                            $collection = new Collection;
+
+                            $lastImage=$collection->findLast();
+
+                            $lastImageId = $lastImage[0]->image_id;
+                            // image name username with image name
+                            $new_img_name = "amoral-design - " .$lastImageId + 1 . $img_ex_lc;
+                      
+
+                            // creating upload path on root directory
+                            $img_upload_path = $_SERVER['DOCUMENT_ROOT'] . "/Project_Amoral/public/uploads/designs/"  . $new_img_name;
+               
+
+
+                            // move upload image for that folder
+
+                            move_uploaded_file($tmp_name, $img_upload_path);
+                           
+
+                            $img = $new_img_name;
+                        
+                    }
+                }
+
+                // show($_POST);
+                $this->collectionAdd($_POST);
+                
+            }
             
         }else{
             redirect('home');
@@ -61,5 +114,11 @@ class Overview extends Controller
         echo json_encode($response);	
     }
 
+    public function collectionAdd($data){
+        $collectionImage = new Collection;
+        // show($data);
+        $collectionImage->insert($data);
     
+    }
 }
+    
