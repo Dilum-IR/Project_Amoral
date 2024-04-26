@@ -172,7 +172,7 @@ form .form-input button:hover {
 .garmentsCard{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-column-gap: 60px;
+  grid-column-gap: 120px;
 
   margin: 19px 32px 10px 32px;
 
@@ -208,7 +208,8 @@ form .form-input button:hover {
 }
 
 .garmentsCard .right {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-column: 2 / -1;
   flex-direction: row;
   flex-wrap: wrap;
@@ -381,6 +382,8 @@ input{
     background: ghostwhite;
     margin: 19px 32px;
     overflow-x: auto;
+    overflow-y: scroll;
+    max-height: 70vh;
     /* border: black 1px solid; */
 }
 
@@ -437,10 +440,17 @@ td img{
     border: 5px solid #ced0d2;
 }
 
+tr{
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
+}
+
 tr.hide{
   opacity: 0;
   transform: translateX(100%);
   line-height: 0;
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
 }
 
 tr.hide td,
@@ -451,6 +461,9 @@ tr.hide td div{
   border: none;
   margin: 0;
   border-bottom: none;
+  font-size: 0;
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
 }
 
 tr.hide td *{
@@ -504,6 +517,10 @@ tbody tr:hover{
 
 .text-status.cut{
   background-color: #12706b;
+}
+
+.text-status.sent.to.stitch{
+  background-color: #a5b75d;
 }
 
 .text-status.completed{

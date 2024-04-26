@@ -113,7 +113,14 @@
                                 </td>
                                 <td><?php echo $order->dispatch_date ?></td>
                                 <td class="st">
-                                    <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
+                                    <div class="text-status <?php echo $order->order_status?>">
+                                            <?php if($order->order_status == 'sent to garment'): 
+                                                echo 'sent to stitch';
+                                            else: ?>
+                                                <?php echo $order->order_status;
+                                            endif; ?>
+
+                                    </div>
                                     <div class="progress-bar"></div>
                                 </td>
                             

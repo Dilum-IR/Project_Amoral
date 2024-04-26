@@ -45,6 +45,9 @@ route('manager/newOrder', 'manager/CustomerOrders@newOrder');
 route('manager/updateOrder', 'manager/CustomerOrders@updateOrder');
 
 route('manager/assignDeliverymen','manager/AssignDelivery@assignDeliverymen');
+route('manager/updateAssignedOrders','manager/AssignDelivery@updateAssignedOrders');
+
+route('manager/updateOrderStatus', 'manager/PrintingProcess@updateOrderStatus');
 
 //merchandiser ajax calling endpoints
 route('merchandiser/updateMaterial', 'merchandiser/Overview@updateMaterial');

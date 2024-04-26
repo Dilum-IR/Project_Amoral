@@ -394,6 +394,13 @@ function openView(button) {
                 progress3.nextElementSibling.innerText = 'Printed';
                 break;
 
+            case 'sent to garment':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress3.classList.add("set");
+                progress3.nextElementSibling.innerText = 'Printed & Sent to Stitch';
+                break;
+
             case 'sewing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
@@ -506,7 +513,7 @@ function openView(button) {
 
        
         // Populate the "update-form" fields with the order data
-        document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
+        document.querySelector('.update-form input[name="order_id"]').value = 'ORD-'+order.order_id;
         document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
 
         let existingCards = document.querySelectorAll('.user-details.new-card');

@@ -260,11 +260,11 @@
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <tr>
-                                <td><?php echo $order->garment_order_id ?></td>
+                                <td>G-ORD-<?php echo $order->garment_order_id ?></td>
                                 <td><?php echo $garment_name ?></td>
                                 <td><?php echo $order->cut_dispatch_date ?></td>
                                 <td><?php echo $order->sew_dispatch_date ?></td>
-                                <td><?php echo $order->order_id ?> </td>
+                                <td>ORD-<?php echo $order->order_id ?> </td>
                                 <td class="st">
                                     <?php
                                         switch ($order->status) {
@@ -273,6 +273,9 @@
                                                 break;
                                             case 'company process':
                                                 $status = 'printing';
+                                                break;
+                                            case 'sent to garment':
+                                                $status = 'sent to stitch';
                                                 break;
                                             case 'returned':
                                                 $status = 'sewing';
@@ -366,11 +369,15 @@
             <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Order Id </span>
+                        <span class="details">Garment Order Id </span>
+                        <input name="garment_order_id" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Customer Order Id </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
 
-                    <div class="input-box"></div>
 
                     <div class="input-box">
                         <span class="details">Sewing Done On</span>
@@ -382,12 +389,18 @@
                         <input name="cut_dispatch_date" type="date" required onChange="" />
                     </div>
 
+                    <div class="input-box">
+                        <span class="details">Cutting Price(Rs.)</span>
+                        <input name="cut_price" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Sewing Price(Rs.)</span>
+                        <input name="sewed_price" type="text" required onChange="" readonly value="" />
+                    </div>
+
                 </div>
 
-                <hr class="second">
-
-                <div class="add card"></div>
-                
                 <hr class="second">
                 
                 <div class="user-details">
@@ -401,6 +414,13 @@
                         <input type="text" name="dispatch_date" required onChange="" readonly value="">
                     </div>
                 </div>
+
+                <hr class="second">
+
+                <h3>Materials & Quantities </h3>
+
+                <div class="add card"></div>
+                
                 <!-- hidden element -->
                 <div class="input-box">
                     <!-- <span class="details">Order Id </span> -->

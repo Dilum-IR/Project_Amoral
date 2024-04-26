@@ -4,19 +4,241 @@ let nav = document.getElementById("navbar");
 let popupView = document.getElementById("popup-view");
 let closeViewBtn = document.querySelector(".popup-view .close");
 
+//remove active classes of buttons
+function removeActiveClasses(){
+    let filterBtns = document.querySelectorAll('.filters button');
+    filterBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+}
+
+// filter table data when a filter button is clicked
+function filterTable(arg){
+
+    removeActiveClasses();
+    let i = 0;
+    let table_rows = document.querySelectorAll('.table-section tbody tr');
+    if(arg == 'cut'){
+        document.querySelector('.filters #pending').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td class='norecords' colspan='8'>No records found</td></tr>";
+            return;
+        }
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('cut')){
+                row.style.display = 'table-row';
+                i++;
+            }
+            else{
+                row.style.display = 'none';
+            }
+        }); 
+        
+    }else if(arg == 'printing'){
+        document.querySelector('.filters #printing').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+            return;
+        }
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('printing')){
+                row.style.display = 'table-row';
+                i++;
+            }
+            else{
+                row.style.display = 'none';
+            }
+
+        });
+        
+    }else if(arg == 'printed'){
+        document.querySelector('.filters #printed').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+            return;
+        }
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('printed')){
+                row.style.display = 'table-row';
+                i++;
+            }
+            else{
+                row.style.display = 'none';
+            }
+
+        });
+
+    }else{
+        document.querySelector('.filters #all').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+            return;
+        }
+        table_rows.forEach(row => {
+            row.style.display = 'table-row';
+            i++;
+        });
+     
+    }
+    
+    if(i == 0){
+        document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+    }
+}
+
+// *****************************Update status of order*******************************
+
+var each_order = {};
+var popup_status_btn = document.getElementById("popup-status-btn");
+
+// popup time get the first update status data order data
+function status_update_method(button) {
+  status_confirm_popup.style.display = "block";
+
+  const orderData = button.getAttribute("data-order");
+  each_order = orderData;
+
+  console.log(each_order);
+
+}
+
+function change_order_status(tap = "popup") {
+  
+  // always this part for come when user is popup click with the ok button 
+  if (tap == "table btn") {
+    order_status = "";
+    
+    // Get the data attribute value from the clicked button
+    // const orderData = button.getAttribute("data-order");
+    
+    if (each_order) {
+      // Parse the JSON data
+      order = JSON.parse(each_order);
+      
+      switch (order.order_status) {
+        case "cut":
+          order_status = "printing";
+          break;
+        case "printing":
+          order_status = "printed";
+          break;
+        case "printed":
+            order_status = "sent to garment";
+            break;
+        default:
+          break;
+      }
+    } else {
+      return;
+    }
+  }
+
+  if(order_status == "printed"){
+    document.querySelector('.popup-view .update-form .update-btn').value = "Mark As Sent";
+    document.querySelector('.popup-view .update-form .update-btn').title = "Mark order as sent to garment";
+  }
+//   popup_status_btn.innerHTML =
+//     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
+
+//   document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+//     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
+//   document.getElementById(`table-status-btn${order.order_id}`).disabled = true;
+
+//   popup_status_btn.disabled = true;
+//   document.getElementById("popup-status-cancel-btn").disabled = true;
+
+  data = {
+    garment_order_id: order.garment_order_id,
+    status: order_status,
+    order_id: order.order_id,
+  };
+
+  console.log(data);
+
+  $.ajax({
+    type: "POST",
+    url: change_status_endpoint,
+    data: data,
+    cache: false,
+    success: function (res) {
+      try {
+        // convet to the json type
+        console.log(res);
+        Jsondata = JSON.parse(res);
+
+        if (Jsondata.user) {
+            var successMsgElement = document.querySelector('.success-msg');
+            successMsgElement.innerHTML = "Order updated successfully";
+            successMsgElement.style.display = 'block';
+            setTimeout(function() {
+                successMsgElement.style.display = 'none';
+                location.reload();
+            }, 2000);
+        }else{
+            var successMsgElement = document.querySelector('.success-msg');
+                
+            successMsgElement.innerHTML = "There was an error updating the order";
+            
+            // successMsgElement.style.transition = 'all 1s ease-in-out';
+            
+            successMsgElement.style.display = 'block';
+            successMsgElement.style.backgroundColor = 'red';
+            setTimeout(function() {
+                successMsgElement.style.display = 'none';
+                location.reload();
+            }, 2000);
+        }
+      } catch (error) {
+        // popup_status_btn.innerHTML = "Update Status";
+        // document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+        //   "Update Status";
+        var successMsgElement = document.querySelector('.success-msg');
+                
+        successMsgElement.innerHTML = "There was an error updating the order";
+        
+        // successMsgElement.style.transition = 'all 1s ease-in-out';
+        
+        successMsgElement.style.display = 'block';
+        successMsgElement.style.backgroundColor = 'red';
+        setTimeout(function() {
+            successMsgElement.style.display = 'none';
+            location.reload();
+        }, 2000);
+
+      }
+    },
+    error: function (xhr, status, error) {
+        var successMsgElement = document.querySelector('.success-msg');
+                
+        successMsgElement.innerHTML = "There was an error updating the order";
+        
+        // successMsgElement.style.transition = 'all 1s ease-in-out';
+        
+        successMsgElement.style.display = 'block';
+        successMsgElement.style.backgroundColor = 'red';
+        setTimeout(function() {
+            successMsgElement.style.display = 'none';
+            location.reload();
+        }, 2000);
+    },
+  });
+}
+
+
+
 //close button
 closeViewBtn.addEventListener('click', closeView);
 
 //confirmation popup 
-document.querySelector(".update-btn").addEventListener('click', function (event) {
-    event.preventDefault();
+// document.querySelector(".update-btn").addEventListener('click', function (event) {
+//     event.preventDefault();
 
-    document.querySelector('.cu-popup').classList.add('is-visible');
-});
+//     document.querySelector('.cu-popup').classList.add('is-visible');
+// });
 
-document.querySelector('.cu-popup .no').addEventListener('click', function(){
-    updateConfirm.classList.remove('is-visible');
-});
+// document.querySelector('.cu-popup .no').addEventListener('click', function(){
+//     updateConfirm.classList.remove('is-visible');
+// });
 
 
 function openView(button) {
