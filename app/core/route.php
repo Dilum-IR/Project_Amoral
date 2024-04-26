@@ -43,6 +43,7 @@ route('manager/updatePrintingType', 'manager/Overview@updatePrintingType');
 
 route('manager/newOrder', 'manager/CustomerOrders@newOrder');
 route('manager/updateOrder', 'manager/CustomerOrders@updateOrder');
+route('manager/cancelOrder', 'manager/CustomerOrders@cancelOrder');
 
 route('manager/assignDeliverymen','manager/AssignDelivery@assignDeliverymen');
 route('manager/updateAssignedOrders','manager/AssignDelivery@updateAssignedOrders');

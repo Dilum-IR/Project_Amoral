@@ -73,6 +73,9 @@ class CustomerOrders extends Controller
             $img1 = '';
             $img2 = '';
 
+            $order_data = $order->findLast();
+            $prev_order = $order_data[0]->order_id;
+
             // var_dump($_FILES);
 
             if ($_FILES['pdf']['error'] === 0) {
@@ -94,7 +97,7 @@ class CustomerOrders extends Controller
                     if (in_array($img_ex_lc, $allowed_exs)) {
 
                         // image name username with image name
-                        $new_img_name = $username . "-" . uniqid() . "." . $img_ex_lc;
+                        $new_img_name = "ORD-" . $prev_order + 1 . "-" . uniqid() . "." . $img_ex_lc;
 
                         // creating upload path on root directory
                         $img_upload_path = $_SERVER['DOCUMENT_ROOT'] . "/Project_Amoral/public/uploads/designs/"  . $new_img_name;
@@ -136,8 +139,8 @@ class CustomerOrders extends Controller
                         // if (in_array($img_ex_lc1, $allowed_exs) && in_array($img_ex_lc2, $allowed_exs)) {
 
                             // image name username with image name
-                            $new_img_name1 = $username . "-" . uniqid() . "-01." . $img_ex_lc1;
-                            $new_img_name2 = $username . "-" . uniqid() . "-02." . $img_ex_lc2;
+                            $new_img_name1 = "ORD-" . $prev_order + 1 . "-" . uniqid() . "-01." . $img_ex_lc1;
+                            $new_img_name2 = "ORD-" . $prev_order + 1 . "-" . uniqid() . "-02." . $img_ex_lc2;
 
                             // creating upload path on root directory
                             $img_upload_path1 = $_SERVER['DOCUMENT_ROOT'] . "/Project_Amoral/public/uploads/designs/"  . $new_img_name1;
@@ -217,9 +220,7 @@ class CustomerOrders extends Controller
 
     public function updateOrder(){
 
-        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-            
+   
         $order = new Order;
         $materials = new MaterialStock;
         $order_material = new OrderMaterial;
@@ -233,23 +234,24 @@ class CustomerOrders extends Controller
         date_default_timezone_set('Asia/Kolkata');
         $current_date = date("Y-m-d");
 
-        $response = [];
+        $arr = [];
 
-        if (isset($_POST) && $username !== 'User' && $_SESSION['USER']->emp_status === 'manager'){
+        if (isset($_POST) && $_SESSION['USER']->emp_status === 'manager'){
+            $arr['user'] = false;
             $order_id = $_POST['order_id'];
             // show($_POST);
             // unset($_POST['updateOrder']);
-
+            
             if(isset($_POST['latitude']) && $_POST['longitude']){
                 $_POST['is_delivery'] = 1;
             }else{
                 $_POST['is_delivery'] = 0;
             }
             
-            $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
-        
-            if($_POST['order_status'] == 'pending'){
-
+            if((($_POST['order_status'] == 'pending') && $_POST['pay_type'] == 'no') ){
+            
+                $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
+                
                 $arrOrder = ['order_status' => $_POST['order_status'], 'discount' => $_POST['discount'], 'total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
                     'city' => $_POST['city'],
                     'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
@@ -264,63 +266,108 @@ class CustomerOrders extends Controller
                 $tot = count($_POST['material']);
                 // show($tot);
                 
-                    for ($i = 0; $i < $tot; $i++) {
-                        $material = $_POST['material'][$i];
-                        $sleeve = $_POST['sleeve'][$i];
-                        $pType = $_POST['printingType'][$i];
-                        $unit_price = $_POST['unit_price'][$i];
-                        $xs = $_POST['xs'][$i];
-                        $small = $_POST['small'][$i];
-                        $medium = $_POST['medium'][$i];
-                        $large = $_POST['large'][$i];
-                        $xl = $_POST['xl'][$i];
-                        $xxl = $_POST['xxl'][$i];
-                        
-                        $material_data = $materials->where(['material_type' => $material]);
-                        $sleeve_data = $sleeveType->where(['type' => $sleeve]);
-                        $printingType_data = $printingType->where(['printing_type' => $pType]);
-                        // show($material_data);
-                        $insert2 = $order_material->insert([
-                            'order_id' => $order_id,
-                            'material_id' => $material_data[0]->stock_id,
-                            'sleeve_id' => $sleeve_data[0]->sleeve_id,	
-                            'ptype_id' => $printingType_data[0]->ptype_id,
-                            'unit_price' => $unit_price,
-                            'xs' => $xs,
-                            'small' => $small,
-                            'medium' => $medium,
-                            'large' => $large,
-                            'xl' => $xl,
-                            'xxl' => $xxl
-                        ]);
-                        // show($insert2);
-                    }
+                for ($i = 0; $i < $tot; $i++) {
+                    $material = $_POST['material'][$i];
+                    $sleeve = $_POST['sleeve'][$i];
+                    $pType = $_POST['printingType'][$i];
+                    $unit_price = $_POST['unit_price'][$i];
+                    $xs = $_POST['xs'][$i];
+                    $small = $_POST['small'][$i];
+                    $medium = $_POST['medium'][$i];
+                    $large = $_POST['large'][$i];
+                    $xl = $_POST['xl'][$i];
+                    $xxl = $_POST['xxl'][$i];
+                    
+                    $material_data = $materials->where(['material_type' => $material]);
+                    $sleeve_data = $sleeveType->where(['type' => $sleeve]);
+                    $printingType_data = $printingType->where(['printing_type' => $pType]);
+                    // show($material_data);
+                    $insert2 = $order_material->insert([
+                        'order_id' => $order_id,
+                        'material_id' => $material_data[0]->stock_id,
+                        'sleeve_id' => $sleeve_data[0]->sleeve_id,	
+                        'ptype_id' => $printingType_data[0]->ptype_id,
+                        'unit_price' => $unit_price,
+                        'xs' => $xs,
+                        'small' => $small,
+                        'medium' => $medium,
+                        'large' => $large,
+                        'xl' => $xl,
+                        'xxl' => $xxl
+                    ]);
+                    // show($insert2);
+                }
+
+                // insert a garment order if the order status is cutting
+                // show($_SESSION['USER']->id);
+                $current_orders = $garment_order->where(['order_id' => $order_id]);
+                // show($current_orders);
+
+                if($_POST['order_status'] == 'cutting' && empty($current_orders)){
+                    // $garment_order = new GarmentOrder;
+                    $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending' ]);
+                }
+                $order->update($order_id, $arrOrder, 'order_id');
+                $arr['user'] = true;
+            }else if($_POST['order_status'] == 'completed'){
+                $arrOrder = ['order_status' => $_POST['order_status']];
+                
+                $order->update($order_id, $arrOrder, 'order_id');
+                $arr['user'] = true;
             }else{
-                $arrOrder = ['order_status' => $_POST['order_status'], 'discount' => $_POST['discount'], 'total_price' => $_POST['total_price'], 'dispatch_date'=>$dispatch_date,
+                $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
+
+                $arrOrder = ['order_status' => $_POST['order_status'], 'dispatch_date'=>$dispatch_date,
                 'city' => $_POST['city'],
                 'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
                 
-                $update1 = $order->update($order_id, $arrOrder, 'order_id');
-            }
+                // insert a garment order if the order status is cutting
+                // show($_SESSION['USER']->id);
+                $current_orders = $garment_order->where(['order_id' => $order_id]);
+                // show($current_orders);
 
-            
-
-            // insert a garment order if the order status is cutting
-            // show($_SESSION['USER']->id);
-            $current_orders = $garment_order->where(['order_id' => $order_id]);
-            // show($current_orders);
-
-            if($_POST['order_status'] == 'cutting' && empty($current_orders)){
-                // $garment_order = new GarmentOrder;
-                $response = $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending' ]);
+                if($_POST['order_status'] == 'cutting' && empty($current_orders)){
+                    // $garment_order = new GarmentOrder;
+                    $garment_order->insert(['order_id' => $order_id, 'emp_id' => $_SESSION['USER']->emp_id, 'status' => 'pending' ]);
+                }
+                $order->update($order_id, $arrOrder, 'order_id');
+                $arr['user'] = true;
             }
 
             unset($_POST);
             // redirect('customer/orders');
 
+        }
+
+        echo json_encode($arr);
+    }
+
+    public function cancelOrder(){
+        $order = new Order;
+        $garment_order = new GarmentOrder;
+
+        $arr = [];
+
+        if (isset($_POST) && $_SESSION['USER']->emp_status === 'manager'){
+            $arr['user'] = false;
+            $order_id = $_POST['order_id'];
+            // show($_POST);
+            // unset($_POST['updateOrder']);
+            
+            $arrOrder = ['order_status' => 'cancelled'];
+            
+            $order->update($order_id, $arrOrder, 'order_id');
+            $relevant_garment_order = $garment_order->where(['order_id' => $order_id]);
+            // show($relevant_garment_order);
+            if(!empty($relevant_garment_order)){
+                $garment_order->update($relevant_garment_order[0]->garment_order_id, ['status' => 'cancelled'], 'garment_order_id');
+            }
+            $arr['user'] = true;
+            unset($_POST);
 
         }
 
-        echo json_encode($response);
+        echo json_encode($arr);
     }
+
 }

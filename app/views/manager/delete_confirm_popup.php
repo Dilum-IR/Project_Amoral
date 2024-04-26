@@ -1,11 +1,11 @@
-<div id="status-confirm-popup" class="logout-modal">
+<div id="delete-confirm-popup" class="logout-modal">
     <div class="modal-content">
         <span><i class="bx bx-x status-close-icon" style="color: #ff0000"></i></span>
         <div>
             <i class='bx bxs-error-circle bx-tada icon-warn1' style='color:#7d2ae8'></i>
 
         </div>
-        <h3>Are you sure that you want to update this order?</h3>
+        <h3>Are you sure that you want to cancel the order?</h3>
         <div class="logout-btn-component">
 
             <button class="button" id="confirmStatus">Yes</button>
@@ -15,40 +15,40 @@
 </div>
 
 <script>
-    const status_confirm_popup = document.getElementById("status-confirm-popup");
-    const closeButton_0 = document.getElementsByClassName("status-close-icon")[0];
-    const confirmBtn_1 = document.getElementById("confirmStatus");
-    const cancelBtn_2 = document.getElementById("cancelStatus");
+    const delete_confirm_popup = document.getElementById("delete-confirm-popup");
+    const closeButton_delete = document.getElementsByClassName("status-close-icon")[0];
+    const confirmBtn_delete = document.getElementById("confirmStatus");
+    const cancelBtn_delete = document.getElementById("cancelStatus");
 
-    cancelBtn_2.onclick = function() {
+    cancelBtn_delete.onclick = function() {
 
         // when popup time get data object for assign empty. beacuse not ok tapped
         each_order = {};
-        status_confirm_popup.style.display = "none";
+        delete_confirm_popup.style.display = "none";
     };
 
-    confirmBtn_1.onclick = function() {
+    confirmBtn_delete.onclick = function() {
         //console.log("Data deleted successfully.");
 
         // call the garment order js file include this order status update function
-        change_order_status("table btn");
-        status_confirm_popup.style.display = "none";
+        cancel_order("table btn");
+        delete_confirm_popup.style.display = "none";
         each_order = {};
     };
 
-    closeButton_0.onclick = function() {
+    closeButton_delete.onclick = function() {
 
         // when popup time get data object for assign empty. beacuse not ok tapped
         each_order = {};
-        status_confirm_popup.style.display = "none";
+        delete_confirm_popup.style.display = "none";
     };
 
-    closeButton_0.addEventListener("mouseenter", function() {
-        closeButton_0.classList.add("bx-flashing");
+    closeButton_delete.addEventListener("mouseenter", function() {
+        closeButton_delete.classList.add("bx-flashing");
     });
 
-    closeButton_0.addEventListener("mouseleave", function() {
-        closeButton_0.classList.remove("bx-flashing");
+    closeButton_delete.addEventListener("mouseleave", function() {
+        closeButton_delete.classList.remove("bx-flashing");
 
     });
 </script>
