@@ -72,7 +72,7 @@
               <?= ucfirst($_SESSION['USER']->emp_name) ?>
             </h2>
             <h4 class="profession">
-              <?= ucfirst($_SESSION['USER']->emp_status) ?>
+            Distributor
             </h4>
           </div>
 
@@ -195,7 +195,7 @@
 
                     </span></label>
                   <input class="pro_input" type="text" id="pro_profession" name="emp_status"
-                    value="<?= $_SESSION['USER']->emp_status ?>" disabled>
+                    value="Distributor" disabled>
                 </div>
                 <div class="pro_button">
                   <button type="button" class="small_btn discard_btn rtol-button" name="discard" value="discard"

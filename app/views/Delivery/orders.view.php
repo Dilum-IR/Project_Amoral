@@ -97,7 +97,7 @@
                                         <?php if ($value->order_status != 'delivered'): ?>
                                             <button type="submit" class="view-order-btn" style="background-color: red;"
                                                 id="status-<?= $value->order_id; ?>"
-                                                onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+                                                onclick="confirmPopup(<?= $value->order_id; ?>)">Mark as Delivered</button>
 
 
                                             <!-- Button 1 -->
@@ -149,9 +149,31 @@
 
 
 
-    <script>
 
-    </script>
+
+    <!-- <script>
+        function searchOrders() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("orderSearch");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("yourTableId"); // Make sure your table has an ID
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those that don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Choose the index according to your needs, e.g., 1 for Customer Name
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script> -->
 
     <!-- delivered confirm pop-up -->
     <div id="myModal" class="modal">
@@ -245,10 +267,11 @@
     <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-        <div class="h1">
-            <h1>Order Details</h1>
-        </div>
-        <!-- <div class="status">
+        <div class="popup-content">
+            <div class="h1">
+                <h1>Order Details</h1>
+            </div>
+            <!-- <div class="status">
             <ul>
                 <li>
                     <iconify-icon
@@ -288,55 +311,100 @@
             </ul>
         </div> -->
 
-        <div class="detail_content">
-            <div class="container1">
-                <form>
-                    <div class="user-details">
-                        <div class="input-box">
-                            <span class="details">Order Id </span>
-                            <input id="order-id" type="text" required onChange="" readonly value=" " />
+            <div class="detail_content">
+                <div class="container1">
+                    <form>
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Order Id </span>
+                                <input id="order-id" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Customer Name </span>
+                                <input id="customer-name" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Delivery Address</span>
+                                <input id="delivery-address" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Order Placed On</span>
+                                <input id="placed-on" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Delivery Expected On</span>
+                                <input id="expected-on" type="text" required onChange="" readonly value=" " />
+                            </div>
                         </div>
 
-                        <div class="input-box">
-                            <span class="details">Customer Name </span>
-                            <input id="customer-name" type="text" required onChange="" readonly value=" " />
-                        </div>
+                    </form>
+                </div>
 
-                        <div class="input-box">
-                            <span class="details">Delivery Address</span>
-                            <input id="delivery-address" type="text" required onChange="" readonly value=" " />
-                        </div>
+                <!-- VIEW MAP -->
 
-                        <div class="input-box">
-                            <span class="details">Order Placed On</span>
-                            <input id="placed-on" type="text" required onChange="" readonly value=" " />
-                        </div>
+                <div class="container2">
+                    <!-- <h3> Delivery locations</h3> -->
 
-                        <div class="input-box">
-                            <span class="details">Delivery Expected On</span>
-                            <input id="expected-on"type="text" required onChange="" readonly value=" " />
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
-            <!-- VIEW MAP -->
-
-            <div class="container2">
-                <!-- <h3> Delivery locations</h3> -->
-
-                <!-- <div id="map" style="height:400px; width:100%;"></div> -->
+                    <!-- <div id="map" style="height:400px; width:100%;"></div> -->
 
 
-                <script>
-                    function initMap(orderid,lat,lng) {
-                        var location = { lat: parseFloat(lat), lng: parseFloat(lng) };
+                    <script>
 
-                        var map = new google.maps.Map(document.getElementById("map"), {
-                            zoom: 7.7,
-                            center:location
-                        });
+                        let map;
+                        let directionsService;
+                        let directionsRenderer;
+
+                        function initMap() {
+                            directionsService = new google.maps.DirectionsService();
+                            directionsRenderer = new google.maps.DirectionsRenderer();
+                            map = new google.maps.Map(document.getElementById("map"), {
+                                zoom: 7.7,
+                                center: { lat: 34.0522, lng: -118.2437 } // Default center, adjust as needed
+                            });
+                            directionsRenderer.setMap(map);
+
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(function (position) {
+                                    const currentPosition = {
+                                        lat: position.coords.latitude,
+                                        lng: position.coords.longitude
+                                    };
+                                    addMarker(currentPosition, '<?= ROOT ?>/assets/images/delivery/map3.png', 'Your Location');
+                                    // addMarker(currentPosition);
+                                    // You need to fetch or define `order` here correctly
+                                    if (order.order_id && order.latitude && order.longitude) {
+                                        const orderLocation = { lat: parseFloat(order.latitude), lng: parseFloat(order.longitude) };
+                                        addMarker(location, '<?= ROOT ?>/assets/images/delivery/map3.png', 'Delivery Location');
+                                        // addMarker(orderLocation);
+                                        calculateAndDisplayRoute(currentPosition, orderLocation);
+                                    }
+                                }, function (error) {
+                                    console.error("Geolocation error: " + error.message);
+                                });
+                            } else {
+                                console.error("Geolocation is not supported by this browser.");
+                            }
+                        }
+
+
+                        function calculateAndDisplayRoute(start, end) {
+                            directionsService.route({
+                                origin: start,
+                                destination: end,
+                                travelMode: google.maps.TravelMode.DRIVING,
+                            }, (response, status) => {
+                                if (status === google.maps.DirectionsStatus.OK) {
+                                    directionsRenderer.setDirections(response);
+                                } else {
+                                    window.alert('Directions request failed due to ' + status);
+                                }
+                            });
+                        }
+
 
 
                         /*Add marker
@@ -347,40 +415,52 @@
                         });
                          /*Add marker function*/
 
-                         addMarker(location);
+                        // addMarker(currentPosition);
+
+                        // addMarker(location);
+
 
 
                         /*Add marker function*/
-
-                        function addMarker(coords) {
-                            var marker = new google.maps.Marker({
+                        function addMarker(coords, iconUrl, label) {
+                            const marker = new google.maps.Marker({
                                 position: coords,
                                 map: map,
-                                icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                                icon: iconUrl,
+                                label: label
                             });
+
+                            // Optionally, add an infowindow to each marker
+                            const infowindow = new google.maps.InfoWindow({
+                                content: label
+                            });
+
+
+                            infowindow.open(map, marker);
 
                         }
 
 
-                    }
-                </script>
-                <script async defer async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
-                <div id="map">
+
+                    </script>
+                    <script async defer async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
+                    <div id="map">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="btns">
-            <button type="button" class="ok-btn" onclick="closeView()">Back to orders</button>
-            <button type="button" class="update-btn" onclick="confirmWithPopup()">Update Order</button>
+            <div class="btns">
+                <button type="button" class="ok-btn" onclick="closeView()">Back to orders</button>
+                <button type="button" class="update-btn" onclick="confirmWithPopup()">Mark as Delivered</button>
+            </div>
         </div>
 
     </div>
 
 
 
-    <div id="overlay" class="overlay"></div>
+    <!-- <div id="overlay" class="overlay"></div> -->
 
 
 
