@@ -540,3 +540,49 @@ function updateEvents(date) {
  
 }
 
+
+// sales initialize
+let salesCircularProgress = document.getElementById("total-sales"),
+  salesProgressValue = document.getElementById("total-sales-num"),
+  // compleated orders initialize
+  completedCircularProgress = document.getElementById("completed-orders"),
+  completedProgressValue = document.getElementById("completed-orders-num");
+
+let progressStartValue = 0,
+  speed = 15;
+
+// alert(completedProgressEndValue);
+
+if (parseInt(salesProgressEndValue) != 0) {
+  // sales for circular animater
+  let salesprogress = setInterval(() => {
+    progressStartValue++;
+
+    salesProgressValue.textContent = `${progressStartValue}%`;
+    salesCircularProgress.style.background = `conic-gradient(#7d2ae8 ${
+      progressStartValue * 3.6
+    }deg, #ededed 0deg)`;
+
+    if (progressStartValue == parseInt(salesProgressEndValue)) {
+      clearInterval(salesprogress);
+    }
+  }, speed);
+}
+
+if (parseInt(completedProgressEndValue) != 0) {
+  // sales for circular animater
+  let completedProgressStartValue = 0;
+
+  let completedprogress = setInterval(() => {
+    completedProgressStartValue++;
+
+    completedProgressValue.textContent = `${completedProgressStartValue}%`;
+    completedCircularProgress.style.background = `conic-gradient(#7d2ae8 ${
+      completedProgressStartValue * 3.6
+    }deg, #ededed 0deg)`;
+
+    if (completedProgressStartValue == parseInt(completedProgressEndValue)) {
+      clearInterval(completedprogress);
+    }
+  }, speed);
+}

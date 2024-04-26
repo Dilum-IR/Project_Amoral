@@ -12,6 +12,8 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
 </head>
 
 <body>
@@ -71,99 +73,173 @@
 
 
 
-
                     <div class="insights">
-                        <div class="orders card">
+                        <div class="orders">
                             <i class='bx bxs-calendar-check'></i>
-                            <div class="middle">
-                                <div class="left">
-                                    <h3>Total Customer Orders</h3>
-                                    <?php $totalCustomerOrders = 0; ?>
-                                    <?php if (!empty($data['customerOrder'])) : ?>
-                                        <?php foreach ($data['customerOrder'] as $order) :
 
-                                            $totalCustomerOrders++;
+                            <div class="firstmiddle middle">
+                                <div>
+                                    <div class="left">
 
-                                        endforeach; ?>
-                                    <?php endif; ?>
-                                    <h1><?php echo $totalCustomerOrders ?></h1>
+                                        <h3 class="text-muted"> Pending Orders </h3> &nbsp;&nbsp;
+                                        <h1><?= (!empty($overview['pending_orders'])) ? $overview['pending_orders'] : "0" ?>
+                                        </h1>
+                                    </div>
+                                    <div class="left">
+                                        <h3>Current Orders </h3> &nbsp;&nbsp;&nbsp;
+                                        <h1><?= (!empty($overview['current'])) ? $overview['current'] : "0" ?></h1>
+                                    </div>
+                                </div>
+                                <div class="order-stat">
+                                    <small class="text-muted"><b>
+                                            Cutting Orders :&nbsp;&nbsp; <?= (!empty($overview['cutting_orders'])) ? $overview['cutting_orders'] : "0" ?>
+                                        </b></small>
+                                    <small class="text-muted"><b>
+                                            Sewing Orders :&nbsp;&nbsp;&nbsp;<?= (!empty($overview['sewing_orders'])) ? $overview['sewing_orders'] : "0" ?>
+                                        </b></small>
+
                                 </div>
                             </div>
 
                         </div>
-                        <div class="sales card">
-                            <i class='bx bxs-dollar-circle'></i>
-                            <div class="middle">
-                                <div class="left">
-                                    <h3>Total Sales</h3>
-                                    <?php $totalSales = 0; ?>
-                                    <?php if (!empty($data['customerOrder'])) : ?>
 
-                                        <?php foreach ($data['customerOrder'] as $order) : ?>
-                                            <?php if ($order->order_status == 'Delivered' || $order->order_status == 'Completed') : ?>
-                                                <?php foreach ($data['material_sizes'] as $sizes) : ?>
 
-                                                    <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount) / 100); ?>
-
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    <?php endif; ?>
-
-                                    <h1><?php echo "Rs. ", $totalSales ?></h1>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="sales card">
+                        <div class="sales">
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
-                                <div class="left">
-                                    <h3>Total Requests</h3>
-                                    <?php $totalCustomerQuotations = 0; ?>
-                                    <?php if (!empty($data['customerOrder'])) : ?>
+                                <div>
 
-                                        <?php foreach ($data['customerOrder'] as $order) :
+                                    <div class="left">
+                                        <h3>Completed Orders</h3> &nbsp;&nbsp;
+                                        <h1><?= (!empty($overview['sales']['compleated_orders'])) ? $overview['sales']['compleated_orders'] : "0" ?></h1>
 
-                                            $totalCustomerQuotations++;
-
-                                        endforeach; ?>
-                                    <?php endif; ?>
-
-                                    <h1><?php echo $totalCustomerQuotations ?></h1>
-
+                                    </div>
+                                    <small class="text-muted"><b>
+                                            Cancel Orders :&nbsp;&nbsp;&nbsp;<?= (!empty($overview['cancel_orders'])) ? $overview['cancel_orders'] : "0" ?>
+                                        </b></small>
                                 </div>
-
+                                <div class="container">
+                                    <div class="circular-progress" id="completed-orders">
+                                        <span class="progress-value" id="completed-orders-num">0%</span>
+                                    </div>
+                                </div>
                             </div>
-
+                            <small class="small-last-2 text-muted">From last month</small>
                         </div>
-                        <div class="orders card">
-                            <i class='bx bxs-calendar-check'></i>
+                        <div class="sales">
+                            <i class=' bx bxs-dollar-circle'></i>
                             <div class="middle">
-                                <div class="left">
-                                    <h3>Total Garment Orders</h3>
-                                    <?php $totalGarmentOrders = 0; ?>
-                                    <?php if (!empty($data['garmentOrder'])) : ?>
+                                <div>
+                                    <div class="left">
+                                        <h3>Total Revenue</h3> &nbsp;&nbsp;
+                                        <h1>LKR <?= number_format((!empty($overview['sales']['total_sales'])) ? $overview['sales']['total_sales'] : "0", 2, '.', ',') ?></h1>
+                                    </div>
+                                    <small class="text-muted"><b>
+                                            Total Cost : &nbsp;&nbsp; LKR <?= number_format((!empty($overview['sales']['total_cost'])) ? $overview['sales']['total_cost'] : "0", 2, '.', ',') ?>
+                                        </b></small>
+                                    <small class="text-muted"><b>
+                                            Total Remainings : &nbsp;&nbsp;&nbsp;LKR <?= number_format((!empty($overview['sales']['total_remainings'])) ? $overview['sales']['total_remainings'] : "0", 2, '.', ',') ?>
+                                        </b></small>
 
-                                        <?php foreach ($data['garmentOrder'] as $order) :
-
-                                            $totalGarmentOrders++;
-
-                                        endforeach; ?>
-                                    <?php endif; ?>
-
-                                    <h1><?php echo $totalGarmentOrders ?></h1>
                                 </div>
-                            </div>
 
+                                <div class="container">
+                                    <div class="circular-progress" id="total-sales">
+                                        <span class="progress-value" id="total-sales-num">0%</span>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="progress">
+                                    <svg>
+                                        <circle cx='38' cy='38' r='36'></circle>
+                                    </svg>
+
+                                    <div class="number">
+                                        <p>%</p>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <small class="small-last-2 text-muted">From last month</small>
                         </div>
                     </div>
                 </main>
             </div>
 
             <style>
+                /* analysis component css */
+                main .insights i::before {
+                    background: rgb(18, 211, 0);
+                    border-radius: 20%;
+                    /* padding: 5px; */
+                    font-size: 28px;
+                    margin-left: 0px;
+                }
+
+                main .insights>div {
+                    padding: 20px 5px 10px 20px;
+                }
+
+                main .insights>div .middle {
+                    margin-right: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+
+                .firstmiddle {
+                    margin-top: 10px;
+                }
+
+                .insights .middle .left,
+                .count {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                main .insights small {
+                    display: block;
+                }
+
+                .small-last-2 {
+                    margin-top: 2px;
+                    margin-left: 5px;
+                    float: right;
+                }
+
+                .container {
+                    margin-right: 10px;
+                }
+
+                .circular-progress {
+                    position: relative;
+                    height: 80px;
+                    width: 80px;
+                    border-radius: 50%;
+                    background: conic-gradient(#7d2ae8 3.6deg, #ededed 0deg);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .circular-progress::before {
+                    content: "";
+                    position: absolute;
+                    height: 65px;
+                    width: 65px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                }
+
+                .progress-value {
+                    position: relative;
+                    font-size: 20px;
+                    /* font-weight: 600; */
+                    color: black;
+                }
+
+                /* analysis component css end */
+                
                 .table-data-new {
                     margin-top: 0 !important;
                 }
@@ -1074,6 +1150,9 @@
         var emp_id = <?= $_SESSION['USER']->emp_id ?>;
         var emp_name = "<?= ucfirst($_SESSION['USER']->emp_name) ?>";
         var contact_number = "<?= $_SESSION['USER']->contact_number ?>";
+
+        let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
+            completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
     </script>
 
     <script src="<?= ROOT ?>/assets/js/manager/report_genaration.js"></script>

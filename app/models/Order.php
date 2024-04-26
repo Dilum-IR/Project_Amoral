@@ -79,7 +79,8 @@ class Order
 
     function getAllOrderData($data)
     {
-        $quary = "SELECT $this->table.user_id, $this->table.total_price, $this->table.remaining_payment, $this->table.discount, $this->table.order_status , $this->table.delivered_date,
+        $quary = "SELECT $this->table.user_id, $this->table.total_price, $this->table.remaining_payment,
+        $this->table.discount, $this->table.order_status , $this->table.delivered_date, $this->table.order_placed_on,
         order_material.*, material_stock.*, sleeves.price AS sleeves_price, printing_type.price AS print_price, 
         garment_order.cut_price, garment_order.sewed_price
         FROM order_material
@@ -293,4 +294,5 @@ class Order
         
         return $this->quary($quary, $data);
     }
+    
 }

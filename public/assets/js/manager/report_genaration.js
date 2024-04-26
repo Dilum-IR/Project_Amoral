@@ -301,7 +301,18 @@ function generateContent(genarateData) {
 // return value for added two decimal part and
 // awlways add , part when 3 digit after
 function formatNumber(value) {
-  return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  
+  // Check if value is negative
+  const isNegative = value < 0;
+  
+  // Convert value to positive for formatting
+  const positiveValue = Math.abs(value);
+  
+  // Format positive value with commas and decimal places
+  const formattedValue = positiveValue.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+
+  // Enclose negative values within parentheses
+  return isNegative ? `(${formattedValue})` : formattedValue;
 }
 
 // given date only string type

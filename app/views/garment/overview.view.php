@@ -551,6 +551,7 @@
 
         let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
             completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
+    
     </script>
 
     <script src="<?= ROOT ?>/assets/js/garment/garment-overview.js"> </script>

@@ -300,7 +300,7 @@ function generateContent(genarateData) {
 }
 
 // return value for added two decimal part and
-// awlways add , part when 3 digit after
+// always add , part when 3 digit after
 function formatNumber(value) {
   return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 }
