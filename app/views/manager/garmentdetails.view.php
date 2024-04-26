@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Amoral</title>
+    <title>Manager</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/garmentdetails.css">

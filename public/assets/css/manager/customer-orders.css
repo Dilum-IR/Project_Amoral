@@ -436,6 +436,10 @@ tbody tr:hover{
   background-color: #93cd0c;
 }
 
+.text-status.completed{
+  background-color: #0ccd93;
+}
+
 .text-status.cancelled{
   background-color: #cf0303c7;
 }
@@ -760,6 +764,30 @@ form .user-details .input-box {
   margin-bottom: 10px;
   width: calc(100% / 2 - 20px);
   overflow: hidden;
+}
+
+.update-form .user-details .input-box.design{
+  top: -40px;
+  position: relative;
+  left: 45px;
+}
+
+form .user-details .input-box .download{
+  position: relative;
+  bottom: 2px;
+  left: 38%;
+  /* width: 100%; */
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 form .user-details .input-box .addr {
@@ -1151,4 +1179,17 @@ hr.second {
   opacity: 1;
   height: auto;
   transition: opacity 1.3s ease-in-out, height 0.8s ease;
+}
+
+.payment{
+  width: 37%;
+  left: 55%;
+  position: relative;
+  align-content: center;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  cursor: auto;
 }
