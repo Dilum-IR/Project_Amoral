@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Amoral</title>
+    <title>Amoral - Garment</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/overview.css">
@@ -623,6 +623,9 @@
             }
         }
 
+        // console.log(monthly_revenue_dates);
+        // console.log(today);
+
         Object.keys(revenue_data).forEach(element => {
 
             if (dates[element] != undefined)
@@ -653,8 +656,8 @@
         var revenueValuesArray = Object.values(monthly_revenue_dates).reverse();
         var qtyValuesArray = Object.values(monthly_qty_dates).reverse();
 
-        console.log(revenueValuesArray);
-        console.log(qtyValuesArray);
+        // console.log(revenueValuesArray);
+        // console.log(qtyValuesArray);
 
         // check chart data all are zeros or not when zeros then display hide
         if (areAllValuesZero(salesValuesArray)) {

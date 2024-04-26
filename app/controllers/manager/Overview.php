@@ -38,6 +38,8 @@ class Overview extends Controller
 
             $data['overview'] = $overview;
 
+            $data['chart_analysis_data'] = $this->chart_analysis_data();
+
             // for chart and analysis
 
 
@@ -233,6 +235,8 @@ class Overview extends Controller
     }
 
 
+    // ******************** Overview Orders Analysis *****************************
+
     private function overview()
     {
 
@@ -320,7 +324,6 @@ class Overview extends Controller
         return $overview;
     }
 
-
     private function calculateSales($orders)
     {
         date_default_timezone_set('Asia/Kolkata');
@@ -360,8 +363,6 @@ class Overview extends Controller
         $currentMonthCompleatedOrders = 0;
         $lastMonthCompleatedOrders = 0;
 
-        // echo  $lastMonthDateTS_1 . "</br>";
-
         // show($orders);
 
         foreach ($orders as $item) {
@@ -369,11 +370,6 @@ class Overview extends Controller
             // get each orders garment for place date timestamp value
             // check that date is available in that current date and last date between
             $checkDateTS = strtotime($item->order_placed_on);
-
-            // $cutPrice = $item->cut_price;
-            // $sewedPrice = $item->sewed_price;
-
-            // if ($item->order_status == 'completed') {
 
             $compleated_orders += 1;
 
@@ -395,9 +391,6 @@ class Overview extends Controller
                 $lastMonthCompleatedOrders += 1;
             }
 
-            // echo  $checkDateTS . "</br>";
-            // }
-
             //total profit precentage
             $current_last_Month_total_Sales = $currentMonthTotalSales + $pastMonthTotalSales;
             $SalesPercentage = 0;
@@ -414,6 +407,7 @@ class Overview extends Controller
                 $completedOrdersPercentage = ($currentMonthCompleatedOrders / $totalCompletedOrders) * 100;
             }
         }
+
         return [
             // 'total_qty' =>  $totalQty,
             'compleated_orders' => $compleated_orders,
@@ -428,6 +422,87 @@ class Overview extends Controller
             'completed_percentage' => $completedOrdersPercentage,
         ];
     }
+    // ******************** End of Overview Orders Analysis *****************************
+
+
+
+    // ******************** chart orders data Analysis *****************************
+    private function chart_analysis_data()
+    {
+
+        $order = new Order;
+        // get data from database
+        $alldata = $order->getAllOrderData(['order_status' => 'completed']);
+        // that data re-structred
+        $new_result = $order->get_order_data($alldata);
+
+        // show($data);
+
+        $sales_with_days = [];
+        $cost_sales_with_days = [];
+        $remaining_payment_with_days = [];
+
+        $monthly_revenue = [];
+        $monthly_cost = [];
+
+        // show($new_result);
+
+        // new result data only compleated type
+        foreach ($new_result as $key => $item) {
+
+            $dateTS = date('Y-m-d' ,strtotime($item->order_placed_on));
+
+            // each dates for total revenue
+            if (empty($sales_with_days[$dateTS]))
+
+                $sales_with_days[$dateTS] = $item->total_price -  $item->total_cost;
+
+            else
+                $sales_with_days[$dateTS] += $item->total_price -  $item->total_cost;
+
+            // calculate each day for cost
+            if (empty($cost_sales_with_days[$dateTS]))
+                $cost_sales_with_days[$dateTS] = $item->total_cost;
+
+            else
+                $cost_sales_with_days[$dateTS] += $item->total_cost;
+
+
+            // calculate each day for remaining payments
+            if (empty($remaining_payment_with_days[$dateTS]))
+                $remaining_payment_with_days[$dateTS] = $item->remaining_payment;
+
+            else
+                $remaining_payment_with_days[$dateTS] += $item->remaining_payment;
+
+
+            // calculated monthly revenue and completed order quantity
+            $placed_month = date('Y-m', strtotime($item->order_placed_on));
+
+            if (!isset($monthly_revenue[$placed_month])) {
+                $monthly_revenue[$placed_month] = 0;
+            }
+            if (!isset($monthly_qty[$placed_month])) {
+                $monthly_cost[$placed_month] = 0;
+            }
+
+            $monthly_revenue[$placed_month] += $item->total_price -  $item->total_cost;
+            $monthly_cost[$placed_month] +=  $item->total_cost;
+        }
+
+        // show($monthly_qty);
+
+        return [
+            "total_sales" => $sales_with_days,
+            "cost_sales" => $cost_sales_with_days,
+
+            "remaining_payment" => $remaining_payment_with_days,
+            "monthly_revenue" => $monthly_revenue,
+            "monthly_cost" => $monthly_cost,
+        ];
+    }
+
+    // ******************** End of chart orders data Analysis *****************************
 
     public function genarate_report()
     {

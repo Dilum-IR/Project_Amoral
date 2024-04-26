@@ -12,13 +12,12 @@ class Overview extends Controller
 
             $info = $this->getInfo();
 
-            // recent only 10 orders displayed
-
             $getOrderData = $this->get_order_data();
-
+            
             // Extract the first 10 elements
             $first_10_elements = array_slice($getOrderData, 0, 10);
-
+            
+            // recent only 10 orders displayed
             $data['recent_orders'] = $first_10_elements;
 
             $overview = $this->overview($getOrderData);

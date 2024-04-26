@@ -4,7 +4,7 @@
 <head>
     <!-- <meta http-equiv="refresh" content="2; url=<?= ROOT ?>/garment/overview"> -->
 
-    <title>Manager</title>
+    <title>Amoral - Manager</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/overview.css">
@@ -239,7 +239,7 @@
                 }
 
                 /* analysis component css end */
-                
+
                 .table-data-new {
                     margin-top: 0 !important;
                 }
@@ -1277,176 +1277,187 @@
 
     <script>
         // daily revenue proccess
-        // let revenue_data = <?php  // echo (!empty($chart_analysis_data['total_sales'])) ? json_encode($chart_analysis_data['total_sales']) : "0" 
-                                ?>;
-        // let cutting_data = <?php  // echo (!empty($chart_analysis_data['cut_sales'])) ? json_encode($chart_analysis_data['cut_sales']) : "0" 
-                                ?>;
-        // let sewed_data = <?php  // echo (!empty($chart_analysis_data['sewed_sales'])) ? json_encode($chart_analysis_data['sewed_sales']) : "0" 
-                            ?>;
+        let revenue_data = <?php echo (!empty($chart_analysis_data['total_sales'])) ? json_encode($chart_analysis_data['total_sales']) : "0" ?>;
+        let cost_sales_data = <?php echo (!empty($chart_analysis_data['cost_sales'])) ? json_encode($chart_analysis_data['cost_sales']) : "0" ?>;
+        let remaining_payment_data = <?php echo (!empty($chart_analysis_data['remaining_payment'])) ? json_encode($chart_analysis_data['remaining_payment']) : "0" ?>;
 
-        // // monthly revenue proccess
-        // let monthly_revenue_data = <?php  // echo (!empty($chart_analysis_data['monthly_revenue'])) ? json_encode($chart_analysis_data['monthly_revenue']) : "0" 
-                                        ?>;
-        // let monthly_qty_data = <?php  // echo (!empty($chart_analysis_data['monthly_qty'])) ? json_encode($chart_analysis_data['monthly_qty']) : "0" 
-                                    ?>;
+        // monthly revenue proccess
+        let monthly_revenue_data = <?php echo (!empty($chart_analysis_data['monthly_revenue'])) ? json_encode($chart_analysis_data['monthly_revenue']) : "0" ?>;
+        let monthly_cost_data = <?php echo (!empty($chart_analysis_data['monthly_cost'])) ? json_encode($chart_analysis_data['monthly_cost']) : "0" ?>;
 
 
         var chart;
 
         var dates = {};
-        var cutting_dates = {};
-        var sewed_dates = {};
+        var cost_dates = {};
+        var remaining_payment_dates = {};
 
-        var monthly_qty_dates = {};
+        var monthly_cost_dates = {};
         var monthly_revenue_dates = {};
 
-        // var today = new Date();
-        // //avoid time
-        // today.setHours(0, 0, 0, 0);
+        var today_date = new Date();
+        //avoid time
+        today_date.setHours(0, 0, 0, 0);
 
-        // for (var i = 0; i < 20; i++) {
+        for (var i = 0; i <= 20; i++) {
 
-        //     var date = new Date();
-        //     date.setDate(today.getDate() - i);
+            var get_date = new Date();
+            get_date.setDate(today_date.getDate() - i);
 
-        //     // format the date in 'YYYY-MM-DD' 
-        //     var key = date.toISOString().slice(0, 10);
+            // format the date in 'YYYY-MM-DD' 
+            var key = get_date.toISOString().slice(0, 10);
 
-        //     // initial value is 0
-        //     dates[key] = 0;
-        //     cutting_dates[key] = 0;
-        //     sewed_dates[key] = 0;
+            // initial value is 0
+            dates[key] = 0;
+            cost_dates[key] = 0;
+            remaining_payment_dates[key] = 0;
 
-        //     // month object creation only added with 12 months
-        //     if (i < 12) {
+            // month object creation only added with 12 months
+            if (i < 12) {
 
-        //         let month = date.getMonth() - i;
-        //         let year = date.getFullYear();
+                let month = get_date.getMonth() - i;
+                let year = get_date.getFullYear();
 
-        //         if (month < 0) {
-        //             month += 12;
-        //             year -= 1;
-        //         }
+                if (month < 0) {
+                    month += 12;
+                    year -= 1;
+                }
 
-        //         let monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
+                let monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
 
-        //         monthly_qty_dates[monthKey] = 0;
-        //         monthly_revenue_dates[monthKey] = 0;
-        //     }
-        // }
-
-        // Object.keys(revenue_data).forEach(element => {
-
-        //     if (dates[element] != undefined)
-        //         dates[element] = revenue_data[element]
-
-        //     if (cutting_dates[element] != undefined)
-        //         cutting_dates[element] = cutting_data[element]
-
-        //     if (sewed_dates[element] != undefined)
-        //         sewed_dates[element] = sewed_data[element]
-
-        // });
-
-        // Object.keys(monthly_qty_data).forEach(element => {
-
-        //     if (monthly_qty_dates[element] != undefined)
-        //         monthly_qty_dates[element] = monthly_qty_data[element]
-
-        //     if (monthly_revenue_dates[element] != undefined)
-        //         monthly_revenue_dates[element] = monthly_revenue_data[element]
-        // });
+                monthly_cost_dates[monthKey] = 0;
+                monthly_revenue_dates[monthKey] = 0;
+            }
+        }
+        
+        console.log(monthly_cost_dates);
+        console.log(monthly_revenue_data);
 
 
-        // var salesValuesArray = Object.values(dates).reverse();
-        // var cuttingValuesArray = Object.values(cutting_dates).reverse();
-        // var sewedValuesArray = Object.values(sewed_dates).reverse();
+        //daily chart data add for each js include elements 
+        // revenue data
+        Object.keys(revenue_data).forEach(element => {
 
-        // var revenueValuesArray = Object.values(monthly_revenue_dates).reverse();
-        // var qtyValuesArray = Object.values(monthly_qty_dates).reverse();
+            if (dates[element] != undefined)
+                dates[element] = revenue_data[element]
 
-        // console.log(revenueValuesArray);
-        // console.log(qtyValuesArray);
+        });
+
+        // cost data
+        Object.keys(cost_sales_data).forEach(element => {
+
+            if (cost_dates[element] != undefined)
+                cost_dates[element] = cost_sales_data[element]
+
+        });
+
+        // remaining payment data
+        Object.keys(remaining_payment_data).forEach(element => {
+
+            if (remaining_payment_dates[element] != undefined)
+                remaining_payment_dates[element] = remaining_payment_data[element]
+
+        });
+
+        //monthly chart data add for each js include elements
+        // array for used ouer backend data array name
+        Object.keys(monthly_cost_data).forEach(element => {
+
+            if (monthly_cost_dates[element] != undefined)
+                monthly_cost_dates[element] = monthly_cost_data[element];
+
+            if (monthly_revenue_dates[element] != undefined)
+                monthly_revenue_dates[element] = monthly_revenue_data[element];
+        });
+
+        var salesValuesArray = Object.values(dates).reverse();
+        var costValuesArray = Object.values(cost_dates).reverse();
+        var remainingValuesArray = Object.values(remaining_payment_dates).reverse();
+
+        var monthlyRevenueValuesArray = Object.values(monthly_revenue_dates).reverse();
+        var monthlyCostValuesArray = Object.values(monthly_cost_dates).reverse();
+
+        // console.log(remainingValuesArray);
 
         // check chart data all are zeros or not when zeros then display hide
-        // if (areAllValuesZero(salesValuesArray)) {
+        if (areAllValuesZero(salesValuesArray)) {
 
-        // }
+        }
 
 
-        // function changeToDaily() {
-        //     var options = {
-        //         series: [{
-        //                 name: 'Total Revenue',
-        //                 data: salesValuesArray,
-        //                 color: '#008FFB',
-        //             },
-        //             {
-        //                 name: 'Cutting Revenue',
-        //                 data: cuttingValuesArray,
-        //                 color: '#7d2ae8',
-        //             },
-        //             {
-        //                 name: 'Sewing Revenue',
-        //                 data: sewedValuesArray,
-        //                 color: '#12d300',
-        //             }
-        //         ],
-        //         chart: {
-        //             height: 350,
-        //             type: 'bar'
-        //         },
-        //         dataLabels: {
-        //             enabled: false
-        //         },
-        //         stroke: {
-        //             curve: 'smooth',
-        //             width: 2,
-        //         },
-        //         xaxis: {
-        //             type: 'category',
-        //             categories: Array.from({
-        //                 length: 20
-        //             }, (_, i) => {
-        //                 let currentDate = new Date();
+        function changeToDaily() {
+            var options = {
+                series: [{
+                        name: 'Daily Revenue',
+                        data: salesValuesArray,
+                        color: '#008FFB',
+                    },
+                    {
+                        name: 'Daily Remaining Payments',
+                        data: remainingValuesArray,
+                        color: '#7d2ae8',
+                    },
+                    {
+                        name: 'Daily Cost',
+                        data: costValuesArray,
+                        color: '#12d300',
+                    }
+                ],
+                chart: {
+                    height: 350,
+                    type: 'area'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2,
+                },
+                xaxis: {
+                    type: 'category',
+                    categories: Array.from({
+                        length: 20
+                    }, (_, i) => {
+                        let currentDate = new Date();
 
-        //                 // alert(currentDate);
-        //                 currentDate.setDate(currentDate.getDate() - (20 - i));
-        //                 return currentDate.toLocaleDateString('en-US', {
-        //                     month: 'short',
-        //                     day: '2-digit'
-        //                 });
-        //             }),
+                        // alert(currentDate);
+                        currentDate.setDate(currentDate.getDate() - (20 - i));
+                        return currentDate.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: '2-digit'
+                        });
+                    }),
 
-        //         },
-        //         tooltip: {
-        //             x: {
-        //                 format: 'dd/MM/yy HH:mm'
-        //             },
-        //         },
-        //         grid: {
-        //             show: true,
-        //         }
-        //     };
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+                grid: {
+                    show: true,
+                }
+            };
 
-        //     if (chart) {
-        //         chart.destroy();
-        //     }
+            if (chart) {
+                chart.destroy();
+            }
 
-        //     chart = new ApexCharts(document.querySelector(".chart"), options);
-        //     chart.render();
-        // }
+            chart = new ApexCharts(document.querySelector(".chart"), options);
+            chart.render();
+        }
 
         function changeToMonthly() {
             var options = {
                 series: [{
                         name: 'Monthly Revenue',
-                        data: [11, 25, 15, 8, 2, 82, 8, 38, 17, 5, 22, 85],
+                        data: monthlyRevenueValuesArray,
                         color: '#7d2ae8',
                     },
                     {
-                        name: 'Monthly Total Qty',
-                        data: [1, 42, 5, 85, 2, 42, 88, 38, 7, 54, 45, 15],
+                        name: 'Monthly Cost',
+                        data: monthlyCostValuesArray,
                         color: '#000000',
                     }
                 ],
@@ -1472,7 +1483,7 @@
                     },
                 },
                 grid: {
-                    show: false,
+                    show: true,
                 }
             };
 
