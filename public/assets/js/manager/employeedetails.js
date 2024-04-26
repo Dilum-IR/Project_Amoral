@@ -371,3 +371,27 @@ function openView(button) {
   sidebar.style.pointerEvents = "none";
   nav.style.pointerEvents = "none";
 }
+
+function showAdditionalFields(selectElement) {
+  var selectedValue = selectElement.value;
+  var cutting = document.getElementById('cutting');
+  var sewing = document.getElementById('sewing');
+  var workers = document.getElementById('workers');
+  var capacity = document.getElementById('capacity');
+
+  var joinedDateLabel = document.getElementById('date');
+
+  if (selectedValue === 'garment') {
+      cutting.style.display = 'block';
+      sewing.style.display = 'block';
+      workers.style.display = 'block';
+      capacity.style.display = 'block';
+      joinedDateLabel.textContent = 'Joined Date';
+  } else {
+      cutting.style.display = 'none';
+      sewing.style.display = 'none';
+      workers.style.display = 'none';
+      capacity.style.display = 'none';
+      joinedDateLabel.textContent = 'Date of Birth';
+  }
+}

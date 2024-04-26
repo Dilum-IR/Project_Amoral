@@ -403,4 +403,57 @@ class Overview extends Controller
             "monthly_qty" => $monthly_qty,
         ];
     }
+
+
+    // genarate report function call from js 
+    public function genarate_report()
+    {
+
+        try {
+
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
+
+                echo json_encode($arr);
+                exit;
+            }
+
+            // $garment_order = new GarmentOrder;
+
+            // $data['garment_id'] = $_SESSION['USER']->emp_id;
+
+            // $result = $garment_order->getGarmentOrderData($data);
+
+            $fromDate = $_POST['from_date'];
+            $toDate = $_POST['to_date'];
+
+            $fromDateTS = strtotime($fromDate);
+            $toDateTS = strtotime($toDate);
+
+            $result = $this->get_order_data();
+
+            // $value1TS = date("Y-m-d", strtotime($result[0]->placed_date));
+            // $valueTS1 = strtotime($value1TS);
+            
+            $newresult = [];
+            foreach ($result as $key => $value) {
+                // nedd to change with compleated date
+                $valueTS = date("Y-m-d", strtotime($value->placed_date));
+                $valueTSnew = strtotime($valueTS);
+
+                // get the each garment orders only then validate with compleated and date duration
+                if ($value->status == "completed" && ($fromDateTS <= $valueTSnew) && ($toDateTS >= $valueTSnew)) {
+                    array_push($newresult, $value);
+                }
+            }
+            echo json_encode($newresult);
+
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
+        }
+    }
 }

@@ -5,7 +5,7 @@ class Collection extends Controller{
     {
         $data['data']=$this->getCollection();
 
-
+        // show($data);
         $this->view('collection/collection', $data);
 
 

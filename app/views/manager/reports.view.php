@@ -51,15 +51,15 @@
                 <form action="" method="POST">
                     <div>
                         <label>
-                            <input type="radio" name="radio" checked="all" value="all" >
+                            <input type="radio" name="rptType" checked="ckecked" value="all" >
                             <span>All</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" checked="unread" value="unread">
+                            <input type="radio" name="rptType"  value="unread">
                             <span>Unread</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" checked="read" value="read">
+                            <input type="radio" name="rptType"  value="read">
                             <span>Read</span>
                         </label>
                     </div>
@@ -73,14 +73,11 @@
             <div class="report-box">
                 <div class="report-input-box">
                     <?php
-
                     if (!empty($data)) {
                         // show($data);
-
                         foreach ($data as $rpt) :
-                            if($rpt->is_active != 0){
+                            
                     ?>
-
 
                             <div class="text-box">
                                 <div class="report-info">
@@ -100,7 +97,7 @@
                                 </div>
                             </div>
                         <?php
-                            }
+                
                         endforeach;
                     } else {
                         ?>
@@ -144,7 +141,7 @@
         </form>
     </div>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/manager/reports.js"></script>
