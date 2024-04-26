@@ -8,6 +8,8 @@
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/overview.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -17,7 +19,10 @@
     <?php include 'sidebar.php' ?>
     <!-- Sidebar -->
 
-    <?php include 'navigationbar.php' ?>
+    <?php include 'navigationbar.php';
+    include __DIR__ . '/../utils/toastMsg.php';
+
+    ?>
     <!-- Scripts -->
 
     <!-- Content -->
@@ -301,6 +306,7 @@
                 }
 
                 button:disabled {
+                    cursor: not-allowed;
                     background-color: rgba(0, 0, 0, 0.6) !important;
                 }
 
@@ -1060,15 +1066,17 @@
     </section>
     <script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js" type="text/javascript"></script>
 
-    <script src="<?= ROOT ?>/assets/js/manager/report_genaration.js"></script>
 
     <script>
         var customerOrders = <?php echo json_encode($data['customerOrder']) ?>;
         // console.log(customerOrders);
         var comp_report_endpoint = "<?= ROOT ?>/manager/genarate/report";
         var emp_id = <?= $_SESSION['USER']->emp_id ?>;
+        var emp_name = "<?= ucfirst($_SESSION['USER']->emp_name) ?>";
+        var contact_number = "<?= $_SESSION['USER']->contact_number ?>";
     </script>
 
+    <script src="<?= ROOT ?>/assets/js/manager/report_genaration.js"></script>
 
     <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
     <script>
@@ -1431,6 +1439,7 @@
         }
     </script>
 
+    <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
 

@@ -33,6 +33,16 @@ class Overview extends Controller
                 }
             }
 
+            // for chart and analysis
+            $overview = $this->overview();
+            
+            $data['overview'] = $overview;
+
+            // for chart and analysis
+            
+
+            show($data);
+
             // $this->genarate_report();
 
             // show($data['materialPrintingType']);
@@ -223,28 +233,89 @@ class Overview extends Controller
     }
 
 
+    private function overview()
+    {
+
+        $order = new Order;
+        // get data from database
+        $alldata = $order->getAllOrderData(['order_status'=>'completed']);
+        // that data re-structred
+        $new_result = $order->get_order_data($alldata);
+    
+        // show($data);
+
+        //find not compleated orders where login garments
+        // not compleated mean that orders are given but processing that is relevent garments
+        $data['status1'] = "completed";
+        $data['status2'] = "canceled";
+        $data['status3'] = "delivered";
+
+
+        $current = $order->whereAndOR([], $data);
+
+        if ($current != false)
+
+            $overview['current'] = $current[0]->current_orders;
+        else
+            $overview['current'] = 0;
+
+
+
+        // find the count of the cancel orders
+        $arr['order_status'] =  "canceled";
+
+        $cancel_orders = $order->where($arr);
+
+        if ($cancel_orders != false)
+
+            $overview['cancel_orders'] = count($cancel_orders);
+        else
+            $overview['cancel_orders'] = 0;
+
+        // $overview['sales']  = $this->calculateSales($new_result);
+
+        return $overview;
+    }
+
+
     public function genarate_report()
     {
         try {
 
             $arr = [];
-            // if (!isset($_POST['emp_id']) || $_SESSION['USER']->emp_status != "manager" || $_SESSION['USER']->emp_id != $_POST['emp_id']) {
-            //     $arr['user'] = false;
+            if (!isset($_POST['emp_id']) || $_SESSION['USER']->emp_status != "manager" || $_SESSION['USER']->emp_id != $_POST['emp_id']) {
+                $arr['user'] = false;
 
-            //     echo json_encode($arr);
-            //     exit;
-            // }
-            $new_result = [];
+                echo json_encode($arr);
+                exit;
+            }
+
+            $fromDate = $_POST['from_date'];
+            $toDate = $_POST['to_date'];
+
+            $fromDateTS = strtotime($fromDate);
+            $toDateTS = strtotime($toDate);
             
             $order = new Order;
             // get data from database
-            $alldata = $order->getAllOrderData(['order_status'=>'delivered']);
+            $alldata = $order->getAllOrderData(['order_status'=>'completed']);
             // that data re-structred
             $new_result = $order->get_order_data($alldata);
     
+            $final_result = [];
+            foreach ($new_result as $key => $value) {
+                // need to change with compleated date
+                $valueTSnew = strtotime($value->delivered_date);
+
+                // get the each garment orders only then validate with compleated and date duration
+                if (($fromDateTS <= $valueTSnew) && ($toDateTS >= $valueTSnew)) {
+                    array_push($final_result, $value);
+                }
+            }
+
             // show($new_result);
 
-            echo json_encode($new_result);
+            echo json_encode($final_result);
 
         } catch (\Throwable $th) {
             $arr['user'] = false;

@@ -591,7 +591,7 @@
         //avoid time
         today.setHours(0, 0, 0, 0);
 
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i <= 20; i++) {
 
             var date = new Date();
             date.setDate(today.getDate() - i);

@@ -11,13 +11,22 @@ class Overview extends Controller
 
 
             $info = $this->getInfo();
-            $data['recent_orders'] = $this->get_order_data();
-            $overview = $this->overview($data['recent_orders']);
+
+            // recent only 10 orders displayed
+
+            $getOrderData = $this->get_order_data();
+
+            // Extract the first 10 elements
+            $first_10_elements = array_slice($getOrderData, 0, 10);
+
+            $data['recent_orders'] = $first_10_elements;
+
+            $overview = $this->overview($getOrderData);
 
             $data['info'] = $info;
             $data['overview'] = $overview;
 
-            $data['chart_analysis_data'] = $this->chart_analysis_data($data['recent_orders']);
+            $data['chart_analysis_data'] = $this->chart_analysis_data($getOrderData);
             // show($data);
 
             $this->view('garment/overview', $data);
@@ -134,8 +143,7 @@ class Overview extends Controller
 
             // get each orders garment for place date timestamp value
             // check that date is available in that current date and last date between
-            $checkDateTS = strtotime(date("Y-m-d", strtotime($item->placed_date)));
-
+            $checkDateTS = strtotime(date("Y-m-d", strtotime($item->completed_date)));
 
             $cutPrice = $item->cut_price;
             $sewedPrice = $item->sewed_price;
@@ -335,10 +343,7 @@ class Overview extends Controller
 
             // show($new_result);
 
-            // Extract the first 10 elements
-            $first_10_elements = array_slice($new_result, 0, 10);
-
-            return $first_10_elements;
+            return $new_result;
         } catch (\Throwable $th) {
             redirect('404');
         }
@@ -356,7 +361,7 @@ class Overview extends Controller
 
             if ($item->status == 'completed') {
 
-                $dateTS = date("Y-m-d", strtotime($item->placed_date));
+                $dateTS = date("Y-m-d", strtotime($item->completed_date));
 
                 // each dates for total revenue and sales and cutting revenue
                 if (empty($sales_with_days[$dateTS]))
@@ -379,7 +384,7 @@ class Overview extends Controller
 
 
                 // caalculated monthly revenue and completed order quantity
-                $placed_month = date('Y-m', strtotime($item->placed_date));
+                $placed_month = date('Y-m', strtotime($item->completed_date));
 
                 if (!isset($monthly_revenue[$placed_month])) {
                     $monthly_revenue[$placed_month] = 0;
@@ -433,13 +438,10 @@ class Overview extends Controller
 
             $result = $this->get_order_data();
 
-            // $value1TS = date("Y-m-d", strtotime($result[0]->placed_date));
-            // $valueTS1 = strtotime($value1TS);
-
             $newresult = [];
             foreach ($result as $key => $value) {
-                // nedd to change with compleated date
-                $valueTS = date("Y-m-d", strtotime($value->placed_date));
+                // need to change with compleated date
+                $valueTS = date("Y-m-d", strtotime($value->completed_date));
                 $valueTSnew = strtotime($valueTS);
 
                 // get the each garment orders only then validate with compleated and date duration
