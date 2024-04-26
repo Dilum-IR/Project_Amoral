@@ -2,10 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- <meta http-equiv="refresh" content="2; url=<?= ROOT ?>/garment/overview"> -->
-
-    <!-- hard refresh -->
-    <!-- ctrl+ F5 -->
 
     <title>Amoral</title>
     <!-- Link Styles -->
@@ -302,9 +298,20 @@
                         #gen {
                             margin-left: 10px;
                         }
-                        .bx-x{
+
+                        .bx-x {
                             font-size: 25px;
                             cursor: pointer;
+                        }
+
+                        .report-title {
+
+                            margin-left: 20px;
+                            margin-top: 20px;
+
+                            span {
+                                color: red;
+                            }
                         }
                     </style>
 
@@ -328,6 +335,8 @@
                                 <h3>Genarate Your Reports</h3>
 
                             </div>
+                            <p class="report-title"><span>*</span> Select Date Range </p>
+
                             <div class="report-gen-container">
                                 <div class="lable-and-date">
                                     <label class="label" for="">From Date</label>
@@ -339,12 +348,12 @@
                                 </div>
                                 <div class="warn-with-btns">
                                     <p class="text-warning" id="message"></p>
-                                    
+
                                     <button disabled class="btn-download" id="gen" onclick="generatePDF()">
                                         <i class='bx bxs-cloud-download'></i>
                                         <span class="text">Genarate Report</span>
                                     </button>
-                                    
+
                                     <button class="view-btn btn-download after-gen-btn" id="view" onclick="viewPDF()" style="display: none;">View</button>
                                     <button class="download-btn btn-download after-gen-btn" id="down" onclick="downloadBlob()" style="display: none;">Download</button>
 

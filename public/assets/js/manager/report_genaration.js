@@ -1,44 +1,110 @@
-// report genaration part
-//pdf generate code
+// ******************** report genaration part ********************
+
+var startDate = document.getElementById("start_date");
+var endDate = document.getElementById("end_date");
+document.addEventListener("DOMContentLoaded", function () {
+  // check genarate button is enabled or disabled
+  function checkGenarateBtn() {
+    if (startDate.value && endDate.value && startDate.value <= endDate.value) {
+      document.getElementById("gen").disabled = false;
+    } else {
+      document.getElementById("gen").disabled = true;
+    }
+  }
+
+  startDate.addEventListener("change", function () {
+    // change date for current end date
+    if (startDate.value > endDate.value) {
+      startDate.value = endDate.value;
+    }
+    checkGenarateBtn();
+  });
+
+  endDate.addEventListener("change", function () {
+    // change date for current start date
+    if (endDate.value < startDate.value) {
+      endDate.value = startDate.value;
+    }
+    checkGenarateBtn();
+  });
+
+  checkGenarateBtn();
+});
+
+function closegenarate() {
+  document.getElementById("message").innerHTML = "";
+  document.getElementById("gen").style.display = "inline";
+  document.getElementById("view").style.display = "none";
+  document.getElementById("down").style.display = "none";
+  document.getElementById("gen").disabled = true;
+  startDate.disabled = false;
+  endDate.disabled = false;
+  startDate.value = "";
+  endDate.value = new Date().toLocaleDateString().toString().replace(",", "/");
+}
+
 //Generate pdf
 var pdfObject;
 
 function generatePDF() {
-  document.getElementById("message").textContent = "Your report is generated!";
+  startDate.disabled = true;
+  endDate.disabled = true;
+
+  document.getElementById("message").innerHTML =
+    "<span onclick='closegenarate()' class='text'><i class='bx bx-x' style='color:#ff0000'  ></i></span>  Your report is generated!";
   document.getElementById("gen").style.display = "none";
   document.getElementById("view").style.display = "inline-block";
   document.getElementById("down").style.display = "inline-block";
 
+  document.getElementById("down").innerHTML =
+    "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
+  document.getElementById("view").innerHTML =
+    "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
+
+  document.getElementById("view").disabled = true;
+  document.getElementById("down").disabled = true;
+
+  // return;
+
   data = {
-    garment_id: garment_id,
+    emp_id: emp_id,
+    from_date: startDate.value,
+    to_date: endDate.value,
   };
+
   $.ajax({
     type: "POST",
-    url: report_endpoint,
+    url: comp_report_endpoint,
     data: data,
     cache: false,
     success: function (res) {
       try {
         // convet to the json type
         Jsondata = JSON.parse(res);
+
         console.log(Jsondata);
 
-        generateContent(Jsondata);
+        if (Jsondata.length == 0) {
+          toastApply(
+            "No Completed Order",
+            "Selected date has not Completed orders",
+            2
+          );
 
-        // if (Jsondata.u == "no") {
-        //   toastApply(
-        //     "Update Warning",
-        //     "This information already updated...",
-        //     2
-        //   );
-        // } else if (Jsondata.u == "yes") {
-        //   toastApply("Update Success", "Company information updated...", 0);
-        // } else {
-        //   toastApply("Update Failed", "Try again later...", 1);
-        // }
-        setTimeout(() => {
-          // location.reload();
-        }, 4000);
+          closegenarate();
+        } else if (Jsondata) {
+          document.getElementById("view").disabled = false;
+          document.getElementById("down").disabled = false;
+          document.getElementById("view").innerHTML = "View";
+          document.getElementById("down").innerHTML = "Download";
+          generateContent(Jsondata);
+        } else {
+          toastApply(
+            "No Completed Order",
+            "Selected Date Between No Completed Orders",
+            2
+          );
+        }
       } catch (error) {
         // toastApply("Update Failed", "Try again later...", 1);
       }
@@ -90,7 +156,7 @@ function generateContent(genarateData) {
     },
     contact: {
       label: "",
-      name: "Monthly Revenue Report",
+      name: "Revenue Report",
       address: "Employee ID : 5432",
       phone: "071258634 ",
       email: "Genarated Date : " + new Date().toLocaleDateString().toString(),
@@ -99,8 +165,8 @@ function generateContent(genarateData) {
     invoice: {
       label: "",
       num: 19,
-      invDate: "From Date : 6532",
-      invGenDate: "To Date : 523\n\n",
+      invDate: "From Date : " + startDate.value,
+      invGenDate: "To Date : " + endDate.value + "\n\n",
       headerBorder: false,
       tableBodyBorder: false,
       style: {
@@ -128,12 +194,12 @@ function generateContent(genarateData) {
             width: 25,
           },
         },
-        {
-          title: "Placed Date",
-          style: {
-            width: 30,
-          },
-        },
+        // {
+        //   title: "Placed Date",
+        //   style: {
+        //     width: 30,
+        //   },
+        // },
         {
           title: "Delivered Date",
           style: {
@@ -146,12 +212,12 @@ function generateContent(genarateData) {
             width: 25,
           },
         },
-        // {
-        //   title: "Cost(Rs.)",
-        //   style: {
-        //     width: 30,
-        //   },
-        // },
+        {
+          title: "Cost(Rs.)",
+          style: {
+            width: 30,
+          },
+        },
         {
           title: "Total(Rs.)",
           style: {
@@ -162,17 +228,12 @@ function generateContent(genarateData) {
       table: Array.from(Array(genarateData.length), (item, index) => [
         "\n" + index + 1,
         "\nORD-" + genarateData[index]["order_id"] + "\n",
-        "\nUSR-" + 387,
-        "\n" + genarateData[index]["placed_date"].split(" ")[0],
-        "\n2024-12-30",
+        "\nUSR-" + genarateData[index]["user_id"],
+        // "\n" + genarateData[index]["placed_date"].split(" ")[0],
+        "\n"+genarateData[index]["delivered_date"],
         "\n" + genarateData[index]["total_qty"] + "\n",
-        // "\n5082.00 \n",
-        "\n" +
-          formatNumber(
-            genarateData[index]["total_qty"] *
-              (genarateData[index]["cut_price"] +
-                genarateData[index]["sewed_price"])
-          ),
+        "\n" + formatNumber(genarateData[index]["total_cost"]),
+        "\n" + formatNumber(genarateData[index]["total_price"])
       ]),
 
       additionalRows: [

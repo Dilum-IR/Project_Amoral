@@ -295,9 +295,9 @@ class Overview extends Controller
             // show($id_array);
 
             $material_array = [];
-            $total_qty = 0;
             // create a new array for toal qty and meterial type array
             foreach ($new_result as $item) {
+                $total_qty = 0;
 
                 foreach ($item->mult_order as $value) {
 
@@ -435,7 +435,7 @@ class Overview extends Controller
 
             // $value1TS = date("Y-m-d", strtotime($result[0]->placed_date));
             // $valueTS1 = strtotime($value1TS);
-            
+
             $newresult = [];
             foreach ($result as $key => $value) {
                 // nedd to change with compleated date
@@ -448,7 +448,6 @@ class Overview extends Controller
                 }
             }
             echo json_encode($newresult);
-
         } catch (\Throwable $th) {
             $arr['user'] = false;
 

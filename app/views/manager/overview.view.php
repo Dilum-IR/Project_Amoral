@@ -63,7 +63,7 @@
                             <span class="text">Download PDF</span>
                         </a> -->
                     </div>
-    
+
 
 
 
@@ -74,11 +74,11 @@
                                 <div class="left">
                                     <h3>Total Customer Orders</h3>
                                     <?php $totalCustomerOrders = 0; ?>
-                                    <?php if(!empty($data['customerOrder'])): ?>
-                                        <?php foreach($data['customerOrder'] as $order): 
-                                            
-                                                $totalCustomerOrders++;
-                                            
+                                    <?php if (!empty($data['customerOrder'])) : ?>
+                                        <?php foreach ($data['customerOrder'] as $order) :
+
+                                            $totalCustomerOrders++;
+
                                         endforeach; ?>
                                     <?php endif; ?>
                                     <h1><?php echo $totalCustomerOrders ?></h1>
@@ -92,25 +92,25 @@
                                 <div class="left">
                                     <h3>Total Sales</h3>
                                     <?php $totalSales = 0; ?>
-                                    <?php if(!empty($data['customerOrder'])): ?>
+                                    <?php if (!empty($data['customerOrder'])) : ?>
 
-                                        <?php foreach ($data['customerOrder'] as $order): ?>
-                                            <?php if($order->order_status == 'Delivered' || $order->order_status == 'Completed'): ?>
-                                                <?php foreach ($data['material_sizes'] as $sizes): ?>
-                                                
-                                                        <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
-                                            
+                                        <?php foreach ($data['customerOrder'] as $order) : ?>
+                                            <?php if ($order->order_status == 'Delivered' || $order->order_status == 'Completed') : ?>
+                                                <?php foreach ($data['material_sizes'] as $sizes) : ?>
+
+                                                    <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount) / 100); ?>
+
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 
-                                    <h1><?php echo "Rs. " , $totalSales ?></h1>
+                                    <h1><?php echo "Rs. ", $totalSales ?></h1>
 
                                 </div>
 
                             </div>
-          
+
                         </div>
                         <div class="sales card">
                             <i class='bx bxs-calendar-check'></i>
@@ -118,12 +118,12 @@
                                 <div class="left">
                                     <h3>Total Requests</h3>
                                     <?php $totalCustomerQuotations = 0; ?>
-                                    <?php if(!empty($data['customerOrder'])): ?>
+                                    <?php if (!empty($data['customerOrder'])) : ?>
 
-                                        <?php foreach($data['customerOrder'] as $order): 
-                                            
-                                                $totalCustomerQuotations++;
-                                            
+                                        <?php foreach ($data['customerOrder'] as $order) :
+
+                                            $totalCustomerQuotations++;
+
                                         endforeach; ?>
                                     <?php endif; ?>
 
@@ -132,7 +132,7 @@
                                 </div>
 
                             </div>
-        
+
                         </div>
                         <div class="orders card">
                             <i class='bx bxs-calendar-check'></i>
@@ -140,12 +140,12 @@
                                 <div class="left">
                                     <h3>Total Garment Orders</h3>
                                     <?php $totalGarmentOrders = 0; ?>
-                                    <?php if(!empty($data['garmentOrder'])): ?>
+                                    <?php if (!empty($data['garmentOrder'])) : ?>
 
-                                        <?php foreach($data['garmentOrder'] as $order): 
-                                        
-                                                $totalGarmentOrders++;
-                                    
+                                        <?php foreach ($data['garmentOrder'] as $order) :
+
+                                            $totalGarmentOrders++;
+
                                         endforeach; ?>
                                     <?php endif; ?>
 
@@ -155,14 +155,250 @@
 
                         </div>
                     </div>
-                                </main>
+                </main>
+            </div>
+
+            <style>
+                .table-data-new {
+                    margin-top: 0 !important;
+                }
+
+                .ordernew {
+                    display: flex;
+                    background-color: transparent !important;
+                    height: 450px;
+                    gap: 2%;
+                    margin-top: 13px !important;
+                    padding: 9px !important;
+                    box-shadow: none !important;
+                    overflow-x: unset !important;
+
+                }
+
+                .chart-component {
+                    width: 70%;
+                    padding: 5px;
+                    background-color: white;
+                    border-radius: 20px;
+                    box-shadow: 0 0 10px 0px rgb(161, 161, 161);
+
+                    .head {
+                        margin-left: 15px;
+                        margin-top: 15px;
+
+                    }
+                }
+
+                .report-component {
+                    width: 29%;
+                    padding: 5px;
+                    background-color: white;
+                    border-radius: 20px;
+                    box-shadow: 0 0 10px 0px rgb(161, 161, 161);
+                    /* display: flex; */
+                    align-items: center;
+
+                    .head {
+                        margin-left: 15px;
+                        margin-top: 15px;
+                    }
+                }
+
+                .small-last-2 {
+                    margin-top: 2px;
+                    float: right;
+                }
+
+
+                .chart-more-btn {
+                    background-color: white !important;
+                    color: #000 !important;
+                    border: #000 solid 2px;
+                    padding: 2px 10px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    transition: 0.5s ease-in-out;
+                    margin-right: 10px;
+                    border-radius: 36px !important;
+                }
+
+                .chart-more-btn:hover {
+                    background-color: #000 !important;
+                    color: white !important;
+                }
+
+                .btn-download {
+
+                    display: flex;
+                    text-decoration: none;
+                    padding: 10px 15px;
+                    background-color: black;
+                    color: white;
+                    border-radius: 36px !important;
+                    align-items: center;
+                    justify-content: center;
+                    transition: 0.5s ease-in-out;
+                    transform: scale(1.0);
+                    cursor: pointer;
+                    gap: 8px;
+                }
+
+                .btn-download:hover {
+                    transform: scale(1.06);
+                }
+
+                .btn-download .text {
+                    font-size: 15px !important;
+                    color: white;
+
+
+                }
+
+                .rep-gen-date {
+                    background-color: white;
+                    outline: none;
+                    border: black solid 1.6px;
+                    padding: 10px 10px;
+                    border-radius: 10px;
+                    width: 200px;
+                }
+
+                .report-gen-container {
+                    height: 100%;
+                    margin-bottom: 37px;
+
+                }
+
+                .lable-and-date {
+                    margin-left: 37px;
+                    margin-bottom: 37px;
+                    display: block !important;
+                }
+
+                .label {
+                    display: block !important;
+
+                }
+
+                .re-head {
+                    margin-bottom: -5px !important;
+                }
+
+                .to-date {
+                    margin-top: 5px;
+                }
+
+                .after-gen-btn {
+                    padding: 7px 15px;
+
+                }
+
+                .download-btn {
+                    background-color: white !important;
+                    color: #000;
+                    border: black 1px solid;
+                    transition: 0.5s ease-in-out 0.5s;
+                }
+
+                button:disabled {
+                    background-color: rgba(0, 0, 0, 0.6) !important;
+                }
+
+                .text-warning {
+                    color: green;
+                    font-weight: 700;
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                    margin-left: -42px !important;
+                }
+
+                #view:disabled,
+                #down:disabled {
+                    transition: 0.5s ease-in-out 0.5;
+                }
+
+                #view:disabled,
+                #down:disabled {
+                    color: white !important;
+                    border: none !important;
+                    background-color: #0c5fcdc7 !important;
+                    cursor: not-allowed;
+                    text-align: center;
+                    display: flex;
+                }
+
+                .warn-with-btns {
+                    margin-left: 50px;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .bx-x {
+                    font-size: 25px;
+                    cursor: pointer;
+                }
+
+                .report-title {
+
+                    margin-left: 20px;
+                    margin-bottom: 20px;
+
+                    span {
+                        color: red;
+                    }
+                }
+            </style>
+            <div class="left-right">
+
+                <main>
+                    <!-- chart with report container -->
+                    <div class="table-data table-data-new">
+
+                        <div class="order ordernew">
+                            <div class="chart-component">
+
+                                <div class="head">
+                                    <h3>Sales</h3>
+                                    <button class="chart-more-btn info-btn" onclick="changeToDaily()">Daily</button>
+                                    <button class="chart-more-btn info-btn" onclick="changeToMonthly()">Monthly</button>
+                                </div>
+
+                                <div class="chart"></div>
+
+                            </div>
+                            <div class="report-component">
+
+                                <div class="head">
+                                    <h3>Genarate Reports</h3>
+                                </div>
+
+                                <p class="report-title"><span>*</span> Select Date Range </p>
+                                <div class="report-gen-container">
+                                    <div class="lable-and-date">
+                                        <label class="label" for="">From Date</label>
+                                        <input id="start_date" class="rep-gen-date" type="date" value="" min="<?php ?>" max="<?php echo date('Y-m-d'); ?>">
+                                        <label for="" class="label to-date">To Date</label>
+                                        <input id="end_date" class="rep-gen-date" type="date" min="" max="<?php echo date('Y-m-d'); ?>" value="<?php echo date('Y-m-d'); ?>">
+                                    </div>
+                                    <div class="warn-with-btns">
+                                        <p class="text-warning" id="message"></p>
+
+                                        <button class="btn-download" id="gen" onclick="generatePDF()">
+                                            <i class='bx bxs-cloud-download'></i>
+                                            <span class="text">Genarate Report</span>
+                                        </button>
+
+                                        <button class="view-btn btn-download after-gen-btn" id="view" onclick="viewPDF()" style="display: none;">View</button>
+                                        <button class="download-btn btn-download after-gen-btn" id="down" onclick="downloadBlob()" style="display: none;">Download</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="left-right">
-        
-                    <main>
-
-
+                    <!-- end chart with report container -->
                     <div class="material">
                         <span>
                             <h2>Material Stock</h2>
@@ -170,16 +406,16 @@
                                 <i class="bx bx-edit"></i>
                             </button>
                         </span>
-                        
+
 
                         <div class="add card">
                             <!-- <i class='bx bxs-calendar-check'></i> -->
                             <!-- <div class="middle"> -->
-                                <div class="left">
-                                    <i class='bx bxs-plus-circle'></i>
-                                    <h3 style="width: 100%; ">Add a material</h3>
-                                </div>
-                               
+                            <div class="left">
+                                <i class='bx bxs-plus-circle'></i>
+                                <h3 style="width: 100%; ">Add a material</h3>
+                            </div>
+
                             <!-- </div> -->
 
                         </div>
@@ -194,16 +430,16 @@
                                 <i class="bx bx-edit"></i>
                             </button>
                         </span>
-                        
+
 
                         <div class="add card">
                             <!-- <i class='bx bxs-calendar-check'></i> -->
                             <!-- <div class="middle"> -->
-                                <div class="left">
-                                    <i class='bx bxs-plus-circle'></i>
-                                    <h3 style="width: 100%;">Add a printing type</h3>
-                                </div>
-                               
+                            <div class="left">
+                                <i class='bx bxs-plus-circle'></i>
+                                <h3 style="width: 100%;">Add a printing type</h3>
+                            </div>
+
                             <!-- </div> -->
 
                         </div>
@@ -238,20 +474,20 @@
 
                     <script>
                         // ajax for adding materials
-                        document.getElementById("addMaterialForm").addEventListener("submit", function (e) {
+                        document.getElementById("addMaterialForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var form = document.getElementById("addMaterialForm");
                             var noerrors = validateMaterial(form);
                             var formData = new FormData(form);
                             console.log(formData);
-                            if(noerrors){
+                            if (noerrors) {
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "<?= ROOT ?>/manager/addMaterial", true);
-                                xhr.onload = function () {
+                                xhr.onload = function() {
                                     if (this.status == 200) {
                                         // console.log(this.responseText);
                                         var response = JSON.parse(this.responseText);
-                                        console.log('response'+response);
+                                        console.log('response' + response);
                                         if (response == false) {
                                             var successMsgElement = document.querySelector('.success-msg');
                                             successMsgElement.innerHTML = "Material added successfully";
@@ -261,16 +497,16 @@
                                                 successMsgElement.style.display = 'none';
                                                 location.reload();
                                             }, 2000);
-                                        }else{
+                                        } else {
                                             var successMsgElement = document.querySelector('.success-msg');
-                                            if(response == 'Material already exists'){
+                                            if (response == 'Material already exists') {
                                                 successMsgElement.innerHTML = "Material already exists";
-                                            }else{
+                                            } else {
                                                 successMsgElement.innerHTML = "There was an error adding the material";
                                             }
-                                            
+
                                             // successMsgElement.style.transition = 'all 1s ease-in-out';
-            
+
                                             successMsgElement.style.display = 'block';
                                             successMsgElement.style.backgroundColor = 'red';
                                             setTimeout(function() {
@@ -300,18 +536,18 @@
 
                     <script>
                         // ajax for deleting materials
-                        document.getElementById("deleteMaterialForm").addEventListener("submit", function (e) {
+                        document.getElementById("deleteMaterialForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var form = document.getElementById("deleteMaterialForm");
                             var formData = new FormData(form);
                             console.log(formData);
                             var xhr = new XMLHttpRequest();
                             xhr.open("POST", "<?= ROOT ?>/manager/deleteMaterial", true);
-                            xhr.onload = function () {
+                            xhr.onload = function() {
                                 if (this.status == 200) {
                                     console.log(this.responseText);
                                     var response = JSON.parse(this.responseText);
-                                    console.log('response'+response);
+                                    console.log('response' + response);
                                     if (response == false) {
                                         var successMsgElement = document.querySelector('.success-msg');
                                         successMsgElement.innerHTML = "Material deleted successfully";
@@ -321,11 +557,11 @@
                                             successMsgElement.style.display = 'none';
                                             location.reload();
                                         }, 2000);
-                                    }else{
+                                    } else {
                                         var successMsgElement = document.querySelector('.success-msg');
                                         successMsgElement.innerHTML = "There was an error deleting the material";
                                         // successMsgElement.style.transition = 'all 1s ease-in-out';
-                                        
+
                                         successMsgElement.style.display = 'block';
                                         successMsgElement.style.backgroundColor = 'red';
                                         setTimeout(function() {
@@ -365,20 +601,20 @@
 
                     <script>
                         // ajax for updating materials
-                        document.getElementById("updateMaterialForm").addEventListener("submit", function (e) {
+                        document.getElementById("updateMaterialForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var form = document.getElementById("updateMaterialForm");
                             var noerrors = validateMaterial(form);
                             var formData = new FormData(form);
                             console.log(formData);
-                            if(noerrors){
+                            if (noerrors) {
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "<?= ROOT ?>/manager/updateMaterial", true);
-                                xhr.onload = function () {
+                                xhr.onload = function() {
                                     if (this.status == 200) {
                                         console.log(this.responseText);
                                         var response = JSON.parse(this.responseText);
-                                        console.log('response'+response);
+                                        console.log('response' + response);
                                         if (response == false) {
                                             var successMsgElement = document.querySelector('.success-msg');
                                             successMsgElement.innerHTML = "Material updated successfully";
@@ -388,11 +624,11 @@
                                                 successMsgElement.style.display = 'none';
                                                 location.reload();
                                             }, 2000);
-                                        }else{
+                                        } else {
                                             var successMsgElement = document.querySelector('.success-msg');
                                             successMsgElement.innerHTML = "There was an error updating the material";
                                             // successMsgElement.style.transition = 'all 1s ease-in-out';
-                                            
+
                                             successMsgElement.style.display = 'block';
                                             successMsgElement.style.backgroundColor = 'red';
                                             setTimeout(function() {
@@ -407,8 +643,8 @@
                         });
                     </script>
 
-                
-                    
+
+
                     <!--popup to add materials-->
 
                     <div id="add-printingType" class="popup-add">
@@ -422,17 +658,17 @@
                                 <input type="text" id="pType" name="printing_type"><br>
                                 <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
                                 <div class="materialBx">
-                                    <?php foreach ($data['materialStock'] as $material): ?>
-                                    <div class="checkbx">
-                                        <input type="checkbox" id="<?php echo $material->material_type?>" name="PtypeMaterials[]" value="<?php echo $material->material_type . ',' . $material->stock_id?>">
-                                        <label for="<?php echo $material->material_type?>"><?php echo $material->material_type?></label>
-                                    </div>
-                                <?php endforeach; ?>    
+                                    <?php foreach ($data['materialStock'] as $material) : ?>
+                                        <div class="checkbx">
+                                            <input type="checkbox" id="<?php echo $material->material_type ?>" name="PtypeMaterials[]" value="<?php echo $material->material_type . ',' . $material->stock_id ?>">
+                                            <label for="<?php echo $material->material_type ?>"><?php echo $material->material_type ?></label>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
                                 <br>
                                 <label for="ptypePrice">Price Addition: <span class="error price"></span></label><br>
                                 <input type="text" id="ptypePrice" name="price"><br><br>
-    
+
                                 <input type="submit" class="btn-add" name="addPrintingType" value="Add Printing Type">
                             </form>
                         </div>
@@ -441,24 +677,24 @@
 
                     <script>
                         // ajax for adding printing types
-                        document.getElementById("addPrintingTypeForm").addEventListener("submit", function (e) {
+                        document.getElementById("addPrintingTypeForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var form = document.getElementById("addPrintingTypeForm");
                             var noerrors = validatePrintingType(form);
                             var formData = new FormData(form);
                             // console.log(formData);
-                            if(noerrors){
+                            if (noerrors) {
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "<?= ROOT ?>/manager/addPrintingType", true);
-                                xhr.onload = function () {
+                                xhr.onload = function() {
                                     if (this.status == 200) {
                                         console.log(this.responseText);
                                         var response = JSON.parse(this.responseText);
                                         // console.log('response'+response);
                                         if (response == false) {
                                             // delay(100);
-                                            
-                                            
+
+
                                             var successMsgElement = document.querySelector('.success-msg');
                                             successMsgElement.innerHTML = "Printing type added successfully";
                                             successMsgElement.style.display = 'block';
@@ -466,18 +702,18 @@
                                                 successMsgElement.style.display = 'none';
                                                 location.reload();
                                             }, 2000);
-                                            
-                                                
 
-                                        }else{
+
+
+                                        } else {
                                             var successMsgElement = document.querySelector('.success-msg');
-                                            if(response == 'Printing type already exists'){
+                                            if (response == 'Printing type already exists') {
                                                 successMsgElement.innerHTML = "Printing type already exists";
-                                            }else{
+                                            } else {
                                                 successMsgElement.innerHTML = "There was an error adding the printing type";
                                             }
                                             // successMsgElement.style.transition = 'all 1s ease-in-out';
-                                            
+
                                             successMsgElement.style.display = 'block';
                                             successMsgElement.style.backgroundColor = 'red';
                                             setTimeout(function() {
@@ -492,7 +728,7 @@
                         });
                     </script>
 
-                        <!-- Delete confirmation popup -->
+                    <!-- Delete confirmation popup -->
                     <div id="deleteConfirmation-ptype" class="popup-delete">
                         <!-- Modal content -->
                         <div class="popup-content">
@@ -506,15 +742,15 @@
                     </div>
 
                     <script>
-                            // ajax for deleting printing types
-                            document.getElementById("deletePrintingTypeForm").addEventListener("submit", function (e) {
+                        // ajax for deleting printing types
+                        document.getElementById("deletePrintingTypeForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var form = document.getElementById("deletePrintingTypeForm");
                             var formData = new FormData(form);
                             // console.log(formData);
                             var xhr = new XMLHttpRequest();
                             xhr.open("POST", "<?= ROOT ?>/manager/deletePrintingType", true);
-                            xhr.onload = function () {
+                            xhr.onload = function() {
                                 if (this.status == 200) {
                                     console.log(this.responseText);
                                     var response = JSON.parse(this.responseText);
@@ -528,12 +764,12 @@
                                             successMsgElement.style.display = 'none';
                                             location.reload();
                                         }, 2000);
-                                    }else{
+                                    } else {
                                         var successMsgElement = document.querySelector('.success-msg');
                                         successMsgElement.innerHTML = "There was an error deleting the printing type";
-                                        
+
                                         // successMsgElement.style.transition = 'all 1s ease-in-out';
-                                        
+
                                         successMsgElement.style.display = 'block';
                                         successMsgElement.style.backgroundColor = 'red';
                                         setTimeout(function() {
@@ -547,49 +783,49 @@
                         });
                     </script>
 
-                <!--popup to update printing types-->
+                    <!--popup to update printing types-->
 
-                <div id="update-printingType" class="popup-update">
+                    <div id="update-printingType" class="popup-update">
 
-                    <!-- Modal content -->
-                    <div class="popup-content">
-                        <span class="close">&times;</span>
-                        <h2>Update Printing Type</h2>
-                        <form id="updatePrintingTypeForm" method="POST">
-                            <label for="pType">Printing Type: <span class="error pType"> </span></label><br>
-                            <input type="text" id="pType" name="printing_type"><br>
-                            <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
-                            <div class="materialBx">
-                                <?php foreach ($data['materialStock'] as $material): ?>
-                                <div class="checkbx">
-                                    <input type="checkbox" id="<?php echo $material->material_type?>" name="PtypeMaterials[]" value="<?php echo $material->material_type . ',' . $material->stock_id?>">
-                                    <label for="<?php echo $material->material_type?>"><?php echo $material->material_type?></label>
+                        <!-- Modal content -->
+                        <div class="popup-content">
+                            <span class="close">&times;</span>
+                            <h2>Update Printing Type</h2>
+                            <form id="updatePrintingTypeForm" method="POST">
+                                <label for="pType">Printing Type: <span class="error pType"> </span></label><br>
+                                <input type="text" id="pType" name="printing_type"><br>
+                                <label for="materialQuantity">Materials: <span class="error materials"></span></label><br>
+                                <div class="materialBx">
+                                    <?php foreach ($data['materialStock'] as $material) : ?>
+                                        <div class="checkbx">
+                                            <input type="checkbox" id="<?php echo $material->material_type ?>" name="PtypeMaterials[]" value="<?php echo $material->material_type . ',' . $material->stock_id ?>">
+                                            <label for="<?php echo $material->material_type ?>"><?php echo $material->material_type ?></label>
+                                        </div>
+                                    <?php endforeach; ?>
                                 </div>
-                            <?php endforeach; ?>    
-                            </div>
-                            <br>
-                            <label for="ptypePrice">Price Addition: <span class="error price"></span></label><br>
-                            <input type="text" id="materialPrice" name="price"><br><br>
+                                <br>
+                                <label for="ptypePrice">Price Addition: <span class="error price"></span></label><br>
+                                <input type="text" id="materialPrice" name="price"><br><br>
 
-                            <input type="hidden" id="ptypeId" name="ptype_id">
-                            <br>
-                            <input type="submit" class="btn-add" name="updatePrintingType" value="Update Printing Type">
-                        </form>
+                                <input type="hidden" id="ptypeId" name="ptype_id">
+                                <br>
+                                <input type="submit" class="btn-add" name="updatePrintingType" value="Update Printing Type">
+                            </form>
+                        </div>
                     </div>
-                </div>
 
-                <script>
-                            // ajax for updating printing types
-                        document.getElementById("updatePrintingTypeForm").addEventListener("submit", function (e) {
+                    <script>
+                        // ajax for updating printing types
+                        document.getElementById("updatePrintingTypeForm").addEventListener("submit", function(e) {
                             e.preventDefault();
                             var form = document.getElementById("updatePrintingTypeForm");
                             var noerrors = validatePrintingType(form);
                             var formData = new FormData(form);
                             console.log(noerrors);
-                            if(noerrors){
+                            if (noerrors) {
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "<?= ROOT ?>/manager/updatePrintingType", true);
-                                xhr.onload = function () {
+                                xhr.onload = function() {
                                     if (this.status == 200) {
                                         console.log(this.responseText);
                                         var response = JSON.parse(this.responseText);
@@ -603,13 +839,13 @@
                                                 successMsgElement.style.display = 'none';
                                                 location.reload();
                                             }, 2000);
-                                        }else{
+                                        } else {
                                             var successMsgElement = document.querySelector('.success-msg');
-                                            
+
                                             successMsgElement.innerHTML = "There was an error adding the printing type";
-                                            
+
                                             // successMsgElement.style.transition = 'all 1s ease-in-out';
-                                            
+
                                             successMsgElement.style.display = 'block';
                                             successMsgElement.style.backgroundColor = 'red';
                                             setTimeout(function() {
@@ -622,7 +858,7 @@
                                 xhr.send(formData);
                             }
                         });
-                </script>
+                    </script>
 
 
 
@@ -644,38 +880,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(!empty($data['customerOrder'])): ?>
+                                    <?php if (!empty($data['customerOrder'])) : ?>
                                         <?php $i = 0; ?>
-                                
-                                            <?php foreach ($data['customerOrder'] as $order): ?>
-                                                <?php if($i<3): ?>
-                                                    <tr>
-                                                        <td>
-                                                            <?php echo $order->order_id ?>
-                                                        </td>
-                                                        <td><?php echo $order->order_placed_on ?></td>   
-                                                        <td>
-                                                        <?php if(!empty($data['material_sizes'])): ?>
 
-                                                            <?php foreach($data['material_sizes'] as $sizes):?>
-                                                                <?php if($sizes->order_id == $order->order_id) :?>
-                                                                    
+                                        <?php foreach ($data['customerOrder'] as $order) : ?>
+                                            <?php if ($i < 3) : ?>
+                                                <tr>
+                                                    <td>
+                                                        <?php echo $order->order_id ?>
+                                                    </td>
+                                                    <td><?php echo $order->order_placed_on ?></td>
+                                                    <td>
+                                                        <?php if (!empty($data['material_sizes'])) : ?>
+
+                                                            <?php foreach ($data['material_sizes'] as $sizes) : ?>
+                                                                <?php if ($sizes->order_id == $order->order_id) : ?>
+
                                                                     <?php echo $sizes->material_type ?><br>
-                                                                <?php endif;?>
-                                                            <?php endforeach;?> 
-                                                        <?php endif; ?>   
-                                                        </td>
-                                                        <td class="status">
-                                                            <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
-                                                            <div>
-                                                                <?php echo $order->order_status ?>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <?php $i++; ?>  
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                      
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                    <td class="status">
+                                                        <i class='bx bxs-circle <?php echo $order->order_status ?>' style="font-size: 12px;"></i>
+                                                        <div>
+                                                            <?php echo $order->order_status ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php $i++; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+
                                     <?php endif; ?>
                                 </tbody>
                             </table>
@@ -707,19 +943,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if(isset($data['garmentOrder'])): ?>
+                                    <?php if (isset($data['garmentOrder'])) : ?>
                                         <?php $i = 0; ?>
-                                
-                                            
-                                        <?php foreach ($data['garmentOrder'] as $order): ?>
-                                            <?php if($i<3): ?>
-                                                
+
+
+                                        <?php foreach ($data['garmentOrder'] as $order) : ?>
+                                            <?php if ($i < 3) : ?>
+
                                                 <tr>
                                                     <td>
                                                         <?php echo $order->garment_order_id ?>
                                                     </td>
                                                     <td><?php echo $order->order_id ?></td>
-                                                    <td><?php echo $order->placed_date ?></td>   
+                                                    <td><?php echo $order->placed_date ?></td>
                                                     <td class="status">
                                                         <i class='bx bxs-circle <?php echo $order->status ?>' style="font-size: 12px;"></i>
                                                         <div>
@@ -729,7 +965,7 @@
                                                 </tr>
                                                 <?php $i++; ?>
                                             <?php endif; ?>
-                                        
+
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </tbody>
@@ -742,12 +978,12 @@
 
 
                         <!-- right side container -->
-                        </div>
+                    </div>
 
                 </main>
 
                 <div class="right">
-                  
+
                     <div class="calendar">
                         <div class="month">
                             <i class="fas fa-angle-left prev"></i>
@@ -776,7 +1012,7 @@
 
                     </div>
 
-     
+
                 </div>
                 <!-- <div class="right">
                     <div class="today-date">
@@ -817,15 +1053,23 @@
                     <i class="fas fa-plus"></i>
                 </button>
                 </div> -->
-              
+
             </div>
 
         </div>
     </section>
+    <script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js" type="text/javascript"></script>
+
+    <script src="<?= ROOT ?>/assets/js/manager/report_genaration.js"></script>
+
     <script>
         var customerOrders = <?php echo json_encode($data['customerOrder']) ?>;
-        console.log(customerOrders);
+        // console.log(customerOrders);
+        var comp_report_endpoint = "<?= ROOT ?>/manager/genarate/report";
+        var emp_id = <?= $_SESSION['USER']->emp_id ?>;
     </script>
+
+
     <script src="<?= ROOT ?>/assets/js/manager/overview.js"></script>
     <script>
         // let editMaterial = document.querySelector(".edit-material-btn");
@@ -834,7 +1078,7 @@
             var newCard = document.createElement("div");
             newCard.className = "orders card";
 
-            
+
             newCard.innerHTML = `
                 <button class="delete-material-btn" data-id="${id}" onclick="openDeleteMaterial(this)">
                     <i class="fa fa-trash"></i>
@@ -850,13 +1094,13 @@
                 </div>
             `;
 
-        
+
             document.querySelector(".add.card").before(newCard);
 
             let deleteMaterial = newCard.querySelector(".delete-material-btn");
             let updateBtn = newCard.querySelector(".update-btn");
 
-            editMaterial.addEventListener("click", function () {
+            editMaterial.addEventListener("click", function() {
                 deleteMaterial.classList.toggle("open-delete-material-btn");
                 updateBtn.classList.toggle("open-update-btn");
             });
@@ -871,7 +1115,7 @@
             //     document.body.style.overflow = "hidden";
 
             // }
-            
+
             // var deleteMaterialSuccess = <?php echo $data['deleteMaterial'] ?>;
             // console.log(deleteMaterialSuccess);
             // if(deleteMaterialSuccess){
@@ -897,13 +1141,13 @@
                 </div>
             `;
 
-        
+
             document.querySelector(".printingType .add.card").before(newCard);
 
             let deletePrintingType = newCard.querySelector(".delete-printingType-btn");
             let updateBtn = newCard.querySelector(".update-btn");
 
-            editPrintingType.addEventListener("click", function () {
+            editPrintingType.addEventListener("click", function() {
                 deletePrintingType.classList.toggle("open-delete-printingType-btn");
                 updateBtn.classList.toggle("open-update-btn");
             });
@@ -918,33 +1162,281 @@
             //     document.body.style.overflow = "hidden";
 
             // }
-            
+
             var deletePTypeSuccess = <?php echo $data['deletePType'] ?>;
             console.log(deletePTypeSuccess);
-            if(deletePTypeSuccess){
+            if (deletePTypeSuccess) {
                 newCard.remove();
             }
 
         }
 
 
-        <?php foreach($data['materialStock'] as $material): ?>
-            addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>','<?php echo $material->ppm ?>', '<?php echo $material->stock_id ?>');
+        <?php foreach ($data['materialStock'] as $material) : ?>
+            addMaterialCard('<?php echo $material->material_type ?>', '<?php echo $material->quantity ?>', '<?php echo $material->unit_price ?>', '<?php echo $material->ppm ?>', '<?php echo $material->stock_id ?>');
         <?php endforeach; ?>
 
-        <?php foreach($data['printingType'] as $printingType): ?>
+        <?php foreach ($data['printingType'] as $printingType) : ?>
             <?php $materialsJson = json_encode($data['materialPrintingType'][$printingType->ptype_id]); ?>
-            addPrintingTypeCard('<?php echo $printingType->printing_type ?>', '<?php echo $printingType->price ?>', '<?php echo $materialsJson ?>' , '<?php echo $printingType->ptype_id ?>');
+            addPrintingTypeCard('<?php echo $printingType->printing_type ?>', '<?php echo $printingType->price ?>', '<?php echo $materialsJson ?>', '<?php echo $printingType->ptype_id ?>');
         <?php endforeach; ?>
-
     </script>
 
 
 
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        // daily revenue proccess
+        // let revenue_data = <?php  // echo (!empty($chart_analysis_data['total_sales'])) ? json_encode($chart_analysis_data['total_sales']) : "0" 
+                                ?>;
+        // let cutting_data = <?php  // echo (!empty($chart_analysis_data['cut_sales'])) ? json_encode($chart_analysis_data['cut_sales']) : "0" 
+                                ?>;
+        // let sewed_data = <?php  // echo (!empty($chart_analysis_data['sewed_sales'])) ? json_encode($chart_analysis_data['sewed_sales']) : "0" 
+                            ?>;
+
+        // // monthly revenue proccess
+        // let monthly_revenue_data = <?php  // echo (!empty($chart_analysis_data['monthly_revenue'])) ? json_encode($chart_analysis_data['monthly_revenue']) : "0" 
+                                        ?>;
+        // let monthly_qty_data = <?php  // echo (!empty($chart_analysis_data['monthly_qty'])) ? json_encode($chart_analysis_data['monthly_qty']) : "0" 
+                                    ?>;
+
+
+        var chart;
+
+        var dates = {};
+        var cutting_dates = {};
+        var sewed_dates = {};
+
+        var monthly_qty_dates = {};
+        var monthly_revenue_dates = {};
+
+        // var today = new Date();
+        // //avoid time
+        // today.setHours(0, 0, 0, 0);
+
+        // for (var i = 0; i < 20; i++) {
+
+        //     var date = new Date();
+        //     date.setDate(today.getDate() - i);
+
+        //     // format the date in 'YYYY-MM-DD' 
+        //     var key = date.toISOString().slice(0, 10);
+
+        //     // initial value is 0
+        //     dates[key] = 0;
+        //     cutting_dates[key] = 0;
+        //     sewed_dates[key] = 0;
+
+        //     // month object creation only added with 12 months
+        //     if (i < 12) {
+
+        //         let month = date.getMonth() - i;
+        //         let year = date.getFullYear();
+
+        //         if (month < 0) {
+        //             month += 12;
+        //             year -= 1;
+        //         }
+
+        //         let monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
+
+        //         monthly_qty_dates[monthKey] = 0;
+        //         monthly_revenue_dates[monthKey] = 0;
+        //     }
+        // }
+
+        // Object.keys(revenue_data).forEach(element => {
+
+        //     if (dates[element] != undefined)
+        //         dates[element] = revenue_data[element]
+
+        //     if (cutting_dates[element] != undefined)
+        //         cutting_dates[element] = cutting_data[element]
+
+        //     if (sewed_dates[element] != undefined)
+        //         sewed_dates[element] = sewed_data[element]
+
+        // });
+
+        // Object.keys(monthly_qty_data).forEach(element => {
+
+        //     if (monthly_qty_dates[element] != undefined)
+        //         monthly_qty_dates[element] = monthly_qty_data[element]
+
+        //     if (monthly_revenue_dates[element] != undefined)
+        //         monthly_revenue_dates[element] = monthly_revenue_data[element]
+        // });
+
+
+        // var salesValuesArray = Object.values(dates).reverse();
+        // var cuttingValuesArray = Object.values(cutting_dates).reverse();
+        // var sewedValuesArray = Object.values(sewed_dates).reverse();
+
+        // var revenueValuesArray = Object.values(monthly_revenue_dates).reverse();
+        // var qtyValuesArray = Object.values(monthly_qty_dates).reverse();
+
+        // console.log(revenueValuesArray);
+        // console.log(qtyValuesArray);
+
+        // check chart data all are zeros or not when zeros then display hide
+        // if (areAllValuesZero(salesValuesArray)) {
+
+        // }
+
+
+        // function changeToDaily() {
+        //     var options = {
+        //         series: [{
+        //                 name: 'Total Revenue',
+        //                 data: salesValuesArray,
+        //                 color: '#008FFB',
+        //             },
+        //             {
+        //                 name: 'Cutting Revenue',
+        //                 data: cuttingValuesArray,
+        //                 color: '#7d2ae8',
+        //             },
+        //             {
+        //                 name: 'Sewing Revenue',
+        //                 data: sewedValuesArray,
+        //                 color: '#12d300',
+        //             }
+        //         ],
+        //         chart: {
+        //             height: 350,
+        //             type: 'bar'
+        //         },
+        //         dataLabels: {
+        //             enabled: false
+        //         },
+        //         stroke: {
+        //             curve: 'smooth',
+        //             width: 2,
+        //         },
+        //         xaxis: {
+        //             type: 'category',
+        //             categories: Array.from({
+        //                 length: 20
+        //             }, (_, i) => {
+        //                 let currentDate = new Date();
+
+        //                 // alert(currentDate);
+        //                 currentDate.setDate(currentDate.getDate() - (20 - i));
+        //                 return currentDate.toLocaleDateString('en-US', {
+        //                     month: 'short',
+        //                     day: '2-digit'
+        //                 });
+        //             }),
+
+        //         },
+        //         tooltip: {
+        //             x: {
+        //                 format: 'dd/MM/yy HH:mm'
+        //             },
+        //         },
+        //         grid: {
+        //             show: true,
+        //         }
+        //     };
+
+        //     if (chart) {
+        //         chart.destroy();
+        //     }
+
+        //     chart = new ApexCharts(document.querySelector(".chart"), options);
+        //     chart.render();
+        // }
+
+        function changeToMonthly() {
+            var options = {
+                series: [{
+                        name: 'Monthly Revenue',
+                        data: [11, 25, 15, 8, 2, 82, 8, 38, 17, 5, 22, 85],
+                        color: '#7d2ae8',
+                    },
+                    {
+                        name: 'Monthly Total Qty',
+                        data: [1, 42, 5, 85, 2, 42, 88, 38, 7, 54, 45, 15],
+                        color: '#000000',
+                    }
+                ],
+                chart: {
+                    height: 345,
+                    type: 'area'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2,
+                },
+                xaxis: {
+                    type: 'category',
+                    categories: getPast12Months(),
+
+                },
+                tooltip: {
+                    x: {
+                        format: 'dd/MM/yy HH:mm'
+                    },
+                },
+                grid: {
+                    show: false,
+                }
+            };
+
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new ApexCharts(document.querySelector(".chart"), options);
+            chart.render();
+        }
+
+        changeToMonthly();
+
+        function areAllValuesZero(object) {
+            for (let key in object) {
+                if (object.hasOwnProperty(key) && object[key] !== 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function getPast12Months() {
+            let months = [];
+            let currentDate = new Date();
+
+            for (let i = 0; i < 12; i++) {
+                let month = currentDate.getMonth() - i;
+                let year = currentDate.getFullYear();
+
+                if (month < 0) {
+                    month += 12;
+                    year -= 1;
+                }
+
+                let monthName = new Date(year, month, 1).toLocaleString('default', {
+                    month: 'short'
+                });
+                months.unshift(monthName);
+            }
+
+            return months;
+        }
+    </script>
+
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
-    
-    
+
+    <!-- Import JQuary Library script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </body>
 
 </html>

@@ -79,6 +79,7 @@ route('garment/profile', 'garment/Profile@index');
 route('garment/update_info', 'garment/Overview@updateInfo'); 
 route('garment/reports', 'garment/Orders@save_reports'); 
 route('garment/update/status', 'garment/Orders@update_status'); 
+
 route('garment/genarate/report', 'garment/Overview@genarate_report'); 
  
 route('delivery/updateOrderStatus', 'delivery/Orders@updateOrderStatus');
@@ -95,6 +96,8 @@ route('manager/garmentdetails', 'manager/GarmentDetails@index');
 route('manager/customerdetails', 'manager/CustomerDetails@index');
 route('manager/reports', 'manager/Reports@index');
 route('manager/reportstatus', 'manager/Reports@report_status');
+
+route('manager/genarate/report', 'manager/Overview@genarate_report'); 
 
 //merchandiser
 route('merchandiser/overview', 'merchandiser/Overview@index');
