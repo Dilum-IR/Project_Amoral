@@ -107,6 +107,7 @@ route('merchandiser/profile', 'merchandiser/Profile@index');
 route('merchandiser/printingprocess', 'merchandiser/PrintingProcess@index');
 route('merchandiser/garmentdetails', 'merchandiser/GarmentDetails@index');
 route('merchandiser/customerdetails', 'merchandiser/CustomerDetails@index');
+route('merchandiser/reports', 'merchandiser/Reports@index');
 
 
 route('signinData', 'SignIn@formData');
