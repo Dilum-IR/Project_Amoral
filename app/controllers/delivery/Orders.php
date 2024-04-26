@@ -29,9 +29,10 @@ class Orders extends Controller
             $column_names[8] = "orders.longitude";
             $column_names[9] = "orders.deliver_id";
             $column_names[10]="users.address";
+            $column_names[11]="orders.is_delivery";
 
 
-            $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
+            $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id,'is_delivery'=>"1"], "users", "user_id", "id", $column_names);
 
             
             $data['data1'] = $result;
