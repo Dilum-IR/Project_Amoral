@@ -250,11 +250,11 @@ border-radius: 5px;
   color: #fff;
 }
 
-.current-orders .orders-container{
+/* .current-orders .orders-container{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
   gap: 10px;
-}
+} */
 
 .current-orders .order{
   padding: 15px;

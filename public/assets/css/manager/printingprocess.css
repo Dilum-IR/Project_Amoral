@@ -32,11 +32,11 @@ border-radius: 5px;
 
 #main {
   position: absolute;
-  top: 78px;
+  top: 64px;
   width: calc(100% - 78px);
   height: max-content;
   left: 78px;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   transition: all 0.5s ease;
   z-index: 2;
   border-radius: 50px;
@@ -93,6 +93,8 @@ border-radius: 5px;
   background: ghostwhite;
   margin: 19px 32px;
   /* overflow-x: auto; */
+  overflow-y: scroll;
+  max-height: 70vh;
 
 }
 
@@ -163,34 +165,49 @@ td img{
   border: 5px solid #ced0d2;
 }
 
-td button{
-  background-color: rgb(240, 240, 250);
-  font-size: 15px;
-  /* font-weight: bolder; */
-  margin: 2% 1%;
-  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.521);
-  transition: all 0.3s ease-in-out;
 
-  outline: none;
+
+.view-order-btn {
+  background-color: rgba(0, 0, 0, 0.788);
+  color: white;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 10px;
-  /* background-color: #29292966; */
-  border: none;
-  padding: 2px 9px;
+  padding: 5px 15px;
+  border-radius: 10px;
   text-align: center;
-  /* text-decoration: none; */
-  /* display: inline-block; */
-  font-size: 15px;
-  font-weight: bolder;
-  /* margin: 2% 1%; */
-  /* box-shadow: 2px 2px 11px -5px var(--color-default);*/
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  transform: scale(1);
+  transition: 0.5s ease-in-out;
 }
 
-td button:hover{
-  transform: scale(1.1);
-  border-bottom: 1px solid gray;
+.view-order-btn:hover {
+  transform: scale(1.05);
+}
+
+td .update-btn {
+  /* background-color: rgba(0, 0, 0, 0.788); */
+  color: rgb(0, 0, 0) !important;
+  border: black solid 1px !important;
+  padding: 5px 15px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: rgb(250, 250, 250) !important;
+  transition: 0.5s ease-in-out;
+}
+
+td .update-btn:hover {
+  border: rgb(28, 167, 0) solid 1px !important;
+
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(28, 167, 0) !important;
 }
 
 tr{
@@ -262,6 +279,11 @@ background-color: chocolate;
 background-color: #cf0303c7;
 }
 
+.text-status.sent.to.garment{
+  background-color: #aa0ccd;
+
+}
+
 .filters{
   margin: 19px 10px -8px 48px;
 
@@ -323,6 +345,8 @@ background-color: #cf0303c7;
   width: 60%; /* Could be more or less, depending on screen size */
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  max-height: 85%;
 }
 
 
@@ -522,6 +546,7 @@ select {
   font-weight: 200;
   transition: all 0.3s ease-in-out;
 }
+
 
 .popup-view .update-btn:hover{
   background: green;

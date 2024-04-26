@@ -416,6 +416,10 @@ tbody tr:hover{
   background-color: chocolate;
 }
 
+.text-status.sent.to.garment{
+  background-color: #a5b75d;
+}
+
 .text-status.sewing{
   background-color: #cf03c7;
 }
@@ -600,6 +604,7 @@ textarea{
   font-size: 14px;
   font-weight: 600;
   color: #191919;
+  text-align: center;
 }
 
 /* Progress Div Css  */
