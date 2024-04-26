@@ -2,9 +2,7 @@
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
-    // database configaration 
   
-
 
     define('ROOT', 'http://localhost/project_Amoral/public');
 } else {

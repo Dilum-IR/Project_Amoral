@@ -53,14 +53,21 @@
                     <i class="bx bxs-user-account"></i>
                     <span class="link_name">Customer Details</span>
                 </a>
-                <span class="tooltip">Customer <Details></Details></span>
+                <span class="tooltip">Customer Details</span>
             </li>
             <li>
-                <a href="#">
-                    <i class="bx bxs-building-house"></i>
-                    <span class="link_name">Reports</span>
+                <a href="<?=ROOT?>/manager/garmentdetails">
+                    <i class="bx bxs-factory"></i>
+                    <span class="link_name">Garment Details</span>
                 </a>
-                <span class="tooltip">Reports</span>
+                <span class="tooltip">Garment Details</span>
+            </li>
+            <li>
+                <a href="<?=ROOT?>/manager/reports">
+                    <i class="bx bxs-message-alt-error"></i>
+                    <span class="link_name">Reports & Messages</span>
+                </a>
+                <span class="tooltip">Reports & Messages</span>
             </li>
             <li>
                 <a href="<?=ROOT?>/manager/profile">

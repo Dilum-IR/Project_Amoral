@@ -69,7 +69,7 @@ class GarmentDetails extends Controller
 
                     // show($arr);
                     $update = $employee->update($emp_id, $arr, 'emp_id');
-                    redirect('manager/garmentedetails');
+                    redirect('manager/garmentdetails');
                 }
             }
 
@@ -86,7 +86,7 @@ class GarmentDetails extends Controller
                 if (isset($arr)) {
                     // show($arr);
                     $update = $employee->update($emp_id, $arr, 'emp_id');
-                    redirect('manager/garmentedetails');
+                    redirect('manager/garmentdetails');
                 }
             }
 

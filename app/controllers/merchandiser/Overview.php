@@ -47,8 +47,6 @@ class Overview extends Controller
                     $img_name = $_FILES['image_name']['name'];
                     $tmp_name = $_FILES['image_name']['tmp_name'];
              
-
-
                 
                         // get image extention store it in variable
                         $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
@@ -73,7 +71,7 @@ class Overview extends Controller
                       
 
                             // creating upload path on root directory
-                            $img_upload_path = $_SERVER['DOCUMENT_ROOT'] . "/Project_Amoral/public/uploads/designs/"  . $new_img_name;
+                            $img_upload_path = $_SERVER['DOCUMENT_ROOT'] . "/Project_Amoral/public/images/collection/"  . $new_img_name;
                
 
 
@@ -83,6 +81,7 @@ class Overview extends Controller
                            
 
                             $img = $new_img_name;
+                            $_POST['image_name'] = $img;
                         
                     }
                 }

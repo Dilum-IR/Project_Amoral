@@ -1037,3 +1037,42 @@ select {
 
 
 }
+
+
+tr{
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
+}
+
+tr.hide{
+  opacity: 0;
+  transform: translateX(100%);
+  line-height: 0;
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
+}
+
+tr.hide td,
+tr.hide td button,
+tr.hide td div{
+  padding: 0;
+  height: 0;
+  border: none;
+  margin: 0;
+  border-bottom: none;
+  font-size: 0;
+  --delay: .1s;
+  transition: .5s ease-in-out var(--delay);
+}
+
+tr.hide td *{
+  visibility: hidden;
+}
+
+
+tbody tr:hover{
+  cursor: pointer;
+  background-color: #0298cf0d;
+
+  transition: all 0.3s ease-in-out;
+}

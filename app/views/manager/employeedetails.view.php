@@ -87,7 +87,9 @@
 
                                     <tr>
                                         <td class="ordId"><?php echo $emp->emp_id ?></td>
-                                        <td><?php echo $emp->emp_image ?></td>
+                                        <!-- <td><?php echo $emp->emp_image ?></td> -->
+                                        <td><img style="border-radius: 50px; border:none;" src="<?= ROOT ?>/uploads/profile_img/Employee/<?php echo $emp->emp_image ?>" ></td>
+
                                         <td><?php echo $emp->emp_name ?></td>
                                         <td><?php echo $emp->email ?></td>
                                         <td><?php echo $emp->contact_number ?> </td>
@@ -221,7 +223,7 @@
 
         <div class="popup-content">
             <h2>Add new Employee</h2>
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form">
                     <div class="input-box">
                         <span class="details">Employee Name</span>

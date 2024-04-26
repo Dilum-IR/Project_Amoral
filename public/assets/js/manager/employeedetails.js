@@ -372,6 +372,30 @@ function openView(button) {
   nav.style.pointerEvents = "none";
 }
 
+// function showAdditionalFields(selectElement) {
+//   var selectedValue = selectElement.value;
+//   var cutting = document.getElementById('cutting');
+//   var sewing = document.getElementById('sewing');
+//   var workers = document.getElementById('workers');
+//   var capacity = document.getElementById('capacity');
+
+//   var joinedDateLabel = document.getElementById('date');
+
+//   if (selectedValue === 'garment') {
+//       cutting.style.display = 'block';
+//       sewing.style.display = 'block';
+//       workers.style.display = 'block';
+//       capacity.style.display = 'block';
+//       joinedDateLabel.textContent = 'Joined Date';
+//   } else {
+//       cutting.style.display = 'none';
+//       sewing.style.display = 'none';
+//       workers.style.display = 'none';
+//       capacity.style.display = 'none';
+//       joinedDateLabel.textContent = 'Date of Birth';
+//   }
+// }
+
 function showAdditionalFields(selectElement) {
   var selectedValue = selectElement.value;
   var cutting = document.getElementById('cutting');
@@ -379,19 +403,69 @@ function showAdditionalFields(selectElement) {
   var workers = document.getElementById('workers');
   var capacity = document.getElementById('capacity');
 
+  // Enable or disable input fields based on selected option
+  var cutPriceInput = document.querySelector('input[name="cut_price"]');
+  var sewedPriceInput = document.querySelector('input[name="sewed_price"]');
+  var noWorkersInput = document.querySelector('input[name="no_workers"]');
+  var dayCapacityInput = document.querySelector('input[name="day_capacity"]');
+
   var joinedDateLabel = document.getElementById('date');
 
   if (selectedValue === 'garment') {
-      cutting.style.display = 'block';
-      sewing.style.display = 'block';
-      workers.style.display = 'block';
-      capacity.style.display = 'block';
-      joinedDateLabel.textContent = 'Joined Date';
+    cutting.style.display = 'block';
+    sewing.style.display = 'block';
+    workers.style.display = 'block';
+    capacity.style.display = 'block';
+    joinedDateLabel.textContent = 'Joined Date';
+
+    // Enable input fields
+    cutPriceInput.removeAttribute('disabled');
+    sewedPriceInput.removeAttribute('disabled');
+    noWorkersInput.removeAttribute('disabled');
+    dayCapacityInput.removeAttribute('disabled');
   } else {
-      cutting.style.display = 'none';
-      sewing.style.display = 'none';
-      workers.style.display = 'none';
-      capacity.style.display = 'none';
-      joinedDateLabel.textContent = 'Date of Birth';
+    cutting.style.display = 'none';
+    sewing.style.display = 'none';
+    workers.style.display = 'none';
+    capacity.style.display = 'none';
+    joinedDateLabel.textContent = 'Date of Birth';
+
+    // Disable input fields
+    cutPriceInput.setAttribute('disabled', 'disabled');
+    sewedPriceInput.setAttribute('disabled', 'disabled');
+    noWorkersInput.setAttribute('disabled', 'disabled');
+    dayCapacityInput.setAttribute('disabled', 'disabled');
   }
 }
+
+
+const search = document.querySelector('.form input'),
+table_rows = document.querySelectorAll('tbody tr');
+
+search.addEventListener('input', searchTable);
+
+function searchTable(){
+  table_rows.forEach((row, i) => {
+    let table_data = row.textContent, 
+    search_data = search.value.toLowerCase();
+
+    row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+    row.style.setProperty('--delay', i / 25 + 's');
+  })
+}
+
+// const search = document.querySelector('.form input');
+// const table_rows = document.querySelectorAll('tbody tr');
+
+// search.addEventListener('input', searchTable);
+
+// function searchTable() {
+//   const columnIndex = 2; // Change this to the index of the column you want to search (0-based index)
+//   const search_data = search.value.toLowerCase();
+  
+//   table_rows.forEach((row, i) => {
+//     const table_data = row.cells[columnIndex].textContent.toLowerCase();
+
+//     row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+//   });
+// }
