@@ -41,8 +41,10 @@ function performSearch() {
         }
         console.log(row_text);
 
-        row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
-        row.style.setProperty('--delay', i/40 + 's');
+        if(!row.classList.contains('filter')){
+            row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+            row.style.setProperty('--delay', i/40 + 's');
+        }
     })
 }
 
@@ -115,6 +117,157 @@ updateYes.addEventListener('click', function(){
     updateConfirm.classList.remove('is-visible');
 });
 */
+
+//**********************Filter table***************************************************** */
+
+//remove active classes of buttons
+function removeActiveFilters(){
+    let filterBtns = document.querySelectorAll('.filters button');
+    filterBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+}
+
+// filter table data when a filter button is clicked
+function filterTable(arg){
+
+    removeActiveFilters();
+    let i = 0;
+    let table_rows = document.querySelectorAll('.table-section tbody tr');
+    if(arg == 'pending'){
+        document.querySelector('.filters #pending').classList.add('active');
+        // if(table_rows.length == 0){
+        //     document.querySelector('.table-section tbody').innerHTML = "<tr><td class='norecords' colspan='8'>No records found</td></tr>";
+        //     return;
+        // }
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('pending')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+        }); 
+        
+    }else if(arg == 'cutting'){
+        document.querySelector('.filters #cutting').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('cutting') || row.querySelector('.text-status').classList.contains('cut')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;filter
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'printing'){
+        document.querySelector('.filters #printing').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('printing') || row.querySelector('.text-status').classList.contains('printed') || row.querySelector('.text-status').classList.contains('sent to garment')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'sewing'){
+        document.querySelector('.filters #sewing').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('sewing') || row.querySelector('.text-status').classList.contains('sewed')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+
+    }else if(arg == 'delivering'){
+        document.querySelector('.filters #delivering').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('delivering')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'completed'){
+        document.querySelector('.filters #completed').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('delivered') || row.querySelector('.text-status').classList.contains('completed')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'cancelled'){
+        document.querySelector('.filters #cancelled').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('cancelled')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else{
+        document.querySelector('.filters #all').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+            return;
+        }
+        console.log(table_rows);
+        table_rows.forEach(row => {
+            if(row.classList.contains('filter')){
+                row.classList.remove('filter');
+                i++;
+            }
+
+        });
+     
+    }
+    
+
+}
+
 
 //validate the delivery dates
 let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
@@ -342,6 +495,8 @@ function clearErrorMsg(form) {
 
 function removeActiveClass() {
     document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+        progress1.classList.remove("cancel");
+
         li.classList.remove("active");
     });
 }

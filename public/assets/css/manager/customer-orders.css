@@ -273,7 +273,7 @@ input{
     background: ghostwhite;
     margin: 19px 32px;
     overflow-y: scroll;
-    max-height: 70vh;
+    max-height: 55vh;
 }
 
 table{
@@ -370,9 +370,28 @@ tr.hide td div{
   transition: .5s ease-in-out var(--delay);
 }
 
-tr.hide td *{
+tr.hide td *,
+tr.filter td *{
   visibility: hidden;
 }
+
+tr.filter{
+  opacity: 0;
+}
+
+tr.filter td,
+tr.filter td button,
+tr.filter td div{
+  padding: 0;
+  height: 0;
+  border: none;
+  margin: 0;
+  border-bottom: none;
+  font-size: 0;
+  transition: .5s ease-in-out;
+}
+
+
 
 tbody tr:hover{
   cursor: pointer;
@@ -442,6 +461,35 @@ tbody tr:hover{
 
 .text-status.cancelled{
   background-color: #cf0303c7;
+}
+
+.filters{
+  margin: 19px 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+
+}
+
+.filters button{
+  padding: 10px 20px;
+  /* width: 200px; */
+  border: none;
+  border-radius: 5px;
+  background: #ecebef;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  border: 1px solid #d1d1d1;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.137);
+}
+
+.filters button.active{
+  background: #000000c2;
+  color: white;
 }
 
 .popup-view, 

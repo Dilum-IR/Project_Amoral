@@ -8,8 +8,8 @@
         <h3>Are you sure that you want to cancel the order?</h3>
         <div class="logout-btn-component">
 
-            <button class="button" id="confirmStatus">Yes</button>
-            <button class="button" id="cancelStatus">No</button>
+            <button class="button" id="confirmDelete">Yes</button>
+            <button class="button" id="cancelDelete">No</button>
         </div>
     </div>
 </div>
@@ -17,8 +17,8 @@
 <script>
     const delete_confirm_popup = document.getElementById("delete-confirm-popup");
     const closeButton_delete = document.getElementsByClassName("status-close-icon")[0];
-    const confirmBtn_delete = document.getElementById("confirmStatus");
-    const cancelBtn_delete = document.getElementById("cancelStatus");
+    const confirmBtn_delete = document.getElementById("confirmDelete");
+    const cancelBtn_delete = document.getElementById("cancelDelete");
 
     cancelBtn_delete.onclick = function() {
 
@@ -119,21 +119,21 @@
 
     }
 
-    #confirmStatus {
+    #confirmDelete {
         margin-right: 10px;
         background-color: #000000;
     }
 
-    #cancelStatus {
+    #cancelDelete {
         background-color: #f44336;
     }
 
-    #confirmStatus:hover {
+    #confirmDelete:hover {
         transform: scale(1.05);
         /* background-color: rgb(16, 187, 0); */
     }
 
-    #cancelStatus:hover {
+    #cancelDelete:hover {
         transform: scale(1.05);
         background-color: rgb(255, 0, 0);
     }

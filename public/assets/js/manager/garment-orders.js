@@ -149,6 +149,7 @@ function drop(e) {
 // });
 
 function removeActiveClass() {
+    progress1.classList.remove("cancel");
     progress2.classList.remove("active");
     progress3.classList.remove("active");
     progress4.classList.remove("active");
@@ -181,6 +182,7 @@ function openView(button) {
             case 'cut':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
+                progress2.nextElementSibling.innerHTML = "Cut";
                 break;
 
             case 'sent to company':
@@ -195,17 +197,25 @@ function openView(button) {
 
             case 'sent to garment':
                 progress2.classList.add("active");
+                progress2.nextElementSibling.innerHTML = "Cut";
                 progress3.classList.add("active");
+                progress4.nextElementSibling.innerHTML = "Sent to Stitch";
+                progress4.classList.add("active");
                 break;
 
             case 'returned':
                 progress2.classList.add("active");
+                progress2.nextElementSibling.innerHTML = "Cut";
                 progress3.classList.add("active");
+                progress4.nextElementSibling.innerHTML = "Sent to Stitch";
+                progress4.classList.add("active");
                 break;
 
             case 'sewing':
                 progress2.classList.add("active");
+                progress2.nextElementSibling.innerHTML = "Cut";
                 progress3.classList.add("active");
+                progress4.nextElementSibling.innerHTML = "Sewing";
                 progress4.classList.add("active");
                 break;
 
@@ -221,6 +231,11 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress5.classList.add("active");
+                break;
+
+            case 'cancelled':
+                progress1.classList.add("cancel");
+
                 break;
 
         }
@@ -283,6 +298,20 @@ function openView(button) {
         for (let i = 0; i < material.length; i++) {
             addMaterialCardView(material[i]);
         }
+
+        //disable updating dates when order status is sewing or cutting
+        let updateBtn = document.querySelector('.popup-view .update-btn');
+        if(order.status == 'pending'){
+            document.querySelector('.update-form input[name="cut_dispatch_date"]').disabled = false;
+            document.querySelector('.update-form input[name="sew_dispatch_date"]').disabled = false;
+        }else if(order.status == 'cutting' || order.status == 'cut' || order.status == 'sent to company' || order.status == 'company process' || order.status == 'sent to garment'){
+            document.querySelector('.update-form input[name="cut_dispatch_date"]').disabled = true;
+        }else{
+            document.querySelector('.update-form input[name="sew_dispatch_date"]').disabled = true;
+            document.querySelector('.update-form input[name="cut_dispatch_date"]').disabled = true;
+            updateBtn.style.display = "none";
+        }
+        
 
     }
 
