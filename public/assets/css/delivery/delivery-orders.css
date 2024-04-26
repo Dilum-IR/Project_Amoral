@@ -1069,8 +1069,8 @@ select {
   max-width: 500px; /* Maximum width of the modal */
   text-align: center; /* Center text for better readability */
   position: relative; /* Necessary for absolute positioning of the close button */
-  top: 35%;
-  left: 35%;
+  top: 6%;
+  left: 3%;
 }
 
 /* Close button styling */
@@ -1214,7 +1214,6 @@ select {
   font-size: 100%;
 }
 
-
 /* Media queries for mobile devices */
 @media (max-width: 480px) {
   .breadcrumb {
@@ -1250,7 +1249,7 @@ select {
 
   .popup-view,
   .popup-report {
-    width: 60%; /* Adjusts popup width to be less overwhelming on larger screens */
+    /* width: 60%; Adjusts popup width to be less overwhelming on larger screens */
     padding: 2%; /* Reduces padding */
   }
 

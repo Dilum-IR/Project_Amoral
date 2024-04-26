@@ -149,8 +149,31 @@
 
 
 
-    <script>
 
+
+    <!-- <script>
+        function searchOrders() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("orderSearch");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("yourTableId"); // Make sure your table has an ID
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those that don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Choose the index according to your needs, e.g., 1 for Customer Name
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script> -->
 
     <!-- delivered confirm pop-up -->
     <div id="myModal" class="modal">
