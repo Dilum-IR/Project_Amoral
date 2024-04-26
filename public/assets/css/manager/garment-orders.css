@@ -240,6 +240,8 @@ form .form-input button:hover {
   display: grid;
 
   gap: 10px;
+  overflow-y: scroll;
+  max-height: max-content;
 }
 
 .category.garmentsCard .items{
@@ -713,6 +715,10 @@ textarea {
 .status ul li .active{
   background-color: green;
   z-index: 1;
+}
+
+.status ul li .cancel{
+  background-color: red;
 }
 
 .status ul li .one,

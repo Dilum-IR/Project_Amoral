@@ -117,10 +117,10 @@
                                         <?php $totQuantity = 0; ?>
 
                                         <?php foreach($data['garment_orders'] as $order): ?>
-                                            <?php if($order->garment_id == $garment->garment_id): ?>
+                                            <?php if($order->garment_id == $garment->garment_id && $order->status != 'cancelled'): ?>
                                                 <p><?php $count++; ?></p>
                                                 <?php foreach($data['order_material'] as $order_material): ?>
-                                                    <?php if($order_material->order_id == $order->order_id): ?>
+                                                    <?php if($order_material->order_id == $order->order_id ): ?>
                                                         <!-- <?php $materials[] = $order_material; ?> -->
                                                         <?php $qty = $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
                                                         <!-- <?php $qtys[] = $qty ?> -->
@@ -278,7 +278,7 @@
                                                 $status = 'sent to stitch';
                                                 break;
                                             case 'returned':
-                                                $status = 'sewing';
+                                                $status = 'sent to stitch';
                                                 break;
                                             default:
                                                 $status = $order->status;
@@ -329,7 +329,7 @@
                         <p class="text"></p>
                     </li>
                     <li>
-                        <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                        <iconify-icon icon="fluent-mdl2:cut"></iconify-icon>
                         <div class="progress two">
 
                             <i class="uil uil-check"></i>
@@ -345,7 +345,7 @@
                         <p class="text"></p>
                     </li>
                     <li>
-                        <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                        <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
                         <div class="progress four">
 
                             <!-- <i class="uil uil-check"></i> -->

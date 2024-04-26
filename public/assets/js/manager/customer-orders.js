@@ -342,6 +342,8 @@ function clearErrorMsg(form) {
 
 function removeActiveClass() {
     document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+        progress1.classList.remove("cancel");
+
         li.classList.remove("active");
     });
 }
