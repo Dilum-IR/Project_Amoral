@@ -392,47 +392,21 @@ table tbody tr.active-row {
 .popup-view,
 .popup-new {
   position: fixed;
-  height: 90%;
-  width: 50%;
-  background: #ffffff;
-  margin-top: 4%;
-  margin-bottom: 3%;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 12px;
-  padding: 1%;
-  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
-  visibility: hidden;
-  transition: transform 0.5s, top 0.5s;
-  justify-content: center;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   overflow: auto;
-}
-.popup-report {
-  position: fixed;
-  height: fit-content;
-  width: 50%;
-  background: #ffffff;
-  margin-top: 4%;
-  margin-bottom: 3%;
-  top: 44%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 12px;
-  padding: 1%;
-  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
   visibility: hidden;
-  transition: transform 0.5s, top 0.5s;
-  justify-content: center;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
 
-.open-popup-view,
-.open-popup-new,
-.open-popup-report {
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 101;
-}
 .is-visible {
   opacity: 1;
   visibility: visible;
@@ -443,14 +417,16 @@ table tbody tr.active-row {
 
 .popup-content {
   background-color: #fefefe;
-  margin: 5% 5%; /* 15% from the top and centered */
-  padding: 0.2% 0.35% 0.4% 0.56%;
-  /* border: 1px solid #888; */
-  width: 90%; /* Could be more or less, depending on screen size */
+  margin: 5% auto;
+  padding: 20px 35px 40px 56px;
+  border: 1px solid #888;
+  width: 62%;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  /* overflow-x: hidden; */
+  max-height: 85%;
 }
-
 .popup-report .popup-content .form {
   width: 275%;
   position: relative;
@@ -722,7 +698,7 @@ ul li .active .uil{
   max-width: 100%;
   width: 60%;
 }
-.h1{
+.h1 {
   text-align: center;
 }
 
@@ -922,6 +898,7 @@ select {
   position: relative;
   justify-content: center; /* Centers the child elements horizontally */
   align-items: center;
+  margin-bottom: -6%;
 }
 
 .update-btn,
@@ -1092,8 +1069,8 @@ select {
   max-width: 500px; /* Maximum width of the modal */
   text-align: center; /* Center text for better readability */
   position: relative; /* Necessary for absolute positioning of the close button */
-  top: 35%;
-  left: 35%;
+  top: 6%;
+  left: 3%;
 }
 
 /* Close button styling */
@@ -1237,7 +1214,6 @@ select {
   font-size: 100%;
 }
 
-
 /* Media queries for mobile devices */
 @media (max-width: 480px) {
   .breadcrumb {
@@ -1273,7 +1249,7 @@ select {
 
   .popup-view,
   .popup-report {
-    width: 60%; /* Adjusts popup width to be less overwhelming on larger screens */
+    /* width: 60%; Adjusts popup width to be less overwhelming on larger screens */
     padding: 2%; /* Reduces padding */
   }
 
