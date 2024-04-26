@@ -20,50 +20,50 @@ function filterTable(arg){
     let table_rows = document.querySelectorAll('.table-section tbody tr');
     if(arg == 'cut'){
         document.querySelector('.filters #pending').classList.add('active');
-        if(table_rows.length == 0){
-            document.querySelector('.table-section tbody').innerHTML = "<tr><td class='norecords' colspan='8'>No records found</td></tr>";
-            return;
-        }
+        // if(table_rows.length == 0){
+        //     document.querySelector('.table-section tbody').innerHTML = "<tr><td class='norecords' colspan='8'>No records found</td></tr>";
+        //     return;
+        // }
         table_rows.forEach(row => {
             if(row.querySelector('.text-status').classList.contains('cut')){
-                row.style.display = 'table-row';
-                i++;
+                if(row.classList.contains('hide')){
+                    row.classList.remove('hide');
+                    i++;
+                }
             }
             else{
-                row.style.display = 'none';
+                row.classList.add('hide');
             }
         }); 
         
     }else if(arg == 'printing'){
         document.querySelector('.filters #printing').classList.add('active');
-        if(table_rows.length == 0){
-            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
-            return;
-        }
+
         table_rows.forEach(row => {
             if(row.querySelector('.text-status').classList.contains('printing')){
-                row.style.display = 'table-row';
-                i++;
+                if(row.classList.contains('hide')){
+                    row.classList.remove('hide');
+                    i++;
+                }
             }
             else{
-                row.style.display = 'none';
+                row.classList.add('hide');
             }
 
         });
         
     }else if(arg == 'printed'){
         document.querySelector('.filters #printed').classList.add('active');
-        if(table_rows.length == 0){
-            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
-            return;
-        }
+
         table_rows.forEach(row => {
             if(row.querySelector('.text-status').classList.contains('printed')){
-                row.style.display = 'table-row';
-                i++;
+                if(row.classList.contains('hide')){
+                    row.classList.remove('hide');
+                    i++;
+                }
             }
             else{
-                row.style.display = 'none';
+                row.classList.add('hide');
             }
 
         });
@@ -74,19 +74,34 @@ function filterTable(arg){
             document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
             return;
         }
+        console.log(table_rows);
         table_rows.forEach(row => {
-            row.style.display = 'table-row';
-            i++;
+            if(row.classList.contains('hide')){
+                row.classList.remove('hide');
+                i++;
+            }
+
         });
      
     }
     
-    if(i == 0){
-        document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
-    }
+
 }
 
 // *****************************Update status of order*******************************
+
+var table_rows = document.querySelectorAll('.table-section tbody tr');
+var ordstatus = "";
+table_rows.forEach(row => {
+    ordstatus = row.querySelector('.text-status').innerText;
+    if(ordstatus == "printed"){
+        document.querySelector('td .update-btn').innerText = "Mark As Sent";
+        document.querySelector('td .update-btn').title = "Mark order as sent to garment";
+    }else{
+        document.querySelector('td .update-btn').innerText = "Update Status";
+        document.querySelector('td .update-btn').title = "Update order status";
+    }
+});
 
 var each_order = {};
 var popup_status_btn = document.getElementById("popup-status-btn");
@@ -133,10 +148,7 @@ function change_order_status(tap = "popup") {
     }
   }
 
-  if(order_status == "printed"){
-    document.querySelector('.popup-view .update-form .update-btn').value = "Mark As Sent";
-    document.querySelector('.popup-view .update-form .update-btn').title = "Mark order as sent to garment";
-  }
+
 //   popup_status_btn.innerHTML =
 //     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
 

@@ -59,13 +59,17 @@
         </form>
 
         <div class="table">
-            <!-- <div class="table-header">
-                <p>Order Details</p>
-                <div>
-                    <input placeholder="order"/>
-                    <button class="add_new">+ Add New</button>
-                </div>
-            </div> -->
+            <div class="filters">
+                <button id="all" class="active" onclick="filterTable('all')">All Orders</button>
+                <button id="pending" onclick="filterTable('pending')">Pending Orders</button>
+                <button id="cutting" onclick="filterTable('cutting')">Cutting Orders</button>
+                <button id="printing" onclick="filterTable('printing')">Printing Orders</button>
+                <button id="sewing" onclick="filterTable('sewing')">Sewing Orders</button>
+                <button id="delivering" onclick="filterTable('delivering')">Delivering Orders</button>
+                <button id="completed" onclick="filterTable('completed')">Completed Orders</button>
+                <button id="cancelled" onclick="filterTable('cancelled')">Cancelled Orders</button>
+
+            </div>
             <div class="table-section">
                 <table>
                     <thead>
