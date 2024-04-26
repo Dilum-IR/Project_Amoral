@@ -1,5 +1,5 @@
 let popupView = document.getElementById("popup-view");
-let overlay = document.getElementById("overlay");
+// let overlay = document.getElementById("overlay");
 let popupReport = document.querySelector(".popup-report");
 
 function openView(data) {
@@ -34,8 +34,11 @@ function openView(button) {
 //     updateMapLocation(order.latitude, order.longitude); // Update map if already initialized
 
 
-  popupView.classList.add("open-popup-view");
-  overlay.classList.add("overlay-active");
+
+  popupView.classList.add("is-visible");
+  document.body.style.overflow = "hidden";
+  sidebar.style.pointerEvents = "none";
+  nav.style.pointerEvents = "none";
 }
 
 function confirmWithPopup() {
@@ -45,8 +48,10 @@ function confirmWithPopup() {
 }
 
 function closeView() {
-  popupView.classList.remove("open-popup-view");
-  overlay.classList.remove("overlay-active");
+  popupView.classList.remove("is-visible");
+  document.body.style.overflow = "auto";
+  sidebar.style.pointerEvents = "auto";
+  nav.style.pointerEvents = "auto";
 }
 
 function openReport() {
