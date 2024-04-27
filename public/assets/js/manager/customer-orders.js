@@ -509,17 +509,30 @@ function openView(button) {
     const orderData = button.getAttribute("data-order");
     const materialData = button.getAttribute("data-material");
     const customersData = button.getAttribute("data-customers");
-
+    const garmentOrderData = button.getAttribute("data-g-orders");
+    const employeeData = button.getAttribute("data-emp");
 
     console.log(materialData);
-
+    
     removeActiveClass();
-
+    
     if (orderData) {
         // Parse the JSON data
         const order = JSON.parse(orderData);
+        console.log(order);
         const material = JSON.parse(materialData);
         const customers = JSON.parse(customersData);
+        let employee = '';
+        if(garmentOrderData){
+            const garmentOrders = JSON.parse(garmentOrderData);
+            const gOrder = garmentOrders.find(ord => ord.order_id == order.order_id);
+            console.log(gOrder);
+            if(employeeData){
+                const employees = JSON.parse(employeeData);
+                employee = employees.find(emp => emp.emp_id == gOrder.emp_id);  
+                console.log(employee);   
+            }
+        }
 
         switch (order.order_status) {
             case 'cutting' :
@@ -758,6 +771,9 @@ function openView(button) {
             document.querySelectorAll(".popup-view .st").forEach(input => {
                 input.setAttribute("disabled", "disabled");
             });
+
+            // update employee input field
+            document.querySelector('.update-form input[name="emp_id"]').value = 'EMP-' + employee.emp_id + ' - ' + employee.emp_name;
         }else{
             document.querySelectorAll(".popup-view .st").forEach(input => {
                 input.removeAttribute("disabled");
