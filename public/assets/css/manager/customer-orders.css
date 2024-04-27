@@ -459,7 +459,7 @@ tbody tr:hover{
   background-color: #0ccd93;
 }
 
-.text-status.cancelled{
+.text-status.canceled{
   background-color: #cf0303c7;
 }
 
@@ -817,13 +817,13 @@ form .user-details .input-box {
 .update-form .user-details .input-box.design{
   top: -40px;
   position: relative;
-  left: 45px;
+  /* left: 45px; */
 }
 
 form .user-details .input-box .download{
   position: relative;
   bottom: 2px;
-  left: 38%;
+  left: 50%;
   /* width: 100%; */
   background-color: black;
   color: white;
@@ -1240,4 +1240,45 @@ hr.second {
   padding: 3px;
   box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
   cursor: auto;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  /* display: none; */
+}
+
+.carousel-left-btn,
+.carousel-right-btn {
+  z-index: 1;
+  background-color: transparent;
+  font-size: large;
+  border: none;
+  font-weight: bolder;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-left-btn:hover,
+.carousel-right-btn:hover {
+  font-size: larger;
+
+}
+
+
+.carousel-image {
+  width: 400px;
+  height: 400px;
+  min-width: 400px;
+  min-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 0.5rem;
 }

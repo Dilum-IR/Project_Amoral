@@ -222,8 +222,22 @@
                 <div class="user-details">
                     <div class="input-box design">
                         <button type="button" class="download">Download</button>
-                        <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
 
+                        <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; left: 13%; position: relative; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        
+                        <div class="carousel" >
+                            <button class="carousel-left-btn" id="prevBtn">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <div id="carouselImages" style="width: 50%; position: relative;">
+                                <!-- Carousel images will be populated here -->
+                                <img src="" class="img1" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="" class="img2" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <button class="carousel-right-btn" id="nextBtn">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="input-box">

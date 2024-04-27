@@ -317,23 +317,39 @@ function openView(button) {
         });
 
 
-        //image slider
-
+        
+        
+        
+    //image slider
     const carouselImages = document.getElementById('carouselImages');
-    const imageCount = document.querySelector('.image-count');
+    // const imageCount = document.querySelector('.image-count');
 
     let images = [order.image1, order.image2];
     let currentImage = 0;
 
-    console.log(baseUrl+images[0]);
+    // console.log(baseUrl+images[0]);
 
 
 
-    images.forEach(image => {
-        var path = baseUrl + image;
-        var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
+    images.forEach((image, index) => {
+        var path =  '../uploads/designs/' + image;
+        console.log(path);
+        var imgHTML = document.createElement('img');
+        imgHTML.src = path;
+        imgHTML.style.transition = 'all 0.5s ease-in-out';
+        if(index==1){
+            imgHTML.classList.add('img2')
+            imgHTML.style.display = 'none';
+            // currentImage = 1;
+        }else{
+            imgHTML.classList.add('img1')
+            imgHTML.style.display = 'block';
+            // currentImage = 0;
+        }
+        // var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
         console.log(imgHTML);
-        carouselImages.innerHTML += imgHTML;
+        // carouselImages.innerHTML = imgHTML;
+        carouselImages.appendChild(imgHTML);
     });
 
     // imageCount.innerHTML = currentImage + 1/images.length;
@@ -343,42 +359,65 @@ function openView(button) {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    // Add event listeners to carousel buttons
-    prevBtn.addEventListener('click', () => {
-        // Decrease currentImage index
-        currentImage--;
-        // If currentImage is less than 0, set it to the last image
-        if (currentImage < 0) {
-            currentImage = images.length - 1;
+    
+    nextBtn.addEventListener('click', (event) => {
+        // Increase currentImage index
+        event.preventDefault();
+        if(currentImage == 0){
+            document.querySelector('.img1').style.display = 'none';
+            document.querySelector('.img2').style.display = 'block';
+            currentImage = 1;
         }
-        updateCarousel();
     });
-
-    nextBtn.addEventListener('click', () => {
-        currentImage++;
-        if (currentImage >= images.length) {
+    
+    // Add event listeners to carousel buttons
+    prevBtn.addEventListener('click', (event) => {
+        // Decrease currentImage index
+        event.preventDefault();
+        if(currentImage == 1){
+            document.querySelector('.img2').style.display = 'none';
+            document.querySelector('.img1').style.display = 'block';
             currentImage = 0;
         }
-        updateCarousel();
     });
 
-    function updateCarousel() {
+    if(order.pdf == null){
+        document.querySelector('.update-form embed[name="design"]').style.display = 'none';
+        document.querySelector('.update-form .carousel').style.display = 'flex';
 
-        carouselImages.innerHTML = '';
-        carouselImages.innerHTML += `
-        <img src="<?php echo ROOT . '/' ?>${images[currentImage].image_url}" alt="Product Image-${images[currentImage].product_image_id}" class="carousel-image">
-    `;
-        // Update image count
-        // imageCount.innerHTML = currentImage + 1/images.length;
+        //download images when the button is clicked
+        document.querySelector('.download').addEventListener('click', function() {
+            var link = document.createElement('a');
+            [order.image1, order.image2].forEach(image => {
+
+                link.href = "/Project_Amoral/public/uploads/designs/" + order.image;
+                link.download = order.image;
+                document.body.appendChild(link);
+                link.click();
+            });
+            document.body.removeChild(link);
+        });
+    }else{
+        document.querySelector('.update-form embed[name="design"]').style.display = 'block';
+        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+        
+        //download the pdf when the button is clicked
+        document.querySelector('.download').addEventListener('click', function() {
+            var link = document.createElement('a');
+            link.href = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+            link.download = order.pdf;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        document.querySelector('.update-form .carousel').style.display = 'none';
     }
 
-    // Initial carousel update
-    updateCarousel();
 
-        popupView.classList.add("is-visible");
-        document.body.style.overflow = "hidden";
-        sidebar.style.pointerEvents = "none";
-        nav.style.pointerEvents = "none";
+    popupView.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
 
 }
 

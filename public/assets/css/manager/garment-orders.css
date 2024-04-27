@@ -418,7 +418,22 @@ thead th{
   font-size: 15px;
   border-bottom: 1px solid black;
   background: black;
+  cursor: pointer;
 }
+
+thead th i{
+  font-size: 21px;
+  position: relative;
+  top: 4px;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+}
+
+thead th.active i{
+  transform: scale(1.2);
+  color: blueviolet;
+}
+
 
 th, td{
     border-bottom: 1px solid #dddddd;
@@ -529,7 +544,7 @@ tbody tr:hover{
   background-color: #6c0c9f;
 }
 
-.text-status.cancelled{
+.text-status.canceled{
   background-color: #fc3b56;
 }
 

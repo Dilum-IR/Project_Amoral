@@ -354,13 +354,13 @@ class CustomerOrders extends Controller
             // show($_POST);
             // unset($_POST['updateOrder']);
             
-            $arrOrder = ['order_status' => 'cancelled'];
+            $arrOrder = ['order_status' => 'canceled'];
             
             $order->update($order_id, $arrOrder, 'order_id');
             $relevant_garment_order = $garment_order->where(['order_id' => $order_id]);
             // show($relevant_garment_order);
             if(!empty($relevant_garment_order)){
-                $garment_order->update($relevant_garment_order[0]->garment_order_id, ['status' => 'cancelled'], 'garment_order_id');
+                $garment_order->update($relevant_garment_order[0]->garment_order_id, ['status' => 'canceled'], 'garment_order_id');
             }
             $arr['user'] = true;
             unset($_POST);

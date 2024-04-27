@@ -275,7 +275,7 @@ background-color: #0c5fcd;
 background-color: chocolate;
 }
 
-.text-status.cancelled{
+.text-status.canceled{
 background-color: #cf0303c7;
 }
 
@@ -466,7 +466,23 @@ form .user-details .input-box {
   width: 20%;
 }
 
-
+form .user-details .input-box .download{
+  position: relative;
+  bottom: 2px;
+  left: 38%;
+  /* width: 100%; */
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 
 
 form .sizes {
@@ -687,21 +703,25 @@ hr.second {
   align-items: center;
   width: 100%;
   overflow: hidden;
+  /* display: none; */
 }
 
 .carousel-left-btn,
 .carousel-right-btn {
-  background-color: var(--light);
-
+  z-index: 1;
+  background-color: transparent;
+  font-size: large;
   border: none;
+  font-weight: bolder;
   padding: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .carousel-left-btn:hover,
 .carousel-right-btn:hover {
-  color: var(--primary);
+  font-size: larger;
+
 }
 
 
