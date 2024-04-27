@@ -94,10 +94,10 @@ function sortTable(i, order){
 
 }
 
-orderCancel.addEventListener('click', function (event) {
-    console.log('cancel');
-    deleteConfirm.classList.add('is-visible');
-});
+// orderCancel.addEventListener('click', function (event) {
+//     console.log('cancel');
+//     deleteConfirm.classList.add('is-visible');
+// });
 
 // orderUpdate.addEventListener('click', function (event) {
 //     event.preventDefault();
@@ -236,7 +236,7 @@ function filterTable(arg){
         document.querySelector('.filters #cancelled').classList.add('active');
 
         table_rows.forEach(row => {
-            if(row.querySelector('.text-status').classList.contains('cancelled')){
+            if(row.querySelector('.text-status').classList.contains('canceled')){
                 if(row.classList.contains('filter')){
                     row.classList.remove('filter');
                     i++;
@@ -615,7 +615,7 @@ function openView(button) {
                 progress6.nextElementSibling.innerText = 'Completed';
                 break;
 
-            case 'cancelled':
+            case 'canceled':
                 progress1.classList.add("cancel");
                 progress1.nextElementSibling.innerText = 'Cancelled';
                 break;
@@ -866,17 +866,107 @@ function openView(button) {
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
         // document.querySelector('.update-form input[name="city"]').value = order.city;
 
-        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+        console.log(order.pdf);
+        if(order.pdf === ''){
+            document.querySelector('.update-form embed[name="design"]').style.display = 'none';
+            document.querySelector('.update-form .carousel').style.display = 'flex';
         
-        //download the pdf when the button is clicked
-        document.querySelector('.download').addEventListener('click', function() {
-            var link = document.createElement('a');
-            link.href = "/Project_Amoral/public/uploads/designs/" + order.pdf;
-            link.download = order.pdf;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        });
+            //download images when the button is clicked
+            document.querySelector('.download').addEventListener('click', function() {
+                var link = document.createElement('a');
+                [order.image1, order.image2].forEach(image => {
+        
+                    link.href = "/Project_Amoral/public/uploads/designs/" + order.image;
+                    link.download = order.image;
+                    document.body.appendChild(link);
+                    link.click();
+                });
+                document.body.removeChild(link);
+            });
+        }else{
+            document.querySelector('.update-form embed[name="design"]').style.display = 'block';
+            document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+            
+            //download the pdf when the button is clicked
+            document.querySelector('.download').addEventListener('click', function() {
+                var link = document.createElement('a');
+                link.href = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+                link.download = order.pdf;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            document.querySelector('.update-form .carousel').style.display = 'none';
+        }
+
+//image slider
+
+const carouselImages = document.getElementById('carouselImages');
+// const imageCount = document.querySelector('.image-count');
+
+let images = [order.image1, order.image2];
+let currentImage = 0;
+
+// console.log(baseUrl+images[0]);
+
+
+
+images.forEach((image, index) => {
+    var path =  '../uploads/designs/' + image;
+    console.log(path);
+    var imgHTML1 = document.querySelector('.img1');
+    var imgHTML2 = document.querySelector('.img2');
+    // imgHTML.src = path;
+    if(index==1){
+        imgHTML2.src = path;
+        imgHTML2.style.transition = 'all 0.5s ease-in-out';
+        // imgHTML.classList.add('img2')
+        imgHTML2.style.display = 'none';
+        // currentImage = 1;
+    }else{
+        imgHTML1.src = path;
+        imgHTML1.style.transition = 'all 0.5s ease-in-out';
+
+        // imgHTML.classList.add('img1')
+        imgHTML1.style.display = 'block';
+        // currentImage = 0;
+    }
+    // var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
+    // console.log(imgHTML);
+    // carouselImages.innerHTML = imgHTML;
+    // carouselImages.appendChild(imgHTML);
+});
+
+// imageCount.innerHTML = currentImage + 1/images.length;
+
+
+
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+// Add event listeners to carousel buttons
+prevBtn.addEventListener('click', (event) => {
+    // Decrease currentImage index
+    event.preventDefault();
+    if(currentImage == 1){
+        document.querySelector('.img2').style.display = 'none';
+        document.querySelector('.img1').style.display = 'block';
+        currentImage = 0;
+    }
+});
+
+nextBtn.addEventListener('click', (event) => {
+    // Increase currentImage index
+    event.preventDefault();
+    if(currentImage == 0){
+        document.querySelector('.img1').style.display = 'none';
+        document.querySelector('.img2').style.display = 'block';
+        currentImage = 1;
+    }
+});
+
+
+
 
         // populate the customer details
         document.querySelector('.update-form input[name="id"]').value = order.user_id;
@@ -893,15 +983,23 @@ function openView(button) {
         sidebar.style.pointerEvents = "none";
         nav.style.pointerEvents = "none";
 
-        if(order.order_status == 'cancelled'){
+
+        //disable the fields according to the status
+        if(order.order_status == 'canceled'){
             document.querySelectorAll('.popup-view input').forEach(input => {
                 input.setAttribute("disabled", "disabled");
+            });
+            document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
+                remove.style.display = "none";
             });
             orderCancel.style.display = "none";
             orderUpdate.style.display = "none";
         }else if (order.order_status == 'delivering' || order.order_status == 'delivered' || order.order_status == 'completed' ) {
             document.querySelectorAll(".popup-view input[type='date']").forEach(date => {	
                 date.setAttribute("disabled", "disabled");
+            });
+            document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
+                remove.style.display = "none";
             });
             orderCancel.style.display = "none";
             orderUpdate.style.display = "none";
@@ -910,6 +1008,11 @@ function openView(button) {
                 orderUpdate.value = 'Mark As Completed';
             }
         } else {
+            if(order.order_status != 'pending' ){
+                document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
+                    remove.style.display = "none";
+                });
+            }
             document.querySelectorAll(".popup-view input[type='date']").forEach(date => {	
                 date.removeAttribute("disabled");
             });

@@ -138,11 +138,15 @@
         <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
-                        <div class="carousel">
+                        <button type="button" class="download">Download</button>
+
+                        <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        
+                        <div class="carousel" >
                             <button class="carousel-left-btn" id="prevBtn">
                                 <i class="fas fa-arrow-left"></i>
                             </button>
-                            <div id="carouselImages">
+                            <div id="carouselImages" style="width: 50%; left: -90px; position: relative;">
                                 <!-- Carousel images will be populated here -->
                             </div>
                             <button class="carousel-right-btn" id="nextBtn">
@@ -211,7 +215,7 @@
 </section>
 
     <script>
-        var baseUrl = "<?php echo ROOT . '/uploads/designs/'; ?>";
+        // var baseUrl = "<?php echo ROOT . '/uploads/designs/'; ?>";
         var change_status_endpoint = "<?php echo ROOT . '/manager/updateOrderStatus'; ?>";
     </script>
     

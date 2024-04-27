@@ -359,6 +359,14 @@ function initCalendar() {
       ) {
         event = true;
         eventStatus = eventObj.details[0].status;
+
+        let currentDate = new Date();
+        let dispatchDate = new Date(eventObj.details[0].placedOn);
+        let diffTime = Math.abs(dispatchDate - currentDate);
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays < 3 && eventStatus !== "Delivered" && eventStatus !== "Completed") {
+          eventStatus = "urgent";
+        }
       }
     });
     if (
@@ -516,8 +524,25 @@ function updateEvents(date) {
       month + 1 === event.month &&
       year === event.year
     ) {
+
+
+      // if order dispatch date - current date < 3 and status is not delivered or completed then show in red
+      let currentDate = new Date();
+
       event.details.forEach((detail) => {
-        events += `<div class="event ${detail.status}">
+        
+        let dayStatus = detail.status;
+        
+        let dispatchDate = new Date(detail.placedOn);
+        let diffTime = Math.abs(dispatchDate - currentDate);
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays < 3 && detail.status !== "Delivered" && detail.status !== "Completed" && detail.status !== "canceled") {
+          // detail.status = "urgent";
+          dayStatus = "urgent";
+        }
+
+        events += `<div class="event ${dayStatus}">
             <div class="Id">
               <h4 class="orderId">Order ID: ${detail.orderID}</h4>
             </div>
@@ -537,6 +562,8 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
+
+
  
 }
 

@@ -117,7 +117,7 @@
                                         <?php $totQuantity = 0; ?>
 
                                         <?php foreach($data['garment_orders'] as $order): ?>
-                                            <?php if($order->garment_id == $garment->garment_id && $order->status != 'cancelled'): ?>
+                                            <?php if($order->garment_id == $garment->garment_id && $order->status != 'canceled'): ?>
                                                 <p><?php $count++; ?></p>
                                                 <?php foreach($data['order_material'] as $order_material): ?>
                                                     <?php if($order_material->order_id == $order->order_id ): ?>
@@ -227,13 +227,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Order Id</th>	
-                            <th>Garment Name</th>
-                            <th>Cutting Done On</th>
-                            <th>Sewing Done On</th>
-                            <th>Customer Order Id</th>
-                            <th>Status</th>
-                            <th></th>
+                            <th>Order Id  <i class='bx bx-down-arrow-circle'></i></th>	
+                            <th>Garment Name  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Cutting Done On  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Sewing Done On  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Customer Order Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Status  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th class="null"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -431,13 +431,43 @@
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->
                 <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
-                <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
+                <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button> -->
                 <!-- </form> -->
 
 
             </form>
         </div>
     </div>
+
+    <script>
+        // ajax function for updating the order
+        $('.popup-view .update-btn').click(function(e) {
+            e.preventDefault();
+            var garment_order_id = $('.popup-view input[name="garment_order_id"]').val();
+            var cut_dispatch_date = $('.popup-view input[name="cut_dispatch_date"]').val();
+            var sew_dispatch_date = $('.popup-view input[name="sew_dispatch_date"]').val();
+
+            var order_id = $('.popup-view input[name="order_id"]').val();
+            var cut_price = $('.popup-view input[name="cut_price"]').val();
+            var sewed_price = $('.popup-view input[name="sewed_price"]').val();
+
+            $.ajax({
+                url: '<?= ROOT ?>/manager/updateGarmentOrder',
+                type: 'POST',
+                data: {garment_order_id: garment_order_id, cut_dispatch_date: cut_dispatch_date, sew_dispatch_date: sew_dispatch_date, order_id: order_id, cut_price: cut_price, sewed_price: sewed_price},
+                success: function(response) {
+                    console.log(response);
+                    sessionStorage.setItem('successMsg', 'Order updated successfully');
+                    sessionStorage.setItem('id', garment_order_id);
+                    location.reload();
+                }
+            });
+
+        });
+
+
+
+    </script>
 
     <div class="popup-set-deadline" id="popup-set-deadline">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->

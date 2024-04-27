@@ -12,19 +12,20 @@ let progress2 = document.querySelector(".status ul li .two");
 let progress3 = document.querySelector(".status ul li .three");
 let progress4 = document.querySelector(".status ul li .four");
 let progress5 = document.querySelector(".status ul li .five");
-let orderCancel = document.querySelector("form .cancel-btn");
+// let orderCancel = document.querySelector("form .cancel-btn");
 let orderUpdate = document.querySelector("form .update-btn");
 
 const viewOrderBtns = document.querySelectorAll('.view-order-btn');
 
-const search = document.querySelector(".form input"),
-    table_rows = document.querySelectorAll("tbody tr");
-
-search.addEventListener('input', performSearch);
-
+//close buttons
 closeViewBtn.addEventListener('click', closeView);
 closeSetDeadlineBtn.addEventListener('click', closeSetDeadline);
 
+const search = document.querySelector(".form input"),
+    table_rows = document.querySelectorAll(".table-section tbody tr")
+    table_headings = document.querySelectorAll("thead th");
+
+search.addEventListener('input', performSearch);
 
 function performSearch() {
     table_rows.forEach((row, i) => {
@@ -37,11 +38,58 @@ function performSearch() {
         }
         console.log(row_text);
 
-        row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
-        row.style.setProperty('--delay', i/40 + 's');
+        if(!row.classList.contains('filter')){
+            row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+            row.style.setProperty('--delay', i/40 + 's');
+        }
     })
 }
 
+table_headings.forEach((head, i) => {
+    head.onclick = () => {
+        let order = 'asc';
+        table_headings.forEach(head => head.classList.remove("active"));
+        head.classList.add("active");
+        let icon = head.querySelector('i');
+        table_headings.forEach(h => {
+            // console.log(h);
+            if(h!=head && h.className !== "null"){
+                let ic = h.querySelector('i');
+                // console.log(ic);
+                if(ic.className.includes('bx-up-arrow-circle')){
+                    ic.className = "bx bx-down-arrow-circle";
+                }
+            }
+        });
+        if (icon.className.includes('bx-up-arrow-circle')) {
+            // Change to down arrow
+            icon.className = "bx bx-down-arrow-circle";
+            order = 'asc';
+        } else {
+            // Change to up arrow
+            icon.className = "bx bx-up-arrow-circle";
+            order = 'desc';
+        }
+
+
+
+        console.log(i, order);
+        sortTable(i, order);
+
+    }
+});
+
+function sortTable(i, order){
+    [...table_rows].sort((a, b) => {
+        console.log(a.querySelectorAll('.table-section td')[i]);
+        let x = a.querySelectorAll('.table-section tbody td')[i].textContent.trim(),
+            y = b.querySelectorAll('.table-section tbody td')[i].textContent.trim();
+
+
+        return order === 'asc' ? (x < y ? -1 : 1 ) : (x > y ? -1 : 1);
+    }).map(row => document.querySelector('.table-section tbody').appendChild(row));
+
+}
 // draggable items
 const draggables = document.querySelectorAll(".draggable");
 const dropzones = document.querySelectorAll(".category");
@@ -233,9 +281,9 @@ function openView(button) {
                 progress5.classList.add("active");
                 break;
 
-            case 'cancelled':
+            case 'canceled':
                 progress1.classList.add("cancel");
-
+            	
                 break;
 
         }
@@ -243,9 +291,10 @@ function openView(button) {
         var today = new Date();
         var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
 
+        
 
         // Populate the "update-form" fields with the order data
-        document.querySelector('.update-form input[name="garment_order_id"]').value = 'G-ORD-'+order.garment_order_id;
+        document.querySelector('.update-form input[name="garment_order_id"]').value = order.garment_order_id;
         document.querySelector('.update-form input[name="order_id"]').value = 'ORD-'+order.order_id;
         document.querySelector('.update-form input[name="cut_dispatch_date"]').value = order.cut_dispatch_date;
         document.querySelector('.update-form input[name="sew_dispatch_date"]').value = order.sew_dispatch_date;
@@ -286,14 +335,6 @@ function openView(button) {
         document.body.style.overflow = "hidden";
         sidebar.style.pointerEvents = "none";
         nav.style.pointerEvents = "none";
-
-        var currentDate = new Date();
-        var orderPlacedOn = new Date(order.placed_date);
-        if (((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24)) > 1) {
-            orderCancel.style.display = "none";
-
-        }
-
 
         for (let i = 0; i < material.length; i++) {
             addMaterialCardView(material[i]);
