@@ -74,7 +74,7 @@
 
         .pro_label {
             /* font-size: 15px; */
-            display: flex;
+            /* display: flex; */
         }
 
         .wrapper .right .manager_info {
@@ -158,7 +158,7 @@
 
                         <div class="info_data">
                             <div class="data">
-                                <label class="pro_label" for="pro_address">Address &nbsp; <span class="data-error">
+                                <label class="pro_label" for="pro_address"> <i class='bx bx-map'></i>Address &nbsp; <span class="data-error">
                                         <?php if (isset($errors['address'])): ?>
                                             <div class="error"><?= htmlspecialchars($errors['address']); ?></div>
                                         <?php endif; ?>
@@ -172,7 +172,7 @@
 
                             <div class="data">
 
-                                <label class="pro_label" for="pro_email">Email &nbsp; <span class="data-error">
+                                <label class="pro_label" for="pro_email"> <i class='bx bx-envelope'></i>Email &nbsp; <span class="data-error">
                                         <?php if (isset($errors['email'])): ?>
                                             <div class="error"><?= htmlspecialchars($errors['email']); ?></div>
                                         <?php endif; ?>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="info_data">
                             <div class="data">
-                                <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Number of Workers
+                                <label class="pro_label" for="pro_username"><i class='bx bx-group'></i>Number of Workers
                                     &nbsp;<span class="data-error">
                                         <?php if (isset($errors['no_workers'])): ?>
                                             <div class="error"><?= htmlspecialchars($errors['no_workers']); ?></div>
@@ -200,7 +200,7 @@
 
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> Cutting
+                                <label class="pro_label" for="pro_city"><i class='bx bx-scissors'></i> Cutting
                                     Price(Rs) &nbsp;
                                     <span class="data-error">
                                         <?php if (isset($errors['cut_price'])): ?>
@@ -214,7 +214,7 @@
 
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> Daily Capacity
+                                <label class="pro_label" for="pro_city"><i class='bx bx-tachometer'></i> Daily Capacity
                                     &nbsp;
                                     <span class="data-error">
                                         <?php if (isset($errors['day_capacity'])): ?>
@@ -228,7 +228,7 @@
 
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> Sewed Price(Rs)
+                                <label class="pro_label" for="pro_city"><i class='bx bx-layer'></i> Sewed Price(Rs)
                                     &nbsp;
                                     <span class="data-error">
                                         <?php if (isset($errors['sewed_price'])): ?>
@@ -249,7 +249,7 @@
                         <div class="info_data manager_info">
 
                             <div class="data">
-                                <label class="pro_label" for="pro_number">Manager Name &nbsp; <span class="data-error">
+                                <label class="pro_label" for="pro_number"> <i class='bx bx-briefcase'></i>Manager Name &nbsp; <span class="data-error">
                                         <?php if (isset($errors['manager_name'])): ?>
                                             <div class="error"><?= htmlspecialchars($errors['manager_name']); ?></div>
                                         <?php endif; ?>
@@ -261,7 +261,7 @@
 
                             </div>
                             <div class="data">
-                                <label class="pro_label" for="pro_number">Contact Number &nbsp; <span
+                                <label class="pro_label" for="pro_number"><i class='bx bx-phone'></i>Contact Number &nbsp; <span
                                         class="data-error">
                                         <?php if (isset($errors['manager_contact'])): ?>
                                             <div class="error"><?= htmlspecialchars($errors['manager_contact']); ?></div>
@@ -275,7 +275,7 @@
                             </div>
 
                             <div class="data">
-                                <label class="pro_label" for="pro_profession">Email Address &nbsp; <span
+                                <label class="pro_label" for="pro_profession"><i class='bx bx-envelope'></i>Email Address &nbsp; <span
                                         class="data-error">
                                         <?php if (isset($errors['manager_email'])): ?>
                                             <div class="error"><?= htmlspecialchars($errors['manager_email']); ?></div>
