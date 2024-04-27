@@ -39,8 +39,8 @@ function closegenarate() {
   document.getElementById("gen").disabled = true;
   startDate.disabled = false;
   endDate.disabled = false;
-  startDate.value="";
-  endDate.value = new Date().toLocaleDateString().toString().replace(',','/');
+  startDate.value = "";
+  endDate.value = new Date().toLocaleDateString().toString().replace(",", "/");
 }
 //Generate pdf
 var pdfObject;
@@ -91,7 +91,13 @@ function generatePDF() {
             2
           );
 
-          closegenarate();
+          document.getElementById("message").innerHTML = "";
+          document.getElementById("gen").style.display = "inline";
+          document.getElementById("view").style.display = "none";
+          document.getElementById("down").style.display = "none";
+          document.getElementById("gen").disabled = true;
+          startDate.disabled = false;
+          endDate.disabled = false;
         } else if (Jsondata) {
           document.getElementById("view").disabled = false;
           document.getElementById("down").disabled = false;
@@ -99,12 +105,11 @@ function generatePDF() {
           document.getElementById("down").innerHTML = "Download";
           generateContent(Jsondata);
         } else {
-          
           toastApply(
             "No Completed Order",
             "Selected Date Between No Completed Orders",
             2
-          );    
+          );
         }
       } catch (error) {
         // toastApply("Update Failed", "Try again later...", 1);
@@ -126,6 +131,7 @@ function generateContent(genarateData) {
   genarateData.forEach((element) => {
     net_total +=
       element["total_qty"] * (element["cut_price"] + element["sewed_price"]);
+
   });
 
   // console.log(net_total);
@@ -186,6 +192,12 @@ function generateContent(genarateData) {
       },
       header: [
         {
+          title: "Item",
+          style: {
+            width: 10,
+          },
+        },
+        {
           title: "Order ID",
           style: {
             width: 20,
@@ -200,7 +212,7 @@ function generateContent(genarateData) {
         {
           title: "Description",
           style: {
-            width: 50,
+            width: 40,
           },
         },
         {
@@ -231,6 +243,7 @@ function generateContent(genarateData) {
         },
       ],
       table: Array.from(Array(genarateData.length), (item, index) => [
+        "\n" + (index+1).toString(),
         "\nORD-" + genarateData[index]["order_id"] + "\n",
         "\n" + genarateData[index]["placed_date"].split(" ")[0],
         "\n" + genarateData[index]["material_array"].join(", "),
@@ -287,7 +300,7 @@ function generateContent(genarateData) {
 }
 
 // return value for added two decimal part and
-// awlways add , part when 3 digit after
+// always add , part when 3 digit after
 function formatNumber(value) {
   return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 }

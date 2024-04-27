@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Amoral</title>
+    <title>Amoral - Garment</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/overview.css">
@@ -551,6 +551,7 @@
 
         let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
             completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
+    
     </script>
 
     <script src="<?= ROOT ?>/assets/js/garment/garment-overview.js"> </script>
@@ -591,7 +592,7 @@
         //avoid time
         today.setHours(0, 0, 0, 0);
 
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i <= 20; i++) {
 
             var date = new Date();
             date.setDate(today.getDate() - i);
@@ -621,6 +622,9 @@
                 monthly_revenue_dates[monthKey] = 0;
             }
         }
+
+        // console.log(monthly_revenue_dates);
+        // console.log(today);
 
         Object.keys(revenue_data).forEach(element => {
 
@@ -652,8 +656,8 @@
         var revenueValuesArray = Object.values(monthly_revenue_dates).reverse();
         var qtyValuesArray = Object.values(monthly_qty_dates).reverse();
 
-        console.log(revenueValuesArray);
-        console.log(qtyValuesArray);
+        // console.log(revenueValuesArray);
+        // console.log(qtyValuesArray);
 
         // check chart data all are zeros or not when zeros then display hide
         if (areAllValuesZero(salesValuesArray)) {

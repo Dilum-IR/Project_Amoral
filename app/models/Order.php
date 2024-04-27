@@ -6,6 +6,7 @@ class Order
     use Model;
 
 
+    // don't change
     protected $table = 'orders';
 
     public $order_id = 'order_id';
@@ -78,7 +79,8 @@ class Order
 
     function getAllOrderData($data)
     {
-        $quary = "SELECT $this->table.user_id, $this->table.total_price, $this->table.remaining_payment, $this->table.discount, $this->table.order_status , $this->table.delivered_date,
+        $quary = "SELECT $this->table.user_id, $this->table.total_price, $this->table.remaining_payment,
+        $this->table.discount, $this->table.order_status , $this->table.delivered_date, $this->table.order_placed_on,
         order_material.*, material_stock.*, sleeves.price AS sleeves_price, printing_type.price AS print_price, 
         garment_order.cut_price, garment_order.sewed_price
         FROM order_material
@@ -92,7 +94,7 @@ class Order
         ON printing_type.ptype_id = order_material.ptype_id
         INNER JOIN garment_order
         ON garment_order.order_id = order_material.order_id
-        WHERE order_status = :order_status"; 
+        WHERE order_status = :order_status";
 
         // if need to validate that order is canceled or not
 
@@ -124,7 +126,7 @@ class Order
                 // initially included data pass to the array
                 $item->mult_order = [
                     [
-                        // "material_type" => $item->material_type,
+                        "material_type" => $item->material_type,
                         // "type" => $item->type,
                         // "printing_type" => $item->printing_type,
                         "unit_price" => $item->unit_price,
@@ -155,7 +157,7 @@ class Order
                     if ($item->id != $value->id && $item->order_id == $value->order_id) {
 
                         $new_mult = [
-                            // "material_type" => $value->material_type,
+                            "material_type" => $value->material_type,
                             // "type" => $value->type,
                             // "printing_type" => $value->printing_type,
                             "unit_price" => $item->unit_price,
@@ -192,7 +194,8 @@ class Order
 
             // create a new array for toal qty and meterial type array
             foreach ($new_result as $item) {
-                
+
+                $material_array = [];
                 $total_qty = 0;
                 $cal_cost = 0;
                 $sleeves_cost = 0;
@@ -203,6 +206,9 @@ class Order
 
                 foreach ($item->mult_order as $value) {
 
+                    if (!in_array($value['material_type'], $material_array)) {
+                        array_push($material_array, $value['material_type']);
+                    }
                     $sleeves_cost = $value['qty'] * $value['sleeves_price'];
                     $material_cost = ($value['qty'] / $value['ppm'])  * $value['unit_price'];
 
@@ -213,6 +219,7 @@ class Order
                     $cal_cost += $sleeves_cost + $material_cost + $print_cost;
                 }
 
+                $item->material_array = $material_array;
                 $item->total_qty = $total_qty;
                 $item->total_cost =  $delivery_cost + $workers_cost + $cal_cost +
                     $item->total_qty * ($item->cut_price + $item->sewed_price);
@@ -247,7 +254,6 @@ class Order
                 unset($new_result[$i]->ptype_id);
                 unset($new_result[$i]->sleeve_id);
 
-                // unset($new_result[$i]->emp_id);
                 unset($new_result[$i]->mult_order);
                 unset($new_result[$i]->cut_price);
                 unset($new_result[$i]->sewed_price);
@@ -255,12 +261,38 @@ class Order
 
             // show($new_result);
 
-            // Extract the first 10 elements
-            // $first_10_elements = array_slice($new_result, 0, 10);
-
             return $new_result;
         } catch (\Throwable $th) {
             // redirect('404');
         }
     }
+
+
+    // this method using find to the current orders in the orders table.
+    public function whereAndOR($data, $data_not = [])
+    {
+        $keys = array_keys($data);
+
+        $quary = "SELECT COUNT(*) AS current_orders FROM $this->table WHERE ";
+
+        $quary .= " order_status NOT IN (";
+
+        foreach ($data_not as $value) {
+            $quary .= "'" . $value . "'" . " ,";
+        }
+
+        $quary = trim($quary, ",");
+        $quary .= " ) AND ";
+
+        foreach ($keys as $key) {
+            $quary .= $key . " = :" . $key . " AND";
+        }
+
+        $quary = trim($quary, " AND");
+        
+        $data = array_merge($data);
+        
+        return $this->quary($quary, $data);
+    }
+    
 }
