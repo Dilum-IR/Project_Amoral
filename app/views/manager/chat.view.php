@@ -1,3 +1,8 @@
+<?php
+// show($data);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,17 +38,19 @@
 
                 <div class="chat-all-users">
                     <div class="chat-head">
-                        <p class="chatname"><b>AMORAL &nbsp; </b>CHAT</p>
+                        <p class="chatname"><b>Amoral &nbsp; Chat</b></p>
 
                         <div class="dropdown" style="float:right;">
-                            <button class="dropbtn">Type</button>
+                            <!-- <button class="dropbtn">Type</button>
                             <div class="dropdown-content">
                                 <a href="#" onclick="">All Users</a>
                                 <a href="#">Customers</a>
                                 <a href="#">Delivary man</a>
-                            </div>
+                            </div> -->
 
+                            <img class="logo" src="<?= ROOT ?>/assets/images/logo.JPG" alt="">
                         </div>
+
                     </div>
 
                 </div>
@@ -57,9 +64,10 @@
                 <div class="all-chat">
 
                     <?php
-                    // show($data);
 
-                    if (isset($data['chatedUsers'])) {
+                    if (!empty(($data['chatedUsers']))) {
+
+
                         foreach ($data['chatedUsers'] as $value) {
                             // show($value);
                             $jsonData = json_encode($value);
@@ -99,9 +107,9 @@
                         }
                     } else {
                         ?>
-                        <div class="user-data">
-                            <h5>No Chat Messages Yet</h5>
-                        </div>
+
+                        <h5 class="no-chats">No Chat Messages Yet</h5>
+
                     <?php
                     }
                     ?>
@@ -263,7 +271,7 @@
             }
         }
 
-        socket = new WebSocket(`ws://localhost:8080?userId=${userID}`);
+        socket = new WebSocket(`ws://localhost:8080`);
 
         try {
 

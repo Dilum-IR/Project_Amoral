@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Bahnschrift;
+  /* font-family: Bahnschrift; */
   font-size: 13px;
   color: white;
 }
@@ -22,7 +22,25 @@ input {
   justify-content: space-between;
 }
 
-.chat-all-users .chat-head .chatname{
+.chat-head {
+  align-items: center;
+  display: flex;
+}
+.no-chats {
+  margin: 5px 0;
+
+  font-weight: normal;
+  font-size: 16px;
+  height: 65vh;
+  width: 100%;
+  color: #000 !important;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+.chat-all-users .chat-head .chatname {
   font-weight: normal;
   font-family: "Poppins";
   font-size: 20px;
@@ -103,8 +121,10 @@ input {
   font-size: 17px;
   cursor: pointer;
   gap: 2px;
-
+  height: 25px;
+  
   .search-icon {
+    height: 30px;
     width: 30px;
     background-color: #000000;
     color: white;
