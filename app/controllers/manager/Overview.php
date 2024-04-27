@@ -24,6 +24,7 @@ class Overview extends Controller
             $data['printingType'] = $printingType->findAll('ptype_id');
             // $data['materialPrintingType'] = [];
             // $allMaterial = [];
+            
             foreach ($data['printingType'] as $ptype) {
                 $material = $materialPrintingType->find_withInner(['ptype_id' => $ptype->ptype_id], 'material_stock', 'stock_id', 'stock_id');
                 if (is_array($material)) {

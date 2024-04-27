@@ -1,3 +1,8 @@
+<?php
+// show($_SESSION['USER']);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,17 +38,19 @@
 
                 <div class="chat-all-users">
                     <div class="chat-head">
-                        <p class="chatname"><b>AMORAL &nbsp; </b>CHAT</p>
+                        <p class="chatname"><b>Chats</b></p>
 
                         <div class="dropdown" style="float:right;">
-                            <button class="dropbtn">Type</button>
+                            <!-- <button class="dropbtn">Type</button>
                             <div class="dropdown-content">
                                 <a href="#" onclick="">All Users</a>
                                 <a href="#">Customers</a>
                                 <a href="#">Delivary man</a>
-                            </div>
+                            </div> -->
 
+                            <img class="logo" src="<?= ROOT ?>/assets/images/logo.JPG" alt="">
                         </div>
+
                     </div>
 
                 </div>
@@ -57,9 +64,10 @@
                 <div class="all-chat">
 
                     <?php
-                    // show($data);
 
-                    if (isset($data['chatedUsers'])) {
+                    if (!empty(($data['chatedUsers']))) {
+
+
                         foreach ($data['chatedUsers'] as $value) {
                             // show($value);
                             $jsonData = json_encode($value);
@@ -72,10 +80,10 @@
                                     <div class="user-data">
                                         <div class="name-time">
                                             <h4><?= ucfirst($value->fullname) ?></h4>
-                                            <p><?= $value->last_msg->time ?></p>
+                                            <p id="new-time<?= $value->id ?>"><?= $value->last_msg->time ?></p>
                                         </div>
 
-                                        <p><?= $value->last_msg->msg ?></p>
+                                        <p id="new-msg<?= $value->id ?>"><?= $value->last_msg->msg ?></p>
                                     </div>
                                 </div>
                             <?php
@@ -99,9 +107,9 @@
                         }
                     } else {
                         ?>
-                        <div class="user-data">
-                            <h5>No Chat Messages Yet</h5>
-                        </div>
+
+                        <h5 class="no-chats">No Chat Messages Yet</h5>
+
                     <?php
                     }
                     ?>
@@ -116,7 +124,7 @@
                         <div class="user">
                             <h2 id="header-user">Hi, <?= $_SESSION['USER']->emp_name ?></h2>
                             <div class="user-status hide">
-                                <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
+                                <!-- <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div> -->
                                 <p id='typing' class="user-online">Offline</p>
                                 <div id="userOnline"></div>
                             </div>
@@ -147,6 +155,34 @@
     <!-- Import JQuary Library script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <style>
+        .loader-circle {
+            align-items: center;
+            display: flex;
+            gap: 10px;
+            justify-self: center;
+        }
+
+        .invalid-msg {
+            border: 1px solid red !important;
+        }
+
+        .each-msg {
+            overflow-wrap: anywhere;
+
+        }
+
+        .log-user {
+            /* display: inline; */
+            /* float: right; */
+        }
+        
+        .other-user {
+            /* display: inline; */
+            /* float: left; */
+        }
+
+    </style>
     <script>
         var userID = "<?= $data['chatedUsers'][0]->log_user ?>"
         var socket = null;
@@ -177,6 +213,7 @@
 
         function selectChat(chatUserData) {
 
+
             // get that data using local variable when to use futures
             chatBoxData = chatUserData
 
@@ -194,6 +231,11 @@
 
             // Clear existing messages in the chat body
             chatBody.innerHTML = "";
+            chatBody.innerHTML = "<span class='loader-circle'><i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i> Please Wait ...</span>";
+            // remove invalid msg for given input tag class
+            document.getElementById('message-input').classList.remove('invalid-msg');
+            document.getElementById('message-input').value = "";
+
 
             if (chatUserData.user_status == "customer") {
 
@@ -219,6 +261,8 @@
                 success: function(res) {
                     // convet to the json type
                     try {
+
+                        chatBody.innerHTML = "";
 
                         Jsondata = JSON.parse(res)
                         // console.log(Jsondata)
@@ -263,7 +307,7 @@
             }
         }
 
-        socket = new WebSocket(`ws://localhost:8080?userId=${userID}`);
+        socket = new WebSocket(`ws://localhost:8080`);
 
         try {
 
@@ -306,6 +350,7 @@
 
             var div = document.createElement("div");
             var p = document.createElement("p");
+            p.classList.add('each-msg');
 
             p.style.padding = "10px";
             p.style.marginBottom = "10px";
@@ -338,12 +383,16 @@
                 p.style.background = "black";
                 p.style.color = "white";
                 p.style.alignSelf = "flex-end";
+                p.classList.add('log-user');
+
 
             } else {
                 p.style.alignSelf = "flex-start";
                 p.style.flexDirection = "column";
                 p.style.background = "white";
                 p.style.color = "black";
+                p.classList.add('other-user');
+
             }
 
             p.style.transition = "opacity 1s ease-in-out, transform 1s ease-in-out";
@@ -352,10 +401,13 @@
             document.getElementById("chat-body").appendChild(p);
             var delay = chatMsg.log_user ? 0 : 30000;
 
+            chatBody.scrollTop = chatBody.scrollHeight;
+
             setTimeout(function() {
                 p.style.opacity = "1";
                 p.style.transform = "translateY(0)";
             }, delay);
+
 
         }
 
@@ -372,8 +424,32 @@
             if (text == "") {
                 return;
             } else {
+
+                // Regular expression pattern to match valid chat messages
+                const messagePattern = /^[a-zA-Z0-9\s.,!?'"(){}[\]-]*$/;
+
+                // validate a chat message using regex
+                if (!messagePattern.test(text)) {
+                    document.getElementById('message-input').classList.add('invalid-msg');
+                    return;
+                } else {
+                    document.getElementById('message-input').classList.remove('invalid-msg');
+                }
+
+                var chat_id = chatBoxData.id;
                 send(text);
                 document.getElementById("message-input").value = "";
+                document.getElementById(`new-msg${chat_id}`).innerHTML = text;
+
+                //formatted time ("12:06")
+                const currentDate = new Date();
+                const hours = String(currentDate.getHours()).padStart(2, '0');
+                const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+                const formattedTime = `${hours}:${minutes}`;
+
+                document.getElementById(`new-time${chat_id}`).innerHTML = formattedTime;
+                chatBody.scrollTop = chatBody.scrollHeight;
+
             }
         }
 
@@ -414,6 +490,9 @@
 
             var div = document.createElement("div");
             var p = document.createElement("p");
+            p.classList.add('each-msg');
+            p.classList.add('log-user');
+
             p.style.background = "black";
             p.style.color = "white";
             p.style.padding = "10px";
@@ -489,6 +568,9 @@
 
                         var div = document.createElement("div");
                         var p = document.createElement("p");
+                        p.classList.add('each-msg');
+                        p.classList.add('other-user');
+
                         p.style.background = "white";
                         p.style.color = "black";
                         p.style.padding = "10px";
@@ -542,6 +624,8 @@
                     isOnlineUser()
                 }
 
+                chatBody.scrollTop = chatBody.scrollHeight;
+
             } catch (error) {
 
                 console.error(error);
@@ -590,11 +674,11 @@
                             onlineUser.online == false) {
 
                             userOnline = document.getElementById('typing');
-                            status = document.getElementById('status-c');
+                            // status = document.getElementById('status-c');
 
                             userOnline.innerHTML = "Offline";
                             userOnline.style.color = "white";
-                            status.style.background = "red";
+                            // status.style.background = "red";
                             // defaultUser =false
 
 

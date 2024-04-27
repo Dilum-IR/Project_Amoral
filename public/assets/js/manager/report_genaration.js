@@ -157,17 +157,17 @@ function generateContent(genarateData) {
         left: 0,
       },
     },
-    stamp: {
-      inAllPages: true,
-      src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
-      type: "JPG",
-      width: 30,
-      height: 30,
-      margin: {
-        top: -10,
-        left: 0,
-      },
-    },
+    // stamp: {
+    //   inAllPages: true,
+    //   src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+    //   type: "JPG",
+    //   width: 30,
+    //   height: 30,
+    //   margin: {
+    //     top: -10,
+    //     left: 0,
+    //   },
+    // },
     business: {
       name: "Amoral",
       address: "Akurassa, Matara, Sri Lanka.",

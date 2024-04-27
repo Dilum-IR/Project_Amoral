@@ -366,8 +366,12 @@ main .insights small {
   background-color: #0c5fcdc7;
 }
 
-.text-status.cancelled {
+.text-status.canceled {
   background-color: #cf0303c7;
+}
+
+.text-status.completed {
+  background-color: #00b33cd3;
 }
 
 /******************************* order status ****************************** */
