@@ -105,13 +105,13 @@ $(document).ready(function () {
                             <div class="text-box">
                                 <div class="report-info">
                                     <div class="report-info-email">
-                                        E-mail - ${rpt.email}
+                                       ${rpt.email}
                                     </div>
                                     <div class="report-info-date">
-                                        Date - ${rpt.report_date}
+                                      ${rpt.report_date}
                                     </div>
                                 </div>
-                                <div class="report-description-title">Description - </div>
+                                <div class="report-description-title"> </div>
                                 <div class="report-description">
                                     ${rpt.description}
                                 </div>

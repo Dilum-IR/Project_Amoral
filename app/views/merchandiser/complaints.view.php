@@ -55,11 +55,11 @@
                             <span>All</span>
                         </label>
                         <label>
-                            <input type="radio" name="rptType" checked="ckecked" value="unread">
+                            <input type="radio" name="rptType"  value="unread">
                             <span>Unread</span>
                         </label>
                         <label>
-                            <input type="radio" name="rptType" checked="ckecked" value="read">
+                            <input type="radio" name="rptType"  value="read">
                             <span>Read</span>
                         </label>
                     </div>
@@ -82,13 +82,13 @@
                             <div class="text-box">
                                 <div class="report-info">
                                     <div class="report-info-email">
-                                        E-mail - <?php echo htmlspecialchars($rpt->email) ?>
+                                     <?php echo htmlspecialchars($rpt->email) ?>
                                     </div>
                                     <div class="report-info-date">
-                                        Date - <?php echo htmlspecialchars($rpt->report_date) ?>
+                                         <?php echo htmlspecialchars($rpt->report_date) ?>
                                     </div>
                                 </div>
-                                <div class="report-description-title">Description - </div>
+                                <div class="report-description-title"> </div>
                                 <div class="report-description">
                                     <?php echo htmlspecialchars($rpt->description) ?>
                                 </div>
