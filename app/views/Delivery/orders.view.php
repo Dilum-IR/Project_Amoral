@@ -8,13 +8,15 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar</title>
+    <title>Amoral Distributor Orders</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/delivery/delivery-orders.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
+
 </head>
 
 <body>
@@ -57,6 +59,11 @@
 
         </form>
         <div class="table">
+            <!-- Add buttons for the two types -->
+            <div class="filters">
+                <button id="delivering" class="active" onclick="filterTable(1)">Delivery Orders</button>
+                <button id="delivered" class="active" onclick="filterTable(2)">Delivered Orders</button>
+            </div>
             <div class="table-section">
                 <table>
                     <thead>
@@ -66,17 +73,17 @@
                             <th class="Distric">City</th>
                             <th class="stth">Status</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     <tbody>
                         <?php
-                        if (!empty($data['data1'])) {
+                        if (!empty($data)) {
 
 
-                            foreach ($data['data1'] as $key => $value) {
+
+                            foreach ($data as $key => $value) {
 
                                 ?>
-                                <tr>
+                                <tr class='<?= $value->order_status ?>'>
                                     <td>
                                         <?php echo $value->order_id; ?>
                                     </td>
@@ -95,16 +102,17 @@
                                         <?php if ($value->order_status != 'delivered'): ?>
                                             <button type="submit" class="view-order-btn" style="background-color: red;"
                                                 id="status-<?= $value->order_id; ?>"
-                                                onclick="confirmPopup(<?= $value->order_id; ?>)">Delivered</button>
+                                                onclick="confirmPopup(<?= $value->order_id; ?>)">Mark as Delivered</button>
 
 
                                             <!-- Button 1 -->
                                             <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
                                         <?php endif; ?>
 
-                                    </td>
 
-                                    <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">View
+
+                                        <button type="submit" name="selectItem" data-order='<?= json_encode($value); ?>'
+                                            class="view-order-btn" onclick="openView(this)">View
                                             Order</button>
                                     </td>
                                 </tr>
@@ -144,9 +152,50 @@
 
     </section>
 
+    <style>
+        .table-section tbody tr {
+            display: none;
+            
+        }
+
+        .delivering.delivering-row-active {
+            display: table-row !important;
+            
+        }
+
+        .delivered.delivered-row-active {
+            display: table-row !important;
+           
+        }
+
+    </style>
 
 
 
+
+    <!-- <script>
+        function searchOrders() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("orderSearch");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("yourTableId"); // Make sure your table has an ID
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those that don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Choose the index according to your needs, e.g., 1 for Customer Name
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    </script> -->
 
     <!-- delivered confirm pop-up -->
     <div id="myModal" class="modal">
@@ -173,63 +222,44 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    var modal = document.getElementById('myModal');
-    var confirmButton = document.getElementById('confirm');
-    var cancelButton = document.getElementById('cancel');
-    var closeButton = document.querySelector('.modal .close');
+            var modal = document.getElementById('myModal');
+            var confirmButton = document.getElementById('confirm');
+            var cancelButton = document.getElementById('cancel');
+            var closeButton = document.querySelector('.modal .close');
 
-    closeButton.onclick = cancelButton.onclick = function() {
-        modal.style.display = 'none';
-    };
+            closeButton.onclick = cancelButton.onclick = function () {
+                modal.style.display = 'none';
+            };
 
-    // Make sure this function is declared globally
-    window.confirmPopup = function (orderId) {
-        modal.style.display = 'block'; // Check if this line executes correctly
-        confirmButton.onclick = function() {
-            $.ajax({
-                url: "<?= ROOT ?>/delivery/updateOrderStatus", 
-                type: 'POST',
-                data: {order_id: orderId, status: 'delivered'},
-                success: function(response) {
-                    $('#status-' + orderId).text('Delivered');
+            // Make sure this function is declared globally
+            window.confirmPopup = function (orderId) {
+                modal.style.display = 'block'; // Check if this line executes correctly
+                confirmButton.onclick = function () {
+                    updateStatus(orderId);
                     modal.style.display = 'none';
+
+                };
+            };
+        });
+
+
+        function updateStatus(orderId) {
+            $.ajax({
+                url: "<?= ROOT ?>/delivery/updateOrderStatus",
+                type: 'POST',
+                data: { order_id: orderId, status: 'delivered' },
+                success: function (response) {
+                    $('#status-' + orderId).text('Delivered');
+                    location.reload();
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     //  handle errors
                     console.error("Error: " + error);
                     console.error("Status: " + status);
                     console.dir(xhr);
                 }
             });
-        };
-    };
-});
-
-    
-
-        // window.confirmPopup = confirmPopup; 
-        //     };
-
-        //     function updateOrderStatus(orderId, status) {
-        //         var xhr = new XMLHttpRequest();
-        //         xhr.open("POST", "<?= ROOT ?>/delivery/orders/updateStatus", true);
-        //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        //         xhr.onreadystatechange = function () {
-        //             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        //                 var response = JSON.parse(xhr.responseText);
-        //                 if (response.success) {
-        //                     alert('Status updated successfully.');
-        //                     document.getElementById('status-' + orderId).textContent = status;
-        //                     document.getElementById('myModal').style.display = 'none'; // Ensure the modal is closed
-        //                 } else {
-        //                     alert('Failed to update status: ' + response.message);
-        //                 }
-        //             }
-        //         };
-        //         xhr.send("order_id=" + orderId + "&status=" + encodeURIComponent(status));
-        //     }
-
-        // });
+        }
     </script>
 
 
@@ -259,8 +289,11 @@
     <!-- POPUP VIEW -->
 
     <div class="popup-view" id="popup-view">
-        <h1>Order Details</h1>
-        <!-- <div class="status">
+        <div class="popup-content">
+            <div class="h1">
+                <h1>Order Details</h1>
+            </div>
+            <!-- <div class="status">
             <ul>
                 <li>
                     <iconify-icon
@@ -300,54 +333,100 @@
             </ul>
         </div> -->
 
-        <div class="detail_content">
-            <div class="container1">
-                <form>
-                    <div class="user-details">
-                        <div class="input-box">
-                            <span class="details">Order Id </span>
-                            <input type="text" required onChange="" readonly value="1" />
+            <div class="detail_content">
+                <div class="container1">
+                    <form>
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Order Id </span>
+                                <input id="order-id" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Customer Name </span>
+                                <input id="customer-name" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">City</span>
+                                <input id="delivery-city" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Contact Number</span>
+                                <input id="contact-num" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="input-box">
+                                <span class="details">Delivery Expected On</span>
+                                <input id="expected-on" type="text" required onChange="" readonly value=" " />
+                            </div>
                         </div>
 
-                        <div class="input-box">
-                            <span class="details">Customer Name </span>
-                            <input type="text" required onChange="" readonly value="thiran" />
-                        </div>
+                    </form>
+                </div>
 
-                        <div class="input-box">
-                            <span class="details">Delivery Address</span>
-                            <input type="text" required onChange="" readonly value="matara" />
-                        </div>
+                <!-- VIEW MAP -->
 
-                        <div class="input-box">
-                            <span class="details">Order Placed On</span>
-                            <input type="text" required onChange="" readonly value="2023/10/19" />
-                        </div>
+                <div class="container2">
+                    <!-- <h3> Delivery locations</h3> -->
 
-                        <div class="input-box">
-                            <span class="details">Delivery Expected On</span>
-                            <input type="text" required onChange="" readonly value="2023/10/29" />
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
-            <!-- VIEW MAP -->
-
-            <div class="container2">
-                <!-- <h3> Delivery locations</h3> -->
-
-                <!-- <div id="map" style="height:400px; width:100%;"></div> -->
+                    <!-- <div id="map" style="height:400px; width:100%;"></div> -->
 
 
-                <script>
-                    function initMap() {
-                        var location = { lat: 7.873054, lng: 80.771797 }
-                        var map = new google.maps.Map(document.getElementById("map"), {
-                            zoom: 7.7,
-                            center: { lat: 7.8731, lng: 80.7718 }
-                        });
+                    <script>
+
+                        let map;
+                        let directionsService;
+                        let directionsRenderer;
+
+                        function initMap() {
+                            directionsService = new google.maps.DirectionsService();
+                            directionsRenderer = new google.maps.DirectionsRenderer();
+                            map = new google.maps.Map(document.getElementById("map"), {
+                                zoom: 7.7,
+                                center: { lat: 34.0522, lng: -118.2437 } // Default center, adjust as needed
+                            });
+                            directionsRenderer.setMap(map);
+
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(function (position) {
+                                    const currentPosition = {
+                                        lat: position.coords.latitude,
+                                        lng: position.coords.longitude
+                                    };
+                                    addMarker(currentPosition, '<?= ROOT ?>/assets/images/delivery/map3.png', 'Your Location');
+                                    // addMarker(currentPosition);
+                                    // You need to fetch or define `order` here correctly
+                                    if (order.order_id && order.latitude && order.longitude) {
+                                        const orderLocation = { lat: parseFloat(order.latitude), lng: parseFloat(order.longitude) };
+                                        addMarker(location, '<?= ROOT ?>/assets/images/delivery/map3.png', 'Delivery Location');
+                                        // addMarker(orderLocation);
+                                        calculateAndDisplayRoute(currentPosition, orderLocation);
+                                    }
+                                }, function (error) {
+                                    console.error("Geolocation error: " + error.message);
+                                });
+                            } else {
+                                console.error("Geolocation is not supported by this browser.");
+                            }
+                        }
+
+
+                        function calculateAndDisplayRoute(start, end) {
+                            directionsService.route({
+                                origin: start,
+                                destination: end,
+                                travelMode: google.maps.TravelMode.DRIVING,
+                            }, (response, status) => {
+                                if (status === google.maps.DirectionsStatus.OK) {
+                                    directionsRenderer.setDirections(response);
+                                } else {
+                                    window.alert('Directions request failed due to ' + status);
+                                }
+                            });
+                        }
+
 
 
                         /*Add marker
@@ -358,42 +437,52 @@
                         });
                          /*Add marker function*/
 
-                        addMarker({ lat: 6.927079, lng: 79.861244 });
-                        addMarker({ lat: 7.291418, lng: 80.636696 });
-                        addMarker({ lat: 5.9496, lng: 80.5469 });
+                        // addMarker(currentPosition);
+
+                        // addMarker(location);
+
 
 
                         /*Add marker function*/
-
-                        function addMarker(coords) {
-                            var marker = new google.maps.Marker({
+                        function addMarker(coords, iconUrl, label) {
+                            const marker = new google.maps.Marker({
                                 position: coords,
                                 map: map,
-                                icon: '<?= ROOT ?>/assets/images/delivery/map3.png'
+                                icon: iconUrl,
+                                label: label
                             });
+
+                            // Optionally, add an infowindow to each marker
+                            const infowindow = new google.maps.InfoWindow({
+                                content: label
+                            });
+
+
+                            infowindow.open(map, marker);
 
                         }
 
 
-                    }
-                </script>
-                <script async defer async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
-                <div id="map">
+
+                    </script>
+                    <script async defer async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
+                    <div id="map">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="btns">
-            <button type="button" class="ok-btn">Back to orders</button>
-            <button type="button" class="update-btn">Update Order</button>
+            <div class="btns">
+                <button type="button" class="ok-btn" onclick="closeView()">Back to orders</button>
+                <button type="button" class="update-btn" onclick="confirmWithPopup()">Mark as Delivered</button>
+            </div>
         </div>
 
     </div>
 
 
 
-    <div id="overlay" class="overlay"></div>
+    <!-- <div id="overlay" class="overlay"></div> -->
 
 
 

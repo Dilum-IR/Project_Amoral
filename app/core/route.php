@@ -55,6 +55,8 @@ route('manager/updateOrderStatus', 'manager/PrintingProcess@updateOrderStatus');
 route('merchandiser/updateMaterial', 'merchandiser/Overview@updateMaterial');
 route('merchandiser/newOrder', 'merchandiser/CustomerOrders@newOrder');
 route('merchandiser/updateOrder', 'merchandiser/CustomerOrders@updateOrder');
+route('merchandiser/complaintstatus', 'merchandiser/Complaints@complaintstatus');
+
 
 
 route('manager/overview', 'manager/Overview@index');
@@ -82,6 +84,8 @@ route('garment/reports', 'garment/Orders@save_reports');
 route('garment/update/status', 'garment/Orders@update_status'); 
 
 route('garment/genarate/report', 'garment/Overview@genarate_report'); 
+
+//delivery ajax endpoints
  
 route('delivery/updateOrderStatus', 'delivery/Orders@updateOrderStatus');
 
@@ -108,6 +112,7 @@ route('merchandiser/profile', 'merchandiser/Profile@index');
 route('merchandiser/printingprocess', 'merchandiser/PrintingProcess@index');
 route('merchandiser/garmentdetails', 'merchandiser/GarmentDetails@index');
 route('merchandiser/customerdetails', 'merchandiser/CustomerDetails@index');
+route('merchandiser/complaints', 'merchandiser/Complaints@index');
 
 
 route('signinData', 'SignIn@formData');

@@ -196,6 +196,8 @@ form .form-input button:hover {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  margin-right: -6%;
+  margin-left: 9%;
   /* transform: scale(0.9); */
 }
 
@@ -392,47 +394,21 @@ table tbody tr.active-row {
 .popup-view,
 .popup-new {
   position: fixed;
-  height: 90%;
-  width: 50%;
-  background: #ffffff;
-  margin-top: 4%;
-  margin-bottom: 3%;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 12px;
-  padding: 1%;
-  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
-  visibility: hidden;
-  transition: transform 0.5s, top 0.5s;
-  justify-content: center;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   overflow: auto;
-}
-.popup-report {
-  position: fixed;
-  height: fit-content;
-  width: 50%;
-  background: #ffffff;
-  margin-top: 4%;
-  margin-bottom: 3%;
-  top: 44%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 12px;
-  padding: 1%;
-  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
   visibility: hidden;
-  transition: transform 0.5s, top 0.5s;
-  justify-content: center;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
 
-.open-popup-view,
-.open-popup-new,
-.open-popup-report {
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 101;
-}
 .is-visible {
   opacity: 1;
   visibility: visible;
@@ -443,14 +419,16 @@ table tbody tr.active-row {
 
 .popup-content {
   background-color: #fefefe;
-  margin: 5% 5%; /* 15% from the top and centered */
-  padding: 0.2% 0.35% 0.4% 0.56%;
-  /* border: 1px solid #888; */
-  width: 90%; /* Could be more or less, depending on screen size */
+  margin: 5% auto;
+  padding: 20px 35px 40px 56px;
+  border: 1px solid #888;
+  width: 62%;
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  /* overflow-x: hidden; */
+  max-height: 85%;
 }
-
 .popup-report .popup-content .form {
   width: 275%;
   position: relative;
@@ -715,21 +693,24 @@ ul li .active .uil{
 }
 
 .container2 {
-  margin: 0 5px;
-  margin-right: 80px;
+  /* margin: 0 5px; */
+  margin-right: 30px;
   padding: 0 5px;
   border-radius: 50px;
   max-width: 100%;
   width: 60%;
+}
+.h1 {
+  text-align: center;
 }
 
 .container1 {
   max-width: 100%;
   width: 40%;
   background: #ffffff;
-  padding: 10% 15%;
-  border-radius: 10px; /* Adjust border radius as needed */
-  margin-left: 0%;
+  padding: 8% 15%;
+  border-radius: 10px;
+  margin-left: -4%;
   overflow: hidden;
   font-size: small;
 }
@@ -829,12 +810,12 @@ select {
   height: 40px;
   outline: none;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #5b5858;
   padding-left: 15px;
   font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
-  background-color: #d5dfe7d5;
+  background-color: #d8dde200;
 }
 .detail_content {
   display: flex;
@@ -859,17 +840,17 @@ select {
   /* margin-bottom: 12px; */
   border: none;
 }
-.popup-view .btn{
+.popup-view .btn {
   display: flex;
 }
 
 .popup-view .update-btn {
-  
   background: var(--blue);
 }
 
-.popup-view .update-btn ,.ok-btn :hover {
-  background:black;
+.popup-view .update-btn,
+.ok-btn :hover {
+  background: black;
 }
 
 .popup-view .cancel-btn {
@@ -917,7 +898,9 @@ select {
 .btns {
   display: flex;
   position: relative;
-  width: 100%;
+  justify-content: center; /* Centers the child elements horizontally */
+  align-items: center;
+  margin-bottom: -6%;
 }
 
 .update-btn,
@@ -1056,8 +1039,6 @@ select {
   padding:10%;
 } */
 
-
-
 /* Base styles for the modal backdrop */
 .modal {
   display: none; /* Hidden by default */
@@ -1068,7 +1049,12 @@ select {
   width: 100%;
   height: 100%;
   overflow-y: auto; /* Allows scrolling for smaller screens */
-  background-color: rgba(0, 0, 0, 0.75); /* Darker semi-transparent background */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.75
+  ); /* Darker semi-transparent background */
   display: flex;
   align-items: center; /* Center content vertically */
   justify-content: center; /* Center content horizontally */
@@ -1085,6 +1071,8 @@ select {
   max-width: 500px; /* Maximum width of the modal */
   text-align: center; /* Center text for better readability */
   position: relative; /* Necessary for absolute positioning of the close button */
+  top: 6%;
+  left: 3%;
 }
 
 /* Close button styling */
@@ -1111,33 +1099,78 @@ select {
   display: flex; /* Makes the modal flex when active */
 }
 
+/* .filters .active{
+  font-size: 10px;
+  background-color: blue;
+  color: white;
+
+} */
+/* Basic Styles for the Filter Container */
+.filters {
+  /* text-align: center; */
+  margin: 20px 0;
+  margin-left: 2.3%;
+}
+
+/* General Styles for Each Button */
+.filters button {
+  background-color: #f0f0f0; /* Light gray background */
+  color: #000000; /* Dark text color for readability */
+  border: none; /* No borders */
+  padding: 10px 20px; /* Padding for better touch area and appearance */
+  margin: 0 5px; /* Space between buttons */
+  cursor: pointer; /* Cursor indicates it's clickable */
+  border-radius: 5px; /* Slightly rounded corners for a modern look */
+  transition: all 0.3s ease; /* Smooth transition for hover and active states */
+}
+
+/* Styles for Active Button */
+.filters button.active {
+  background-color: #3d3e3e; /* Bright blue for active state */
+  color: #ffffff; /* White text when active */
+}
+
+/* Hover Effect for Buttons */
+.filters button:hover {
+  background-color: #3d3e3e; /* Darker blue on hover */
+  color: #ffffff;
+}
+
+/* Ensure that the button retains the hover color when active */
+.filters button.active:hover {
+  background-color: #979595; /* Slightly lighter blue than the hover state */
+}
+
+
 /* Responsive settings for smaller screens */
 @media screen and (max-width: 600px) {
   .modal-content {
-      width: 100%; /* Full width on smaller screens */
-      padding: 20px; /* Adjust padding for smaller screens */
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow on small devices */
+    width: 100%; /* Full width on smaller screens */
+    padding: 20px; /* Adjust padding for smaller screens */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow on small devices */
   }
 }
 
 /* Adding animations for modal transitions */
 @keyframes modalFadeIn {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @keyframes modalContentFadeIn {
   from {
-      transform: translateY(-20px); /* Start slightly above to create a subtle sliding effect */
-      opacity: 0;
+    transform: translateY(
+      -20px
+    ); /* Start slightly above to create a subtle sliding effect */
+    opacity: 0;
   }
   to {
-      transform: translateY(0);
-      opacity: 1;
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -1156,7 +1189,7 @@ select {
   padding: 12px 34px;
   margin-top: 20px;
   border: none;
-  background-color:black; /* Bootstrap primary blue */
+  background-color: black; /* Bootstrap primary blue */
   color: white;
   border-radius: 8px;
   cursor: pointer;
@@ -1180,83 +1213,92 @@ select {
   color: #ffd900; /* Sets the icon color to a bright yellow */
 }
 
-
-
-
 /* Media queries for tablets and below */
 @media (max-width: 768px) {
-  .container1, .container2 {
-      width: 100%; /* Makes each container full width */
-      margin: 0; /* Removes margin to utilize full width */
-      padding: 5%; /* Adds padding to prevent content from touching the edges */
+  .container1,
+  .container2 {
+    width: 100%; /* Makes each container full width */
+    margin: 0; /* Removes margin to utilize full width */
+    padding: 5%; /* Adds padding to prevent content from touching the edges */
   }
 
-  .container1 form .user-details, .popup-view .detail_content {
-      flex-direction: column; /* Stacks form elements vertically */
+  .container1 form .user-details,
+  .popup-view .detail_content {
+    flex-direction: column; /* Stacks form elements vertically */
   }
 
   .form .form-input input {
-      width: 100%; /* Expands the search input to full width */
+    width: 100%; /* Expands the search input to full width */
   }
 
   .btns {
-      flex-direction: column; /* Stacks buttons vertically */
+    flex-direction: column; /* Stacks buttons vertically */
   }
 
-  .popup-view, .popup-report {
-      width: 90%; /* Makes the popup almost full-width */
+  .popup-view,
+  .popup-report {
+    width: 90%; /* Makes the popup almost full-width */
   }
 
-  .popup-content, .popup-report .popup-content {
-      padding: 20px; /* Increases padding for better readability */
+  .popup-content,
+  .popup-report .popup-content {
+    padding: 20px; /* Increases padding for better readability */
   }
 
-  .popup-view .btns button, .popup-report .pb {
-      width: auto; /* Auto width to accommodate text properly */
-      margin: 10px 0; /* Adds vertical margin for stacked buttons */
+  .popup-view .btns button,
+  .popup-report .pb {
+    width: auto; /* Auto width to accommodate text properly */
+    margin: 10px 0; /* Adds vertical margin for stacked buttons */
   }
 
   .status ul {
-      flex-direction: column; /* Stacks status icons vertically */
+    flex-direction: column; /* Stacks status icons vertically */
   }
 }
-.H2{
+.H2 {
   font-size: 100%;
 }
 
 /* Media queries for mobile devices */
 @media (max-width: 480px) {
   .breadcrumb {
-      flex-direction: column; /* Stacks breadcrumb links vertically */
-      margin: 10px; /* Adds margin for better spacing */
+    flex-direction: column; /* Stacks breadcrumb links vertically */
+    margin: 10px; /* Adds margin for better spacing */
   }
 
   .table-section {
-      overflow-x: auto; /* Allows horizontal scrolling for tables */
+    overflow-x: auto; /* Allows horizontal scrolling for tables */
   }
 
-  .btn, .view-order-btn, .ok-btn, .new-btn {
-      padding: 8px; /* Reduces padding to fit smaller screens */
-      font-size: 14px; /* Reduces font size for better fit */
+  .btn,
+  .view-order-btn,
+  .ok-btn,
+  .new-btn {
+    padding: 8px; /* Reduces padding to fit smaller screens */
+    font-size: 14px; /* Reduces font size for better fit */
   }
 
-  .modal-content, .popup-report .popup-content, .popup-view .popup-content {
-      width: 95%; /* Makes modal content nearly full width */
+  .modal-content,
+  .popup-report .popup-content,
+  .popup-view .popup-content {
+    width: 95%; /* Makes modal content nearly full width */
   }
 }
 
 /* High-resolution and landscape orientation */
 @media (min-width: 769px) and (orientation: landscape) {
-  .container1, .container2 {
-      flex-direction: row; /* Aligns containers in a row for wide screens */
+  .container1,
+  .container2 {
+    flex-direction: row; /* Aligns containers in a row for wide screens */
   }
 
-  .popup-view, .popup-report {
-      width: 70%; /* Adjusts popup width to be less overwhelming on larger screens */
-      padding: 1%; /* Reduces padding */
+  .popup-view,
+  .popup-report {
+    /* width: 60%; Adjusts popup width to be less overwhelming on larger screens */
+    padding: 2%; /* Reduces padding */
   }
 
   .status ul {
-      flex-direction: row; /* Aligns status indicators horizontally */
+    flex-direction: row; /* Aligns status indicators horizontally */
   }
 }

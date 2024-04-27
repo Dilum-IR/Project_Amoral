@@ -37,14 +37,14 @@
                     <i class="bx bxs-user-account"></i>
                     <span class="link_name">Customer Details</span>
                 </a>
-                <span class="tooltip">Customer <Details></Details></span>
+                <span class="tooltip">Customer Details <Details></Details></span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?= ROOT ?>/merchandiser/complaints">
                     <i class="bx bxs-building-house"></i>
-                    <span class="link_name">Reports</span>
+                    <span class="link_name">Complaints</span>
                 </a>
-                <span class="tooltip">Reports</span>
+                <span class="tooltip">Complaints</span>
             </li>
             <li>
                 <a href="<?=ROOT?>/merchandiser/profile">

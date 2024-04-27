@@ -34,8 +34,3 @@
         </li>
     </ul>
 </div>
-
-<?php
-// include "loading.php";
-include __DIR__ . '/../utils/logoutPopup.php';
-?>
