@@ -196,6 +196,8 @@ form .form-input button:hover {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  margin-right: -6%;
+  margin-left: 9%;
   /* transform: scale(0.9); */
 }
 
@@ -808,12 +810,12 @@ select {
   height: 40px;
   outline: none;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #5b5858;
   padding-left: 15px;
   font-size: 15px;
   transition: all 0.3s ease-in;
   border-bottom-width: 2px;
-  background-color: #d5dfe7d5;
+  background-color: #d8dde200;
 }
 .detail_content {
   display: flex;
@@ -1096,6 +1098,49 @@ select {
 .modal.active {
   display: flex; /* Makes the modal flex when active */
 }
+
+/* .filters .active{
+  font-size: 10px;
+  background-color: blue;
+  color: white;
+
+} */
+/* Basic Styles for the Filter Container */
+.filters {
+  /* text-align: center; */
+  margin: 20px 0;
+  margin-left: 2.3%;
+}
+
+/* General Styles for Each Button */
+.filters button {
+  background-color: #f0f0f0; /* Light gray background */
+  color: #000000; /* Dark text color for readability */
+  border: none; /* No borders */
+  padding: 10px 20px; /* Padding for better touch area and appearance */
+  margin: 0 5px; /* Space between buttons */
+  cursor: pointer; /* Cursor indicates it's clickable */
+  border-radius: 5px; /* Slightly rounded corners for a modern look */
+  transition: all 0.3s ease; /* Smooth transition for hover and active states */
+}
+
+/* Styles for Active Button */
+.filters button.active {
+  background-color: #3d3e3e; /* Bright blue for active state */
+  color: #ffffff; /* White text when active */
+}
+
+/* Hover Effect for Buttons */
+.filters button:hover {
+  background-color: #3d3e3e; /* Darker blue on hover */
+  color: #ffffff;
+}
+
+/* Ensure that the button retains the hover color when active */
+.filters button.active:hover {
+  background-color: #979595; /* Slightly lighter blue than the hover state */
+}
+
 
 /* Responsive settings for smaller screens */
 @media screen and (max-width: 600px) {

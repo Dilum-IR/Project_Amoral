@@ -29,7 +29,6 @@
   ?>
 
 
-
   <!-- Sidebar -->
   <?php
   include 'sidebar.php'
@@ -72,7 +71,7 @@
               <?= ucfirst($_SESSION['USER']->emp_name) ?>
             </h2>
             <h4 class="profession">
-            Distributor
+              Distributor
             </h4>
           </div>
 
@@ -105,28 +104,29 @@
           </h3>
           <form method="POST">
 
-          <span class="no-change">
-                <?=
-                (!empty($error) &&  isset($error['notchange']) && $error['flag'] == 1) ? $error['notchange'] :  '';
+            <span class="no-change">
+              <?=
+                (!empty($error) && isset($error['notchange']) && $error['flag'] == 1) ? $error['notchange'] : '';
 
-                ?>
-                &nbsp;
-
-              </span>
-              <?php
-
-              if (isset($data)) {
               ?>
-                <div class="info_data">
-                  <div class="data">
-                    <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name &nbsp; <span class="data-error">
-                        <?=
-                        (!empty($error) &&  isset($error['emp_name']) && $error['flag'] == 1) ?  "* " . $error['emp_name'] :  '';
-                        ?>
+              &nbsp;
 
-                      </span> </label>
-                    <input class="pro_input" type="text" id="pro_username" name="emp_name" value="<?= $data['emp_name'] ?>">
-                  </div>
+            </span>
+            <?php
+
+            if (isset($data)) {
+              ?>
+              <div class="info_data">
+                <div class="data">
+                  <label class="pro_label" for="pro_username"><i class='bx bx-user'></i> Full Name &nbsp; <span
+                      class="data-error">
+                      <?=
+                        (!empty($error) && isset($error['emp_name']) && $error['flag'] == 1) ? "* " . $error['emp_name'] : '';
+                      ?>
+
+                    </span> </label>
+                  <input class="pro_input" type="text" id="pro_username" name="emp_name" value="<?= $data['emp_name'] ?>">
+                </div>
                 <div class="data">
                   <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span
                       class="data-error">
@@ -194,8 +194,7 @@
                       ?>
 
                     </span></label>
-                  <input class="pro_input" type="text" id="pro_profession" name="emp_status"
-                    value="Distributor" disabled>
+                  <input class="pro_input" type="text" id="pro_profession" name="emp_status" value="Distributor" disabled>
                 </div>
                 <div class="pro_button">
                   <button type="button" class="small_btn discard_btn rtol-button" name="discard" value="discard"
@@ -211,52 +210,52 @@
               </div>
 
               <?php
-              } else {
-                redirect("delivery/profile");
-              }
-              ?>
+            } else {
+              redirect("delivery/profile");
+            }
+            ?>
 
-              <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                  const form = document.querySelector('form');
-                  const saveButton = form.querySelector('.save_btn');
-                  const initialData = <?= json_encode($data) ?>;
+            <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                const form = document.querySelector('form');
+                const saveButton = form.querySelector('.save_btn');
+                const initialData = <?= json_encode($data) ?>;
 
-                  // Function to check if any changes are made
-                  function hasChanges() {
-                    const formData = new FormData(form);
-                    const currentData = {};
+                // Function to check if any changes are made
+                function hasChanges() {
+                  const formData = new FormData(form);
+                  const currentData = {};
 
-                    formData.forEach((value, key) => {
-                      currentData[key] = value;
-                    });
-                    console.log(JSON.stringify(initialData) == JSON.stringify(currentData));
-
-                    return JSON.stringify(initialData) !== JSON.stringify(currentData);
-                  }
-
-                  // Enable or disable the "Save Changes" button based on changes
-                  function updateSaveButtonState() {
-                    saveButton.disabled = !hasChanges();
-
-                  }
-
-                  // Attach change event listeners to input fields
-                  form.querySelectorAll('input, select, textarea').forEach(input => {
-                    input.addEventListener('change', updateSaveButtonState);
+                  formData.forEach((value, key) => {
+                    currentData[key] = value;
                   });
+                  console.log(JSON.stringify(initialData) == JSON.stringify(currentData));
 
-                  // Initial check
-                  updateSaveButtonState();
+                  return JSON.stringify(initialData) !== JSON.stringify(currentData);
+                }
+
+                // Enable or disable the "Save Changes" button based on changes
+                function updateSaveButtonState() {
+                  saveButton.disabled = !hasChanges();
+
+                }
+
+                // Attach change event listeners to input fields
+                form.querySelectorAll('input, select, textarea').forEach(input => {
+                  input.addEventListener('change', updateSaveButtonState);
                 });
-              </script>
+
+                // Initial check
+                updateSaveButtonState();
+              });
+            </script>
 
 
-              <?php
+            <?php
             // } else {
             //   redirect("signin");
             // }
-             ?>
+            ?>
 
           </form>
 
@@ -264,100 +263,104 @@
 
         <!-- Change Password Section -->
         <div class="info">
-            <h3 class="h3">Change Password
-              <hr>
-            </h3>
-            <form method="POST">
-              <span class="data-error">
-                <?=
-                  (!empty($passerror) && isset($passerror['password']) && $passerror['flag'] == 1) ? "* " . $passerror['password'] . "." : ''; ?>
-                &nbsp;
-                <?=
-                  (!empty($passerror) && isset($passerror['passwordError']) && $passerror['flag'] == 1) ? $passerror['passwordError'] : '';
-                ?>
-              </span>
-              <div class="info_data">
+          <h3 class="h3">Change Password
+            <hr>
+          </h3>
+          <form method="POST">
+            <span class="data-error">
+              <?=
+                (!empty($passerror) && isset($passerror['password']) && $passerror['flag'] == 1) ? "* " . $passerror['password'] . "." : ''; ?>
+              &nbsp;
+              <?=
+                (!empty($passerror) && isset($passerror['passwordError']) && $passerror['flag'] == 1) ? $passerror['passwordError'] : '';
+              ?>
+            </span>
+            <div class="info_data">
 
-                <div class="data">
-                  <label class="pro_label" for="pro_email">Current Password
+              <div class="data">
+                <label class="pro_label" for="pro_email">Current Password
 
-                    &nbsp;
-                    <span class="data-error">
-                      <?=
-                        (!empty($passerror) && isset($passerror['current_password']) && $passerror['flag'] == 1) ? "* " . $passerror['current_password'] . "." : ''; ?>
+                  &nbsp;
+                  <span class="data-error">
+                    <?=
+                      (!empty($passerror) && isset($passerror['current_password']) && $passerror['flag'] == 1) ? "* " . $passerror['current_password'] . "." : ''; ?>
 
-                    </span>
-                  </label>
-                  <span class="hide-icon">
-                    <input class="pro_input" type="password" id="c-password" name="password"
-                      placeholder="Enter current password" value="<?= isset($pass) ? $pass['password'] : "" ?>">
-                    <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','c-toggleIcon')">
-                      <ion-icon name="eye-off-outline" id="c-toggleIcon"></ion-icon>
-                    </a>
                   </span>
-                </div>
-                <div class="data">
-                  <label class="pro_label" for="pro_date">New Password
-
-                    &nbsp;
-                    <span class="data-error">
-                      <?=
-                        (!empty($passerror) && isset($passerror['new_password']) && $passerror['flag'] == 1) ? "* " . $passerror['new_password'] . "." : ''; ?>
-
-                    </span>
-                  </label>
-                  <span class="hide-icon">
-
-                    <input class="pro_input" type="password" id="n-password" name="new_password"
-                      placeholder="Enter New password" value="<?= isset($pass) ? $pass['new_password'] : "" ?>">
-                    <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','n-toggleIcon')">
-                      <ion-icon name="eye-off-outline" id="n-toggleIcon"></ion-icon>
-                    </a>
-                  </span>
-                </div>
+                </label>
+                <span class="hide-icon">
+                  <input class="pro_input" type="password" id="c-password" name="password"
+                    placeholder="Enter current password" value="<?= isset($pass) ? $pass['password'] : "" ?>">
+                  <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','c-toggleIcon')">
+                    <ion-icon name="eye-off-outline" id="c-toggleIcon"></ion-icon>
+                  </a>
+                </span>
               </div>
+              <div class="data">
+                <label class="pro_label" for="pro_date">New Password
 
-              <div class="info_data" id="last-element">
-                <div class="data">
-                  <label class="pro_label" for="pro_profession">Confirm Password
+                  &nbsp;
+                  <span class="data-error">
+                    <?=
+                      (!empty($passerror) && isset($passerror['new_password']) && $passerror['flag'] == 1) ? "* " . $passerror['new_password'] . "." : ''; ?>
 
-                    &nbsp;
-                    <span class="data-error">
-                      <?=
-                        (!empty($passerror) && isset($passerror['confirm_password']) && $passerror['flag'] == 1) ? "* " . $passerror['confirm_password'] . "." : ''; ?>
-
-                    </span>
-                  </label>
-                  <span class="hide-icon">
-
-                    <input class="pro_input" type="password" id="re-password" name="confirm_password"
-                      placeholder="Enter Confirm password"
-                      value="<?= isset($pass) ? $pass['confirm_password'] : "" ?>">
-                    <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
-                      <ion-icon name="eye-off-outline" id="re-toggleIcon"></ion-icon>
-                    </a>
                   </span>
-                </div>
-                <div class="pro_button">
-                  <button type="submit" class="small_btn discard_btn ltor-button" name="discardP" value="discardP"
-                    href="<?= ROOT ?>/delivery/profile">
-                    <span>
-                      Discard
-                    </span>
+                </label>
+                <span class="hide-icon">
 
-                  </button>
-                  <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP">
-                    <span>
-                      Save Changes
-                    </span>
-                  </button>
-                </div>
+                  <input class="pro_input" type="password" id="n-password" name="new_password"
+                    placeholder="Enter New password" value="<?= isset($pass) ? $pass['new_password'] : "" ?>">
+                  <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','n-toggleIcon')">
+                    <ion-icon name="eye-off-outline" id="n-toggleIcon"></ion-icon>
+                  </a>
+                </span>
               </div>
-            </form>
-          </div>
+            </div>
+
+            <div class="info_data" id="last-element">
+              <div class="data">
+                <label class="pro_label" for="pro_profession">Confirm Password
+
+                  &nbsp;
+                  <span class="data-error">
+                    <?=
+                      (!empty($passerror) && isset($passerror['confirm_password']) && $passerror['flag'] == 1) ? "* " . $passerror['confirm_password'] . "." : ''; ?>
+
+                  </span>
+                </label>
+                <span class="hide-icon">
+
+                  <input class="pro_input" type="password" id="re-password" name="confirm_password"
+                    placeholder="Enter Confirm password" value="<?= isset($pass) ? $pass['confirm_password'] : "" ?>">
+                  <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
+                    <ion-icon name="eye-off-outline" id="re-toggleIcon"></ion-icon>
+                  </a>
+                </span>
+              </div>
+              <div class="pro_button">
+                <button type="submit" class="small_btn discard_btn ltor-button" name="discardP" value="discardP"
+                  href="<?= ROOT ?>/delivery/profile">
+                  <span>
+                    Discard
+                  </span>
+
+                </button>
+                <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP">
+                  <span>
+                    Save Changes
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
+
+    <?php
+    // include "loading.php";
+    include __DIR__ . '/../utils/logoutPopup.php';
+    ?>
 
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>

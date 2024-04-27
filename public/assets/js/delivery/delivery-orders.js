@@ -13,10 +13,7 @@ function openView(data) {
 
 var order_id = -1;
 
-
-
 function openView(button) {
-
   const data = button.getAttribute("data-order");
   order = JSON.parse(data);
 
@@ -25,15 +22,13 @@ function openView(button) {
   // console.log(order);
   document.getElementById("order-id").value = order.order_id;
   document.getElementById("customer-name").value = order.fullname;
-  document.getElementById("delivery-address").value = order.address;
-  document.getElementById("placed-on").value = order.order_placed_on;
-  document.getElementById("expected-on").value =order.dispatch_date;
+  document.getElementById("delivery-city").value = order.city;
+  document.getElementById("contact-num").value = order.phone;
+  document.getElementById("expected-on").value = order.dispatch_date;
 
-  initMap( order.order_id,order.latitude, order.longitude); // Initialize the map with the order's location
-// } else {
-//     updateMapLocation(order.latitude, order.longitude); // Update map if already initialized
-
-
+  initMap(order.order_id, order.latitude, order.longitude); // Initialize the map with the order's location
+  // } else {
+  //     updateMapLocation(order.latitude, order.longitude); // Update map if already initialized
 
   popupView.classList.add("is-visible");
   document.body.style.overflow = "hidden";
@@ -94,3 +89,28 @@ function closeReport() {
 //     console.log("myModal");
 
 // }
+
+function filterTable(arg) {
+  var table_data = document.querySelectorAll(".table-section tbody tr");
+  table_data.forEach((Element) => {
+
+    Element.classList.remove("delivered-row-active");
+    Element.classList.remove("delivering-row-active");
+    
+    if (arg == 1 && Element.classList.contains("delivering")) {
+      console.log(Element);
+      
+      Element.classList.remove("delivered-row-active");
+      Element.classList.add("delivering-row-active");
+
+      // Element.style.display = 'none';
+    } else if (arg == 2 && Element.classList.contains("delivered")) {
+      
+      Element.classList.remove("delivering-row-active");
+      Element.classList.add("delivered-row-active");
+      // Element.style.display = 'none';
+    }
+  });
+}
+
+filterTable(1);

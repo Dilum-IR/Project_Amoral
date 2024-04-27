@@ -59,6 +59,11 @@
 
         </form>
         <div class="table">
+            <!-- Add buttons for the two types -->
+            <div class="filters">
+                <button id="delivering" class="active" onclick="filterTable(1)">Delivery Orders</button>
+                <button id="delivered" class="active" onclick="filterTable(2)">Delivered Orders</button>
+            </div>
             <div class="table-section">
                 <table>
                     <thead>
@@ -68,17 +73,17 @@
                             <th class="Distric">City</th>
                             <th class="stth">Status</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     <tbody>
                         <?php
-                        if (!empty($data['data1'])) {
+                        if (!empty($data)) {
 
 
-                            foreach ($data['data1'] as $key => $value) {
+
+                            foreach ($data as $key => $value) {
 
                                 ?>
-                                <tr>
+                                <tr class='<?= $value->order_status ?>'>
                                     <td>
                                         <?php echo $value->order_id; ?>
                                     </td>
@@ -104,9 +109,9 @@
                                             <!-- <button onclick="showPopup('popup1')">Open Popup 1</button> -->
                                         <?php endif; ?>
 
-                                    </td>
 
-                                    <td><button type="submit" name="selectItem" data-order='<?= json_encode($value); ?>'
+
+                                        <button type="submit" name="selectItem" data-order='<?= json_encode($value); ?>'
                                             class="view-order-btn" onclick="openView(this)">View
                                             Order</button>
                                     </td>
@@ -147,6 +152,23 @@
 
     </section>
 
+    <style>
+        .table-section tbody tr {
+            display: none;
+            
+        }
+
+        .delivering.delivering-row-active {
+            display: table-row !important;
+            
+        }
+
+        .delivered.delivered-row-active {
+            display: table-row !important;
+           
+        }
+
+    </style>
 
 
 
@@ -326,13 +348,13 @@
                             </div>
 
                             <div class="input-box">
-                                <span class="details">Delivery Address</span>
-                                <input id="delivery-address" type="text" required onChange="" readonly value=" " />
+                                <span class="details">City</span>
+                                <input id="delivery-city" type="text" required onChange="" readonly value=" " />
                             </div>
 
                             <div class="input-box">
-                                <span class="details">Order Placed On</span>
-                                <input id="placed-on" type="text" required onChange="" readonly value=" " />
+                                <span class="details">Contact Number</span>
+                                <input id="contact-num" type="text" required onChange="" readonly value=" " />
                             </div>
 
                             <div class="input-box">

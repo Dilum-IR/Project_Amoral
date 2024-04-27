@@ -33,9 +33,20 @@ class Orders extends Controller
 
 
             $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id,'is_delivery'=>"1"], "users", "user_id", "id", $column_names);
+            $result2 = $order->find_withInner(['order_status' => "delivered",'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
 
+            if($result==false){
+                $result=[];
+            }
+            if($result2==false){
+                $result2=[];
+            }
             
-            $data['data1'] = $result;
+            $result3=array_merge($result,$result2);
+            // show($result3);
+            $data['data'] = $result3;
+            // $data['delivered'] = $result2;
+
             // show($data);
             // if (isset($_POST['confirm']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
                 //     unset($_POST['confirm']);
