@@ -56,7 +56,7 @@
                 <span class="tooltip">Customer <Details></Details></span>
             </li>
             <li>
-                <a href="#">
+                <a href="<?=ROOT?>/manager/reports">
                     <i class="bx bxs-building-house"></i>
                     <span class="link_name">Reports</span>
                 </a>

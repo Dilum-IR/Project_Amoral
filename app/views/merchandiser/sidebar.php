@@ -40,11 +40,11 @@
                 <span class="tooltip">Customer Details <Details></Details></span>
             </li>
             <li>
-                <a href="<?= ROOT ?>/merchandiser/reports">
+                <a href="<?= ROOT ?>/merchandiser/complaints">
                     <i class="bx bxs-building-house"></i>
-                    <span class="link_name">Reports</span>
+                    <span class="link_name">Complaints</span>
                 </a>
-                <span class="tooltip">Reports</span>
+                <span class="tooltip">Complaints</span>
             </li>
             <li>
                 <a href="<?=ROOT?>/merchandiser/profile">

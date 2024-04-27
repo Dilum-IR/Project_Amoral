@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports</title>
+    <title>Complaints</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/quotations.css"> -->
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/merchandiser/reports.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/merchandiser/complaints.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -33,7 +33,7 @@
             </li>
             <i class='bx bx-chevron-right'></i>
             <li>
-                <a href="#" class="active">Reports & Messages</a>
+                <a href="#" class="active">Complaints & Messages</a>
             </li>
 
         </ul>
@@ -51,15 +51,15 @@
                 <form action="" method="POST">
                     <div>
                         <label>
-                            <input type="radio" name="radio" checked="all" value="all"<?= isset($_POST['radio']) && $_POST['radio'] == 'all' ? 'checked' : ''; ?> >
+                            <input type="radio" name="rptType" checked="ckecked" value="all">
                             <span>All</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" checked="unread" value="unread" <?= isset($_POST['radio']) && $_POST['radio'] == 'unread' ? 'checked' : ''; ?>>
+                            <input type="radio" name="rptType" checked="ckecked" value="unread">
                             <span>Unread</span>
                         </label>
                         <label>
-                            <input type="radio" name="radio" checked="read" value="read"  <?= isset($_POST['radio']) && $_POST['radio'] == 'read' ? 'checked' : ''; ?>>
+                            <input type="radio" name="rptType" checked="ckecked" value="read">
                             <span>Read</span>
                         </label>
                     </div>
@@ -73,45 +73,45 @@
             <div class="report-box">
                 <div class="report-input-box">
                     <?php
-
                     if (!empty($data)) {
                         // show($data);
+                        foreach ($data as $rpt):
 
-                        foreach ($data as $rpt) :
-                            if($rpt->is_active != 0){
-                    ?>
-
+                            ?>
 
                             <div class="text-box">
                                 <div class="report-info">
                                     <div class="report-info-email">
-                                        E-mail - <?php echo $rpt->email ?>
+                                        E-mail - <?php echo htmlspecialchars($rpt->email) ?>
                                     </div>
                                     <div class="report-info-date">
-                                        Date - <?php echo $rpt->report_date ?>
+                                        Date - <?php echo htmlspecialchars($rpt->report_date) ?>
                                     </div>
                                 </div>
                                 <div class="report-description-title">Description - </div>
                                 <div class="report-description">
-                                    <?php echo $rpt->description ?>
+                                    <?php echo htmlspecialchars($rpt->description) ?>
                                 </div>
                                 <div class="report-btns">
-                                    <button class="view-btn rpt" type="" name="selectItem" class="edit" data-rpt='<?= json_encode($rpt); ?>' onclick="showPopup(this)">View Details</button>
+                                    <button class="view-btn rpt" type="" name="selectItem" class="edit"
+                                        data-report-id='<?= $rpt->report_id; ?>' data-rpt='<?= json_encode($rpt); ?>'
+                                        onclick="showPopup(this)" value="">View Details</button>
                                 </div>
                             </div>
-                        <?php
-                            }
+                            <?php
+
+
                         endforeach;
                     } else {
                         ?>
                         <div class="text-box">
                             <div class="no-rpts">
-                                No Reports or Messages
+                                No Complaints or Messages
 
                             </div>
 
                         </div>
-                    <?php
+                        <?php
                     }
                     ?>
 
@@ -124,6 +124,8 @@
 
     <div class="popup-report">
         <form action="" class="update-form" method="POST">
+            <input type="hidden" name="garOrCus" id="garOrCus" value="" />
+            <input type="hidden" name="report_id" value="">
             <div class="sender-info">
                 <div class="information">
                     <div class="email info" name="email">Email - </div>
@@ -139,15 +141,16 @@
             </div>
             <div class="popup-buttons">
                 <!-- <button class="popup-read-btn rd" onclick="closePopup()">Delete</button> -->
-                <button class="popup-close-btn rd" type="submit" name="markAsRead" onclick="closePopup()">Mark as Read</button>
+                <button class="popup-close-btn rd" type="submit" name="markAsRead" onclick="closePopup()">Mark as
+                    Read</button>
             </div>
         </form>
     </div>
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script src="<?= ROOT ?>/assets/js/manager/reports.js"></script>
+    <script src="<?= ROOT ?>/assets/js/merchandiser/complaints.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>
 

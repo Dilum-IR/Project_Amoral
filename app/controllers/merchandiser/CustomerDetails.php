@@ -12,7 +12,7 @@ class CustomerDetails extends Controller
             $result = $customer->findAll_selectedColumn('id',$customer->customerColumns, );
 
             $data = ['data'=>$result];
-            show($result);
+            // show($result);
 
             //update customer details
 
