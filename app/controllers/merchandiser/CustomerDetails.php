@@ -69,7 +69,7 @@ class CustomerDetails extends Controller
 
 
     public function customerAdd($data){
-        show($data);
+        // show($data);
         $customer = new User;
         $employee = new Employee;
 
