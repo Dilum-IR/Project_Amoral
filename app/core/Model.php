@@ -269,7 +269,7 @@ trait Model
     {
 
         $quary = "SELECT * FROM $this->table LEFT OUTER JOIN $reference_table 
-                            ON $this->table.$refe_column1 = $reference_table.$refe_column2
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2 
                             LIMIT $this->limit OFFSET $this->offset";
 
         // echo $quary;
@@ -416,5 +416,47 @@ trait Model
         // run the quary stage
         return $this->quary($quary);
     }
-}
 
+
+    public function findAllActive_withLOJ($reference_table, $refe_column1 = 'id', $refe_column2 = 'id')
+    {
+
+        $columns = [
+
+            "employee.emp_id",
+            "emp_name",
+            "nic",
+            "email",
+            "contact_number",
+            "DOB",
+            "address",
+            "city",
+            "emp_status",
+            "emp_image",
+            "is_active",
+            "email_verified",
+            "phn_num_verified",
+            "email_otp",
+            "token",
+            "vehicle_id",
+            "vehicle_type",
+            "max_capacity",
+            "vehicle_number"
+        ];
+
+        $quary = "SELECT " ;
+        
+        foreach ($columns as $key => $value) {
+            $quary .= $value.", ";
+        }
+        $quary = trim($quary, ", ");
+
+        $quary .=" FROM $this->table LEFT OUTER JOIN $reference_table 
+                            ON $this->table.$refe_column1 = $reference_table.$refe_column2 WHERE is_active = 1
+                            LIMIT $this->limit OFFSET $this->offset";
+
+        // echo $quary;
+        // run the quary stage
+        return $this->quary($quary);
+    }
+}

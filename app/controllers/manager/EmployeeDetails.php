@@ -12,7 +12,8 @@ class EmployeeDetails extends Controller
             $employee = new Employee;
 
 
-            $result = $employee->findAllActive('emp_id');
+            $result = $employee->findAllActive_withLOJ('deliveryman', 'emp_id', 'emp_id');
+            // $result = $employee->findAllActive('emp_id');
             // show($result);
             $data = ['data' => $result];
 
@@ -29,6 +30,7 @@ class EmployeeDetails extends Controller
                 if (isset($arr)) {
 
                     // show($arr);
+                    // show($emp_id);
                     $update = $employee->update($emp_id, $arr, 'emp_id');
                     redirect('manager/employeedetails');
                 }
@@ -78,7 +80,7 @@ class EmployeeDetails extends Controller
 
 
 
-        $result = $employee->findAllActive('emp_id');
+        
     }
 
 
@@ -102,14 +104,6 @@ class EmployeeDetails extends Controller
 
             $data['password'] = $hash;
 
-            // show($data);
-            // $allowedKeys = ['emp_status', 'DOB', 'emp_name', 'email', 'city', 'address', 'contact_number', 'emp_image'];
-            // $filteredData = array_intersect_key($data, array_flip($allowedKeys));
-            // show($filteredData);
-            // $employee->insert($filteredData);
-
-            // show($data['emp_image']);
-
             $newImageName = $this->changeImage($data);
             // show($newImageName);
 
@@ -120,6 +114,13 @@ class EmployeeDetails extends Controller
                     $columnGarment[$key] = $data[$key];
                     unset($data[$key]);
                 }
+            } else if($data['emp_status'] == 'delivery'){
+                $removingKeysD = ['vehicle_type', 'max_capacity', 'vehicle_number'];
+                foreach ($removingKeysD as $key) {
+                    
+                    $columnDelivery[$key] = $data[$key];
+                    unset($data[$key]);
+                }
             }
 
             $removeImage = ['emp_image'];
@@ -128,20 +129,10 @@ class EmployeeDetails extends Controller
                 unset($data[$key]);
             }
 
-
             $data['emp_image'] = $newImageName;
 
-            // $removingKeys = ['cut_price', 'sewed_price', 'no_workers', 'day_capacity'];
-
-            // foreach ($removingKeys as $key) {
-            //     if (isset($data[$key])) {
-            //         $columnGarment[$key] = $data[$key];
-            //         unset($data[$key]);
-            //     }
-            // }
-
-            // show($columnGarment);
             // show($data);
+    
             $employee->insert($data);
 
 
@@ -164,6 +155,29 @@ class EmployeeDetails extends Controller
 
                 // show($columnGarment);
                 $garment->insert($columnGarment);
+            }
+
+            if ($data['emp_status'] == 'delivery') {
+                //    show($data);
+
+                $employee = new Employee;
+
+                $result = $employee->findAllActive('emp_id');
+                // show($result);
+                $delivery = new Deliveryman;
+                $newEmp['email'] = $data['email'];
+                $empResult = $employee->first($newEmp);
+                // show($empResult->emp_id);
+                // show($data['city']);
+
+                $columnDelivery['emp_id'] = $empResult->emp_id;
+
+                // show($columnDelivery);
+
+                // $columnDelivery['vehicle_type'] = toLowerCase()
+               
+                // show($columnDelivery);
+                $$delivery->insert($columnDelivery);
             }
 
             // save user email in another table for chat with users

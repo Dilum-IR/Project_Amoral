@@ -1523,6 +1523,7 @@ main .printingType>div:hover {
 }
 
 .upload-button {
+  cursor: pointer;
   margin-top: 8%;
   width: 76%;
   border-radius: 10px;

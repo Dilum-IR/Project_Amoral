@@ -6,6 +6,7 @@ Class Collection{
     protected $table = 'collection';
 
     public $allowedCloumns = [
+        'image_id',
         'image_name',
         'price',
         'material',
@@ -13,7 +14,7 @@ Class Collection{
 
     function findLast(){
         $quary = "SELECT * FROM $this->table
-        ORDER BY order_id DESC
+        ORDER BY image_id DESC
         LIMIT 1;";
         return $this->quary($quary);
     }

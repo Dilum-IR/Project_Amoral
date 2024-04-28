@@ -5,7 +5,6 @@ class Home extends Controller
     public function index()
     {
 
-
         if (isset($_SESSION['USER'])) {
 
             unset($_SESSION['USER']);

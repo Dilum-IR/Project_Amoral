@@ -481,18 +481,18 @@
                             <img src="<?= ROOT ?>/assets/images/merchandiser/collection.jpg" class="collection-front-image">
                         </div>
                         <div class="image-uploader">
-                            <form action="" method="POST">
+                            <form method="POST" enctype="multipart/form-data">
                                 <span class="new-item-collection">Upload a new Item to the collection</span>
                                 <div class="upload-buttons">
-                                    <input class="col-image" name="image_name" type="file" accept=".jpg">
+                                    <input class="col-image" name="image_name" type="file" accept=".jpg ,.jpeg" required>
                                     <div class="all-input-box" >
                                         <div class="input-box">
                                             <span class="details"> Material </span>
-                                            <input type="text" name="material" id="" placeholder="Material">
+                                            <input type="text" name="material" id="" placeholder="Material" required>
                                         </div>
                                         <div class="input-box">
                                             <span class="details">Unit Price</span>
-                                            <input type="text" name="price" id="" placeholder="Unit Price" >
+                                            <input type="text" name="price" id="" placeholder="Unit Price" required>
                                         </div>
 
                                     </div>

@@ -110,7 +110,7 @@ route('guest/new','guest/Guest_update@index');
 
 route('tool', 'tool/Tool@index');
 
-route('collection', 'collection/Collection@Index');
+route('collection', 'collection/DesignCollection@index');
 
 route('404', '_404@index');
 route('failure', 'ServerError@index');

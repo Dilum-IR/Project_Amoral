@@ -1,10 +1,23 @@
-html{
-    background-color: black;
-}
-.slides-container {
-    height: 100%;
+#main-col {
     position: relative;
-    z-index: -1;
+    /* top: 78px; */
+    width: 100%;
+    height: max-content;
+    /* left: 64px; */
+    /* margin-left: 20px; */
+    transition: all 0.5s ease;
+    z-index: 10;
+    /* border-radius: 50px; */
+    background-color: #191919;
+    scroll-behavior: smooth;
+}
+
+
+.slides-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* z-index: -1; */
 }
 
 .full-screen-slide {
@@ -17,9 +30,11 @@ html{
 
 .flex-container {
     display: flex;
-    position: relative;
+    /* position: relative; */
     /* height: 100%; */
     width: 100%;
+    background-color: red;
+    /* margin-top: 9%; */
 }
 
 .flex-container>div {
@@ -36,6 +51,7 @@ html{
     border-bottom-left-radius: 8px; */
     border-radius: 8px;
     object-fit: cover;
+    
 }
 
 .slide-btn {
@@ -59,16 +75,17 @@ html{
     right: 0;
 }
 
-.div-info-1{
+.div-info-1 {
     display: flex;
     top: 100%;
-    background-color: black;
+    /* background-color: black; */
     width: 100%;
     /* margin-left: 5%; */
     /* align-items: center; */
     /* justify-content: center; */
     /* padding: 29px; */
     position: relative;
+    
 }
 
 
@@ -86,6 +103,7 @@ html{
     /* padding: 10px; */
     /* height: 100%; */
     width: 100%;
+    
 }
 
 .item-info,
@@ -309,14 +327,16 @@ html{
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 
 } */
-.place-order-button{
+.place-order-button {
     z-index: 2;
     width: 100%;
     /* background-color: red; */
     margin-top: -18%;
+
 }
 
 .place-button {
+    cursor: pointer;
     /* display: inline-block; */
     width: 150px;
     height: 50px;
@@ -380,4 +400,5 @@ html{
     /* max-width: 100%; */
     /* overflow: hidden; */
     align-items: center;
+   
 }
