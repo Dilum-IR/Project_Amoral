@@ -41,8 +41,10 @@ function performSearch() {
         }
         console.log(row_text);
 
-        row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
-        row.style.setProperty('--delay', i/40 + 's');
+        if(!row.classList.contains('filter')){
+            row.classList.toggle('hide', row_text.indexOf(search_data) < 0);
+            row.style.setProperty('--delay', i/40 + 's');
+        }
     })
 }
 
@@ -92,22 +94,22 @@ function sortTable(i, order){
 
 }
 
-orderCancel.addEventListener('click', function (event) {
-    console.log('cancel');
-    deleteConfirm.classList.add('is-visible');
-});
+// orderCancel.addEventListener('click', function (event) {
+//     console.log('cancel');
+//     deleteConfirm.classList.add('is-visible');
+// });
 
-orderUpdate.addEventListener('click', function (event) {
-    event.preventDefault();
-    let noerrors = validateViewOrder();
-    if(noerrors){
-        updateConfirm.classList.add('is-visible');
-    }
-});
+// orderUpdate.addEventListener('click', function (event) {
+//     event.preventDefault();
+//     let noerrors = validateViewOrder();
+//     if(noerrors){
+//         updateConfirm.classList.add('is-visible');
+//     }
+// });
 
-updateNo.addEventListener('click', function(){
-    updateConfirm.classList.remove('is-visible');
-});
+// updateNo.addEventListener('click', function(){
+//     updateConfirm.classList.remove('is-visible');
+// });
 
 /*
 updateYes.addEventListener('click', function(){
@@ -115,6 +117,157 @@ updateYes.addEventListener('click', function(){
     updateConfirm.classList.remove('is-visible');
 });
 */
+
+//**********************Filter table***************************************************** */
+
+//remove active classes of buttons
+function removeActiveFilters(){
+    let filterBtns = document.querySelectorAll('.filters button');
+    filterBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+}
+
+// filter table data when a filter button is clicked
+function filterTable(arg){
+
+    removeActiveFilters();
+    let i = 0;
+    let table_rows = document.querySelectorAll('.table-section tbody tr');
+    if(arg == 'pending'){
+        document.querySelector('.filters #pending').classList.add('active');
+        // if(table_rows.length == 0){
+        //     document.querySelector('.table-section tbody').innerHTML = "<tr><td class='norecords' colspan='8'>No records found</td></tr>";
+        //     return;
+        // }
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('pending')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+        }); 
+        
+    }else if(arg == 'cutting'){
+        document.querySelector('.filters #cutting').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('cutting') || row.querySelector('.text-status').classList.contains('cut')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;filter
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'printing'){
+        document.querySelector('.filters #printing').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('printing') || row.querySelector('.text-status').classList.contains('printed') || row.querySelector('.text-status').classList.contains('sent to garment')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'sewing'){
+        document.querySelector('.filters #sewing').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('sewing') || row.querySelector('.text-status').classList.contains('sewed')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+
+    }else if(arg == 'delivering'){
+        document.querySelector('.filters #delivering').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('delivering')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'completed'){
+        document.querySelector('.filters #completed').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('delivered') || row.querySelector('.text-status').classList.contains('completed')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else if(arg == 'cancelled'){
+        document.querySelector('.filters #cancelled').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('canceled') || row.querySelector('.text-status').classList.contains('refunded')){
+                if(row.classList.contains('filter')){
+                    row.classList.remove('filter');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('filter');
+            }
+
+        });
+        
+    }else{
+        document.querySelector('.filters #all').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+            return;
+        }
+        console.log(table_rows);
+        table_rows.forEach(row => {
+            if(row.classList.contains('filter')){
+                row.classList.remove('filter');
+                i++;
+            }
+
+        });
+     
+    }
+    
+
+}
+
 
 //validate the delivery dates
 let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
@@ -248,7 +401,7 @@ function validateViewOrder() {
 // }
 
     // sizes
-    let sizes = document.querySelectorAll('.popup-view input[type="number"]');
+    let sizes = document.querySelectorAll('.popup-view .st');
     let total = 0;
     sizes.forEach(size => {
         total += parseInt(size.value);
@@ -342,6 +495,8 @@ function clearErrorMsg(form) {
 
 function removeActiveClass() {
     document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+        progress1.classList.remove("cancel");
+
         li.classList.remove("active");
     });
 }
@@ -354,28 +509,76 @@ function openView(button) {
     const orderData = button.getAttribute("data-order");
     const materialData = button.getAttribute("data-material");
     const customersData = button.getAttribute("data-customers");
-
+    const garmentOrderData = button.getAttribute("data-g-orders");
+    const employeeData = button.getAttribute("data-emp");
 
     console.log(materialData);
-
+    
     removeActiveClass();
-
+    
     if (orderData) {
         // Parse the JSON data
         const order = JSON.parse(orderData);
+        console.log(order);
         const material = JSON.parse(materialData);
         const customers = JSON.parse(customersData);
+        let employee = '';
+        if(order.order_status != 'pending' && garmentOrderData){
+            const garmentOrders = JSON.parse(garmentOrderData);
+            const gOrder = garmentOrders.find(ord => ord.order_id == order.order_id);
+            console.log(gOrder);
+            if(employeeData && (order.order_status != 'canceled' || order.order_status != 'refunded') ){
+                const employees = JSON.parse(employeeData);
+                employee = employees.find(emp => emp.emp_id == gOrder.emp_id);  
+                console.log(employee);   
+            }
+        }
 
         switch (order.order_status) {
             case 'cutting' :
                 progress2.classList.add("active");
                 progress2.classList.add("set");
+                progress2.nextElementSibling.innerText = 'Cutting';
+                progress3.nextElementSibling.innerText = 'Printing';
+                progress4.nextElementSibling.innerText = 'Sewing';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
+                break;
+
+            case 'cut':
+                progress2.classList.add("active");
+                progress2.classList.add("set");
+                progress2.nextElementSibling.innerText = 'Cut';
+                progress3.nextElementSibling.innerText = 'Printing';
+                progress4.nextElementSibling.innerText = 'Sewing';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
                 break;
 
             case 'printing':
                 progress2.classList.add("active");
                 progress3.classList.add("active");
                 progress3.classList.add("set");
+                progress2.nextElementSibling.innerText = 'Cut';
+                progress3.nextElementSibling.innerText = 'Printing';
+                progress4.nextElementSibling.innerText = 'Sewing';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
+                break;
+
+            case 'printed':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress3.classList.add("set");
+                progress3.nextElementSibling.innerText = 'Printed';
+                progress4.nextElementSibling.innerText = 'Sewing';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
+                break;
+
+            case 'sent to garment':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress3.classList.add("set");
+                progress3.nextElementSibling.innerText = 'Printed & Sent to Stitch';
+                progress4.nextElementSibling.innerText = 'Sewing';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
                 break;
 
             case 'sewing':
@@ -383,6 +586,18 @@ function openView(button) {
                 progress3.classList.add("active");
                 progress4.classList.add("active");
                 progress4.classList.add("set");
+                progress4.nextElementSibling.innerText = 'Sewing';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
+                break;
+
+            case 'sewed':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress4.classList.add("active");
+                progress4.classList.add("set");
+                progress4.nextElementSibling.innerText = 'Sewed';
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
+
                 break;
 
             case 'delivering':
@@ -391,6 +606,16 @@ function openView(button) {
                 progress4.classList.add("active");
                 progress5.classList.add("active");
                 progress5.classList.add("set");
+                progress5.nextElementSibling.innerText = 'Delivery In Progress';
+                break;
+
+            case 'delivered':
+                progress2.classList.add("active");
+                progress3.classList.add("active");
+                progress4.classList.add("active");
+                progress5.classList.add("active");
+                progress5.classList.add("set");
+                progress5.nextElementSibling.innerText = 'Delivered';
                 break;
 
             case 'completed':
@@ -400,63 +625,100 @@ function openView(button) {
                 progress5.classList.add("active");
                 progress6.classList.add("active");
                 progress6.classList.add("set");
+                progress6.nextElementSibling.innerText = 'Completed';
                 break;
 
-            case 'cancelled':
+            case 'canceled':
+            case 'refunded':
                 progress1.classList.add("cancel");
+                progress1.nextElementSibling.innerText = 'Cancelled';
                 break;
 
         }
+
+        //get the payment type - no, half or full
+        let paymentType = order.pay_type;
+        if(paymentType == 'no'){
+            document.querySelector('.popup-view .payment span').innerText = 'Not Paid';
+            document.querySelector('.popup-view .payment').style.backgroundColor = '#ff0000';
+        }else if(paymentType == 'half'){
+            document.querySelector('.popup-view .payment span').innerText = 'Half Paid';
+            document.querySelector('.popup-view .payment').style.backgroundColor = '#ffcc00';
+
+        }else if(paymentType == 'full'){
+            document.querySelector('.popup-view .payment span').innerText = 'Fully Paid';
+            document.querySelector('.popup-view .payment').style.backgroundColor = 'rgb(33 159 33)';
+            document.querySelector('.popup-view input[name="total_price"]').setAttribute("disabled", "disabled");
+            document.querySelector('.popup-view input[name="discount"]').setAttribute("disabled", "disabled");
+
+        }
+
+        // if not paid cannot update status
+        // if(paymentType == 'no'){
+        //     document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+        //         li.style.pointerEvents = 'none';
+        //         li.style.cursor = 'not-allowed';
+        //     });
+        // }else{
+        //     document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+        //         li.style.pointerEvents = 'auto';
+        //         li.style.cursor = 'pointer';
+        //     });
+        // }
+
+
+
 
         // update the status bar when clicked the next status
         let statuses = ['pending', 'cutting', 'printing', 'sewing', 'delivering', 'completed']
         let changedStatus = order.order_status;
         let i = -1;
         let prevStatus = null;
-        
-        document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
-            li.addEventListener('click', function () {
-                let prevLi = this.parentElement.previousElementSibling;
-                console.log(prevLi);
-                let nextLi = this.parentElement.nextElementSibling;
-                if ((prevLi && nextLi) || prevLi.querySelector('.progress').classList.contains("five")) {
-                    let prevProgress = prevLi.querySelector('.progress');
-                    let nextProgress = null;
-                    if(!prevProgress.classList.contains("five")){
-                        nextProgress = nextLi.querySelector('.progress');
 
+        if(paymentType != 'no'){
+            console.log(' jiosjci');
+            document.querySelectorAll(".popup-view .status ul li .progress").forEach((li, index) => {
+                if(index != 0){
+                    let prevElement = li.parentElement.previousElementSibling.querySelector('.progress');
+                    console.log(prevElement.classList);
+                    if((li.classList.contains("cutting") || li.classList.contains("completed")) && (prevElement.classList.contains("set") || prevElement.classList.contains('one')) && !(li.classList.contains('active')) ){
+                        console.log('nvsdknfks');
+                        li.style.pointerEvents = 'auto';
+                        li.style.cursor = 'pointer';
+                        li.addEventListener('click', function () {
+                            this.classList.toggle("active");
+                            console.log(this);
+                                
+                            
+                            if(this.classList.contains("active")){
+                                i++;
+                                updateStatus(this.classList);
+                            }else{
+                                changedStatus = prevStatus;                 
+                                i--;
+                            }
+                            prevStatus = statuses[i];
+                            // console.log('prevstatus      '+prevStatus);
+                            // console.log('status    '+changedStatus);
+                            document.querySelector('.update-form input[name="order_status"]').value = changedStatus;
+                            // console.log(document.querySelector('.update-form input[name="order_status"]').value);
+                        });
+    
                     }
-                    console.log(nextProgress);
-                    if (prevProgress && !(this.classList.contains("set")) && (prevProgress.classList.contains("active") || prevProgress.classList.contains("one")) && (nextProgress==null || !nextProgress.classList.contains("active"))) {
-                        this.classList.toggle("active");
-                        console.log(this);
-                    }
+
                 }
-                if(this.classList.contains("active")){
-                    i++;
-                    updateStatus(this.classList);
-                }else{
-                    changedStatus = prevStatus;                 
-                    i--;
-                }
-                prevStatus = statuses[i];
-                // console.log('prevstatus      '+prevStatus);
-                // console.log('status    '+changedStatus);
-                document.querySelector('.update-form input[name="order_status"]').value = changedStatus;
-                // console.log(document.querySelector('.update-form input[name="order_status"]').value);
             });
-        });
+        }else{
+            document.querySelectorAll(".popup-view .status ul li .progress").forEach(li => {
+                li.style.pointerEvents = 'none';
+                li.style.cursor = 'not-allowed';
+            });
+        }
 
         function updateStatus(classes){
             console.log(classes);
             if (classes.contains("two") && classes.contains("active")) {
                 changedStatus = 'cutting';
-            } else if (classes.contains("three") && classes.contains("active")) {
-                changedStatus = 'printing';
-            } else if (classes.contains("four") && classes.contains("active")) {
-                changedStatus = 'sewing';
-            } else if (classes.contains("five") && classes.contains("active")) {
-                changedStatus = 'delivering';
             } else if (classes.contains("six") && classes.contains("active")) {
                 changedStatus = 'completed';
             }
@@ -465,9 +727,9 @@ function openView(button) {
 
         var today = new Date();
         var formattedDate = today.getFullYear() + '-' + String(today.getMonth()).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-
        
         // Populate the "update-form" fields with the order data
+
         document.querySelector('.update-form input[name="order_id"]').value = order.order_id;
         document.querySelector('.update-form input[name="order_status"]').value = order.order_status;
 
@@ -493,6 +755,44 @@ function openView(button) {
             quantity = parseInt(material[i].xs) + parseInt(material[i].small) + parseInt(material[i].medium) + parseInt(material[i].large) + parseInt(material[i].xl) + parseInt(material[i].xxl);
             addMaterialCardView(material[i], quantity, countv);
         }
+
+        if(paymentType == 'full'){
+            let unitPriceInputs = document.querySelector('.popup-view input[name="unit_price[]"]');
+            console.log(unitPriceInputs);
+            if(!Array.isArray(unitPriceInputs)){
+                unitPriceInputs = [unitPriceInputs];
+            }
+            unitPriceInputs.forEach(input => {
+                input.setAttribute("disabled", "disabled");
+            });
+        }
+
+        // after updating to cutting, disable updating quantity
+        if (order.order_status != 'pending') {
+            document.querySelectorAll(".popup-view .st").forEach(input => {
+                input.setAttribute("disabled", "disabled");
+            });
+
+            // update employee input field
+            if(employee == ''){
+                document.querySelector('.update-form input[name="emp_id"]').value = 'Not Assigned';
+            }else{
+                document.querySelector('.update-form input[name="emp_id"]').value = 'EMP-' + employee.emp_id + ' - ' + employee.emp_name;
+            }
+
+            if(order.order_status == 'canceled' && order.refundable == "1"){
+                console.log('nacmokasmcas');
+                document.querySelector('.update-form .refund').style.display = 'block';
+            }else{
+                document.querySelector('.update-form .refund').style.display = 'none';
+            }
+        }else{
+            document.querySelectorAll(".popup-view .st").forEach(input => {
+                input.removeAttribute("disabled");
+            });
+            document.querySelector('.update-form .refund').style.display = 'none';
+
+        }
         
 
         // update the total price when discount is updated
@@ -506,6 +806,7 @@ function openView(button) {
         // document.querySelector('.update-form input[name="unit_price"]').value = order.unit_price;
 
         if(order.is_delivery == 1){
+            document.querySelector(".pickup").classList.remove("is-checked");
             document.querySelector(".delivery").classList.add("is-checked");
             document.querySelector('.update-form input[name="dispatch_date_delivery"]').value = order.dispatch_date;
             document.querySelector('.update-form input[name="city"]').value =order.city;
@@ -517,6 +818,7 @@ function openView(button) {
 
             
         }else{
+            document.querySelector(".delivery").classList.remove("is-checked");
             document.querySelector(".pickup").classList.add("is-checked");
             document.querySelector('.update-form input[name="dispatch_date_pickup"]').value = order.dispatch_date;
         }
@@ -575,6 +877,7 @@ function openView(button) {
     
             document.querySelector('.popup-view input[name="latitude"]').value = latitude;
             document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+            document.querySelector('.popup-view input[name="pay_type"]').value = paymentType;
         });
         
 
@@ -593,7 +896,106 @@ function openView(button) {
         document.querySelector('.update-form input[name="order_placed_on"]').value = order.order_placed_on;
         // document.querySelector('.update-form input[name="city"]').value = order.city;
 
-        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+        console.log(order.pdf);
+        if(order.pdf === ''){
+            document.querySelector('.update-form embed[name="design"]').style.display = 'none';
+            document.querySelector('.update-form .carousel').style.display = 'flex';
+        
+            //download images when the button is clicked
+            document.querySelector('.download').addEventListener('click', function() {
+                var link = document.createElement('a');
+                [order.image1, order.image2].forEach(image => {
+        
+                    link.href = "/Project_Amoral/public/uploads/designs/" + image;
+                    link.download = image;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            });
+        }else{
+            document.querySelector('.update-form embed[name="design"]').style.display = 'block';
+            document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+            
+            //download the pdf when the button is clicked
+            document.querySelector('.download').addEventListener('click', function() {
+                var link = document.createElement('a');
+                link.href = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+                link.download = order.pdf;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+            document.querySelector('.update-form .carousel').style.display = 'none';
+        }
+
+//image slider
+
+const carouselImages = document.getElementById('carouselImages');
+// const imageCount = document.querySelector('.image-count');
+
+let images = [order.image1, order.image2];
+let currentImage = 0;
+
+// console.log(baseUrl+images[0]);
+
+
+
+images.forEach((image, index) => {
+    var path =  '../uploads/designs/' + image;
+    console.log(path);
+    var imgHTML1 = document.querySelector('.img1');
+    var imgHTML2 = document.querySelector('.img2');
+    // imgHTML.src = path;
+    if(index==1){
+        imgHTML2.src = path;
+        imgHTML2.style.transition = 'all 0.5s ease-in-out';
+        // imgHTML.classList.add('img2')
+        imgHTML2.style.display = 'none';
+        // currentImage = 1;
+    }else{
+        imgHTML1.src = path;
+        imgHTML1.style.transition = 'all 0.5s ease-in-out';
+
+        // imgHTML.classList.add('img1')
+        imgHTML1.style.display = 'block';
+        // currentImage = 0;
+    }
+    // var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
+    // console.log(imgHTML);
+    // carouselImages.innerHTML = imgHTML;
+    // carouselImages.appendChild(imgHTML);
+});
+
+// imageCount.innerHTML = currentImage + 1/images.length;
+
+
+
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+// Add event listeners to carousel buttons
+prevBtn.addEventListener('click', (event) => {
+    // Decrease currentImage index
+    event.preventDefault();
+    if(currentImage == 1){
+        document.querySelector('.img2').style.display = 'none';
+        document.querySelector('.img1').style.display = 'block';
+        currentImage = 0;
+    }
+});
+
+nextBtn.addEventListener('click', (event) => {
+    // Increase currentImage index
+    event.preventDefault();
+    if(currentImage == 0){
+        document.querySelector('.img1').style.display = 'none';
+        document.querySelector('.img2').style.display = 'block';
+        currentImage = 1;
+    }
+});
+
+
 
 
         // populate the customer details
@@ -611,12 +1013,41 @@ function openView(button) {
         sidebar.style.pointerEvents = "none";
         nav.style.pointerEvents = "none";
 
-        var currentDate = new Date();
-        var orderPlacedOn = new Date(order.order_placed_on);
-        if (((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24)) > 2) {
+
+        //disable the fields according to the status
+        if(order.order_status == 'canceled' || order.order_status == 'refunded'){
+            document.querySelectorAll('.popup-view input').forEach(input => {
+                input.setAttribute("disabled", "disabled");
+            });
+            document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
+                remove.style.display = "none";
+            });
             orderCancel.style.display = "none";
+            orderUpdate.style.display = "none";
+        }else if (order.order_status == 'delivering' || order.order_status == 'delivered' || order.order_status == 'completed' ) {
+            document.querySelectorAll(".popup-view input[type='date']").forEach(date => {	
+                date.setAttribute("disabled", "disabled");
+            });
+            document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
+                remove.style.display = "none";
+            });
+            orderCancel.style.display = "none";
+            orderUpdate.style.display = "none";
+            if(order.order_status == 'delivered'){
+                orderUpdate.style.display = 'block'
+                orderUpdate.value = 'Mark As Completed';
+            }
         } else {
+            if(order.order_status != 'pending' ){
+                document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
+                    remove.style.display = "none";
+                });
+            }
+            document.querySelectorAll(".popup-view input[type='date']").forEach(date => {	
+                date.removeAttribute("disabled");
+            });
             orderCancel.style.display = "block";
+            orderUpdate.style.display = "block";
         }
 
 
@@ -626,6 +1057,8 @@ function openView(button) {
 
 
 function closeView() {
+
+
     popupView.classList.remove("is-visible");
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
@@ -651,8 +1084,10 @@ function closeNew(){
         card.remove();
     });
     let priceRows = document.querySelectorAll(".price-details-container .units");
-    priceRows.forEach(row => {
-        row.remove();
+    priceRows.forEach((row, index) => {
+        if (index != 0) {
+            row.remove();
+        }
     });
     document.querySelector(".new-form").reset();
 }
@@ -803,6 +1238,180 @@ function updateTotalPrice(){
 }
 
 
+///******************************************update order****************************************************** */
+
+var each_order = {};
+
+function update_method(button){
+    status_confirm_popup.style.display = "block";
+
+    const orderData = button.getAttribute("data-order");
+    each_order = orderData;
+  
+    console.log(each_order);
+  
+}
+
+
+function change_order_status(tap = "popup"){
+    if(tap == "table btn"){
+        if(each_order){
+            order = JSON.parse(each_order);
+
+            console.log(order);
+        }
+    }
+
+    $.ajax({
+        type: "POST",
+        url: update_order_endpoint,
+        data: order,
+        cache: false,
+        success: function (res) {
+            try {
+              // convet to the json type
+              console.log(res);
+              Jsondata = JSON.parse(res);
+      
+              if (Jsondata.user) {
+                  var successMsgElement = document.querySelector('.success-msg');
+                  successMsgElement.innerHTML = "Order updated successfully";
+                  successMsgElement.style.display = 'block';
+                  setTimeout(function() {
+                      successMsgElement.style.display = 'none';
+                      location.reload();
+                  }, 2000);
+              }else{
+                  var successMsgElement = document.querySelector('.success-msg');
+                      
+                  successMsgElement.innerHTML = "There was an error updating the order";
+                  
+                  // successMsgElement.style.transition = 'all 1s ease-in-out';
+                  
+                  successMsgElement.style.display = 'block';
+                  successMsgElement.style.backgroundColor = 'red';
+                  setTimeout(function() {
+                      successMsgElement.style.display = 'none';
+                    //   location.reload();
+                  }, 2000);
+              }
+            } catch (error) {
+              // popup_status_btn.innerHTML = "Update Status";
+              // document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+              //   "Update Status";
+              var successMsgElement = document.querySelector('.success-msg');
+                      
+              successMsgElement.innerHTML = "There was an error updating the order";
+              
+              // successMsgElement.style.transition = 'all 1s ease-in-out';
+              
+              successMsgElement.style.display = 'block';
+              successMsgElement.style.backgroundColor = 'red';
+              setTimeout(function() {
+                  successMsgElement.style.display = 'none';
+                  location.reload();
+              }, 2000);
+      
+            }
+          },
+          error: function (xhr, status, error) {
+              var successMsgElement = document.querySelector('.success-msg');
+                      
+              successMsgElement.innerHTML = "There was an error updating the order";
+              
+              // successMsgElement.style.transition = 'all 1s ease-in-out';
+              
+              successMsgElement.style.display = 'block';
+              successMsgElement.style.backgroundColor = 'red';
+              setTimeout(function() {
+                  successMsgElement.style.display = 'none';
+                  location.reload();
+              }, 2000);
+          },
+    });
+
+}
+
+var orderId;
+
+function cancel_method(ordId){
+    delete_confirm_popup.style.display = "block";
+    orderId = ordId;
+    console.log(orderId);
+}
+
+function cancel_order(tap = "popup"){
+    if(tap == "table btn"){
+
+        $.ajax({
+            type: "POST",
+            url: cancel_order_endpoint,
+            data: {order_id: orderId},
+            cache: false,
+            success: function (res) {
+                try {
+                // convet to the json type
+                console.log(res);
+                Jsondata = JSON.parse(res);
+        
+                if (Jsondata.user) {
+                    var successMsgElement = document.querySelector('.success-msg');
+                    successMsgElement.innerHTML = "Order cancelled successfully";
+                    successMsgElement.style.display = 'block';
+                    setTimeout(function() {
+                        successMsgElement.style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                }else{
+                    var successMsgElement = document.querySelector('.success-msg');
+                        
+                    successMsgElement.innerHTML = "There was an error cancelling the order";
+                    
+                    // successMsgElement.style.transition = 'all 1s ease-in-out';
+                    
+                    successMsgElement.style.display = 'block';
+                    successMsgElement.style.backgroundColor = 'red';
+                    setTimeout(function() {
+                        successMsgElement.style.display = 'none';
+                        //   location.reload();
+                    }, 2000);
+                }
+                } catch (error) {
+                // popup_status_btn.innerHTML = "Update Status";
+                // document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+                //   "Update Status";
+                var successMsgElement = document.querySelector('.success-msg');
+                        
+                successMsgElement.innerHTML = "There was an error cancelling the order";
+                
+                // successMsgElement.style.transition = 'all 1s ease-in-out';
+                
+                successMsgElement.style.display = 'block';
+                successMsgElement.style.backgroundColor = 'red';
+                setTimeout(function() {
+                    successMsgElement.style.display = 'none';
+                    location.reload();
+                }, 2000);
+        
+                }
+            },
+            error: function (xhr, status, error) {
+                var successMsgElement = document.querySelector('.success-msg');
+                        
+                successMsgElement.innerHTML = "There was an error cancelling the order";
+                
+                // successMsgElement.style.transition = 'all 1s ease-in-out';
+                
+                successMsgElement.style.display = 'block';
+                successMsgElement.style.backgroundColor = 'red';
+                setTimeout(function() {
+                    successMsgElement.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            },
+        });
+    }
+}
 
 
 function initMap(){

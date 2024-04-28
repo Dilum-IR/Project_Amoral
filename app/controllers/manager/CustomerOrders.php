@@ -313,13 +313,14 @@ class CustomerOrders extends Controller
                 $order->update($order_id, $arrOrder, 'order_id');
                 $arr['user'] = true;
             }else if($_POST['order_status'] == 'completed' || $_POST['order_status'] == 'refunded'){
-                $arrOrder = ['order_status' => $_POST['order_status']];
+
+                $current_date = date("Y-m-d");
+                $arrOrder = ['order_status' => $_POST['order_status'], 'delivered_date' => $current_date, 'refundable' => 0];
                 
                 $order->update($order_id, $arrOrder, 'order_id');
                 $arr['user'] = true;
             }else{
                 $dispatch_date = $_POST['dispatch_date_delivery'] ? $_POST['dispatch_date_delivery'] : $_POST['dispatch_date_pickup'];
-
                 $arrOrder = ['order_status' => $_POST['order_status'], 'dispatch_date'=>$dispatch_date,
                 'city' => $_POST['city'],
                 'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude'], 'refundable' => 0];

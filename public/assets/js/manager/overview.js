@@ -1,3 +1,6 @@
+let sidebar = document.querySelector(".sidebar");
+let nav = document.getElementById("navbar");
+
 let editMaterial = document.querySelector(".edit-material-btn");
 let editPrintingType = document.querySelector(".edit-printingType-btn");
 let editIcon = document.querySelector(".edit-material-btn i");
@@ -64,11 +67,16 @@ function openDeleteMaterial(button) {
 
     document.getElementById('deleteConfirmation-material').style.display = "block";
     document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
 }
 
 function closeDelete() {
     document.getElementById('deleteConfirmation-material').style.display = "none";
+    document.getElementById('deleteConfirmation-ptype').style.display = "none";
     document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
 }
 
 var addPrintingType = document.getElementById("add-printingType");
@@ -151,10 +159,7 @@ closeAddPrintingType.addEventListener("click", function () {
     document.body.style.overflow = "auto";
 });
 
-function closeDelete() {
-    document.getElementById('deleteConfirmation-ptype').style.display = "none";
-    document.body.style.overflow = "auto";
-}
+
 
 
 
