@@ -9,9 +9,9 @@ class SendMail
         $words = explode(' ', $name);
 
         if (!empty($words)) {
-            $firstWord = $words[0];
+            $firstWord = ucfirst($words[0]);
         } else {
-            $firstWord = $name;
+            $firstWord = ucfirst($name);
         }
 
         try {
@@ -37,9 +37,25 @@ class SendMail
                     . 'Thank you for choosing AMORAL.<br>We look forward to being a part of your creative journey.</p>'
                     . '<p style="text-align: start; font-size: 18px; padding: 0px; margin: 0 0 0 15px;">'
                     . 'Best Regards,<br> The AMORAL Team.<br>
-                [Contact Information]<br>[Social Media Links]<br>[Website URL]
+                    +9477 620 2215<br>amoral639@gmail.com<br>www.amoral.lk
                 </p>';
-            }else{
+            } elseif ($type == "delivered") {
+                // Email content
+                $subject = " Your Order Has Been Delivered !";
+                $message =
+                    '<div style="background-color: #e7e7e7; padding: 40px 15px 50px 15px; margin: 5px; border-top-left-radius: 30px; border-bottom-right-radius: 30px;">'
+                    . '<p style="text-align: start; font-size: 19px; padding: 0; margin:0 0 0 15px;" >Hi ' . $firstWord . ',</p>'
+                    . '<p style="font-size: 18px; text-align: center;padding: 0px 20px;"> We are pleased to inform you that <br><b> your order ORD-' . $code . ' has been successfully delivered!</b> <br> We hope you enjoy your purchase.
+                    <br><br>If you have any questions or need further assistance, please feel free to reach out to our us at amoral639@gmail.com or (+9477 620 2215).<br>We are here to help.
+                    <br>'
+                    . '</b> <br></p> <p style="font-size: 18px; text-align: center;">'
+                    . 'If you haven\'t initiated this registration, please contact our support team immediately.<br><br>'
+                    . 'Thank you for choosing AMORAL.<br>We look forward to serving you again soon!</p>'
+                    . '<p style="text-align: start; font-size: 18px; padding: 0px; margin: 0 0 0 15px;">'
+                    . 'Best Regards,<br> The AMORAL Team.<br>
+                    +9477 620 2215<br>amoral639@gmail.com<br>www.amoral.lk
+                </p>';
+            } else {
                 $subject = "Your AMORAL Employee Account - Password";
                 $message =
                     '<div style="background-color: #e7e7e7; padding: 40px 15px 50px 15px; margin: 5px; border-top-left-radius: 30px; border-bottom-right-radius: 30px;">'
@@ -51,12 +67,12 @@ class SendMail
                     . '</p> <p style="font-size: 21px; text-align: center;"> <b>Your account password is: ' . $code
                     . '</b> <br></p> <p style="font-size: 18px; text-align: center;">'
                     . 'Please use this password to access your AMORAL Employee account.'
-                    .'<br> We recommend changing your password after the first login for added security
+                    . '<br> We recommend changing your password after the first login for added security
                     .<br><br>'
                     . 'Wishing you the best of luck in your journey with us!</p>'
                     . '<p style="text-align: start; font-size: 18px; padding: 0px; margin: 0 0 0 15px;">'
                     . 'Best Regards,<br> The AMORAL Team.<br>
-                [Contact Information]<br>[Social Media Links]<br>[Website URL]
+                    +9477 620 2215<br>amoral639@gmail.com<br>www.amoral.lk
                 </p>';
             }
 

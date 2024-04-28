@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -134,6 +135,3 @@
     </section>
 
     <script src="<?= ROOT ?>/assets/js/collection/collection.js"></script>
-</body>
-
-</html>

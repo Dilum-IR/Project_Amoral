@@ -20,9 +20,9 @@
 </head>
 
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- Sidebar -->
+
     <?php include 'sidebar.php' ?>
     <!-- Navigation bar -->
 
@@ -71,6 +71,8 @@
                             <th class="ordId">OrderId</th>
                             <th class="Name">Customer Name</th>
                             <th class="Distric">City</th>
+                            <th class="payed">Paid</th>
+                            <th class="remianing">Remaining<br>Payment</th>
                             <th class="stth">Status</th>
                             <th></th>
                         </tr>
@@ -78,31 +80,53 @@
                         <?php
                         if (!empty($data)) {
 
-
-
                             foreach ($data as $key => $value) {
 
-                                ?>
+                        ?>
                                 <tr class='<?= $value->order_status ?>'>
                                     <td>
-                                        <?php echo $value->order_id; ?>
+                                        ORD-<?php echo $value->order_id; ?>
                                     </td>
                                     <td>
-                                        <?php echo $value->fullname; ?>
+                                        <?php echo ucfirst($value->fullname); ?>
                                     </td>
                                     <td>
-                                        <?php echo $value->city; ?>
+                                        <?php echo ucfirst($value->city); ?>
                                     </td>
-                                    <td id="status-<?= htmlspecialchars($value->order_id); ?>">
-                                        <?php echo htmlspecialchars($value->order_status); ?>
+                                    <td>
+                                        <b <?php if ($value->pay_type == 'no') {
+                                            ?> style="color: red;" <?php
+                                                                } else if ($value->pay_type == 'half') {
+                                                                    ?> style="color: #ff8f00;" <?php
+                                                                                        }
+
+                                                                                            ?>><?php echo ucfirst($value->pay_type); ?></b>
+                                    </td>
+                                    <td>
+                                        <?php
+
+                                        if ($value->pay_type == "no")
+                                            echo "<b style='color: red;'>" . number_format($value->total_price, 2, '.', ',') . "</b>";
+                                        else if ($value->pay_type == "half")
+                                            echo "<b style='color:  #ff8f00;'> " . number_format($value->remaining_payment, 2, '.', ',') . "</b>";
+                                        else
+                                            echo number_format("0", 2, '.', ',');
+                                        ?>
+                                    </td>
+                                    <td class="st" id="status-<?= htmlspecialchars($value->order_id); ?>">
+
+                                        <div class="text-status <?= $value->order_status ?>">
+
+                                            <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                                            <?php echo htmlspecialchars($value->order_status); ?>
+                                        </div>
+
                                     </td>
                                     <!-- <td><button type="submit" name="selectItem" class="view-order-btn" onclick="openView()">Delivered</button>
                                 </td> -->
                                     <td>
-                                        <?php if ($value->order_status != 'delivered'): ?>
-                                            <button type="submit" class="view-order-btn" style="background-color: red;"
-                                                id="status-<?= $value->order_id; ?>"
-                                                onclick="confirmPopup(<?= $value->order_id; ?>)">Mark as Delivered</button>
+                                        <?php if ($value->order_status != 'delivered') : ?>
+                                            <button type="submit" class="view-order-btn" style="background-color: green;" id="status-<?= $value->order_id; ?>" onclick="confirmPopup(<?= $value->order_id; ?>,'<?= $value->pay_type; ?>')">Mark as Delivered</button>
 
 
                                             <!-- Button 1 -->
@@ -111,13 +135,12 @@
 
 
 
-                                        <button type="submit" name="selectItem" data-order='<?= json_encode($value); ?>'
-                                            class="view-order-btn" onclick="openView(this)">View
+                                        <button type="submit" name="selectItem" data-order='<?= json_encode($value); ?>' class="view-order-btn" onclick="openView(this)">View
                                             Order</button>
                                     </td>
                                 </tr>
 
-                                <?php
+                            <?php
 
                             }
                         } else {
@@ -134,7 +157,7 @@
                                 <td></td>
                             </tr>
 
-                            <?php
+                        <?php
                         }
                         ?>
 
@@ -153,21 +176,43 @@
     </section>
 
     <style>
+        .st {
+            text-align: -webkit-center !important;
+        }
+
+        .text-status {
+            padding: 6px 16px !important;
+            border-radius: 30px;
+            gap: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: max-content;
+            color: white;
+        }
+
+        .st .delivering {
+            background-color: #5d52ff;
+        }
+
+        .st .delivered {
+            background-color: green;
+        }
+
         .table-section tbody tr {
             display: none;
-            
+
         }
 
         .delivering.delivering-row-active {
             display: table-row !important;
-            
+
         }
 
         .delivered.delivered-row-active {
             display: table-row !important;
-           
-        }
 
+        }
     </style>
 
 
@@ -205,54 +250,86 @@
                 <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#ffd900'></i>
             </div>
             <div class="H2">
+                <div class="recived-checker">
+                    <input type="checkbox" class="payed-check" id="payedCheckbox" name="payed">
+                    <label for="payedCheckbox" class="checker-label">Order Payments Received!</label>
+                </div>
                 <h2>Are you sure ?</h2>
             </div>
-
+            <!-- payedCheckbox -->
             <div class="modalbtn">
                 <button type="submit" class="button" id="cancel" onclick="closeReport()">No</button>
                 <!-- <button class="button" id="confirm">Yes</button> -->
-                <button class="button" type="button" id="confirm">Yes</button>
+                <button class="button" type="button" id="confirm" disabled>Yes</button>
             </div>
 
         </div>
     </div>
 
 
+    <script>
+    </script>
     <!--   Deliverd confirm pop up js with ajax -->
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var modal = document.getElementById('myModal');
-            var confirmButton = document.getElementById('confirm');
-            var cancelButton = document.getElementById('cancel');
-            var closeButton = document.querySelector('.modal .close');
+        var modal = document.getElementById('myModal');
+        var confirmButton = document.getElementById('confirm');
+        var cancelButton = document.getElementById('cancel');
+        var closeButton = document.querySelector('.modal .close');
 
-            closeButton.onclick = cancelButton.onclick = function () {
-                modal.style.display = 'none';
-            };
+        const confirm_checkboxs = document.getElementById("payedCheckbox");
+
+        document.addEventListener('DOMContentLoaded', function() {
 
             // Make sure this function is declared globally
-            window.confirmPopup = function (orderId) {
+            window.confirmPopup = function(orderId, pay_type) {
+
+                if (pay_type == 'full') {
+                    document.querySelector('.recived-checker').innerHTML = "";
+                    document.getElementById('confirm').disabled = false;
+
+                } else {
+                    document.querySelector('.recived-checker').innerHTML = '<input type="checkbox" id="payedCheckbox" name="payed"> <label for="payedCheckbox" class="checker-label">Order Payments Received!</label>';
+                    document.getElementById('confirm').disabled = true;
+
+                }
                 modal.style.display = 'block'; // Check if this line executes correctly
-                confirmButton.onclick = function () {
+
+
+                confirmButton.onclick = function() {
+
+
                     updateStatus(orderId);
                     modal.style.display = 'none';
 
                 };
             };
+
+
+            closeButton.onclick = cancelButton.onclick = function() {
+                modal.style.display = 'none';
+            };
+
         });
 
 
         function updateStatus(orderId) {
+
+            // document.querySelector('.view-order-btn').innerHTML = "";
+            // document.querySelector('.view-order-btn').disabled = true;
+
             $.ajax({
                 url: "<?= ROOT ?>/delivery/updateOrderStatus",
                 type: 'POST',
-                data: { order_id: orderId, status: 'delivered' },
-                success: function (response) {
+                data: {
+                    order_id: orderId,
+                    status: 'delivered'
+                },
+                success: function(response) {
                     $('#status-' + orderId).text('Delivered');
                     location.reload();
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     //  handle errors
                     console.error("Error: " + error);
                     console.error("Status: " + status);
@@ -260,7 +337,24 @@
                 }
             });
         }
+
+        // table checkbox
+
+        console.log(confirm_checkboxs);
+
+        confirm_checkboxs.addEventListener('change', function(check) {
+            console.log(check);
+
+
+            if (confirm_checkboxs.checked) {
+
+                document.getElementById("confirm").disabled = false;
+            } else {
+                document.getElementById("confirm").disabled = true;
+            }
+        });
     </script>
+
 
 
     <!-- POPUP -->
@@ -361,10 +455,38 @@
                                 <span class="details">Delivery Expected On</span>
                                 <input id="expected-on" type="text" required onChange="" readonly value=" " />
                             </div>
+                            <div class="input-box" id="remain">
+                                <span class="details">Remaining Payment</span>
+                                <input id="remaining-on" type="text" required onChange="" readonly value=" " />
+                            </div>
+
+                            <div class="recived-checker popup-checker">
+                                <input type="checkbox" id="myCheckbox_1" name="payed">
+                                <label for="myCheckbox_1" class="checker-label">Order Payments Received!</label>
+                            </div>
                         </div>
 
                     </form>
                 </div>
+
+                <style>
+                    .btns {
+                        margin-bottom: 0%;
+                    }
+
+                    .popup-checker {
+
+                        margin: 20px 20px;
+                        margin-right: 0;
+
+                    }
+
+                    .checker-label {
+                        font-size: 15px;
+                        color: red;
+                        font-weight: bold;
+                    }
+                </style>
 
                 <!-- VIEW MAP -->
 
@@ -375,22 +497,39 @@
 
 
                     <script>
+                        // popup checkbox
+                        var checkbox_popup = document.getElementById('myCheckbox_1');
+
+                        checkbox_popup.addEventListener('change', function() {
+                            if (this.checked) {
+
+                                // console.log("xdgxfgf")
+
+                                document.getElementById('popup-confirm-btn').disabled = false;
+                            } else {
+                                document.getElementById('popup-confirm-btn').disabled = true;
+                            }
+                        });
+
 
                         let map;
                         let directionsService;
                         let directionsRenderer;
 
-                        function initMap() {
+                        function initMap(order_id, latitude, longitude) {
                             directionsService = new google.maps.DirectionsService();
                             directionsRenderer = new google.maps.DirectionsRenderer();
                             map = new google.maps.Map(document.getElementById("map"), {
                                 zoom: 7.7,
-                                center: { lat: 34.0522, lng: -118.2437 } // Default center, adjust as needed
+                                center: {
+                                    lat: 34.0522,
+                                    lng: -118.2437
+                                } // Default center, adjust as needed
                             });
                             directionsRenderer.setMap(map);
 
                             if (navigator.geolocation) {
-                                navigator.geolocation.getCurrentPosition(function (position) {
+                                navigator.geolocation.getCurrentPosition(function(position) {
                                     const currentPosition = {
                                         lat: position.coords.latitude,
                                         lng: position.coords.longitude
@@ -398,13 +537,16 @@
                                     addMarker(currentPosition, '<?= ROOT ?>/assets/images/delivery/map3.png', 'Your Location');
                                     // addMarker(currentPosition);
                                     // You need to fetch or define `order` here correctly
-                                    if (order.order_id && order.latitude && order.longitude) {
-                                        const orderLocation = { lat: parseFloat(order.latitude), lng: parseFloat(order.longitude) };
+                                    if (order_id && latitude && longitude) {
+                                        const orderLocation = {
+                                            lat: parseFloat(latitude),
+                                            lng: parseFloat(longitude)
+                                        };
                                         addMarker(location, '<?= ROOT ?>/assets/images/delivery/map3.png', 'Delivery Location');
                                         // addMarker(orderLocation);
                                         calculateAndDisplayRoute(currentPosition, orderLocation);
                                     }
-                                }, function (error) {
+                                }, function(error) {
                                     console.error("Geolocation error: " + error.message);
                                 });
                             } else {
@@ -441,8 +583,6 @@
 
                         // addMarker(location);
 
-
-
                         /*Add marker function*/
                         function addMarker(coords, iconUrl, label) {
                             const marker = new google.maps.Marker({
@@ -461,20 +601,17 @@
                             infowindow.open(map, marker);
 
                         }
-
-
-
                     </script>
-                    <script async defer async defer
-                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
+                    <script async defer async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&callback=initMap"></script>
                     <div id="map">
+
                     </div>
                 </div>
             </div>
 
             <div class="btns">
                 <button type="button" class="ok-btn" onclick="closeView()">Back to orders</button>
-                <button type="button" class="update-btn" onclick="confirmWithPopup()">Mark as Delivered</button>
+                <button type="button" class="update-btn" id="popup-confirm-btn" onclick="confirmWithPopup()" disabled>Mark as Delivered</button>
             </div>
         </div>
 
@@ -484,12 +621,12 @@
 
     <!-- <div id="overlay" class="overlay"></div> -->
 
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/delivery/delivery-orders.js"></script>
+
 </body>
 
 </html>

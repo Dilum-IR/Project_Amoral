@@ -1,3 +1,4 @@
+
 #main-col {
     position: relative;
     /* top: 78px; */
@@ -16,7 +17,7 @@
 .slides-container {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: relative;
     /* z-index: -1; */
 }
 
@@ -60,11 +61,13 @@
     transform: translateY(-50%);
     width: 50px;
     height: 50px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     border: none;
     outline: none;
     cursor: pointer;
     z-index: 1;
+    color: white;
+    border-radius: 10px;
 }
 
 .slide-btn-left {
