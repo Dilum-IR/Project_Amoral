@@ -892,12 +892,12 @@ function openView(button) {
                 var link = document.createElement('a');
                 [order.image1, order.image2].forEach(image => {
         
-                    link.href = "/Project_Amoral/public/uploads/designs/" + order.image;
-                    link.download = order.image;
+                    link.href = "/Project_Amoral/public/uploads/designs/" + image;
+                    link.download = image;
                     document.body.appendChild(link);
                     link.click();
+                    document.body.removeChild(link);
                 });
-                document.body.removeChild(link);
             });
         }else{
             document.querySelector('.update-form embed[name="design"]').style.display = 'block';
@@ -1317,9 +1317,9 @@ function change_order_status(tap = "popup"){
 
 var orderId;
 
-function cancel_method(orderId){
+function cancel_method(ordId){
     delete_confirm_popup.style.display = "block";
-    orderId = orderId;
+    orderId = ordId;
     console.log(orderId);
 }
 
