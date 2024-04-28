@@ -117,11 +117,11 @@ class CustomerOrders extends Controller
         }
 
 
-        $merchant_id = "1225460";
-        $merchant_secret = "MzAzMzgwMzY2MzEyMzU2MzU5Njk4MTU2MTI5NTMzMzYzMTMyMzY2";
+        // $merchant_id = "1225460";
+        // $merchant_secret = "MzAzMzgwMzY2MzEyMzU2MzU5Njk4MTU2MTI5NTMzMzYzMTMyMzY2";
 
-        // $merchant_id = "1226367";
-        // $merchant_secret = "NDA4NDUyMjEzMjIyNDQ2NTA0OTY0MDA4NTQ4MDI4MzEwNDgyMDQ3NQ==";
+        $merchant_id = "1226367";
+        $merchant_secret = "NDA4NDUyMjEzMjIyNDQ2NTA0OTY0MDA4NTQ4MDI4MzEwNDgyMDQ3NQ==";
         $currency = "LKR";
 
         $hash = strtoupper(

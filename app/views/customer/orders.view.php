@@ -147,11 +147,15 @@
                                                 <?php if (
                                                     $order->order_status == 'cutting' ||
                                                     $order->order_status == 'printing' ||
+                                                    $order->order_status == 'printed' ||
+                                                    $order->order_status == 'sent to garment' ||
                                                     $order->order_status == 'sewing' ||
                                                     $order->order_status == 'cut' ||
                                                     $order->order_status == 'sewed'
                                                 ) : ?>
                                                     <?php echo "Processing" ?>
+                                                <?php elseif($order->order_status == 'canceled'): ?>
+                                                    <?php echo "Cancelled" ?>
                                                 <?php else : ?>
                                                     <?php echo ucfirst($order->order_status) ?>
                                                 <?php endif; ?>
@@ -210,7 +214,6 @@
                     color: white;
                     border-radius: 20px;
                     font-weight: 500;
-
                 }
 
                 .table-body tr .st .text-status {

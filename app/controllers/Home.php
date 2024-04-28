@@ -40,6 +40,8 @@ class Home extends Controller
             
         }
 
+        $this->checkDeliveredOrder();
+
         $this->view('home/home');
     }
 
@@ -51,4 +53,25 @@ class Home extends Controller
 
         $contactUS->insert($data);
     }
+
+    // function to update order status after 7 days of updating to delivered
+    public function checkDeliveredOrder(){
+        $order = new Order;
+        $deliveredOrders = $order->where(['order_status' => 'delivered']);
+
+        $currentTimestamp = time();
+        $sevenDays = 60 * 60 * 24 * 7;
+
+        foreach ($deliveredOrders as $deliveredOrder) {
+            $orderTimestamp = strtotime($deliveredOrder->delivered_date);
+            $diff = $currentTimestamp - $orderTimestamp;
+
+            if($diff > $sevenDays){
+                $order->update($deliveredOrder->order_id, ['order_status' => 'completed']);
+            }
+        }
+
+
+    }
+
 }

@@ -463,6 +463,11 @@ tbody tr:hover{
   background-color: #cf0303c7;
 }
 
+.text-status.refunded{
+  background-color: #8d2c2c;
+}
+
+
 .filters{
   margin: 19px 32px;
   display: grid;
@@ -1244,6 +1249,28 @@ hr.second {
   padding: 3px;
   box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
   cursor: auto;
+}
+
+.refund{
+  width: 37%;
+  left: 55%;
+  margin-top: 6px;
+  position: relative;
+  align-content: center;
+  text-align: center;
+  color: #4bb100;
+  font-weight: bolder;
+  border-radius: 5px;
+  padding: 3px;
+  /* box-shadow: 0 0px 20px 0px rgb(161, 161, 161); */
+  cursor: pointer;
+  display: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.refund:hover {
+  transform: scale(1.05);
+  transition: all 0.5s ease-in-out;
 }
 
 .carousel {

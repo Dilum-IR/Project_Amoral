@@ -120,6 +120,8 @@
                                     <div class="text-status <?php echo $order->order_status?>">
                                             <?php if($order->order_status == 'sent to garment'): 
                                                 echo 'sent to stitch';
+                                            elseif($order->order_status == 'canceled'):
+                                                echo "Cancelled";
                                             else: ?>
                                                 <?php echo $order->order_status;
                                             endif; ?>
@@ -219,6 +221,7 @@
                 <div class="payment">
                     <span>Paid</span>
                 </div>
+                <button type="button" class="refund">Mark As Refunded</button>
                 <div class="user-details">
                     <div class="input-box design">
                         <button type="button" class="download">Download</button>
@@ -421,6 +424,15 @@
             for (var pair of formData.entries()) {
                 data[pair[0]] = pair[1];
             }
+            this.setAttribute('data-order', JSON.stringify(data));
+            update_method(this);
+        });
+
+        // call the ajax function for updating status of refund
+        document.querySelector(".popup-view .refund").addEventListener('click', function(){
+            data['order_id'] = document.querySelector('.popup-view input[name="order_id"]').value;
+            data['order_status'] = 'refunded';
+            
             this.setAttribute('data-order', JSON.stringify(data));
             update_method(this);
         });
@@ -1201,6 +1213,7 @@
     <?php
     include 'status_confirm_popup.php';
     include 'delete_confirm_popup.php';
+    // include 'refund_confirm_popup.php';
     ?>
 </body>
 
