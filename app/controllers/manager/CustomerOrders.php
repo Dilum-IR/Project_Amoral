@@ -312,7 +312,7 @@ class CustomerOrders extends Controller
                 }
                 $order->update($order_id, $arrOrder, 'order_id');
                 $arr['user'] = true;
-            }else if($_POST['order_status'] == 'completed'){
+            }else if($_POST['order_status'] == 'completed' || $_POST['order_status'] == 'refunded'){
                 $arrOrder = ['order_status' => $_POST['order_status']];
                 
                 $order->update($order_id, $arrOrder, 'order_id');
@@ -322,7 +322,7 @@ class CustomerOrders extends Controller
 
                 $arrOrder = ['order_status' => $_POST['order_status'], 'dispatch_date'=>$dispatch_date,
                 'city' => $_POST['city'],
-                'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude']];
+                'is_delivery' => $_POST['is_delivery'], 'latitude' => $_POST['latitude'], 'longitude' => $_POST['longitude'], 'refundable' => 0];
                 
                 // insert a garment order if the order status is cutting
                 // show($_SESSION['USER']->id);
