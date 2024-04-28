@@ -32,22 +32,22 @@
         <div class="col">
             <h3>Contact Us <div class="underline"><span></span></div>
             </h3>
-            <form>
+            <form method="POST">
                 <div class="e-mail">
                     <i class="far fa-envelope"></i>
-                    <input type="email" placeholder="Enter your e-mail" required>
+                    <input type="email" name="email" placeholder="Enter your e-mail" required>
                 </div>
 
                 <div class="message">
                     <i class="far fa-comment-alt"></i>
-                    <input type="text" placeholder="Enter your message" required>
+                    <input type="text" name="message" placeholder="Enter your message" required>
                 </div>
 
                 <div class="send-button">
                     <div class="hover-text">
                         Send
                     </div>
-                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                    <button type="submit" name="newMessage"><i class="fas fa-arrow-right"></i></button>
 
                 </div>
 

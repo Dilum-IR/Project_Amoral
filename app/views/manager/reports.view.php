@@ -39,14 +39,14 @@
         </ul>
 
         <div class="form">
-            <form action="#">
+            <!-- <form action="#">
                 <div class="form-input">
                     <input type="search" placeholder="Search...">
                     <button type="submit" class="search-btn">
                         <i class='bx bx-search'></i>
                     </button>
                 </div>
-            </form>
+            </form> -->
             <div class="mydict">
                 <form action="" method="POST">
                     <div>

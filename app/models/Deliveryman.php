@@ -8,6 +8,7 @@ class Deliveryman{
     public $allowedCloumns = [
         'emp_id',
         'vehicle_type',
-        'max_capacity'
+        'max_capacity',
+        'vehicle_number',
     ];
 }

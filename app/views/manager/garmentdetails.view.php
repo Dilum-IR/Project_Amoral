@@ -47,9 +47,9 @@
                         </button>
                     </div>
                 </form>
-                <div class="add-btn">
+                <!-- <div class="add-btn">
                     <input class="new-btn" type="button" onclick="openNew(this)" value="Add Garment">
-                </div>
+                </div> -->
             </div>
 
         </form>
@@ -96,7 +96,7 @@
 
                                     <td>
                                         <div class="view-remove-buttons">
-                                            <button type="submit" name="selectItem" class="edit" data-gmnt='<?= json_encode($gmnt); ?>' onclick="openView(this)">View Details</button>
+                                            <button type="submit" name="selectItem" class="edit" data-gmnt='<?= json_encode($gmnt); ?>' onclick="openView(this)">View </button>
                                             <form action="" method="POST">
                                                 <input type="hidden" name="garment_id" value="<?php echo $gmnt->garment_id ?>">
                                                 <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>

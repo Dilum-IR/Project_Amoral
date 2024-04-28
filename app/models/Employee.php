@@ -15,7 +15,8 @@ class Employee
 		'contact_number',
 		'emp_status',
 		'emp_image',
-		'is_active'
+		'is_active',
+		'nic',
 	];
 	public $chatForCloumn = [
 
@@ -38,7 +39,6 @@ class Employee
 		if (!preg_match("/^[a-zA-z]*$/", $data['fullname'])) {
 			$this->errors['flag'] = true;
 			$this->errors['fullname'] = array('nameError' => "Use only letters", "name" => "Full Name is not valid");
-
 		}
 
 		// is empty email 
@@ -50,7 +50,6 @@ class Employee
 		if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
 			$this->errors['flag'] = true;
 			$this->errors['email'] = "Email is not Valid";
-
 		}
 
 		// is empty password 
@@ -96,24 +95,18 @@ class Employee
 		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['current_password'] = "Password is Required";
-
-
 		} else if (empty($data['new_password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['new_password'] = "New password is Required";
-
-
 		} else if (empty($data['confirm_password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['confirm_password'] = "Confirm password is Required";
-
 		}
 
 		// password validation
 		if (!($data['new_password'] === $data['confirm_password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['password'] = " New & confirm password is not same";
-
 		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['password'] = "password is not Valid";
@@ -162,7 +155,6 @@ class Employee
 			// show($data);
 			$this->errors['flag'] = true;
 			$this->errors['city'] = "City is invalid ";
-
 		}
 
 		// is empty Address
@@ -234,7 +226,12 @@ class Employee
 		} else {
 			return false;
 		}
-
 	}
 
+	function findId($email)
+	{
+		$quary = "SELECT emp_id FROM $this->table
+		WHERE email = '$email'";
+		return $this->quary($quary);
+	}
 }

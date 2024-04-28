@@ -331,6 +331,11 @@ function closeNew() {
 }
 
 function closeView() {
+  if(document.querySelector('.delivery')){
+    document.querySelector('.delivery').remove();
+
+  }
+
   popupView.classList.remove("is-visible");
   document.body.style.overflow = "auto";
   sidebar.style.pointerEvents = "auto";
@@ -348,20 +353,102 @@ function openView(button) {
   if (empData) {
     // Parse the JSON data
     const emp = JSON.parse(empData);
-    console.log(emp.is_active);
-    // Populate the "update-form" fields with the order data
-    document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
-    // document.querySelector('.update-form img[name="emp_image"]').src = emp.emp_image;
+    console.log(emp.emp_status);
 
-    document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+    if(emp.emp_status === 'delivery'){
+   // Populate the "update-form" fields with the order data
+   document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
+   document.querySelector('.update-form img[name="emp_image"]').src = "http://localhost/project_Amoral/public//uploads/profile_img/Employee/" + emp.emp_image;
+   document.querySelector('.update-form input[name="nic"]').value = emp.nic;
 
-    document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
-    document.querySelector('.update-form input[name="email"]').value = emp.email;
-    document.querySelector('.update-form input[name="city"]').value = emp.city;
-    document.querySelector('.update-form input[name="address"]').value = emp.address;
-    document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
-    document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+   document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+
+   document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
+   document.querySelector('.update-form input[name="email"]').value = emp.email;
+   document.querySelector('.update-form input[name="city"]').value = emp.city;
+   document.querySelector('.update-form input[name="address"]').value = emp.address;
+   document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
+   document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+
+   var deliveryData = document.createElement('div');
+  deliveryData.classList.add('user-details');
+  deliveryData.classList.add('delivery');
+   deliveryData.innerHTML = `
+
+   <div class="input-box" style=" border-style: none;align-items: center;justify-content: center; margin-bottom: 10px;width: calc(100% / 2 - 20px);overflow: hidden;border-style: none;">
+     <span class="details">Vehicle Type</span>
+     <input type="text" value=${emp.vehicle_type} name="vehicle_type" placeholder="Vehicle Type" 
+     style="  position: relative;
+     left: 10.5%;
+     height: 40px;
+     width: 80%;
+     margin-bottom: 8px;
+     outline: none;
+     background-color: #aaaaaa75;
+     border-radius: 25px;
+     border-style: none;
+     font-size: 13px;
+     transition: all 0.3s ease-in;
+     border-bottom-width: 2px;
+     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);"
+     />
+   </div>
+   <div class="input-box" style=" border-style: none;align-items: center;justify-content: center; margin-bottom: 10px;width: calc(100% / 2 - 20px);overflow: hidden;border-style: none;">
+     <span class="details">Max Capacity</span>
+     <input type="text"  value=${emp.max_capacity}  name="max_capacity" placeholder="Max Capacity" 
+     style="  position: relative;
+     left: 10.5%;
+     height: 40px;
+     width: 80%;
+     margin-bottom: 8px;
+     outline: none;
+     background-color: #aaaaaa75;
+     border-radius: 25px;
+     border-style: none;
+     font-size: 13px;
+     transition: all 0.3s ease-in;
+     border-bottom-width: 2px;
+     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);"/>
+   </div>
+   <div class="input-box" style=" border-style: none;align-items: center;justify-content: center; margin-bottom: 10px;width: calc(100% / 2 - 20px);overflow: hidden;border-style: none;">
+   <span class="details">Vehicle Number</span>
+   <input type="text"  value=value=${emp.vehicle_number}  name="vehicle_number" placeholder="Max Capacity" 
+   style="  position: relative;
+   left: 10.5%;
+   height: 40px;
+   width: 80%;
+   margin-bottom: 8px;
+   outline: none;
+   background-color: #aaaaaa75;
+   border-radius: 25px;
+   border-style: none;
+   font-size: 13px;
+   transition: all 0.3s ease-in;
+   border-bottom-width: 2px;
+   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);"/>
+ </div>
+
+`;
+
+    document.querySelector('.user-details-button').before(deliveryData);
+
+    }else{
+
+      // Populate the "update-form" fields with the order data
+      document.querySelector('.update-form input[name="emp_id"]').value = emp.emp_id;
+      document.querySelector('.update-form img[name="emp_image"]').src = "http://localhost/project_Amoral/public//uploads/profile_img/Employee/" + emp.emp_image;
+      document.querySelector('.update-form input[name="nic"]').value = emp.nic;
+  
+      document.querySelector('.update-form input[name="emp_name"]').value = emp.emp_name;
+  
+      document.querySelector('.update-form input[name="emp_status"]').value = emp.emp_status;
+      document.querySelector('.update-form input[name="email"]').value = emp.email;
+      document.querySelector('.update-form input[name="city"]').value = emp.city;
+      document.querySelector('.update-form input[name="address"]').value = emp.address;
+      document.querySelector('.update-form input[name="DOB"]').value = emp.DOB;
+      document.querySelector('.update-form input[name="contact_number"]').value = emp.contact_number;
+    }
+
 
     // Show the "update-form" popup
     document.querySelector(".popup-view").classList.add("open-popup-view");
@@ -372,26 +459,139 @@ function openView(button) {
   nav.style.pointerEvents = "none";
 }
 
+// function showAdditionalFields(selectElement) {
+//   var selectedValue = selectElement.value;
+//   var cutting = document.getElementById('cutting');
+//   var sewing = document.getElementById('sewing');
+//   var workers = document.getElementById('workers');
+//   var capacity = document.getElementById('capacity');
+
+//   var joinedDateLabel = document.getElementById('date');
+
+//   if (selectedValue === 'garment') {
+//       cutting.style.display = 'block';
+//       sewing.style.display = 'block';
+//       workers.style.display = 'block';
+//       capacity.style.display = 'block';
+//       joinedDateLabel.textContent = 'Joined Date';
+//   } else {
+//       cutting.style.display = 'none';
+//       sewing.style.display = 'none';
+//       workers.style.display = 'none';
+//       capacity.style.display = 'none';
+//       joinedDateLabel.textContent = 'Date of Birth';
+//   }
+// }
+
 function showAdditionalFields(selectElement) {
   var selectedValue = selectElement.value;
   var cutting = document.getElementById('cutting');
   var sewing = document.getElementById('sewing');
   var workers = document.getElementById('workers');
   var capacity = document.getElementById('capacity');
+  var vehicle = document.getElementById('vehicle');
+  var vehicleNo = document.getElementById('vehicle-no');
+  var maxCapacity = document.getElementById('max-capacity');
+
+  // Enable or disable input fields based on selected option
+  var cutPriceInput = document.querySelector('input[name="cut_price"]');
+  var sewedPriceInput = document.querySelector('input[name="sewed_price"]');
+  var noWorkersInput = document.querySelector('input[name="no_workers"]');
+  var dayCapacityInput = document.querySelector('input[name="day_capacity"]');
+  var vehicleNumber = document.querySelector('input[name="vehicle_number"]');
+  var vehicleType= document.querySelector('select[name="vehicle_type"]');
+  var maxCapacityInput = document.querySelector('input[name="max_capacity"]');
 
   var joinedDateLabel = document.getElementById('date');
 
   if (selectedValue === 'garment') {
-      cutting.style.display = 'block';
-      sewing.style.display = 'block';
-      workers.style.display = 'block';
-      capacity.style.display = 'block';
-      joinedDateLabel.textContent = 'Joined Date';
+    cutting.style.display = 'block';
+    sewing.style.display = 'block';
+    workers.style.display = 'block';
+    capacity.style.display = 'block';
+    joinedDateLabel.textContent = 'Joined Date';
+
+    // Enable input fields
+    cutPriceInput.removeAttribute('disabled');
+    sewedPriceInput.removeAttribute('disabled');
+    noWorkersInput.removeAttribute('disabled');
+    dayCapacityInput.removeAttribute('disabled');
   } else {
-      cutting.style.display = 'none';
-      sewing.style.display = 'none';
-      workers.style.display = 'none';
-      capacity.style.display = 'none';
-      joinedDateLabel.textContent = 'Date of Birth';
+    cutting.style.display = 'none';
+    sewing.style.display = 'none';
+    workers.style.display = 'none';
+    capacity.style.display = 'none';
+    // vehicle.style.display = 'none';
+    // maxCapacity.style.display = 'none';
+    joinedDateLabel.textContent = 'Date of Birth';
+
+    // Disable input fields
+    cutPriceInput.setAttribute('disabled', 'disabled');
+    sewedPriceInput.setAttribute('disabled', 'disabled');
+    noWorkersInput.setAttribute('disabled', 'disabled');
+    dayCapacityInput.setAttribute('disabled', 'disabled');
+
+  }
+
+  if (selectedValue === 'delivery') {
+    vehicle.style.display = 'block';
+    vehicleNo.style.display = 'block';
+    maxCapacity.style.display = 'block';
+
+    // Enable input fields
+    vehicleType.removeAttribute('disabled');
+    vehicleNumber.removeAttribute('disabled');
+    maxCapacityInput.removeAttribute('disabled');
+
+   
+  } else {
+    // cutting.style.display = 'none';
+    // sewing.style.display = 'none';
+    // workers.style.display = 'none';
+    // capacity.style.display = 'none';
+    vehicle.style.display = 'none';
+    vehicleNo.style.display = 'none';
+    maxCapacity.style.display = 'none';
+
+    // joinedDateLabel.textContent = 'Date of Birth';
+
+    // Disable input fields
+    vehicleType.setAttribute('disabled', 'disabled');
+    vehicleNumber.setAttribute('disabled', 'disabled');
+    maxCapacityInput.setAttribute('disabled', 'disabled');
+    // noWorkersInput.setAttribute('disabled', 'disabled');
+    // dayCapacityInput.setAttribute('disabled', 'disabled');
   }
 }
+
+
+const search = document.querySelector('.form input'),
+table_rows = document.querySelectorAll('tbody tr');
+
+search.addEventListener('input', searchTable);
+
+function searchTable(){
+  table_rows.forEach((row, i) => {
+    let table_data = row.textContent, 
+    search_data = search.value.toLowerCase();
+
+    row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+    row.style.setProperty('--delay', i / 25 + 's');
+  })
+}
+
+// const search = document.querySelector('.form input');
+// const table_rows = document.querySelectorAll('tbody tr');
+
+// search.addEventListener('input', searchTable);
+
+// function searchTable() {
+//   const columnIndex = 2; // Change this to the index of the column you want to search (0-based index)
+//   const search_data = search.value.toLowerCase();
+  
+//   table_rows.forEach((row, i) => {
+//     const table_data = row.cells[columnIndex].textContent.toLowerCase();
+
+//     row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+//   });
+// }

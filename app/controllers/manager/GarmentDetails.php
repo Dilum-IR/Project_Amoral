@@ -46,7 +46,7 @@ class GarmentDetails extends Controller
 
 
 
-            // show($data);
+            show($data);
 
             //add new garment
             if (isset($_POST["newEmployee"])) {
@@ -58,39 +58,65 @@ class GarmentDetails extends Controller
 
             // update garment
             if (isset($_POST["empUpdate"])) {
-
-                $emp_id = $_POST['emp_id'];
-
                 unset($_POST['empUpdate']);
-                $arr = $_POST;
-                // $arr['is_active'] = 0;
 
-                if (isset($arr)) {
+                $id = $_POST['garment_id'];
+                
+                // show($id);
 
-                    // show($arr);
-                    $update = $employee->update($emp_id, $arr, 'emp_id');
-                    redirect('manager/garmentedetails');
+                $employeeData = [];
+                $garmentData = [];
+
+                // $employee = new Employee;
+
+                // Loop through the $data array and separate data based on keys
+                foreach ($data as $key => $value) {
+                    if (in_array($key, ['emp_name', 'email', 'city', 'address', 'DOB', 'contact_number'])) {
+                        // Add to employee data
+                        $employeeData[$key] = $value;
+                    } elseif (in_array($key, ['no_workers', 'day_capacity', 'cut_price', 'sewed_price'])) {
+                        // Add to garment data
+                        $garmentData[$key] = $value;
+                    }
                 }
+
+                // show($garment_id);
+                if (isset($employeeData)) {
+                    // show($emp_id);
+                    // show($employeeData);
+                    $updateEmp = $employee->update($id, $employeeData, 'emp_id');
+                   
+                }
+                if (isset($garmentData)) {
+                    // show($garment_id);
+                    // show($garmentData);
+                    $updateGmnt = $garment->update($id, $garmentData, 'garment_id');
+                   
+                }
+                redirect('manager/garmentdetails');
+
             }
 
             // remove garment
-
             if (isset($_POST["empRemove"])) {
 
-                $emp_id = $_POST['emp_id'];
+                // $emp_id = $_POST['emp_id'];
+                // show($_POST);
+                $empID = $_POST['garment_id'];
+                // show($empID);
+                // $emp_id = $employee->findId($empEmail);
+                // show($emp_id);
 
                 unset($_POST['empRemove']);
-                $arr = $_POST;
+                // $arr = $_POST;
                 $arr['is_active'] = 0;
 
                 if (isset($arr)) {
                     // show($arr);
-                    $update = $employee->update($emp_id, $arr, 'emp_id');
-                    redirect('manager/garmentedetails');
+                    $update = $employee->update($empID, $arr, 'emp_id');
+                    redirect('manager/garmentdetails');
                 }
             }
-
-
 
             $this->view('manager/garmentdetails', $data);
         } else {
@@ -101,7 +127,7 @@ class GarmentDetails extends Controller
 
     public function garmentAdd($data)
     {
-        show($data);
+        // show($data);
         $garment = new Garment;
         $user = new User;
         $employee = new Employee;

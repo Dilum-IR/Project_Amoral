@@ -201,7 +201,6 @@ class Profile extends Controller
 
             // Check if the file exists before attempting to delete it
             if (file_exists($currentImgPath)) {
-
                 // Remove the current image
                 unlink($currentImgPath);
             }
