@@ -378,18 +378,17 @@ table tbody tr.active-row {
   font-weight: bold;
   color: #009879;
 } */
-
+/* 
 .st {
   padding: 0%;
 }
 
 .text-status {
-  background-color: rgb(16, 197, 52);
   border-radius: 12px;
   width: fit-content;
   padding: 2% 13%;
   margin-left: 0%;
-}
+} */
 
 .popup-view,
 .popup-new {
@@ -1071,8 +1070,8 @@ select {
   max-width: 500px; /* Maximum width of the modal */
   text-align: center; /* Center text for better readability */
   position: relative; /* Necessary for absolute positioning of the close button */
-  top: 6%;
-  left: 3%;
+  top: 35%;
+  left: 33%;
 }
 
 /* Close button styling */
@@ -1141,6 +1140,22 @@ select {
   background-color: #979595; /* Slightly lighter blue than the hover state */
 }
 
+.filters #delivered {
+  background-color: white;
+  border: 1px solid #3d3e3e;
+  color: #3d3e3e;
+  transition: 0.5s ease-in-out;
+}
+.filters #delivered:hover {
+  background-color: #3d3e3e;
+  border: 1px solid none;
+  color: white;
+}
+.filters #delivering:hover {
+  background-color: white;
+  border: 1px solid #3d3e3e;
+  color: #3d3e3e;
+}
 
 /* Responsive settings for smaller screens */
 @media screen and (max-width: 600px) {
@@ -1193,12 +1208,18 @@ select {
   color: white;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  font-size: 16px; /* Larger font size for better readability */
+  transition: all 0.3s ease-in-out;
+  font-size: 16px;
+  transform: scale(1); /* Larger font size for better readability */
 }
 
 .modal-content .button:hover {
+  transform: scale(1.04); /* Larger font size for better readability */
   background-color: #0056b3; /* Darker shade of blue on hover */
+}
+.modal-content #cancel:hover {
+  transform: scale(1.04); /* Larger font size for better readability */
+  background-color: red; /* Darker shade of blue on hover */
 }
 
 /* Layout for buttons within the modal */
@@ -1211,6 +1232,17 @@ select {
 .bxs-error-circle {
   font-size: 65px; /* Increases the icon size */
   color: #ffd900; /* Sets the icon color to a bright yellow */
+}
+
+#payedCheckbox ,#myCheckbox_1{
+  width: 15px;
+  height: 15px;
+}
+#confirm:disabled,
+#popup-confirm-btn:disabled {
+  background-color: #9b9797;
+  color: white; 
+  cursor: not-allowed;
 }
 
 /* Media queries for tablets and below */

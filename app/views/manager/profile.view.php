@@ -4,9 +4,9 @@
 <head>
   <title>Manager</title>
   <!-- Link Styles -->
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/profile.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/managersidenav.css">
-  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/style-bar.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/button.css">
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/boxicons.min.css">
   <!-- loading css -->

@@ -7,6 +7,7 @@
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/overview.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/collection/collection.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- toast css -->
@@ -199,8 +200,20 @@
 
 
                         <!-- Anlysis Containers -->
+                        <div class="table-data">
 
+                        <div class="slider-main">
+                        <?php include __DIR__ . '/../collection/collection.view.php'; ?>
+                        </div>
+                        </div>
 
+                        <style>
+                            .slider-main{
+                                height: 680px;
+                                width:100%;
+                                padding: 0 10px !important;
+                            }
+                        </style>
 
                         <div class="table-data">
 
@@ -299,13 +312,14 @@
                             </div>
 
                             <style>
-                                .order tbody tr{
+                                .order tbody tr {
                                     /* background-color: gainsboro; */
                                     transition: 0.5s ease-in-out;
                                     transform: scale(1.0);
-                                    
+
                                 }
-                                .order tbody tr:hover{
+
+                                .order tbody tr:hover {
                                     background-color: #f3f3f3 !important;
                                     transform: scale(1.01);
                                 }

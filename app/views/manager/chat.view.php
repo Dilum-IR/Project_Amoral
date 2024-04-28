@@ -30,6 +30,29 @@
     // show($data);
     ?>
 
+    <style>
+        .all-chat .hide {
+            display: none;
+        }
+
+        #no-data-search .hide {
+            display: none;
+        }
+
+        .all-chat.user-content {
+            --delay: 0.1s;
+            transition: .5s ease-in-out var(--delay);
+        }
+
+        .all-chat {
+            overflow: auto;
+            overflow: overlay;
+        }
+
+        .name-time{
+            gap: 57px;
+        }
+    </style>
 
     <div class="header">
         <div class="container">
@@ -38,7 +61,7 @@
 
                 <div class="chat-all-users">
                     <div class="chat-head">
-                        <p class="chatname"><b>Chats</b></p>
+                        <p class="chatname">&nbsp; Chats</p>
 
                         <div class="dropdown" style="float:right;">
                             <!-- <button class="dropbtn">Type</button>
@@ -113,6 +136,8 @@
                     <?php
                     }
                     ?>
+
+                    <h3 class="no-chats hide" id="no-data-search">No Search Results</h3>
                 </div>
             </div>
 
@@ -176,12 +201,11 @@
             /* display: inline; */
             /* float: right; */
         }
-        
+
         .other-user {
             /* display: inline; */
             /* float: left; */
         }
-
     </style>
     <script>
         var userID = "<?= $data['chatedUsers'][0]->log_user ?>"
