@@ -55,11 +55,11 @@
                             <span>All</span>
                         </label>
                         <label>
-                            <input type="radio" name="rptType"  value="unread">
+                            <input type="radio" name="rptType" value="unread">
                             <span>Unread</span>
                         </label>
                         <label>
-                            <input type="radio" name="rptType"  value="read">
+                            <input type="radio" name="rptType" value="read">
                             <span>Read</span>
                         </label>
                     </div>
@@ -82,15 +82,15 @@
                             <div class="text-box">
                                 <div class="report-info">
                                     <div class="report-info-email">
-                                     <?php echo htmlspecialchars($rpt->email) ?>
+                                        <?php echo htmlspecialchars($rpt->email) ?>
                                     </div>
                                     <div class="report-info-date">
-                                         <?php echo htmlspecialchars($rpt->report_date) ?>
+                                        <?php echo htmlspecialchars(date('Y-m-d', strtotime($rpt->report_date))) ?>
                                     </div>
                                 </div>
                                 <div class="report-description-title"> </div>
                                 <div class="report-description">
-                                    <?php echo htmlspecialchars($rpt->description) ?>
+                                    <p> <?php echo htmlspecialchars($rpt->description) ?></p>
                                 </div>
                                 <div class="report-btns">
                                     <button class="view-btn rpt" type="" name="selectItem" class="edit"
@@ -140,12 +140,44 @@
 
             </div>
             <div class="popup-buttons">
+
                 <!-- <button class="popup-read-btn rd" onclick="closePopup()">Delete</button> -->
                 <button class="popup-close-btn rd" type="submit" name="markAsRead" onclick="closePopup()">Mark as
                     Read</button>
+                <button class="popup-close-btn-back" style="border: 0.3px solid #000000;
+    color: #000000; background-color: transparent;  padding: 8px 35px; border-radius: 9px;cursor: pointer;
+  transition: background-color 0.5s ease;--hover-color:red;" type="submit" name="markAsRead"
+                    onclick="closePopup()">Back</button>
             </div>
         </form>
     </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.querySelector('input[type="search"]');
+            const reportBoxes = document.querySelectorAll('.text-box');
+
+            searchInput.addEventListener('input', function () {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                reportBoxes.forEach(box => {
+                    const email = box.querySelector('.report-info-email').textContent.toLowerCase();
+                    const description = box.querySelector('.report-description').textContent.toLowerCase();
+                    const date = box.querySelector('.report-info-date').textContent;
+
+                    // Extend with other fields as necessary
+
+                    if (email.includes(searchTerm) || description.includes(searchTerm) || date.includes(searchTerm)) {
+                        box.style.display = '';
+                    } else {
+                        box.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

@@ -1,3 +1,8 @@
+<style>
+    .sidebar.open li.logout {
+        width: 250px !important;
+    }
+</style>
 <div class="sidebar">
     <div class="logo_details">
         <img src="<?= ROOT ?>/assets/images/manager/amoral80.png" class="logo_icon">

@@ -26,6 +26,7 @@ class GarmentOrders extends Controller
         }else{
             redirect('home');
         }
+
     }   
 
 

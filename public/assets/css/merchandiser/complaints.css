@@ -172,7 +172,7 @@ form .form-input button:hover {
   border-style: none;
   margin-bottom: 40px;
   margin-top: -6px;
-  box-shadow: 0px 4px 0px 0 rgb(0 0 0 / 23%);
+  box-shadow: 0px 4px 17px 0 rgb(0 0 0 / 30%);
   overflow: hidden;
 }
 
@@ -261,7 +261,16 @@ form .form-input button:hover {
   border: 0.3px solid #ff3f3f;
   color: #ff3f3f;
 }
+.popup-close-btn .popup-close-btn-blk  {
+  border: 0.3px solid #ff3f3f;
+  color: #ff3f3f;
+}
 
+.popup-close-btn .popup-close-btn-blk::after,
+.popup-close-btn .popup-close-btn-blk::before {
+  background-color: #ff3f3f;
+  /* border: .3px solid #ff3f3f; */
+}
 .view-btn {
   border: 0.3px solid #474747;
   color: #ffffff;
@@ -383,7 +392,7 @@ label:last-child span {
   margin-top: 10px;
   /* background-color: #f1f1f100; */
   border-radius: 25px;
-  height: 425px;
+  height: 482px;
   width: 100%;
 }
 
@@ -416,6 +425,9 @@ label:last-child span {
 .breadcrumb .bx-chevron-right {
   font-size: 25px;
 }
+.report-description p{
+  margin-top: 5px;
+}
 
 .report-info {
   display: flex;
@@ -423,10 +435,26 @@ label:last-child span {
   background-color: rgba(255, 255, 255, 0.2);
   padding-left: 47px;
   margin-top: -1%;
+  width: 378%;
 }
 
+.popup-close-btn-back {
+  border: 0.3px solid #000000; 
+  color: #000000;             
+  background-color: transparent; 
+}
+
+
+.report-input-box .text-box {
+  
+  transition: 0.5s ease-in-out;
+  transform: scale(1.0);
+}
+.report-input-box .text-box:hover {
+  transform: scale(1.02);
+}
 .report-description {
-  background-color: #b0bcc58f;
+  background-color: #d8e4ed8f;
   height: 52px;
   margin-left: 50px;
   margin-right: 50px;
@@ -464,7 +492,8 @@ label:last-child span {
 }
 .container .text-box {
   padding-left: 0% !important;
-  border: 1px solid #111010;
+  /* border: 1px solid #111010; */
+  padding: 6px 0;
 }
 
 .rpt {
