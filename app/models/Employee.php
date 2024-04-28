@@ -163,7 +163,7 @@ class Employee
 			$this->errors['address'] = "Employee address is required";
 		}
 		//Address validation
-		else if (!preg_match("/^[a-zA-Z0-9\s\.,#-]+$/", $data['address'])) {
+		else if (!preg_match("/^[a-zA-Z0-9\s\.,:#\/-]+$/", $data['address'])) {
 			$this->errors['flag'] = true;
 			$this->errors['address'] = "Address is invalid ";
 		}

@@ -44,24 +44,24 @@ function performSearch() {
 
 
 
-orderCancel.addEventListener('click', function (event) {
-    // console.log('cancel');
-    deleteConfirm.classList.add('is-visible');
-});
+// orderCancel.addEventListener('click', function (event) {
+//     // console.log('cancel');
+//     deleteConfirm.classList.add('is-visible');
+// });
 
-orderUpdate.addEventListener("click", function (event) {
-  event.preventDefault();
-  updateConfirm.classList.add("is-visible");
-});
+// orderUpdate.addEventListener("click", function (event) {
+//   event.preventDefault();
+//   updateConfirm.classList.add("is-visible");
+// });
 
-updateNo.addEventListener("click", function () {
-  updateConfirm.classList.remove("is-visible");
-});
+// updateNo.addEventListener("click", function () {
+//   updateConfirm.classList.remove("is-visible");
+// });
 
-updateYes.addEventListener("click", function () {
-  document.querySelector(".update-form").submit();
-  updateConfirm.classList.remove("is-visible");
-});
+// updateYes.addEventListener("click", function () {
+//   document.querySelector(".update-form").submit();
+//   updateConfirm.classList.remove("is-visible");
+// });
 
 //validate the delivery dates
 let datesNew = document.querySelectorAll('.popup-new input[type="date"]');
@@ -88,7 +88,6 @@ let cancelNewBtn = document.querySelector(".popup-new .cancel-btn");
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
     if (reportForm) {
         cancelReportBtn.addEventListener("click", function () {
             clearErrorMsg(reportForm);
@@ -112,78 +111,127 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     }
-
-    if(newForm){
-        cancelNewBtn.addEventListener("click", function(){
-            clearErrorMsg(newForm);
-        });
-        closeNewBtn.addEventListener("click", function(){
-            clearErrorMsg(newForm);
-            closeNew();
-        
-        });
-
-        newForm.addEventListener("submit", function(event){
-            // event.preventDefault();
-            clearErrorMsg(newForm);
-            
-            let errors = validateNewOrder();
-            console.log(Object.values(errors));
-            if (Object.keys(errors).length > 0) {
-                displayErrorMsg(errors, newForm);
-                event.preventDefault();
-            }
-        });
-    }
 });
 
 closeViewBtn.addEventListener("click", closeView);
 closeNewBtn.addEventListener("click", closeNew);
 
 function validateNewOrder() {
-    let errors = {};
-    // pdf and images
-    var pdf = document.querySelector('#pdfFileToUpload');
-    var image1 = document.querySelector('#imageFileToUpload1');
-    var image2 = document.querySelector('#imageFileToUpload2');
+  let errors = {};
+  // pdf and images
+  var pdf = document.querySelector('#pdfFileToUpload');
+  var image1 = document.querySelector('#imageFileToUpload1');
+  var image2 = document.querySelector('#imageFileToUpload2');
 
-    if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
-        // alert('Please upload a PDF or an image');
-        // event.preventDefault();
-        errors['files'] = ' *Please upload a PDF or images';
-    }
+  if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+      // alert('Please upload a PDF or an image');
+      // event.preventDefault();
+      errors['files'] = ' *Please upload a PDF or images';
+  }
 
-    // sizes
-    let sizes = document.querySelectorAll('.popup-new input[type="number"]');
-    let total = 0;
-    sizes.forEach(size => {
-        total += parseInt(size.value);
-    });
+  // sizes
+  let sizes = document.querySelectorAll('.popup-new input[type="number"]');
+  let total = 0;
+  sizes.forEach(size => {
+      total += parseInt(size.value);
+  });
 
-    if (total === 0) {
-        // event.preventDefault();
-        errors['sizes0'] = ' *Please select a size';
-    }
+  if (total === 0) {
+      // event.preventDefault();
+      errors['sizes0'] = ' *Please select a size';
+  }
 
-    // dispatch date
-    let dates = document.querySelectorAll('.popup-new input[type="date"]');
-    let dateSelected = false;
+  // dispatch date
+  let dates = document.querySelectorAll('.popup-new input[type="date"]');
+  let dateSelected = false;
 
-    dates.forEach(date => {
-        if (date.value !== '') {
-            dateSelected = true;
-        }
-    });
+  dates.forEach(date => {
+      if (date.value !== '') {
+          dateSelected = true;
+      }
+  });
 
-    if (!dateSelected) {
-        // event.preventDefault();
-        errors['dates'] = ' *Please select a date';
-    }
+  if (!dateSelected) {
+      // event.preventDefault();
+      errors['dates'] = ' *Please select a date';
+  }
 
-    return errors;
+  clearErrorMsg(newForm);
+          
+  // let errors = validateNewOrder();
+  console.log(Object.values(errors));
+  if (Object.keys(errors).length > 0) {
+      displayErrorMsg(errors, newForm);
+      // event.preventDefault();
+  }
+
+  // console.log(errors);
+
+  if(Object.keys(errors).length === 0){
+      return true;
+  }else{
+      return false;
+  }
 
 }
 
+
+function validateViewOrder() {
+  let errors = {};
+  // pdf and images
+ // var pdf = document.querySelector('#pdfFileToUpload');
+// var image1 = document.querySelector('#imageFileToUpload1');
+// var image2 = document.querySelector('#imageFileToUpload2');
+
+// if (pdf.files.length === 0 && (image1.files.length === 0 || image2.files.length === 0)) {
+  // alert('Please upload a PDF or an image');
+  // event.preventDefault();
+  // errors['files'] = ' *Please upload a PDF or images';
+// }
+
+  // sizes
+  let sizes = document.querySelectorAll('.popup-view .st');
+  let total = 0;
+  sizes.forEach(size => {
+      total += parseInt(size.value);
+  });
+
+  if (total === 0) {
+      // event.preventDefault();
+      errors['sizes0'] = ' *Please select a size';
+  }
+
+  // dispatch date
+  let dates = document.querySelectorAll('.popup-view input[type="date"]');
+  let dateSelected = false;
+
+  dates.forEach(date => {
+      if (date.value !== '') {
+          dateSelected = true;
+      }
+  });
+
+  if (!dateSelected) {
+      // event.preventDefault();
+      errors['dates'] = ' *Please select a date';
+  }
+
+  clearErrorMsg(viewForm);
+          
+  // let errors = validateNewOrder();
+  // console.log(Object.values(errors));
+  if (Object.keys(errors).length > 0) {
+      displayErrorMsg(errors, viewForm);
+      // event.preventDefault();
+  }
+
+  if(Object.keys(errors).length === 0){
+      return true;
+  }else{
+      return false;
+  }
+
+}
 
 function validateReport() {
   let errors = {};
@@ -238,6 +286,7 @@ function clearErrorMsg(form) {
 }
 
 function removeActiveClass() {
+  progress1.classList.remove("cancel");
   progress2.classList.remove("active");
   progress3.classList.remove("active");
   progress4.classList.remove("active");
@@ -258,26 +307,44 @@ function openView(button) {
     const material = JSON.parse(materialData);
 
     switch (order.order_status) {
-      case "cutting" || "printing" || "sewing":
-        progress2.classList.add("active");
-        break;
-      // case "delivering":
-      //   progress2.classList.add("active");
-      //   progress3.classList.add("active");
-      //   break;
+      case "cutting":
+      case "cut":
+      case "printing":
+      case "printed":
+      case "sent to garment":
+      case "sewing":
+      case "sewed":
+          progress1.nextElementSibling.innerHTML = "Pending";
+          progress2.classList.add("active");
+          progress3.nextElementSibling.innerHTML = "Delivering";
+
+          break;
+
       case "delivering":
+        progress1.nextElementSibling.innerHTML = "Pending";
         progress2.classList.add("active");
         progress3.classList.add("active");
+        progress3.nextElementSibling.innerHTML = "Delivering";
+
+        break;
+
+      case "delivered":
+        progress1.nextElementSibling.innerHTML = "Pending";
+        progress2.classList.add("active");
+        progress3.classList.add("active");
+        progress3.nextElementSibling.innerHTML = "Delivered";
         break;
 
       case "completed":
+        progress1.nextElementSibling.innerHTML = "Pending";
         progress2.classList.add("active");
         progress3.classList.add("active");
         progress4.classList.add("active");
         break;
 
-      case "cancelled":
+      case "canceled":
         progress1.classList.add("cancel");
+        progress1.nextElementSibling.innerHTML = "Cancelled";
         break;
     }
 
@@ -342,7 +409,7 @@ function openView(button) {
   document.querySelector(".update-form .totalPrice").innerHTML = order.total_price;
   console.log(order.total_price);
   document.querySelector(".update-form .discountPrice").innerHTML = order.discount;
-  console.log(order.discount);
+  console.log(order);
 
   // document.querySelector('.update-form input[name="discount"]').value = order.discount;
   // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
@@ -352,7 +419,106 @@ function openView(button) {
   document.querySelector('.update-form input[name="latitude"]').value = order.latitude;
   document.querySelector('.update-form input[name="longitude"]').value = order.longitude;
 
-  document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+  // document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+
+  console.log(order.pdf);
+  if(order.pdf === ''){
+      document.querySelector('.update-form embed[name="design"]').style.display = 'none';
+      document.querySelector('.update-form .carousel').style.display = 'flex';
+  
+      //download images when the button is clicked
+      document.querySelector('.download').addEventListener('click', function() {
+          var link = document.createElement('a');
+          [order.image1, order.image2].forEach(image => {
+  
+              link.href = "/Project_Amoral/public/uploads/designs/" + image;
+              link.download = image;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          });
+      });
+  }else{
+      document.querySelector('.update-form embed[name="design"]').style.display = 'block';
+      document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+      
+      //download the pdf when the button is clicked
+      document.querySelector('.download').addEventListener('click', function() {
+          var link = document.createElement('a');
+          link.href = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+          link.download = order.pdf;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      });
+      document.querySelector('.update-form .carousel').style.display = 'none';
+  }
+
+    //image slider
+
+    const carouselImages = document.getElementById('carouselImages');
+    // const imageCount = document.querySelector('.image-count');
+
+    let images = [order.image1, order.image2];
+    let currentImage = 0;
+
+    // console.log(baseUrl+images[0]);
+
+
+
+    images.forEach((image, index) => {
+    var path =  '../uploads/designs/' + image;
+    console.log(path);
+    var imgHTML1 = document.querySelector('.img1');
+    var imgHTML2 = document.querySelector('.img2');
+    // imgHTML.src = path;
+    if(index==1){
+      imgHTML2.src = path;
+      imgHTML2.style.transition = 'all 0.5s ease-in-out';
+      // imgHTML.classList.add('img2')
+      imgHTML2.style.display = 'none';
+      // currentImage = 1;
+    }else{
+      imgHTML1.src = path;
+      imgHTML1.style.transition = 'all 0.5s ease-in-out';
+
+      // imgHTML.classList.add('img1')
+      imgHTML1.style.display = 'block';
+      // currentImage = 0;
+    }
+    // var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
+    // console.log(imgHTML);
+    // carouselImages.innerHTML = imgHTML;
+    // carouselImages.appendChild(imgHTML);
+    });
+
+    // imageCount.innerHTML = currentImage + 1/images.length;
+
+
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    // Add event listeners to carousel buttons
+    prevBtn.addEventListener('click', (event) => {
+    // Decrease currentImage index
+    event.preventDefault();
+    if(currentImage == 1){
+      document.querySelector('.img2').style.display = 'none';
+      document.querySelector('.img1').style.display = 'block';
+      currentImage = 0;
+    }
+    });
+
+    nextBtn.addEventListener('click', (event) => {
+    // Increase currentImage index
+    event.preventDefault();
+    if(currentImage == 0){
+      document.querySelector('.img1').style.display = 'none';
+      document.querySelector('.img2').style.display = 'block';
+      currentImage = 1;
+    }
+    });
 
   popupView.classList.add("is-visible");
   document.body.style.overflow = "hidden";
@@ -361,15 +527,38 @@ function openView(button) {
 
   var currentDate = new Date();
   var orderPlacedOn = new Date(order.order_placed_on);
-  if ((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24) > 2) {
+  if ((currentDate - orderPlacedOn) / (1000 * 60 * 60 * 24) > 2 && order.order_status != "pending") {
     orderCancel.style.display = "none";
   } else {
     orderCancel.style.display = "block";
+    document.querySelector(".update-form input[name='order_id']").removeAttribute("disabled");
+
   }
 
-  if (order.order_status == "completed" || order.order_status == "cancelled") {
-    orderUpdate.style.display = "none";
-    orderCancel.style.display = "none";
+  if (order.order_status == "completed" || order.order_status == "canceled" || order.order_status == "delivered" || order.order_status == "delivering" || order.order_status == "sewed") {
+    document.querySelectorAll(".update-form input").forEach(input => {
+      // input.setAttribute("readonly", "true");
+      input.setAttribute("disabled", "disabled");
+    });
+    if(order.order_status == "delivered"){
+      orderUpdate.value = "Mark As Received";
+      orderUpdate.style.display = "block";
+      orderUpdate.removeAttribute("disabled");
+      document.querySelector(".update-form input[name='order_id']").removeAttribute("disabled");
+    }else if(order.order_status == "pending"){
+      orderUpdate.style.display = "block";
+      orderUpdate.removeAttribute("disabled");
+      orderCancel.style.display = "block";
+      document.querySelectorAll(".update-form input").forEach(input => {
+        // input.setAttribute("readonly", "true");
+        input.removeAttribute("disabled");
+      });
+
+    }else{
+      orderUpdate.style.display = "none";
+      orderCancel.style.display = "none";
+    }
+    // orderCancel.style.display = "none";
   }
 
   // if(order.remaining_payment == 0){
@@ -418,8 +607,10 @@ function closeNew() {
         card.remove();
     });
     let priceRows = document.querySelectorAll(".price-details-container .units");
-    priceRows.forEach(row => {
+    priceRows.forEach((row, index) => {
+      if(index != 0){
         row.remove();
+      }
     });
     document.querySelector(".new-form").reset();
 }
@@ -560,6 +751,183 @@ function updateTotalPrice() {
   // );
 }
 
+///******************************************update order****************************************************** */
+
+var each_order = {};
+
+function update_method(button){
+    status_confirm_popup.style.display = "block";
+
+    const orderData = button.getAttribute("data-order");
+    each_order = orderData;
+  
+    console.log(each_order);
+  
+}
+
+function change_order_status(tap = "popup"){
+    if(tap == "table btn"){
+        if(each_order){
+            order = JSON.parse(each_order);
+
+            console.log(order);
+        }
+    }
+
+    $.ajax({
+        type: "POST",
+        url: update_order_endpoint,
+        data: order,
+        cache: false,
+        success: function (res) {
+            try {
+              // convet to the json type
+              console.log(res);
+              Jsondata = JSON.parse(res);
+      
+              if (Jsondata.user) {
+                  var successMsgElement = document.querySelector('.success-msg');
+                  successMsgElement.innerHTML = "Order updated successfully";
+                  successMsgElement.style.display = 'block';
+                  setTimeout(function() {
+                      successMsgElement.style.display = 'none';
+                      location.reload();
+                  }, 2000);
+              }else{
+                  var successMsgElement = document.querySelector('.success-msg');
+                      
+                  successMsgElement.innerHTML = "There was an error updating the order";
+                  
+                  // successMsgElement.style.transition = 'all 1s ease-in-out';
+                  
+                  successMsgElement.style.display = 'block';
+                  successMsgElement.style.backgroundColor = 'red';
+                  setTimeout(function() {
+                      successMsgElement.style.display = 'none';
+                      // location.reload();
+                  }, 2000);
+              }
+            } catch (error) {
+              // popup_status_btn.innerHTML = "Update Status";
+              // document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+              //   "Update Status";
+              var successMsgElement = document.querySelector('.success-msg');
+                      
+              successMsgElement.innerHTML = "There was an error updating the order";
+              
+              // successMsgElement.style.transition = 'all 1s ease-in-out';
+              
+              successMsgElement.style.display = 'block';
+              successMsgElement.style.backgroundColor = 'red';
+              setTimeout(function() {
+                  successMsgElement.style.display = 'none';
+                  location.reload();
+              }, 2000);
+      
+            }
+          },
+          error: function (xhr, status, error) {
+              var successMsgElement = document.querySelector('.success-msg');
+                      
+              successMsgElement.innerHTML = "There was an error updating the order";
+              
+              // successMsgElement.style.transition = 'all 1s ease-in-out';
+              
+              successMsgElement.style.display = 'block';
+              successMsgElement.style.backgroundColor = 'red';
+              setTimeout(function() {
+                  successMsgElement.style.display = 'none';
+                  location.reload();
+              }, 2000);
+          },
+    });
+
+}
+
+var orderId;
+
+function cancel_method(ordId){
+    delete_confirm_popup.style.display = "block";
+    orderId = ordId;
+    console.log(orderId);
+}
+
+function cancel_cus_order(tap = "popup"){
+    if(tap == "table btn"){
+      console.log(orderId);
+        $.ajax({
+            type: "POST",
+            url: cancel_endpoint,
+            data: {order_id: orderId},
+            cache: false,
+            success: function (res) {
+                try {
+                // convet to the json type
+                console.log(res);
+                Jsondata = JSON.parse(res);
+        
+                if (Jsondata.user) {
+                    var successMsgElement = document.querySelector('.success-msg');
+                    successMsgElement.innerHTML = "Order cancelled successfully";
+                    successMsgElement.style.display = 'block';
+                    setTimeout(function() {
+                        successMsgElement.style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                }else{
+                    var successMsgElement = document.querySelector('.success-msg');
+                        
+                    successMsgElement.innerHTML = "There was an error cancelling the order";
+                    
+                    // successMsgElement.style.transition = 'all 1s ease-in-out';
+                    
+                    successMsgElement.style.display = 'block';
+                    successMsgElement.style.backgroundColor = 'red';
+                    setTimeout(function() {
+                        successMsgElement.style.display = 'none';
+                          location.reload();
+                    }, 2000);
+                }
+                } catch (error) {
+                // popup_status_btn.innerHTML = "Update Status";
+                // document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+                //   "Update Status";
+                var successMsgElement = document.querySelector('.success-msg');
+                        
+                successMsgElement.innerHTML = "There was an error cancelling the order";
+                
+                // successMsgElement.style.transition = 'all 1s ease-in-out';
+                
+                successMsgElement.style.display = 'block';
+                successMsgElement.style.backgroundColor = 'red';
+                setTimeout(function() {
+                    successMsgElement.style.display = 'none';
+                    location.reload();
+                }, 2000);
+        
+                }
+            },
+            error: function (xhr, status, error) {
+                var successMsgElement = document.querySelector('.success-msg');
+                        
+                successMsgElement.innerHTML = "There was an error cancelling the order";
+                
+                // successMsgElement.style.transition = 'all 1s ease-in-out';
+                
+                successMsgElement.style.display = 'block';
+                successMsgElement.style.backgroundColor = 'red';
+                setTimeout(function() {
+                    successMsgElement.style.display = 'none';
+                    location.reload();
+                }, 2000);
+            },
+        });
+    }
+}
+
+
+
+
 // var map;
 // var marker;
 // var infowindow;
@@ -600,123 +968,169 @@ function initMap(){
     var map1;
     var map2;
   
+// Define the center coordinates and the radius
+
+    var center = { lat: 5.9497, lng: 80.5353 };
+    var radius = 100000; // Replace with your actual radius in meters
+
     map1 = new google.maps.Map(document.getElementById("new-order-map"), {
-      // Initial center coordinates
-      center: {
-        // Sri lanka middle lat lang
-        lat: 7.7072567,
-        lng: 80.6534611,
-      },
-      zoom: 7,
+        center: center,
+        zoom: 7,
     });
 
     map2 = new google.maps.Map(document.getElementById("view-order-map"), {
-      // Initial center coordinates
-      center: {
-        // Sri lanka middle lat lang
-        lat: 7.7072567,
-        lng: 80.6534611,
-      },
-      zoom: 7,
+        center: center,
+        zoom: 7,
+    });
+
+    // Add a circle to each map
+    [map1, map2].forEach((map, index) => {
+        var circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            // fillColor: '#FF0000',
+            // fillOpacity: 0.35,
+            map: map,
+            center: center,
+            radius: radius,
+        });
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+      
+              // Set the map's center to the user's current location
+              map.setCenter(pos);
+              // map2.setCenter(pos);
+              
+              map.setZoom(15);
+              // map2.setZoom(15);
+      
+              // Add a marker at the user's current location
+              marker1 = new google.maps.Marker({
+                position: pos,
+                map: map,
+                title: "Your Location",
+              });
+    
+            },
+            function () {
+              handleLocationError(true, map.getCenter());
+              // handleLocationError(true, map2.getCenter());
+            }
+          );
+        } else {
+          handleLocationError(false, map.getCenter());
+          // handleLocationError(false, map2.getCenter());
+        }
+
+        circle.addListener("click", function (event) {
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+          if (distance <= circle.getRadius()) {
+            if (marker1) {
+              marker1.setMap(null);
+            }
+
+
+        
+            // Get the clicked location's latitude and longitude
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+        
+            console.log(latitude);
+        
+            marker1 = new google.maps.Marker({
+              position: {
+                lat: latitude,
+                lng: longitude,
+              },
+              map: map,
+            });
+        
+  
+          }
+    
+        });
+
+        if(index == 0){
+          document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-new input[name="longitude"]').value = longitude;  
+        }else{
+          document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+        }
     });
   
     // set the marker initial time user current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-  
-          // Set the map's center to the user's current location
-          map1.setCenter(pos);
-          map2.setCenter(pos);
-          
-          map1.setZoom(15);
-          map2.setZoom(15);
-  
-          // Add a marker at the user's current location
-          marker1 = new google.maps.Marker({
-            position: pos,
-            map: map1,
-            title: "Your Location",
-          });
-
-          marker2 = new google.maps.Marker({
-            position: pos,
-            map: map2,
-            title: "Your Location",
-          });
-        },
-        function () {
-          handleLocationError(true, map1.getCenter());
-          handleLocationError(true, map2.getCenter());
-        }
-      );
-    } else {
-      handleLocationError(false, map1.getCenter());
-      handleLocationError(false, map2.getCenter());
-    }
+    
   
     // add the location lat lang for this object
     var selectedLocation;
   
     // Add a click event listener to the map
     
-    map1.addListener("click", function (event) {
-      if (marker1) {
-        marker1.setMap(null);
-      }
-  
-      // Get the clicked location's latitude and longitude
-      var latitude = event.latLng.lat();
-      var longitude = event.latLng.lng();
-  
-      console.log(latitude);
-  
-      marker1 = new google.maps.Marker({
-        position: {
-          lat: latitude,
-          lng: longitude,
-        },
-        map: map1,
-      });
-  
-      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
-      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
-    });
-
-    map2.addListener("click", function (event) {
-      if (marker2) {
-        marker2.setMap(null);
-      }
-  
-      // Get the clicked location's latitude and longitude
-      var latitude = event.latLng.lat();
-      var longitude = event.latLng.lng();
-  
-      console.log(latitude);
-  
-      marker2 = new google.maps.Marker({
-        position: {
-          lat: latitude,
-          lng: longitude,
-        },
-        map: map2,
-      });
-  
-      document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-      document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-    });
+    // map1.addListener("click", function (event) {
+    //   var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+    //   if (distance <= circle.getRadius()) {
+    //     if (marker1) {
+    //       marker1.setMap(null);
+    //     }
     
-    marker1.addListener("click", function () {
-      infoWindow.open(map1, marker1);
-    });
+    //     // Get the clicked location's latitude and longitude
+    //     var latitude = event.latLng.lat();
+    //     var longitude = event.latLng.lng();
+    
+    //     console.log(latitude);
+    
+    //     marker1 = new google.maps.Marker({
+    //       position: {
+    //         lat: latitude,
+    //         lng: longitude,
+    //       },
+    //       map: map1,
+    //     });
+    
+    //     document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+    //     document.querySelector('.popup-new input[name="longitude"]').value = longitude;    
+    //   }
 
-    marker2.addListener("click", function () {
-      infoWindow.open(map2, marker2);
-    });
+    // });
+
+    // map2.addListener("click", function (event) {
+    //   if (marker2) {
+    //     marker2.setMap(null);
+    //   }
+  
+    //   // Get the clicked location's latitude and longitude
+    //   var latitude = event.latLng.lat();
+    //   var longitude = event.latLng.lng();
+  
+    //   console.log(latitude, longitude);
+  
+    //   marker2 = new google.maps.Marker({
+    //     position: {
+    //       lat: latitude,
+    //       lng: longitude,
+    //     },
+    //     map: map2,
+    //   });
+  
+    //   document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+    //   document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+    // });
+    
+    // // marker1.addListener("click", function () {
+    //   infoWindow.open(map1, marker1);
+    // });
+
+    // marker2.addListener("click", function () {
+    //   infoWindow.open(map2, marker2);
+    // });
 }
 
 function handleLocationError(browserHasGeolocation, pos) {
@@ -735,4 +1149,3 @@ function handleLocationError(browserHasGeolocation, pos) {
     infoWindow.open(map, marker);
   });
 }
-

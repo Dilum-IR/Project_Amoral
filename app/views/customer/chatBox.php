@@ -31,7 +31,7 @@
                     <div class="user">
                         <p id="header-user">Chat with us</p>
                         <div class="user-status hide">
-                            <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div>
+                            <!-- <div class="status" id="status-c" style="background: rgb(0, 238, 0);"></div> -->
                             <p id='typing' class="user-online">Offline</p>
                             <div id="userOnline"></div>
                         </div>
@@ -51,6 +51,26 @@
 
         </div>
     </div>
+
+    <style>
+        .loader-circle{
+            align-items: center;
+            display: flex;
+            gap: 10px;
+            justify-self: center;
+            color: white;
+            width: 100%;
+
+        }
+        .invalid-msg{
+            border: 1px solid red !important;
+        }
+
+        .each-msg {
+            overflow-wrap: anywhere;
+
+        }
+    </style>
 
     <!-- Import JQuary Library script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -101,6 +121,10 @@
                     "bx-rotate-180"
                 );
 
+                chatBody.innerHTML = "<span class='loader-circle'><i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i> Please Wait ...</span>";
+                
+                // remove invalid msg for given input tag class
+                document.getElementById('message-input').classList.remove('invalid-msg');
                 getUserChat(email);
 
 
@@ -146,6 +170,8 @@
                 success: function(res) {
                     try {
 
+                        chatBody.innerHTML = "";
+
                         Jsondata = JSON.parse(res)
 
                         // console.log(Jsondata);
@@ -161,6 +187,8 @@
 
                             oneDisplay = false;
                             var p = document.createElement("p");
+                            p.classList.add('each-msg');
+
 
                             p.style.padding = "10px";
                             p.style.marginBottom = "10px";
@@ -197,7 +225,10 @@
                             loadMessage(element, Jsondata.log_user);
                         });
 
-                        userID = Jsondata.log_user
+                        userID = Jsondata.log_user;
+        
+                        chatBody.scrollTop = chatBody.scrollHeight;
+
 
                         // messages load time socket opend
                         socket.onopen = function(e) {
@@ -243,6 +274,7 @@
 
             var div = document.createElement("div");
             var p = document.createElement("p");
+            p.classList.add('each-msg');
 
             p.style.padding = "10px";
             p.style.marginBottom = "10px";
@@ -319,9 +351,21 @@
             if (text == "") {
                 return;
             } else {
+
+                 // Regular expression pattern to match valid chat messages
+                 const messagePattern = /^[a-zA-Z0-9\s.,!?'"(){}[\]-]*$/;
+
+                // validate a chat message using regex
+                if (!messagePattern.test(text)) {
+                    document.getElementById('message-input').classList.add('invalid-msg');
+                    return;
+                }else{
+                    document.getElementById('message-input').classList.remove('invalid-msg');
+                }
+
                 document.getElementById("message-input").value = "";
                 send(text);
-                // console.log();
+                chatBody.scrollTop = chatBody.scrollHeight;
             }
         }
 
@@ -348,6 +392,8 @@
 
             var div = document.createElement("div");
             var p = document.createElement("p");
+            p.classList.add('each-msg');
+
             p.style.background = "black";
             p.style.color = "white";
             p.style.padding = "10px";
@@ -431,6 +477,8 @@
 
                         var div = document.createElement("div");
                         var p = document.createElement("p");
+                        p.classList.add('each-msg');
+
                         p.style.background = "white";
                         p.style.color = "black";
                         p.style.padding = "10px";
@@ -492,6 +540,9 @@
                     // isOnlineUser()
                 }
 
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+
             } catch (error) {
 
                 console.error(error);
@@ -540,11 +591,11 @@
                             onlineUser.online == false) {
 
                             userOnline = document.getElementById('typing');
-                            status = document.getElementById('status-c');
+                            // status = document.getElementById('status-c');
 
                             userOnline.innerHTML = "Offline";
                             userOnline.style.color = "white";
-                            status.style.background = "red";
+                            // status.style.background = "red";
                             // defaultUser =false
 
 

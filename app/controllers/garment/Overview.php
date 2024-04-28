@@ -11,13 +11,21 @@ class Overview extends Controller
 
 
             $info = $this->getInfo();
-            $data['recent_orders'] = $this->get_order_data();
-            $overview = $this->overview($data['recent_orders']);
+
+            $getOrderData = $this->get_order_data();
+            
+            // Extract the first 10 elements
+            $first_10_elements = array_slice($getOrderData, 0, 10);
+            
+            // recent only 10 orders displayed
+            $data['recent_orders'] = $first_10_elements;
+
+            $overview = $this->overview($getOrderData);
 
             $data['info'] = $info;
             $data['overview'] = $overview;
 
-            $data['chart_analysis_data'] = $this->chart_analysis_data($data['recent_orders']);
+            $data['chart_analysis_data'] = $this->chart_analysis_data($getOrderData);
             // show($data);
 
             $this->view('garment/overview', $data);
@@ -91,7 +99,7 @@ class Overview extends Controller
 
     private function calculateSales($orders)
     {
-        date_default_timezone_set('UTC');
+        date_default_timezone_set('Asia/Kolkata');
 
         // today date
         $currentMonthDate_2 = date('Y-m-d');
@@ -134,8 +142,7 @@ class Overview extends Controller
 
             // get each orders garment for place date timestamp value
             // check that date is available in that current date and last date between
-            $checkDateTS = strtotime(date("Y-m-d", strtotime($item->placed_date)));
-
+            $checkDateTS = strtotime(date("Y-m-d", strtotime($item->completed_date)));
 
             $cutPrice = $item->cut_price;
             $sewedPrice = $item->sewed_price;
@@ -295,9 +302,9 @@ class Overview extends Controller
             // show($id_array);
 
             $material_array = [];
-            $total_qty = 0;
             // create a new array for toal qty and meterial type array
             foreach ($new_result as $item) {
+                $total_qty = 0;
 
                 foreach ($item->mult_order as $value) {
 
@@ -335,10 +342,7 @@ class Overview extends Controller
 
             // show($new_result);
 
-            // Extract the first 10 elements
-            $first_10_elements = array_slice($new_result, 0, 10);
-
-            return $first_10_elements;
+            return $new_result;
         } catch (\Throwable $th) {
             redirect('404');
         }
@@ -356,7 +360,7 @@ class Overview extends Controller
 
             if ($item->status == 'completed') {
 
-                $dateTS = date("Y-m-d", strtotime($item->placed_date));
+                $dateTS = date("Y-m-d", strtotime($item->completed_date));
 
                 // each dates for total revenue and sales and cutting revenue
                 if (empty($sales_with_days[$dateTS]))
@@ -379,7 +383,7 @@ class Overview extends Controller
 
 
                 // caalculated monthly revenue and completed order quantity
-                $placed_month = date('Y-m', strtotime($item->placed_date));
+                $placed_month = date('Y-m', strtotime($item->completed_date));
 
                 if (!isset($monthly_revenue[$placed_month])) {
                     $monthly_revenue[$placed_month] = 0;
@@ -402,5 +406,54 @@ class Overview extends Controller
             "monthly_revenue" => $monthly_revenue,
             "monthly_qty" => $monthly_qty,
         ];
+    }
+
+
+    // genarate report function call from js 
+    public function genarate_report()
+    {
+
+        try {
+
+            $arr = [];
+            if (!isset($_POST['garment_id']) || $_SESSION['USER']->emp_status != "garment" || $_SESSION['USER']->emp_id != $_POST['garment_id']) {
+                $arr['user'] = false;
+
+                echo json_encode($arr);
+                exit;
+            }
+
+            // $garment_order = new GarmentOrder;
+
+            // $data['garment_id'] = $_SESSION['USER']->emp_id;
+
+            // $result = $garment_order->getGarmentOrderData($data);
+
+            $fromDate = $_POST['from_date'];
+            $toDate = $_POST['to_date'];
+
+            $fromDateTS = strtotime($fromDate);
+            $toDateTS = strtotime($toDate);
+
+            $result = $this->get_order_data();
+
+            $newresult = [];
+            foreach ($result as $key => $value) {
+                // need to change with compleated date
+                $valueTS = date("Y-m-d", strtotime($value->completed_date));
+                $valueTSnew = strtotime($valueTS);
+
+                // get the each garment orders only then validate with compleated and date duration
+                if ($value->status == "completed" && ($fromDateTS <= $valueTSnew) && ($toDateTS >= $valueTSnew)) {
+                    array_push($newresult, $value);
+                }
+            }
+            echo json_encode($newresult);
+        } catch (\Throwable $th) {
+            $arr['user'] = false;
+
+            echo json_encode($arr);
+            exit;
+        }
     }
 }

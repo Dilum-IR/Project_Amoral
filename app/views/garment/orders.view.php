@@ -146,7 +146,7 @@
                                                 <?= ucfirst($item->status) ?>
                                             </div>
                                         </td>
-                                        <td class="cost"><?= $item->sew_dispatch_date  ?></td>
+                                        <td class="cost sew-date"><?= $item->sew_dispatch_date  ?></td>
                                         <td class="cost"><?= $item->cut_dispatch_date  ?></td>
 
                                         <td>

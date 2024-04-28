@@ -30,72 +30,80 @@ class ChatBox extends Controller
         // find session user chats
         $userChatId = $allUsers->first($arr);
 
+
         $arr = [];
         $arr['from_id'] = $userChatId->id;
         $arr['to_id'] = $userChatId->id;
 
+
         // session user chat all conversation 
         $chatConversations = $chat->whereOR($arr);
-
 
         // get registered all users using all users table
         $chatUserDetails = [];
 
-        foreach ($chatConversations as $value) {
+        if ($chatConversations != false) {
 
-            // find the already chated users chat data using chat data table
-            $data['chat_id'] = $value->chat_id;
-            $userChatMsg = $chatData->lastChatmsg($data);
-            
-            // If chat_data table have chat id or haven't
-            if (isset($userChatMsg->chat_id)) {
-                $userChatMsg->time = $this->resetTime($userChatMsg->time);
 
-                // When from id is not a session user
-                if ($value->from_id != $userChatId->id) {
+            foreach ($chatConversations as $value) {
 
-                    $otherUser['id'] = $value->from_id;
-                    $otherUserEmail = $allUsers->first($otherUser);
+                // find the already chated users chat data using chat data table
+                $data['chat_id'] = $value->chat_id;
+                $userChatMsg = $chatData->lastChatmsg($data);
 
-                    // get the datails of other user
-                    $userDetails = $this->getOtherUserData($otherUserEmail->email);
-                    $userDetails->last_msg = $userChatMsg;
-                    $userDetails->chat_box = $value;
-                    $userDetails->log_user = $userChatId->id;
+                // If chat_data table have chat id or haven't
+                if (isset($userChatMsg->chat_id)) {
+                    $userChatMsg->time = $this->resetTime($userChatMsg->time);
 
-                    array_push($chatUserDetails, $userDetails);
-                }
-                // When to id is not a session user
-                elseif ($value->to_id != $userChatId->id) {
+                    // When from id is not a session user
+                    if ($value->from_id != $userChatId->id) {
 
-                    $otherUser['id'] = $value->to_id;
-                    $otherUserEmail = $allUsers->first($otherUser);
+                        $otherUser['id'] = $value->from_id;
+                        $otherUserEmail = $allUsers->first($otherUser);
 
-                    // get the datails of other user
-                    $userDetails =  $this->getOtherUserData($otherUserEmail->email);
-                    $userDetails->last_msg = $userChatMsg;
-                    $userDetails->chat_box = $value;
-                    $userDetails->log_user = $userChatId->id;
+                        // get the datails of other user
+                        $userDetails = $this->getOtherUserData($otherUserEmail->email);
+                        $userDetails->last_msg = $userChatMsg;
+                        $userDetails->chat_box = $value;
+                        $userDetails->log_user = $userChatId->id;
 
-                    array_push($chatUserDetails, $userDetails);
+                        array_push($chatUserDetails, $userDetails);
+                    }
+                    // When to id is not a session user
+                    elseif ($value->to_id != $userChatId->id) {
+
+                        $otherUser['id'] = $value->to_id;
+                        $otherUserEmail = $allUsers->first($otherUser);
+
+                        // get the datails of other user
+                        $userDetails =  $this->getOtherUserData($otherUserEmail->email);
+                        $userDetails->last_msg = $userChatMsg;
+                        $userDetails->chat_box = $value;
+                        $userDetails->log_user = $userChatId->id;
+
+                        array_push($chatUserDetails, $userDetails);
+                    }
                 }
             }
+
+            // Custom sorting function
+            function sortByTimeDesc($a, $b)
+            {
+                $timeA = strtotime($a->last_msg->time);
+                $timeB = strtotime($b->last_msg->time);
+
+                return $timeB - $timeA;
+            }
+
+            // Sorting the array using usort method
+            usort($chatUserDetails, 'sortByTimeDesc');
+
+            // show($chatUserDetails);
+            // $columns = ['id', 'email', 'fullname', "user_status","user_image"];
+
         }
-
-        // Custom sorting function
-        function sortByTimeDesc($a, $b)
-        {
-            $timeA = strtotime($a->last_msg->time);
-            $timeB = strtotime($b->last_msg->time);
-
-            return $timeB - $timeA;
-        }
-
-        // Sorting the array using usort method
-        usort($chatUserDetails, 'sortByTimeDesc');
 
         // show($chatUserDetails);
-        // $columns = ['id', 'email', 'fullname', "user_status","user_image"];
 
         return $chatUserDetails;
     }
@@ -111,8 +119,8 @@ class ChatBox extends Controller
             $newData['email'] = $email;
 
             // get the already chated users more details using users & employee tables
-            $userData = $user->first_selectedColumn($newData,$user->allowedCloumns);
-            $empData = $employee->first_selectedColumn($newData,$employee->allowedCloumns);
+            $userData = $user->first_selectedColumn($newData, $user->allowedCloumns);
+            $empData = $employee->first_selectedColumn($newData, $employee->allowedCloumns);
 
             // add that data in to the array
             if ($userData) {

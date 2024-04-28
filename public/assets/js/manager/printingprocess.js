@@ -4,19 +4,253 @@ let nav = document.getElementById("navbar");
 let popupView = document.getElementById("popup-view");
 let closeViewBtn = document.querySelector(".popup-view .close");
 
+//remove active classes of buttons
+function removeActiveClasses(){
+    let filterBtns = document.querySelectorAll('.filters button');
+    filterBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+}
+
+// filter table data when a filter button is clicked
+function filterTable(arg){
+
+    removeActiveClasses();
+    let i = 0;
+    let table_rows = document.querySelectorAll('.table-section tbody tr');
+    if(arg == 'cut'){
+        document.querySelector('.filters #pending').classList.add('active');
+        // if(table_rows.length == 0){
+        //     document.querySelector('.table-section tbody').innerHTML = "<tr><td class='norecords' colspan='8'>No records found</td></tr>";
+        //     return;
+        // }
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('cut')){
+                if(row.classList.contains('hide')){
+                    row.classList.remove('hide');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('hide');
+            }
+        }); 
+        
+    }else if(arg == 'printing'){
+        document.querySelector('.filters #printing').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('printing')){
+                if(row.classList.contains('hide')){
+                    row.classList.remove('hide');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('hide');
+            }
+
+        });
+        
+    }else if(arg == 'printed'){
+        document.querySelector('.filters #printed').classList.add('active');
+
+        table_rows.forEach(row => {
+            if(row.querySelector('.text-status').classList.contains('printed')){
+                if(row.classList.contains('hide')){
+                    row.classList.remove('hide');
+                    i++;
+                }
+            }
+            else{
+                row.classList.add('hide');
+            }
+
+        });
+
+    }else{
+        document.querySelector('.filters #all').classList.add('active');
+        if(table_rows.length == 0){
+            document.querySelector('.table-section tbody').innerHTML = "<tr><td colspan='8'>No records found</td></tr>";
+            return;
+        }
+        console.log(table_rows);
+        table_rows.forEach(row => {
+            if(row.classList.contains('hide')){
+                row.classList.remove('hide');
+                i++;
+            }
+
+        });
+     
+    }
+    
+
+}
+
+// *****************************Update status of order*******************************
+
+var table_rows = document.querySelectorAll('.table-section tbody tr');
+var ordstatus = "";
+table_rows.forEach(row => {
+    ordstatus = row.querySelector('.text-status').innerText;
+    if(ordstatus == "printed"){
+        document.querySelector('td .update-btn').innerText = "Mark As Sent";
+        document.querySelector('td .update-btn').title = "Mark order as sent to garment";
+    }else{
+        document.querySelector('td .update-btn').innerText = "Update Status";
+        document.querySelector('td .update-btn').title = "Update order status";
+    }
+});
+
+var each_order = {};
+var popup_status_btn = document.getElementById("popup-status-btn");
+
+// popup time get the first update status data order data
+function status_update_method(button) {
+  status_confirm_popup.style.display = "block";
+
+  const orderData = button.getAttribute("data-order");
+  each_order = orderData;
+
+  console.log(each_order);
+
+}
+
+function change_order_status(tap = "popup") {
+  
+  // always this part for come when user is popup click with the ok button 
+  if (tap == "table btn") {
+    order_status = "";
+    
+    // Get the data attribute value from the clicked button
+    // const orderData = button.getAttribute("data-order");
+    
+    if (each_order) {
+      // Parse the JSON data
+      order = JSON.parse(each_order);
+      
+      switch (order.order_status) {
+        case "cut":
+          order_status = "printing";
+          break;
+        case "printing":
+          order_status = "printed";
+          break;
+        case "printed":
+            order_status = "sent to garment";
+            break;
+        default:
+          break;
+      }
+    } else {
+      return;
+    }
+  }
+
+
+//   popup_status_btn.innerHTML =
+//     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-sm'></i>";
+
+//   document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+//     "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
+//   document.getElementById(`table-status-btn${order.order_id}`).disabled = true;
+
+//   popup_status_btn.disabled = true;
+//   document.getElementById("popup-status-cancel-btn").disabled = true;
+
+  data = {
+    garment_order_id: order.garment_order_id,
+    status: order_status,
+    order_id: order.order_id,
+  };
+
+  console.log(data);
+
+  $.ajax({
+    type: "POST",
+    url: change_status_endpoint,
+    data: data,
+    cache: false,
+    success: function (res) {
+      try {
+        // convet to the json type
+        console.log(res);
+        Jsondata = JSON.parse(res);
+
+        if (Jsondata.user) {
+            var successMsgElement = document.querySelector('.success-msg');
+            successMsgElement.innerHTML = "Order updated successfully";
+            successMsgElement.style.display = 'block';
+            setTimeout(function() {
+                successMsgElement.style.display = 'none';
+                location.reload();
+            }, 2000);
+        }else{
+            var successMsgElement = document.querySelector('.success-msg');
+                
+            successMsgElement.innerHTML = "There was an error updating the order";
+            
+            // successMsgElement.style.transition = 'all 1s ease-in-out';
+            
+            successMsgElement.style.display = 'block';
+            successMsgElement.style.backgroundColor = 'red';
+            setTimeout(function() {
+                successMsgElement.style.display = 'none';
+                location.reload();
+            }, 2000);
+        }
+      } catch (error) {
+        // popup_status_btn.innerHTML = "Update Status";
+        // document.getElementById(`table-status-btn${order.order_id}`).innerHTML =
+        //   "Update Status";
+        var successMsgElement = document.querySelector('.success-msg');
+                
+        successMsgElement.innerHTML = "There was an error updating the order";
+        
+        // successMsgElement.style.transition = 'all 1s ease-in-out';
+        
+        successMsgElement.style.display = 'block';
+        successMsgElement.style.backgroundColor = 'red';
+        setTimeout(function() {
+            successMsgElement.style.display = 'none';
+            location.reload();
+        }, 2000);
+
+      }
+    },
+    error: function (xhr, status, error) {
+        var successMsgElement = document.querySelector('.success-msg');
+                
+        successMsgElement.innerHTML = "There was an error updating the order";
+        
+        // successMsgElement.style.transition = 'all 1s ease-in-out';
+        
+        successMsgElement.style.display = 'block';
+        successMsgElement.style.backgroundColor = 'red';
+        setTimeout(function() {
+            successMsgElement.style.display = 'none';
+            location.reload();
+        }, 2000);
+    },
+  });
+}
+
+
+
 //close button
 closeViewBtn.addEventListener('click', closeView);
 
 //confirmation popup 
-document.querySelector(".update-btn").addEventListener('click', function (event) {
-    event.preventDefault();
+// document.querySelector(".update-btn").addEventListener('click', function (event) {
+//     event.preventDefault();
 
-    document.querySelector('.cu-popup').classList.add('is-visible');
-});
+//     document.querySelector('.cu-popup').classList.add('is-visible');
+// });
 
-document.querySelector('.cu-popup .no').addEventListener('click', function(){
-    updateConfirm.classList.remove('is-visible');
-});
+// document.querySelector('.cu-popup .no').addEventListener('click', function(){
+//     updateConfirm.classList.remove('is-visible');
+// });
 
 
 function openView(button) {
@@ -83,23 +317,39 @@ function openView(button) {
         });
 
 
-        //image slider
-
+        
+        
+        
+    //image slider
     const carouselImages = document.getElementById('carouselImages');
-    const imageCount = document.querySelector('.image-count');
+    // const imageCount = document.querySelector('.image-count');
 
     let images = [order.image1, order.image2];
     let currentImage = 0;
 
-    console.log(baseUrl+images[0]);
+    // console.log(baseUrl+images[0]);
 
 
 
-    images.forEach(image => {
-        var path = baseUrl + image;
-        var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
+    images.forEach((image, index) => {
+        var path =  '../uploads/designs/' + image;
+        console.log(path);
+        var imgHTML = document.createElement('img');
+        imgHTML.src = path;
+        imgHTML.style.transition = 'all 0.5s ease-in-out';
+        if(index==1){
+            imgHTML.classList.add('img2')
+            imgHTML.style.display = 'none';
+            // currentImage = 1;
+        }else{
+            imgHTML.classList.add('img1')
+            imgHTML.style.display = 'block';
+            // currentImage = 0;
+        }
+        // var imgHTML = `<img src="${path}" alt="Product Image" class="carousel-image">`;
         console.log(imgHTML);
-        carouselImages.innerHTML += imgHTML;
+        // carouselImages.innerHTML = imgHTML;
+        carouselImages.appendChild(imgHTML);
     });
 
     // imageCount.innerHTML = currentImage + 1/images.length;
@@ -109,42 +359,65 @@ function openView(button) {
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    // Add event listeners to carousel buttons
-    prevBtn.addEventListener('click', () => {
-        // Decrease currentImage index
-        currentImage--;
-        // If currentImage is less than 0, set it to the last image
-        if (currentImage < 0) {
-            currentImage = images.length - 1;
+    
+    nextBtn.addEventListener('click', (event) => {
+        // Increase currentImage index
+        event.preventDefault();
+        if(currentImage == 0){
+            document.querySelector('.img1').style.display = 'none';
+            document.querySelector('.img2').style.display = 'block';
+            currentImage = 1;
         }
-        updateCarousel();
     });
-
-    nextBtn.addEventListener('click', () => {
-        currentImage++;
-        if (currentImage >= images.length) {
+    
+    // Add event listeners to carousel buttons
+    prevBtn.addEventListener('click', (event) => {
+        // Decrease currentImage index
+        event.preventDefault();
+        if(currentImage == 1){
+            document.querySelector('.img2').style.display = 'none';
+            document.querySelector('.img1').style.display = 'block';
             currentImage = 0;
         }
-        updateCarousel();
     });
 
-    function updateCarousel() {
+    if(order.pdf == null){
+        document.querySelector('.update-form embed[name="design"]').style.display = 'none';
+        document.querySelector('.update-form .carousel').style.display = 'flex';
 
-        carouselImages.innerHTML = '';
-        carouselImages.innerHTML += `
-        <img src="<?php echo ROOT . '/' ?>${images[currentImage].image_url}" alt="Product Image-${images[currentImage].product_image_id}" class="carousel-image">
-    `;
-        // Update image count
-        // imageCount.innerHTML = currentImage + 1/images.length;
+        //download images when the button is clicked
+        document.querySelector('.download').addEventListener('click', function() {
+            var link = document.createElement('a');
+            [order.image1, order.image2].forEach(image => {
+
+                link.href = "/Project_Amoral/public/uploads/designs/" + order.image;
+                link.download = order.image;
+                document.body.appendChild(link);
+                link.click();
+            });
+            document.body.removeChild(link);
+        });
+    }else{
+        document.querySelector('.update-form embed[name="design"]').style.display = 'block';
+        document.querySelector('.update-form embed[name="design"]').src = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+        
+        //download the pdf when the button is clicked
+        document.querySelector('.download').addEventListener('click', function() {
+            var link = document.createElement('a');
+            link.href = "/Project_Amoral/public/uploads/designs/" + order.pdf;
+            link.download = order.pdf;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+        document.querySelector('.update-form .carousel').style.display = 'none';
     }
 
-    // Initial carousel update
-    updateCarousel();
 
-        popupView.classList.add("is-visible");
-        document.body.style.overflow = "hidden";
-        sidebar.style.pointerEvents = "none";
-        nav.style.pointerEvents = "none";
+    popupView.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
 
 }
 

@@ -28,28 +28,41 @@ class Orders extends Controller
             $column_names[7] = "orders.latitude";
             $column_names[8] = "orders.longitude";
             $column_names[9] = "orders.deliver_id";
+            $column_names[10]="users.address";
+            $column_names[11]="orders.is_delivery";
 
 
-            $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
+            $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id,'is_delivery'=>"1"], "users", "user_id", "id", $column_names);
+            $result2 = $order->find_withInner(['order_status' => "delivered",'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
 
-            // show($result);
+            if($result==false){
+                $result=[];
+            }
+            if($result2==false){
+                $result2=[];
+            }
+            
+            $result3=array_merge($result,$result2);
+            // show($result3);
+            $data['data'] = $result3;
+            // $data['delivered'] = $result2;
 
-            $data['data1'] = $result;
             // show($data);
             // if (isset($_POST['confirm']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            //     unset($_POST['confirm']);
-            //     $_POST['order_status'] = 'delivered';
+                //     unset($_POST['confirm']);
+                //     $_POST['order_status'] = 'delivered';
 
-            //     $order->update($_POST['order_id'], $_POST, 'order_id');
-            //     redirect('delivery/orders');
-
-            // }
-
-            // show($_POST);
-            
-
-
-
+                //     $order->update($_POST['order_id'], $_POST, 'order_id');
+                //     redirect('delivery/orders');
+                
+                // }
+                
+                // show($_POST);
+                
+                
+                
+                
+                // show($data);
 
 
             $this->view('delivery/orders', $data);

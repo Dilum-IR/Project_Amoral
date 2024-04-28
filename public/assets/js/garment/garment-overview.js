@@ -113,6 +113,7 @@ info_btn.addEventListener("click", function () {
   });
 });
 
+
 // sales initialize
 let salesCircularProgress = document.getElementById("total-sales"),
   salesProgressValue = document.getElementById("total-sales-num"),

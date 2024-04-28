@@ -82,6 +82,7 @@ class GarmentOrder
 	}
 
 
+	// find the garment order table current orders count
 	public function whereAndOR($data, $data_not = [])
 	{
 		$keys = array_keys($data);
@@ -96,15 +97,15 @@ class GarmentOrder
 
 		$quary = trim($quary, ",");
 		$quary .= " ) AND ";
-		
+
 		foreach ($keys as $key) {
 			$quary .= $key . " = :" . $key . " AND";
 		}
-		
+
 		$quary = trim($quary, " AND");
 
 		$data = array_merge($data);
 
-		return $this->quary($quary,$data);
+		return $this->quary($quary, $data);
 	}
 }

@@ -140,6 +140,18 @@ try {
           );
         }, 50);
         break;
+      case 4:
+        // popup when verification code sent
+        setTimeout(() => {
+          toastApply(
+            "Garment Registration ",
+            successData.success,
+            0
+          );
+        }, 50);
+
+        console.log(successData);
+        break;
 
       default:
         break;

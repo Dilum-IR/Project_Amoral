@@ -107,7 +107,7 @@
         <div class="btn-content">
 
             <div class="btn-1">
-                <a href="<?= ROOT ?>/guest" class="nav-sign-btn white-btn btn ">
+                <a href="<?= ROOT ?>/guest/new" class="nav-sign-btn white-btn btn ">
                     Sign Up for a Partnership</a>
 
             </div>

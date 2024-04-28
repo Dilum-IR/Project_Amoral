@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Customer</title>
+    <title>Manager</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/garment-orders.css">
@@ -117,10 +117,10 @@
                                         <?php $totQuantity = 0; ?>
 
                                         <?php foreach($data['garment_orders'] as $order): ?>
-                                            <?php if($order->garment_id == $garment->garment_id): ?>
+                                            <?php if($order->garment_id == $garment->garment_id && $order->status != 'canceled'): ?>
                                                 <p><?php $count++; ?></p>
                                                 <?php foreach($data['order_material'] as $order_material): ?>
-                                                    <?php if($order_material->order_id == $order->order_id): ?>
+                                                    <?php if($order_material->order_id == $order->order_id ): ?>
                                                         <!-- <?php $materials[] = $order_material; ?> -->
                                                         <?php $qty = $order_material->xs + $order_material->small + $order_material->medium + $order_material->large + $order_material->xl + $order_material->xxl; ?>
                                                         <!-- <?php $qtys[] = $qty ?> -->
@@ -227,13 +227,13 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Order Id</th>	
-                            <th>Garment Name</th>
-                            <th>Cutting Done On</th>
-                            <th>Sewing Done On</th>
-                            <th>Customer Order Id</th>
-                            <th>Status</th>
-                            <th></th>
+                            <th>Order Id  <i class='bx bx-down-arrow-circle'></i></th>	
+                            <th>Garment Name  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Cutting Done On  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Sewing Done On  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Customer Order Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th>Status  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th class="null"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -260,11 +260,11 @@
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                             <tr>
-                                <td><?php echo $order->garment_order_id ?></td>
+                                <td>G-ORD-<?php echo $order->garment_order_id ?></td>
                                 <td><?php echo $garment_name ?></td>
                                 <td><?php echo $order->cut_dispatch_date ?></td>
                                 <td><?php echo $order->sew_dispatch_date ?></td>
-                                <td><?php echo $order->order_id ?> </td>
+                                <td>ORD-<?php echo $order->order_id ?> </td>
                                 <td class="st">
                                     <?php
                                         switch ($order->status) {
@@ -274,8 +274,11 @@
                                             case 'company process':
                                                 $status = 'printing';
                                                 break;
+                                            case 'sent to garment':
+                                                $status = 'sent to stitch';
+                                                break;
                                             case 'returned':
-                                                $status = 'sewing';
+                                                $status = 'sent to stitch';
                                                 break;
                                             default:
                                                 $status = $order->status;
@@ -326,7 +329,7 @@
                         <p class="text"></p>
                     </li>
                     <li>
-                        <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                        <iconify-icon icon="fluent-mdl2:cut"></iconify-icon>
                         <div class="progress two">
 
                             <i class="uil uil-check"></i>
@@ -342,7 +345,7 @@
                         <p class="text"></p>
                     </li>
                     <li>
-                        <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                        <iconify-icon icon="game-icons:sewing-string"></iconify-icon>
                         <div class="progress four">
 
                             <!-- <i class="uil uil-check"></i> -->
@@ -366,11 +369,15 @@
             <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
-                        <span class="details">Order Id </span>
+                        <span class="details">Garment Order Id </span>
+                        <input name="garment_order_id" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Customer Order Id </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
 
-                    <div class="input-box"></div>
 
                     <div class="input-box">
                         <span class="details">Sewing Done On</span>
@@ -382,12 +389,18 @@
                         <input name="cut_dispatch_date" type="date" required onChange="" />
                     </div>
 
+                    <div class="input-box">
+                        <span class="details">Cutting Price(Rs.)</span>
+                        <input name="cut_price" type="text" required onChange="" readonly value="" />
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Sewing Price(Rs.)</span>
+                        <input name="sewed_price" type="text" required onChange="" readonly value="" />
+                    </div>
+
                 </div>
 
-                <hr class="second">
-
-                <div class="add card"></div>
-                
                 <hr class="second">
                 
                 <div class="user-details">
@@ -401,6 +414,13 @@
                         <input type="text" name="dispatch_date" required onChange="" readonly value="">
                     </div>
                 </div>
+
+                <hr class="second">
+
+                <h3>Materials & Quantities </h3>
+
+                <div class="add card"></div>
+                
                 <!-- hidden element -->
                 <div class="input-box">
                     <!-- <span class="details">Order Id </span> -->
@@ -411,13 +431,43 @@
 
                 <!-- <form method="POST" class="popup-view" id="popup-view"> -->
                 <input type="submit" class="update-btn pb" name="updateOrder" value="Update Order" />
-                <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button>
+                <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel Order</button> -->
                 <!-- </form> -->
 
 
             </form>
         </div>
     </div>
+
+    <script>
+        // ajax function for updating the order
+        $('.popup-view .update-btn').click(function(e) {
+            e.preventDefault();
+            var garment_order_id = $('.popup-view input[name="garment_order_id"]').val();
+            var cut_dispatch_date = $('.popup-view input[name="cut_dispatch_date"]').val();
+            var sew_dispatch_date = $('.popup-view input[name="sew_dispatch_date"]').val();
+
+            var order_id = $('.popup-view input[name="order_id"]').val();
+            var cut_price = $('.popup-view input[name="cut_price"]').val();
+            var sewed_price = $('.popup-view input[name="sewed_price"]').val();
+
+            $.ajax({
+                url: '<?= ROOT ?>/manager/updateGarmentOrder',
+                type: 'POST',
+                data: {garment_order_id: garment_order_id, cut_dispatch_date: cut_dispatch_date, sew_dispatch_date: sew_dispatch_date, order_id: order_id, cut_price: cut_price, sewed_price: sewed_price},
+                success: function(response) {
+                    console.log(response);
+                    sessionStorage.setItem('successMsg', 'Order updated successfully');
+                    sessionStorage.setItem('id', garment_order_id);
+                    location.reload();
+                }
+            });
+
+        });
+
+
+
+    </script>
 
     <div class="popup-set-deadline" id="popup-set-deadline">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->

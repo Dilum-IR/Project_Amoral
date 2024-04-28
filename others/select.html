@@ -1,125 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sri Lanka Districts</title>
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload and View Image</title>
+<script>
+function handleFileUpload(event) {
+  const fileInput = event.target;
+  const files = fileInput.files;
 
-      label {
-        margin-right: 10px;
-      }
+  if (files.length === 0) {
+    console.log('No file selected.');
+    return;
+  }
 
-      input {
-        padding: 8px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        outline: none;
-        transition: border-color 0.3s;
-      }
+  const file = files[0];
+  const reader = new FileReader();
 
-      input:hover,
-      input:focus {
-        border-color: #555;
-      }
+  reader.onload = function() {
+    // Save the image data to local storage
+    localStorage.setItem('uploadedImage', reader.result);
 
-      /* Style the dropdown options */
-      #districtDropdown {
-        display: none;
-        position: absolute;
-        width: 200px;
-        max-height: 150px;
-        overflow-y: auto;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
-        transition: max-height 0.3s;
-      }
+    // Display the saved image
+    const imgElement = document.getElementById('uploadedImage');
+    imgElement.src = reader.result;
+  };
 
-      #districtDropdown option {
-        padding: 8px;
-        cursor: pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <label for="districtInput">Type a District:</label>
-    <input id="districtInput" oninput="filterDistricts()" />
-    <select id="districtDropdown" size="5" onclick="selectDistrict()">
-      <!-- Options will be dynamically populated using JavaScript -->
-    </select>
+  // Read the file as data URL
+  reader.readAsDataURL(file);
+}
+</script>
+</head>
+<body>
 
-    <script>
-      const sriLankaDistricts = [
-        "Colombo",
-        "Gampaha",
-        "Kalutara",
-        "Kandy",
-        "Matale",
-        "Nuwara Eliya",
-        "Galle",
-        "Matara",
-        "Hambantota",
-        "Jaffna",
-        "Mannar",
-        "Vavuniya",
-      ];
+<!-- Input element for file selection -->
+<input type="file" accept="image/*" onchange="handleFileUpload(event)" />
 
-      const districtInput = document.getElementById("districtInput");
-      const districtDropdown = document.getElementById("districtDropdown");
+<!-- Container to display the uploaded image -->
+<img id="uploadedImage" alt="Uploaded Image" style="max-width: 100%; max-height: 300px;">
 
-      function filterDistricts() {
-        const input = districtInput.value.toLowerCase();
-
-        // Clear existing options
-        districtDropdown.innerHTML = "";
-
-        // Filter districts based on user input
-        const filteredDistricts = sriLankaDistricts.filter((district) =>
-          district.toLowerCase().includes(input)
-        );
-
-        if (input == " ") {
-          sriLankaDistricts.forEach((district) => {
-            const option = document.createElement("option");
-            option.value = district;
-            option.text = district;
-            selectElement.appendChild(option);
-          });
-        }
-
-        // Populate dropdown with matching districts
-        filteredDistricts.forEach((district) => {
-          const option = document.createElement("option");
-          option.value = district;
-          option.text = district;
-          districtDropdown.appendChild(option);
-        });
-
-        districtDropdown.style.maxHeight = filteredDistricts.length * 30 + "px";
-
-        // Show or hide the dropdown based on matching districts
-        districtDropdown.style.display =
-          filteredDistricts.length > 0 ? "block" : "none";
-      }
-
-      function selectDistrict() {
-        // Set the input value to the selected district
-        districtInput.value = districtDropdown.value;
-
-        // Hide the dropdown after selection
-        districtDropdown.style.display = "none";
-      }
-    </script>
-  </body>
-  
+</body>
 </html>

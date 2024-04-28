@@ -74,15 +74,15 @@ class Orders extends Controller
             foreach ($result as $item) {
 
                 // removed canceled orders
-                if ($item->status =='canceled') {
+                if ($item->status == 'canceled') {
                     unset($result[$i]);
-                }else{
-                    
+                } else {
+
                     $qty = 0;
                     $qty += $item->xs + $item->small + $item->medium + $item->large + $item->xl + $item->xxl;
                     $item->qty = $qty;
                     $item->id = $i;
-                    
+
                     // initially included data pass to the array
                     $item->mult_order = [
                         [
@@ -277,16 +277,17 @@ class Orders extends Controller
             // show($_POST);
 
             $garment_order_id = $_POST['garment_order_id'];
-       
+
             unset($_POST['garment_id']);
             unset($_POST['garment_order_id']);
+
+            $_POST['garment_cancelled'] = 1;
 
             // status update
             $garment_order->update($garment_order_id, $_POST, 'garment_order_id');
 
             $arr['user'] = true;
             echo json_encode($arr);
-
         } catch (\Throwable $th) {
             $arr['user'] = false;
 

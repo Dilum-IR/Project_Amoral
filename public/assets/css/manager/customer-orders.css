@@ -59,6 +59,7 @@ border-radius: 5px;
   z-index: 3;
   position: fixed;
   transition: all 0.5s ease-in-out;
+  
 }
 
 .breadcrumb {
@@ -272,7 +273,7 @@ input{
     background: ghostwhite;
     margin: 19px 32px;
     overflow-y: scroll;
-    max-height: 70vh;
+    max-height: 55vh;
 }
 
 table{
@@ -369,9 +370,28 @@ tr.hide td div{
   transition: .5s ease-in-out var(--delay);
 }
 
-tr.hide td *{
+tr.hide td *,
+tr.filter td *{
   visibility: hidden;
 }
+
+tr.filter{
+  opacity: 0;
+}
+
+tr.filter td,
+tr.filter td button,
+tr.filter td div{
+  padding: 0;
+  height: 0;
+  border: none;
+  margin: 0;
+  border-bottom: none;
+  font-size: 0;
+  transition: .5s ease-in-out;
+}
+
+
 
 tbody tr:hover{
   cursor: pointer;
@@ -415,6 +435,10 @@ tbody tr:hover{
   background-color: chocolate;
 }
 
+.text-status.sent.to.garment{
+  background-color: #a5b75d;
+}
+
 .text-status.sewing{
   background-color: #cf03c7;
 }
@@ -431,13 +455,45 @@ tbody tr:hover{
   background-color: #93cd0c;
 }
 
-.text-status.cancelled{
+.text-status.completed{
+  background-color: #0ccd93;
+}
+
+.text-status.canceled{
   background-color: #cf0303c7;
+}
+
+.filters{
+  margin: 19px 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+
+}
+
+.filters button{
+  padding: 10px 20px;
+  /* width: 200px; */
+  border: none;
+  border-radius: 5px;
+  background: #ecebef;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  border: 1px solid #d1d1d1;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.137);
+}
+
+.filters button.active{
+  background: #000000c2;
+  color: white;
 }
 
 .popup-view, 
 .popup-new{
-  
   position: fixed;
   z-index: 2; 
   left: 0;
@@ -600,6 +656,7 @@ textarea{
   font-size: 14px;
   font-weight: 600;
   color: #191919;
+  text-align: center;
 }
 
 /* Progress Div Css  */
@@ -755,6 +812,30 @@ form .user-details .input-box {
   margin-bottom: 10px;
   width: calc(100% / 2 - 20px);
   overflow: hidden;
+}
+
+.update-form .user-details .input-box.design{
+  top: -40px;
+  position: relative;
+  /* left: 45px; */
+}
+
+form .user-details .input-box .download{
+  position: relative;
+  bottom: 2px;
+  left: 50%;
+  /* width: 100%; */
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 form .user-details .input-box .addr {
@@ -970,7 +1051,11 @@ select {
 }
 
 .popup-view .input-box.placedDate {
-  margin-top: -180px;
+  margin-top: -70px;
+}
+
+.popup-view .input-box.emp {
+  margin-top: -190px;
 }
 
 hr.first {
@@ -1146,4 +1231,58 @@ hr.second {
   opacity: 1;
   height: auto;
   transition: opacity 1.3s ease-in-out, height 0.8s ease;
+}
+
+.payment{
+  width: 37%;
+  left: 55%;
+  position: relative;
+  align-content: center;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+  box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+  cursor: auto;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  /* display: none; */
+}
+
+.carousel-left-btn,
+.carousel-right-btn {
+  z-index: 1;
+  background-color: transparent;
+  font-size: large;
+  border: none;
+  font-weight: bolder;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-left-btn:hover,
+.carousel-right-btn:hover {
+  font-size: larger;
+
+}
+
+
+.carousel-image {
+  width: 400px;
+  height: 400px;
+  min-width: 400px;
+  min-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 0.5rem;
 }

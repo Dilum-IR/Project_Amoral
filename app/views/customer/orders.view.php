@@ -34,6 +34,8 @@
 
         <!-- content  -->
         <section id="main" class="main">
+            <div class="success-msg"> </div>
+
 
             <ul class="breadcrumb">
                 <li>
@@ -96,7 +98,7 @@
                                 ?>
                                     <tr>
                                         <td>
-                                            <?php if ($order->pay_type != "full" && $order->order_status != "cancelled") { ?>
+                                            <?php if ($order->pay_type != "full" && $order->order_status != "canceled") { ?>
                                                 <label class="custom-checkbox">
                                                     <!-- <input type="checkbox" /> -->
                                                     <input type="checkbox" onclick="selectRow(this,<?= $order->order_id ?>,<?= $order->total_price ?>,<?= $order->remaining_payment ?>,'<?= $order->pay_type ?>')">
@@ -160,7 +162,7 @@
 
                                             if ($order->pay_type == "full") {
                                             ?>
-                                                <h4 style='color:green'>Payed</h4>
+                                                <h4 style='color:green'>Paid</h4>
                                             <?php
 
                                             } else if ($order->remaining_payment != 0) {
@@ -225,8 +227,9 @@
             <div class="amount-container">
 
                 <h4 class="hint">
-                    You can select the orders after Pay for select orders. <br>
-                    ** Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
+                    You have to make the payment to proceed with the order. <br>
+                    You can select the orders and then pay for selected orders. <br>
+                    ** If your orders' total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
 
                 </h4>
 
@@ -297,9 +300,7 @@
 
             </div>
 
-        </section>
 
-    </div>
 
     <script>
         select_orders_amount = document.getElementById("select-orders-amount");
@@ -492,7 +493,7 @@
             if (id == 0) {
 
                 all_orders.forEach(function(element) {
-                    if (element.order_status != "cancelled" && element.pay_type != "full") {
+                    if (element.order_status != "canceled" && element.pay_type != "full") {
 
                         id_list.push(element.order_id);
 
@@ -797,7 +798,7 @@
 
                             <!-- <i class="uil uil-check"></i> -->
                         </div>
-                        <p class="text">Delivered</p>
+                        <p class="text">Completed</p>
                     </li>
 
                 </ul>
@@ -807,9 +808,24 @@
 
             <form class="update-form" method="POST">
                 <div class="user-details">
-                    <div class="input-box">
-                        <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                    <div class="input-box design">
+                        <button type="button" class="download">Download</button>
 
+                        <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; left: 13%; position: relative; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        
+                        <div class="carousel" >
+                            <button class="carousel-left-btn" id="prevBtn">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <div id="carouselImages" style="width: 50%; position: relative;">
+                                <!-- Carousel images will be populated here -->
+                                <img src="" class="img1" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="" class="img2" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <button class="carousel-right-btn" id="nextBtn">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="input-box">
                         <span class="details">Order ID </span>
@@ -968,32 +984,34 @@
                 <input type="button" class="update-btn pb" value="Update Order" />
                 <button type="button" class="cancel-btn pb">Cancel Order</button>
 
-                <div class="cu-popup" role="alert">
-                    <div class="cu-popup-container">
-                        <p>Are you sure you want to update this order?</p>
-                        <div class="cu-buttons">
-                            <input type="submit" class="yes" value="Yes" name="updateOrder" />
-                            <input type="button" class="no" value="No" />
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="cd-popup" role="alert">
-                    <div class="cd-popup-container">
-                        <p>Are you sure you want to cancel this order?</p>
-                        <div class="cd-buttons">
-                            <input type="submit" class="yes" value="Yes" name="cancelOrder" />
-                            <input type="button" class="no" value="No" />
-                        </div>
-
-                    </div>
-                </div>
         </div>
 
         </form>
     </div>
 
+
+    <script>
+        
+        // call the ajax function for updating the order when update order button is clicked
+        document.querySelector(".popup-view .update-btn").addEventListener('click', function(){
+            let updateOrderForm = document.querySelector(".popup-view .update-form");
+            let formData = new FormData(updateOrderForm);
+            var data = {};
+            for (var pair of formData.entries()) {
+                data[pair[0]] = pair[1];
+            }
+            this.setAttribute('data-order', JSON.stringify(data));
+            update_method(this);
+        });
+
+        // call the ajax function for cancelling the order when cancel order button is clicked
+        document.querySelector(".popup-view .cancel-btn").addEventListener('click', function(){
+            let updateOrderForm = document.querySelector(".popup-view .update-form");
+            let orderId = document.querySelector(".update-form input[name='order_id']").value;
+            cancel_method(orderId);
+        });
+        
+    </script>
 
 
 
@@ -1273,6 +1291,64 @@
             </form>
         </div>
     </div>
+
+    </section>
+
+</div>
+
+    <script>
+        // ajax for adding a new order
+        let newOrderForm = document.querySelector(".popup-new .new-form");
+        newOrderForm.addEventListener('submit', function(event){
+            event.preventDefault();
+            let noerrors = validateNewOrder();
+            console.log(noerrors);
+            if(noerrors){
+                let formData = new FormData(newOrderForm);
+                let xhr = new XMLHttpRequest();
+                console.log(formData);
+                xhr.open("POST", "<?php echo ROOT ?>/customer/newOrder", true);
+                xhr.onload = function() {
+                    if(this.status == 200) {
+                        console.log('response'+this.responseText);
+                        let response = JSON.parse(this.responseText);
+                        if (response == false) {
+                            // delay(10000);
+                            
+                            
+                            var successMsgElement = document.querySelector('.success-msg');
+                            successMsgElement.innerHTML = "Order placed successfully";
+                            successMsgElement.style.display = 'block';
+                            // delay(2000);
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                            
+                                
+
+                        }else{
+                            var successMsgElement = document.querySelector('.success-msg');
+                
+                            successMsgElement.innerHTML = "There was an error placing the order";
+                            
+                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                            
+                            successMsgElement.style.display = 'block';
+                            successMsgElement.style.backgroundColor = 'red';
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                }
+
+                xhr.send(formData);
+            }   
+        });
+
+    </script>
 
 
     <script>
@@ -1635,6 +1711,11 @@
         });
     </script>
 
+    
+    <script>
+        let update_order_endpoint = "<?php echo ROOT ?>/customer/updateOrder";
+        let cancel_endpoint = "<?php echo ROOT ?>/customer/cancelOrder";
+    </script>
 
     <script src="<?= ROOT ?>/assets/js/customer/customer-orders.js"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
@@ -1648,7 +1729,10 @@
 
     <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    <?php
+    include 'status_confirm_popup.php';
+    include 'delete_confirm_popup.php';
+    ?>
 
 </body>
 

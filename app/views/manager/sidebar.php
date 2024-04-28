@@ -1,6 +1,5 @@
 <div class="sidebar">
 
-
         <div class="logo_details">
             <img src="<?=ROOT?>/assets/images/manager/amoral80.png" class="logo_icon">
             <i class="bx bx-menu" id="btn"></i>
@@ -65,9 +64,9 @@
             <li>
                 <a href="<?=ROOT?>/manager/reports">
                     <i class="bx bxs-message-alt-error"></i>
-                    <span class="link_name">Reports & Messages</span>
+                    <span class="link_name">Complaints</span>
                 </a>
-                <span class="tooltip">Reports & Messages</span>
+                <span class="tooltip">Complaints</span>
             </li>
             <li>
                 <a href="<?=ROOT?>/manager/profile">

@@ -11,6 +11,11 @@
 </head>
 <body>
 
+    <?php
+    // include "loading.php";
+    include __DIR__ . '/../utils/toastMsg.php';
+    ?>
+
     <?php include_once 'sidebar.php' ?>
     <?php include_once 'navigationbar.php' ?>
 
@@ -41,7 +46,7 @@
                     <thead>
                         <tr>
                             <th>Order Id  <i class='bx bx-down-arrow-circle'></i></th>
-                            <th>User Id  <i class='bx bx-down-arrow-circle'></i></th>
+                            <!-- <th>User Id  <i class='bx bx-down-arrow-circle'></i></th> -->
                             <th>Printing Type  <i class='bx bx-down-arrow-circle'></i></th>
                             <th>Material(s) <i class='bx bx-down-arrow-circle'></i></th>
                             <th>Quantity  <i class='bx bx-down-arrow-circle'></th>
@@ -51,55 +56,67 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $x = 0; ?>
                         <?php if(!empty($data['orders'])): ?>
                             <?php foreach($data['orders'] as $order): ?>
-                            
-                                <?php $material = array(); ?>
-                            <tr>
-                                <td class="ordId"><?php echo $order->order_id; ?></td>
-                                <td><?php echo $order->user_id; ?></td>
-                                <td>
-                                    <?php foreach($data['printing_types'] as $ptype): 
-                                        if($order->order_id == $ptype->order_id): ?>
-                                            <?php echo $ptype->printing_type; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                </td>
-                                <td>
-                                    <?php $material_types = array(); ?>
-                                    <?php foreach($data['material_sizes'] as $sizes):?>
-                                        <?php if($sizes->order_id == $order->order_id) :?>
-                                            <?php $material[] = $sizes;?>
-                                            <?php $material_types[] = $sizes->material_type; ?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
-                                    <?php $distinct_types = array_unique($material_types); ?>
-                                    <?php foreach($distinct_types as $type): ?>
-                                        <?php echo $type; ?><br>
-                                    <?php endforeach; ?>
-                                </td>
-                                <td class="desc">
-                                    <?php $total = 0; ?>
-                                    <?php foreach($data['material_sizes'] as $sizes):?>
-                                        <?php if($sizes->order_id == $order->order_id) :?>
-                                            <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
-                                    <?php echo $total; ?>
-                                </td>
-                                <td><?php echo $order->dispatch_date ?></td>
-                                <td class="st">
-                                    <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                    <div class="progress-bar"></div>
-                                </td>
-                            
-                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
-                                <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                            </tr>
+                                <?php if($order->order_id !== null && ($order->status == 'sent to company')): ?>
+                                    <?php $x++; ?>
+                                    
+                                    <?php $material = array(); ?>
+                                <tr>
+                                    <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
+                                    <!-- <td><?php echo $order->user_id; ?></td> -->
+                                    <td>
+                                        <?php foreach($data['printing_types'] as $ptype): 
+                                            if($order->order_id == $ptype->order_id ): ?>
+                                                <?php echo $ptype->printing_type; ?>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </td>
+                                    <td>
+                                        <?php $material_types = array(); ?>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                                <?php $material[] = $sizes;?>
+                                                <?php $material_types[] = $sizes->material_type; ?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                        <?php $distinct_types = array_unique($material_types); ?>
+                                        <?php foreach($distinct_types as $type): ?>
+                                            <?php echo $type; ?><br>
+                                        <?php endforeach; ?>
+                                    </td>
+                                    <td class="desc">
+                                        <?php $total = 0; ?>
+                                        <?php foreach($data['material_sizes'] as $sizes):?>
+                                            <?php if($sizes->order_id == $order->order_id) :?>
+                                                <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
+                                            <?php endif;?>
+                                        <?php endforeach;?>
+                                        <?php echo $total; ?>
+                                    </td>
+                                    <td><?php echo $order->dispatch_date ?></td>
+                                    <td class="st">
+                                        <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
+                                        <div class="progress-bar"></div>
+                                    </td>
+                                
+                                    <td>
+                                        <button type="submit" name="selectItem" class="view-order-btn" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button>
+                                        <button type="submit" name="selectItem" class="update-btn" id="table-status-btn<?= $order->order_id ?>" data-order='<?= json_encode($order); ?>' onclick="status_update_method(this)">Update Status</button>
+                                    
+                                    </td>
+                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                                </tr>
 
-                            
-                        
+                                
+                                <?php endif; ?>	
                             <?php endforeach; ?>
+                            <?php if($x == 0): ?>
+                                <tr>
+                                    <td colspan="8">No orders to display</td>
+                                </tr>
+                            <?php endif; ?>
                         <?php else: ?>
                             <tr>
                                 <td colspan="8">No orders to display</td>
@@ -110,9 +127,8 @@
             </div>
         </div>
 
-    </section>
-
-    <div class="popup-view" id="popup-view">
+        
+        <div class="popup-view" id="popup-view">
         <!-- <button type="button" class="update-btn pb">Update Order</button> -->
         <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
         <div class="popup-content">
@@ -122,11 +138,15 @@
         <form class="update-form" method="POST">
                 <div class="user-details">
                     <div class="input-box">
-                        <div class="carousel">
+                        <button type="button" class="download">Download</button>
+
+                        <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        
+                        <div class="carousel" >
                             <button class="carousel-left-btn" id="prevBtn">
                                 <i class="fas fa-arrow-left"></i>
                             </button>
-                            <div id="carouselImages">
+                            <div id="carouselImages" style="width: 50%; left: -90px; position: relative;">
                                 <!-- Carousel images will be populated here -->
                             </div>
                             <button class="carousel-right-btn" id="nextBtn">
@@ -149,7 +169,7 @@
                     <input name="order_status" type="hidden" required onChange="" readonly value="" />
 
                 </div>
-
+                
                 <div class="add card"></div>
 
                 <hr class="second">
@@ -188,35 +208,25 @@
                         <input type="text" name="dispatch_date_pickup" >
                     </div>
                 </div>     
-
-                <hr class="second">
-
-                
-
-                <input type="button" class="update-btn pb"  value="Start Printing" />
-
-                <div class="cu-popup" role="alert">
-                    <div class="cu-popup-container">
-                        <p>Are you sure you want to start printing process?</p>
-                        <div class="cu-buttons">
-                            <input type="submit" class="yes"  value="Yes" name="updateOrder"/>
-                            <input type="button" class="no" value="No"/>
-                        </div>
-                        
-                    </div> 
-                </div> 
                 
             </div>
         </form>
     </div>
+</section>
 
     <script>
-        var baseUrl = "<?php echo ROOT . '/uploads/designs/'; ?>";
+        // var baseUrl = "<?php echo ROOT . '/uploads/designs/'; ?>";
+        var change_status_endpoint = "<?php echo ROOT . '/manager/updateOrderStatus'; ?>";
     </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/manager/printingprocess.js"></script>
-    
+        <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
+    <?php
+    include 'status_confirm_popup.php'
+    ?>
 </body>
 </html>
