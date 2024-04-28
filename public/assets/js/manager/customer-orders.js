@@ -523,7 +523,7 @@ function openView(button) {
         const material = JSON.parse(materialData);
         const customers = JSON.parse(customersData);
         let employee = '';
-        if(garmentOrderData){
+        if(order.order_status != 'pending' && garmentOrderData){
             const garmentOrders = JSON.parse(garmentOrderData);
             const gOrder = garmentOrders.find(ord => ord.order_id == order.order_id);
             console.log(gOrder);

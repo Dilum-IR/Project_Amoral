@@ -286,6 +286,7 @@ function clearErrorMsg(form) {
 }
 
 function removeActiveClass() {
+  progress1.classList.remove("cancel");
   progress2.classList.remove("active");
   progress3.classList.remove("active");
   progress4.classList.remove("active");
@@ -313,12 +314,14 @@ function openView(button) {
       case "sent to garment":
       case "sewing":
       case "sewed":
+          progress1.nextElementSibling.innerHTML = "Pending";
           progress2.classList.add("active");
           progress3.nextElementSibling.innerHTML = "Delivering";
 
           break;
 
       case "delivering":
+        progress1.nextElementSibling.innerHTML = "Pending";
         progress2.classList.add("active");
         progress3.classList.add("active");
         progress3.nextElementSibling.innerHTML = "Delivering";
@@ -326,12 +329,14 @@ function openView(button) {
         break;
 
       case "delivered":
+        progress1.nextElementSibling.innerHTML = "Pending";
         progress2.classList.add("active");
         progress3.classList.add("active");
         progress3.nextElementSibling.innerHTML = "Delivered";
         break;
 
       case "completed":
+        progress1.nextElementSibling.innerHTML = "Pending";
         progress2.classList.add("active");
         progress3.classList.add("active");
         progress4.classList.add("active");
@@ -339,6 +344,7 @@ function openView(button) {
 
       case "canceled":
         progress1.classList.add("cancel");
+        progress1.nextElementSibling.innerHTML = "Cancelled";
         break;
     }
 
@@ -962,112 +968,163 @@ function initMap(){
     var map1;
     var map2;
   
+// Define the center coordinates and the radius
+
+    var center = { lat: 5.9497, lng: 80.5353 };
+    var radius = 100000; // Replace with your actual radius in meters
+
     map1 = new google.maps.Map(document.getElementById("new-order-map"), {
-      // Initial center coordinates
-      center: {
-        // Sri lanka middle lat lang
-        lat: 7.7072567,
-        lng: 80.6534611,
-      },
-      zoom: 7,
+        center: center,
+        zoom: 7,
     });
 
     map2 = new google.maps.Map(document.getElementById("view-order-map"), {
-      // Initial center coordinates
-      center: {
-        // Sri lanka middle lat lang
-        lat: 7.7072567,
-        lng: 80.6534611,
-      },
-      zoom: 7,
+        center: center,
+        zoom: 7,
+    });
+
+    // Add a circle to each map
+    [map1, map2].forEach((map, index) => {
+        var circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            // fillColor: '#FF0000',
+            // fillOpacity: 0.35,
+            map: map,
+            center: center,
+            radius: radius,
+        });
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+      
+              // Set the map's center to the user's current location
+              map.setCenter(pos);
+              // map2.setCenter(pos);
+              
+              map.setZoom(15);
+              // map2.setZoom(15);
+      
+              // Add a marker at the user's current location
+              marker1 = new google.maps.Marker({
+                position: pos,
+                map: map,
+                title: "Your Location",
+              });
+    
+            },
+            function () {
+              handleLocationError(true, map.getCenter());
+              // handleLocationError(true, map2.getCenter());
+            }
+          );
+        } else {
+          handleLocationError(false, map.getCenter());
+          // handleLocationError(false, map2.getCenter());
+        }
+
+        circle.addListener("click", function (event) {
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+          if (distance <= circle.getRadius()) {
+            if (marker1) {
+              marker1.setMap(null);
+            }
+
+
+        
+            // Get the clicked location's latitude and longitude
+            var latitude = event.latLng.lat();
+            var longitude = event.latLng.lng();
+        
+            console.log(latitude);
+        
+            marker1 = new google.maps.Marker({
+              position: {
+                lat: latitude,
+                lng: longitude,
+              },
+              map: map,
+            });
+        
+  
+          }
+    
+        });
+
+        if(index == 0){
+          document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-new input[name="longitude"]').value = longitude;  
+        }else{
+          document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+        }
     });
   
     // set the marker initial time user current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-  
-          // Set the map's center to the user's current location
-          map1.setCenter(pos);
-          // map2.setCenter(pos);
-          
-          map1.setZoom(15);
-          // map2.setZoom(15);
-  
-          // Add a marker at the user's current location
-          marker1 = new google.maps.Marker({
-            position: pos,
-            map: map1,
-            title: "Your Location",
-          });
-
-        },
-        function () {
-          handleLocationError(true, map1.getCenter());
-          // handleLocationError(true, map2.getCenter());
-        }
-      );
-    } else {
-      handleLocationError(false, map1.getCenter());
-      // handleLocationError(false, map2.getCenter());
-    }
+    
   
     // add the location lat lang for this object
     var selectedLocation;
   
     // Add a click event listener to the map
     
-    map1.addListener("click", function (event) {
-      if (marker1) {
-        marker1.setMap(null);
-      }
-  
-      // Get the clicked location's latitude and longitude
-      var latitude = event.latLng.lat();
-      var longitude = event.latLng.lng();
-  
-      console.log(latitude);
-  
-      marker1 = new google.maps.Marker({
-        position: {
-          lat: latitude,
-          lng: longitude,
-        },
-        map: map1,
-      });
-  
-      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
-      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
-    });
-
-    map2.addListener("click", function (event) {
-      if (marker2) {
-        marker2.setMap(null);
-      }
-  
-      // Get the clicked location's latitude and longitude
-      var latitude = event.latLng.lat();
-      var longitude = event.latLng.lng();
-  
-      console.log(latitude);
-  
-      marker2 = new google.maps.Marker({
-        position: {
-          lat: latitude,
-          lng: longitude,
-        },
-        map: map2,
-      });
-  
-      document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-      document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-    });
+    // map1.addListener("click", function (event) {
+    //   var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+    //   if (distance <= circle.getRadius()) {
+    //     if (marker1) {
+    //       marker1.setMap(null);
+    //     }
     
-    // marker1.addListener("click", function () {
+    //     // Get the clicked location's latitude and longitude
+    //     var latitude = event.latLng.lat();
+    //     var longitude = event.latLng.lng();
+    
+    //     console.log(latitude);
+    
+    //     marker1 = new google.maps.Marker({
+    //       position: {
+    //         lat: latitude,
+    //         lng: longitude,
+    //       },
+    //       map: map1,
+    //     });
+    
+    //     document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+    //     document.querySelector('.popup-new input[name="longitude"]').value = longitude;    
+    //   }
+
+    // });
+
+    // map2.addListener("click", function (event) {
+    //   if (marker2) {
+    //     marker2.setMap(null);
+    //   }
+  
+    //   // Get the clicked location's latitude and longitude
+    //   var latitude = event.latLng.lat();
+    //   var longitude = event.latLng.lng();
+  
+    //   console.log(latitude, longitude);
+  
+    //   marker2 = new google.maps.Marker({
+    //     position: {
+    //       lat: latitude,
+    //       lng: longitude,
+    //     },
+    //     map: map2,
+    //   });
+  
+    //   document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+    //   document.querySelector('.popup-view input[name="longitude"]').value = longitude;
+    // });
+    
+    // // marker1.addListener("click", function () {
     //   infoWindow.open(map1, marker1);
     // });
 
@@ -1092,4 +1149,3 @@ function handleLocationError(browserHasGeolocation, pos) {
     infoWindow.open(map, marker);
   });
 }
-

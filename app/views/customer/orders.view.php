@@ -227,8 +227,9 @@
             <div class="amount-container">
 
                 <h4 class="hint">
-                    You can select the orders after Pay for select orders. <br>
-                    ** Your orders total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
+                    You have to make the payment to proceed with the order. <br>
+                    You can select the orders and then pay for selected orders. <br>
+                    ** If your orders' total price is grater than Rs. 100,000.00 then you can pay the half payment. And after you must pay the remain payment.
 
                 </h4>
 
