@@ -1,5 +1,4 @@
 <div class="sidebar">
-
     <div class="logo_details">
         <img src="<?= ROOT ?>/assets/images/manager/amoral80.png" class="logo_icon">
         <i class="bx bx-menu" id="btn"></i>

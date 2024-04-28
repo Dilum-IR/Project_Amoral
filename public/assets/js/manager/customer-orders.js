@@ -509,17 +509,30 @@ function openView(button) {
     const orderData = button.getAttribute("data-order");
     const materialData = button.getAttribute("data-material");
     const customersData = button.getAttribute("data-customers");
-
+    const garmentOrderData = button.getAttribute("data-g-orders");
+    const employeeData = button.getAttribute("data-emp");
 
     console.log(materialData);
-
+    
     removeActiveClass();
-
+    
     if (orderData) {
         // Parse the JSON data
         const order = JSON.parse(orderData);
+        console.log(order);
         const material = JSON.parse(materialData);
         const customers = JSON.parse(customersData);
+        let employee = '';
+        if(order.order_status != 'pending' && garmentOrderData){
+            const garmentOrders = JSON.parse(garmentOrderData);
+            const gOrder = garmentOrders.find(ord => ord.order_id == order.order_id);
+            console.log(gOrder);
+            if(employeeData){
+                const employees = JSON.parse(employeeData);
+                employee = employees.find(emp => emp.emp_id == gOrder.emp_id);  
+                console.log(employee);   
+            }
+        }
 
         switch (order.order_status) {
             case 'cutting' :
@@ -758,6 +771,9 @@ function openView(button) {
             document.querySelectorAll(".popup-view .st").forEach(input => {
                 input.setAttribute("disabled", "disabled");
             });
+
+            // update employee input field
+            document.querySelector('.update-form input[name="emp_id"]').value = 'EMP-' + employee.emp_id + ' - ' + employee.emp_name;
         }else{
             document.querySelectorAll(".popup-view .st").forEach(input => {
                 input.removeAttribute("disabled");
@@ -876,12 +892,12 @@ function openView(button) {
                 var link = document.createElement('a');
                 [order.image1, order.image2].forEach(image => {
         
-                    link.href = "/Project_Amoral/public/uploads/designs/" + order.image;
-                    link.download = order.image;
+                    link.href = "/Project_Amoral/public/uploads/designs/" + image;
+                    link.download = image;
                     document.body.appendChild(link);
                     link.click();
+                    document.body.removeChild(link);
                 });
-                document.body.removeChild(link);
             });
         }else{
             document.querySelector('.update-form embed[name="design"]').style.display = 'block';
@@ -1301,9 +1317,9 @@ function change_order_status(tap = "popup"){
 
 var orderId;
 
-function cancel_method(orderId){
+function cancel_method(ordId){
     delete_confirm_popup.style.display = "block";
-    orderId = orderId;
+    orderId = ordId;
     console.log(orderId);
 }
 

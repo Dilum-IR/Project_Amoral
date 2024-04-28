@@ -23,6 +23,10 @@ route('customer/profile', 'customer/Profile@index');
 route('customer/quotation', 'customer/Quotation@index');
 route('customer/customer-orders', 'customer/customerOverview@index');
 
+// customer ajax calling endpoints
+route('customer/newOrder', 'customer/customerOrders@newOrder');
+route('customer/updateOrder', 'customer/customerOrders@updateOrder');
+route('customer/cancelOrder', 'customer/customerOrders@cancelOrder');
 
 // customer ajax chat endpoint
 route('customer/saveMsg', 'customer/customerOverview@saveMsg');
@@ -122,7 +126,7 @@ route('guest/new','guest/Guest_update@index');
 
 route('tool', 'tool/Tool@index');
 
-route('collection', 'collection/Collection@Index');
+route('collection', 'collection/DesignCollection@index');
 
 route('404', '_404@index');
 route('failure', 'ServerError@index');

@@ -14,6 +14,7 @@ class CustomerOrders extends Controller
         $material_printingType = new MaterialPrintingType;
         $printingType = new PrintingType;
         $garment_order = new GarmentOrder;
+        $employee = new Employee;
 
         if ($username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
 
@@ -22,13 +23,15 @@ class CustomerOrders extends Controller
 
             $data['orders'] = $order->findAll('order_id');
             $data['customers'] = $customer->findAll();
+            $data['customer_and_garment_orders'] = $order->findAll_withLOJ('garment_order', 'order_id', 'order_id');
             $data['material_sizes'] = $order->getFullData();
             $data['materials'] = $materials->getMaterialNames();
             $data['material_prices'] = $materials->findAll('stock_id');
             $data['sleeveType'] = $sleeveType->findAll('sleeve_id');
             $data['material_printingType'] = $material_printingType->getFullData();	
             $data['printingType'] = $printingType->findAll('ptype_id');
-            
+            $data['employee'] = $employee->findAll('emp_id');
+            // show($data);
             $this->view('manager/customerorders', $data);
 
             

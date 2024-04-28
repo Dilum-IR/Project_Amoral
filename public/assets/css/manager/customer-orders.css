@@ -1051,7 +1051,11 @@ select {
 }
 
 .popup-view .input-box.placedDate {
-  margin-top: -180px;
+  margin-top: -70px;
+}
+
+.popup-view .input-box.emp {
+  margin-top: -190px;
 }
 
 hr.first {

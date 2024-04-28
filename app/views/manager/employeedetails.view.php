@@ -87,7 +87,9 @@
 
                                     <tr>
                                         <td class="ordId"><?php echo $emp->emp_id ?></td>
-                                        <td><?php echo $emp->emp_image ?></td>
+                                        <!-- <td><?php echo $emp->emp_image ?></td> -->
+                                        <td><img style="border-radius: 50px; border:none;" src="<?= ROOT ?>/uploads/profile_img/Employee/<?php echo $emp->emp_image ?>" ></td>
+
                                         <td><?php echo $emp->emp_name ?></td>
                                         <td><?php echo $emp->email ?></td>
                                         <td><?php echo $emp->contact_number ?> </td>
@@ -100,7 +102,7 @@
 
                                         <td style="word-break:normal;">
                                             <div class="view-remove-buttons">
-                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button>
+                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?> 'data-dl='<?= json_encode($dl); ?>' onclick="openView(this)">View</button>
                                                 <form method="POST">
                                                     <input type="hidden" name="emp_id" value="<?php echo $emp->emp_id ?>">
                                                     <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>
@@ -151,7 +153,7 @@
                 </div>
 
                 <div class="profile-image">
-                    <img src="<?= ROOT ?>/assets/images/home/4.jpg" alt="" width="200px" height="200px" style="border-radius: 50%;">
+                    <img src="" name="emp_image" alt="" width="200px" height="200px" style="border-radius: 50%;">
                 </div>
 
                 <div class="user-details">
@@ -163,9 +165,14 @@
 
                     <div class="input-box">
                         <span class="details">Employee Name </span>
-
                         <input type="text" required onChange="" value="" name="emp_name" />
                     </div>
+
+                    <div class="input-box">
+                        <span class="details">NIC </span>
+                        <input type="text" required onChange="" value="" name="nic" />
+                    </div>
+
 
                     <div class="input-box">
                         <span class="details">Profession</span>
@@ -199,7 +206,7 @@
 
                     <div class="input-box">
                         <span class="details">Contact Number</span>
-                        <input type="text" required onChange="" value="0766464639" name="contact_number" />
+                        <input type="text" required onChange="" value="" name="contact_number" />
                     </div>
 
 
@@ -221,12 +228,17 @@
 
         <div class="popup-content">
             <h2>Add new Employee</h2>
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form">
                     <div class="input-box">
                         <span class="details">Employee Name</span>
                         <input class="new-emp-details" type="text" name="emp_name" placeholder="Enter name" required>
                         <!-- <label class="placeholder" for="input">Enter text here...</label> -->
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">NIC</span><br>
+                        <input class="new-emp-details" type="text" name="nic" placeholder="Enter NIC Number" required>
                     </div>
 
                     <div class="input-box">
@@ -283,9 +295,34 @@
                         <input disabled class="new-emp-details" type="text" name="day_capacity" placeholder="Enter Day Capacity" required>
                     </div>
 
+                 
+                    <div class="input-box">
+                        <span class="details">Vehicle Type</span><br>
+                        <select id="vehicle" disabled class="new-emp-details" name="vehicle_type" >
+                            <option value="van">Van</option>
+                            <option value="lorry">Lorry</option>
+                            <option value="three-wheel">Three Wheel</option>
+                            <option value="bike">Bike</option>
+                        </select>
+                    </div>
+
+                       <div class="input-box" id="vehicle-no" style="display: none;">
+                        <span class="details">Vehicle Number</span><br>
+                        <input disabled class="new-emp-details" type="text" name="vehicle_number" placeholder="Vehicle Number" required>
+                    </div>
+
+
+
+
+                    <div class="input-box" id="max-capacity" style="display: none;">
+                        <span class="details">Max Capacity</span><br>
+                        <input disabled class="new-emp-details" type="text" name="max_capacity" placeholder="Enter Max Capacity" required>
+                    </div>
+
+
                     <div class="input-box">
                         <span class="details">Upload an Image</span><br>
-                        <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image" placeholder="Enter Address" required>
+                        <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image"  required>
                     </div>
 
                 </div>

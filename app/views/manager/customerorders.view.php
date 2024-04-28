@@ -87,7 +87,7 @@
                     <tbody>
                         <?php if(!empty($data['orders'])): ?>
                             <?php foreach($data['orders'] as $order): ?>
-                            
+                                
                                 <?php $material = array(); ?>
                             <tr>
                                 <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
@@ -128,7 +128,7 @@
                                     <div class="progress-bar"></div>
                                 </td>
                             
-                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
+                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' data-g-orders='<?= json_encode($data['customer_and_garment_orders']); ?>' data-emp='<?= json_encode($data['employee']); ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
                                 <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                             </tr>
 
@@ -243,6 +243,13 @@
                     <div class="input-box">
                         <span class="details">Order ID </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box" style="height: 0;">
+
+                    </div>
+                    <div class="input-box emp">
+                        <span class="details">Assigned Employee  </span>
+                        <input name="emp_id" type="text" onChange="" readonly value="Not Yet Assigned" />
                     </div>
                     <div class="input-box" style="height: 0;">
 
