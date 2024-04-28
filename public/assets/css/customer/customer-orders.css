@@ -39,11 +39,11 @@ body {
 
 #main {
   position: absolute;
-  top: 78px;
+  top: 64px;
   width: calc(100% - 78px);
   height: max-content;
   left: 78px;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   transition: all 0.5s ease;
   z-index: 2;
   border-radius: 50px;
@@ -53,6 +53,19 @@ body {
 #main.open {
   left: 250px;
   width: calc(100% - 250px);
+}
+
+.success-msg {
+  width: 100%;
+  display: none;
+  background: rgb(42, 193, 42);
+  padding: 7px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 3;
+  position: fixed;
+  transition: all 0.5s ease-in-out;
+  
 }
 
 .breadcrumb {
@@ -488,6 +501,8 @@ tbody tr:hover {
   width: 60%; /* Could be more or less, depending on screen size */
   border-radius: 8px;
   transition: all 0.3s ease-in-out;
+  overflow-y: scroll;
+  max-height: 85%;
 }
 
 .popup-report .popup-content {
@@ -808,6 +823,30 @@ form .user-details .input-box {
   margin-bottom: 10px;
   width: calc(100% / 2 - 20px);
   overflow: hidden;
+}
+
+.update-form .user-details .input-box.design{
+  top: 0px;
+  position: relative;
+  /* left: 45px; */
+}
+
+form .user-details .input-box .download{
+  position: relative;
+  bottom: 2px;
+  left: 50%;
+  /* width: 100%; */
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 form .user-details .input-box .addr {
@@ -1330,4 +1369,46 @@ hr.second {
 
 #pay:disabled {
   background-color: #00d10075 !important;
+}
+
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  /* display: none; */
+}
+
+.carousel-left-btn,
+.carousel-right-btn {
+  z-index: 1;
+  background-color: transparent;
+  font-size: large;
+  border: none;
+  font-weight: bolder;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-left-btn:hover,
+.carousel-right-btn:hover {
+  font-size: larger;
+
+}
+
+
+.carousel-image {
+  width: 400px;
+  height: 400px;
+  min-width: 400px;
+  min-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-top: 0.5rem;
 }
