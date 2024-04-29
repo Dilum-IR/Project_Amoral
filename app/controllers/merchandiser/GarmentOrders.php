@@ -43,6 +43,7 @@ class GarmentOrders extends Controller
         }
     }
 
+
     public function updateOrder(){
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 

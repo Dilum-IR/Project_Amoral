@@ -5,6 +5,7 @@ let nav = document.querySelector('nav');
 
 function openView(button){
     const driverId = button.getAttribute('data-id');
+    var capacity = button.getAttribute('data-capacity');
     console.log(driverId);
     document.querySelector(".popup-view input[name='deliver_id']").value = driverId;
     let existingCards = document.querySelectorAll('.orders-container .order');
@@ -23,7 +24,7 @@ function openView(button){
         });
     }
 
-    addCurrentOrders(driverId);
+    addCurrentOrders(driverId, capacity);
     var map1;
     
   
@@ -92,7 +93,7 @@ function addOrderCards(orderId){
     }
     details.innerHTML = `
         <h5>Order ID: <input name="order_id[]" readonly value="${order.order_id}"></h5>
-        <p>City: ${order.city}</p>
+        <p>Delivery Date: ${order.dispatch_date}</p>
         <p>Quantity: ${tot}</p>
     `;
 
@@ -114,17 +115,24 @@ function addOrderCards(orderId){
 
 
 // display orders of the selected driver in the popup
-function addCurrentOrders(deliverId){
+function addCurrentOrders(deliverId, cap){
     if(assignedOrders==false){
         document.querySelector('.orders-container').innerText = 'No orders assigned';
     }else{
         assignedOrders = assignedOrders.filter(order => order.deliver_id === deliverId);
-        document.querySelector('.currentOrders').innerHTML += assignedOrders.length;
+        let sizes = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+        var sumsizes = 0;
+        sizes.forEach(size => {
+            sumsizes += assignedOrders.reduce((acc, order) => acc + parseInt(order[size]), 0);
+        });
+        console.log(cap);
+        document.querySelector('.remainCapacity').innerHTML = parseInt(cap) - 0.4 * sumsizes + ' Kg';
+        document.querySelector('.currentOrders').innerHTML = assignedOrders.length;
         console.log(assignedOrders);
         assignedOrders.forEach(order => {
             if(order.deliver_id === deliverId){
                 var sizeArr = sizes.filter(size => size.order_id === order.order_id);
-
+                
                 let currentOrder = document.createElement('div');
                 currentOrder.classList.add('order');
                 currentOrder.classList.add(`order-${deliverId}`);
@@ -134,6 +142,7 @@ function addCurrentOrders(deliverId){
                     // console.log(size);
                     tot += parseInt(sizeArr[i].xs) + parseInt(sizeArr[i].small) + parseInt(sizeArr[i].medium) + parseInt(sizeArr[i].large) + parseInt(sizeArr[i].xl) + parseInt(sizeArr[i].xxl);  
                 }
+                
                 currentOrder.innerHTML = `
                     <div>        
                         <h5>Order ID: <input name="order_id[]" readonly value="${order.order_id}"></h5>
@@ -226,6 +235,7 @@ drivers.forEach(driver => {
         document.querySelector('.emp-details .name').innerHTML = driverDetails.emp_name;
         document.querySelector('.emp-details .vehicle').innerHTML = driverDetails.vehicle_type;
         document.querySelector('.emp-details .capacity').innerHTML = `${driverDetails.max_capacity} Kg`;
+        document.querySelector('.emp-details .view-btn').setAttribute('data-capacity', driverDetails.max_capacity);
 
         var iconClass;
         switch (driverDetails.vehicle_type) {

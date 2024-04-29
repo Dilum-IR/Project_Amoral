@@ -28,7 +28,10 @@ class Order
         'is_delivery',
         'latitude',
         'longitude',
-        'deliver_id'
+        'deliver_id',
+        'pay_type',
+        'delivered_date',
+        'refundable'
     ];
 
     function findLast()

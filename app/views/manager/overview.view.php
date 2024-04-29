@@ -1181,6 +1181,11 @@
                 </div>
             `;
 
+            if(quantity < 2){
+                newCard.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+            }else if(quantity < 5){
+                newCard.style.backgroundColor = "rgba(255, 255, 0, 0.2)";
+            }
 
             document.querySelector(".add.card").before(newCard);
 
