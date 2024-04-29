@@ -11,251 +11,248 @@ let PrintingTypeaddCard = document.querySelector(".printingType .add.card");
 console.log(materials);
 
 editMaterial.addEventListener("click", function () {
-
-    MaterialaddCard.classList.toggle("open-add");
-
-
+  MaterialaddCard.classList.toggle("open-add");
 });
 
 editPrintingType.addEventListener("click", function () {
-
-    PrintingTypeaddCard.classList.toggle("open-add");
-
+  PrintingTypeaddCard.classList.toggle("open-add");
 });
 
-
-
-// material stock js 
+// material stock js
 var addMaterial = document.getElementById("add-material");
 console.log(addMaterial);
 var updateMaterial = document.getElementById("update-material");
 
-
 var btn = document.querySelector(".add.card");
 
 var updateBtn = document.querySelectorAll(".update-btn");
-
 
 var spanMaterial = document.querySelectorAll(".close");
 console.log(spanMaterial);
 
 // When the user clicks on the button, open the modal
 btn.onclick = function () {
-    addMaterial.style.display = "block";
-    //   modal.style.transition = "0.5s ease-in-out";
-    document.body.style.overflow = "hidden";
-}
+  addMaterial.style.display = "block";
+  //   modal.style.transition = "0.5s ease-in-out";
+  document.body.style.overflow = "hidden";
+};
 
 function openUpdateMaterial(button) {
-    console.log('update');
+  console.log("update");
 
-    document.querySelector('.popup-update input[name="material_type"]').value = button.getAttribute("data-name");
-    document.querySelector('.popup-update input[name="quantity"]').value = button.getAttribute("data-quantity");
-    document.querySelector('.popup-update input[name="unit_price"]').value = button.getAttribute("data-price");
-    document.querySelector('.popup-update input[name="ppm"]').value = button.getAttribute("data-ppm");	
-    document.querySelector('.popup-update input[name="stock_id"]').value = button.getAttribute("data-id");
+  document.querySelector('.popup-update input[name="material_type"]').value =
+    button.getAttribute("data-name");
+  document.querySelector('.popup-update input[name="quantity"]').value =
+    button.getAttribute("data-quantity");
+  document.querySelector('.popup-update input[name="unit_price"]').value =
+    button.getAttribute("data-price");
+  document.querySelector('.popup-update input[name="ppm"]').value =
+    button.getAttribute("data-ppm");
+  document.querySelector('.popup-update input[name="stock_id"]').value =
+    button.getAttribute("data-id");
 
-    updateMaterial.style.display = "block";
-    document.body.style.overflow = "hidden";
+  updateMaterial.style.display = "block";
+  document.body.style.overflow = "hidden";
 }
 
+var delete_material_id = -1;
+
 function openDeleteMaterial(button) {
-    console.log('delete');
-    console.log(button.getAttribute("data-id"));
-    document.querySelector('.popup-delete input[name="stock_id"]').value = button.getAttribute("data-id");
+  // console.log(document.querySelector('.popup-delete input[name="stock_id"]'));
+  // console.log(button.getAttribute("data-id"));
 
+  delete_material_id = button.getAttribute("data-id");
+  // console.log(delete_material_id);
 
-    document.getElementById('deleteConfirmation-material').style.display = "block";
-    document.body.style.overflow = "hidden";
-    sidebar.style.pointerEvents = "none";
-    nav.style.pointerEvents = "none";
+  document.querySelector('.popup-delete input[name="stock_id"]').value =
+    button.getAttribute("data-id");
+
+  document.getElementById("deleteConfirmation-material").style.display =
+    "block";
+  document.body.style.overflow = "hidden";
+  sidebar.style.pointerEvents = "none";
+  nav.style.pointerEvents = "none";
 }
 
 function closeDelete() {
-    document.getElementById('deleteConfirmation-material').style.display = "none";
-    document.getElementById('deleteConfirmation-ptype').style.display = "none";
-    document.body.style.overflow = "auto";
-    sidebar.style.pointerEvents = "auto";
-    nav.style.pointerEvents = "auto";
+  
+  delete_material_id = -1;
+
+  document.getElementById("deleteConfirmation-material").style.display = "none";
+  document.getElementById("deleteConfirmation-ptype").style.display = "none";
+  document.body.style.overflow = "auto";
+  sidebar.style.pointerEvents = "auto";
+  nav.style.pointerEvents = "auto";
 }
 
 var addPrintingType = document.getElementById("add-printingType");
-// printing type js 
+// printing type js
 console.log(addPrintingType);
 var updatePrintingType = document.getElementById("update-printingType");
 
 // When the user clicks on <spanMaterial> (x), close the modal
 spanMaterial.forEach(function (btn) {
-    btn.onclick = function () {
+  btn.onclick = function () {
+    updateMaterial.style.display = "none";
+    updatePrintingType.style.display = "none";
+    addMaterial.style.display = "none";
+    addPrintingType.style.display = "none";
 
-        updateMaterial.style.display = "none";
-        updatePrintingType.style.display = "none";
-        addMaterial.style.display = "none";
-        addPrintingType.style.display = "none";
-
-        document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = "auto";
+  };
 });
-
-
 
 var btnPrintingType = document.querySelector(".printingType .add.card");
 
-var updateBtnPrintingType = document.querySelectorAll(".printingType .update-btn");
-
-
-
+var updateBtnPrintingType = document.querySelectorAll(
+  ".printingType .update-btn"
+);
 
 btnPrintingType.onclick = function () {
-    addPrintingType.style.display = "block";
-    console.log('add');
-    //   modal.style.transition = "0.5s ease-in-out";
-    document.body.style.overflow = "hidden";
-}
+  addPrintingType.style.display = "block";
+  console.log("add");
+  //   modal.style.transition = "0.5s ease-in-out";
+  document.body.style.overflow = "hidden";
+};
 
 function openUpdatePrintingType(button) {
-    console.log('update');
-    var materialsJson = button.getAttribute('data-materials');
-    var materials = JSON.parse(materialsJson);
-    console.log(materialsJson);
-    var checkboxes = document.querySelectorAll('.popup-update input[type=checkbox]');
-    var materialsString = materials.map(function(material) {
-        return material.join(",");
-    });
-    console.log(materialsString);
-    checkboxes.forEach(function(checkbox){
-        console.log(checkbox.value);
+  console.log("update");
+  var materialsJson = button.getAttribute("data-materials");
+  var materials = JSON.parse(materialsJson);
+  console.log(materialsJson);
+  var checkboxes = document.querySelectorAll(
+    ".popup-update input[type=checkbox]"
+  );
+  var materialsString = materials.map(function (material) {
+    return material.join(",");
+  });
+  console.log(materialsString);
+  checkboxes.forEach(function (checkbox) {
+    console.log(checkbox.value);
 
-        if(materialsString.includes(checkbox.value)){
-            checkbox.checked = true;
-        }else{
-            checkbox.checked = false;
-        }
-    });
+    if (materialsString.includes(checkbox.value)) {
+      checkbox.checked = true;
+    } else {
+      checkbox.checked = false;
+    }
+  });
 
-    document.querySelector('.popup-update input[name="printing_type"]').value = button.getAttribute("data-printingType");
-    document.querySelector('.popup-update input[name="price"]').value = button.getAttribute("data-price");
+  document.querySelector('.popup-update input[name="printing_type"]').value =
+    button.getAttribute("data-printingType");
+  document.querySelector('.popup-update input[name="price"]').value =
+    button.getAttribute("data-price");
 
-    document.querySelector('.popup-update input[name="ptype_id"]').value = button.getAttribute("data-id");
+  document.querySelector('.popup-update input[name="ptype_id"]').value =
+    button.getAttribute("data-id");
 
-    updatePrintingType.style.display = "block";
-    document.body.style.overflow = "hidden";
+  updatePrintingType.style.display = "block";
+  document.body.style.overflow = "hidden";
 }
 
 function openDeletePrintingType(button) {
-    console.log('delete');
-    console.log(button.getAttribute("data-id"));
-    document.querySelector('.popup-delete input[name="ptype_id"]').value = button.getAttribute("data-id");
+  console.log("delete");
+  console.log(button.getAttribute("data-id"));
+  document.querySelector('.popup-delete input[name="ptype_id"]').value =
+    button.getAttribute("data-id");
 
-
-    document.getElementById('deleteConfirmation-ptype').style.display = "block";
-    document.body.style.overflow = "hidden";
+  document.getElementById("deleteConfirmation-ptype").style.display = "block";
+  document.body.style.overflow = "hidden";
 }
 
 var closeAddPrintingType = document.querySelector("#add-printingType .close");
 
 closeAddPrintingType.addEventListener("click", function () {
-    addPrintingType.style.display = "none";
-    document.body.style.overflow = "auto";
+  addPrintingType.style.display = "none";
+  document.body.style.overflow = "auto";
 });
 
-
-
-
-
 function validateMaterial(form) {
-    let errors = {};
+  let errors = {};
 
-    let title = form.querySelector('input[name="material_type"]').value;
-    if (title.trim() === '') {
-        errors['name'] = 'Material Name is required';
-    }
+  let title = form.querySelector('input[name="material_type"]').value;
+  if (title.trim() === "") {
+    errors["name"] = "Material Name is required";
+  }
 
-    let description = form.querySelector('input[name="quantity"]').value;
-    if (description.trim() === '') {
-        errors['quantity'] = 'Quantity is required';
-    }
+  let description = form.querySelector('input[name="quantity"]').value;
+  if (description.trim() === "") {
+    errors["quantity"] = "Quantity is required";
+  }
 
-    let email = form.querySelector('input[name="unit_price"]').value;
-    if (email.trim() === '') {
-        errors['price'] = 'Price per unit is required';
-    }
+  let email = form.querySelector('input[name="unit_price"]').value;
+  if (email.trim() === "") {
+    errors["price"] = "Price per unit is required";
+  }
 
-    let ppm = form.querySelector('input[name="ppm"]').value;
-    if (ppm.trim() === '') {
-        errors['ppm'] = 'Products per unit is required';
-    }
+  let ppm = form.querySelector('input[name="ppm"]').value;
+  if (ppm.trim() === "") {
+    errors["ppm"] = "Products per unit is required";
+  }
 
-   
-      clearErrorMsg(form);
-      
-      // let errors = validateMaterial(form);
-      if (Object.keys(errors).length > 0) {
-          // event.preventDefault();    
-          displayErrorMsg(errors, form);
-          return false;
-      } else {
+  clearErrorMsg(form);
 
-          // form.style.display = "none";
-          // document.body.style.overflow = "auto";
-          return true;
-      }
- 
+  // let errors = validateMaterial(form);
+  if (Object.keys(errors).length > 0) {
+    // event.preventDefault();
+    displayErrorMsg(errors, form);
+    return false;
+  } else {
+    // form.style.display = "none";
+    // document.body.style.overflow = "auto";
+    return true;
+  }
 }
 
 function validatePrintingType(form) {
-    let errors = {};
+  let errors = {};
 
-    let title = form.querySelector('input[name="printing_type"]').value;
-    if (title.trim() === '') {
-        errors['ptype'] = 'Printing Type is required';
-    }
+  let title = form.querySelector('input[name="printing_type"]').value;
+  if (title.trim() === "") {
+    errors["ptype"] = "Printing Type is required";
+  }
 
-    let checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
-    if (checkboxes.length === 0) {
-        errors['materials'] = 'At least one material is required';
-    }
+  let checkboxes = form.querySelectorAll('input[type="checkbox"]:checked');
+  if (checkboxes.length === 0) {
+    errors["materials"] = "At least one material is required";
+  }
 
-    let price = form.querySelector('input[name="price"]').value;
-    if (price.trim() === '') {
-        errors['price'] = 'Price is required';
-    }
+  let price = form.querySelector('input[name="price"]').value;
+  if (price.trim() === "") {
+    errors["price"] = "Price is required";
+  }
 
-    // form.addEventListener("submit", function (event) {
-      clearErrorMsg(form);
-      
-      // let errors = validateMaterial(form);
-      if (Object.keys(errors).length > 0) {
-          // event.preventDefault();    
-          displayErrorMsg(errors, form);
-          return false;
-      } else {
+  // form.addEventListener("submit", function (event) {
+  clearErrorMsg(form);
 
-          // form.style.display = "none";
-          // document.body.style.overflow = "auto";
-          return true;
-      }
+  // let errors = validateMaterial(form);
+  if (Object.keys(errors).length > 0) {
+    // event.preventDefault();
+    displayErrorMsg(errors, form);
+    return false;
+  } else {
+    // form.style.display = "none";
+    // document.body.style.overflow = "auto";
+    return true;
+  }
   // });
-
 }
 
 function displayErrorMsg(errors, form) {
-    for (const key in errors) {
-        if (Object.hasOwnProperty.call(errors, key)) {
-            const error = errors[key];
-            form.querySelector(`.error.${key}`).innerText = error;
-        }
+  for (const key in errors) {
+    if (Object.hasOwnProperty.call(errors, key)) {
+      const error = errors[key];
+      form.querySelector(`.error.${key}`).innerText = error;
     }
+  }
 }
 
 function clearErrorMsg(form) {
-    let errorElements = form.querySelectorAll('.error');
+  let errorElements = form.querySelectorAll(".error");
 
-    errorElements.forEach(errorElement => {
-        errorElement.innerText = '';
-    });
+  errorElements.forEach((errorElement) => {
+    errorElement.innerText = "";
+  });
 }
-
 
 //calendar
 
@@ -326,11 +323,13 @@ const eventsArr = customerOrders.map((order) => {
         orderID: order.order_id,
         status: order.order_status,
         placedOn: order.order_placed_on,
+
         dispatchDate: order.dispatch_date
+
       },
     ],
   };
-}) 
+});
 // console.log(eventsArr);
 // getEvents();
 console.log(eventsArr);
@@ -370,7 +369,9 @@ function initCalendar() {
         let dispatchDate = new Date(eventObj.details[0].placedOn);
         let diffTime = Math.abs(dispatchDate - currentDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
         if (diffDays < 3 && eventStatus !== "Delivered" && eventStatus !== "Completed" && eventStatus !== "canceled") {
+
           eventStatus = "urgent";
         }
       }
@@ -381,9 +382,9 @@ function initCalendar() {
       month === new Date().getMonth()
     ) {
       activeDay = i;
-      
+
       getActiveDay(i);
-      
+
       if (event) {
         days += `<div class="day today active event ${eventStatus}">${i}</div>`;
       } else {
@@ -435,8 +436,6 @@ function addListner() {
   const days = document.querySelectorAll(".day");
   days.forEach((day) => {
     day.addEventListener("click", (e) => {
-
-
       getActiveDay(e.target.innerHTML);
       updateEvents(Number(e.target.innerHTML));
       activeDay = Number(e.target.innerHTML);
@@ -530,20 +529,19 @@ function updateEvents(date) {
       month + 1 === event.month &&
       year === event.year
     ) {
-
-
       // if order dispatch date - current date < 3 and status is not delivered or completed then show in red
       let currentDate = new Date();
 
       event.details.forEach((detail) => {
-        
         let dayStatus = detail.status;
+
         
         let dispatchDate = new Date(detail.dispatchDate);
         let diffTime = Math.abs(dispatchDate - currentDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         console.log(diffDays);
         if (diffDays < 3 && detail.status !== "Delivered" && detail.status !== "Completed" && detail.status !== "canceled") {
+
           // detail.status = "urgent";
           dayStatus = "urgent";
         }
@@ -568,11 +566,7 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
-
-
- 
 }
-
 
 // sales initialize
 let salesCircularProgress = document.getElementById("total-sales"),

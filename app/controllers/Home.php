@@ -62,14 +62,18 @@ class Home extends Controller
         $currentTimestamp = time();
         $sevenDays = 60 * 60 * 24 * 7;
 
-        if(!empty($deliveredOrders)){
-            foreach ($deliveredOrders as $deliveredOrder) {
-                $orderTimestamp = strtotime($deliveredOrder->delivered_date);
-                $diff = $currentTimestamp - $orderTimestamp;
-    
-                if($diff > $sevenDays){
-                    $order->update($deliveredOrder->order_id, ['order_status' => 'completed']);
-                }
+
+        if(empty($deliveredOrders)){
+            return [];
+        }
+        
+        foreach ($deliveredOrders as $deliveredOrder) {
+            $orderTimestamp = strtotime($deliveredOrder->delivered_date);
+            $diff = $currentTimestamp - $orderTimestamp;
+
+            if($diff > $sevenDays){
+                $order->update($deliveredOrder->order_id, ['order_status' => 'completed']);
+
             }
         }
 
