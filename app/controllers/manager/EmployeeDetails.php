@@ -177,7 +177,7 @@ class EmployeeDetails extends Controller
                 // $columnDelivery['vehicle_type'] = toLowerCase()
                
                 // show($columnDelivery);
-                $$delivery->insert($columnDelivery);
+                $delivery->insert($columnDelivery);
             }
 
             // save user email in another table for chat with users
@@ -189,7 +189,7 @@ class EmployeeDetails extends Controller
             $res = $sendmail->sendVerificationEmail($_POST['email'], $randomPassword, $_POST['emp_name'], "pass");
         }
 
-        redirect("manager/employeedetails");
+        // redirect("manager/employeedetails");
     }
 
     function generateRandomPassword($length = 8)

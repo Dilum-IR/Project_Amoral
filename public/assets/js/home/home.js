@@ -52,20 +52,55 @@ function showSlides() {
 }
 
 // main image slider
-var counter = 1;
-setInterval(function () {
-    document.getElementById('radio' + counter).checked = true;
-    counter++;
-    if (counter > 4) {
-        counter = 1;
-    }
-}, 5000);
+// var counter = 1;
+// setInterval(function () {
+//     document.getElementById('radio' + counter).checked = true;
+//     counter++;
+//     if (counter > 4) {
+//         counter = 1;
+//     }
+// }, 5000);
 
-// loading screen hide
-window.addEventListener("load", ()=> {
-    document.querySelector(".loader").classList.add("loader--hidden");
+// // loading screen hide
+// window.addEventListener("load", ()=> {
+//     document.querySelector(".loader").classList.add("loader--hidden");
 
-    document.querySelector(".loader").addEventListener("trasnsitionend", () => {
-        document.body.removeChild(document.querySelector(".loader"));
-    });
-});
+//     document.querySelector(".loader").addEventListener("trasnsitionend", () => {
+//         document.body.removeChild(document.querySelector(".loader"));
+//     });
+// });
+
+const initSlider = () => {
+    const imageList = document.querySelector(".slider-wrapper .image-list");
+    const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
+    let currentIndex = 0;
+
+    const slideNext = () => {
+    currentIndex++;
+
+      if (currentIndex >= imageList.children.length) {
+        currentIndex = 0;
+      }
+      const scrollAmount = imageList.children[currentIndex].offsetLeft;
+      imageList.scrollTo({
+        left: scrollAmount,
+        behavior: "smooth"
+      });
+    };
+
+    // Auto slide every 3 seconds
+    setInterval(slideNext, 3000);
+  };
+
+  window.addEventListener("resize", initSlider);
+  window.addEventListener("load", initSlider);
+
+//   deal buttons links
+
+document.getElementById("see-collection").addEventListener("click", function() {
+    window.location.href = "http://localhost/project_Amoral/public/collection";
+  });
+
+  document.getElementById("place-order").addEventListener("click", function() {
+    window.location.href = "http://localhost/project_Amoral/public/signin";
+  });

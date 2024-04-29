@@ -2,30 +2,30 @@
     <div class="row">
 
         <div class="col">
-        <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="logo" class="logo">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam alias architecto tempore, veritatis
-                nihil ullam tempora possimus nobis rem porro, at perspiciatis nesciunt maiores!</p>
+            <img src="<?= ROOT ?>/assets/images/amorallogo.png" alt="logo" class="logo">
+            <p> Embrace the timeless allure of past decades infused with a modern twist. From vibrant patterns to timeless cuts, our carefully curated pieces are destined to make a statement wherever you go.</p>
         </div>
 
         <div class="col">
             <h3>Office <div class="underline"><span></span></div>
             </h3>
-            <p>ITPL Road</p>
-            <p>Whitefield, Bangalore</p>
-            <p>Karnataka, PIN 560066, India</p>
-            <p class="email-id">abc@example.com</p>
-            <h4>+091-0123456789</h4>
+            <p>Amoral</p>
+            <p>Akuressa,Matara</p>
+            <p>Sri Lanka</p>
+            <p class="email-id">amoralclothing2022@gmail.com</p>
+            <h4>071 518 7674</h4>
         </div>
 
         <div class="col">
             <h3>Links <div class="underline"><span></span></div>
             </h3>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">See Collection</a></li>
-                <li><a href="#">Design Tool</a></li>
+                <!-- <li><a href="<?= ROOT ?>/home">Home</a></li> -->
+                <li><a href="<?= ROOT ?>/collection">See Collection</a></li>
+                <li><a href="<?= ROOT ?>/tool">Design Tool</a></li>
                 <li><a href="#">Place Order</a></li>
-                <li><a href="#">Sign Up</a></li>
+                <li><a href="<?= ROOT ?>/signup">Sign Up</a></li>
+                <li><a href="<?= ROOT ?>/guest/new">Partnership</a></li>
             </ul>
         </div>
 
@@ -54,13 +54,23 @@
             </form>
 
             <div class="social-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-whatsapp"></i>
-                <i class="fab fa-instagram"></i>
+                <a href="https://web.facebook.com/profile.php?id=100084394195537">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/amoral_00/">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
             </div>
         </div>
     </div>
     <hr>
-    <p class="copyright">Easy Tutorials 2021 - All Rights Reserved</p>
+    <!-- <p class="copyright">Easy Tutorials 2021 - All Rights Reserved</p> -->
 </footer>

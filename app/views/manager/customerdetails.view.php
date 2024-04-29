@@ -70,7 +70,7 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>City</th>
-                            <th>Address</th>
+                            <!-- <th>Address</th> -->
                             <th>Contact No.</th>
                             <th>E-mail</th>
                             <!-- <th>Position</th> -->
@@ -88,7 +88,7 @@
                                     <td class="ordId"><?php echo $cst->id ?></td>
                                     <td><?php echo $cst->fullname ?></td>
                                     <td><?php echo $cst->city ?></td>
-                                    <td><?php echo $cst->address ?></td>
+                                    <!-- <td><?php echo $cst->address ?></td> -->
                                     <td><?php echo $cst->phone ?> </td>
                                     <td><?php echo $cst->email ?> </td>
 

@@ -78,10 +78,10 @@
 
             <div class="custom-designs">
                 <div class="available-designs" id="available-designs">
-                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
-                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
-                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
-                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/amoral-black.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/amoral-black.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/amoral-black.png" alt="">
+                    <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/amoral-black.png" alt="">
                     <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
                     <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
                     <img class="available-images" src="<?= ROOT ?>/assets/images/available-designs/uoc_logo.png" alt="">
