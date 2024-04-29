@@ -50,6 +50,8 @@
 
         <!-- Content -->
         <section id="main" class="main">
+            <div class="success-msg"> </div>
+
 
             <div class="content">
 
@@ -361,6 +363,7 @@
 
             </div>
 
+
             <!-- Pop up new -->
             <div class="popup-new">
                 <div class="popup-content">
@@ -649,6 +652,7 @@
             });
         });
     </script>
+
 
 
 
