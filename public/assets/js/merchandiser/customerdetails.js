@@ -24,11 +24,24 @@ let popupNew = document.querySelector(".popup-new");
 //   nav.style.pointerEvents = "none";
 // }
 
-function closeNew() {
+function closeNew(button1) {
+
+const closeD = button1.getAttribute("data-ct");
+
+if(closeD){
+  const closeDN =JSON.parse(closeD);
+
+  document.querySelector(".cancel-modal").classList.add("open-popup-view");
+
+
+
+}
+
   popupNew.classList.remove("is-visible");
   document.body.style.overflow = "auto";
   sidebar.style.pointerEvents = "auto";
   nav.style.pointerEvents = "auto";
+  document.getElementById('addCustomerForm').reset();
 }
 
 function closeView() {

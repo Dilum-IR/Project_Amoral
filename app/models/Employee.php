@@ -89,8 +89,8 @@ class Employee
 	{
 
 		$this->errors = [];
-
-
+		
+		
 		// is empty password 
 		if (empty($data['password'])) {
 			$this->errors['flag'] = true;
@@ -102,16 +102,17 @@ class Employee
 			$this->errors['flag'] = true;
 			$this->errors['confirm_password'] = "Confirm password is Required";
 		}
-
+		
 		// password validation
 		if (!($data['new_password'] === $data['confirm_password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['password'] = " New & confirm password is not same";
-		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$/", $data['password'])) {
+		} else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{7,}$/", $data['password'])) {
 			$this->errors['flag'] = true;
 			$this->errors['password'] = "password is not Valid";
 			$this->errors['passwordError'] = "Contain [a-z/A-Z/0-9/!@#\$&*~]";
 		}
+		// show($data);
 
 		//  show($this->errors);
 

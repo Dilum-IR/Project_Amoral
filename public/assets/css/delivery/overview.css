@@ -326,6 +326,7 @@ body {
   .Upcoming{
 	display: flex;
 	gap: 9px;
+	align-items: center;
   }
   
   /* chat container */
