@@ -139,7 +139,7 @@ trait Model
         $keys = array_keys($data);
         $quary = "INSERT INTO $this->table (" . implode(",", $keys) . ") VALUES (:" . implode(",:", $keys) . ") ";
 
-        // echo $quary;
+       // echo $quary;
 
         // run the quary stage
         $this->quary($quary, $data);
