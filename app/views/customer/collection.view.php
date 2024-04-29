@@ -134,7 +134,7 @@
          <!-- Pop up new -->
     <div class="popup-new">
         <div class="popup-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeNew()">&times;</span>
             <h2>New Order</h2>
 
             <form class="new-form" method="POST" enctype="multipart/form-data">
@@ -148,6 +148,7 @@
                                                     top: -35px;
                                                     position: relative;">
                         <img src="" alt="" class="design" style="width: 55%; height: 75%; object-fit: cover; left: 9%; position: relative;">
+                        <input type="hidden" name="img" />
                     </div>
                     <div class="input-box">
                         <span class="details">Material </span>
@@ -160,18 +161,20 @@
                     <div class="input-box" style="    position: relative;
                                                         top: -140px;">
                         <span class="details">Sleeve Type</span>
-                        <select required name="sleeve[]">
+                        <select required name="sleeve">
                             <option value="" selected hidden style="color: grey;">Select</option>
-                            <?php foreach ($data['sleeveType'] as $sleeve) : ?>
-                                <option value="<?php echo $sleeve->type ?>"><?php echo $sleeve->type ?></option>
-                            <?php endforeach; ?>
+                            
+                                <option value="1">Long</option>
+                                <option value="2">Short</option>
+
+                            
                         </select>
                     </div>
 
                     <div class="input-box" style="   top: -86px;
                                                     position: relative;">
                         <span class="details">Printing Type</span>
-                        <input type="text" required name="printingType" readOnly />
+                        <input type="text" required name="printing_type" readOnly />
                     </div>
 
                     <div class="input-box sizes" style="position: relative;
@@ -179,22 +182,22 @@
                         <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
                         <div class="sizeChart">
                             <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                            <input class="st" type="number" id="quantity" name="xs" min="0" value="0">
                             <br>
                             <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                            <input class="st" type="number" id="quantity" name="small" min="0" value="0">
                             <br>
                             <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                            <input class="st" type="number" id="quantity" name="medium" min="0" value="0">
                             <br>
                             <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                            <input class="st" type="number" id="quantity" name="large" min="0" value="0">
                             <br>
                             <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                            <input class="st" type="number" id="quantity" name="xl" min="0" value="0">
                             <br>
                             <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                            <input class="st" type="number" id="quantity" name="xxl" min="0" value="0">
                             <br>
                         </div>
                     </div>
@@ -204,15 +207,15 @@
 
                 <hr>
                 <div class="radio-btns">
-                    <input type="radio" id="pickupN" name="deliveryOption" value="Pick Up">
+                    <input type="radio" id="pickup" name="deliveryOption" value="Pick Up">
                     <label for="pickup">Pick Up</label>
 
-                    <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
+                    <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
                     <label for="delivery">Delivery</label>
                     <span class="error dates"></span>
                 </div>
 
-                <div class="user-details pickupN is-checked">
+                <div class="user-details pickup is-checked">
                     <div class="input-box">
                         <span class="details">Pick Up Date</span>
 
@@ -220,7 +223,7 @@
                     </div>
                 </div>
 
-                <div class="user-details deliveryN">
+                <div class="user-details delivery">
                     <div class="input-box">
                         <span class="details">Delivery Expected On</span>
 
@@ -290,12 +293,129 @@
                 <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
                 <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
 
-
-
-
-
             </form>
         </div>
     </section>
+
+    <script>
+        // ajax for adding a new order
+        let newOrderForm = document.querySelector(".popup-new .new-form");
+        newOrderForm.addEventListener('submit', function(event){
+            event.preventDefault();
+            let noerrors = validateNewOrder();
+            console.log(noerrors);
+            if(noerrors){
+                let formData = new FormData(newOrderForm);
+                let xhr = new XMLHttpRequest();
+                console.log(formData);
+                xhr.open("POST", "<?php echo ROOT ?>/collection/newOrder", true);
+                xhr.onload = function() {
+                    if(this.status == 200) {
+                        console.log('response'+this.responseText);
+                        let response = JSON.parse(this.responseText);
+                        if (response == false) {
+                            // delay(10000);
+                            
+                            
+                            var successMsgElement = document.querySelector('.success-msg');
+                            successMsgElement.innerHTML = "Order placed successfully";
+                            successMsgElement.style.display = 'block';
+                            // delay(2000);
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                            
+                                
+
+                        }else{
+                            var successMsgElement = document.querySelector('.success-msg');
+                
+                            successMsgElement.innerHTML = "There was an error placing the order";
+                            
+                            // successMsgElement.style.transition = 'all 1s ease-in-out';
+                            
+                            successMsgElement.style.display = 'block';
+                            successMsgElement.style.backgroundColor = 'red';
+                            setTimeout(function() {
+                                successMsgElement.style.display = 'none';
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                }
+
+                xhr.send(formData);
+            }   
+        });
+
+    </script>
+
+<script>
+        let sizeArr = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+        let quantityAll = document.querySelector(".quantityAll");
+
+        let total = 0;
+        sizeArr.forEach(function(size) {
+            let input = document.querySelector(`input[name='${size}']`);
+            input.addEventListener('change', function() {
+                total = 0;
+                sizeArr.forEach(function(size) {
+                    total += parseInt(document.querySelector(`input[name='${size}']`).value);
+                });
+                quantityAll.innerHTML = total;
+                let unitPrice = document.querySelector(".unitPrice").innerHTML;
+
+                document.querySelector(".popup-new .totalPrice").innerHTML = total * parseInt(unitPrice);
+
+                document.querySelector(".popup-new input[name='total_price']").value = total * parseInt(unitPrice);
+            });
+        });
+</script>
+
+<script>
+        // clear the other option when one is selected
+        document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+            pickupDate.addEventListener('change', function() {
+                document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+                    deliveryDate.value = "";
+                });
+
+            });
+        });
+
+        document.querySelectorAll("input[name='dispatch_date_delivery']").forEach(deliveryDate => {
+            deliveryDate.addEventListener('change', function() {
+                document.querySelectorAll("input[name='dispatch_date_pickup']").forEach(pickupDate => {
+                    pickupDate.value = "";
+                });
+
+            });
+        });
+    </script>
+
+<script>
+                    //toggle delivery options
+                    let delivery = document.getElementById("delivery");
+                    let pickUp = document.getElementById("pickup");
+
+
+                    pickUp.addEventListener('click', togglePickUp);
+                    delivery.addEventListener('click', toggleDelivery);
+
+                    function togglePickUp() {
+
+                        document.querySelector(".user-details.pickup").classList.add("is-checked");
+                        document.querySelector(".user-details.delivery").classList.remove("is-checked");
+
+                    }
+
+                    // view order delivary map
+                    function toggleDelivery() {
+                        document.querySelector(".user-details.delivery").classList.add("is-checked");
+                        document.querySelector(".user-details.pickup").classList.remove("is-checked");
+                    }
+                </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback="></script>
 
     <script src="<?= ROOT ?>/assets/js/collection/collection.js"></script>

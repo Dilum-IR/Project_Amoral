@@ -825,66 +825,79 @@ function openView(button) {
 
         if(order.is_delivery == 1){
 
-            var map = new google.maps.Map(document.getElementById("view-order-map"), {
-                // Initial center coordinates
-                center: {
-                    
-                    lat: lat,
-                    lng: lng,
-                },
-                zoom: 15,
-            });
-        }else{
-            var map = new google.maps.Map(document.getElementById("view-order-map"), {
-                // Initial center coordinates
-                center: {
-                    // Sri lanka middle lat lang
-                    lat: 7.7072567,
-                    lng: 80.6534611,
-                },
-                zoom: 7,
-            });
-        }
-
-        // map.setZoom(15);
-        marker = new google.maps.Marker({
-            position: {
+            center = {
                 lat: lat,
                 lng: lng,
-            },
-            map: map,
-            title: "Your Location",
-        });
+            };
 
-        map.addListener("click", function (event) {
-            if (marker) {
-            marker.setMap(null);
-            }
-    
-            // Get the clicked location's latitude and longitude
-            var latitude = event.latLng.lat();
-            var longitude = event.latLng.lng();
-    
-            console.log(latitude);
-    
-            marker = new google.maps.Marker({
+
+        }else{
+            center = {
+                lat: 6.9271,
+                lng: 79.8612,
+            };
+        }
+
+        var center = { lat: 5.9497, lng: 80.5353 };
+        var radius = 100000;
+      
+        map = new google.maps.Map(document.getElementById("view-order-map"), {
+            center: center,
+            zoom: 5,
+        });
+      
+        marker1 = new google.maps.Marker({
             position: {
-                lat: latitude,
-                lng: longitude,
+                lat: parseFloat(order.latitude),
+                lng: parseFloat(order.longitude),
             },
             map: map,
-            });
-    
-            document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-            document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-            document.querySelector('.popup-view input[name="pay_type"]').value = paymentType;
         });
+      
+      
         
-
-        marker.addListener("click", function () {
-            infoWindow.open(map, marker);
-        });
-
+            var circle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                // fillColor: '#FF0000',
+                // fillOpacity: 0.35,
+                map: map,
+                center: center,
+                radius: radius,
+            });
+      
+            var latitude, longitude;
+            circle.addListener("click", function (event) {
+              var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+              if (distance <= circle.getRadius()) {
+                if (marker1) {
+                  marker1.setMap(null);
+                }
+      
+                // Get the clicked location's latitude and longitude
+                latitude = event.latLng.lat();
+                longitude = event.latLng.lng();
+            
+                console.log(latitude);
+            
+                marker1 = new google.maps.Marker({
+                  position: {
+                    lat: latitude,
+                    lng: longitude,
+                  },
+                  map: map,
+                });
+            
+      
+              }
+            
+                document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+                document.querySelector('.popup-view input[name="longitude"]').value = longitude;  
+                console.log( latitude );
+      
+              });
+        
 
         document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
         document.querySelector('.update-form input[name="discount"]').value = order.discount;
@@ -1015,6 +1028,7 @@ nextBtn.addEventListener('click', (event) => {
 
 
         //disable the fields according to the status
+        
         if(order.order_status == 'canceled' || order.order_status == 'refunded'){
             document.querySelectorAll('.popup-view input').forEach(input => {
                 input.setAttribute("disabled", "disabled");
@@ -1042,6 +1056,14 @@ nextBtn.addEventListener('click', (event) => {
                 document.querySelectorAll('.popup-view .new-card .remove').forEach(remove => {
                     remove.style.display = "none";
                 });
+            }else{
+
+                document.querySelector('.update-form .totalPrice').removeAttribute("disabled");
+                document.querySelector('.update-form .discountPercentage').removeAttribute("disabled");
+                document.querySelector('.update-form input[type="city"]' ).removeAttribute("disabled");
+                document.querySelector('.update-form input[type="latitude"]' ).removeAttribute("disabled");
+                document.querySelector('.update-form input[type="longitude"]' ).removeAttribute("disabled");
+
             }
             document.querySelectorAll(".popup-view input[type='date']").forEach(date => {	
                 date.removeAttribute("disabled");
@@ -1417,27 +1439,21 @@ function cancel_order(tap = "popup"){
 function initMap(){
   
     var marker1;
-    var marker2;
-    var map1;
-    var map2;
+  
+    var map;
   
 // Define the center coordinates and the radius
 
     var center = { lat: 5.9497, lng: 80.5353 };
-    var radius = 100000; 
+    var radius = 100000;
 
-    map1 = new google.maps.Map(document.getElementById("new-order-map"), {
+    map = new google.maps.Map(document.getElementById("new-order-map"), {
         center: center,
         zoom: 5,
     });
 
-    map2 = new google.maps.Map(document.getElementById("view-order-map"), {
-        center: center,
-        zoom: 5,
-    });
 
-    // Add a circle to each map
-    [map1, map2].forEach((map, index) => {
+    
         var circle = new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
@@ -1457,17 +1473,10 @@ function initMap(){
               marker1.setMap(null);
             }
 
-
-        
             // Get the clicked location's latitude and longitude
-            if(index==0){
-                latitude = event.latLng.lat();
-                longitude = event.latLng.lng();
-            }else
-            {
-                latitude = parseFloat(document.querySelector('.popup-view input[name="latitude"]').value);
-                longitude = parseFloat(document.querySelector('.popup-view input[name="longitude"]').value);
-            }
+            latitude = event.latLng.lat();
+            longitude = event.latLng.lng();
+        
             console.log(latitude);
         
             marker1 = new google.maps.Marker({
@@ -1480,74 +1489,61 @@ function initMap(){
         
   
           }
+        
+            document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+            document.querySelector('.popup-new input[name="longitude"]').value = longitude;  
+            console.log( latitude );
+
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                  };
+          
+                  // Set the map's center to the user's current location
+                  map.setCenter(pos);
+                  // map2.setCenter(pos);
+                  
+                  map.setZoom(8);
+                  // map2.setZoom(15);
+          
+                  var distanceToCenter = google.maps.geometry.spherical.computeDistanceBetween(center, pos);
+                  if (distanceToCenter > radius) {
+                    document.querySelector('.error.delmap').innerHTML = "You are outside the delivery area";
+                  }
+                  else{
+                    // Add a marker at the user's current location
+                    marker1 = new google.maps.Marker({
+                      position: pos,
+                      map: map,
+                      title: "Your Location",
+                    });
     
-        });
-
-        if(index == 0){
-          document.querySelector('.popup-new input[name="latitude"]').value = latitude;
-          document.querySelector('.popup-new input[name="longitude"]').value = longitude;  
-        }else{
-          document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-          document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-        }
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            function (position) {
-              var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              };
-      
-              // Set the map's center to the user's current location
-              map.setCenter(pos);
-              // map2.setCenter(pos);
-              
-              map.setZoom(8);
-              // map2.setZoom(15);
-      
-              var distanceToCenter = google.maps.geometry.spherical.computeDistanceBetween(center, pos);
-              if (distanceToCenter > radius) {
-                // document.querySelector('.error.delmap').innerHTML = "You are outside the delivery area";
-              }
-              else{
-                // Add a marker at the user's current location
-                marker1 = new google.maps.Marker({
-                  position: pos,
-                  map: map,
-                  title: "Your Location",
-                });
-
-              }
+                  }
+        
+                },
+                function () {
+                  handleLocationError(true, map.getCenter());
+                  // handleLocationError(true, map2.getCenter());
+                }
     
-            },
-            function () {
-              handleLocationError(true, map.getCenter());
-              // handleLocationError(true, map2.getCenter());
+    
+    
+            );
+            } else {
+              handleLocationError(false, map.getCenter());
+              // handleLocationError(false, map2.getCenter());
             }
-
-  
-  
-    // Add a click event listener to the map
-
-    // Add a click event listener to the map
-
-        );
-        } else {
-          handleLocationError(false, map.getCenter());
-          // handleLocationError(false, map2.getCenter());
+          });
+    
         }
 
-  
-  
-      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
-      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
 
-      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
-      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
-    });
 
-}
+
+
 
 function handleLocationError(browserHasGeolocation, pos) {
   var infoWindow = new google.maps.InfoWindow({

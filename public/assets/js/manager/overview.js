@@ -325,7 +325,8 @@ const eventsArr = customerOrders.map((order) => {
       {
         orderID: order.order_id,
         status: order.order_status,
-        placedOn: order.order_placed_on
+        placedOn: order.order_placed_on,
+        dispatchDate: order.dispatch_date
       },
     ],
   };
@@ -369,7 +370,7 @@ function initCalendar() {
         let dispatchDate = new Date(eventObj.details[0].placedOn);
         let diffTime = Math.abs(dispatchDate - currentDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        if (diffDays < 3 && eventStatus !== "Delivered" && eventStatus !== "Completed") {
+        if (diffDays < 3 && eventStatus !== "Delivered" && eventStatus !== "Completed" && eventStatus !== "canceled") {
           eventStatus = "urgent";
         }
       }
@@ -538,10 +539,10 @@ function updateEvents(date) {
         
         let dayStatus = detail.status;
         
-        let dispatchDate = new Date(detail.placedOn);
+        let dispatchDate = new Date(detail.dispatchDate);
         let diffTime = Math.abs(dispatchDate - currentDate);
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
+        console.log(diffDays);
         if (diffDays < 3 && detail.status !== "Delivered" && detail.status !== "Completed" && detail.status !== "canceled") {
           // detail.status = "urgent";
           dayStatus = "urgent";
