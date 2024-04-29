@@ -76,31 +76,31 @@ const initSlider = () => {
     let currentIndex = 0;
 
     const slideNext = () => {
-    currentIndex++;
+        currentIndex++;
 
-      if (currentIndex >= imageList.children.length) {
-        currentIndex = 0;
-      }
-      const scrollAmount = imageList.children[currentIndex].offsetLeft;
-      imageList.scrollTo({
-        left: scrollAmount,
-        behavior: "smooth"
-      });
+        if (currentIndex >= imageList.children.length) {
+            currentIndex = 0;
+        }
+        const scrollAmount = imageList.children[currentIndex].offsetLeft;
+        imageList.scrollTo({
+            left: scrollAmount,
+            behavior: "smooth"
+        });
     };
 
     // Auto slide every 3 seconds
     setInterval(slideNext, 3000);
-  };
+};
 
-  window.addEventListener("resize", initSlider);
-  window.addEventListener("load", initSlider);
+window.addEventListener("resize", initSlider);
+window.addEventListener("load", initSlider);
 
 //   deal buttons links
 
-document.getElementById("see-collection").addEventListener("click", function() {
+document.getElementById("see-collection").addEventListener("click", function () {
     window.location.href = "http://localhost/project_Amoral/public/collection";
-  });
+});
 
-  document.getElementById("place-order").addEventListener("click", function() {
+document.getElementById("place-order").addEventListener("click", function () {
     window.location.href = "http://localhost/project_Amoral/public/signin";
-  });
+});

@@ -61,9 +61,9 @@ class GarmentDetails extends Controller
                 unset($_POST['empUpdate']);
 
                 $id = $_POST['garment_id'];
-                
-                // show($id);
 
+                // show($id);
+                $data = $_POST;
                 $employeeData = [];
                 $garmentData = [];
 
@@ -85,16 +85,13 @@ class GarmentDetails extends Controller
                     // show($emp_id);
                     // show($employeeData);
                     $updateEmp = $employee->update($id, $employeeData, 'emp_id');
-                   
                 }
                 if (isset($garmentData)) {
                     // show($garment_id);
                     // show($garmentData);
                     $updateGmnt = $garment->update($id, $garmentData, 'garment_id');
-                   
                 }
                 redirect('manager/garmentdetails');
-
             }
 
             // remove garment

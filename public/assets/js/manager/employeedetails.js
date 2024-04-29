@@ -595,3 +595,21 @@ function searchTable(){
 //     row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
 //   });
 // }
+
+document.getElementById('updateButton').addEventListener('click', function() {
+  document.getElementById('confirmationPopup').style.display = 'block';
+});
+
+document.getElementById('confirmYes').addEventListener('click', function() {
+  // Submit the form
+  document.getElementById('updateForm').submit();
+});
+
+document.getElementById('confirmNo').addEventListener('click', function() {
+  // Close the popup
+  document.getElementById('confirmationPopup').style.display = 'none';
+});
+
+function closeView() {
+  // Implement closeView function if needed
+}

@@ -75,9 +75,9 @@
                     <?php
                     if (!empty($data)) {
                         // show($data);
-                        foreach ($data as $rpt):
+                        foreach ($data as $rpt) :
 
-                            ?>
+                    ?>
 
                             <div class="text-box">
                                 <div class="report-info">
@@ -93,12 +93,10 @@
                                     <p> <?php echo htmlspecialchars($rpt->description) ?></p>
                                 </div>
                                 <div class="report-btns">
-                                    <button class="view-btn rpt" type="" name="selectItem" class="edit"
-                                        data-report-id='<?= $rpt->report_id; ?>' data-rpt='<?= json_encode($rpt); ?>'
-                                        onclick="showPopup(this)" value="">View Details</button>
+                                    <button class="view-btn rpt" type="" name="selectItem" class="edit" data-report-id='<?= $rpt->report_id; ?>' data-rpt='<?= json_encode($rpt); ?>' onclick="showPopup(this)" value="">View Details</button>
                                 </div>
                             </div>
-                            <?php
+                        <?php
 
 
                         endforeach;
@@ -111,7 +109,7 @@
                             </div>
 
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
 
@@ -146,19 +144,18 @@
                     Read</button>
                 <button class="popup-close-btn-back" style="border: 0.3px solid #000000;
     color: #000000; background-color: transparent;  padding: 8px 35px; border-radius: 9px;cursor: pointer;
-  transition: background-color 0.5s ease;--hover-color:red;" type="submit" name="markAsRead"
-                    onclick="closePopup()">Back</button>
+  transition: background-color 0.5s ease;--hover-color:red;" type="submit" name="markAsRead" onclick="closePopup()">Back</button>
             </div>
         </form>
     </div>
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.querySelector('input[type="search"]');
             const reportBoxes = document.querySelectorAll('.text-box');
 
-            searchInput.addEventListener('input', function () {
+            searchInput.addEventListener('input', function() {
                 const searchTerm = searchInput.value.toLowerCase();
 
                 reportBoxes.forEach(box => {
