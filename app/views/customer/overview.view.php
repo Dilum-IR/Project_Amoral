@@ -142,7 +142,7 @@
                                                 $count++;
 
                                             endforeach;
-                                        
+
                                         endif; ?>
                                         <h2><?php echo $count; ?></h2>
 
@@ -169,7 +169,6 @@
                                                     endforeach;
                                                 }
                                             endforeach;
-                                        
                                         endif; ?>
                                         <h2>Rs. <?= number_format($total, 2, '.', ',')  ?></h2>
                                     </div>
@@ -202,9 +201,9 @@
                         <!-- Anlysis Containers -->
                         <div class="table-data">
 
-                        <div class="slider-main">
-                        <?php include 'collection.view.php'; ?>
-                        </div>
+                            <div class="slider-main">
+                                <?php include 'collection.view.php'; ?>
+                            </div>
                         </div>
 
                         <style>
@@ -234,7 +233,7 @@
                                 </div>
                                 <table>
                                     <?php if (!empty($data['order'])) { ?>
-
+                                        
                                         <thead>
                                             <tr>
                                                 <th>Order Id</th>
@@ -363,175 +362,175 @@
             </div>
 
             <!-- Pop up new -->
-    <div class="popup-new">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>New Order</h2>
+            <div class="popup-new">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>New Order</h2>
 
-            <form class="new-form" method="POST" enctype="multipart/form-data">
+                    <form class="new-form" method="POST" enctype="multipart/form-data">
 
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <input required name="material" type="text" readOnly />
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Material </span>
+                                <input required name="material" type="text" readOnly />
 
-                    </div>
+                            </div>
 
 
 
-                    <div class="input-box">
-                        <span class="details">Sleeves</span>
-                        <select required name="sleeve[]">
-                            <option value="" selected hidden style="color: grey;">Select</option>
-                            <?php foreach ($data['sleeveType'] as $sleeve) : ?>
-                                <option value="<?php echo $sleeve->type ?>"><?php echo $sleeve->type ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                            <div class="input-box">
+                                <span class="details">Sleeves</span>
+                                <select required name="sleeve[]">
+                                    <option value="" selected hidden style="color: grey;">Select</option>
+                                    <?php foreach ($data['sleeveType'] as $sleeve) : ?>
+                                        <option value="<?php echo $sleeve->type ?>"><?php echo $sleeve->type ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-                    <div class="input-box">
-                        <span class="details">Printing Type</span>
-                        <select required name="printingType[]">
-                            <option value="" selected hidden style="color: grey;">Select a material first</option>
-                        </select>
-                    </div>
+                            <div class="input-box">
+                                <span class="details">Printing Type</span>
+                                <select required name="printingType[]">
+                                    <option value="" selected hidden style="color: grey;">Select a material first</option>
+                                </select>
+                            </div>
 
-                    <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
-                        <div class="sizeChart">
-                            <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
-                            <br>
-                            <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
-                            <br>
-                            <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
-                            <br>
-                            <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
-                            <br>
-                            <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
-                            <br>
-                            <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
-                            <br>
+                            <div class="input-box sizes">
+                                <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
+                                <div class="sizeChart">
+                                    <span class="size">XS</span>
+                                    <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">S</span>
+                                    <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">M</span>
+                                    <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">L</span>
+                                    <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">XL</span>
+                                    <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">2XL</span>
+                                    <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="input-box design">
+                                <span class="details">Design<span class="error files"></span></span>
+
+                                <input type="file" name="image" id="imageFileToUpload" accept="image/*">
+
+                            </div>
+
+
                         </div>
-                    </div>
 
-                    <div class="input-box design">
-                        <span class="details">Design<span class="error files"></span></span>
+                        <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin: 7%;">
 
-                        <input type="file" name="image" id="imageFileToUpload" accept="image/*">
-                
-                    </div>
+                        <hr>
+                        <div class="radio-btns">
+                            <input type="radio" id="pickupN" name="deliveryOption" value="Pick Up">
+                            <label for="pickup">Pick Up</label>
 
-                
+                            <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
+                            <label for="delivery">Delivery</label>
+                            <span class="error dates"></span>
+                        </div>
+
+                        <div class="user-details pickupN is-checked">
+                            <div class="input-box">
+                                <span class="details">Pick Up Date</span>
+
+                                <input type="date" name="dispatch_date_pickup">
+                            </div>
+                        </div>
+
+                        <div class="user-details deliveryN">
+                            <div class="input-box">
+                                <span class="details">Delivery Expected On</span>
+
+                                <input type="date" name="dispatch_date_delivery">
+                            </div>
+
+                            <div class="input-box location">
+                                <span class="details"> Delivery Location</span>
+                                <div class="googlemap" id="new-order-map" style="height: 300px; width: 100%;"></div>
+                            </div>
+
+                            <div class="input-box city">
+                                <span class="details addr">City</span>
+
+                                <input type="text" name="city">
+
+                            </div>
+
+
+                        </div>
+
+                        <hr class="second">
+
+                        <div class="prices">
+
+                            <p style="text-align: right; margin: 10px 30px;"></p><br>
+
+                            <table class="price-details-container">
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Sleeve Type</th>
+                                    <th>Printing Type</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price(Rs.)</th>
+                                </tr>
+                                <tr class="units">
+                                    <td class="materialType"></td>
+                                    <td class="sleeveType"></td>
+                                    <td class="printingType"></td>
+                                    <td class="quantityAll">0</td>
+                                    <td class="unitPrice">0</td>
+
+                                    <input type="hidden" name="unit_price[]">
+
+                                </tr>
+                                <tr class="total">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total</td>
+                                    <td class="totalPrice">0</td>
+                            </table>
+                        </div>
+
+                        <input type="hidden" name="total_price" />
+
+
+                        <!-- <p>You will be notified about possible discounts later</p> -->
+
+
+
+                        <input name="latitude" type="hidden" required />
+                        <input name="longitude" type="hidden" required />
+
+
+                        <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
+                        <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
+
+
+
+
+
+                    </form>
                 </div>
-                
-                <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin: 7%;">
+            </div>
 
-                <hr>
-                <div class="radio-btns">
-                    <input type="radio" id="pickupN" name="deliveryOption" value="Pick Up">
-                    <label for="pickup">Pick Up</label>
+        </section>
 
-                    <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
-                    <label for="delivery">Delivery</label>
-                    <span class="error dates"></span>
-                </div>
-
-                <div class="user-details pickupN is-checked">
-                    <div class="input-box">
-                        <span class="details">Pick Up Date</span>
-
-                        <input type="date" name="dispatch_date_pickup">
-                    </div>
-                </div>
-
-                <div class="user-details deliveryN">
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-
-                        <input type="date" name="dispatch_date_delivery">
-                    </div>
-
-                    <div class="input-box location">
-                        <span class="details"> Delivery Location</span>
-                        <div class="googlemap" id="new-order-map" style="height: 300px; width: 100%;"></div>
-                    </div>
-
-                    <div class="input-box city">
-                        <span class="details addr">City</span>
-
-                        <input type="text" name="city">
-
-                    </div>
-
-
-                </div>
-
-                <hr class="second">
-
-                <div class="prices">
-
-                    <p style="text-align: right; margin: 10px 30px;"></p><br>
-
-                    <table class="price-details-container">
-                        <tr>
-                            <th>Material</th>
-                            <th>Sleeve Type</th>
-                            <th>Printing Type</th>
-                            <th>Quantity</th>
-                            <th>Unit Price(Rs.)</th>
-                        </tr>
-                        <tr class="units">
-                            <td class="materialType"></td>
-                            <td class="sleeveType"></td>
-                            <td class="printingType"></td>
-                            <td class="quantityAll">0</td>
-                            <td class="unitPrice">0</td>
-
-                            <input type="hidden" name="unit_price[]">
-
-                        </tr>
-                        <tr class="total">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Total</td>
-                            <td class="totalPrice">0</td>
-                    </table>
-                </div>
-
-                <input type="hidden" name="total_price" />
-
-
-                <!-- <p>You will be notified about possible discounts later</p> -->
-
-
-
-                <input name="latitude" type="hidden" required />
-                <input name="longitude" type="hidden" required />
-
-
-                <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
-                <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
-
-
-
-
-
-            </form>
-        </div>
     </div>
 
-    </section>
-
-</div>
-
-<script>
+    <script>
         // ajax for adding a new order
         let newOrderForm = document.querySelector(".popup-new .new-form");
         newOrderForm.addEventListener('submit', function(event){
@@ -549,8 +548,8 @@
                         let response = JSON.parse(this.responseText);
                         if (response == false) {
                             // delay(10000);
-                            
-                            
+
+
                             var successMsgElement = document.querySelector('.success-msg');
                             successMsgElement.innerHTML = "Order placed successfully";
                             successMsgElement.style.display = 'block';
@@ -559,16 +558,16 @@
                                 successMsgElement.style.display = 'none';
                                 location.reload();
                             }, 2000);
-                            
-                                
+
+
 
                         }else{
                             var successMsgElement = document.querySelector('.success-msg');
-                
+
                             successMsgElement.innerHTML = "There was an error placing the order";
-                            
+
                             // successMsgElement.style.transition = 'all 1s ease-in-out';
-                            
+
                             successMsgElement.style.display = 'block';
                             successMsgElement.style.backgroundColor = 'red';
                             setTimeout(function() {
@@ -580,13 +579,13 @@
                 }
 
                 xhr.send(formData);
-            }   
+            }
         });
-
+    
     </script>
 
 
-<script>
+    <script>
         //add price data dynamically in new order popup
 
         let quantity = document.querySelector(".popup-new .sizes");
@@ -623,7 +622,7 @@
             //  console.log("tot" + document.querySelector(".popup-new input[name='total_price']").value);
         }
 
-        
+
 
 
         //add price data dynamically in new order popup
@@ -653,7 +652,7 @@
 
 
 
-        </section>
+    </section>
     </div>
 
     <script>

@@ -1244,53 +1244,6 @@
                     </div>
 
                     <!-- garment for payed amount list -->
-                    <div class="container-refund-list">
-                        <div class="order">
-                            <div class="head">
-                                <h3>Garment For Payed</h3>
-                            </div>
-
-                            <?php
-                            if (!empty($refund_list)) {
-                                foreach ($refund_list as $key => $value) {
-
-                            ?>
-                                    <div class="refund-list <?= $value->pay_type ?>">
-                                        <div id="re-top-content">
-                                            <div id="re-order-id">
-                                                <p>Order ID : &nbsp;</p>
-                                                <p>ORD-<?= $value->order_id ?></p>
-                                            </div>
-                                            <div id="re-order-paid">
-                                                <p>Paid : &nbsp;</p>
-                                                <p><b><?= ucfirst($value->pay_type) ?></b></p>
-                                            </div>
-                                        </div>
-                                        <div id="re-bot-content">Refund amount (LKR.) :
-
-                                            <?php
-                                            if ($value->pay_type == 'full')
-                                                echo number_format($value->total_price, 2, '.', ',');
-                                            
-                                            else if ($value->pay_type == 'half')
-                                                echo number_format($value->remaining_payment, 2, '.', ',');
-
-                                            ?>
-                                        </div>
-
-                                    </div>
-                                <?php
-                                }
-                            } else { ?>
-                                <p class="no-refund">No Refund Orders available...</p>
-                            <?php
-                            }
-
-
-                            ?>
-
-                        </div>
-                    </div>
 
                 </div>
                 <!-- <div class="right">
