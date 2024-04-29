@@ -156,7 +156,7 @@
             <div class="deal-section shop-now">
                 <img class="deal-images" src="<?= ROOT ?>/assets/images/home/home-collection.jpg" alt="">
                 <div class="deal-text">
-                    <p class="deal-p">See the Collection</p>
+                    <p class="deal-p">Go to Collection</p>
                     <button class="deal-button" id="see-collection"> <span>Shop Now</span> </button>
                 </div>
             </div>

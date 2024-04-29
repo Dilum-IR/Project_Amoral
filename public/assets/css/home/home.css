@@ -1939,7 +1939,7 @@ input[type="radio"]:not(:first-child) {
   mix-blend-mode:lighten; /* Blend mode for a black and white theme */
   opacity: 0; /* Initially hidden */
   animation: fade-in 4s ease-out forwards; /* Animation to fade in */
-  text-decoration: hwb(1 white black);
+  /* text-decoration: hwb(1 white black); */
 }
 
 /* Keyframes for fading in */
