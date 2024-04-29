@@ -334,13 +334,13 @@
 
     <!-- yes no popup -->
 
-    <div class="yes-no-popup" id="confirmationPopup">
+    <!-- <div class="yes-no-popup" id="confirmationPopup">
         <div class="yes-no-popup-content">
             <p>Are you sure you want to update the details?</p>
             <button id="confirmYes">Yes</button>
             <button id="confirmNo">No</button>
         </div>
-    </div>
+    </div> -->
 
 
 
