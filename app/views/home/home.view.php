@@ -37,6 +37,7 @@
 
         <div class="container">
             <div class="slider-wrapper">
+            <div class="text-animation">AMORAL</div>
                 <ul class="image-list">
                     <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-1.jpg" alt="img-1" />
                     <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-2.jpg" alt="img-2" />
@@ -48,16 +49,7 @@
                     <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-8.jpg" alt="img-8" />
                     <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-9.jpg" alt="img-9" />
                     <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-10.jpg" alt="img-10" />
-                    <!-- <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-11.jpg" alt="img-11" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-12.jpg" alt="img-12" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-13.jpg" alt="img-13" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-14.jpg" alt="img-14" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-15.jpg" alt="img-15" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-16.jpg" alt="img-16" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-17.jpg" alt="img-17" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-18.jpg" alt="img-18" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-19.jpg" alt="img-19" />
-          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-20.jpg" alt="img-20"/> -->
+                  
                 </ul>
             </div>
         </div>
