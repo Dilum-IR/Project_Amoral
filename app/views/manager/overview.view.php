@@ -1197,7 +1197,8 @@
                     <div class="container-refund-list">
                         <div class="order">
                             <div class="head">
-                                <h3>Refund Orders</h3>
+                                <h3>Cancelled Order To Refund</h3>
+                                <hr>
                             </div>
 
                             <?php

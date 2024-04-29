@@ -130,7 +130,7 @@ if (
                                         // convet to the json type
                                         Jsondata = JSON.parse(res);
                                          
-                                        // console.log(Jsondata)
+                                        console.log(Jsondata)
 
                                         if (Jsondata.flag === 1) {
                                             // otp valid state
