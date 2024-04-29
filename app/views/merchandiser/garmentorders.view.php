@@ -37,55 +37,6 @@
 
         </ul>
 
-        <!-- assign orders to garments -->
-        <script>
-            $('.save-edit').click(function() {
-                var order = [];
-                var garment = [];
-
-                $('.garments').each(function() {
-                    var id = $(this).attr('id');
-                    var orders = [];
-          
-                    $(this).find('.draggable.set').each(function() {
-                        var order_id = $(this).attr('id');
-                        var order_details = JSON.parse($(this).attr('data-order'));
-                        // console.log(order_details);
-                        var customer_orderId = order_details.order_id;
-
-                        orders.push({id: order_id, customer_orderId: customer_orderId});
-                    });
-                    garment.push({garment_id: id, orders: orders});
-                });
-
-                // console.log(garment);
-
-                $.ajax({
-                    url: '<?= ROOT ?>/manager/assignGarment',
-                    type: 'POST',
-                    data: {garments: garment},
-                    success: function(response) {
-                        // console.log(response);
-                        sessionStorage.setItem('successMsg', 'Orders assigned successfully');
-                        location.reload();
-
-                    }
-                });
-            });
-
-            $(document).ready(function(){
-                var successMsg = sessionStorage.getItem('successMsg');
-                if(successMsg){
-                    $('.success-msg').html(successMsg);
-                    $('.success-msg').fadeIn(500).delay(2000).fadeOut(500,
-                    function() {
-                        $(this).remove();
-                        sessionStorage.removeItem('successMsg');
-                    });
-                }
-            });
-        </script>
-
         <form>
             <div class="form">
                 <form action="#">
@@ -125,6 +76,7 @@
                     <tbody>
                         <?php if(!empty($data['garment_orders'])): ?>
                             <?php foreach($data['garment_orders'] as $order): ?>
+                                <?php if($order->emp_id =$_SESSION['USER']->emp_id) : ?>
                                 <?php $materials = array(); ?>
                                 <?php $customer_order; ?>
                                 <?php foreach($data['material_sizes'] as $order_material): ?>
@@ -137,6 +89,7 @@
                                         <?php $customer_order = $cus_order; ?>
                                     
                                     <?php endif; ?>
+                                    
                                 <?php endforeach; ?>
 
                                 <?php $garment_name = ''; ?>
@@ -178,7 +131,7 @@
                                 <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($materials); ?>' data-customerOrder='<?= json_encode($customer_order); ?>'  onclick="openView(this)"><i class="fas fa-edit"></i> View</button></td>
                                 <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
                             </tr>
-                            
+                            <?php endif; ?>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
@@ -324,90 +277,25 @@
             </form>
         </div>
     </div>
-
-    <div class="popup-set-deadline" id="popup-set-deadline">
-        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
-        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
-        <div class="popup-content">
-            <span class="close" >&times;</span>
-          
-            <h2>Set Cutting and Sewing Deadlines</h2>
-
-        
-            <form class="set-deadline-form" method="POST">
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Order Id </span>
-                        <input name="garment_order_id" type="text" required onChange="" readonly value="" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Quantity</span>
-                        <input name="quantity" type="text" required onChange="" readonly value="" />
-                    </div>
-
-                    <!-- <div class="input-box"></div> -->
-                    <div class="input-box">
-                        <span class="details">Cutting Deadline</span>
-                        <input name="cut_dispatch_date" type="date" required onChange="" />
-                    </div>
-
-                    <div class="input-box">
-                        <span class="details">Sewing Deadline</span>
-                        <input name="sew_dispatch_date" type="date" required onChange="" />
-                    </div>
-
-
-                </div>
-
-                <hr class="second">
-                
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Order Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-                    
-                        <input type="text" name="dispatch_date" required onChange="" readonly value="">
-                    </div>
-                </div>
-
-                <!-- hidden element -->
-                <!-- <div class="input-box">
-                    <input name="order_id" type="hidden" required />
-                </div> -->
-
-
-                <!-- <form method="POST" class="popup-view" id="popup-view"> -->
-                <input type="submit" class="update-btn pb" name="updateDeadlines" value="Set Deadlines" />
-                <!-- <button type="button" onclick="" class="cancel-btn pb">Cancel</button> -->
-                <!-- </form> -->
-
-
-            </form>
-        </div>
-    </div>
-
-        <!-- set deadlines -->
     <script>
-        $('.popup-set-deadline .update-btn').click(function(e) {
-            // e.preventDefault();
-            var garment_order_id = $('.popup-set-deadline input[name="garment_order_id"]').val();
-            var cut_dispatch_date = $('.popup-set-deadline input[name="cut_dispatch_date"]').val();
-            var sew_dispatch_date = $('.popup-set-deadline input[name="sew_dispatch_date"]').val();
+        // ajax function for updating the order
+        $('.popup-view .update-btn').click(function(e) {
+            e.preventDefault();
+            var garment_order_id = $('.popup-view input[name="garment_order_id"]').val();
+            var cut_dispatch_date = $('.popup-view input[name="cut_dispatch_date"]').val();
+            var sew_dispatch_date = $('.popup-view input[name="sew_dispatch_date"]').val();
 
-            // var order_id = $('.popup-set-deadline input[name="order_id"]').val();
-
+            var order_id = $('.popup-view input[name="order_id"]').val();
+            var cut_price = $('.popup-view input[name="cut_price"]').val();
+            var sewed_price = $('.popup-view input[name="sewed_price"]').val();
 
             $.ajax({
-                url: '<?= ROOT ?>/manager/setDeadlines',
+                url: '<?= ROOT ?>/merchandiser/updateGarmentOrder',
                 type: 'POST',
-                data: {garment_order_id: garment_order_id, cut_dispatch_date: cut_dispatch_date, sew_dispatch_date: sew_dispatch_date},
+                data: {garment_order_id: garment_order_id, cut_dispatch_date: cut_dispatch_date, sew_dispatch_date: sew_dispatch_date, order_id: order_id, cut_price: cut_price, sewed_price: sewed_price},
                 success: function(response) {
                     console.log(response);
-                    sessionStorage.setItem('successMsg', 'Deadlines set successfully');
+                    sessionStorage.setItem('successMsg', 'Order updated successfully');
                     sessionStorage.setItem('id', garment_order_id);
                     location.reload();
                 }
@@ -415,46 +303,8 @@
 
         });
 
-        $(document).ready(function(){
-            // localStorage.clear();
-            var ids = JSON.parse(localStorage.getItem('setId')) || [];
-            // var ids = JSON.parse(localStorage.getItem('setId'));
-            if (!Array.isArray(ids)) {
-                ids = [ids];
-            }
-            console.log(ids);
-            if (ids) {
-                ids.forEach(function(id) {
-                    $('#' + id).addClass('set');
-                });
-            }
 
-            var successMsg = sessionStorage.getItem('successMsg');
-            var id = sessionStorage.getItem('id');
 
-            if(successMsg){
-                $('.draggable').each(function(){
-                    if($(this).attr('id') == id){
-                        $(this).addClass('set');
-
-                        if(!ids.includes(id)){
-                            // Add the new ID
-                            ids.push(id);
-                        }
-                    }
-                });
-
-                // Store the updated IDs back to localStorage
-                localStorage.setItem('setId', JSON.stringify(ids));
-
-                $('.success-msg').html(successMsg);
-                $('.success-msg').fadeIn(500).delay(2000).fadeOut(500, function() {
-                    $(this).remove();
-                    sessionStorage.removeItem('successMsg');
-                    sessionStorage.removeItem('id');
-                });
-            }
-        });
     </script>
 
 

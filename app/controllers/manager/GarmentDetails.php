@@ -46,7 +46,7 @@ class GarmentDetails extends Controller
 
 
 
-            show($data);
+            // show($data);
 
             //add new garment
             if (isset($_POST["newEmployee"])) {

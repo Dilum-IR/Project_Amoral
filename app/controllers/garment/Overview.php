@@ -13,19 +13,22 @@ class Overview extends Controller
             $info = $this->getInfo();
 
             $getOrderData = $this->get_order_data();
-            
-            // Extract the first 10 elements
-            $first_10_elements = array_slice($getOrderData, 0, 10);
-            
-            // recent only 10 orders displayed
-            $data['recent_orders'] = $first_10_elements;
 
-            $overview = $this->overview($getOrderData);
+            if (!empty($getOrderData)) {
 
-            $data['info'] = $info;
-            $data['overview'] = $overview;
+                // Extract the first 10 elements
+                $first_10_elements = array_slice($getOrderData, 0, 10);
 
-            $data['chart_analysis_data'] = $this->chart_analysis_data($getOrderData);
+                // recent only 10 orders displayed
+                $data['recent_orders'] = $first_10_elements;
+
+                $overview = $this->overview($getOrderData);
+
+                $data['info'] = $info;
+                $data['overview'] = $overview;
+
+                $data['chart_analysis_data'] = $this->chart_analysis_data($getOrderData);
+            }
             // show($data);
 
             $this->view('garment/overview', $data);
@@ -227,6 +230,10 @@ class Overview extends Controller
 
             $result = $garment_order->getGarmentOrderData($data);
             $i = 0;
+
+            if (empty($result)) {
+                return [];
+            }
 
             foreach ($result as $item) {
 

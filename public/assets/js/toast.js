@@ -82,8 +82,8 @@ try {
       case 5:
         setTimeout(() => {
           toastApply(
-            dataValidate.error,
-            "Should contains [a-z/A-Z/0-9/!@#^%?$&*~]"
+            "Password Invalid",
+            dataValidate.error
           );
         }, 50);
         break;

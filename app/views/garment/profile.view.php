@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/boxicons.min.css">
   <!-- <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/profile.css"> -->
   <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/boxicons.min.css">
+  <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
 
   <link rel="stylesheet" href="boxicons.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -22,23 +24,27 @@
 
 <body>
 
-  <?php
-  // show($data);  
-  ?>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-
+  <style>
+    .loader-wrapper {
+      z-index: 10;
+    }
+  </style>
 
   <!-- Sidebar -->
   <?php
+  include __DIR__ . '/../utils/loading.php';
+
   include 'sidebar.php'
-    ?>
+  ?>
 
   <!-- Sidebar -->
 
   <!-- Navigation bar -->
   <?php
   include 'navigationbar.php'
-    ?>
+  ?>
   <!-- Navigation Bar -->
 
   <section class="main" id="main">
@@ -87,7 +93,7 @@
           </form>
           <p class="image-error">
             <?=
-              (!empty($imagerror) && isset($imagerror['error']) && $imagerror['flag'] == 1) ? "* " . $imagerror['error'] : '';
+            (!empty($imagerror) && isset($imagerror['error']) && $imagerror['flag'] == 1) ? "* " . $imagerror['error'] : '';
             ?>
 
           </p>
@@ -105,7 +111,7 @@
 
             <span class="no-change">
               <?=
-                (!empty($error) && isset($error['notchange']) && $error['flag'] == 1) ? $error['notchange'] : '';
+              (!empty($error) && isset($error['notchange']) && $error['flag'] == 1) ? $error['notchange'] : '';
 
               ?>
               &nbsp;
@@ -113,23 +119,21 @@
             </span>
 
             <?php if (isset($data)) {
-              ?>
+            ?>
               <div class="info_data">
                 <div class="data">
-                  <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Garment Name &nbsp;<span
-                      class="data-error">
+                  <label class="pro_label" for="pro_username"><i class='bx bx-user'></i>Garment Name &nbsp;<span class="data-error">
                       <?=
-                        (!empty($error) && isset($error['emp_name']) && $error['flag'] == 1) ? "* " . $error['emp_name'] : '';
+                      (!empty($error) && isset($error['emp_name']) && $error['flag'] == 1) ? "* " . $error['emp_name'] : '';
                       ?>
 
                     </span></label>
                   <input class="pro_input" type="text" id="pro_username" name="emp_name" value="<?= $data['emp_name'] ?>">
                 </div>
                 <div class="data">
-                  <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span
-                      class="data-error">
+                  <label class="pro_label" for="pro_city"><i class='bx bx-buildings'></i> City &nbsp; <span class="data-error">
                       <?=
-                        (!empty($error) && isset($error['city']) && $error['flag'] == 1) ? "* " . $error['city'] : '';
+                      (!empty($error) && isset($error['city']) && $error['flag'] == 1) ? "* " . $error['city'] : '';
                       ?>
 
                     </span></label>
@@ -141,7 +145,7 @@
                 <div class="data">
                   <label class="pro_label" for="pro_address">Address &nbsp; <span class="data-error">
                       <?=
-                        (!empty($error) && isset($error['address']) && $error['flag'] == 1) ? "* " . $error['address'] : '';
+                      (!empty($error) && isset($error['address']) && $error['flag'] == 1) ? "* " . $error['address'] : '';
                       ?>
 
                     </span></label>
@@ -152,7 +156,7 @@
 
                   <label class="pro_label" for="pro_email">Email &nbsp; <span class="data-error">
                       <?=
-                        (!empty($error) && isset($error['email']) && $error['flag'] == 1) ? "* " . $error['email'] : '';
+                      (!empty($error) && isset($error['email']) && $error['flag'] == 1) ? "* " . $error['email'] : '';
                       ?>
 
                     </span></label>
@@ -165,33 +169,30 @@
                 <div class="data">
                   <label class="pro_label" for="pro_number">Contact Number &nbsp; <span class="data-error">
                       <?=
-                        (!empty($error) && isset($error['contact_number']) && $error['flag'] == 1) ? "* " . $error['contact_number'] : '';
+                      (!empty($error) && isset($error['contact_number']) && $error['flag'] == 1) ? "* " . $error['contact_number'] : '';
                       ?>
 
                     </span></label>
-                  <input class="pro_input" type="text" id="pro_number" name="contact_number"
-                    value="<?= $data['contact_number'] ?>">
+                  <input class="pro_input" type="text" id="pro_number" name="contact_number" value="<?= $data['contact_number'] ?>">
                 </div>
 
                 <div class="data">
                   <label class="pro_label" for="pro_profession">Profession &nbsp; <span class="data-error">
                       <?=
-                        (!empty($error) && isset($error['emp_status']) && $error['flag'] == 1) ? "* " . $error['emp_status'] : '';
+                      (!empty($error) && isset($error['emp_status']) && $error['flag'] == 1) ? "* " . $error['emp_status'] : '';
                       ?>
 
                     </span></label>
-                  <input class="pro_input" type="text" id="pro_profession" name="emp_status"
-                    value="<?= $_SESSION['USER']->emp_status ?>" disabled>
+                  <input class="pro_input" type="text" id="pro_profession" name="emp_status" value="<?= $_SESSION['USER']->emp_status ?>" disabled>
                 </div>
 
 
               </div>
 
               <div class="info_data" id="last-element">
-                
+
                 <div class="pro_button">
-                  <button type="button" class="small_btn discard_btn rtol-button" name="discard" value="discard"
-                    href="<?= ROOT ?>/garment/profile">
+                  <button type="button" class="small_btn discard_btn rtol-button" name="discard" value="discard" href="<?= ROOT ?>/garment/profile">
                     <span>
                       Discard
                     </span></button>
@@ -202,14 +203,14 @@
                 </div>
               </div>
 
-              <?php
+            <?php
             } else {
               redirect("garment/profile");
             }
             ?>
 
             <script>
-              document.addEventListener("DOMContentLoaded", function () {
+              document.addEventListener("DOMContentLoaded", function() {
                 const form = document.querySelector('form');
                 const saveButton = form.querySelector('.save_btn');
                 const initialData = <?= json_encode($data) ?>;
@@ -263,10 +264,10 @@
 
             <span class="data-error">
               <?=
-                (!empty($passerror) && isset($passerror['password']) && $passerror['flag'] == 1) ? "* " . $passerror['password'] . "." : ''; ?>
+              (!empty($passerror) && isset($passerror['password']) && $passerror['flag'] == 1) ? "* " . $passerror['password'] . "." : ''; ?>
               &nbsp;
               <?=
-                (!empty($passerror) && isset($passerror['passwordError']) && $passerror['flag'] == 1) ? $passerror['passwordError'] : '';
+              (!empty($passerror) && isset($passerror['passwordError']) && $passerror['flag'] == 1) ? $passerror['passwordError'] : '';
               ?>
             </span>
 
@@ -275,13 +276,12 @@
                 <label class="pro_label" for="pro_email">Current Password &nbsp;
                   <span class="data-error">
                     <?=
-                      (!empty($passerror) && isset($passerror['current_password']) && $passerror['flag'] == 1) ? "* " . $passerror['current_password'] . "." : ''; ?>
+                    (!empty($passerror) && isset($passerror['current_password']) && $passerror['flag'] == 1) ? "* " . $passerror['current_password'] . "." : ''; ?>
 
                   </span>
                 </label>
                 <span class="hide-icon">
-                  <input class="pro_input" type="password" id="c-password" name="password"
-                    placeholder="Enter current password" value="<?= isset($pass) ? $pass['password'] : "" ?>">
+                  <input class="pro_input" type="password" id="c-password" name="password" placeholder="Enter current password" value="<?= isset($pass) ? $pass['password'] : "" ?>">
 
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('c-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
@@ -292,14 +292,13 @@
                 <label class="pro_label" for="pro_date">New Password &nbsp;
                   <span class="data-error">
                     <?=
-                      (!empty($passerror) && isset($passerror['new_password']) && $passerror['flag'] == 1) ? "* " . $passerror['new_password'] . "." : ''; ?>
+                    (!empty($passerror) && isset($passerror['new_password']) && $passerror['flag'] == 1) ? "* " . $passerror['new_password'] . "." : ''; ?>
 
                   </span>
                 </label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="password" id="n-password" name="new_password"
-                    placeholder="Enter New password" value="<?= isset($pass) ? $pass['new_password'] : "" ?>">
+                  <input class="pro_input" type="password" id="n-password" name="new_password" placeholder="Enter New password" value="<?= isset($pass) ? $pass['new_password'] : "" ?>">
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('n-password','s-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                   </a>
@@ -312,22 +311,20 @@
                 <label class="pro_label" for="pro_profession">Confirm Password &nbsp;
                   <span class="data-error">
                     <?=
-                      (!empty($passerror) && isset($passerror['confirm_password']) && $passerror['flag'] == 1) ? "* " . $passerror['confirm_password'] . "." : ''; ?>
+                    (!empty($passerror) && isset($passerror['confirm_password']) && $passerror['flag'] == 1) ? "* " . $passerror['confirm_password'] . "." : ''; ?>
 
                   </span>
                 </label>
                 <span class="hide-icon">
 
-                  <input class="pro_input" type="text" id="re-password" name="confirm_password"
-                    placeholder="Enter Confirm password" value="<?= isset($pass) ? $pass['confirm_password'] : "" ?>">
+                  <input class="pro_input" type="text" id="re-password" name="confirm_password" placeholder="Enter Confirm password" value="<?= isset($pass) ? $pass['confirm_password'] : "" ?>">
                   <a href="#" class="hide active" onclick="togglePasswordVisibility('re-password','re-toggleIcon')">
                     <ion-icon name="eye-outline" id="s-toggleIcon"></ion-icon>
                   </a>
                 </span>
               </div>
               <div class="pro_button">
-                <button type="button" class="small_btn discard_btn rtol-button" name="discardP" value="discardP"
-                  href="<?= ROOT ?>/garment/profile"><span>
+                <button type="button" class="small_btn discard_btn rtol-button" name="discardP" value="discardP" href="<?= ROOT ?>/garment/profile"><span>
                     Discard
                   </span></button>
                 <button type="submit" class="small_btn save_btn rtol-button" name="saveP" value="saveP"><span>

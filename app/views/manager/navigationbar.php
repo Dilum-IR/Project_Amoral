@@ -8,7 +8,7 @@
 </div>
                 <a href="<?=ROOT?>/manager/chat" class="nav-link">
                     <i class='bx bxs-chat icon'></i>
-                    <span class="chat-notification">8</span>
+                    <!-- <span class="chat-notification"></span> -->
                 </a>
 
                 <!-- <a href="#" class="nav-link-profile">

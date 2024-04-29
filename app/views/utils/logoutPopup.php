@@ -15,12 +15,12 @@
 
 <script>
     const modal = document.getElementById("logout-popup");
-    const btn = document.getElementById("logout-btn");
+    const lgbtn = document.getElementById("logout-btn");
     const closeButton = document.getElementsByClassName("log-close-icon")[0];
     const confirmBtn = document.getElementById("confirmDelete");
     const cancelBtn = document.getElementById("cancelDelete");
 
-    btn.addEventListener("click", function() {
+    lgbtn.addEventListener("click", function() {
         modal.style.display = "block";
     });
 

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/order.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
-
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -25,10 +25,19 @@
 </head>
 
 <body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style>
+        .loader-wrapper {
+            z-index: 10;
+        }
+    </style>
     <!-- loading page  & toast msg content-->
 
     <?php
-    // include "loading.php";
+    include __DIR__ . '/../utils/loading.php';
+
     include __DIR__ . '/../utils/toastMsg.php';
     ?>
 

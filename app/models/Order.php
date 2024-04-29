@@ -117,6 +117,9 @@ class Order
         try {
 
             // show($Alldata);
+            if (empty($Alldata)) {
+                return [];
+            }
 
             $i = 0;
 
@@ -149,7 +152,6 @@ class Order
                 $i++;
             }
 
-            // show($result);
 
             // find the same order id orders and merge that orders 
             // include : material ,sizes with more data
@@ -193,15 +195,15 @@ class Order
                 }
             }
 
-            // show($id_array);
-
+            // show($new_result);
+            
             // create a new array for toal qty and meterial type array
             foreach ($new_result as $item) {
-
+                
                 $material_array = [];
                 $total_qty = 0;
                 $cal_cost = 0;
-                $sleeves_cost = 0;
+                // $sleeves_cost = 0;
                 $material_cost = 0;
                 $print_cost = 0;
                 $workers_cost = 0;
@@ -212,20 +214,24 @@ class Order
                     if (!in_array($value['material_type'], $material_array)) {
                         array_push($material_array, $value['material_type']);
                     }
-                    $sleeves_cost = $value['qty'] * $value['sleeves_price'];
-                    $material_cost = ($value['qty'] / $value['ppm'])  * $value['unit_price'];
 
+                    //sleeves cost is addd to the fixed revenue
+                    // $sleeves_cost = $value['qty'] * $value['sleeves_price'];
+                    
+                    $material_cost = ($value['qty'] / $value['ppm'])  * $value['unit_price'];
                     // database include print prices directly used
                     $print_cost = $value['qty'] * $value['print_price'];
 
                     $total_qty += $value['qty'];
-                    $cal_cost += $sleeves_cost + $material_cost + $print_cost;
+                    $cal_cost +=  $material_cost + $print_cost;
                 }
 
                 $item->material_array = $material_array;
                 $item->total_qty = $total_qty;
                 $item->total_cost =  $delivery_cost + $workers_cost + $cal_cost +
                     $item->total_qty * ($item->cut_price + $item->sewed_price);
+
+                // $item->total_price_1 = $sleeves_cost;
             }
 
 
@@ -292,10 +298,9 @@ class Order
         }
 
         $quary = trim($quary, " AND");
-        
+
         $data = array_merge($data);
-        
+
         return $this->quary($quary, $data);
     }
-    
 }

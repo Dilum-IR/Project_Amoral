@@ -102,7 +102,7 @@
 
                                         <td style="word-break:normal;">
                                             <div class="view-remove-buttons">
-                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?> 'data-dl='<?= json_encode($dl); ?>' onclick="openView(this)">View</button>
+                                                <button style="color: #000000e0;" type="submit" name="selectItem" class="edit" data-emp='<?= json_encode($emp); ?>' onclick="openView(this)">View</button>
                                                 <form method="POST">
                                                     <input type="hidden" name="emp_id" value="<?php echo $emp->emp_id ?>">
                                                     <button type="submit" name="empRemove" style="color: #ff0000de;">Remove</button>

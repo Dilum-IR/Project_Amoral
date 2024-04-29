@@ -19,8 +19,9 @@
 }
 
 .container {
-  width: 90%;
+  width: 100%;
   margin: auto;
+  z-index: 1;
 }
 
 .nav-bar {
@@ -883,9 +884,9 @@ nav .icon-cancel {
 }
 
 .brand-name {
-  z-index: 2;
+  z-index: 14;
   position: relative;
-  font-size: 20vw;
+  font-size: 4vw;
   top: 8%;
   /* left: 4%; */
   color: transparent;
@@ -906,7 +907,7 @@ nav .icon-cancel {
   border-right: 0px solid rgb(255, 255, 255);
   overflow: hidden;
   text-align: center;
-  animation: color-animation 7s linear 1;
+  animation: color-animation 100s infinite;
   background-color: #000000b0;
 }
 
@@ -949,6 +950,10 @@ nav .icon-cancel {
 }
 
 .home-sign-up-box-1 {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
   width: 10vw;
   height: 7.2vh;
   margin: 5px;
@@ -962,6 +967,15 @@ nav .icon-cancel {
   z-index: 1;
   overflow: hidden;
 }
+
+.home-sign-up-box-1 a{
+  color: white;
+  text-decoration: none;
+}
+
+.home-sign-up-box-1 a:hover{
+  color: black;
+  }
 
 #home-sign-up-box-1:hover {
   color: black;
@@ -991,7 +1005,11 @@ nav .icon-cancel {
 }
 
 .home-sign-up-box-2 {
-  width: 21vw;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  width: 11vw;
   height: 7.2vh;
   margin: 5px;
   background: black;
@@ -1004,6 +1022,17 @@ nav .icon-cancel {
   z-index: 1;
   overflow: hidden;
 }
+
+.home-sign-up-box-2 a{
+  color: white;
+  text-decoration: none;
+}
+
+.home-sign-up-box-2 a:hover{
+  
+  color: black;
+  }
+
 
 #home-sign-up-box-2:hover {
   color: black;
@@ -1050,7 +1079,7 @@ nav .icon-cancel {
 .image-slider {
   animation-name: slide;
   animation-duration: 5s;
-  width: 100%;
+  /* width: 100%; */
   /* background-color: red; */
 }
 
@@ -1100,7 +1129,7 @@ nav .icon-cancel {
 }
 
 .slide-text {
-  margin-top: 8%;
+  margin-top: 11%;
   font-size: 1.8vw;
   position: relative;
   /* top: -630px; */
@@ -1176,28 +1205,49 @@ nav .icon-cancel {
   /* box-shadow: 2px 5px 10px 2px rgb(138, 134, 134); */
 }
 
-.design-tool-button {
+.design-tool-button:link,
+.design-tool-button:visited {
+  /* text-transform: uppercase; */
+  font-size: 21px;
+  text-decoration: none;
+  color: rgb(255 255 255);
+  padding: 10px 30px;
+  border: 1px solid;
+  border-radius: 1000px;
+  display: inline-block;
+  transition: all .2s;
   position: relative;
-  font-size: 1.4vw;
-  width: 15vw;
-  height: 7vh;
-  background-color: white;
-  border-radius: 2em;
-  border-style: none;
-  transition: 0.3s ease;
-  cursor: pointer;
 }
 
 .design-tool-button:hover {
-  position: relative;
-  font-size: 1.4vw;
-  color: white;
-  width: 15vw;
-  height: 7vh;
-  background-color: rgb(0, 0, 0);
-  border-radius: 2em;
-  border-style: solid;
-  border-color: white;
+  color: black;
+  border: none;
+  background-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0px 2px 5px rgba(27, 27, 27, .5);
+}
+
+.design-tool-button:active {
+  transform: translateY(-3px);
+}
+
+.design-tool-button::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+  transition: all .3s;
+}
+
+.design-tool-button:hover::after {
+  background-color: rgb(189 189 189);
+  transform: scaleX(1.2) scaleY(1);
+  opacity: 0;
 }
 
 /* partnership deal  */
@@ -1239,9 +1289,13 @@ nav .icon-cancel {
 }
 
 .partnership-deal-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
   position: relative;
   font-size: 1.4vw;
-  margin-left: 26%;
+  margin-left: 68.5%;
   width: 14vw;
   height: 7vh;
   background-color: black;
@@ -1251,6 +1305,11 @@ nav .icon-cancel {
   color: white;
   /* margin-right: 113%; */
   cursor: pointer;
+}
+
+.partnership-deal-button a{
+  color: white;
+  text-decoration: none;
 }
 
 .partnership-deal-button:hover {
@@ -1263,6 +1322,10 @@ nav .icon-cancel {
   border-radius: 2em;
   border-style: solid;
   border-color: black;
+}
+
+.partnership-deal-button a:hover{
+color: black;
 }
 
 /* shopping deals */
@@ -1303,7 +1366,7 @@ nav .icon-cancel {
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* display: block; */
+  display: block;
 }
 
 .deal-p {
@@ -1336,6 +1399,10 @@ nav .icon-cancel {
 } */
 
 .deal-button {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
   margin-left: 36%;
   position: relative;
   display: flex;
@@ -1350,6 +1417,15 @@ nav .icon-cancel {
   border: none;
 
 }
+
+.deal-button a{
+  color: white;
+  text-decoration: none;
+}
+
+.deal-button a:hover{
+  color: black;
+  }
 
 .deal-button:after {
   content: " ";
@@ -1410,75 +1486,87 @@ nav .icon-cancel {
 
 /* services */
 
+
 .our-services {
-  background-color: black;
-  align-items: center;
-  text-align: center;
-  /* border-bottom-left-radius: 125px;
-  border-bottom-right-radius: 125px; */
-}
-
-.services {
-  margin-left: 10%;
-  margin-right: 10%;
-  text-align: center;
-  justify-content: center;
-  background-color: black;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: stretch;
-  gap: 45px;
-  padding: 20px;
-}
-
-.services-tab {
-  position: relative;
-  /* Add relative positioning */
-  flex: 1;
-  font-size: 25px;
-  background-color: #f0f0f0;
-  padding: 50px;
-  text-align: center;
-  border-radius: 8px;
-  box-shadow: -5px 5px 0px #acacac;
-  transition: transform 0.3s ease-in-out;
-}
-
-.services-tab:hover {
-  transform: translateY(-5px);
-}
-
-.service-description {
-  font-size: 12px;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.479);
-  color: white;
-  display: flex;
   justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.services-tab:hover .service-description {
-  opacity: 1;
-}
-
-.services-tab:hover {
-  color: transparent;
+  text-align: center;
 }
 
 .services-text {
-  padding-top: 7%;
-  padding-bottom: 2%;
-  color: white;
-  font-size: 50px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  /* font-size: 2em; */
+  /* Increase heading size */
+  font-size: 43px;
   font-weight: bolder;
+  margin-top: 20px;
+}
+
+.services-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  /* Center the container horizontally */
+  max-width: 1100px;
+  /* Set a maximum width for larger screens */
+  gap: 0px;
+  padding: 20px;
+}
+
+.services-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.services-tab {
+  display: flex;
+  width: 300px;
+  /* Adjust width based on number of items */
+  /* text-align: center; */
+  justify-content: center;
+  margin-bottom: 10px;
+  /* Reduce margin between rows */
+  padding: 20px;
+  border: 1px solid var(--color-gray-two);
+  background-color: var(--color-white);
+  border-radius: 10px;
+  transition: all 0.5s ease;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  /* Indicate clickable elements */
+  text-align: center;
+  /* Center text within tabs */
+  align-items: center;
+}
+
+.services-tab:hover {
+  transform: translateY(-4px);
+  /* Reduce hover transform for smoother effect */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  /* Enhance hover shadow */
+}
+
+/* Animations - Replace with your preferred animation libraries or custom animations */
+.services-tab:nth-child(odd) {
+  animation: animateLeft 0.8s ease-in-out forwards;
+}
+
+.services-tab:nth-child(even) {
+  animation: animateRight 0.8s ease-in-out forwards;
+}
+
+@keyframes animateLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
 }
 
 /* waves */
@@ -1584,10 +1672,11 @@ nav .icon-cancel {
 }
 
 .main-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin-left: 0px;
+  margin-top: 26%;
+  /* width: 100%; */
+  /* height: 100%; */
+  /* object-fit: cover; */
+  margin-left: 5.4%;
 }
 
 .main-navigation-manual,
@@ -1689,5 +1778,149 @@ input[type="radio"]:not(:first-child) {
 
   100% {
     transform: rotateX(-180deg) rotateY(-180deg);
+  }
+}
+
+.sliding-text {
+  position: relative;
+  /* z-index: 80; */
+  /* margin-top: 148px; */
+  width: 100%;
+  /* background-color: red; */
+}
+
+
+.container {
+  /* max-width: 1200px; */
+  width: 100%;
+}
+
+.slider-wrapper {
+  position: relative;
+  /* width: 100%; */
+  margin-top: -3px;
+}
+
+.slider-wrapper .slide-button {
+  position: absolute;
+  top: 50%;
+  outline: none;
+  border: none;
+  height: 50px;
+  width: 50px;
+  z-index: 5;
+  color: #fff;
+  display: flex;
+  cursor: pointer;
+  font-size: 2.2rem;
+  background: #000;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.slider-wrapper .slide-button:hover {
+  background: #404040;
+}
+
+.slider-wrapper .slide-button#prev-slide {
+  left: -25px;
+  display: none;
+}
+
+.slider-wrapper .slide-button#next-slide {
+  right: -25px;
+}
+
+.slider-wrapper .image-list {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 0px;
+  font-size: 0;
+  list-style: none;
+  /* width: 100%; */
+  margin-bottom: 30px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.slider-wrapper .image-list::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-wrapper .image-list .image-item {
+  width: 468px;
+  /* height: 400px; */
+  object-fit: cover;
+  margin-left: 0px;
+}
+
+.container .slider-scrollbar {
+  height: 24px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.slider-scrollbar .scrollbar-track {
+  background: #ccc;
+  width: 100%;
+  height: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.slider-scrollbar:hover .scrollbar-track {
+  height: 4px;
+}
+
+.slider-scrollbar .scrollbar-thumb {
+  position: absolute;
+  background: #000;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+  cursor: grab;
+  border-radius: inherit;
+}
+
+.slider-scrollbar .scrollbar-thumb:active {
+  cursor: grabbing;
+  height: 8px;
+  top: -2px;
+}
+
+.slider-scrollbar .scrollbar-thumb::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -10px;
+  bottom: -10px;
+}
+
+/* Styles for mobile and tablets */
+@media only screen and (max-width: 1023px) {
+  .slider-wrapper .slide-button {
+    display: none !important;
+  }
+
+  .slider-wrapper .image-list {
+    gap: 10px;
+    margin-bottom: 15px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .slider-wrapper .image-list .image-item {
+    width: 280px;
+    height: 380px;
+  }
+
+  .slider-scrollbar .scrollbar-thumb {
+    width: 20%;
   }
 }

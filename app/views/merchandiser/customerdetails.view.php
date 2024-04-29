@@ -23,7 +23,7 @@
     <!-- Navigation Bar -->
 
     <!-- New Table -->
-    <!-- content  -->
+    <!-- search js  -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.querySelector('input[type="search"]');
@@ -124,8 +124,13 @@
                                         <div class="view-remove-buttons">
                                             <button style="color: #000000e0;" type="submit" name="selectItem" class="edit"
                                                 data-cst='<?= json_encode($cst); ?>' onclick="openView(this)">View</button>
+
                                             <form method="POST">
-                                                <button name="cstRemove" style="color: #ff0000de;">Remove</button>
+                                                <input type="hidden" name="id" data-ct='<?= json_encode($cst); ?>'
+                                                    value="<?php echo $cst->id; ?>">
+                                                <button type="button" id="rem" style="color: #ff0000de;">Remove</button>
+
+
                                             </form>
                                         </div>
                                     </td>
@@ -157,6 +162,145 @@
 
 
     </section>
+    <!-- Remove popup -->
+    <div id="cancel-popup" class="cancel-modal">
+        <div class="modal-content">
+            <span><i class="bx bx-x log-close-icon" style="color: #ff0000"></i></span>
+            <div>
+                <i class='bx bxs-error-circle bx-tada icon-warn' style='color:#7d2ae8'></i>
+            </div>
+            <h3>Are You Sure ?</h3>
+            <div class="logout-btn-component">
+
+                <button name="cstRemove" type="submit" class="button" id="confirmDelete">Yes</button>
+                <button class="button" id="cancelDelete">No</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        const modal = document.getElementById("cancel-popup");
+        const btn = document.getElementById("rem");
+        const closeButton = document.getElementsByClassName("log-close-icon")[0];
+        const confirmBtn = document.getElementById("confirmDelete");
+        const cancelBtn = document.getElementById("cancelDelete");
+
+        btn.addEventListener("click", function () {
+            modal.style.display = "block";
+        });
+
+        closeButton.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        cancelBtn.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        confirmBtn.onclick = function () {
+            // console.log("Data deleted successfully.");
+            modal.style.display = "none";
+        };
+
+        closeButton.addEventListener("mouseenter", function () {
+            closeButton.classList.add("bx-flashing");
+        });
+
+        closeButton.addEventListener("mouseleave", function () {
+            closeButton.classList.remove("bx-flashing");
+        });
+    </script>
+
+
+    <style>
+        .cancel-modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            border-radius: 10px;
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 25%;
+            text-align: center;
+        }
+
+        .log-close-icon {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            /* position: absolute !important; */
+        }
+
+        .log-close-icon:hover,
+        .log-close-icon:focus {
+            color: rgb(172, 0, 0);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .icon-warn {
+            margin-left: 27px;
+            font-size: 7rem;
+            /* display: flexbox; */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            text-decoration: none;
+            width: 110px;
+            font-size: 16px;
+            display: inline-block;
+            padding: 8px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            color: #fff;
+            transition: 0.3s ease-in;
+            text-align: center;
+            transform: scale(1);
+
+        }
+
+        #confirmDelete {
+            margin-right: 10px;
+            background-color: #000000;
+        }
+
+        #cancelDelete {
+            background-color: #f44336;
+        }
+
+        #confirmDelete:hover {
+            transform: scale(1.05);
+            /* background-color: rgb(16, 187, 0); */
+        }
+
+        #cancelDelete:hover {
+            transform: scale(1.05);
+            background-color: rgb(255, 0, 0);
+        }
+
+        .logout-btn-component {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
 
 
     <!-- POPUP -->
@@ -230,9 +374,10 @@
             <form id="addCustomerForm" method="POST">
                 <div class="form">
                     <div class="input-box">
-                        <span class="details">Customer Name &nbsp; <small class="error-message" id="name_error" style="color:red; display: ;"></small></span>
-                        <input  id ="fullname" class="new-emp-details" type="text" name="fullname" placeholder="Enter full name"
-                        required>
+                        <span class="details">Customer Name &nbsp; <small class="error-message" id="name_error"
+                                style="color:red; display: ;"></small></span>
+                        <input id="fullname" class="new-emp-details" type="text" name="fullname"
+                            placeholder="Enter full name">
                         <!-- <label class="placeholder" for="input">Enter text here...</label> -->
                     </div>
 
@@ -244,32 +389,38 @@
                     </div> -->
 
                     <div class="input-box">
-                        <span class="details">E-mail &nbsp; <small class="error-message" id="email_error" style="color:red;"></small></span><br>
-                        <input id="email" class="new-emp-details" type="email" name="email" placeholder="Enter e-mail" required>
-                        
+                        <span class="details">E-mail &nbsp; <small class="error-message" id="email_error"
+                                style="color:red;"></small></span><br>
+                        <input id="email" class="new-emp-details" type="email" name="email" placeholder="Enter e-mail">
+
                     </div>
 
                     <div class="input-box">
-                        <span class="details">City &nbsp; <small class="error-message" id="city_error" style="color:red;"></small></span><br>
-                        <input id="city" class="new-emp-details" type="text" name="city" placeholder="Enter Address" required>
-                        
+                        <span class="details">City &nbsp; <small class="error-message" id="city_error"
+                                style="color:red;"></small></span><br>
+                        <input id="city" class="new-emp-details" type="text" name="city" placeholder="Enter Address">
+
                     </div>
 
                     <div class="input-box">
-                        <span class="details">Address &nbsp; <small class="error-message" id="address_error" style="color:red;"></small></span><br>
-                        <input id="address" class="new-emp-details" type="text" name="address" placeholder="Enter Address" required>
-                        
-                    
+                        <span class="details">Address &nbsp; <small class="error-message" id="address_error"
+                                style="color:red;"></small></span><br>
+                        <input id="address" class="new-emp-details" type="text" name="address"
+                            placeholder="Enter Address">
+
+
                     </div>
                     <div class="input-box">
-                        <span class="details">Contact Number&nbsp; <small class="error-message" id="phone_error" style="color:red;"></small></span>
-                        <input id="phone"class="new-emp-details" type="text" name="phone" placeholder="Enter contact number"
-                            required>
-                        
+                        <span class="details">Contact Number&nbsp; <small class="error-message" id="phone_error"
+                                style="color:red;"></small></span>
+                        <input id="phone" class="new-emp-details" type="text" name="phone"
+                            placeholder="Enter contact number">
+
                     </div>
 
                 </div>
                 <div class="btns">
+                    <input type="hidden" value="newCustomer" name="newCustomer">
                     <button type="submit" class="update-btn pb" value="newCustomer" name="newCustomer">Submit</button>
                     <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
                 </div>
@@ -301,63 +452,63 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-    var form = document.getElementById('addCustomerForm');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
+            var form = document.getElementById('addCustomerForm');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
 
-        var isValid = true; // Track if form is valid
+                var isValid = true; // Track if form is valid
 
-        var fullname = document.getElementById('name_error');
-        var email = document.getElementById('email_error');
-        var city = document.getElementById('city_error');
-        var address = document.getElementById('address_error');
-        var phone = document.getElementById('phone_error');
+                var fullname = document.getElementById('fullname').value;
+                var email = document.getElementById('email').value;
+                var city = document.getElementById('city').value;
+                var address = document.getElementById('address').value;
+                var phone = document.getElementById('phone').value;
 
-        
-        var fullnameError = document.getElementById('name_error');
-        var addressError = document.getElementById('address_error');
-        var emailError = document.getElementById('email_error');
-        var cityError = document.getElementById('city_error');
-        // var addressError = address.nextElementSibling;
-        var phoneError = document.getElementById('phone_error');
 
-        // Clear previous errors
-        [fullnameError, emailError, cityError, addressError, phoneError].forEach((error) => {
-            error.style.display = 'none';
+                var fullnameError = document.getElementById('name_error');
+                var addressError = document.getElementById('address_error');
+                var emailError = document.getElementById('email_error');
+                var cityError = document.getElementById('city_error');
+                // var addressError = address.nextElementSibling;
+                var phoneError = document.getElementById('phone_error');
+
+                // Clear previous errors
+                [fullnameError, emailError, cityError, addressError, phoneError].forEach((error) => {
+                    error.style.display = 'none';
+                });
+
+                // Regex Patterns
+                if (!/^[a-zA-Z\s]+$/.test(fullname)) {
+                    fullnameError.textContent = 'Invalid name. Only letters and spaces allowed.';
+                    fullnameError.style.display = 'table-row';
+                    isValid = false;
+                }
+                if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
+                    emailError.textContent = 'Invalid email format.';
+                    emailError.style.display = 'table-row';
+                    isValid = false;
+                }
+                if (!/^[a-zA-Z\s]+$/.test(city)) {
+                    cityError.textContent = 'Invalid city. Only letters and spaces allowed.';
+                    cityError.style.display = 'table-row';
+                    isValid = false;
+                }
+                if (!/^[a-zA-Z0-9\s,.'-]{3,}$/.test(address)) {
+                    addressError.textContent = 'Invalid address.';
+                    addressError.style.display = 'table-row';
+                    isValid = false;
+                }
+                if (!/^\+?\d{10,15}$/.test(phone)) {
+                    phoneError.textContent = 'Invalid phone number. Enter 10-15 digits.';
+                    phoneError.style.display = 'table-row';
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    form.submit(); // Form is valid, submit it
+                }
+            });
         });
-
-        // Regex Patterns
-        if (!/^[a-zA-Z\s]+$/.test(fullname)) {
-            fullnameError.textContent = 'Invalid name. Only letters and spaces allowed.';
-            fullnameError.style.display = 'table-row';
-            isValid = false;
-        }
-        if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
-            emailError.textContent = 'Invalid email format.';
-            emailError.style.display = 'table-row';
-            isValid = false;
-        }
-        if (!/^[a-zA-Z\s]+$/.test(city)) {
-            cityError.textContent = 'Invalid city. Only letters and spaces allowed.';
-            cityError.style.display = 'table-row';
-            isValid = false;
-        }
-        if (!/^[a-zA-Z0-9\s,.'-]{3,}$/.test(address)) {
-            addressError.textContent = 'Invalid address.';
-            addressError.style.display = 'table-row';
-            isValid = false;
-        }
-        if (!/^\+?\d{10,15}$/.test(phone)) {
-            phoneError.textContent = 'Invalid phone number. Enter 10-15 digits.';
-            phoneError.style.display = 'table-row';
-            isValid = false;
-        }
-
-        if (isValid) {
-            form.submit(); // Form is valid, submit it
-        }
-    });
-});
 
     </script
 

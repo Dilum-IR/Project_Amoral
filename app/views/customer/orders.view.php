@@ -6,6 +6,7 @@
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/customer/customer-orders.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -21,6 +22,8 @@
 
     <?php
     include __DIR__ . '/../utils/loading.php';
+    include __DIR__ . '/../utils/toastMsg.php';
+
     ?>
 
     <!-- Sidebar -->
@@ -133,7 +136,9 @@
                                                     $order->order_status == "cutting" ||
                                                     $order->order_status == "sewing" ||
                                                     $order->order_status == "cut" ||
-                                                    $order->order_status == "sewed"
+                                                    $order->order_status == "sewed" ||
+                                                    $order->order_status == 'sent to garment'
+
                                                 ) { ?>
                                                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                                                 <?php } else if ($order->order_status == "delivering") { ?>
@@ -154,7 +159,7 @@
                                                     $order->order_status == 'sewed'
                                                 ) : ?>
                                                     <?php echo "Processing" ?>
-                                                <?php elseif($order->order_status == 'canceled'): ?>
+                                                <?php elseif ($order->order_status == 'canceled') : ?>
                                                     <?php echo "Cancelled" ?>
                                                 <?php else : ?>
                                                     <?php echo ucfirst($order->order_status) ?>
@@ -305,662 +310,683 @@
 
 
 
-    <script>
-        select_orders_amount = document.getElementById("select-orders-amount");
-        select_orders_halfamount = document.getElementById("select-orders-halfamount");
-        select_element = document.getElementById("select-element");
+            <script>
+                select_orders_amount = document.getElementById("select-orders-amount");
+                select_orders_halfamount = document.getElementById("select-orders-halfamount");
+                select_element = document.getElementById("select-element");
 
-        btn_price = document.getElementById("btn-price");
-        amount_box = document.getElementById("amount-box-content");
-        checkbox = document.getElementById("checkbox");
-
-
-        half_payment = document.getElementById("half-payment");
-        half_checker = document.getElementById("half-checker");
-
-        var amount = 0
-        var id_list = []
-        var half = false;
+                btn_price = document.getElementById("btn-price");
+                amount_box = document.getElementById("amount-box-content");
+                checkbox = document.getElementById("checkbox");
 
 
-        if (amount != 0) {
+                half_payment = document.getElementById("half-payment");
+                half_checker = document.getElementById("half-checker");
 
-            amount_box.classList.remove("disable");
-            amount_box.classList.add("active");
-
-        } else {
-            amount_box.classList.remove("active");
-            amount_box.classList.add("disable");
-            // amount_box.disabled = false;
-        }
+                var amount = 0
+                var id_list = []
+                var half = false;
 
 
-        var all_orders = <?= json_encode($data['order']); ?>
+                if (amount != 0) {
 
-        // Function to handle row selection
-        function selectRow(checkbox, id, price, remain, pay_type) {
+                    amount_box.classList.remove("disable");
+                    amount_box.classList.add("active");
 
-
-            // console.log(id, price, remain, pay_type);
-
-            // if select all checkbox is checked when go to the another function
-
-            if (select_all) {
-
-                selectedRowsFromAllSelect(id, price, remain, pay_type);
-                return;
-            }
-
-            // get the selected index ids
-            let index = id_list.indexOf(id);
-
-            let pay_amount = 0;
-
-
-            if (pay_type == 'no') {
-                pay_amount = price
-            } else if (pay_type == 'half') {
-                pay_amount = remain
-
-            }
-
-            if (index !== -1) {
-                id_list.splice(index, 1);
-                amount = amount - pay_amount
-            } else {
-
-                amount = amount + pay_amount
-                id_list.push(id)
-            }
-
-            var order_id_str = "";
-            id_list.forEach(element => {
-                if (order_id_str != "") {
-
-                    order_id_str = order_id_str + ", " + element
                 } else {
-                    order_id_str = element
-
-                }
-            });
-
-            if (order_id_str != "") {
-                order_id_str = "[ " + order_id_str + " ]"
-            }
-            select_orders_amount.innerHTML = amount.toFixed(2);
-
-            // btn_price.innerHTML = amount;
-            selectHalfPay();
-
-            select_element.innerHTML = order_id_str;
-            // payment is grater than 100,000.00 when can pay the half
-            if (amount == 0) {
-
-                // select_orders_amount.innerHTML = "Please Select Yours orders";
-                half_payment.classList.remove("active");
-                half_payment.classList.add("disable");
-
-                half_checker.classList.remove("active");
-                half_checker.classList.add("disable");
-
-            } else if (amount >= 100000) {
-
-                half_payment.classList.remove("disable");
-                half_payment.classList.add("active");
-
-                half_checker.classList.remove("disable");
-                half_checker.classList.add("active");
-
-
-                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
-            } else {
-                half_payment.classList.remove("active");
-                half_payment.classList.add("disable");
-
-                half_checker.classList.remove("active");
-                half_checker.classList.add("disable");
-            }
-
-
-            if (amount != 0) {
-
-                amount_box.classList.remove("disable");
-                amount_box.classList.add("active");
-
-            } else {
-                amount_box.classList.remove("active");
-                amount_box.classList.add("disable");
-                // amount_box.disabled = false;
-            }
-
-
-            var row = checkbox.parentNode.parentNode;
-            row.classList.toggle("selected");
-
-        }
-
-        function selectHalfPay() {
-            if (checkbox.checked) {
-
-                btn_price.innerHTML = (amount / 2).toFixed(2);
-                half = true;
-            } else {
-
-                btn_price.innerHTML = amount.toFixed(2);
-                half = false;
-            }
-
-        }
-
-        // Function to select all rows
-        function selectAllRows() {
-            var checkboxes = document.querySelectorAll("tbody input[type='checkbox']");
-            var selectAllCheckbox = document.getElementById("selectAll");
-
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = selectAllCheckbox.checked;
-                var row = checkbox.parentNode.parentNode;
-
-                if (selectAllCheckbox.checked) {
-
-                    select_all = true;
-
-                    row.classList.add("selected");
-                } else {
-                    amount = 0;
-                    id_list = [];
-                    select_all = false;
-                    row.classList.remove("selected");
+                    amount_box.classList.remove("active");
+                    amount_box.classList.add("disable");
+                    // amount_box.disabled = false;
                 }
 
 
-            });
+                var all_orders = <?= json_encode($data['order']); ?>
 
-            if (selectAllCheckbox.checked) {
-
-                amount = 0;
-                selectedRowsFromAllSelect(0, 0, 0, "null");
-            } else {
-                console.log(id_list);
-                amount_box.classList.remove("active");
-                amount_box.classList.add("disable");
-            }
-
-        }
-
-        var select_all = false;
-
-        function selectedRowsFromAllSelect(id, price, remain, pay_type) {
+                // Function to handle row selection
+                function selectRow(checkbox, id, price, remain, pay_type) {
 
 
-            if (id == 0) {
+                    // console.log(id, price, remain, pay_type);
 
-                all_orders.forEach(function(element) {
-                    if (element.order_status != "canceled" && element.pay_type != "full") {
+                    // if select all checkbox is checked when go to the another function
 
-                        id_list.push(element.order_id);
+                    if (select_all) {
 
-                        if (element.pay_type == "half") {
+                        selectedRowsFromAllSelect(id, price, remain, pay_type);
+                        return;
+                    }
 
-                            amount += element.remaining_payment
-                        } else {
+                    // get the selected index ids
+                    let index = id_list.indexOf(id);
 
-                            amount += element.total_price
-                        }
+                    let pay_amount = 0;
+
+
+                    if (pay_type == 'no') {
+                        pay_amount = price
+                    } else if (pay_type == 'half') {
+                        pay_amount = remain
 
                     }
 
-                });
-            }
+                    if (index !== -1) {
+                        id_list.splice(index, 1);
+                        amount = amount - pay_amount
+                    } else {
 
+                        amount = amount + pay_amount
+                        id_list.push(id)
+                    }
 
-            // get the selected index ids
-            let index = id_list.indexOf(id);
+                    var order_id_str = "";
+                    id_list.forEach(element => {
+                        if (order_id_str != "") {
 
-
-            let pay_amount = 0;
-
-            if (pay_type == 'no') {
-                pay_amount = price
-            } else if (pay_type == 'half') {
-                pay_amount = remain
-
-            }
-
-            if (index != -1) {
-
-                id_list.splice(index, 1);
-                amount = amount - pay_amount
-
-            } else if (id != 0) {
-
-                amount = amount + pay_amount
-                id_list.push(id)
-            }
-
-
-            id_list = [...new Set(id_list)];
-
-            var order_id_str = "";
-            id_list.forEach(element => {
-                if (order_id_str != "") {
-
-                    order_id_str = order_id_str + ", " + element
-                } else {
-                    order_id_str = element
-
-                }
-            });
-
-            if (order_id_str != "") {
-                order_id_str = "[ " + order_id_str + " ]"
-            }
-            select_orders_amount.innerHTML = amount.toFixed(2);
-
-            // btn_price.innerHTML = amount;
-            selectHalfPay();
-
-
-            select_element.innerHTML = order_id_str;
-            // payment is grater than 100,000.00 when can pay the half
-            if (amount == 0) {
-
-                // select_orders_amount.innerHTML = "Please Select Yours orders";
-                half_payment.classList.remove("active");
-                half_payment.classList.add("disable");
-
-                half_checker.classList.remove("active");
-                half_checker.classList.add("disable");
-
-            } else if (amount >= 100000) {
-
-                half_payment.classList.remove("disable");
-                half_payment.classList.add("active");
-
-                half_checker.classList.remove("disable");
-                half_checker.classList.add("active");
-
-
-                select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
-            } else {
-                half_payment.classList.remove("active");
-                half_payment.classList.add("disable");
-
-                half_checker.classList.remove("active");
-                half_checker.classList.add("disable");
-            }
-
-
-            if (amount != 0) {
-
-                amount_box.classList.remove("disable");
-                amount_box.classList.add("active");
-
-            } else {
-                amount_box.classList.remove("active");
-                amount_box.classList.add("disable");
-                // amount_box.disabled = false;
-            }
-
-            // console.log(amount);
-            // console.log(id_list);
-
-        }
-    </script>
-
-    <!-- POPUP -->
-
-    <script>
-        function paymentGateway(order_id, user) {
-
-            var paybtn = document.getElementById('pay');
-            paybtn.disabled = true
-            // var paymentData = JSON.parse(dataString);
-
-            $(document).ready(function() {
-
-                data = {
-                    user: user,
-                    id: id_list,
-                    total: amount,
-                    ishalf: half
-                };
-
-                $.ajax({
-                    type: "POST",
-                    url: "<?= ROOT ?>/customer/p",
-                    data: data,
-                    cache: false,
-                    success: function(res) {
-                        try {
-
-
-                            var obj = JSON.parse(res);
-
-                            // Payment completed. It can be a successful failure.
-                            payhere.onCompleted = function onCompleted(orderId) {
-                                // Note: validate the payment and show success or failure page to the customer
-                                PayedOrdersUpdate(orderId, obj.ishalf, user);
-                            };
-
-                            // Payment window closed
-                            payhere.onDismissed = function onDismissed() {
-                                // Note: Prompt user to pay again or show an error page
-                                console.log("Payment dismissed");
-                            };
-
-                            // Error occurred
-                            payhere.onError = function onError(error) {
-                                // Note: show an error page
-                                console.log("Error:" + error);
-                            };
-
-                            // Put the payment variables here
-                            var payment = {
-                                sandbox: true,
-                                merchant_id: obj["merchant_id"], // Replace your Merchant ID
-                                hash: obj["hash"], // *Replace with generated hash retrieved from backend
-                                return_url: "http://localhost/project_Amoral/others/checkout.php", // Important
-                                cancel_url: "http://localhost/project_Amoral/others/checkout.php", // Important
-                                notify_url: "http://localhost/project_Amoral/others/successPay.php",
-                                order_id: obj["order_id"],
-                                items: obj["items"],
-                                amount: obj["amount"],
-                                currency: obj["currency"],
-                                first_name: obj["first_name"],
-                                last_name: obj["last_name"],
-                                email: obj["email"],
-                                phone: obj["phone"],
-                                address: obj["address"],
-                                city: obj["city"],
-                                country: obj["country"],
-                                delivery_address: obj["address"],
-                                delivery_city: "Kalutara",
-                                delivery_country: "Sri Lanka",
-                                custom_1: "",
-                                custom_2: "",
-                            };
-
-
-                            payhere.startPayment(payment);
-
-                            paybtn.disabled = false
-
-                        } catch (error) {
-                            paybtn.disabled = false
+                            order_id_str = order_id_str + ", " + element
+                        } else {
+                            order_id_str = element
 
                         }
-                    },
-                    error: function(xhr, status, error) {
-                        paybtn.disabled = false
+                    });
 
-                    },
-                });
+                    if (order_id_str != "") {
+                        order_id_str = "[ " + order_id_str + " ]"
+                    }
+                    select_orders_amount.innerHTML = amount.toFixed(2);
 
-            });
-        }
+                    // btn_price.innerHTML = amount;
+                    selectHalfPay();
 
-        function PayedOrdersUpdate(id, ishalf, user) {
+                    select_element.innerHTML = order_id_str;
+                    // payment is grater than 100,000.00 when can pay the half
+                    if (amount == 0) {
 
-            // Split the string by comma and trim spaces
-            var idsArray = id.split(",").map(function(item) {
-                return parseInt(item.trim(), 10);
-            });
+                        // select_orders_amount.innerHTML = "Please Select Yours orders";
+                        half_payment.classList.remove("active");
+                        half_payment.classList.add("disable");
 
-            data = {
+                        half_checker.classList.remove("active");
+                        half_checker.classList.add("disable");
 
-                id: idsArray,
-                ishalf: ishalf,
-                user: user
+                    } else if (amount >= 100000) {
 
-            };
+                        half_payment.classList.remove("disable");
+                        half_payment.classList.add("active");
 
-
-            $.ajax({
-                type: "POST",
-                url: "<?= ROOT ?>/customer/p_success",
-                data: data,
-                cache: false,
-                success: function(res) {
-                    try {
-
-                        alert(res);
-
-                        paybtn.disabled = false
+                        half_checker.classList.remove("disable");
+                        half_checker.classList.add("active");
 
 
-                        location.reload();
-                    } catch (error) {}
-                },
-                error: function(xhr, status, error) {},
-            });
+                        select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+                    } else {
+                        half_payment.classList.remove("active");
+                        half_payment.classList.add("disable");
+
+                        half_checker.classList.remove("active");
+                        half_checker.classList.add("disable");
+                    }
 
 
-        }
-    </script>
+                    if (amount != 0) {
+
+                        amount_box.classList.remove("disable");
+                        amount_box.classList.add("active");
+
+                    } else {
+                        amount_box.classList.remove("active");
+                        amount_box.classList.add("disable");
+                        // amount_box.disabled = false;
+                    }
 
 
-    <div class="popup-report">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>Report Your Problem</h2>
-            <form method="POST">
+                    var row = checkbox.parentNode.parentNode;
+                    row.classList.toggle("selected");
 
-                <h4>Title : <span class="error title"></span> </h4>
-                <input name="title" type="text" placeholder="Enter your title">
-                <h4>Your email : <span class="error email"></span></h4>
-                <input disabled name="email" type="text" placeholder="Enter your email" value="<?= $_SESSION['USER']->email ?>">
-                <h4>Problem : <span class="error description"></span></h4>
-                <textarea name="description" id="problem" cols="30" rows="7" placeholder="Enter your problem"></textarea>
+                }
 
-                <button type="submit" class="close-btn pb" name="report" value="Submit">Submit</button>
-                <button type="button" class="cancelR-btn pb" onclick="closeReport()">Cancel</button>
+                function selectHalfPay() {
+                    if (checkbox.checked) {
+
+                        btn_price.innerHTML = (amount / 2).toFixed(2);
+                        half = true;
+                    } else {
+
+                        btn_price.innerHTML = amount.toFixed(2);
+                        half = false;
+                    }
+
+                }
+
+                // Function to select all rows
+                function selectAllRows() {
+                    var checkboxes = document.querySelectorAll("tbody input[type='checkbox']");
+                    var selectAllCheckbox = document.getElementById("selectAll");
+
+                    checkboxes.forEach(function(checkbox) {
+                        checkbox.checked = selectAllCheckbox.checked;
+                        var row = checkbox.parentNode.parentNode;
+
+                        if (selectAllCheckbox.checked) {
+
+                            select_all = true;
+
+                            row.classList.add("selected");
+                        } else {
+                            amount = 0;
+                            id_list = [];
+                            select_all = false;
+                            row.classList.remove("selected");
+                        }
 
 
-            </form>
-        </div>
-    </div>
+                    });
+
+                    if (selectAllCheckbox.checked) {
+
+                        amount = 0;
+                        selectedRowsFromAllSelect(0, 0, 0, "null");
+                    } else {
+                        console.log(id_list);
+                        amount_box.classList.remove("active");
+                        amount_box.classList.add("disable");
+                    }
+
+                }
+
+                var select_all = false;
+
+                function selectedRowsFromAllSelect(id, price, remain, pay_type) {
 
 
-    <div class="popup-view" id="popup-view">
-        <!-- <button type="button" class="update-btn pb">Update Order</button> -->
-        <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>Order Details</h2>
-            <div class="status">
+                    if (id == 0) {
 
-                <ul>
-                    <li>
-                        <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
-                        <div class="progress one">
+                        all_orders.forEach(function(element) {
+                            if (element.order_status != "canceled" && element.pay_type != "full") {
 
-                            <i class="uil uil-check"></i>
-                        </div>
-                        <p class="text">Pending</p>
-                    </li>
-                    <li>
-                        <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
-                        <div class="progress two">
+                                id_list.push(element.order_id);
 
-                            <i class="uil uil-check"></i>
-                        </div>
-                        <p class="text">Processing</p>
-                    </li>
-                    <li>
-                        <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
-                        <div class="progress three">
+                                if (element.pay_type == "half") {
 
-                            <i class="uil uil-check"></i>
-                        </div>
-                        <p class="text">Delivery In Progress</p>
-                    </li>
-                    <li>
-                        <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
-                        <div class="progress four">
+                                    amount += element.remaining_payment
+                                } else {
 
-                            <!-- <i class="uil uil-check"></i> -->
-                        </div>
-                        <p class="text">Completed</p>
-                    </li>
+                                    amount += element.total_price
+                                }
 
-                </ul>
+                            }
 
+                        });
+                    }
+
+
+                    // get the selected index ids
+                    let index = id_list.indexOf(id);
+
+
+                    let pay_amount = 0;
+
+                    if (pay_type == 'no') {
+                        pay_amount = price
+                    } else if (pay_type == 'half') {
+                        pay_amount = remain
+
+                    }
+
+                    if (index != -1) {
+
+                        id_list.splice(index, 1);
+                        amount = amount - pay_amount
+
+                    } else if (id != 0) {
+
+                        amount = amount + pay_amount
+                        id_list.push(id)
+                    }
+
+
+                    id_list = [...new Set(id_list)];
+
+                    var order_id_str = "";
+                    id_list.forEach(element => {
+                        if (order_id_str != "") {
+
+                            order_id_str = order_id_str + ", " + element
+                        } else {
+                            order_id_str = element
+
+                        }
+                    });
+
+                    if (order_id_str != "") {
+                        order_id_str = "[ " + order_id_str + " ]"
+                    }
+                    select_orders_amount.innerHTML = amount.toFixed(2);
+
+                    // btn_price.innerHTML = amount;
+                    selectHalfPay();
+
+
+                    select_element.innerHTML = order_id_str;
+                    // payment is grater than 100,000.00 when can pay the half
+                    if (amount == 0) {
+
+                        // select_orders_amount.innerHTML = "Please Select Yours orders";
+                        half_payment.classList.remove("active");
+                        half_payment.classList.add("disable");
+
+                        half_checker.classList.remove("active");
+                        half_checker.classList.add("disable");
+
+                    } else if (amount >= 100000) {
+
+                        half_payment.classList.remove("disable");
+                        half_payment.classList.add("active");
+
+                        half_checker.classList.remove("disable");
+                        half_checker.classList.add("active");
+
+
+                        select_orders_halfamount.innerHTML = (amount / 2).toFixed(2);
+                    } else {
+                        half_payment.classList.remove("active");
+                        half_payment.classList.add("disable");
+
+                        half_checker.classList.remove("active");
+                        half_checker.classList.add("disable");
+                    }
+
+
+                    if (amount != 0) {
+
+                        amount_box.classList.remove("disable");
+                        amount_box.classList.add("active");
+
+                    } else {
+                        amount_box.classList.remove("active");
+                        amount_box.classList.add("disable");
+                        // amount_box.disabled = false;
+                    }
+
+                    // console.log(amount);
+                    // console.log(id_list);
+
+                }
+            </script>
+
+            <!-- POPUP -->
+
+            <script>
+                var paybtn = document.getElementById('pay');
+
+                function paymentGateway(order_id, user) {
+
+                    paybtn.disabled = true
+                    paybtn.innerHTML = "<i class='bx bx-loader-circle bx-spin bx-flip-horizontal bx-xs'></i>";
+                    // var paymentData = JSON.parse(dataString);
+
+                    $(document).ready(function() {
+
+                        data = {
+                            user: user,
+                            id: id_list,
+                            total: amount,
+                            ishalf: half
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "<?= ROOT ?>/customer/p",
+                            data: data,
+                            cache: false,
+                            success: function(res) {
+                                try {
+
+                                    var obj = JSON.parse(res);
+
+                                    // Payment completed. It can be a successful failure.
+                                    payhere.onCompleted = function onCompleted(orderId) {
+                                        // validate the payment and show success or failure page to the customer
+
+                                        PayedOrdersUpdate(orderId, obj.ishalf, user);
+
+                                    };
+
+                                    // Payment window closed
+                                    payhere.onDismissed = function onDismissed() {
+                                        //  Prompt user to pay again or show an error page
+                                        console.log("Payment dismissed");
+                                        location.reload();
+
+                                    };
+
+                                    // Error occurred
+                                    payhere.onError = function onError(error) {
+                                        // show an error page
+                                        console.log("Error:" + error);
+                                        location.reload();
+
+                                    };
+
+                                    // Put the payment variables here
+                                    var payment = {
+                                        sandbox: true,
+                                        merchant_id: obj["merchant_id"], // Replace your Merchant ID
+                                        hash: obj["hash"], // *Replace with generated hash retrieved from backend
+                                        return_url: "http://localhost/project_Amoral/others/checkout.php", // Important
+                                        cancel_url: "http://localhost/project_Amoral/others/checkout.php", // Important
+                                        notify_url: "http://localhost/project_Amoral/others/successPay.php",
+                                        order_id: obj["order_id"],
+                                        items: obj["items"],
+                                        amount: obj["amount"],
+                                        currency: obj["currency"],
+                                        first_name: obj["first_name"],
+                                        last_name: obj["last_name"],
+                                        email: obj["email"],
+                                        phone: obj["phone"],
+                                        address: obj["address"],
+                                        city: obj["city"],
+                                        country: obj["country"],
+                                        delivery_address: obj["address"],
+                                        delivery_city: "Kalutara",
+                                        delivery_country: "Sri Lanka",
+                                        custom_1: "",
+                                        custom_2: "",
+                                    };
+
+
+                                    payhere.startPayment(payment);
+
+                                } catch (error) {
+                                    location.reload();
+
+                                    paybtn.disabled = false
+
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                location.reload();
+
+                                paybtn.disabled = false
+
+                            },
+                        });
+
+                    });
+                }
+
+                function PayedOrdersUpdate(id, ishalf, user) {
+
+                    // Split the string by comma and trim spaces
+                    var idsArray = id.split(",").map(function(item) {
+                        return parseInt(item.trim(), 10);
+                    });
+
+                    data = {
+
+                        id: idsArray,
+                        ishalf: ishalf,
+                        user: user
+
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?= ROOT ?>/customer/p_success",
+                        data: data,
+                        cache: false,
+                        success: function(res) {
+                            try {
+
+                                paybtn.disabled = false
+
+
+                                toastApply(
+                                    "Successfull",
+                                    "Your payment is added...",
+                                    0
+                                );
+
+                                setTimeout(function() {
+                                    location.reload();
+                                    paybtn.disabled = false
+                                }, 3000);
+
+                            } catch (error) {
+
+                                console.log(error);
+                                location.reload();
+
+                            }
+                        },
+                        error: function(xhr, status, error) {},
+                    });
+
+
+                }
+            </script>
+
+
+            <div class="popup-report">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>Report Your Problem</h2>
+                    <form method="POST">
+
+                        <h4>Title : <span class="error title"></span> </h4>
+                        <input name="title" type="text" placeholder="Enter your title">
+                        <h4>Your email : <span class="error email"></span></h4>
+                        <input disabled name="email" type="text" placeholder="Enter your email" value="<?= $_SESSION['USER']->email ?>">
+                        <h4>Problem : <span class="error description"></span></h4>
+                        <textarea name="description" id="problem" cols="30" rows="7" placeholder="Enter your problem"></textarea>
+
+                        <button type="submit" class="close-btn pb" name="report" value="Submit">Submit</button>
+                        <button type="button" class="cancelR-btn pb" onclick="closeReport()">Cancel</button>
+
+
+                    </form>
+                </div>
             </div>
 
 
-            <form class="update-form" method="POST">
-                <div class="user-details">
-                    <div class="input-box design">
-                        <button type="button" class="download">Download</button>
+            <div class="popup-view" id="popup-view">
+                <!-- <button type="button" class="update-btn pb">Update Order</button> -->
+                <!-- <button type="button" class="cancel-btn pb">Cancel Order</button> -->
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>Order Details</h2>
+                    <div class="status">
 
-                        <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; left: 13%; position: relative; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
-                        
-                        <div class="carousel" >
-                            <button class="carousel-left-btn" id="prevBtn">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-                            <div id="carouselImages" style="width: 50%; position: relative;">
-                                <!-- Carousel images will be populated here -->
-                                <img src="" class="img1" style="width: 100%; height: 100%; object-fit: cover;">
-                                <img src="" class="img2" style="width: 100%; height: 100%; object-fit: cover;">
+                        <ul>
+                            <li>
+                                <iconify-icon icon="streamline:interface-time-stop-watch-alternate-timer-countdown-clock"></iconify-icon>
+                                <div class="progress one">
+
+                                    <i class="uil uil-check"></i>
+                                </div>
+                                <p class="text">Pending</p>
+                            </li>
+                            <li>
+                                <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
+                                <div class="progress two">
+
+                                    <i class="uil uil-check"></i>
+                                </div>
+                                <p class="text">Processing</p>
+                            </li>
+                            <li>
+                                <iconify-icon icon="tabler:truck-delivery"></iconify-icon>
+                                <div class="progress three">
+
+                                    <i class="uil uil-check"></i>
+                                </div>
+                                <p class="text">Delivery In Progress</p>
+                            </li>
+                            <li>
+                                <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
+                                <div class="progress four">
+
+                                    <!-- <i class="uil uil-check"></i> -->
+                                </div>
+                                <p class="text">Completed</p>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <form class="update-form" method="POST">
+                        <div class="user-details">
+                            <div class="input-box design">
+                                <button type="button" class="download">Download</button>
+
+                                <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; left: 13%; position: relative; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+
+                                <div class="carousel">
+                                    <button class="carousel-left-btn" id="prevBtn">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </button>
+                                    <div id="carouselImages" style="width: 50%; position: relative;">
+                                        <!-- Carousel images will be populated here -->
+                                        <img src="" class="img1" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <img src="" class="img2" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <button class="carousel-right-btn" id="nextBtn">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <button class="carousel-right-btn" id="nextBtn">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
+                            <div class="input-box">
+                                <span class="details">Order ID </span>
+                                <input name="order_id" type="text" required onChange="" readonly value="" />
+                            </div>
+                            <div class="input-box" style="height: 0;">
+
+                            </div>
+                            <div class="input-box placedDate">
+                                <span class="details">Order Placed On</span>
+                                <input name="order_placed_on" type="text" required onChange="" readonly value="" />
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Order ID </span>
-                        <input name="order_id" type="text" required onChange="" readonly value="" />
-                    </div>
-                    <div class="input-box" style="height: 0;">
 
-                    </div>
-                    <div class="input-box placedDate">
-                        <span class="details">Order Placed On</span>
-                        <input name="order_placed_on" type="text" required onChange="" readonly value="" />
-                    </div>
-
-                </div>
-
-                <div class="add card"></div>
+                        <div class="add card"></div>
 
 
-                <hr class="second">
+                        <hr class="second">
 
-                <div class="radio-btns">
-                    <input type="radio" id="pickup" name="deliveryOption" value="Pick Up">
-                    <label for="pickup">Pick Up</label>
+                        <div class="radio-btns">
+                            <input type="radio" id="pickup" name="deliveryOption" value="Pick Up">
+                            <label for="pickup">Pick Up</label>
 
-                    <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
-                    <label for="delivery">Delivery</label>
-                </div>
+                            <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
+                            <label for="delivery">Delivery</label>
+                        </div>
 
-                <div class="user-details pickup">
-                    <div class="input-box">
-                        <span class="details">Pick Up Date</span>
+                        <div class="user-details pickup">
+                            <div class="input-box">
+                                <span class="details">Pick Up Date</span>
 
-                        <input type="date" name="dispatch_date_pickup">
+                                <input type="date" name="dispatch_date_pickup">
 
-                    </div>
-                </div>
+                            </div>
+                        </div>
 
-                <div class="user-details delivery">
+                        <div class="user-details delivery">
 
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
+                            <div class="input-box">
+                                <span class="details">Delivery Expected On</span>
 
-                        <input type="date" name="dispatch_date_delivery">
-                    </div>
-                    <div class="input-box">
-                        <span class="details addr">City</span>
+                                <input type="date" name="dispatch_date_delivery">
+                            </div>
+                            <div class="input-box">
+                                <span class="details addr">City</span>
 
-                        <input name="city" type="text">
-
-
-                    </div>
-
-                    <div class="input-box location">
-                        <span class="details">Location</span>
-                        <div class="googlemap" id="view-order-map" style="height: 400px; width: 100%;"></div>
-                    </div>
-
-                    <!-- hidden element -->
-                    <div class="input-box">
-                        <input name="latitude" type="hidden" required />
-                        <input name="longitude" type="hidden" required />
-                    </div>
+                                <input name="city" type="text">
 
 
-                </div>
+                            </div>
 
-                <script>
-                    //toggle delivery options
-                    let delivery = document.getElementById("delivery");
-                    let pickUp = document.getElementById("pickup");
+                            <div class="input-box location">
+                                <span class="details">Location</span>
+                                <div class="googlemap" id="view-order-map" style="height: 400px; width: 100%;"></div>
+                            </div>
 
-
-                    pickUp.addEventListener('click', togglePickUp);
-                    delivery.addEventListener('click', toggleDelivery);
-
-                    function togglePickUp() {
-
-                        document.querySelector(".user-details.pickup").classList.add("is-checked");
-                        document.querySelector(".user-details.delivery").classList.remove("is-checked");
-
-                    }
-
-                    // view order delivary map
-                    function toggleDelivery() {
-                        document.querySelector(".user-details.delivery").classList.add("is-checked");
-                        document.querySelector(".user-details.pickup").classList.remove("is-checked");
-                    }
-                </script>
-
-                <style>
-                    .googlemap {
-                        /* background-color: red; */
-                    }
-                </style>
-
-                <hr class="second">
-
-                <div class="prices">
-
-                    <p style="text-align: right; margin: 10px 30px;"></p><br>
-
-                    <table class="price-details-container">
-                        <tr>
-                            <th>Material</th>
-                            <th>Sleeve Type</th>
-                            <th>Printing Type</th>
-                            <th>Quantity</th>
-                            <th>Unit Price(Rs.)</th>
-                        </tr>
-
-                        <tr class="discount" style="display: hidden;">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Discount(%)</td>
-                            <td class="discountPrice">0</td>
-                        </tr>
-
-                        <tr class="total">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Total</td>
-                            <td class="totalPrice">0</td>
-
-                            <input type="hidden" name="total_price" />
-                        </tr>
-                    </table>
-                </div>
+                            <!-- hidden element -->
+                            <div class="input-box">
+                                <input name="latitude" type="hidden" required />
+                                <input name="longitude" type="hidden" required />
+                            </div>
 
 
-                <!-- <div class="user-details">
+                        </div>
+
+                        <script>
+                            //toggle delivery options
+                            let delivery = document.getElementById("delivery");
+                            let pickUp = document.getElementById("pickup");
+
+
+                            pickUp.addEventListener('click', togglePickUp);
+                            delivery.addEventListener('click', toggleDelivery);
+
+                            function togglePickUp() {
+
+                                document.querySelector(".user-details.pickup").classList.add("is-checked");
+                                document.querySelector(".user-details.delivery").classList.remove("is-checked");
+
+                            }
+
+                            // view order delivary map
+                            function toggleDelivery() {
+                                document.querySelector(".user-details.delivery").classList.add("is-checked");
+                                document.querySelector(".user-details.pickup").classList.remove("is-checked");
+                            }
+                        </script>
+
+                        <style>
+                            .googlemap {
+                                /* background-color: red; */
+                            }
+                        </style>
+
+                        <hr class="second">
+
+                        <div class="prices">
+
+                            <p style="text-align: right; margin: 10px 30px;"></p><br>
+
+                            <table class="price-details-container">
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Sleeve Type</th>
+                                    <th>Printing Type</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price(Rs.)</th>
+                                </tr>
+
+                                <tr class="discount" style="display: hidden;">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Discount(%)</td>
+                                    <td class="discountPrice">0</td>
+                                </tr>
+
+                                <tr class="total">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total</td>
+                                    <td class="totalPrice">0</td>
+
+                                    <input type="hidden" name="total_price" />
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <!-- <div class="user-details">
                     <div class="input-box">
                         <span class="details">Unit Price</span>
                         <input name="unit_price" type="text" required onChange="" readonly value="" />
@@ -984,341 +1010,339 @@
 
 
 
-                <input type="button" class="update-btn pb" value="Update Order" />
-                <button type="button" class="cancel-btn pb">Cancel Order</button>
+                        <input type="button" class="update-btn pb" value="Update Order" />
+                        <button type="button" class="cancel-btn pb">Cancel Order</button>
 
-        </div>
+                </div>
 
-        </form>
-    </div>
+                </form>
+            </div>
 
 
-    <script>
-        
-        // call the ajax function for updating the order when update order button is clicked
-        document.querySelector(".popup-view .update-btn").addEventListener('click', function(){
-            let updateOrderForm = document.querySelector(".popup-view .update-form");
-            let formData = new FormData(updateOrderForm);
-            var data = {};
-            for (var pair of formData.entries()) {
-                data[pair[0]] = pair[1];
-            }
-            this.setAttribute('data-order', JSON.stringify(data));
-            update_method(this);
-        });
+            <script>
+                // call the ajax function for updating the order when update order button is clicked
+                document.querySelector(".popup-view .update-btn").addEventListener('click', function() {
+                    let updateOrderForm = document.querySelector(".popup-view .update-form");
+                    let formData = new FormData(updateOrderForm);
+                    var data = {};
+                    for (var pair of formData.entries()) {
+                        data[pair[0]] = pair[1];
+                    }
+                    this.setAttribute('data-order', JSON.stringify(data));
+                    update_method(this);
+                });
 
-        // call the ajax function for cancelling the order when cancel order button is clicked
-        document.querySelector(".popup-view .cancel-btn").addEventListener('click', function(){
-            let updateOrderForm = document.querySelector(".popup-view .update-form");
-            let orderId = document.querySelector(".update-form input[name='order_id']").value;
-            cancel_method(orderId);
-        });
-        
-    </script>
+                // call the ajax function for cancelling the order when cancel order button is clicked
+                document.querySelector(".popup-view .cancel-btn").addEventListener('click', function() {
+                    let updateOrderForm = document.querySelector(".popup-view .update-form");
+                    let orderId = document.querySelector(".update-form input[name='order_id']").value;
+                    cancel_method(orderId);
+                });
+            </script>
 
 
 
 
-    <!-- Pop up new -->
-    <div class="popup-new">
-        <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>New Order</h2>
+            <!-- Pop up new -->
+            <div class="popup-new">
+                <div class="popup-content">
+                    <span class="close">&times;</span>
+                    <h2>New Order</h2>
 
-            <form class="new-form" method="POST" enctype="multipart/form-data">
+                    <form class="new-form" method="POST" enctype="multipart/form-data">
 
-                <div class="user-details">
-                    <div class="input-box">
-                        <span class="details">Material </span>
-                        <select required name="material[]">
-                            <option value="" selected hidden style="color: grey;">Select</option>
-                            <?php foreach ($data['materials'] as $material) : ?>
-                                <option value="<?php echo $material->stock_id ?>"><?php echo $material->material_type ?></option>
-                                <!-- <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id ?>"> -->
-                            <?php endforeach; ?>
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Material </span>
+                                <select required name="material[]">
+                                    <option value="" selected hidden style="color: grey;">Select</option>
+                                    <?php foreach ($data['materials'] as $material) : ?>
+                                        <option value="<?php echo $material->stock_id ?>"><?php echo $material->material_type ?></option>
+                                        <!-- <input type="hidden" name="material_id[]" value="<?php echo $material->stock_id ?>"> -->
+                                    <?php endforeach; ?>
 
-                        </select>
+                                </select>
 
-                    </div>
+                            </div>
 
 
 
-                    <div class="input-box">
-                        <span class="details">Sleeves</span>
-                        <select required name="sleeve[]">
-                            <option value="" selected hidden style="color: grey;">Select</option>
-                            <?php foreach ($data['sleeveType'] as $sleeve) : ?>
-                                <option value="<?php echo $sleeve->type ?>"><?php echo $sleeve->type ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                            <div class="input-box">
+                                <span class="details">Sleeves</span>
+                                <select required name="sleeve[]">
+                                    <option value="" selected hidden style="color: grey;">Select</option>
+                                    <?php foreach ($data['sleeveType'] as $sleeve) : ?>
+                                        <option value="<?php echo $sleeve->type ?>"><?php echo $sleeve->type ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
 
-                    <div class="input-box">
-                        <span class="details">Printing Type</span>
-                        <select required name="printingType[]">
-                            <option value="" selected hidden style="color: grey;">Select a material first</option>
-                        </select>
-                    </div>
+                            <div class="input-box">
+                                <span class="details">Printing Type</span>
+                                <select required name="printingType[]">
+                                    <option value="" selected hidden style="color: grey;">Select a material first</option>
+                                </select>
+                            </div>
 
-                    <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
-                        <div class="sizeChart">
-                            <span class="size">XS</span>
-                            <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
-                            <br>
-                            <span class="size">S</span>
-                            <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
-                            <br>
-                            <span class="size">M</span>
-                            <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
-                            <br>
-                            <span class="size">L</span>
-                            <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
-                            <br>
-                            <span class="size">XL</span>
-                            <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
-                            <br>
-                            <span class="size">2XL</span>
-                            <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
-                            <br>
+                            <div class="input-box sizes">
+                                <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
+                                <div class="sizeChart">
+                                    <span class="size">XS</span>
+                                    <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">S</span>
+                                    <input class="st" type="number" id="quantity" name="small[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">M</span>
+                                    <input class="st" type="number" id="quantity" name="medium[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">L</span>
+                                    <input class="st" type="number" id="quantity" name="large[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">XL</span>
+                                    <input class="st" type="number" id="quantity" name="xl[]" min="0" value="0">
+                                    <br>
+                                    <span class="size">2XL</span>
+                                    <input class="st" type="number" id="quantity" name="xxl[]" min="0" value="0">
+                                    <br>
+                                </div>
+                            </div>
+
+                            <div class="input-box design">
+                                <span class="details">Design<span class="error files"></span></span>
+                                <div class="radio-btns">
+                                    <input type="radio" id="pdf" name="fileType" value="PDF">
+                                    <label for="pdf">PDF</label>
+
+                                    <input type="radio" id="imagesUpload" name="fileType" value="Images">
+                                    <label for="imagesUpload">Images</label>
+                                </div>
+                                <input type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
+                                <button class="removeButton pdf" data-input-id="pdfFileToUpload">Remove</button><br>
+
+                                <input type="file" name="image1" id="imageFileToUpload1" accept="image/*" style="display: none;">
+                                <button class="removeButton img1" data-input-id="imageFileToUpload1">Remove</button><br>
+
+                                <input type="file" name="image2" id="imageFileToUpload2" accept="image/*" style="display: none;">
+                                <button class="removeButton img2" data-input-id="imageFileToUpload2">Remove</button><br>
+                            </div>
+
+                            <script>
+                                //toggle upload options
+                                let pdf = document.querySelector(".design #pdf");
+                                let images = document.querySelector(".design #imagesUpload");
+                                let pdfUpload = document.querySelector("#pdfFileToUpload");
+                                let imagesUpload1 = document.querySelector("#imageFileToUpload1");
+                                let imagesUpload2 = document.querySelector("#imageFileToUpload2");
+                                let removePdfButton = document.querySelector(".removeButton.pdf");
+                                let removeImg1Button = document.querySelector(".removeButton.img1");
+                                let removeImg2Button = document.querySelector(".removeButton.img2");
+
+
+
+                                pdf.addEventListener('click', function() {
+                                    pdfUpload.style.display = "block";
+                                    imagesUpload1.style.display = "none";
+                                    imagesUpload2.style.display = "none";
+                                    removeImg1Button.style.display = "none";
+                                    removeImg2Button.style.display = "none";
+                                    if (pdfUpload.files.length > 0) {
+                                        removePdfButton.style.display = "block";
+                                    }
+
+                                });
+
+                                images.addEventListener('click', function() {
+                                    imagesUpload1.style.display = "block";
+                                    imagesUpload2.style.display = "block";
+                                    pdfUpload.style.display = "none";
+                                    removePdfButton.style.display = "none";
+                                    if (imagesUpload1.files.length > 0) {
+                                        removeImg1Button.style.display = "block";
+                                    }
+                                    if (imagesUpload2.files.length > 0) {
+                                        removeImg2Button.style.display = "block";
+                                    }
+                                });
+
+                                pdfUpload.addEventListener('change', function() {
+                                    if (pdfUpload.files.length > 0) {
+                                        removePdfButton.style.display = "block";
+                                        imagesUpload1.value = '';
+                                        imagesUpload2.value = '';
+                                    }
+                                });
+
+                                imagesUpload1.addEventListener('change', function() {
+                                    if (imagesUpload1.files.length > 0) {
+                                        removeImg1Button.style.display = "block";
+                                        pdfUpload.value = '';
+                                    }
+                                });
+
+                                imagesUpload2.addEventListener('change', function() {
+                                    if (imagesUpload2.files.length > 0) {
+                                        removeImg2Button.style.display = "block";
+                                        pdfUpload.value = '';
+                                    }
+                                });
+
+                                removePdfButton.addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    clearInputAndHideButton(pdfUpload, removePdfButton);
+                                });
+
+                                removeImg1Button.addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    clearInputAndHideButton(imagesUpload1, removeImg1Button);
+                                });
+
+                                removeImg2Button.addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    clearInputAndHideButton(imagesUpload2, removeImg2Button);
+                                });
+
+                                function clearInputAndHideButton(input, button) {
+                                    input.value = '';
+                                    button.style.display = "none";
+                                }
+                            </script>
+
                         </div>
-                    </div>
+                        <hr class="first">
 
-                    <div class="input-box design">
-                        <span class="details">Design<span class="error files"></span></span>
+                        <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4>
+
+                        <div class="add card">
+
+                            <div class="left">
+                                <i class='bx bxs-plus-circle'></i>
+                                <h4>Add a material</h4>
+                            </div>
+
+                        </div>
+
+                        <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin: 7%;">
+
+                        <hr>
                         <div class="radio-btns">
-                            <input type="radio" id="pdf" name="fileType" value="PDF">
-                            <label for="pdf">PDF</label>
+                            <input type="radio" id="pickupN" name="deliveryOption" value="Pick Up">
+                            <label for="pickup">Pick Up</label>
 
-                            <input type="radio" id="imagesUpload" name="fileType" value="Images">
-                            <label for="imagesUpload">Images</label>
+                            <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
+                            <label for="delivery">Delivery</label>
+                            <span class="error dates"></span>
                         </div>
-                        <input type="file" name="pdf" id="pdfFileToUpload" accept=".pdf" style="display: none;">
-                        <button class="removeButton pdf" data-input-id="pdfFileToUpload">Remove</button><br>
 
-                        <input type="file" name="image1" id="imageFileToUpload1" accept="image/*" style="display: none;">
-                        <button class="removeButton img1" data-input-id="imageFileToUpload1">Remove</button><br>
+                        <div class="user-details pickupN is-checked">
+                            <div class="input-box">
+                                <span class="details">Pick Up Date</span>
 
-                        <input type="file" name="image2" id="imageFileToUpload2" accept="image/*" style="display: none;">
-                        <button class="removeButton img2" data-input-id="imageFileToUpload2">Remove</button><br>
-                    </div>
+                                <input type="date" name="dispatch_date_pickup">
+                            </div>
+                        </div>
 
-                    <script>
-                        //toggle upload options
-                        let pdf = document.querySelector(".design #pdf");
-                        let images = document.querySelector(".design #imagesUpload");
-                        let pdfUpload = document.querySelector("#pdfFileToUpload");
-                        let imagesUpload1 = document.querySelector("#imageFileToUpload1");
-                        let imagesUpload2 = document.querySelector("#imageFileToUpload2");
-                        let removePdfButton = document.querySelector(".removeButton.pdf");
-                        let removeImg1Button = document.querySelector(".removeButton.img1");
-                        let removeImg2Button = document.querySelector(".removeButton.img2");
+                        <div class="user-details deliveryN">
+                            <div class="input-box">
+                                <span class="details">Delivery Expected On</span>
+
+                                <input type="date" name="dispatch_date_delivery">
+                            </div>
+
+                            <div class="input-box location">
+                                <span class="details"> Delivery Location</span> <span class="error delmap"></span>
+                                <div class="googlemap" id="new-order-map" style="height: 300px; width: 100%;"></div>
+                            </div>
+
+                            <div class="input-box city">
+                                <span class="details addr">City</span>
+
+                                <input type="text" name="city">
+
+                            </div>
+
+
+                        </div>
+
+                        <hr class="second">
+
+                        <div class="prices">
+
+                            <p style="text-align: right; margin: 10px 30px;"></p><br>
+
+                            <table class="price-details-container">
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Sleeve Type</th>
+                                    <th>Printing Type</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price(Rs.)</th>
+                                </tr>
+                                <tr class="units">
+                                    <td class="materialType"></td>
+                                    <td class="sleeveType"></td>
+                                    <td class="printingType"></td>
+                                    <td class="quantityAll">0</td>
+                                    <td class="unitPrice">0</td>
+
+                                    <input type="hidden" name="unit_price[]">
+
+                                </tr>
+                                <tr class="total">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Total</td>
+                                    <td class="totalPrice">0</td>
+                            </table>
+                        </div>
+
+                        <input type="hidden" name="total_price" />
+
+
+                        <!-- <p>You will be notified about possible discounts later</p> -->
 
 
 
-                        pdf.addEventListener('click', function() {
-                            pdfUpload.style.display = "block";
-                            imagesUpload1.style.display = "none";
-                            imagesUpload2.style.display = "none";
-                            removeImg1Button.style.display = "none";
-                            removeImg2Button.style.display = "none";
-                            if (pdfUpload.files.length > 0) {
-                                removePdfButton.style.display = "block";
-                            }
+                        <input name="latitude" type="hidden" required />
+                        <input name="longitude" type="hidden" required />
 
-                        });
 
-                        images.addEventListener('click', function() {
-                            imagesUpload1.style.display = "block";
-                            imagesUpload2.style.display = "block";
-                            pdfUpload.style.display = "none";
-                            removePdfButton.style.display = "none";
-                            if (imagesUpload1.files.length > 0) {
-                                removeImg1Button.style.display = "block";
-                            }
-                            if (imagesUpload2.files.length > 0) {
-                                removeImg2Button.style.display = "block";
-                            }
-                        });
+                        <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
+                        <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
 
-                        pdfUpload.addEventListener('change', function() {
-                            if (pdfUpload.files.length > 0) {
-                                removePdfButton.style.display = "block";
-                                imagesUpload1.value = '';
-                                imagesUpload2.value = '';
-                            }
-                        });
 
-                        imagesUpload1.addEventListener('change', function() {
-                            if (imagesUpload1.files.length > 0) {
-                                removeImg1Button.style.display = "block";
-                                pdfUpload.value = '';
-                            }
-                        });
 
-                        imagesUpload2.addEventListener('change', function() {
-                            if (imagesUpload2.files.length > 0) {
-                                removeImg2Button.style.display = "block";
-                                pdfUpload.value = '';
-                            }
-                        });
 
-                        removePdfButton.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            clearInputAndHideButton(pdfUpload, removePdfButton);
-                        });
 
-                        removeImg1Button.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            clearInputAndHideButton(imagesUpload1, removeImg1Button);
-                        });
-
-                        removeImg2Button.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            clearInputAndHideButton(imagesUpload2, removeImg2Button);
-                        });
-
-                        function clearInputAndHideButton(input, button) {
-                            input.value = '';
-                            button.style.display = "none";
-                        }
-                    </script>
-
+                    </form>
                 </div>
-                <hr class="first">
+            </div>
 
-                <h4 style="font-weight: 100; margin: 10px; color: red;">with different materials</h4>
+        </section>
 
-                <div class="add card">
-
-                    <div class="left">
-                        <i class='bx bxs-plus-circle'></i>
-                        <h4>Add a material</h4>
-                    </div>
-
-                </div>
-
-                <img src="<?php echo ROOT ?>/assets/images/customer/sizeChart.jpg" width="80%" style="margin: 7%;">
-
-                <hr>
-                <div class="radio-btns">
-                    <input type="radio" id="pickupN" name="deliveryOption" value="Pick Up">
-                    <label for="pickup">Pick Up</label>
-
-                    <input type="radio" id="deliveryN" name="deliveryOption" value="Delivery">
-                    <label for="delivery">Delivery</label>
-                    <span class="error dates"></span>
-                </div>
-
-                <div class="user-details pickupN is-checked">
-                    <div class="input-box">
-                        <span class="details">Pick Up Date</span>
-
-                        <input type="date" name="dispatch_date_pickup">
-                    </div>
-                </div>
-
-                <div class="user-details deliveryN">
-                    <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
-
-                        <input type="date" name="dispatch_date_delivery">
-                    </div>
-
-                    <div class="input-box location">
-                        <span class="details"> Delivery Location</span>  <span class="error delmap"></span>
-                        <div class="googlemap" id="new-order-map" style="height: 300px; width: 100%;"></div>
-                    </div>
-
-                    <div class="input-box city">
-                        <span class="details addr">City</span>
-
-                        <input type="text" name="city">
-
-                    </div>
-
-
-                </div>
-
-                <hr class="second">
-
-                <div class="prices">
-
-                    <p style="text-align: right; margin: 10px 30px;"></p><br>
-
-                    <table class="price-details-container">
-                        <tr>
-                            <th>Material</th>
-                            <th>Sleeve Type</th>
-                            <th>Printing Type</th>
-                            <th>Quantity</th>
-                            <th>Unit Price(Rs.)</th>
-                        </tr>
-                        <tr class="units">
-                            <td class="materialType"></td>
-                            <td class="sleeveType"></td>
-                            <td class="printingType"></td>
-                            <td class="quantityAll">0</td>
-                            <td class="unitPrice">0</td>
-
-                            <input type="hidden" name="unit_price[]">
-
-                        </tr>
-                        <tr class="total">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>Total</td>
-                            <td class="totalPrice">0</td>
-                    </table>
-                </div>
-
-                <input type="hidden" name="total_price" />
-
-
-                <!-- <p>You will be notified about possible discounts later</p> -->
-
-
-
-                <input name="latitude" type="hidden" required />
-                <input name="longitude" type="hidden" required />
-
-
-                <button type="submit" class="close-btn pb" name="newOrder">Submit</button>
-                <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
-
-
-
-
-
-            </form>
-        </div>
     </div>
-
-    </section>
-
-</div>
 
     <script>
         // ajax for adding a new order
         let newOrderForm = document.querySelector(".popup-new .new-form");
-        newOrderForm.addEventListener('submit', function(event){
+        newOrderForm.addEventListener('submit', function(event) {
             event.preventDefault();
             let noerrors = validateNewOrder();
             console.log(noerrors);
-            if(noerrors){
+            if (noerrors) {
                 let formData = new FormData(newOrderForm);
                 let xhr = new XMLHttpRequest();
                 console.log(formData);
                 xhr.open("POST", "<?php echo ROOT ?>/customer/newOrder", true);
                 xhr.onload = function() {
-                    if(this.status == 200) {
-                        console.log('response'+this.responseText);
+                    if (this.status == 200) {
+                        console.log('response' + this.responseText);
                         let response = JSON.parse(this.responseText);
                         if (response == false) {
                             // delay(10000);
-                            
-                            
+
+
                             var successMsgElement = document.querySelector('.success-msg');
                             successMsgElement.innerHTML = "Order placed successfully";
                             successMsgElement.style.display = 'block';
@@ -1327,16 +1351,16 @@
                                 successMsgElement.style.display = 'none';
                                 location.reload();
                             }, 2000);
-                            
-                                
 
-                        }else{
+
+
+                        } else {
                             var successMsgElement = document.querySelector('.success-msg');
-                
+
                             successMsgElement.innerHTML = "There was an error placing the order";
-                            
+
                             // successMsgElement.style.transition = 'all 1s ease-in-out';
-                            
+
                             successMsgElement.style.display = 'block';
                             successMsgElement.style.backgroundColor = 'red';
                             setTimeout(function() {
@@ -1348,9 +1372,8 @@
                 }
 
                 xhr.send(formData);
-            }   
+            }
         });
-
     </script>
 
 
@@ -1714,7 +1737,7 @@
         });
     </script>
 
-    
+
     <script>
         let update_order_endpoint = "<?php echo ROOT ?>/customer/updateOrder";
         let cancel_endpoint = "<?php echo ROOT ?>/customer/cancelOrder";
@@ -1725,6 +1748,8 @@
 
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
+
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> -->
 

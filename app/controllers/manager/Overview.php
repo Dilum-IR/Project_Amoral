@@ -24,7 +24,7 @@ class Overview extends Controller
             $data['printingType'] = $printingType->findAll('ptype_id');
             // $data['materialPrintingType'] = [];
             // $allMaterial = [];
-            
+
             foreach ($data['printingType'] as $ptype) {
                 $material = $materialPrintingType->find_withInner(['ptype_id' => $ptype->ptype_id], 'material_stock', 'stock_id', 'stock_id');
                 if (is_array($material)) {
@@ -40,6 +40,10 @@ class Overview extends Controller
             $data['overview'] = $overview;
 
             $data['chart_analysis_data'] = $this->chart_analysis_data();
+
+            $data['refund_list'] = $this->refund_list();
+
+            $data['garment_payed_list'] = $this->garment_payed_list();
 
             // for chart and analysis
 
@@ -319,8 +323,11 @@ class Overview extends Controller
             $overview['cutting_orders'] = 0;
 
 
+        if (!empty($new_result)) {
 
-        $overview['sales']  = $this->calculateSales($new_result);
+            $overview['sales']  = $this->calculateSales($new_result);
+        }
+
 
         return $overview;
     }
@@ -363,8 +370,6 @@ class Overview extends Controller
 
         $currentMonthCompleatedOrders = 0;
         $lastMonthCompleatedOrders = 0;
-
-        // show($orders);
 
         foreach ($orders as $item) {
 
@@ -451,7 +456,7 @@ class Overview extends Controller
         // new result data only compleated type
         foreach ($new_result as $key => $item) {
 
-            $dateTS = date('Y-m-d' ,strtotime($item->order_placed_on));
+            $dateTS = date('Y-m-d', strtotime($item->order_placed_on));
 
             // each dates for total revenue
             if (empty($sales_with_days[$dateTS]))
@@ -504,6 +509,58 @@ class Overview extends Controller
     }
 
     // ******************** End of chart orders data Analysis *****************************
+
+
+    // ******************** refund customer orders  *****************************
+
+    private function refund_list()
+    {
+        try {
+
+            $order = new Order;
+
+            $refunds = $order->where(['refundable' => 0, 'order_status' => 'canceled']);
+
+            if ($refunds == false) {
+                $refunds = [];
+            }else{
+                // foreach ($refunds as $key => $value) {
+                    
+                // }
+            }
+            // show($refunds);
+            return $refunds;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    // ******************** End refund customer orders  *****************************
+
+
+    // ******************** garment for payed  *****************************
+
+    private function garment_payed_list()
+    {
+        try {
+
+            $order = new GarmentOrder;
+
+            $refunds = $order->find_withInner(['status' =>'completed'],"orders",'order_id','order_id',$order->selectedCloumns);
+
+            if ($refunds == false) {
+                $refunds = [];
+            }else{
+                // foreach ($refunds as $key => $value) {
+                    
+                // }
+            }
+            // show($refunds);
+            return $refunds;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    // ******************** End garment for payed  *****************************
 
     public function genarate_report()
     {

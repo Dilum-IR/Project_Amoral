@@ -28,7 +28,7 @@
         <div class="content">
 
             <nav class="sub-nav">
-                <a href="" class="nav-link">Delivery</a>
+                <!-- <a href="" class="nav-link">Delivery</a> -->
                 <!-- <form action="#">
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
@@ -114,7 +114,7 @@
                                         }
                                         ?>
                                         <h1><?php echo $count ?></h1>
-                                        <small class="text-muted">Last 24 Hours</small>
+                                        <!-- <small class="text-muted">Last 24 Hours</small> -->
 
                                     </div>
                                 </div>
@@ -322,14 +322,35 @@
                                             <div class="re-orders">
                                                 <div class="middle">
                                                     <div class="left">
-                                                        <h3><i class='bx bx-user'></i> Employee Name:</h3>
-                                                        <p><?php echo htmlspecialchars($order->fullname); ?></p>
+                                                        <div class="Upcoming">
 
-                                                        <h3><i class='bx bx-map'></i> Address:</h3>
-                                                        <p><?php echo htmlspecialchars($order->address); ?></p>
+                                                            <h3><i class='bx bx-hash'></i>Order-Id :</h3>
+                                                            <p>ORD-<?php echo htmlspecialchars($order->order_id); ?></p>
 
-                                                        <h3><i class='bx bx-phone'></i></i> Phone:</h3>
-                                                        <p><?php echo htmlspecialchars($order->phone); ?></p>
+                                                        </div>
+
+                                                        <div class="Upcoming">
+                                                            <h3><i class='bx bx-user'></i>Customer Name :</h3>
+                                                            <p><?php echo ucfirst(explode(' ', $order->fullname)[0]) . " " . ucfirst(explode(' ', $order->fullname)[1]); ?>
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="Upcoming">
+                                                            <h3><i class='bx bx-buildings'></i>City :</h3>
+                                                            <p><?php echo htmlspecialchars($order->city); ?></p>
+
+                                                        </div>
+                                                        <div class="Upcoming">
+                                                            <h3><i class='bx bx-calendar'></i>Delivery Expected On :</h3>
+                                                            <p><?php echo htmlspecialchars($order->dispatch_date); ?></p>
+                                                        </div>
+
+                                                        <div class="Upcoming">
+                                                            <h3><i class='bx bx-phone'></i></i> Phone :</h3>
+                                                            <p><?php echo htmlspecialchars($order->phone); ?></p>
+
+                                                        </div>
+
 
 
                                                     </div>
@@ -417,6 +438,12 @@
             var chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
         </script>
+
+        <?php
+        // include "loading.php";
+        include __DIR__ . '/../utils/logoutPopup.php';
+        ?>
+
 
         <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
 </body>

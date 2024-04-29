@@ -21,6 +21,7 @@
 
 <body>
 
+
     <!-- Sidebar -->
 
     <?php include 'sidebar.php' ?>
@@ -29,6 +30,21 @@
     <?php include 'navigationbar.php' ?>
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <?php
+    // include "loading.php";
+    include __DIR__ . '/../utils/logoutPopup.php';
+    ?>
+
+    <style >
+        /* .logout-modal{
+            top: 50%;
+            left: 50%;
+        } */
+        .modal-content{
+            top: 0%;
+            left: 0%;
+        }
+    </style>
 
     <!-- content  -->
     <section id="main" class="main">
@@ -42,6 +58,7 @@
             </li>
 
         </ul>
+
 
         <form>
             <div class="form">
@@ -286,13 +303,12 @@
 
                 if (pay_type == 'full') {
                     document.querySelector('.recived-checker').innerHTML = "";
-                    document.getElementById('confirm').disabled = false;
-
+                    document.getElementById('confirm').disabled = false; 
                 } else {
                     document.querySelector('.recived-checker').innerHTML = '<input type="checkbox" id="payedCheckbox" name="payed"> <label for="payedCheckbox" class="checker-label">Order Payments Received!</label>';
                     document.getElementById('confirm').disabled = true;
 
-                }
+                }    
                 modal.style.display = 'block'; // Check if this line executes correctly
 
 
@@ -616,6 +632,8 @@
         </div>
 
     </div>
+
+    
 
 
 

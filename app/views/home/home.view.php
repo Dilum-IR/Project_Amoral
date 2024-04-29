@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
-        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <link rel="icon" href="<?= ROOT ?>/assets/images/amoral_1.ico">
 
@@ -26,80 +25,66 @@
     <?php include 'navigationbar.php' ?>
     <?php include 'chooseSignup.php' ?>
 
-    <div class="loader">
+    <!-- <div class="loader">
         <div class="loading-logo">
             <img src="<?= ROOT ?>/assets/images/home/amorallogo.png" alt="">
         </div>
-    </div>
+    </div> -->
     <a href="<?= ROOT ?>/signin">Sign</a>
     <h1> Home file view</h1>
 
     <section id="welcome-section" class="welcome-section">
-        <div class="main-slider-container">
-            <h3 class="brand-name" data-text="AMORAL">AMORAL</h3>
-            <!--image slider start-->
-            <div class="main-slider">
-                <div class="main-slides">
-                    <!--radio buttons start-->
-                    <input type="radio" name="radio-btn" id="radio1">
-                    <input type="radio" name="radio-btn" id="radio2">
-                    <input type="radio" name="radio-btn" id="radio3">
-                    <input type="radio" name="radio-btn" id="radio4">
-                    <!--radio buttons end-->
 
-                    <!--slide images start-->
-                    <div class="main-slide first">
-                        <img src="<?= ROOT ?>/assets/images/home/home_cover_1.jpg" alt="">
-                    </div>
-                    <div class="main-slide">
-                        <img src="<?= ROOT ?>/assets/images/home/home_cover_2.jpg" alt="">
-                    </div>
-                    <div class="main-slide">
-                        <img src="<?= ROOT ?>/assets/images/home/home_cover_3.jpg" alt="">
-                    </div>
-                    <div class="main-slide">
-                        <img src="<?= ROOT ?>/assets/images/home/home_cover_4.jpg" alt="">
-                    </div>
-                    <!--slide images end-->
-
-                    <!--automatic navigation start-->
-                    <div class="main-navigation-auto">
-                        <div class="auto-btn1"></div>
-                        <div class="auto-btn2"></div>
-                        <div class="auto-btn3"></div>
-                        <div class="auto-btn4"></div>
-                    </div>
-                    <!--automatic navigation end-->
-                </div>
-                <!--manual navigation start-->
-                <div class="main-navigation-manual">
-                    <label for="radio1" class="manual-btn"></label>
-                    <label for="radio2" class="manual-btn"></label>
-                    <label for="radio3" class="manual-btn"></label>
-                    <label for="radio4" class="manual-btn"></label>
-                </div>
-                <!--manual navigation end-->
-
+        <div class="container">
+            <div class="slider-wrapper">
+                <ul class="image-list">
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-1.jpg" alt="img-1" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-2.jpg" alt="img-2" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-3.jpg" alt="img-3" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-4.jpg" alt="img-4" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-5.jpg" alt="img-5" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-6.jpg" alt="img-6" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-7.jpg" alt="img-7" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-8.jpg" alt="img-8" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-9.jpg" alt="img-9" />
+                    <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-10.jpg" alt="img-10" />
+                    <!-- <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-11.jpg" alt="img-11" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-12.jpg" alt="img-12" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-13.jpg" alt="img-13" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-14.jpg" alt="img-14" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-15.jpg" alt="img-15" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-16.jpg" alt="img-16" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-17.jpg" alt="img-17" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-18.jpg" alt="img-18" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-19.jpg" alt="img-19" />
+          <img class="image-item" src="<?= ROOT ?>/assets/images/home/img-20.jpg" alt="img-20"/> -->
+                </ul>
             </div>
         </div>
+
+        <!-- <div class="text-animation">
+            <div class="animated-text">
+                AMORAL
+            </div>
+        </div> -->
 
 
         <div class="slide-images">
 
             <div class="image-slider">
-                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/2.jpg">
+                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/home_cover_5.jpg">
             </div>
 
             <div class="image-slider">
-                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/2.jpg">
+                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/home_cover_6.jpg">
             </div>
 
             <div class="image-slider ">
-                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/3.jpg">
+                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/home_cover_7.jpg">
             </div>
 
             <div class="image-slider">
-                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/4.jpg">
+                <img class="image-slider-image" src="<?= ROOT ?>/assets/images/home/home_cover_8.jpg">
             </div>
 
             <div class="slide-text">
@@ -109,15 +94,19 @@
                         <i class='bx bxs-user icon'></i>
                         Sign In
                     </a> -->
-                    <button id="home-sign-up-box-1" class="home-sign-up-box-1" href="<?= ROOT ?>/signin">
+
+                    <div id="home-sign-up-box-1" class="home-sign-up-box-1">
                         <i class='bx bxs-user icon'></i>
-                        Sign In
-                    </button>
+                        <a href="<?= ROOT ?>/signin">Sign In</a>
+                    </div>
+
                     <br>
-                    <button id="home-sign-up-box-2" class="home-sign-up-box-2"  onclick="hidePopup('popup1')">
+
+                    <div id="home-sign-up-box-2" class="home-sign-up-box-2" onclick="hidePopup('popup1')">
                         <i class='bx bxs-user icon'></i>
-                        Sign Up
-                    </button>
+                        <a href="<?= ROOT ?>/signup">Sign Up</a>
+                    </div>
+
                 </div>
             </div>
 
@@ -142,7 +131,7 @@
                 Revamp your T-shirt collection effortlessly on your own, an online tool that lets you add personalized designs to your favorite tees with a simple drag-and-drop interface.
                 <br>
                 <br>
-                <button class="design-tool-button">Start Designing</button>
+                <a href="<?= ROOT ?>/tool" class="design-tool-button">Start Designing</a>
             </div>
 
             <!-- <div class="tool-button">
@@ -150,70 +139,70 @@
             </div> -->
 
             <div class="tool-images">
-                <img class="design-tool-images" src="<?= ROOT ?>/assets/images/home/4.jpg">
-                <img class="design-tool-images" src="<?= ROOT ?>/assets/images/home/4.jpg">
+                <img class="design-tool-images" src="<?= ROOT ?>/assets/images/home/tool-left.jpg">
+                <img class="design-tool-images" src="<?= ROOT ?>/assets/images/home/tool-right.jpg">
             </div>
         </div>
 
         <div class="partnership-deal">
             <div class="partnership-deal-images">
-                <img class="partnership-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <img class="partnership-images" src="<?= ROOT ?>/assets/images/home/partnership-deal.jpg" alt="">
             </div>
 
             <div class="deal-description">
                 A strategic partnership deal has been forged between two industry leaders, promising to leverage their respective strengths to drive innovation, expand market reach, and create a synergistic impact on the ever-evolving business landscape.
                 <br>
                 <br>
-                <button class="partnership-deal-button">Partnership Deal</button>
+                <div class="partnership-deal-button">
+                    <a href="<?= ROOT ?>/guest/new">Partnership Deal</a>
+                </div>
+                <!-- <button class="partnership-deal-button">Partnership Deal </button> -->
             </div>
         </div>
 
         <div class="shopping-deals">
             <div class="deal-section shop-now">
-                <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <img class="deal-images" src="<?= ROOT ?>/assets/images/home/home-collection.jpg" alt="">
                 <div class="deal-text">
                     <p class="deal-p">See the Collection</p>
-                    <button class="deal-button"> <span>Shop Now</span> </button>
+                    <button class="deal-button" id="see-collection"> <span>Shop Now</span> </button>
                 </div>
             </div>
             <div class="deal-section place-now">
-                <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4.jpg" alt="">
+                <img class="deal-images" src="<?= ROOT ?>/assets/images/home/4 copy.jpg" alt="">
                 <div class="deal-text">
                     <p class="deal-p">Place your order now</p>
-                    <button class="deal-button"><span>Place Order</span></button>
+                    <button class="deal-button" id="place-order"><span>Place Order</span></button>
                 </div>
             </div>
         </div>
 
-        <br><br><br>
+
 
         <div class="our-services">
-            <div class="services-text">Our services</div>
-            <div class="services">
-                <div class="services-tab">
-                    Custom T-Shirt Printing
-                    <div class="service-description">Choose from a variety of t-shirt styles, colors, and sizes, and let your creativity run wild. Whether it's a single personalized t-shirt or a bulk order for an event, we ensure vibrant prints that stand out.
+            <div class="services-text">Our Services</div>
+            <div class="services-container">
+                <div class="services-row">
+                    <div class="services-tab">
+                        Custom T-Shirt Printing
+                    </div>
+                    <div class="services-tab">
+                        Design Your Own T-Shirt
+                    </div>
+                    <div class="services-tab">
+                        Bulk Orders for Events and Businesses
                     </div>
                 </div>
-                <div class="services-tab">
-                    Design Your Own T-Shirt
-                    <div class="service-description">Unleash your creativity with our user-friendly design tool. Create your own unique t-shirt designs with ease. Experiment with colors, fonts, and graphics to craft a personalized masterpiece.</div>
-                </div>
-                <div class="services-tab">
-                    Bulk Orders for Events and Businesses
-                    <div class="service-description">Planning an event or looking for branded merchandise for your business? Our bulk ordering option is tailored to meet your needs. Get high-quality, consistent prints for team-building events, promotional giveaways, or corporate branding. Elevate your brand with customized apparel that leaves a lasting impression.</div>
-                </div>
-                <div class="services-tab">
-                    Quality Materials and Printing Techniques
-                    <div class="service-description">We take pride in using only the finest materials and cutting-edge printing techniques. Our commitment to quality ensures that your t-shirts not only look great but also stand the test of time. </div>
-                </div>
-                <div class="services-tab">
-                    Doorstep Delivery
-                    <div class="service-description">Sit back and relax while we bring your custom t-shirts directly to your doorstep. Our reliable and secure delivery service ensures that your orders reach you on time and in pristine condition. Enjoy the convenience of having your personalized apparel delivered hassle-free.</div>
-                </div>
-                <div class="services-tab">
-                    Fast Turnaround Time
-                    <div class="service-description">We understand the importance of deadlines. Our streamlined processes and efficient team enable us to offer fast turnaround times without compromising on quality. Get your custom t-shirts when you need them, without the wait.</div>
+                <div class="services-row">
+                    <div class="services-tab">
+                        Quality Materials and Printing Techniques
+                    </div>
+                    <div class="services-tab">
+                        Doorstep Delivery
+                    </div>
+                    <div class="services-tab">
+                        Fast Turnaround Time
+                    </div>
                 </div>
             </div>
         </div>
