@@ -21,9 +21,9 @@ class Profile extends Controller
             }
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['saveP'])) {
 
+                // show($_POST);
                 unset($_POST['saveP']);
                 $passerror = $this->changePassword($_POST, $_SESSION['USER']->emp_id, $employee);
-                //show($_POST);
             }
 
              // image changed method
@@ -162,7 +162,7 @@ class Profile extends Controller
     {
 
         if ($employee->passwordResetValidate($data)) {
-
+// show($data);
             $arr['emp_id'] = $id;
 
             $row = $employee->first($arr);

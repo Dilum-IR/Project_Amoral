@@ -28,7 +28,7 @@
         <div class="content">
 
             <nav class="sub-nav">
-                <a href="" class="nav-link">Delivery</a>
+                <!-- <a href="" class="nav-link">Delivery</a> -->
                 <!-- <form action="#">
                     <div class="form-input">
                         <input type="search" placeholder="Search...">
@@ -324,28 +324,29 @@
                                                     <div class="left">
                                                         <div class="Upcoming">
 
-                                                            <h3><i class='bx bx-hash'></i>Order-Id:</h3>
-                                                            <p><?php echo htmlspecialchars($order->order_id); ?></p>
+                                                            <h3><i class='bx bx-hash'></i>Order-Id :</h3>
+                                                            <p>ORD-<?php echo htmlspecialchars($order->order_id); ?></p>
 
                                                         </div>
 
                                                         <div class="Upcoming">
-                                                            <h3><i class='bx bx-user'></i>Customer Name:</h3>
-                                                            <p><?php echo htmlspecialchars($order->fullname); ?></p>
+                                                            <h3><i class='bx bx-user'></i>Customer Name :</h3>
+                                                            <p><?php echo ucfirst(explode(' ', $order->fullname)[0]) . " " . ucfirst(explode(' ', $order->fullname)[1]); ?>
+                                                            </p>
                                                         </div>
 
                                                         <div class="Upcoming">
-                                                            <h3><i class='bx bx-buildings'></i>City:</h3>
+                                                            <h3><i class='bx bx-buildings'></i>City :</h3>
                                                             <p><?php echo htmlspecialchars($order->city); ?></p>
 
                                                         </div>
                                                         <div class="Upcoming">
-                                                            <h3><i class='bx bx-calendar'></i>Delivery Expected On:</h3>
+                                                            <h3><i class='bx bx-calendar'></i>Delivery Expected On :</h3>
                                                             <p><?php echo htmlspecialchars($order->dispatch_date); ?></p>
                                                         </div>
 
                                                         <div class="Upcoming">
-                                                            <h3><i class='bx bx-phone'></i></i> Phone:</h3>
+                                                            <h3><i class='bx bx-phone'></i></i> Phone :</h3>
                                                             <p><?php echo htmlspecialchars($order->phone); ?></p>
 
                                                         </div>
@@ -438,10 +439,10 @@
             chart.render();
         </script>
 
-<?php
-    // include "loading.php";
-    include __DIR__ . '/../utils/logoutPopup.php';
-    ?>
+        <?php
+        // include "loading.php";
+        include __DIR__ . '/../utils/logoutPopup.php';
+        ?>
 
 
         <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>

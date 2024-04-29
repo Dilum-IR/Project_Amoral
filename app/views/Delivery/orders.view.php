@@ -21,6 +21,7 @@
 
 <body>
 
+
     <!-- Sidebar -->
 
     <?php include 'sidebar.php' ?>
@@ -29,6 +30,21 @@
     <?php include 'navigationbar.php' ?>
     <!-- Scripts -->
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
+    <?php
+    // include "loading.php";
+    include __DIR__ . '/../utils/logoutPopup.php';
+    ?>
+
+    <style >
+        /* .logout-modal{
+            top: 50%;
+            left: 50%;
+        } */
+        .modal-content{
+            top: 0%;
+            left: 0%;
+        }
+    </style>
 
     <!-- content  -->
     <section id="main" class="main">
@@ -42,6 +58,7 @@
             </li>
 
         </ul>
+
 
         <form>
             <div class="form">
@@ -615,6 +632,8 @@
         </div>
 
     </div>
+
+    
 
 
 

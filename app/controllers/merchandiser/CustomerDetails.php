@@ -31,9 +31,9 @@ class CustomerDetails extends Controller
             }
 
             //add new customer
-
-            if(isset($_POST['newCustomer'])){
+            if(isset($_POST["newCustomer"])){
                 unset($_POST['newCustomer']);
+                // show($_POST);
 
                 $this->customerAdd($_POST);
             }
@@ -69,7 +69,7 @@ class CustomerDetails extends Controller
 
 
     public function customerAdd($data){
-        // show($data);
+     
         $customer = new User;
         $employee = new Employee;
 
