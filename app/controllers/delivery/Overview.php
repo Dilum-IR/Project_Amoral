@@ -38,12 +38,12 @@ class Overview extends Controller
         
 
         $result = $order->find_withInner(['order_status' => "delivering", 'deliver_id' => $emp_id,'is_delivery'=>"1"], "users", "user_id", "id", $column_names);
-        $result2 = $order->find_withInner(['order_status' => "delivered",'deliver_id' => $emp_id,'is_delivery'=>"0"], "users", "user_id", "id", $column_names);
+        $result2 = $order->find_withInner(['order_status' => "delivered",'deliver_id' => $emp_id], "users", "user_id", "id", $column_names);
 
         $data['delivering'] = $result;
         $data['delivered'] = $result2;
 
-        // show($data);
+        // show($result2);
 
         $this->view('delivery/overview', $data);
 

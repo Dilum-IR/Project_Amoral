@@ -26,8 +26,22 @@ class GarmentOrders extends Controller
         }else{
             redirect('home');
         }
+    }
 
-    }   
+    public function setDeadlines(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
+        $order = new GarmentOrder;
+
+        if ($username != 'User' && $_SESSION['USER']->emp_status == 'merchandiser') {
+            if (isset($_POST['garment_order_id'], $_POST['cut_dispatch_date'], $_POST['sew_dispatch_date'])) {
+                $order->update($_POST['garment_order_id'],[
+                    "cut_dispatch_date" => $_POST['cut_dispatch_date'], 
+                    "sew_dispatch_date" => $_POST['sew_dispatch_date']
+                ], 'garment_order_id');
+            } 
+        }
+    }
 
 
     public function updateOrder(){
@@ -35,7 +49,7 @@ class GarmentOrders extends Controller
 
         $order = new GarmentOrder;
 
-        if ($username != 'User' && $_SESSION['USER']->emp_status == 'merchandiser') {
+        if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
             if (isset($_POST['garment_order_id'], $_POST['cut_dispatch_date'], $_POST['sew_dispatch_date'])) {
                 $order->update($_POST['garment_order_id'],[
                     "cut_dispatch_date" => $_POST['cut_dispatch_date'], 
