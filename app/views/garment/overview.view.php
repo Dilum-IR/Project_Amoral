@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/garment/overview.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -16,6 +17,14 @@
 </head>
 
 <body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style>
+        .loader-wrapper {
+            z-index: 10;
+        }
+    </style>
     <?php
 
     $flag = htmlspecialchars($_GET['flag'] ?? 2);
@@ -24,7 +33,7 @@
 
     $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
 
-    // include "loading.php";
+    include __DIR__ . '/../utils/loading.php';
     include __DIR__ . '/../utils/toastMsg.php';
     ?>
 
@@ -551,7 +560,6 @@
 
         let salesProgressEndValue = "<?= (!empty($overview['sales']['sales_percentage'])) ? $overview['sales']['sales_percentage'] : "0" ?>",
             completedProgressEndValue = "<?= (!empty($overview['sales']['completed_percentage'])) ? $overview['sales']['completed_percentage'] : "0" ?>";
-    
     </script>
 
     <script src="<?= ROOT ?>/assets/js/garment/garment-overview.js"> </script>

@@ -78,13 +78,13 @@ class User
 			return;
 		}
 		// password validation
-		// else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#^%?\$&*~]).{5,}$/", $data['password'])) {
-		// 	$this->errors['flag'] = true;
-		// 	$this->errors['error'] = "Password is not Valid ";
-		// 	$this->errors['error_no'] = 5;
-		// 	return;
+		else if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#^%?\$&*~]).{5,}$/", $data['password'])) {
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "Password is not Valid ";
+			$this->errors['error_no'] = 5;
+			return;
 
-		// }
+		}
 
 
 		// errors no then hash passwords
