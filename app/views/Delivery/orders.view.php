@@ -286,13 +286,12 @@
 
                 if (pay_type == 'full') {
                     document.querySelector('.recived-checker').innerHTML = "";
-                    document.getElementById('confirm').disabled = false;
-
+                    document.getElementById('confirm').disabled = false; 
                 } else {
                     document.querySelector('.recived-checker').innerHTML = '<input type="checkbox" id="payedCheckbox" name="payed"> <label for="payedCheckbox" class="checker-label">Order Payments Received!</label>';
                     document.getElementById('confirm').disabled = true;
 
-                }
+                }    
                 modal.style.display = 'block'; // Check if this line executes correctly
 
 

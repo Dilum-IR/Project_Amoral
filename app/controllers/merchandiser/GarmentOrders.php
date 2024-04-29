@@ -28,62 +28,27 @@ class GarmentOrders extends Controller
         }
     }
 
-    public function assignGarment(){
-        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
-
-        $order = new GarmentOrder;
-        $garment = new Garment;
-        $order_material = new OrderMaterial;
-        $stock = new MaterialStock;
-
-        // $response = [];
-        if ($username != 'User' && $_SESSION['USER']->emp_status == 'merchandiser') {
-            // show($_POST);
-            foreach($_POST['garments'] as $each_garment){
-                $data['garment_id'] = $each_garment['garment_id'];
-
-                $garment_detail = $garment->where(['garment_id' => $each_garment['garment_id']]);
-                // show($garment_detail);
-                $data['cut_price'] = $garment_detail[0]->cut_price;
-                $data['sewed_price'] = $garment_detail[0]->sewed_price;
-
-                if(!empty($each_garment['orders'])){
-                    foreach($each_garment['orders'] as $customer_order){
-                        $material_orders = $order_material->where(['order_id' => $customer_order['customer_orderId']]);
-                        $materials = [];
-                        foreach($material_orders as $material_order){
-                            $materials[$material_order->material_id] = $material_order->xs + $material_order->small + $material_order->medium + $material_order->large + $material_order->xl + $material_order->xxl;
-                        }
-                        // $response['materials'] = $materials;
-                        $keys = array_keys($materials);
-                        if(!is_array($keys)){
-                                $keys = [$keys];
-                        }
-                        foreach($keys as $key){
-                            $current = $stock->where(['stock_id' => $key]);
-                            $updated = floatval($current[0]->quantity) - floatval(intval($materials[$key]) * (1/intval($current[0]->ppm)));
-                            // show($updated);
-                            $updated = number_format($updated, 2);
-                            // $response['updated'][] = $updated;
-                            $stock->update($key, ['quantity' => $updated], 'stock_id');
-                        } 
-                        $order->update($customer_order['id'], $data, 'garment_order_id');
-                    }
-                }
-            }
-
-            
-
-        }
-        // echo json_encode($response);
-    }
-
     public function setDeadlines(){
         $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
 
         $order = new GarmentOrder;
 
         if ($username != 'User' && $_SESSION['USER']->emp_status == 'merchandiser') {
+            if (isset($_POST['garment_order_id'], $_POST['cut_dispatch_date'], $_POST['sew_dispatch_date'])) {
+                $order->update($_POST['garment_order_id'],[
+                    "cut_dispatch_date" => $_POST['cut_dispatch_date'], 
+                    "sew_dispatch_date" => $_POST['sew_dispatch_date']
+                ], 'garment_order_id');
+            } 
+        }
+    }
+
+    public function updateOrder(){
+        $username = empty($_SESSION['USER']) ? 'User' : $_SESSION['USER']->email;
+
+        $order = new GarmentOrder;
+
+        if ($username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
             if (isset($_POST['garment_order_id'], $_POST['cut_dispatch_date'], $_POST['sew_dispatch_date'])) {
                 $order->update($_POST['garment_order_id'],[
                     "cut_dispatch_date" => $_POST['cut_dispatch_date'], 
