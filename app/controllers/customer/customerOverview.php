@@ -8,12 +8,16 @@ class CustomerOverview extends Controller
         
         if ($username != 'User'  && $_SESSION['USER']->user_status === 'customer') {
             $order = new Order;
+            $collection = new Collection;
+
             
             $id = ['user_id' => $_SESSION['USER']->id];
             $data['order'] = $order->where($id);
             $data['material_sizes'] = $order->getFullData($id);
 
-
+            $data['data'] = $collection->findAll('image_id');
+            
+            // show($data);
             $this->view('customer/overview', $data);
         } else {
             redirect('home');

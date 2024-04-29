@@ -188,7 +188,7 @@ function filterTable(arg){
         document.querySelector('.filters #sewing').classList.add('active');
 
         table_rows.forEach(row => {
-            if(row.querySelector('.text-status').classList.contains('sewing') || row.querySelector('.text-status').classList.contains('sewed')){
+            if(row.querySelector('.text-status').classList.contains('garment') || row.querySelector('.text-status').classList.contains('sewing') || row.querySelector('.text-status').classList.contains('sewed')){
                 if(row.classList.contains('filter')){
                     row.classList.remove('filter');
                     i++;
@@ -1090,6 +1090,7 @@ function closeNew(){
         }
     });
     document.querySelector(".new-form").reset();
+    location.reload();
 }
 
 

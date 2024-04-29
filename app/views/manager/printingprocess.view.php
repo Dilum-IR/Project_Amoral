@@ -13,7 +13,7 @@
 
     <?php
     // include "loading.php";
-    include __DIR__ . '/../utils/toastMsg.php';
+    // include __DIR__ . '/../utils/toastMsg.php';
     ?>
 
     <?php include_once 'sidebar.php' ?>

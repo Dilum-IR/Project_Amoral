@@ -1226,7 +1226,7 @@
                     </div>
 
                     <div class="input-box location">
-                        <span class="details"> Delivery Location</span>
+                        <span class="details"> Delivery Location</span>  <span class="error delmap"></span>
                         <div class="googlemap" id="new-order-map" style="height: 300px; width: 100%;"></div>
                     </div>
 
