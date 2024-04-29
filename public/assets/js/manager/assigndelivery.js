@@ -120,15 +120,14 @@ function addCurrentOrders(deliverId, cap){
         document.querySelector('.orders-container').innerText = 'No orders assigned';
     }else{
         assignedOrders = assignedOrders.filter(order => order.deliver_id === deliverId);
-        let sizes = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
+
+        // let sizesin = ['xs', 'small', 'medium', 'large', 'xl', 'xxl'];
         var sumsizes = 0;
-        sizes.forEach(size => {
-            sumsizes += assignedOrders.reduce((acc, order) => acc + parseInt(order[size]), 0);
-        });
-        console.log(cap);
-        document.querySelector('.remainCapacity').innerHTML = parseInt(cap) - 0.4 * sumsizes + ' Kg';
+
+        console.log(assignedOrders);
         document.querySelector('.currentOrders').innerHTML = assignedOrders.length;
         console.log(assignedOrders);
+        // sumsizes = 0;
         assignedOrders.forEach(order => {
             if(order.deliver_id === deliverId){
                 var sizeArr = sizes.filter(size => size.order_id === order.order_id);
@@ -142,7 +141,7 @@ function addCurrentOrders(deliverId, cap){
                     // console.log(size);
                     tot += parseInt(sizeArr[i].xs) + parseInt(sizeArr[i].small) + parseInt(sizeArr[i].medium) + parseInt(sizeArr[i].large) + parseInt(sizeArr[i].xl) + parseInt(sizeArr[i].xxl);  
                 }
-                
+                sumsizes += tot;
                 currentOrder.innerHTML = `
                     <div>        
                         <h5>Order ID: <input name="order_id[]" readonly value="${order.order_id}"></h5>
@@ -164,6 +163,8 @@ function addCurrentOrders(deliverId, cap){
 
             }
         });
+        document.querySelector('.remainCapacity').innerHTML = (cap - 0.4 * sumsizes).toFixed(2) + ' Kg';
+
     }
  
 }

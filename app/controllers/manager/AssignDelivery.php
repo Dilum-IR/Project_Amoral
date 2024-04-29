@@ -9,6 +9,7 @@ class AssignDelivery extends Controller{
 
         $data['pending_orders'] = $order->where(['order_status' => 'sewed', 'is_delivery' => 1, 'deliver_id' => 0]);
         $data['assigned_orders'] = $order->where(['is_delivery' => 1],['deliver_id' => 0]);
+        
         $data['sizes'] = $order_material->findAll();
         $data['deliveryman'] = $deliveryman->findAll_withLOJ('employee','emp_id','emp_id');
         // show($data);
