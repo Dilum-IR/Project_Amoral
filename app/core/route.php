@@ -62,6 +62,9 @@ route('merchandiser/updateOrder', 'merchandiser/CustomerOrders@updateOrder');
 route('merchandiser/complaintstatus', 'merchandiser/Complaints@complaintstatus');
 route('merchandiser/updateGarmentOrder', 'merchandiser/GarmentOrders@updateOrder');
 
+route('merchandiser/RemoveCustomer', 'merchandiser/CustomerDetails@RemoveCustomer');
+
+
 
 
 

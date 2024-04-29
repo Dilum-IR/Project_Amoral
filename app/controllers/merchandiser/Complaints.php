@@ -41,27 +41,27 @@ class Complaints extends Controller
                 $arr = $_POST;
                 $arr['is_active'] = 0;
                 // show($arr);
-               // Check if 'garOrCus' is set to 'customer'
-if ($arr['garOrCus'] === 'customer') {
-    unset($arr['garOrCus']);
-    // Assuming $cstReport is an object of a class that handles database operations
-    $update = $cstReport->update($report_id, $arr, 'report_id');
-    if ($update) {
-        redirect('merchandiser/complaints');
-    } else {
-        
-        echo "Failed to update customer report.";
-    }
-} else {
-    unset($arr['garOrCus']);
-    // Assuming $gmntReport is an object of a similar class for a different type of report
-    $update = $gmntReport->update($report_id, $arr, 'report_id');
-    if ($update) {
-        redirect('merchandiser/complaints');
-    } else {
-        echo "Failed to update garment report.";
-    }
-}
+                // Check if 'garOrCus' is set to 'customer'
+                if ($arr['garOrCus'] === 'customer') {
+                    unset($arr['garOrCus']);
+                    // Assuming $cstReport is an object of a class that handles database operations
+                    $update = $cstReport->update($report_id, $arr, 'report_id');
+                    if ($update) {
+                        redirect('merchandiser/complaints');
+                    } else {
+
+                        echo "Failed to update customer report.";
+                    }
+                } else {
+                    unset($arr['garOrCus']);
+                    // Assuming $gmntReport is an object of a similar class for a different type of report
+                    $update = $gmntReport->update($report_id, $arr, 'report_id');
+                    if ($update) {
+                        redirect('merchandiser/complaints');
+                    } else {
+                        echo "Failed to update garment report.";
+                    }
+                }
             }
 
             // Retrieve the value of rptType from the POST data
@@ -81,7 +81,7 @@ if ($arr['garOrCus'] === 'customer') {
         // echo json_encode($_POST);
 
         $rptType = $_POST['rptType'];
-        
+
 
         // show($rptType);
         $cstReport = new CustomerReport;
@@ -143,6 +143,7 @@ if ($arr['garOrCus'] === 'customer') {
                 echo json_encode($data);
 
                 break;
+                
 
             default:
                 // // Action for "All" selected

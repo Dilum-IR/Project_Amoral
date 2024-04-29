@@ -24,18 +24,22 @@ let popupNew = document.querySelector(".popup-new");
 //   nav.style.pointerEvents = "none";
 // }
 
-function closeNew(button1) {
 
-const closeD = button1.getAttribute("data-ct");
+  function Removebtn() {
 
-if(closeD){
-  const closeDN =JSON.parse(closeD);
-
-  document.querySelector(".cancel-modal").classList.add("open-popup-view");
-
-
-
+    // const closeD = button1.getAttribute("data-ct");
+    
+    // if(closeD){
+    //   // const closeDN =JSON.parse(closeD);
+    
+    //   document.querySelector(".cancel-modal").classList.add("open-popup-view");
+    
+    
+    
+    // }
 }
+
+function closeNew() {
 
   popupNew.classList.remove("is-visible");
   document.body.style.overflow = "auto";
@@ -78,6 +82,7 @@ function openView(button) {
     document.querySelector('.update-form input[name="address"]').value = cst.address;
     // document.querySelector('.update-form input[name="DOB"]').value = cst.DOB;
     document.querySelector('.update-form input[name="phone"]').value = cst.phone;
+    
 
     // Show the "update-form" popup
     document.querySelector(".popup-view").classList.add("open-popup-view");
@@ -87,3 +92,7 @@ function openView(button) {
   sidebar.style.pointerEvents = "none";
   nav.style.pointerEvents = "none";
 }
+
+
+
+
