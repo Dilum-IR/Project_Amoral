@@ -42,6 +42,7 @@
         }
 
         .wrapper .right {
+            height: 87vh !important; 
             width: 100%;
             font-size: 0.8rem;
             background: transparent !important;

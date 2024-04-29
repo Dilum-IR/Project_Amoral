@@ -54,3 +54,30 @@ const slides = document.querySelectorAll('.full-screen-slide');
 
         // Automatic sliding
         setInterval(nextSlide, 30000); // Change slide every 10 seconds
+
+
+let popupNew = document.querySelector(".popup-new");
+let sidebar = document.querySelector(".sidebar");
+let nav = document.getElementById("navbar");
+
+function openNew(button){
+
+    let data = JSON.parse(button.getAttribute("data-design"));
+
+    console.log(data);
+
+    document.querySelector(".popup-new .design");
+    document.querySelector(".popup-new .design").src = '/project_Amoral/public/uploads/collection/' + data.image_name;
+
+    popupNew.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
+}
+
+function closeNew(){
+    popupNew.classList.remove("is-visible");
+    document.body.style.overflow = "auto";
+    sidebar.style.pointerEvents = "auto";
+    nav.style.pointerEvents = "auto";
+}

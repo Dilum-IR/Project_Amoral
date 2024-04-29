@@ -10,6 +10,7 @@ Class Collection{
         'image_name',
         'price',
         'material',
+        'printing_type'
     ];
 
     function findLast(){

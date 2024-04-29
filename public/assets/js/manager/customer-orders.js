@@ -188,7 +188,7 @@ function filterTable(arg){
         document.querySelector('.filters #sewing').classList.add('active');
 
         table_rows.forEach(row => {
-            if(row.querySelector('.text-status').classList.contains('sewing') || row.querySelector('.text-status').classList.contains('sewed')){
+            if(row.querySelector('.text-status').classList.contains('garment') || row.querySelector('.text-status').classList.contains('sewing') || row.querySelector('.text-status').classList.contains('sewed')){
                 if(row.classList.contains('filter')){
                     row.classList.remove('filter');
                     i++;
@@ -1090,6 +1090,7 @@ function closeNew(){
         }
     });
     document.querySelector(".new-form").reset();
+    location.reload();
 }
 
 
@@ -1413,7 +1414,6 @@ function cancel_order(tap = "popup"){
     }
 }
 
-
 function initMap(){
   
     var marker1;
@@ -1421,131 +1421,132 @@ function initMap(){
     var map1;
     var map2;
   
+// Define the center coordinates and the radius
+
+    var center = { lat: 5.9497, lng: 80.5353 };
+    var radius = 100000; 
+
     map1 = new google.maps.Map(document.getElementById("new-order-map"), {
-      // Initial center coordinates
-      center: {
-        // Sri lanka middle lat lang
-        lat: 7.7072567,
-        lng: 80.6534611,
-      },
-      zoom: 7,
+        center: center,
+        zoom: 5,
     });
 
+    map2 = new google.maps.Map(document.getElementById("view-order-map"), {
+        center: center,
+        zoom: 5,
+    });
 
-    // console.log(lat);
+    // Add a circle to each map
+    [map1, map2].forEach((map, index) => {
+        var circle = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            // fillColor: '#FF0000',
+            // fillOpacity: 0.35,
+            map: map,
+            center: center,
+            radius: radius,
+        });
 
-    // map2 = new google.maps.Map(document.getElementById("view-order-map"), {
-    // // Initial center coordinates
-    // center: {
+        var latitude, longitude;
+        circle.addListener("click", function (event) {
+          var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+          if (distance <= circle.getRadius()) {
+            if (marker1) {
+              marker1.setMap(null);
+            }
+
+
         
-    //     lat: lat,
-    //     lng: lng,
-    // },
-    // zoom: 7,
-    // });
+            // Get the clicked location's latitude and longitude
+            if(index==0){
+                latitude = event.latLng.lat();
+                longitude = event.latLng.lng();
+            }else
+            {
+                latitude = parseFloat(document.querySelector('.popup-view input[name="latitude"]').value);
+                longitude = parseFloat(document.querySelector('.popup-view input[name="longitude"]').value);
+            }
+            console.log(latitude);
+        
+            marker1 = new google.maps.Marker({
+              position: {
+                lat: latitude,
+                lng: longitude,
+              },
+              map: map,
+            });
+        
   
-    // set the marker initial time user current location
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
+          }
+    
+        });
 
-        //   var pos_view = {
-        //     lat: lat,
-        //     lng: lng,
-        //     };
-  
-          // Set the map's center to the user's current location
-          map1.setCenter(pos);
-        //   map2.setCenter(pos);
-          
-          map1.setZoom(15);
-        //   map2.setZoom(15);
-  
-          // Add a marker at the user's current location
-          marker1 = new google.maps.Marker({
-            position: pos,
-            map: map1,
-            title: "Your Location",
-          });
-
-        //   marker2 = new google.maps.Marker({
-        //     position: pos_view,
-        //     map: map2,
-        //     title: "Your Location",
-        //   });
-        },
-        function () {
-          handleLocationError(true, map1.getCenter());
-          handleLocationError(true, map2.getCenter());
+        if(index == 0){
+          document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-new input[name="longitude"]').value = longitude;  
+        }else{
+          document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-view input[name="longitude"]').value = longitude;
         }
-      );
-    } else {
-      handleLocationError(false, map1.getCenter());
-      handleLocationError(false, map2.getCenter());
-    }
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+      
+              // Set the map's center to the user's current location
+              map.setCenter(pos);
+              // map2.setCenter(pos);
+              
+              map.setZoom(8);
+              // map2.setZoom(15);
+      
+              var distanceToCenter = google.maps.geometry.spherical.computeDistanceBetween(center, pos);
+              if (distanceToCenter > radius) {
+                // document.querySelector('.error.delmap').innerHTML = "You are outside the delivery area";
+              }
+              else{
+                // Add a marker at the user's current location
+                marker1 = new google.maps.Marker({
+                  position: pos,
+                  map: map,
+                  title: "Your Location",
+                });
+
+              }
+    
+            },
+            function () {
+              handleLocationError(true, map.getCenter());
+              // handleLocationError(true, map2.getCenter());
+            }
+
   
-    // add the location lat lang for this object
-    var selectedLocation;
   
     // Add a click event listener to the map
-    
-    map1.addListener("click", function (event) {
-      if (marker1) {
-        marker1.setMap(null);
-      }
+
+    // Add a click event listener to the map
+
+        );
+        } else {
+          handleLocationError(false, map.getCenter());
+          // handleLocationError(false, map2.getCenter());
+        }
+
   
-      // Get the clicked location's latitude and longitude
-      var latitude = event.latLng.lat();
-      var longitude = event.latLng.lng();
   
-      console.log(latitude);
-  
-      marker1 = new google.maps.Marker({
-        position: {
-          lat: latitude,
-          lng: longitude,
-        },
-        map: map1,
-      });
-  
+      document.querySelector('.popup-new input[name="latitude"]').value = latitude;
+      document.querySelector('.popup-new input[name="longitude"]').value = longitude;
+
       document.querySelector('.popup-new input[name="latitude"]').value = latitude;
       document.querySelector('.popup-new input[name="longitude"]').value = longitude;
     });
 
-    // map2.addListener("click", function (event) {
-    //   if (marker2) {
-    //     marker2.setMap(null);
-    //   }
-  
-    //   // Get the clicked location's latitude and longitude
-    //   var latitude = event.latLng.lat();
-    //   var longitude = event.latLng.lng();
-  
-    //   console.log(latitude);
-  
-    //   marker2 = new google.maps.Marker({
-    //     position: {
-    //       lat: latitude,
-    //       lng: longitude,
-    //     },
-    //     map: map2,
-    //   });
-  
-    //   document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-    //   document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-    // });
-    
-    // marker1.addListener("click", function () {
-    //   infoWindow.open(map1, marker1);
-    // });
-
-    // marker2.addListener("click", function () {
-    //   infoWindow.open(map2, marker2);
-    // });
 }
 
 function handleLocationError(browserHasGeolocation, pos) {
