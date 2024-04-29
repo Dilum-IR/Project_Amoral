@@ -60,7 +60,7 @@
                                     <div class="image-container">
                                         <img class="pre-design" src="<?= ROOT ?>/uploads/collection/<?php echo $imageFileNames[$imageIndex] ?>" alt="">
                                         <div class="place-order-button">
-                                            <button class="place-button" id="place-button-1" onclick="loadSign()" ><span>Place Order</span></button>
+                                            <!-- <button class="place-button" id="place-button-1" onclick="loadSign()" ><span>Place Order</span></button> -->
                                         </div>
                                         <br><br>
                                         <div class="div-info-1">
@@ -82,7 +82,7 @@
                                     <div class="image-container">
                                         <img class="pre-design" src="<?= ROOT ?>/uploads/collection/<?php echo $imageFileNames[$imageIndex + 1] ?>" alt="">
                                         <div class="place-order-button">
-                                            <button class="place-button" id="place-button-2" onclick="loadSign()" ><span>Place Order</span></button>
+                                            <!-- <button class="place-button" id="place-button-2" onclick="loadSign()" ><span>Place Order</span></button> -->
                                         </div>
                                         <br><br>
                                         <div class="div-info-1">
@@ -101,7 +101,7 @@
                                     <div class="image-container">
                                         <img class="pre-design" src="<?= ROOT ?>/uploads/collection/<?php echo $imageFileNames[$imageIndex + 2] ?>" alt="">
                                         <div class="place-order-button">
-                                            <button class="place-button" id="place-button-3" onclick="loadSign()" ><span>Place Order</span></button>
+                                            <!-- <button class="place-button" id="place-button-3" onclick="loadSign()" ><span>Place Order</span></button> -->
                                         </div>
                                         <br><br>
                                         <div class="div-info-1">
