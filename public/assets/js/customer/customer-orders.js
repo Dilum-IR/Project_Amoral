@@ -568,6 +568,75 @@ function openView(button) {
     
   }
 
+  // map
+
+  var marker1;
+  
+  var map;
+
+// Define the center coordinates and the radius
+
+  var center = { lat: 5.9497, lng: 80.5353 };
+  var radius = 100000;
+
+  map = new google.maps.Map(document.getElementById("view-order-map"), {
+      center: center,
+      zoom: 5,
+  });
+
+  marker1 = new google.maps.Marker({
+      position: {
+          lat: parseFloat(order.latitude),
+          lng: parseFloat(order.longitude),
+      },
+      map: map,
+  });
+
+
+  
+      var circle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          // fillColor: '#FF0000',
+          // fillOpacity: 0.35,
+          map: map,
+          center: center,
+          radius: radius,
+      });
+
+      var latitude, longitude;
+      circle.addListener("click", function (event) {
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
+        if (distance <= circle.getRadius()) {
+          if (marker1) {
+            marker1.setMap(null);
+          }
+
+          // Get the clicked location's latitude and longitude
+          latitude = event.latLng.lat();
+          longitude = event.latLng.lng();
+      
+          console.log(latitude);
+      
+          marker1 = new google.maps.Marker({
+            position: {
+              lat: latitude,
+              lng: longitude,
+            },
+            map: map,
+          });
+      
+
+        }
+      
+          document.querySelector('.popup-view input[name="latitude"]').value = latitude;
+          document.querySelector('.popup-view input[name="longitude"]').value = longitude;  
+          console.log( latitude );
+
+        });
+  
+
   // if(order.remaining_payment == 0){
   //     payBtn.style.display = "none";
   // }
@@ -974,30 +1043,21 @@ function toggleDeliveryN() {
 function initMap(){
   
     var marker1;
-    var marker2;
-    var map1;
-    var map2;
+  
+    var map;
   
 // Define the center coordinates and the radius
 
     var center = { lat: 5.9497, lng: 80.5353 };
     var radius = 100000;
 
-    map1 = new google.maps.Map(document.getElementById("new-order-map"), {
-        center: center,
-        zoom: 5,
-    });
-
-    map2 = new google.maps.Map(document.getElementById("view-order-map"), {
+    map = new google.maps.Map(document.getElementById("new-order-map"), {
         center: center,
         zoom: 5,
     });
 
 
     
-
-    // Add a circle to each map
-    [map1, map2].forEach((map, index) => {
         var circle = new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
@@ -1009,29 +1069,6 @@ function initMap(){
             radius: radius,
         });
 
-        if(index == 1){
-          
-          var lt = document.querySelector('.popup-view input[name="latitude"]').value;
-          var lg = document.querySelector('.popup-view input[name="longitude"]').value;
-          console.log(lt);
-
-          if(lt != '' && lg != ''){
-            var latitude = parseFloat(lt);
-            var longitude = parseFloat(lg);
-            var pos = {
-              lat: latitude,
-              lng: longitude,
-            };
-            map.setCenter(pos);
-            map.setZoom(8);
-            marker1 = new google.maps.Marker({
-              position: pos,
-              map: map,
-              title: "Your Location",
-            });
-          }
-        }
-
         var latitude, longitude;
         circle.addListener("click", function (event) {
           var distance = google.maps.geometry.spherical.computeDistanceBetween(event.latLng, circle.getCenter());
@@ -1040,9 +1077,6 @@ function initMap(){
               marker1.setMap(null);
             }
 
-
-
-        
             // Get the clicked location's latitude and longitude
             latitude = event.latLng.lat();
             longitude = event.latLng.lng();
@@ -1059,7 +1093,7 @@ function initMap(){
         
   
           }
-          if(index == 0){
+        
             document.querySelector('.popup-new input[name="latitude"]').value = latitude;
             document.querySelector('.popup-new input[name="longitude"]').value = longitude;  
             console.log( latitude );
@@ -1106,20 +1140,14 @@ function initMap(){
               handleLocationError(false, map.getCenter());
               // handleLocationError(false, map2.getCenter());
             }
-          }else{
-            document.querySelector('.popup-view input[name="latitude"]').value = latitude;
-            document.querySelector('.popup-view input[name="longitude"]').value = longitude;
-          }
+          });
     
-        });
+        }
 
 
 
 
 
-    });
-
-}
 
 function handleLocationError(browserHasGeolocation, pos) {
   var infoWindow = new google.maps.InfoWindow({

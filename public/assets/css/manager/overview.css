@@ -1080,10 +1080,6 @@ body {
     color: #ffffff;
   }
 
-  /* even event */
-  .events .event:nth-child(even) {
-    background: transparent;
-  }
 
   .events .event .title {
     display: flex;
