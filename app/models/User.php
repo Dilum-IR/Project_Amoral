@@ -83,8 +83,36 @@ class User
 		// 	$this->errors['error'] = "Password is not Valid ";
 		// 	$this->errors['error_no'] = 5;
 		// 	return;
-
+			
 		// }
+		else if(!preg_match('/[A-Z]/', $data['password'])){
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "Should contains Uppercase letter ";
+			$this->errors['error_no'] = 5;
+			return;
+		
+		}
+		else if(!preg_match('/[a-z]/', $data['password'])){
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "Should contains Lowecase letter ";
+			$this->errors['error_no'] = 5;
+			return;
+
+		}
+		else if(!preg_match('/[0-9]/', $data['password'])){
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "Should contains at least one number ";
+			$this->errors['error_no'] = 5;
+			return;
+
+		}
+		else if(!preg_match('/[*+\/.,#@&%^]/', $data['password'])){
+			$this->errors['flag'] = true;
+			$this->errors['error'] = "Should contains special character ";
+			$this->errors['error_no'] = 5;
+			return;
+
+		}
 
 
 		// errors no then hash passwords

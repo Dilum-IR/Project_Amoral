@@ -23,6 +23,14 @@ class GarmentOrder
 		'sewed_price'
 		// 'last modified'
 	];
+	public $selectedCloumns = [
+		'garment_id',
+		'order_id',
+		'status',
+		'cut_price',
+		'sewed_price'
+		// 'last modified'
+	];
 
 
 	// public function getOrdersDetails($id)

@@ -24,6 +24,7 @@ class EmailVerify extends Controller
 
                 $arr['email'] = $_POST['email'];
                 $arr['email_verified'] = 0;
+                // $arr['email_verified'] = $_POST['email_otp'];
 
                 $user_n  = $_POST['un'];
 
@@ -91,6 +92,7 @@ class EmailVerify extends Controller
     // all data include users data
     private function Verify($user, $employee, $data, $user_type, $allData)
     {
+
         $arr['email'] = $data['email'];
         // verify that email database include or not
         if (isset($user_type)) {
@@ -103,7 +105,7 @@ class EmailVerify extends Controller
 
                 if ($user->first($arr)) {
 
-                    // verification code valid, when update the user filed
+                    // verification code valid, when update the user field
                     $updateData['email_verified'] = 1;
                     $updateData['email_otp'] = 0;
                     $user->update($allData->id, $updateData);
@@ -113,7 +115,7 @@ class EmailVerify extends Controller
 
                         $allUsers = new AllUsers();
                         $chat = new Chat();
-                        
+
                         $arr = [];
                         $arr['email'] = $data['email'];
                         $userChatId = $allUsers->first($arr);
@@ -121,10 +123,10 @@ class EmailVerify extends Controller
                         // chat id find in then chat table
                         $userarr['from_id'] = $userChatId->id;
                         $userarr['to_id'] = $userChatId->id;
-                        
+
                         // session user chat conversation 
                         $chatId = $chat->whereOR($userarr);
-                        
+
                         // when chat id is not included then insert the new user data.
                         if ((empty($chatId))) {
 
@@ -179,7 +181,10 @@ class EmailVerify extends Controller
             } else {
                 // No need to check signup time employees verification.
                 // signup verification for popup msgs
-                if ($user_type == "user") {
+                if ($user_type == "user" && $user->first(['email_otp'=>$_POST['email_otp'],'email'=>$_POST['email']])) {
+
+                    // echo json_encode($_POST);
+                    // exit;
 
                     // verification code valid, when update the user filed
                     $updateData['email_verified'] = 1;

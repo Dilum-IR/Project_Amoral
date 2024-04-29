@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/manager/overview.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/toast.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/loading.css">
+
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -17,6 +19,25 @@
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style>
+        .loader-wrapper {
+            z-index: 10;
+        }
+    </style>
+    <?php
+
+    $flag = htmlspecialchars($_GET['flag'] ?? 2);
+    $success_no = htmlspecialchars($_GET['success_no'] ?? 0);
+    $success = htmlspecialchars($_GET['success'] ?? 0);
+
+    $error_no = htmlspecialchars($_GET['error_no'] ?? 0);
+
+    include __DIR__ . '/../utils/loading.php';
+
+    // loading content hide when error popup times 
+    ?>
     <!-- Sidebar -->
     <?php include 'sidebar.php' ?>
     <!-- Sidebar -->
@@ -966,10 +987,10 @@
                                         <?php $i = 0; ?>
 
                                         <?php foreach ($data['customerOrder'] as $order) : ?>
-                                            <?php if ($i < 3) : ?>
+                                            <?php if ($i < 4) : ?>
                                                 <tr>
                                                     <td>
-                                                        <?php echo $order->order_id ?>
+                                                        ORD-<?php echo $order->order_id ?>
                                                     </td>
                                                     <td><?php echo $order->order_placed_on ?></td>
                                                     <td>
@@ -1064,6 +1085,84 @@
 
                 </main>
 
+
+                <style>
+                    .container-refund-list {
+                        border-radius: 20px;
+                        margin-top: 10px;
+                        padding: 20px;
+                        padding-top: 10px;
+                        /* box-shadow: ; */
+                        width: 100%;
+                        height: 400px;
+                        background-color: ghostwhite;
+                        box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
+                        overflow-y: hidden;
+                        
+                        .head {
+                            display: flex;
+                            margin: 10px 10px;
+                            margin-top: 5px;
+                        }
+                        
+                    }
+                    .container-refund-list:hover {
+                        overflow-y: scroll;
+                    }
+
+                    .refund-list {
+                        width: 100%;
+                        height: 100%;
+                        transform: scale(1.0);
+                        border-radius: 10px;
+                        margin: 7px 2px;
+                        transition: 0.5s ease-in-out;
+                        padding: 15px;
+                    }
+                    
+                    .refund-list.full{
+                        background-color: #03ad00cf;
+
+                    }
+                    
+                    .refund-list.half{
+                        background-color: #ffa500d1;
+
+                    }
+
+                    .refund-list:hover {
+                        border: none;
+                        transform: scale(1.03);
+                        box-shadow: 0 0px 10px 0px rgb(161, 161, 161);
+                    }
+
+                    #re-order-id,
+                    #re-order-paid {
+                        display: flex;
+                    }
+
+                    #re-order-id p,
+                    #re-order-paid p,
+                    #re-bot-content {
+                        color: white;
+                    }
+
+                    #re-top-content {
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 5px;
+                    }
+
+                    .no-refund {
+                        margin-top: 100px;
+                        color: #000;
+                        width: 100%;
+                        text-align: center;
+                    }
+                </style>
+
                 <div class="right">
 
                     <div class="calendar">
@@ -1094,6 +1193,104 @@
 
                     </div>
 
+                    <!-- refund orders list -->
+                    <div class="container-refund-list">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Cancelled Order To Refund</h3>
+                                <hr>
+                            </div>
+
+                            <?php
+                            if (!empty($refund_list)) {
+                                foreach ($refund_list as $key => $value) {
+
+                            ?>
+                                    <div class="refund-list <?= $value->pay_type ?>">
+                                        <div id="re-top-content">
+                                            <div id="re-order-id">
+                                                <p>Order ID : &nbsp;</p>
+                                                <p>ORD-<?= $value->order_id ?></p>
+                                            </div>
+                                            <div id="re-order-paid">
+                                                <p>Paid : &nbsp;</p>
+                                                <p><b><?= ucfirst($value->pay_type) ?></b></p>
+                                            </div>
+                                        </div>
+                                        <div id="re-bot-content">Refund amount (LKR.) :
+
+                                            <?php
+                                            if ($value->pay_type == 'full')
+                                                echo number_format($value->total_price, 2, '.', ',');
+                                            
+                                            else if ($value->pay_type == 'half')
+                                                echo number_format($value->remaining_payment, 2, '.', ',');
+
+                                            ?>
+                                        </div>
+
+                                    </div>
+                                <?php
+                                }
+                            } else { ?>
+                                <p class="no-refund">No Refund Orders available...</p>
+                            <?php
+                            }
+
+
+                            ?>
+
+                        </div>
+                    </div>
+
+                    <!-- garment for payed amount list -->
+                    <div class="container-refund-list">
+                        <div class="order">
+                            <div class="head">
+                                <h3>Garment For Payed</h3>
+                            </div>
+
+                            <?php
+                            if (!empty($refund_list)) {
+                                foreach ($refund_list as $key => $value) {
+
+                            ?>
+                                    <div class="refund-list <?= $value->pay_type ?>">
+                                        <div id="re-top-content">
+                                            <div id="re-order-id">
+                                                <p>Order ID : &nbsp;</p>
+                                                <p>ORD-<?= $value->order_id ?></p>
+                                            </div>
+                                            <div id="re-order-paid">
+                                                <p>Paid : &nbsp;</p>
+                                                <p><b><?= ucfirst($value->pay_type) ?></b></p>
+                                            </div>
+                                        </div>
+                                        <div id="re-bot-content">Refund amount (LKR.) :
+
+                                            <?php
+                                            if ($value->pay_type == 'full')
+                                                echo number_format($value->total_price, 2, '.', ',');
+                                            
+                                            else if ($value->pay_type == 'half')
+                                                echo number_format($value->remaining_payment, 2, '.', ',');
+
+                                            ?>
+                                        </div>
+
+                                    </div>
+                                <?php
+                                }
+                            } else { ?>
+                                <p class="no-refund">No Refund Orders available...</p>
+                            <?php
+                            }
+
+
+                            ?>
+
+                        </div>
+                    </div>
 
                 </div>
                 <!-- <div class="right">
@@ -1334,7 +1531,7 @@
                 monthly_revenue_dates[monthKey] = 0;
             }
         }
-        
+
         console.log(monthly_cost_dates);
         console.log(monthly_revenue_data);
 
@@ -1534,9 +1731,22 @@
         }
     </script>
 
+    <script>
+        let successData = {
+            "success_no": <?= $success_no ?>,
+            "flag": <?= $flag ?>,
+            "success": "<?= $success ?>",
+        }
+        let dataValidate = {
+            "flag": <?= $flag ?>,
+            "error_no": <?= $error_no ?>
+        }
+    </script>
+
     <script src="<?= ROOT ?>/assets/js/toast.js"> </script>
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
     <script src="<?= ROOT ?>/assets/js/nav-bar.js"></script>
+
 
     <!-- Import JQuary Library script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
