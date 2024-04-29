@@ -236,7 +236,7 @@ function filterTable(arg){
         document.querySelector('.filters #cancelled').classList.add('active');
 
         table_rows.forEach(row => {
-            if(row.querySelector('.text-status').classList.contains('canceled')){
+            if(row.querySelector('.text-status').classList.contains('canceled') || row.querySelector('.text-status').classList.contains('refunded')){
                 if(row.classList.contains('filter')){
                     row.classList.remove('filter');
                     i++;
@@ -527,7 +527,7 @@ function openView(button) {
             const garmentOrders = JSON.parse(garmentOrderData);
             const gOrder = garmentOrders.find(ord => ord.order_id == order.order_id);
             console.log(gOrder);
-            if(employeeData){
+            if(employeeData && (order.order_status != 'canceled' || order.order_status != 'refunded') ){
                 const employees = JSON.parse(employeeData);
                 employee = employees.find(emp => emp.emp_id == gOrder.emp_id);  
                 console.log(employee);   
@@ -629,6 +629,7 @@ function openView(button) {
                 break;
 
             case 'canceled':
+            case 'refunded':
                 progress1.classList.add("cancel");
                 progress1.nextElementSibling.innerText = 'Cancelled';
                 break;
@@ -773,11 +774,24 @@ function openView(button) {
             });
 
             // update employee input field
-            document.querySelector('.update-form input[name="emp_id"]').value = 'EMP-' + employee.emp_id + ' - ' + employee.emp_name;
+            if(employee == ''){
+                document.querySelector('.update-form input[name="emp_id"]').value = 'Not Assigned';
+            }else{
+                document.querySelector('.update-form input[name="emp_id"]').value = 'EMP-' + employee.emp_id + ' - ' + employee.emp_name;
+            }
+
+            if(order.order_status == 'canceled' && order.refundable == "1"){
+                console.log('nacmokasmcas');
+                document.querySelector('.update-form .refund').style.display = 'block';
+            }else{
+                document.querySelector('.update-form .refund').style.display = 'none';
+            }
         }else{
             document.querySelectorAll(".popup-view .st").forEach(input => {
                 input.removeAttribute("disabled");
             });
+            document.querySelector('.update-form .refund').style.display = 'none';
+
         }
         
 
@@ -1001,7 +1015,7 @@ nextBtn.addEventListener('click', (event) => {
 
 
         //disable the fields according to the status
-        if(order.order_status == 'canceled'){
+        if(order.order_status == 'canceled' || order.order_status == 'refunded'){
             document.querySelectorAll('.popup-view input').forEach(input => {
                 input.setAttribute("disabled", "disabled");
             });
@@ -1043,6 +1057,8 @@ nextBtn.addEventListener('click', (event) => {
 
 
 function closeView() {
+
+
     popupView.classList.remove("is-visible");
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
@@ -1069,7 +1085,7 @@ function closeNew(){
     });
     let priceRows = document.querySelectorAll(".price-details-container .units");
     priceRows.forEach((row, index) => {
-        if (index !== 0) {
+        if (index != 0) {
             row.remove();
         }
     });
@@ -1235,6 +1251,7 @@ function update_method(button){
     console.log(each_order);
   
 }
+
 
 function change_order_status(tap = "popup"){
     if(tap == "table btn"){

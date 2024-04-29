@@ -434,9 +434,12 @@ tbody tr:hover {
 .text-status.cutting,
 .text-status.cut,
 .text-status.printing,
+.text-status.printed,
+.text-status.sent.to.garment,
+.text-status.sewing,
 .text-status.sewed {
   /* background-color: rgba(122, 1, 192, 0.959); */
-  background-color: #00b33cd3;
+  background-color: #00b39ed3;
 }
 
 .text-status.delivering {
@@ -458,6 +461,10 @@ tbody tr:hover {
 
 .text-status.canceled {
   background-color: #cf0303c7;
+}
+
+.text-status.refunded{
+  background-color: #8d2c2c;
 }
 
 

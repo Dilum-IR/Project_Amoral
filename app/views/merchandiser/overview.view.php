@@ -75,10 +75,11 @@
                                     <h3>Total Customer Orders</h3>
                                     <?php $totalCustomerOrders = 0; ?>
                                     <?php if(!empty($data['customerOrder'])): ?>
-                                        <?php foreach($data['customerOrder'] as $order): 
-                                            
-                                                $totalCustomerOrders++;
-                                            
+                                        <?php foreach($data['customerOrder'] as $order):
+                                            if($order->emp_id == $_SESSION['USER']->emp_id || $order->order_status == 'pending'):
+                                                // show($order);
+                                                $totalCustomerOrders += 1;
+                                            endif;
                                         endforeach; ?>
                                     <?php endif; ?>
                                     <h1><?php echo $totalCustomerOrders ?></h1>
@@ -98,7 +99,7 @@
                                             <?php if($order->order_status == 'Delivered' || $order->order_status == 'Completed'): ?>
                                                 <?php foreach ($data['material_sizes'] as $sizes): ?>
                                                 
-                                                        <?php $totalSales += ($order->unit_price * ($sizes->small + $sizes->large + $sizes->medium)) - ((100 - $order->discount)/100); ?>
+                                                        <?php $totalSales += ($order->unit_price * ($sizes->xs + $sizes->small + $sizes->large + $sizes->medium + $sizes->xl + $sizes->xxl)) - ((100 - $order->discount)/100); ?>
                                             
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
@@ -116,18 +117,18 @@
                             <i class='bx bxs-calendar-check'></i>
                             <div class="middle">
                                 <div class="left">
-                                    <h3>Total Requests</h3>
-                                    <?php $totalCustomerQuotations = 0; ?>
+                                    <h3>Remaining Payments</h3>
+                                    <?php $totalRemPay = 0; ?>
                                     <?php if(!empty($data['customerOrder'])): ?>
 
                                         <?php foreach($data['customerOrder'] as $order): 
-                                            
-                                                $totalCustomerQuotations++;
-                                            
+                                            if($order->emp_id == $_SESSION['USER']->emp_id):
+                                                $totalRemPay++;
+                                            endif;
                                         endforeach; ?>
                                     <?php endif; ?>
 
-                                    <h1><?php echo $totalCustomerQuotations ?></h1>
+                                    <h1><?php echo $totalRemPay ?></h1>
 
                                 </div>
 
@@ -576,6 +577,12 @@
                     <button class="update-btn" data-name="${name}" data-quantity="${quantity}" data-price="${price}" data-id="${id}" data-ppm="${ppm}" onclick="openUpdateMaterial(this)">Update</button>
                 </div>
             `;
+
+            if(quantity < 2){
+                newCard.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
+            }else if(quantity < 5){
+                newCard.style.backgroundColor = "rgba(255, 255, 0, 0.2)";
+            }
 
         
             document.querySelector(".add.card").before(newCard);

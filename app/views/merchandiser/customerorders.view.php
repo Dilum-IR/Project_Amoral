@@ -8,7 +8,7 @@
 <html lang="en">
 
 <head>
-    <title>Merchandiser</title>
+    <title>AMORAL</title>
     <!-- Link Styles -->
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style-bar.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/merchandiser/customer-orders.css">
@@ -59,13 +59,17 @@
         </form>
 
         <div class="table">
-            <!-- <div class="table-header">
-                <p>Order Details</p>
-                <div>
-                    <input placeholder="order"/>
-                    <button class="add_new">+ Add New</button>
-                </div>
-            </div> -->
+            <div class="filters">
+                <button id="all" class="active" onclick="filterTable('all')">All Orders</button>
+                <button id="pending" onclick="filterTable('pending')">Pending Orders</button>
+                <button id="cutting" onclick="filterTable('cutting')">Cutting Orders</button>
+                <button id="printing" onclick="filterTable('printing')">Printing Orders</button>
+                <button id="sewing" onclick="filterTable('sewing')">Sewing Orders</button>
+                <button id="delivering" onclick="filterTable('delivering')">Delivering Orders</button>
+                <button id="completed" onclick="filterTable('completed')">Completed Orders</button>
+                <button id="cancelled" onclick="filterTable('cancelled')">Cancelled Orders</button>
+
+            </div>
             <div class="table-section">
                 <table>
                     <thead>
@@ -81,99 +85,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                     
-                        <?php if(!empty($data['orders']) || !empty($data['pendingOrders'])): ?>
-                            <?php if(!empty($data['orders'])): ?>
-                                <?php foreach($data['orders'] as $order): ?>
-                                    <?php if($order->order_id !== null): ?>
+                        <?php if(!empty($data['orders'])): ?>
+                            <?php foreach($data['orders'] as $order): ?>
+                                <?php if($order->emp_id == $_SESSION['USER']->emp_id || $order->order_status == 'pending') :?>
+                                <?php $material = array(); ?>
+                            <tr>
+                                <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
+                                <td>USR-<?php echo $order->user_id; ?></td>
+                                <td><?php echo $order->order_placed_on; ?></td>
+                                <td>
+                                    <?php $material_types = array(); ?>
+                                    <?php foreach($data['material_sizes'] as $sizes):?>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php $material[] = $sizes;?>
+                                            <?php $material_types[] = $sizes->material_type; ?>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                    <?php $distinct_types = array_unique($material_types); ?>
+                                    <?php foreach($distinct_types as $type): ?>
+                                        <?php echo $type; ?><br>
+                                    <?php endforeach; ?>
+                                </td>
+                                <td class="desc">
+                                    <?php $total = 0; ?>
+                                    <?php foreach($data['material_sizes'] as $sizes):?>
+                                        <?php if($sizes->order_id == $order->order_id) :?>
+                                            <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                    <?php echo $total; ?>
+                                </td>
+                                <td><?php echo $order->dispatch_date ?></td>
+                                <td class="st">
+                                    <div class="text-status <?php echo $order->order_status?>">
+                                            <?php if($order->order_status == 'sent to garment'): 
+                                                echo 'sent to stitch';
+                                            elseif($order->order_status == 'canceled'):
+                                                echo "Cancelled";
+                                            else: ?>
+                                                <?php echo $order->order_status;
+                                            endif; ?>
 
-                                    <?php $material = array(); ?>
-                                <tr>
-                                    <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
-                                    <td>USR-<?php echo $order->user_id; ?></td>
-                                    <td><?php echo $order->order_placed_on; ?></td>
-                                    <td>
-                                        <?php $material_types = array(); ?>
-                                        <?php foreach($data['material_sizes'] as $sizes):?>
-                                            <?php if($sizes->order_id == $order->order_id) :?>
-                                                <?php $material[] = $sizes;?>
-                                                <?php $material_types[] = $sizes->material_type; ?>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
-                                        <?php $distinct_types = array_unique($material_types); ?>
-                                        <?php foreach($distinct_types as $type): ?>
-                                            <?php echo $type; ?><br>
-                                        <?php endforeach; ?>
-                                    </td>
-                                    <td class="desc">
-                                        <?php $total = 0; ?>
-                                        <?php foreach($data['material_sizes'] as $sizes):?>
-                                            <?php if($sizes->order_id == $order->order_id) :?>
-                                                <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
-                                        <?php echo $total; ?>
-                                    </td>
-                                    <td><?php echo $order->dispatch_date ?></td>
-                                    <td class="st">
-                                        <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                        <div class="progress-bar"></div>
-                                    </td>
-                                
-                                    <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
-                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                                </tr>
-
-                                
-                                <?php endif; ?>
+                                    </div>
+                                    <div class="progress-bar"></div>
+                                </td>
                             
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' data-g-orders='<?= json_encode($data['customer_and_garment_orders']); ?>' data-emp='<?= json_encode($data['employee']); ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
+                                <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
+                            </tr>
 
-                            <?php if(!empty($data['pendingOrders'])): ?>
-                                <?php foreach($data['pendingOrders'] as $order): ?>
-                                    
-                                    <?php $material = array(); ?>
-                                <tr>
-                                    <td class="ordId">ORD-<?php echo $order->order_id; ?></td>
-                                    <td>USR-<?php echo $order->user_id; ?></td>
-                                    <td><?php echo $order->order_placed_on; ?></td>
-                                    <td>
-                                        <?php $material_types = array(); ?>
-                                        <?php foreach($data['material_sizes'] as $sizes):?>
-                                            <?php if($sizes->order_id == $order->order_id) :?>
-                                                <?php $material[] = $sizes;?>
-                                                <?php $material_types[] = $sizes->material_type; ?>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
-                                        <?php $distinct_types = array_unique($material_types); ?>
-                                        <?php foreach($distinct_types as $type): ?>
-                                            <?php echo $type; ?><br>
-                                        <?php endforeach; ?>
-                                    </td>
-                                    <td class="desc">
-                                        <?php $total = 0; ?>
-                                        <?php foreach($data['material_sizes'] as $sizes):?>
-                                            <?php if($sizes->order_id == $order->order_id) :?>
-                                                <?php $total += $sizes->xs + $sizes->small + $sizes->medium + $sizes->large + $sizes->xl + $sizes->xxl ?>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
-                                        <?php echo $total; ?>
-                                    </td>
-                                    <td><?php echo $order->dispatch_date ?></td>
-                                    <td class="st">
-                                        <div class="text-status <?php echo $order->order_status?>"><?php echo $order->order_status ?></div>
-                                        <div class="progress-bar"></div>
-                                    </td>
-                                
-                                    <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
-                                    <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
-                                </tr>
-
-                                
-                                <?php endforeach; ?>
-                                
-                            <?php endif; ?>
+                            <?php endif;?>
+                        
+                            <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
                                 <td colspan="8">No orders to display</td>
@@ -209,7 +172,7 @@
 
                 <li>
                     <iconify-icon icon="tabler:cut"></iconify-icon>
-                    <div class="progress two">
+                    <div class="progress two cutting">
 
                         <i class="uil uil-check"></i>
                     </div>
@@ -242,11 +205,11 @@
                 </li>
                 <li>
                     <iconify-icon icon="mdi:package-variant-closed-check"></iconify-icon>
-                    <div class="progress six">
+                    <div class="progress six completed">
 
                         <!-- <i class="uil uil-check"></i> -->
                     </div>
-                    <p class="text">Delivered</p>
+                    <p class="text">Completed</p>
                 </li>
 
             </ul>
@@ -255,14 +218,41 @@
 
         
         <form class="update-form" method="POST">
+                <div class="payment">
+                    <span>Paid</span>
+                </div>
+                <button type="button" class="refund">Mark As Refunded</button>
                 <div class="user-details">
-                    <div class="input-box">
-                        <embed name="design" type="application/pdf" style="display: block; width: 250px; height: 249px; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                    <div class="input-box design">
+                        <button type="button" class="download">Download</button>
 
+                        <embed name="design" type="application/pdf" style="display: none; width: 250px; height: 249px; left: 13%; position: relative; margin-bottom:0.8rem; background-color:white; border-radius:10px;">
+                        
+                        <div class="carousel" >
+                            <button class="carousel-left-btn" id="prevBtn">
+                                <i class="fas fa-arrow-left"></i>
+                            </button>
+                            <div id="carouselImages" style="width: 50%; position: relative;">
+                                <!-- Carousel images will be populated here -->
+                                <img src="" class="img1" style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="" class="img2" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <button class="carousel-right-btn" id="nextBtn">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
+
                     <div class="input-box">
                         <span class="details">Order ID </span>
                         <input name="order_id" type="text" required onChange="" readonly value="" />
+                    </div>
+                    <div class="input-box" style="height: 0;">
+
+                    </div>
+                    <div class="input-box emp">
+                        <span class="details">Assigned Employee  </span>
+                        <input name="emp_id" type="text" onChange="" readonly value="Not Yet Assigned" />
                     </div>
                     <div class="input-box" style="height: 0;">
 
@@ -287,6 +277,7 @@
 
                     <input type="radio" id="delivery" name="deliveryOption" value="Delivery">
                     <label for="delivery">Delivery</label>
+                    <span class="error dates"></span>
                 </div>
 
                 <div class="user-details pickup">
@@ -324,7 +315,7 @@
                 <div class="user-details delivery">
 
                     <div class="input-box">
-                        <span class="details">Delivery Expected On</span>
+                        <span class="details">Delivery Date</span>
                     
                         <input type="date" name="dispatch_date_delivery" >
                     </div>
@@ -346,6 +337,7 @@
                     <div class="input-box">
                         <input name="latitude" type="hidden"  />
                         <input name="longitude" type="hidden"  />
+                        <input name="pay_type" type="hidden" />
                     </div>
                 
                     
@@ -360,19 +352,19 @@
                 <div class="user-details customer">
                     <div class="input-box">
                         <span class="details">Customer ID</span>
-                        <input name="id" type="text"  />
+                        <input name="id" type="text" readonly  />
                     </div>
                     <div class="input-box">
                         <span class="details">Customer Name</span>
-                        <input name="fullname" type="text"  />
+                        <input name="fullname" type="text" readonly />
                     </div>
                     <div class="input-box">
                         <span class="details">Contact Number</span>
-                        <input name="phone" type="text"  />
+                        <input name="phone" type="text" readonly />
                     </div>
                     <div class="input-box">
                         <span class="details">Email</span>
-                        <input name="email" type="email"  />
+                        <input name="email" type="email" readonly />
                     </div>
                 </div>
 
@@ -409,76 +401,49 @@
                             <td></td>
                             <td>Total</td>
                             <td><input type="text" name="total_price" style="border: none;" class="totalPrice" value=""></td>
-
                         </tr>
                     </table>
                 </div>
 
                 
-
+                    <!-- add an attribute here with the form data to be sent to the new popup !-->
                 <input type="button" class="update-btn pb"  value="Update Order" />
                 <button type="button" class="cancel-btn pb">Cancel Order</button>
 
-                <div class="cu-popup" role="alert">
-                    <div class="cu-popup-container">
-                        <p>Are you sure you want to update this order?</p>
-                        <div class="cu-buttons">
-                            <input type="submit" class="yes"  value="Yes" name="updateOrder"/>
-                            <input type="button" class="no" value="No"/>
-                        </div>                        
-                    </div> 
-                </div>  
             </div>
         </form>
     </div>
 
     <script>
-        //ajax for updating order
-        let updateOrderForm = document.querySelector(".popup-view .update-form");
-        updateOrderForm.addEventListener('submit', function(event){
-            event.preventDefault();
+        
+        // call the ajax function for updating the order when update order button is clicked
+        document.querySelector(".popup-view .update-btn").addEventListener('click', function(){
+            let updateOrderForm = document.querySelector(".popup-view .update-form");
             let formData = new FormData(updateOrderForm);
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "<?php echo ROOT ?>/merchandiser/updateOrder", true);
-            xhr.onload = function() {
-                if(this.status == 200) {
-                    let response = JSON.parse(this.responseText);
-                    console.log(response);
-                    if (response == false) {
-                        // delay(100);
-                        
-                        
-                        var successMsgElement = document.querySelector('.success-msg');
-                        successMsgElement.innerHTML = "Order updated successfully";
-                        successMsgElement.style.display = 'block';
-                        setTimeout(function() {
-                            successMsgElement.style.display = 'none';
-                            location.reload();
-                        }, 2000);
-                        
-                            
-
-                    }else{
-                        var successMsgElement = document.querySelector('.success-msg');
-            
-                        successMsgElement.innerHTML = "There was an error updating the order";
-                        
-                        // successMsgElement.style.transition = 'all 1s ease-in-out';
-                        
-                        successMsgElement.style.display = 'block';
-                        successMsgElement.style.backgroundColor = 'red';
-                        setTimeout(function() {
-                            successMsgElement.style.display = 'none';
-                            location.reload();
-                        }, 2000);
-                    }
-                }
+            var data = {};
+            for (var pair of formData.entries()) {
+                data[pair[0]] = pair[1];
             }
-
-            xhr.send(formData);
-              
+            this.setAttribute('data-order', JSON.stringify(data));
+            update_method(this);
         });
 
+        // call the ajax function for updating status of refund
+        document.querySelector(".popup-view .refund").addEventListener('click', function(){
+            data['order_id'] = document.querySelector('.popup-view input[name="order_id"]').value;
+            data['order_status'] = 'refunded';
+            
+            this.setAttribute('data-order', JSON.stringify(data));
+            update_method(this);
+        });
+
+        // call the ajax function for cancelling the order when cancel order button is clicked
+        document.querySelector(".popup-view .cancel-btn").addEventListener('click', function(){
+            let updateOrderForm = document.querySelector(".popup-view .update-form");
+            let orderId = document.querySelector(".update-form input[name='order_id']").value;
+            cancel_method(orderId);
+        });
+        
     </script>
 
         <!-- Pop up new -->
@@ -760,7 +725,6 @@
                             <td></td>
                             <td>Total</td>
                             <td class="totalPrice">0</td>
-                        </tr>
                     </table>
                 </div>
 
@@ -1053,7 +1017,7 @@
                     </div>
 
                     <div class="input-box sizes">
-                        <span class="details">Sizes & Quantity</span>
+                        <span class="details">Sizes & Quantity <span class="error sizes0"></span></span>
                         <div class="sizeChart">
                             <span class="size">XS</span>
                             <input class="st" type="number" id="quantity" name="xs[]" min="0" value="0">
@@ -1229,10 +1193,15 @@
 
         </script>
 
-
+    
+    <script>
+        let update_order_endpoint = "<?php echo ROOT ?>/merchandiser/updateOrder";
+        let cancel_order_endpoint = "<?php echo ROOT ?>/merchandiser/cancelOrder";
+    </script>
 
 
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Fo-CyT14-vq_yv62ZukPosT_ZjLglEk&loading=async&callback=initMap"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 
     <script src="<?= ROOT ?>/assets/js/script-bar.js"></script>
@@ -1240,6 +1209,12 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="<?= ROOT ?>/assets/js/merchandiser/customer-orders.js"></script>
+
+    <?php
+    include 'status_confirm_popup.php';
+    include 'delete_confirm_popup.php';
+    // include 'refund_confirm_popup.php';
+    ?>
 </body>
 
 </html>

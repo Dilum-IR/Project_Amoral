@@ -378,16 +378,16 @@
                         <input name="order_id" type="text" required onChange="" readonly value="" />
                     </div>
 
+                    <div class="input-box">
+                        <span class="details">Cutting Done On</span>
+                        <input name="cut_dispatch_date" type="date" required onChange="" />
+                    </div>
 
                     <div class="input-box">
                         <span class="details">Sewing Done On</span>
                         <input name="sew_dispatch_date" type="date" required onChange=""  />
                     </div>
 
-                    <div class="input-box">
-                        <span class="details">Cutting Done On</span>
-                        <input name="cut_dispatch_date" type="date" required onChange="" />
-                    </div>
 
                     <div class="input-box">
                         <span class="details">Cutting Price(Rs.)</span>
