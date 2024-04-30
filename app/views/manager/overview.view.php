@@ -643,14 +643,24 @@
                             e.preventDefault();
                             var form = document.getElementById("deleteMaterialForm");
                             var formData = new FormData(form);
-                            console.log(formData);
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "<?= ROOT ?>/manager/deleteMaterial", true);
-                            xhr.onload = function() {
-                                if (this.status == 200) {
-                                    console.log(this.responseText);
-                                    var response = JSON.parse(this.responseText);
-                                    console.log('response' + response);
+                            // console.log(formData);
+
+                            var send_data = {
+                                stock_id: parseInt(document.querySelector('.popup-delete input[name="stock_id"]').value)
+                            }
+
+                            console.log(send_data);
+
+
+                            $.ajax({
+                                type: "POST",
+                                url: "<?= ROOT ?>/manager/deleteMaterial",
+                                data: send_data,
+                                cache: false,
+                                success: function(res) {
+                                    var response = JSON.parse(res);
+                                    // console.log(response);
+
                                     if (response == false) {
                                         var successMsgElement = document.querySelector('.success-msg');
                                         successMsgElement.innerHTML = "Material deleted successfully";
@@ -672,9 +682,44 @@
                                             location.reload();
                                         }, 2000);
                                     }
+
+                                },
+                                error: function(xhr, status, error) {
+                                    // return xhr;
                                 }
-                            }
-                            xhr.send(formData);
+                            })
+
+                            // var xhr = new XMLHttpRequest();
+                            // xhr.open("POST", "<?= ROOT ?>/manager/deleteMaterial", true);
+                            // xhr.onload = function() {
+                            //     if (this.status == 200) {
+                            //         console.log(this.responseText);
+                            //         var response = JSON.parse(this.responseText);
+                            //         console.log('response' + response);
+                            //         if (response == false) {
+                            //             var successMsgElement = document.querySelector('.success-msg');
+                            //             successMsgElement.innerHTML = "Material deleted successfully";
+                            //             // successMsgElement.style.transition = 'all 1s ease-in-out';
+                            //             successMsgElement.style.display = 'block';
+                            //             setTimeout(function() {
+                            //                 successMsgElement.style.display = 'none';
+                            //                 location.reload();
+                            //             }, 2000);
+                            //         } else {
+                            //             var successMsgElement = document.querySelector('.success-msg');
+                            //             successMsgElement.innerHTML = "There was an error deleting the material";
+                            //             // successMsgElement.style.transition = 'all 1s ease-in-out';
+
+                            //             successMsgElement.style.display = 'block';
+                            //             successMsgElement.style.backgroundColor = 'red';
+                            //             setTimeout(function() {
+                            //                 successMsgElement.style.display = 'none';
+                            //                 location.reload();
+                            //             }, 2000);
+                            //         }
+                            //     }
+                            // }
+                            // xhr.send(formData);
                         });
                     </script>
 
@@ -710,6 +755,7 @@
                             var noerrors = validateMaterial(form);
                             var formData = new FormData(form);
                             console.log(formData);
+
                             if (noerrors) {
                                 var xhr = new XMLHttpRequest();
                                 xhr.open("POST", "<?= ROOT ?>/manager/updateMaterial", true);
@@ -1098,14 +1144,15 @@
                         background-color: ghostwhite;
                         box-shadow: 0 0px 20px 0px rgb(161, 161, 161);
                         overflow-y: hidden;
-                        
+
                         .head {
                             display: flex;
                             margin: 10px 10px;
                             margin-top: 5px;
                         }
-                        
+
                     }
+
                     .container-refund-list:hover {
                         overflow-y: scroll;
                     }
@@ -1119,13 +1166,13 @@
                         transition: 0.5s ease-in-out;
                         padding: 15px;
                     }
-                    
-                    .refund-list.full{
+
+                    .refund-list.full {
                         background-color: #03ad00cf;
 
                     }
-                    
-                    .refund-list.half{
+
+                    .refund-list.half {
                         background-color: #ffa500d1;
 
                     }
@@ -1194,11 +1241,12 @@
                     </div>
 
                     <!-- refund orders list -->
+
                     <div class="container-refund-list">
                         <div class="order">
                             <div class="head">
                                 <h3>Cancelled Order To Refund</h3>
-                                <hr>
+
                             </div>
 
                             <?php
@@ -1222,7 +1270,7 @@
                                             <?php
                                             if ($value->pay_type == 'full')
                                                 echo number_format($value->total_price, 2, '.', ',');
-                                            
+
                                             else if ($value->pay_type == 'half')
                                                 echo number_format($value->remaining_payment, 2, '.', ',');
 
@@ -1243,46 +1291,61 @@
                         </div>
                     </div>
 
-                    <!-- garment for payed amount list -->
+                    <style>
+                        .company {
+                            border: 1px solid #000;
+
+                        }
+
+                        .k p {
+                            color: #000 !important;
+
+                        }
+
+                        .kl {
+                            color: #000 !important;
+
+                        }
+                    </style>
                     <div class="container-refund-list">
                         <div class="order">
                             <div class="head">
-                                <h3>Garment For Payed</h3>
+                                <h3>Company For Send Orders </h3>
+
                             </div>
 
                             <?php
-                            if (!empty($refund_list)) {
-                                foreach ($refund_list as $key => $value) {
+
+                            // show($data);
+                            if (!empty($sent_to_company)) {
+                                foreach ($sent_to_company as $key => $value) {
+                                    if ($value->status == "sent to company" || $value->status == "completed") {
+
 
                             ?>
-                                    <div class="refund-list <?= $value->pay_type ?>">
-                                        <div id="re-top-content">
-                                            <div id="re-order-id">
-                                                <p>Order ID : &nbsp;</p>
-                                                <p>ORD-<?= $value->order_id ?></p>
+                                        <div class="refund-list company">
+                                            <div id="re-top-content">
+                                                <div id="re-order-id " class="k">
+                                                    <p>Order ID : &nbsp;</p>
+                                                    <p>ORD-<?= $value->order_id ?></p>
+                                                </div>
+                                                <div id="re-order-paid" class="k">
+                                                    <p>Status : &nbsp;</p>
+                                                    <p><b><?= ucfirst($value->status) ?></b></p>
+                                                </div>
                                             </div>
-                                            <div id="re-order-paid">
-                                                <p>Paid : &nbsp;</p>
-                                                <p><b><?= ucfirst($value->pay_type) ?></b></p>
+                                            <div id="re-bot-content" class="kl">Assign Date :
+                                                <?php
+                                                echo date("Y-m-d", strtotime($value->placed_date));
+                                                ?>
                                             </div>
+
                                         </div>
-                                        <div id="re-bot-content">Refund amount (LKR.) :
-
-                                            <?php
-                                            if ($value->pay_type == 'full')
-                                                echo number_format($value->total_price, 2, '.', ',');
-                                            
-                                            else if ($value->pay_type == 'half')
-                                                echo number_format($value->remaining_payment, 2, '.', ',');
-
-                                            ?>
-                                        </div>
-
-                                    </div>
                                 <?php
+                                    }
                                 }
                             } else { ?>
-                                <p class="no-refund">No Refund Orders available...</p>
+                                <p class="no-refund">No Company For Send Orders available...</p>
                             <?php
                             }
 
@@ -1291,6 +1354,7 @@
 
                         </div>
                     </div>
+                    <!-- garment for payed amount list -->
 
                 </div>
                 <!-- <div class="right">
@@ -1378,9 +1442,9 @@
                 </div>
             `;
 
-            if(quantity < 2){
+            if (quantity < 2) {
                 newCard.style.backgroundColor = "rgba(255, 0, 0, 0.2)";
-            }else if(quantity < 5){
+            } else if (quantity < 5) {
                 newCard.style.backgroundColor = "rgba(255, 255, 0, 0.2)";
             }
 

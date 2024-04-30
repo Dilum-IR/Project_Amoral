@@ -450,7 +450,7 @@
                                 <div class="middle">
                                     <div class="left">
                                         <i class='bx bx-wallet-alt'></i>
-                                        <h3>Current Cuting Price</h3>
+                                        <h3>Current Cutting Price</h3>
                                     </div>
                                     <div class="count">
 
@@ -465,7 +465,7 @@
                                 <div class="middle">
                                     <div class="left">
                                         <i class='bx bx-credit-card'></i>
-                                        <h3>Current Sewed Price</h3>
+                                        <h3>Current Sewing Price</h3>
                                     </div>
                                     <div class="count">
 

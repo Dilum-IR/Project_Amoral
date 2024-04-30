@@ -10,13 +10,13 @@ class CustomerDetails extends Controller
             $customer = new User;
 
             $result = $customer->findAll_selectedColumn('id',$customer->customerColumns, );
-
+             // show($result);
             $data = ['data'=>$result];
-            // show($result);
-
+            
             //update customer details
-
+            
             if(isset($_POST["cstUpdate"])){
+                // show($_POST);
                 $id = $_POST['id'];
 
                 unset($_POST['cstUpdate']);
@@ -39,20 +39,20 @@ class CustomerDetails extends Controller
             }
 
             // remove customer
-            if (isset($_POST["cstRemove"])) {
+            // if (isset($_POST["cstRemove"])) {
 
-                $id = $_POST['id'];
+            //     $id = $_POST['id'];
 
-                unset($_POST['cstRemove']);
-                $arr = $_POST;
-                $arr['is_active'] = 0;
+            //     unset($_POST['cstRemove']);
+            //     $arr = $_POST;
+            //     $arr['is_active'] = 0;
 
-                if (isset($arr)) {
-                    // show($arr);
-                    $update = $customer->update($id, $arr, 'id');
-                    redirect('merchandiser/customerdetails');
-                }
-            }
+            //     if (isset($arr)) {
+            //         // show($arr);
+            //         $update = $customer->update($id, $arr, 'id');
+            //         redirect('merchandiser/customerdetails');
+            //     }
+            // }
 
             $this->view('merchandiser/customerdetails', $data);
         }else{
@@ -66,6 +66,32 @@ class CustomerDetails extends Controller
 
 
     }
+
+    public function RemoveCustomer() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['USER']) && $_SESSION['USER']->emp_status == 'merchandiser') {
+            if (isset($_POST['customer_id'])) {
+                $id = $_POST['customer_id'];
+                $customer = new User;  // This needs to be your correct user model
+    
+                $arr = ['is_active' => 0];  // Assuming 'is_active' is the correct field
+                $update = $customer->update($id, $arr);  // Check this method
+    
+                if ($update) {
+                    error_log("Customer ID $id deactivated successfully.");
+                    echo json_encode(['status' => 'success', 'message' => 'Customer deactivated successfully.']);
+                } else {
+                    error_log("Failed to deactivate Customer ID $id.");
+                    echo json_encode(['status' => 'error', 'message' => 'Failed to deactivate customer.']);
+                }
+            } else {
+                echo json_encode(['status' => 'error', 'message' => 'No customer ID provided.']);
+            }
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Unauthorized access or incorrect request method.']);
+        }
+    }
+    
+    
 
 
     public function customerAdd($data){

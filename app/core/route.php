@@ -62,6 +62,9 @@ route('merchandiser/updateOrder', 'merchandiser/CustomerOrders@updateOrder');
 route('merchandiser/complaintstatus', 'merchandiser/Complaints@complaintstatus');
 route('merchandiser/updateGarmentOrder', 'merchandiser/GarmentOrders@updateOrder');
 
+route('merchandiser/RemoveCustomer', 'merchandiser/CustomerDetails@RemoveCustomer');
+
+
 
 
 
@@ -129,6 +132,7 @@ route('guest/new','guest/Guest_update@index');
 route('tool', 'tool/Tool@index');
 
 route('collection', 'collection/DesignCollection@index');
+route('collection/newOrder', 'collection/DesignCollection@newOrder');
 
 route('404', '_404@index');
 route('failure', 'ServerError@index');

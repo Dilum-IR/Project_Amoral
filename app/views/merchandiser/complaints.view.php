@@ -61,7 +61,7 @@
                         <label>
                             <input type="radio" name="rptType" value="read">
                             <span>Read</span>
-                        </label>
+                        </label>                  
                     </div>
                 </form>
             </div>

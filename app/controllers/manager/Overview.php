@@ -45,6 +45,8 @@ class Overview extends Controller
 
             $data['garment_payed_list'] = $this->garment_payed_list();
 
+            $data['sent_to_company'] = $this->sent_to_garments();
+
             // for chart and analysis
 
 
@@ -92,9 +94,10 @@ class Overview extends Controller
         $materialStock = new MaterialStock;
 
         $response = [];
-        if (isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
+        if (isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
             // show($_POST);
             // unset($_POST['deleteMaterial']);
+            // echo json_encode($_POST);
             $response = $materialStock->delete($_POST['stock_id'], 'stock_id');
             unset($_POST);
             // redirect('manager/overview');
@@ -109,10 +112,11 @@ class Overview extends Controller
         $materialStock = new MaterialStock;
 
         $response = [];
-        if (isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status === 'manager') {
-            // show($_POST);
+        if (isset($_POST) && $username != 'User' && $_SESSION['USER']->emp_status == 'manager') {
             // unset($_POST['updateMaterial']);
+            
             $response = $materialStock->update($_POST['stock_id'], $_POST, 'stock_id');
+
             unset($_POST);
             // redirect('manager/overview');
         }
@@ -562,6 +566,13 @@ class Overview extends Controller
     }
     // ******************** End garment for payed  *****************************
 
+
+    private function sent_to_garments(){
+        $order = new GarmentOrder;
+
+        return $order->findAll('garment_order_id');
+
+    }
     public function genarate_report()
     {
         try {

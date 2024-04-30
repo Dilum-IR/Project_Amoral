@@ -14,8 +14,8 @@ function openView(data) {
   overlay.classList.add("overlay-active");
 }
 
-var order_id = -1;
-var order={};
+var order_id = 0;
+// var order={};
 
 function openView(button) {
   const data = button.getAttribute("data-order");
@@ -30,23 +30,24 @@ function openView(button) {
   document.getElementById("contact-num").value = order.phone;
   document.getElementById("expected-on").value = order.dispatch_date;
 
-  if (order.pay_type == "full") {
-    document.getElementById("remain").innerHTML = "";
-    document.querySelector(".recived-checker").innerHTML = "";
-  } else if (order.pay_type == "half") {
-    document.getElementById("remain").innerHTML =
-      '<span class="details">Remaining Payment</span><input id="remaining-on" type="text" required onChange="" readonly value=" " />';
-    document.getElementById("remaining-on").value =
-      order.remaining_payment + ".00";
-    document.querySelector(".recived-checker").innerHTML =
-      '<input type="checkbox" id="myCheckbox" name="payed"> <label for="myCheckbox" class="checker-label">Order Payments Received!</label>';
-  } else if (order.pay_type == "no") {
-    document.getElementById("remain").innerHTML =
-      '<span class="details"><b>Remaining Payment (Rs.)</b></span><input id="remaining-on" type="text" required onChange="" readonly value=" " />';
-    document.getElementById("remaining-on").value = order.total_price + ".00";
-    document.querySelector(".recived-checker").innerHTML =
-      '<input type="checkbox" id="myCheckbox" name="payed"> <label for="myCheckbox" class="checker-label">Order Payments Received!</label>';
-  }
+  // if (order.pay_type == "full") {
+  //   // document.getElementById("remain").innerHTML = "";
+  //   // document.querySelector(".recived-checker").innerHTML = "";
+
+  // } else if (order.pay_type == "half") {
+  //   document.getElementById("remain").innerHTML =
+  //     '<span class="details">Remaining Payment</span><input id="remaining-on" type="text" required onChange="" readonly value=" " />';
+  //   document.getElementById("remaining-on").value =
+  //     order.remaining_payment + ".00";
+  //   document.querySelector(".recived-checker").innerHTML =
+  //     '<input type="checkbox" id="myCheckbox" name="payed"> <label for="myCheckbox" class="checker-label">Order Payments Received!</label>';
+  // } else if (order.pay_type == "no") {
+  //   document.getElementById("remain").innerHTML =
+  //     '<span class="details"><b>Remaining Payment (Rs.)</b></span><input id="remaining-on" type="text" required onChange="" readonly value=" " />';
+  //   document.getElementById("remaining-on").value = order.total_price + ".00";
+  //   document.querySelector(".recived-checker").innerHTML =
+  //     '<input type="checkbox" id="myCheckbox" name="payed"> <label for="myCheckbox" class="checker-label">Order Payments Received!</label>';
+  // }
 
   initMap(order.order_id, order.latitude, order.longitude); // Initialize the map with the order's location
   // } else {
@@ -59,9 +60,9 @@ function openView(button) {
 }
 
 function confirmWithPopup() {
-  if (order_id != -1) {
+  // if (order_id != -1) {
     updateStatus(order_id);
-  }
+  // }
 }
 
 function closeView() {

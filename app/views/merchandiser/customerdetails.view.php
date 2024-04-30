@@ -125,13 +125,11 @@
                                             <button style="color: #000000e0;" type="submit" name="selectItem" class="edit"
                                                 data-cst='<?= json_encode($cst); ?>' onclick="openView(this)">View</button>
 
-                                            <form method="POST">
-                                                <input type="hidden" name="id" data-ct='<?= json_encode($cst); ?>'
-                                                    value="<?php echo $cst->id; ?>">
-                                                <button type="button" id="rem" style="color: #ff0000de;">Remove</button>
+                                            <button type="button" class="rem-btn" data-customer-id='<?= $cst->id; ?>'
+                                                 style="color: #ff0000de;">Remove</button>
 
 
-                                            </form>
+                                            <!-- </form> -->
                                         </div>
                                     </td>
                     </div>
@@ -173,45 +171,11 @@
             <div class="logout-btn-component">
 
                 <button name="cstRemove" type="submit" class="button" id="confirmDelete">Yes</button>
-                <button class="button" id="cancelDelete">No</button>
+                <button class="button"  id="cancelDelete">No</button>
             </div>
         </div>
     </div>
 
-
-
-    <script>
-        const modal = document.getElementById("cancel-popup");
-        const btn = document.getElementById("rem");
-        const closeButton = document.getElementsByClassName("log-close-icon")[0];
-        const confirmBtn = document.getElementById("confirmDelete");
-        const cancelBtn = document.getElementById("cancelDelete");
-
-        btn.addEventListener("click", function () {
-            modal.style.display = "block";
-        });
-
-        closeButton.onclick = function () {
-            modal.style.display = "none";
-        };
-
-        cancelBtn.onclick = function () {
-            modal.style.display = "none";
-        };
-
-        confirmBtn.onclick = function () {
-            // console.log("Data deleted successfully.");
-            modal.style.display = "none";
-        };
-
-        closeButton.addEventListener("mouseenter", function () {
-            closeButton.classList.add("bx-flashing");
-        });
-
-        closeButton.addEventListener("mouseleave", function () {
-            closeButton.classList.remove("bx-flashing");
-        });
-    </script>
 
 
     <style>
@@ -366,6 +330,9 @@
     </div>
     <div id="overlay" class="overlay"></div>
 
+
+
+
     <!-- Popup for Adding New Customer -->
     <!-- <div class="popup-new"> -->
     <div id="addCustomerPopup" class="popup-new">
@@ -510,10 +477,70 @@
             });
         });
 
-    </script
+    </script>
 
 
 
+
+    <script>
+       
+       document.addEventListener('DOMContentLoaded', function () {
+    const removeButtons = document.querySelectorAll('.rem-btn');
+
+    removeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const customerId = this.getAttribute('data-customer-id');  // Fetch the customer ID directly
+            console.log("Removing customer with ID:", customerId);  // Debug output to check ID
+
+            // Confirm removal with modal popup
+            showModal(customerId);
+        });
+    });
+
+    function showModal(customerId) {
+        const modal = document.getElementById("cancel-popup");
+        modal.style.display = "block";  // Show the modal
+
+        // Set up confirm action within the modal
+        document.getElementById("confirmDelete").onclick = function () {
+            removeCustomer(customerId);  // Call remove function on confirmation
+        };
+        document.getElementById("cancelDelete").onclick=function(){
+            modal.style.display = "none";
+        }
+    }
+
+
+    function removeCustomer(customerId) {
+        console.log("Sending AJAX request to remove customer ID:", customerId);
+        $.ajax({
+            url: "<?= ROOT ?>/merchandiser/RemoveCustomer",
+            type: 'POST',
+            data: { customer_id: customerId },
+            success: function (response) {
+                console.log("Response from server:", response);
+                // alert('Customer removed successfully');
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Failed to remove customer:", error);
+                alert('Failed to remove customer. Error: ' + error);
+            }
+        });
+    }
+});
+
+
+
+    
+    </script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
