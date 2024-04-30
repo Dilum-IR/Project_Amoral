@@ -200,21 +200,7 @@
                         </div>
 
 
-                        <!-- Anlysis Containers -->
-                        <div class="table-data">
-
-                            <div class="slider-main">
-                                <?php include 'collection.view.php'; ?>
-                            </div>
-                        </div>
-
-                        <style>
-                            .slider-main{
-                                height: 680px;
-                                width:100%;
-                                padding: 0 10px !important;
-                            }
-                        </style>
+        
 
                         <div class="table-data">
 
@@ -272,7 +258,10 @@
                                                                     $order->order_status == "cutting" ||
                                                                     $order->order_status == "sewing" ||
                                                                     $order->order_status == "cut" ||
-                                                                    $order->order_status == "sewed"
+                                                                    $order->order_status == "sewed" ||
+                                                                    $order->order_status == "printed"||
+                                                                    $order->order_status == "printing" ||
+                                                                    $order->order_status == "sent to garment"
                                                                 ) { ?>
                                                                     <iconify-icon icon="fluent-mdl2:processing"></iconify-icon>
                                                                 <?php } else if ($order->order_status == "delivering") { ?>
@@ -289,7 +278,10 @@
                                                                     $order->order_status == "sewing" ||
                                                                     $order->order_status == "cutting" ||
                                                                     $order->order_status == "sewed" ||
-                                                                    $order->order_status == "cut"
+                                                                    $order->order_status == "cut" ||
+                                                                    $order->order_status == "printed"||
+                                                                    $order->order_status == "printing" ||
+                                                                    $order->order_status == "sent to garment"
                                                                 ) {
                                                                     echo "Processing";
                                                                 } else {
