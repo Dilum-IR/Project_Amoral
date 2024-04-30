@@ -15,7 +15,7 @@ class CustomerOverview extends Controller
             $data['order'] = $order->where($id);
             $data['material_sizes'] = $order->getFullData($id);
 
-            $data['data'] = $collection->findAll('image_id');
+            // $data['data'] = $collection->findAll('image_id');
             
             // show($data);
             $this->view('customer/overview', $data);

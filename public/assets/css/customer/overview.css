@@ -344,7 +344,9 @@ main .insights small {
 .text-status.cutting,
 .text-status.cut,
 .text-status.printing,
-.text-status.sewed {
+.text-status.sewed,
+.text-status.printed,
+.text-status.sent.to.garment {
   /* background-color: rgba(122, 1, 192, 0.959); */
   background-color: #00b33cd3;
 }
