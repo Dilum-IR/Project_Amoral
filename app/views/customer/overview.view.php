@@ -157,7 +157,7 @@
                                 <i class='bx bxs-dollar-circle'></i>
                                 <div class="middle">
                                     <div class="left">
-                                        <h3>Total Value</h3>
+                                        <h3>Total Spendings</h3>
                                         <?php
                                         $total = 0;
                                         if (!empty($data['order'])) :
