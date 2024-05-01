@@ -9,11 +9,11 @@
         <div class="col">
             <h3>Office <div class="underline"><span></span></div>
             </h3>
-            <p>Amoral</p>
-            <p>Akuressa,Matara</p>
-            <p>Sri Lanka</p>
+            <p>Amoral,</p>
+            <p>Akuressa,Matara,</p>
+            <p>Sri Lanka.</p>
             <p class="email-id">amoralclothing2022@gmail.com</p>
-            <h4>071 518 7674</h4>
+            <p>071 518 7674</p>
         </div>
 
         <div class="col">

@@ -88,7 +88,7 @@
                                     <tr>
                                         <td class="ordId"><?php echo $emp->emp_id ?></td>
                                         <!-- <td><?php echo $emp->emp_image ?></td> -->
-                                        <td><img style="border-radius: 50px; border:none;" src="<?= ROOT ?>/uploads/profile_img/Employee/<?php echo $emp->emp_image ?>" ></td>
+                                        <td><img style="border-radius: 50px; border:none;" src="<?= ROOT ?>/uploads/profile_img/Employee/<?php echo $emp->emp_image ?>"></td>
 
                                         <td><?php echo $emp->emp_name ?></td>
                                         <td><?php echo $emp->email ?></td>
@@ -200,7 +200,7 @@
                     </div>
 
                     <div class="input-box">
-                        <span class="details" >Date of Birth</span>
+                        <span class="details">Date of Birth</span>
                         <input type="date" required onChange="" value="" name="DOB" />
                     </div>
 
@@ -208,14 +208,11 @@
                         <span class="details">Contact Number</span>
                         <input type="text" required onChange="" value="" name="contact_number" />
                     </div>
-
-
                 </div>
 
                 <div class="user-details-button">
                     <button type="submit" name="empUpdate" class="update-btn pb">Update Details</button>
                     <button type="button" class="cancel-btn pb" onclick="closeView()">Cancel</button>
-
                 </div>
             </form>
         </div>
@@ -295,10 +292,10 @@
                         <input disabled class="new-emp-details" type="text" name="day_capacity" placeholder="Enter Day Capacity" required>
                     </div>
 
-                 
-                    <div class="input-box">
+
+                    <div class="input-box" id="vehicle" style="display: none;">
                         <span class="details">Vehicle Type</span><br>
-                        <select id="vehicle" disabled class="new-emp-details" name="vehicle_type" >
+                        <select id="vehicle" disabled class="new-emp-details" name="vehicle_type">
                             <option value="van">Van</option>
                             <option value="lorry">Lorry</option>
                             <option value="three-wheel">Three Wheel</option>
@@ -306,13 +303,10 @@
                         </select>
                     </div>
 
-                       <div class="input-box" id="vehicle-no" style="display: none;">
+                    <div class="input-box" id="vehicle-no" style="display: none;">
                         <span class="details">Vehicle Number</span><br>
                         <input disabled class="new-emp-details" type="text" name="vehicle_number" placeholder="Vehicle Number" required>
                     </div>
-
-
-
 
                     <div class="input-box" id="max-capacity" style="display: none;">
                         <span class="details">Max Capacity</span><br>
@@ -322,19 +316,31 @@
 
                     <div class="input-box">
                         <span class="details">Upload an Image</span><br>
-                        <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image"  required>
+                        <input class="new-emp-details emp-image" type="file" accept=".jpg, .png" name="emp_image" required>
                     </div>
 
                 </div>
                 <div class="btns">
-                    <button type="submit" class="update-btn pb" value="newEmployee" name="newEmployee">Submit</button>
+                    <button type="submit" id="updateButton" class="update-btn pb" value="newEmployee" name="newEmployee">Submit</button>
                     <button type="button" class="cancel-btn pb" onclick="closeNew()">Cancel</button>
                 </div>
             </form>
             <!-- Popup content -->
         </div>
     </div>
+
+
     <!-- New Table -->
+
+    <!-- yes no popup -->
+
+    <!-- <div class="yes-no-popup" id="confirmationPopup">
+        <div class="yes-no-popup-content">
+            <p>Are you sure you want to update the details?</p>
+            <button id="confirmYes">Yes</button>
+            <button id="confirmNo">No</button>
+        </div>
+    </div> -->
 
 
 

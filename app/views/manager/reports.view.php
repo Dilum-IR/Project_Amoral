@@ -33,7 +33,7 @@
             </li>
             <i class='bx bx-chevron-right'></i>
             <li>
-                <a href="#" class="active">Reports & Messages</a>
+                <a href="#" class="active">Complaints</a>
             </li>
 
         </ul>
@@ -82,13 +82,13 @@
                             <div class="text-box">
                                 <div class="report-info">
                                     <div class="report-info-email">
-                                        E-mail - <?php echo $rpt->email ?>
+                                        <?php echo $rpt->email ?>
                                     </div>
                                     <div class="report-info-date">
-                                        Date - <?php echo $rpt->report_date ?>
+                                        <?php echo $rpt->report_date ?>
                                     </div>
                                 </div>
-                                <div class="report-description-title">Description - </div>
+                                <!-- <div class="report-description-title">Description - </div> -->
                                 <div class="report-description">
                                     <?php echo $rpt->description ?>
                                 </div>
@@ -137,6 +137,10 @@
             <div class="popup-buttons">
                 <!-- <button class="popup-read-btn rd" onclick="closePopup()">Delete</button> -->
                 <button class="popup-close-btn rd" type="submit" name="markAsRead" onclick="closePopup()">Mark as Read</button>
+                <button class="popup-close-btn-back" style="border: 0.3px solid #000000;
+    color: #000000; background-color: transparent;  padding: 8px 35px; border-radius: 9px;cursor: pointer;
+  transition: background-color 0.5s ease;--hover-color:red;" type="submit" name="markAsRead" onclick="closePopup()">Back</button>
+
             </div>
         </form>
     </div>
