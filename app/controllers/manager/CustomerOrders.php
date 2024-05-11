@@ -374,4 +374,33 @@ class CustomerOrders extends Controller
         echo json_encode($arr);
     }
 
+    public function cancelReason(){
+        $order = new Order;
+        $garment_order = new GarmentOrder;
+
+        $arr = [];
+
+        if (isset($_POST) && $_SESSION['USER']->emp_status === 'manager'){
+            $arr['user'] = false;
+            $order_id = $_POST['order_id'];
+            // show($_POST);
+            // unset($_POST['updateOrder']);
+            
+            $arrOrder = ['order_status' => 'canceled', 'canceled_reason' => $_POST['canceled_reason']];
+            
+            $order->update($order_id, $arrOrder, 'order_id');
+            $relevant_garment_order = $garment_order->where(['order_id' => $order_id]);
+            // show($relevant_garment_order);
+            if(!empty($relevant_garment_order)){
+                $garment_order->update($relevant_garment_order[0]->garment_order_id, ['status' => 'canceled'], 'garment_order_id');
+            }
+            $arr['user'] = true;
+            unset($_POST);
+
+        }
+
+        echo json_encode($arr);
+        
+    }
+
 }

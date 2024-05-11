@@ -81,6 +81,7 @@
                             <th>Quantity  <i class='bx bx-down-arrow-circle'></th>
                             <th>Dispatch Date  <i class='bx bx-down-arrow-circle'></i></th>
                             <th>Status  <i class='bx bx-down-arrow-circle'></i></th>
+                            <th class="reason" style="display: none;">Reason</th>
                             <th class="null"></th>
                         </tr>
                     </thead>
@@ -129,6 +130,8 @@
                                     </div>
                                     <div class="progress-bar"></div>
                                 </td>
+
+                                <td class="reason" style="display: none;"><?php echo $order->canceled_reason; ?></td>
                             
                                 <td><button type="submit" name="selectItem" class="edit" data-order='<?= json_encode($order); ?>' data-material='<?= json_encode($material); ?>' data-customers='<?= json_encode($data['customers']) ?>' data-g-orders='<?= json_encode($data['customer_and_garment_orders']); ?>' data-emp='<?= json_encode($data['employee']); ?>' onclick="openView(this)" ><i class="fas fa-edit"></i> View</button></td>
                                 <!-- <button type="button" class="pay" onclick=""><i class="fas fa-money-bill-wave" title="Pay"></i></button></td> -->
@@ -408,7 +411,7 @@
                 
                     <!-- add an attribute here with the form data to be sent to the new popup !-->
                 <input type="button" class="update-btn pb"  value="Update Order" />
-                <button type="button" class="cancel-btn pb">Cancel Order</button>
+                <button type="button" class="cancel-btn pb" >Cancel Order</button>
 
             </div>
         </form>
@@ -441,9 +444,75 @@
         document.querySelector(".popup-view .cancel-btn").addEventListener('click', function(){
             let updateOrderForm = document.querySelector(".popup-view .update-form");
             let orderId = document.querySelector(".update-form input[name='order_id']").value;
-            cancel_method(orderId);
+            openPopupReason(this);
         });
         
+    </script>
+
+    <div class="popup_reason">
+        <div class="popup-content">
+            <form >
+                <label for="canceled_reason">What is the reason?</label>
+                <input id="canceled_reason" type="text" name="canceled_reason" required/>
+    
+                <input type="hidden" name="order_id" />
+                <input type="submit" value="Cancel the order"/>
+
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+    //ajax function for cancel reason
+    var formReason = document.querySelector('.popup_reason form');
+    formReason.addEventListener('submit', function(event){
+        event.preventDefault();
+        let formData = new FormData(formReason);
+        let xhr = new XMLHttpRequest();
+        console.log(formData);
+        xhr.open("POST", "<?php echo ROOT ?>/manager/cancelReason", true);
+
+        xhr.onload = function() {
+            if(this.status == 200) {
+                console.log('response'+this.responseText);
+                let response = JSON.parse(this.responseText);
+                if (response['user'] == true) {
+                    // delay(10000);
+                    
+                    
+                    var successMsgElement = document.querySelector('.success-msg');
+                    successMsgElement.innerHTML = "Order cancelled successfully";
+                    successMsgElement.style.display = 'block';
+                    // delay(2000);
+                    setTimeout(function() {
+                        successMsgElement.style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                    
+                        
+
+                }else{
+                    var successMsgElement = document.querySelector('.success-msg');
+        
+                    successMsgElement.innerHTML = "There was an error cancelling the order";
+                    
+                    // successMsgElement.style.transition = 'all 1s ease-in-out';
+                    
+                    successMsgElement.style.display = 'block';
+                    successMsgElement.style.backgroundColor = 'red';
+                    setTimeout(function() {
+                        successMsgElement.style.display = 'none';
+                        location.reload();
+                    }, 2000);
+                }
+            }
+        }
+
+        xhr.send(formData);
+    })
+
+                
     </script>
 
         <!-- Pop up new -->

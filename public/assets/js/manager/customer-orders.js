@@ -151,6 +151,10 @@ function filterTable(arg){
                 row.classList.add('filter');
             }
         }); 
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "none";
+        } );
         
     }else if(arg == 'cutting'){
         document.querySelector('.filters #cutting').classList.add('active');
@@ -167,6 +171,10 @@ function filterTable(arg){
             }
 
         });
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "none";
+        } );
         
     }else if(arg == 'printing'){
         document.querySelector('.filters #printing').classList.add('active');
@@ -183,6 +191,10 @@ function filterTable(arg){
             }
 
         });
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "none";
+        } );
         
     }else if(arg == 'sewing'){
         document.querySelector('.filters #sewing').classList.add('active');
@@ -200,6 +212,10 @@ function filterTable(arg){
 
         });
 
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "none";
+        } );
+
     }else if(arg == 'delivering'){
         document.querySelector('.filters #delivering').classList.add('active');
 
@@ -215,6 +231,10 @@ function filterTable(arg){
             }
 
         });
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "none";
+        } );
         
     }else if(arg == 'completed'){
         document.querySelector('.filters #completed').classList.add('active');
@@ -231,6 +251,10 @@ function filterTable(arg){
             }
 
         });
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "none";
+        } );
         
     }else if(arg == 'cancelled'){
         document.querySelector('.filters #cancelled').classList.add('active');
@@ -247,6 +271,10 @@ function filterTable(arg){
             }
 
         });
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "revert";
+        } );
         
     }else{
         document.querySelector('.filters #all').classList.add('active');
@@ -262,6 +290,10 @@ function filterTable(arg){
             }
 
         });
+
+        document.querySelectorAll(".reason").forEach(td =>{
+            td.style.display = "revert";
+        } );
      
     }
     
@@ -901,6 +933,8 @@ function openView(button) {
 
         document.querySelector('.update-form input[name="total_price"]').value = order.total_price;
         document.querySelector('.update-form input[name="discount"]').value = order.discount;
+
+        document.querySelector('.popup-view .cancel-btn').setAttribute("data-id", order.order_id);
         // document.querySelector('.update-form input[name="remaining_payment"]').value = order.remaining_payment;
         
         // document.querySelector('.update-form .totalPrice').value = order.total_price;
@@ -1058,11 +1092,11 @@ nextBtn.addEventListener('click', (event) => {
                 });
             }else{
 
-                document.querySelector('.update-form .totalPrice').removeAttribute("disabled");
-                document.querySelector('.update-form .discountPercentage').removeAttribute("disabled");
-                document.querySelector('.update-form input[type="city"]' ).removeAttribute("disabled");
-                document.querySelector('.update-form input[type="latitude"]' ).removeAttribute("disabled");
-                document.querySelector('.update-form input[type="longitude"]' ).removeAttribute("disabled");
+                // document.querySelector('.update-form .totalPrice').removeAttribute("disabled");
+                // document.querySelector('.update-form .discountPercentage').removeAttribute("disabled");
+                // document.querySelector('.update-form input[type="city"]' ).removeAttribute("disabled");
+                // document.querySelector('.update-form input[type="latitude"]' ).removeAttribute("disabled");
+                // document.querySelector('.update-form input[type="longitude"]' ).removeAttribute("disabled");
 
             }
             document.querySelectorAll(".popup-view input[type='date']").forEach(date => {	
@@ -1091,6 +1125,16 @@ function closeView() {
 
 function openNew(){
     popupNew.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    sidebar.style.pointerEvents = "none";
+    nav.style.pointerEvents = "none";
+}
+
+function openPopupReason(button){
+    let orderId = JSON.parse(button.getAttribute("data-id"));
+    console.log(orderId);
+    document.querySelector('.popup_reason input[name="order_id"]').value = orderId;
+    document.querySelector('.popup_reason').classList.add("is-visible");
     document.body.style.overflow = "hidden";
     sidebar.style.pointerEvents = "none";
     nav.style.pointerEvents = "none";

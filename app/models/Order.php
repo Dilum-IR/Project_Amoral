@@ -31,7 +31,8 @@ class Order
         'deliver_id',
         'pay_type',
         'delivered_date',
-        'refundable'
+        'refundable',
+        'canceled_reason'
     ];
 
     function findLast()

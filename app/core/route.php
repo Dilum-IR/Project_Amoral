@@ -55,6 +55,9 @@ route('manager/updateAssignedOrders','manager/AssignDelivery@updateAssignedOrder
 
 route('manager/updateOrderStatus', 'manager/PrintingProcess@updateOrderStatus');
 
+route('manager/cancelReason','manager/CustomerOrders@cancelReason');
+
+
 //merchandiser ajax calling endpoints
 route('merchandiser/updateMaterial', 'merchandiser/Overview@updateMaterial');
 route('merchandiser/newOrder', 'merchandiser/CustomerOrders@newOrder');
@@ -63,6 +66,7 @@ route('merchandiser/complaintstatus', 'merchandiser/Complaints@complaintstatus')
 route('merchandiser/updateGarmentOrder', 'merchandiser/GarmentOrders@updateOrder');
 
 route('merchandiser/RemoveCustomer', 'merchandiser/CustomerDetails@RemoveCustomer');
+
 
 
 
