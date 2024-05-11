@@ -53,9 +53,6 @@ class Reports extends Controller
             //     }
             // }
 
-
-
-
             // Retrieve the value of rptType from the POST data
          
             // header('Content-Type: application/json');

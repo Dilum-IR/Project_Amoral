@@ -1366,7 +1366,7 @@ color: black;
   justify-content: center;
   align-items: center;
   text-align: center;
-  display: block;
+  /* display: block; */
 }
 
 .deal-p {
@@ -1924,3 +1924,38 @@ input[type="radio"]:not(:first-child) {
     width: 20%;
   }
 }
+
+/* text animation */
+
+/* Add styles for the text animation */
+.text-animation {
+  position: absolute;
+  top: 50%;
+  letter-spacing: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 270px;
+  color: #ffffff97; /* White color */
+  mix-blend-mode:lighten; /* Blend mode for a black and white theme */
+  opacity: 0; /* Initially hidden */
+  animation: fade-in 4s ease-out forwards; /* Animation to fade in */
+  /* text-decoration: hwb(1 white black); */
+}
+
+/* Keyframes for fading in */
+@keyframes fade-in {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+/* Adjustments for mobile and tablets */
+@media only screen and (max-width: 1023px) {
+  .text-animation {
+      font-size: 2rem;
+  }
+}
+

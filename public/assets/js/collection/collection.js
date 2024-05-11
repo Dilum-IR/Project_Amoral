@@ -34,33 +34,33 @@
 // });
 
 const slides = document.querySelectorAll('.full-screen-slide');
-        let currentSlide = 0;
+let currentSlide = 0;
 
-        function showSlide(n) {
-            slides.forEach(slide => slide.style.display = 'none');
-            slides[n].style.display = 'block';
-            
-        }
+function showSlide(n) {
+    slides.forEach(slide => slide.style.display = 'none');
+    slides[n].style.display = 'block';
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
+}
 
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            showSlide(currentSlide);
-        }
+function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+}
 
-        // Automatic sliding
-        setInterval(nextSlide, 30000); // Change slide every 10 seconds
+function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+}
+
+// Automatic sliding
+setInterval(nextSlide, 30000); // Change slide every 10 seconds
 
 
 let popupNew = document.querySelector(".popup-new");
 let sidebar = document.querySelector(".sidebar");
 let nav = document.getElementById("navbar");
 
-function openNew(button){
+function openNew(button) {
 
     let data = JSON.parse(button.getAttribute("data-design"));
 
@@ -201,99 +201,26 @@ function openNew(button){
     nav.style.pointerEvents = "none";
 }
 
-function closeNew(){
+function closeNew() {
     popupNew.classList.remove("is-visible");
     document.body.style.overflow = "auto";
     sidebar.style.pointerEvents = "auto";
     nav.style.pointerEvents = "auto";
 }
 
-function handleLocationError(browserHasGeolocation, pos) {
-    var infoWindow = new google.maps.InfoWindow({
-      content: browserHasGeolocation
-        ? "Error: The Geolocation service failed."
-        : "Error: Your browser doesn't support geolocation.",
-    });
+// document.getElementById("place-button-1").addEventListener("click", function () {
+//     window.location.href = "http://localhost/project_Amoral/public/signin";
+// });
 
-    var marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-      });
-    
-      marker.addListener("click", function () {
-        infoWindow.open(map, marker);
-      });
-    }
+// document.getElementById("place-button-2").addEventListener("click", function () {
+//     window.location.href = "http://localhost/project_Amoral/public/signin";
+// });
 
-let newForm = document.querySelector('.popup-new form');
-    function validateNewOrder() {
-        let errors = {};
-        // pdf and images
-      
-        // sizes
-        let sizes = document.querySelectorAll('.popup-new input[type="number"]');
-        let total = 0;
-        sizes.forEach(size => {
-            total += parseInt(size.value);
-        });
-      
-        if (total === 0) {
-            // event.preventDefault();
-            errors['sizes0'] = ' *Please select a size';
-        }
-      
-        // dispatch date
-        let dates = document.querySelectorAll('.popup-new input[type="date"]');
-        let dateSelected = false;
-      
-        dates.forEach(date => {
-            if (date.value !== '') {
-                dateSelected = true;
-            }
-        });
-      
-        if (!dateSelected) {
-            // event.preventDefault();
-            errors['dates'] = ' *Please select a date';
-        }
-      
-        clearErrorMsg(newForm);
-                
-        // let errors = validateNewOrder();
-        console.log(Object.values(errors));
-        if (Object.keys(errors).length > 0) {
-            displayErrorMsg(errors, newForm);
-            // event.preventDefault();
-        }
-      
-        // console.log(errors);
-      
-        if(Object.keys(errors).length === 0){
-            return true;
-        }else{
-            return false;
-        }
-      
-      }
+// document.getElementById("place-button-3").addEventListener("click", function () {
+//     window.location.href = "http://localhost/project_Amoral/public/signin";
+// });
 
-      function displayErrorMsg(errors, form) {
+function loadSign(){
+    window.location.href = "http://localhost/project_Amoral/public/signin"; 
+}
 
-        for (const key in errors) {
-            if (Object.hasOwnProperty.call(errors, key)) {
-                const error = errors[key];
-                form.querySelector(`.error.${key}`).innerText = error;
-            }
-        }
-    }
-    
-    
-    
-    function clearErrorMsg(form) {
-        // console.log('clear');
-        let errorElements = form.querySelectorAll('.error');
-    
-      errorElements.forEach((errorElement) => {
-        errorElement.innerText = "";
-      });
-    }
-      
